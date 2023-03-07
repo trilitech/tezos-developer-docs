@@ -1,5 +1,5 @@
 ---
-title: CacheAdvance.regret()
+title: Tezos.regret()
 description: Quidem magni aut exercitationem maxime rerum eos.
 ---
 

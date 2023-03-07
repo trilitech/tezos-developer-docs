@@ -1,5 +1,5 @@
 ---
-title: CacheAdvance.predict()
+title: Tezos.predict()
 description: Quidem magni aut exercitationem maxime rerum eos.
 ---
 

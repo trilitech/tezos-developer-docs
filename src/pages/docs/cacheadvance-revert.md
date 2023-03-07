@@ -1,5 +1,5 @@
 ---
-title: CacheAdvance.revert()
+title: Tezos.revert()
 description: Quidem magni aut exercitationem maxime rerum eos.
 ---
 

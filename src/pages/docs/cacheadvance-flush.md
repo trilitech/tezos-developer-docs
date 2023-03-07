@@ -1,5 +1,5 @@
 ---
-title: CacheAdvance.flush()
+title: Tezos.flush()
 description: Quidem magni aut exercitationem maxime rerum eos.
 ---
 

@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import clsx from 'clsx'
 
-import { Hero } from '@/components/Hero'
+// import { Hero } from '@/components/Hero'
 import { Logo, Logomark } from '@/components/Logo'
 import { MobileNavigation } from '@/components/MobileNavigation'
 import { Navigation } from '@/components/Navigation'
@@ -52,10 +52,10 @@ const navigation = [
   {
     title: 'API reference',
     links: [
-      { title: 'CacheAdvance.predict()', href: '/docs/cacheadvance-predict' },
-      { title: 'CacheAdvance.flush()', href: '/docs/cacheadvance-flush' },
-      { title: 'CacheAdvance.revert()', href: '/docs/cacheadvance-revert' },
-      { title: 'CacheAdvance.regret()', href: '/docs/cacheadvance-regret' },
+      { title: 'Tezos.predict()', href: '/docs/cacheadvance-predict' },
+      { title: 'Tezos.flush()', href: '/docs/cacheadvance-flush' },
+      { title: 'Tezos.revert()', href: '/docs/cacheadvance-revert' },
+      { title: 'Tezos.regret()', href: '/docs/cacheadvance-regret' },
     ],
   },
   {
@@ -190,7 +190,7 @@ export function Layout({ children, title, tableOfContents }) {
     <>
       <Header navigation={navigation} />
 
-      {isHomePage && <Hero />}
+      {isHomePage }
 
       <div className="relative mx-auto flex max-w-8xl justify-center sm:px-2 lg:px-8 xl:px-12">
         <div className="hidden lg:relative lg:block lg:flex-none">
