@@ -1,20 +1,20 @@
 ---
 title: Getting started
-pageTitle: CacheAdvance - Never miss the cache again.
-description: Cache every single thing your app could ever do ahead of time, so your code never even has to run at all.
+pageTitle: Tezos Developer Docs
+description: Everything you need to know for Tezos development, from novice to expert. Learn how to build your next Game, NFT, or DeFi dapp here.
 ---
 
-Learn how to get CacheAdvance set up in your project in under thirty minutes or it's free. {% .lead %}
+Learn how to build a dapp on Tezos today, quickly and easily. {% .lead %}
 
 {% quick-links %}
 
-{% quick-link title="Installation" icon="installation" href="/" description="Step-by-step guides to setting up your system and installing the library." /%}
+{% quick-link title="Installation" icon="installation" href="/" description="Step-by-step guide to install and use the Tezos client Octez" /%}
 
-{% quick-link title="Architecture guide" icon="presets" href="/" description="Learn how the internals work and contribute." /%}
+{% quick-link title="Architecture guide" icon="presets" href="/" description="Understand how Tezos works" /%}
 
-{% quick-link title="Plugins" icon="plugins" href="/" description="Extend the library with third-party plugins or write your own." /%}
+{% quick-link title="Gaming Dapp" icon="plugins" href="/" description="Build your first gaming dapp with Unity" /%}
 
-{% quick-link title="API reference" icon="theming" href="/" description="Learn to easily customize and modify your app's visual design to fit your brand." /%}
+{% quick-link title="Build an NFT Marketplace" icon="theming" href="/" description="Build an NFT marketplace" /%}
 
 {% /quick-links %}
 
