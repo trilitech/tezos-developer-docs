@@ -13,33 +13,34 @@ import { ThemeSelector } from '@/components/ThemeSelector'
 
 const navigation = [
   {
-    title: 'Introduction',
+    title: 'Tezos Basics',
     links: [
       { title: 'Getting started', href: '/' },
-      { title: 'Installation', href: '/docs/installation' },
+      { title: 'Introduction', href: '/docs/tezos-basics/introduction' },
+      { title: 'Nodes', href: '/docs/tezos-basics/nodes' },
+      { title: 'Liquid Proof of Stake', href: '/docs/tezos-basics/liquid-proof-of-stake' },
+      { title: 'Operations', href: '/docs/tezos-basics/operations' },
+      { title: 'CLI and RPC', href: '/docs/tezos-basics/cli-and-rpc' },
+      { title: 'Governance on-chain', href: '/docs/tezos-basics/governance-on-chain' },
+      { title: 'Economics and rewards', href: '/docs/tezos-basics/economics-and-rewards' },
+      { title: 'Tezos performances and costs', href: '/docs/tezos-basics/tezos-performances-and-costs' },
+      { title: 'Tickets', href: '/docs/tezos-basics/tickets' },
+      { title: 'Sapling', href: '/docs/tezos-basics/sapling' },
+      { title: 'Testing modes and networks', href: '/docs/tezos-basics/test-networks' },
     ],
   },
   {
-    title: 'Core concepts',
+    title: 'Smart contracts',
     links: [
-      { title: 'Understanding caching', href: '/docs/understanding-caching' },
-      {
-        title: 'Predicting user behavior',
-        href: '/docs/predicting-user-behavior',
-      },
-      { title: 'Basics of time-travel', href: '/docs/basics-of-time-travel' },
-      {
-        title: 'Introduction to string theory',
-        href: '/docs/introduction-to-string-theory',
-      },
-      { title: 'The butterfly effect', href: '/docs/the-butterfly-effect' },
+      { title: 'First contracts - NFTs', href: '/docs/smart-contracts/simple-nft-contract-1/simple-nft-contract-1' },
+      { title: 'Calling and deploying contracts', href: '/docs/smart-contracts/call-and-deploy/call-and-deploy' },
+      { title: 'First contracts - first flaws', href: '/docs/smart-contracts/avoiding-flaws/avoiding-flaws' },
     ],
   },
   {
-    title: 'Advanced guides',
+    title: 'Deploy a node',
     links: [
       { title: 'Writing plugins', href: '/docs/writing-plugins' },
-      { title: 'Neuralink integration', href: '/docs/neuralink-integration' },
       { title: 'Temporal paradoxes', href: '/docs/temporal-paradoxes' },
       { title: 'Testing', href: '/docs/testing' },
       { title: 'Compile-time caching', href: '/docs/compile-time-caching' },
