@@ -8,7 +8,7 @@ The goal of this chapter is to give an overview of all the features available fo
 
 The idea of this chapter is to make it easy for you to be aware about what is or isn't available when writing smart contracts. It doesn't intend to be a full reference and doesn't try to be exhaustive about every detail of each feature. Instead, it focuses on giving you a general understanding of what they are and how they can be used, and on making you aware of all the important aspects.
 
-### Features in each language
+## Features in each language
 
 Almost all of the features listed are available in each of the smart contract programming languages on Tezos. Some high-level languages provide a few additional features, to make writing contracts easier. All these extra features are however built on top of the ones listed below, as these are the only ones provided by Michelson, the low-level language that all high-level languages compile to.
 

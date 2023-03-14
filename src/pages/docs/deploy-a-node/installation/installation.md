@@ -1,6 +1,6 @@
 ---
 id: installation
-title: Installation & Set up
+title: Installation & Setup
 authors: Nomadic Labs
 ---
 

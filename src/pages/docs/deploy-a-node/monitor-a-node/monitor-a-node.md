@@ -6,7 +6,7 @@ authors: Jean-Baptiste Col
 
 This module will guide you through the steps to set up a monitoring tool that will allow you to track various metrics of an Octez node.
 
-### Introduction
+## Introduction
 
 Until now, the only tool developers had to monitor the behavior of their Tezos node was to look at the logs, [adjust the log verbosity](https://tezos.gitlab.io/user/logging.html?highlight=log#node-specific-configuration), and reconstruct all relevant information from this stream. But getting more insight into a node's performance was tedious and difficult. For instance, the number of connected peers, the number of pending operations, or the number of times the validator switched branches, were not easy to observe continuously.
 
