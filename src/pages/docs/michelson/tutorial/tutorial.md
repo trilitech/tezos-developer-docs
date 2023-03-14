@@ -8,14 +8,14 @@ import NotificationBar from '../../../src/components/docs/NotificationBar';
 
 This section introduces the main concepts of the Michelson language. It begins with the basics of **stack manipulation** then focuses on primitive types and more complex **data structures**. Finally the chapter focuses on specific features related to smart contracts concepts.
 
-### Stack programming
-#### Basics
+## Stack programming
+### Basics
 Michelson is a stack-based language, which means that all the data (manipulated by the program) is stacked on a single pile. The Michelson language provides stack operators to reorganize elements of the stack and other kinds of operators which consume the top elements of the stack. In this section, we will introduce basic stack-manipulation operators and illustrates them with simple examples. Then, in a second time, we will focus on the arithmetic operators and conditional branching.
 
-##### Type checking
+#### Type checking
 In order to operate Michelson instructions, certain type of elements are required to be in the stack and in a specific order. If these expectations are not met, the type checking of the Michelson script would fail and the execution of the smart contract would stop.
 
-##### Basic stack operators (PUSH DROP SWAP)
+#### Basic stack operators (PUSH DROP SWAP)
 The code of a smart contract is defined as a **sequence** of Michelson instructions. The **sequence** structure is defined by `{` and `}`, and contains instructions separated by `;` (semi-colon). When executing a sequence, the interpreter executes each instruction sequentially, one after the other, in the specified order.
 
 ```js
@@ -66,7 +66,7 @@ The `DUP` instruction duplicates the top element of the stack and prevents the l
 ![](michelson_instruction_dup_example.svg)
 <small className="figure">FIGURE 3: Illustration of the `DUP` instruction</small>
 
-##### Stack manipulation using arithmetic operators
+#### Stack manipulation using arithmetic operators
 Once elements are added to the stack, they can be combined using arithmetic operators such as addition (`ADD`) and multiplication (`MUL`). Other arithmetic operators are described in the **Instructions/Operations on numbers** section.
 
 The `ADD` instruction sums the top two elements of the stack and `MUL` multiplies them. The result is then pushed on top of the stack.
@@ -209,7 +209,7 @@ Notice that the `DUP; DUG 2; SWAP; DUP; DUG 2; DUG 3` sequence duplicates the to
 ![](michelson_tutorial_compare_numbers.svg)
 <small className="figure">FIGURE 13: Illustration of conditional branching based on number comparison</small>
 
-##### More stack operator (`DIP`, `CMPLE`)
+#### More stack operator (`DIP`, `CMPLE`)
 This principle of duplicating the top two elements of the stack and comparing them to choose one of them is a common pattern. Some syntactic sugar (i.e. a "shortcut" instruction that combines many of the language's basic instructions) and macros have been introduced in the Michelson language to ease these common patterns. 
 
 For example, the macro `CMPLE` stands for `COMPARE; LE`. A more exhaustive list is available in the **macros** section.
@@ -237,7 +237,7 @@ IF { DROP } { SWAP; DROP }
 ![](michelson_tutorial_compare_numbers_dip.svg)
 <small className="figure">FIGURE 14: Illustration of conditional branching based on number comparison</small>
 
-### Primitive types support
+## Primitive types support
 The Michelson language supports only few primitive data types:
 - `nat` represents a natural integer (e.g. 0, 3, 15)
 - `int` represents a integer (e.g. -10, 2, 3)
@@ -261,7 +261,7 @@ Other Tezos specific types such as `tez` and `address` will be listed and explai
 
 The Michelson language also allows for the manipulation of these types, but before going on primitive type, let's introduce the _unit_ type, the _optional_ (i.e. the _option_ type) and the _pair_ type.
 
-#### Default `UNIT` type 
+### Default `UNIT` type 
 The `UNIT` instruction pushes a `Unit` value of type _unit_ on top of the stack. The _unit_ type stands in many contexts for nothing:
 - an empty structure in case of storage. 
 - an empty entry point in case of a parameter.
@@ -270,7 +270,7 @@ The `UNIT` instruction pushes a `Unit` value of type _unit_ on top of the stack.
 The `Unit` value represents the value of a _unit_ type.
 
 
-#### Stopping the execution of the smart contract with `FAILWITH`
+### Stopping the execution of the smart contract with `FAILWITH`
 
 The `FAILWITH` instruction aborts the execution of the Michelson script which implies the cancellation of all storage modifications and other smart contract invocations.
 
@@ -284,7 +284,7 @@ Actually, the `FAIL` keyword is not an instruction but a syntactic sugar.
 A `FAILWITH` instruction provides a way to reject a transaction by stopping the execution of related instructions.
 
 
-#### Optional
+### Optional
 
 An optional value is a data structure that can hold a value (of a given type) which can be not assigned yet. The optional value has two states: it is defined as `NONE` if no value is assigned and can be defined as `SOME` if a value has been assigned.
 
@@ -308,7 +308,7 @@ A Michelson smart contract is expected to explicitly handle all possible cases; 
 
 All these cases will be detailed in their respective sections.
 
-##### Using optional
+#### Using optional
 
 The `IF_NONE bt bf` instruction inspects an optional value.
 It requires two sequences of instructions, like with an `IF` instruction.
@@ -326,7 +326,7 @@ If the `IF_NONE` instruction encounters a SOME value it does not consumes it and
 Michelson also introduces the `IF_SOME bt bf` instruction which retrieves the value behind an optional and executes the first sequence if it encounters a SOME value. It executes the second sequence if it encounters a NONE value.
 
 
-#### PAIR
+### PAIR
 
 The Michelson language introduces the _pair_ type which defines a data structure containing multiple fields. 
 
@@ -334,7 +334,7 @@ A _pair_ type is a tuple of 2 elements.
 
 A  _pair_ type can contain values of any type, from primitive types (`nat`, `string`, `int`) to advanced composite types such as `list`, `map`, `set`, `lambda` function or `union`.
 
-##### creating and destructuring pairs
+#### creating and destructuring pairs
 
 The `PAIR` instruction takes the top two elements of the stack and pushes back on top of the stack a pair containing these two elements.
 
@@ -347,7 +347,7 @@ Notice that the `UNPAIR` instruction expects a _pair_ element on top of the stac
 
 Similarly, the `PAIR` instruction expects two elements in the stack. 
 
-##### Accessing to elements of a _PAIR_
+#### Accessing to elements of a _PAIR_
 
 The `CAR` instruction consumes the top element of the stack (which must be a `PAIR`) and pushes back on the top of the stack the left part of the pair.
 
@@ -378,7 +378,7 @@ Notice that the `CDR` instruction retrieves the right part of the initial _PAIR_
 
 The next section will explain the list operators (`NIL operation`).
 
-##### Nested pairs
+#### Nested pairs
 Michelson language doesn't directly support tuples of more than 2 elements, but we can instead create **nested pairs**. For example, the following nested _pair_ `PAIR (PAIR nat 5, string "Hello") int 37` contains a natural integer 5, a string "Hello" and an integer 37.
 
 ![](michelson_tutorial_pair.svg)
@@ -426,12 +426,12 @@ Annotation usage is recommended when creating complex types and nested _pairs_ (
   </p>
 </NotificationBar>
 
-#### Numbers
+### Numbers
 Now let's focus on primitive types such as numbers.
 
 There are two number types in Michelson. The _nat_ type represents natural integers and the _int_ type represents integers.
 
-##### Standard arithmetic operations
+#### Standard arithmetic operations
 Standard arithmetic operations are supported by the Michelson language on _nat_ and _int_ types.
 
 The `ADD` instruction computes additions on _nat_ and _int_. It consumes the top two elements of the stack and pushes back the addition of the two elements on top of the stack.
@@ -486,7 +486,7 @@ octez-client run script instruction_abs.tz on storage '9' and input '-2'
 ```
 The resulting storage has a value of 11.
 
-#### String
+### String
 The `string` type represents a sequence of characters and a _string_ value is composed of a sequence of ASCII printable characters (accents are not included).
 
 A _string_ value can be split and two _string_ values can be concatenated or linked together. A _string_ can be compared to an other _string_.
