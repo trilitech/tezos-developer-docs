@@ -28,14 +28,14 @@ This section intends to give:
 
 For a good understanding of this theoretical part, it is recommended to have some notions on first-order and second-order logic [[10]](/formal-verification/gadt-coq#references), mathematics (e.g. set, group, monoid, associativity, distributivity, reflexivity), functional programming, and language theory.
 
-### Type theory
+## Type theory
 In mathematics, logic and computer science, a _type system_ is a formal system in which every term has a **type**. The type defines the meaning and the operations that can be performed on it. **Type theory** is the academic study of type systems.
 
 Type theory is closely linked to many fields of active research, including the Curry–Howard correspondence [[6] [7]](/formal-verification/gadt-coq#references) that provides a deep isomorphism between _intuitionistic logic_, typed _λ-calculus_ and _cartesian closed categories_. 
 
 Some Type theories serve as alternatives to set theory as a foundation of mathematics. Two famous theories are _Alonzo Church's typed λ-calculus_ and _Per Martin-Löf's intuitionistic type theory_. The _Per Martin-Löf's intuitionistic type theory_ has been the foundation of constructive mathematics. For instance, Thierry Coquand's **Calculus of constructions** and its derivatives are the foundation used by **Coq** (the proof assistant) [[1]](/formal-verification/gadt-coq#references).
 
-### Coq
+## Coq
 Initially developed by Thierry Coquand, _Coq_ [[1]](/formal-verification/gadt-coq#references) is a proof assistant, designed to develop mathematical proofs and especially made to write formal specifications, programs, and proofs that programs comply with their specifications. 
 
 Specifications, programs, and proofs are formalized in the _Coq_ language called _Gallina_, which follows the _Calculus of Inductive Constructions_ (CIC).
@@ -44,7 +44,7 @@ A program is a sequence of instructions in a language. _Coq_ is a generic tool a
 The specification of a program represents **what** a program is meant to do. _Coq_ provides a language (called Gallina -Terms) for modelling logical objects such as theorems, axioms, assumptions). The proof is a sequence of logical deductions (based on axioms, assumptions and the inference rule) that verify the **compliance of a program to its specification**.
 
 
-#### CoC - CiC
+### CoC - CiC
 Initially developed by Thierry Coquand, the _Calculus of Constructions_ [[13]](/formal-verification/gadt-coq#references) (or CoC) is a typed high-order _λ-calculus_ (i.e. a typed formal system taking the logic of second-order into account). The CoC is used as a typed programming language. 
 
 Many derivatives of CoC have been created to handle inductive types, predicates and co-inductive types. The CIC ([[18]](/formal-verification/gadt-coq#references)) is an extension of CoC which integrates inductive datatype. The _Coq_ proof assistant is built upon CiC.
@@ -53,14 +53,14 @@ All logical judgments in Coq are typing judgments: the very heart of _Coq_ is, i
 
 An interesting additional feature of _Coq_ is that it can automatically extract executable programs from specifications, either as _OCaml_ or as _Haskell_ source code.
 
-#### Gallina (Term and Vernacular)
+### Gallina (Term and Vernacular)
 Logical objects (such as theorems, axioms) are formalized in Gallina-Term language, and proof scripts are formalized in Gallina-Vernacular language, which provides _tactics_.
 
 The _Coq_ inference engine executes the proof script. In the case of a Tezos smart contract, the inference engine relies on the Coq universe and the _Mi-Cho-Coq_ library. 
 
 For more information about the CoC and CiC foundation, it is recommended to read the official paper from Thierry Coquand and other documentation [[13] [16] [18]](/formal-verification/gadt-coq#references). It is required to know the basis of λ-calculus [[17]](/formal-verification/gadt-coq#references) in order to understand mathematical notations used in CoC and CiC.
 
-### GADT
+## GADT
 Generalized algebraic data type (GADT) is a generalization of parametric algebraic data types (i.e. a standard representation of algebraic data types).
 
 The idea of **algebraic data types** is to define a language as a composite type and formalize an algebra of data types (like the algebra on numbers). The programming language can be seen as a complex-type with functors.
@@ -72,7 +72,7 @@ In computer science, **higher-order abstract syntax** (abbreviated HOAS) is a te
 This article [[8]](/formal-verification/gadt-coq#references) describes how to define an **higher-order abstract syntax** in _Coq_ (i.e., defining axioms, and inductive types). 
 GADT is similar to inductive families of data types (or inductive data types) found in _Coq_'s CIC [[18]](/formal-verification/gadt-coq#references).
 
-#### Algebraic Data Type
+### Algebraic Data Type
 In computer programming, and especially functional programming and type theory, an **algebraic data type** is a kind of composite type, (i.e., a type formed by combining other types).
 
 Two common classes of algebraic types are product types (i.e., tuples and records) and sum types (i.e., tagged or disjoint unions, coproduct types or variant types).
@@ -83,7 +83,7 @@ The values of a sum type are typically grouped into several classes, called **va
 
 The _Algebraic Data Type_ (ADT) formalizes a language into a composite type and describes possible operations on data types.
 
-#### Example with Michelson pairs and variants
+### Example with Michelson pairs and variants
 Let's illustrate the ADT formalization by defining a set with PRODUCT (a product type) and SUM (a sum type) thus forming a _semi-ring_ that can model Michelson language structures (_Pairs_ and _Variants_). Defining Michelson data structures as an ADT provides a robust type-checking mechanism on Michelson scripts.
 
 The Michelson language can be modelled as a mathematical object (set) with a set of rules (PRODUCT and SUM) describing possible operations on datatypes. 
@@ -111,7 +111,7 @@ So, a set equipped with PRODUCT and SUM represents a language equipped with _pai
 
 > Other language structures such as _List_ can be defined using the _List Monad pattern_.  
 
-#### A semi-ring to generalize Michelson language 
+### A semi-ring to generalize Michelson language 
 In algebra, a set equipped with PRODUCT and SUM is a semi-ring. Notice that the inverse of SUM has no meaning (subtraction `a - b` is not permitted; programmatically speaking, removing an integer from a structure that has no integer field has no meaning). That's why the set equipped with PRODUCT and SUM is just a semi-ring and not a ring (due to the missing relation `a + inv(a) ~ Void` where `inv(a)` does not exist).
 
 > Formally speaking, a ring is an _abelian_ group whose operation is called _addition_, with a second binary operation called _multiplication_ that is associative, distributive over the _addition_ operation, and has a multiplicative identity element. 
@@ -120,7 +120,7 @@ In mathematics, **rings are algebraic structures that generalize fields**: multi
 
 To conclude, the formalization of a language into an algebra of data types (ADT) allows to specify a mathematical representation of a language; and thus allows you to use CoC principles to prove theorems on this algebra (i.e., verifying a script in this language). The **Mi-Cho-Coq** library is the formal _Coq_ representation of the Michelson language and allows to specify a formal representation of a Tezos smart contract.
 
-### Mi-Cho-Coq
+## Mi-Cho-Coq
 The _Mi-Cho-Coq_ library represents the bridge between Tezos smart contracts and formal proofs in Coq.
 
 The _Mi-Cho-Coq_ library [[2]](/formal-verification/gadt-coq#references) is a formalization of the Michelson language [[9]](/formal-verification/gadt-coq#references) using the Coq interactive theorem prover [[1]](/formal-verification/gadt-coq#references).
@@ -131,7 +131,7 @@ The _Mi-Cho-Coq_ library provides a formal definition (in Gallina) of the **type
 
 > It is recommended to have notions of _Language theory_ in order to understand the following Mi-Cho-Coq definition (grammar rules).
 
-#### Type system
+### Type system
 The **type system** consists in the definition of types (comparable types and non-comparable ones).
 
 ```
@@ -164,7 +164,7 @@ Inductive type : Set :=
 | chain_id.
 ```
 
-#### Syntax
+### Syntax
 The ****syntax** and typing of Michelson instructions are formalized as a dependent inductive type to rule out ill-typed instructions.
 
 ```
@@ -180,7 +180,7 @@ Inductive instruction :
 
 Notice that the inductive type `instruction`  defines typing rules for each instruction (`SEQ`, `IF`, `LOOP`, ...).
 
-#### Semantics
+### Semantics
 The **semantics** of types is defined by interpreting them with predefined _Coq_ types (e.g. int -> Z, nat -> N, mutez -> int63). The semantics of Michelson is defined by an evaluator `eval` formalized as a _Fixpoint_. 
 
 ```

@@ -8,13 +8,13 @@ author: Daniel Nomadic
 Decentralized fundraising is a new ﬁnancing method allowing project creators to raise funds in a decentralized manner. In the same way that start-ups receive capital before launching, projects using the decentralized fundraising process can receive funds both from institutional and individual investors. Unlike an initial public oﬀering (IPO), investors never own any equity in the project. A major diﬀerence compared to classic fundraising is much lighter legal requirements, which makes the whole process easier.
 By participating in decentralized fundraising, investors receive tokens proportionally to their investment. These tokens play a key role in the new applications and protocols built.
 
-### Initial DEX offerings
+## Initial DEX offerings
 
 An initial DEX oﬀering (IDO) is a fundraising process whose purpose is to ﬁnance DeFi projects using decentralized exchanges as an alternative to centralized exchanges that involve heavy and permissioned fundraising processes.
 IDOs oﬀer new projects the opportunity to create and list their token to ﬁnance their future business.
 To perform an IDO, projects create a public coin on a DEX and receive funds from various investors. IDOs are the decentralized versions of initial exchange oﬀerings (IEOs) where crypto projects launch their token and raise funds via a centralized exchange.
 
-### Decentralized Fundraising on Tezos
+## Decentralized Fundraising on Tezos
 
 [Instaraise](https://instaraise.io/) is the ﬁrst decentralized IDO platform built on the Tezos blockchain.
 The platform allows token-based projects to raise funds by setting up a swap pool based on a ﬁxed purchase rate. These so-called “Fixed Swap Pools” have many advantages for token sale investors over traditional fundraising models like initial coin oﬀerings (ICOs), IEOs, and IDOs (Initial DEX Oﬀerings). Fixed Swap Pools will maintain the token price throughout the sale until the initial supply is bought.

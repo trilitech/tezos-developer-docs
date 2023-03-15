@@ -4,7 +4,7 @@ title: Other Use Cases
 authors: Matthew Roberts
 ---
 
-# Tezos Integration SDK: Suggestions for Further Use
+## Tezos Integration SDK: Suggestions for Further Use
 
 ### Possible Extensions to our Inventory Sample Game (re-using our contract & Unity code)
 

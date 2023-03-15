@@ -5,7 +5,7 @@ authors: Matthew Roberts
 ---
 
 
-# Inventory Sample Game
+## Inventory Sample Game
 
 ### User Experience, Architecture & Code Stack for Each Use Case
 

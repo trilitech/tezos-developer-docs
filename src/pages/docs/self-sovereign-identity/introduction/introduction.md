@@ -17,7 +17,7 @@ History shows that we cannot blindly trust centralized entities to manage our da
 
 Self-sovereign identity is a paradigm shift for digital identity, which promises significant advantages but over whose definition consensus has not yet been reached. In this document, we set out the attributes of self-sovereign identity offered by decentralized digital identity, as well as its digital properties.
 
-### Definitions:
+## Definitions:
 
 **SSI – Self-sovereign Identity**: A cryptographic technology which allows individuals and organizations to confirm their identity. Self-sovereign identity is private and not shared.
 
