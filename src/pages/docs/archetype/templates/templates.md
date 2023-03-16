@@ -4,14 +4,14 @@ title: Contract Templates
 authors: Benoit Rognier
 ---
 
-### Tokens
+## Tokens
 
 | Link                                                                                           | Description        |
 | ---------------------------------------------------------------------------------------------- | ------------------ |
 | [FA 1.2](https://completium.com/docs/templates/fa12)                                           | Fungible Token     |
 | [FA 2](https://gitlab.com/tezos-paris-hub/rarible/rarible-nft-contracts/-/tree/main/contracts) | Non Fungible Token |
 
-### Governance
+## Governance
 
 | Link                                                                        | Description                                                                                                       |
 | --------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
@@ -19,7 +19,7 @@ authors: Benoit Rognier
 | [A2](https://gitlab.com/tezos-paris-hub/whitelist-smart-contract-archetype) | Whitelisting process following [TZIP15](https://gitlab.com/tezos/tzip/-/blob/master/proposals/tzip-15/tzip-15.md) |
 | [Auction](https://completium.com/docs/templates/auction)                    | Simple auction process                                                                                            |
 
-### DeFi
+## DeFi
 
 | Link                                             | Description                                    |
 | ------------------------------------------------ | ---------------------------------------------- |
@@ -28,7 +28,7 @@ authors: Benoit Rognier
 | [ICO](https://completium.com/docs/templates/ico) | Initial Coin Offering                          |
 | [ACN](https://completium.com/docs/templates/acn) | Auto Callable Note                             |
 
-### Payment
+## Payment
 
 | Link                                                            | Description                                   |
 | --------------------------------------------------------------- | --------------------------------------------- |

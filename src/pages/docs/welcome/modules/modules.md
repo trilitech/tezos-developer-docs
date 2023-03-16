@@ -23,7 +23,7 @@ Welcome Tezos Developers! Explore the technical and economic concepts behind the
   </p>
 </NotificationBar>
 
-### Modules
+## Modules
 
 <CardsWrapper>
   <OverlayCard

@@ -4,7 +4,7 @@ title: Examples
 authors: Frank Hillard
 ---
 
-### Example 1: Modulo with `LOOP` and `IF`
+## Example 1: Modulo with `LOOP` and `IF`
 Let's illustrate the following Michelson instructions: `LOOP`, `DIP`, `DUP`, `SWAP`, `PUSH`, `CMPLE`, `IF`, `SUB`. The example below computes the *modulo* between two numbers (e.g. 7 % 5 = 2).
 
 The idea is to repetitively subtract the divisor from the dividend. Once the dividend is smaller than the divisor, we have successfully computed the remainder.
@@ -45,7 +45,7 @@ The execution of the "loop_example.tz" smart contract can be simulated with the 
 octez-client run script loop_example.tz on storage '0' and input '(Pair 7 5)'
 ```
 
-### Example 2: Maximum of a list with `ITER` and `CMPLE`
+## Example 2: Maximum of a list with `ITER` and `CMPLE`
 Let's illustrate the following Michelson instructions: `CAR`, `CDR`, `ITER`, `DIP`, `DUP`, `DROP`, `SWAP`, `CMPLE`, `IF`, `NONE`, `SOME`, `IF_NONE`, `option`, `list`. The following snippet of code computes the maximum of a list of integers.
 
 The idea is to repetitively take an element from the list and compare it with the maximum computed so far. Once the list is processed, the stack contains the biggest integer of the list.
@@ -83,7 +83,7 @@ If you have setup a Tezos node, you can use the octez-client program to simulate
 octez-client run script max_list.tz on storage 'None' and input '{1;2;5;3;7;2;15;4}'
 ```
 
-### Example 3: Executing a lambda with `EXEC` and `LAMBDA`
+## Example 3: Executing a lambda with `EXEC` and `LAMBDA`
 Let's illustrate the following Michelson instructions: `EXEC`, `LAMBDA`, `SWAP`, `PUSH`. The following snippet of code takes an integer and increments it using a _lambda_.
 
 The idea is to define a lambda function (which increments an integer) and execute the function. Once the function has been applied, the result is returned as a new storage state.
@@ -102,7 +102,7 @@ code { CAR ;
 ![](michelson_example_lambdaexec_execution.svg)
 <small className="figure">FIGURE 3: Illustration of the execution of a lambda</small>
 
-### Example 4: Computing a sum with `LOOP_LEFT`
+## Example 4: Computing a sum with `LOOP_LEFT`
 The following smart contract illustrates the `LOOP_LEFT` instruction usage. It takes an integer as the parameter and computes the sum from zero to the given integer.
 
 ```js
@@ -131,7 +131,7 @@ Let's breakdown the execution of this smart contract. In our example, storage is
 ![](michelson_example_loopleft_execution.svg)
 <small className="figure">FIGURE 4: Illustration of the `LOOP_LEFT` instruction</small>
 
-### Example 5 : Computing a factorial with `LOOP_LEFT`
+## Example 5 : Computing a factorial with `LOOP_LEFT`
 
 Let's illustrate the following Michelson instructions: `LOOP_LEFT`. The following snippet of code takes an integer and computes a factorial of the given integer; the result is saved in storage.
 

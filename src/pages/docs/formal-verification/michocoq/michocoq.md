@@ -5,7 +5,7 @@ authors: Frank Hillard
 ---
 
 
-### Introduction
+## Introduction
 
 The _Mi-Cho-Coq_ library represents the bridge between Tezos smart contract and formal proof in Coq.
 
@@ -13,14 +13,14 @@ The _Mi-Cho-Coq_ library [2] is a formalization of the Michelson language [9] us
 
 In practice, the _Mi-Cho-Coq_ library is used to produce a formal definition of a Michelson script (e.g. the "Modeling theorem" [section](/formal-verification/modeling-theorem#Example_vote)). Each Michelson instruction has its equivalent in the _Mi-Cho-Coq_ library (e.g. see the syntax [subsection](/formal-verification/michocoq#Syntax)).
 
-### Content
+## Content
 
 The _Mi-Cho-Coq_ library provides a formal definition (in Gallina) of the **type system** (Michelson types), the **syntax** (instructions of the Michelson), the **semantics** (evaluator) and the lexing and parsing (for type-checking).
 
 > It is recommended to have notions of Language theory in order to understand the following Mi-Cho-Coq definition (grammar rules).
 
 
-#### Type system
+### Type system
 The **type system** consists in the definition of types (comparable types and non-comparable ones).
 
 ```
@@ -53,7 +53,7 @@ Inductive type : Set :=
 | chain_id.
 ```
 
-#### Syntax
+### Syntax
 The ****syntax** and typing of Michelson instructions are formalized as a dependent inductive type to rule out ill-typed instructions.
 
 ```
@@ -69,7 +69,7 @@ Inductive instruction :
 
 Notice that the inductive type `instruction`  defines typing rules for each instruction (`SEQ`, `IF`, `LOOP`, ...).
 
-#### Semantics
+### Semantics
 The **semantics** of types is defined by interpreting them with predefined _Coq_ types (e.g. int -> Z, nat -> N, mutez -> int63). The semantics of Michelson is defined by an evaluator `eval` formalized as a _Fixpoint_. 
 
 ```

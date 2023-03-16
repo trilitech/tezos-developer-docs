@@ -9,7 +9,7 @@ A DAO is an organization that uses open-source smart contract codes to automate 
 Using a DAO may help prevent human error or manipulation since the decision power is no longer in the hands of a few trusted people. Rather, it is automated distributively and written as an immutable code deployed on the blockchain.
 Using a DAO is not risk-free: Recall [the DAO project where coding errors led to $50 million of funds being lost](https://www.coindesk.com/understanding-dao-hack-journalists).
 
-### DAOs on Tezos
+## DAOs on Tezos
 
 - [StakerDao](https://www.stakerdao.com/): a DAO governed by a community of blockchain and ﬁnance enthusiasts who vote to make decisions and govern to build cross-chain ﬁnancial assets. The process of governance is as follows:
 New ideas for products and features are proposed on the [StakerDAO forum](https://forum.stakerdao.com/).
