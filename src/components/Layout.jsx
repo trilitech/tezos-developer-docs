@@ -173,6 +173,36 @@ const navigation = [
       { title: 'Become a baker or delegator', href: '/docs/contribute/baker/baker' },
     ],
   },
+  {
+    title: 'Protocol in depth',
+    links: [
+      { title: 'Overview', href: '/docs/economic-protocol/protocol-overview' },
+      { title: 'Proof of Stake', href: '/docs/economic-protocol/proof-of-stake' },
+      { title: 'Randomness generation', href: '/docs/economic-protocol/randomness-generation' },
+      { title: 'The consensus algorithm', href: '/docs/economic-protocol/consensus' },
+      { title: 'Amendment and voting process', href: '/docs/economic-protocol/voting' },
+      { title: 'Michelson', href: '/docs/economic-protocol/michelson' },
+      { title: 'Time-lock', href: '/docs/economic-protocol/timelock' },
+      { title: 'Sapling integration', href: '/docs/economic-protocol/sapling' },
+      { title: 'Liquidity baking', href: '/docs/economic-protocol/liquidity-baking' },
+      { title: 'Global constants', href: '/docs/economic-protocol/global-constants' },
+      { title: 'Token transfers and balance updates', href: '/docs/economic-protocol/token-management' },
+      { title: 'Prechecking of manager operations', href: '/docs/economic-protocol/precheck' },
+      { title: 'Smart optimistic rollups', href: '/docs/economic-protocol/smart-rollups' },
+      { title: 'Protocol plugins', href: '/docs/economic-protocol/plugins' },
+      { title: 'Contract events', href: '/docs/economic-protocol/event' },
+      { title: 'Blocks and operations', href: '/docs/economic-protocol/blocks-ops' },
+      { title: 'Validation and application', href: '/docs/economic-protocol/validation' },
+      { title: 'Tickets', href: '/docs/economic-protocol/tickets' },
+    ],
+  },
+  {
+    title: 'Developer',
+    links: [
+      { title: 'Encodings', href: '/docs/developer/encodings/encodings' },
+    ],
+  },
+
 ]
 
 function GitHubIcon(props) {
