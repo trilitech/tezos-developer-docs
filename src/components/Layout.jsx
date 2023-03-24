@@ -368,6 +368,10 @@ export function Layout({ children, title, tableOfContents }) {
             )}
             <Prose>{children}</Prose>
           </article>
+
+          {!isHomePage && (
+          // Don't show the previous and next links on the homepage
+
           <dl className="mt-12 flex border-t border-slate-200 pt-6 dark:border-slate-800">
             {previousPage && (
               <div>
@@ -400,11 +404,12 @@ export function Layout({ children, title, tableOfContents }) {
               </div>
             )}
           </dl>
+          )}
         </div>
 
         {!isHomePage && (
         // Don't show the right sidebar on the homepage
-        
+
         <div className="hidden xl:sticky xl:top-[4.5rem] xl:-mr-6 xl:block xl:h-[calc(100vh-4.5rem)] xl:flex-none xl:overflow-y-auto xl:py-16 xl:pr-6">
           <nav aria-labelledby="on-this-page-title" className="w-56">
             {tableOfContents.length > 0 && (
