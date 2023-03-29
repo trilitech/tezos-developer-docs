@@ -8,13 +8,13 @@ Learn how to build a dapp on Tezos today, quickly and easily. {% .lead %}
 
 {% quick-links %}
 
-{% quick-link title="Installation" icon="installation" href="/" description="Step-by-step guide to install and use the Tezos client Octez" /%}
+{% quick-link title="Installation" icon="installation" href="/docs/tezos-basics/introduction" description="Step-by-step guide to install and use the Tezos client Octez" /%}
 
-{% quick-link title="Architecture guide" icon="presets" href="/" description="Understand how Tezos works" /%}
+{% quick-link title="Architecture guide" icon="presets" href="/docs/economic-protocol/protocol-overview" description="Understand how Tezos works" /%}
 
-{% quick-link title="Gaming Dapp" icon="plugins" href="/" description="Build your first gaming dapp with Unity" /%}
+{% quick-link title="Gaming Dapp" icon="plugins" href="/docs/gaming/unity-sdk/introduction/introduction" description="Build your first gaming dapp with Unity" /%}
 
-{% quick-link title="Build an NFT Marketplace" icon="theming" href="/" description="Build an NFT marketplace" /%}
+{% quick-link title="Build an NFT Marketplace" icon="theming" href="/docs/dapp/introduction/introduction" description="Build an NFT marketplace" /%}
 
 {% /quick-links %}
 

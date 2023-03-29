@@ -330,8 +330,12 @@ export function Layout({ children, title, tableOfContents }) {
       <Header navigation={navigation} />
 
       {isHomePage }
-
+      
       <div className="relative mx-auto flex max-w-8xl justify-center sm:px-2 lg:px-8 xl:px-12">
+       
+       {!isHomePage && ( 
+        // Don't show the left sidebar on the homepage
+
         <div className="hidden lg:relative lg:block lg:flex-none">
           <div className="absolute inset-y-0 right-0 w-[50vw] bg-slate-50 dark:hidden" />
           <div className="absolute top-16 bottom-0 right-0 hidden h-12 w-px bg-gradient-to-t from-slate-800 dark:block" />
@@ -343,6 +347,9 @@ export function Layout({ children, title, tableOfContents }) {
             />
           </div>
         </div>
+
+        )}
+
         <div className="min-w-0 max-w-2xl flex-auto px-4 py-16 lg:max-w-none lg:pr-0 lg:pl-8 xl:px-16">
           <article>
             {(title || section) && (
@@ -361,6 +368,10 @@ export function Layout({ children, title, tableOfContents }) {
             )}
             <Prose>{children}</Prose>
           </article>
+
+          {!isHomePage && (
+          // Don't show the previous and next links on the homepage
+
           <dl className="mt-12 flex border-t border-slate-200 pt-6 dark:border-slate-800">
             {previousPage && (
               <div>
@@ -393,7 +404,12 @@ export function Layout({ children, title, tableOfContents }) {
               </div>
             )}
           </dl>
+          )}
         </div>
+
+        {!isHomePage && (
+        // Don't show the right sidebar on the homepage
+
         <div className="hidden xl:sticky xl:top-[4.5rem] xl:-mr-6 xl:block xl:h-[calc(100vh-4.5rem)] xl:flex-none xl:overflow-y-auto xl:py-16 xl:pr-6">
           <nav aria-labelledby="on-this-page-title" className="w-56">
             {tableOfContents.length > 0 && (
@@ -447,6 +463,9 @@ export function Layout({ children, title, tableOfContents }) {
             )}
           </nav>
         </div>
+
+        )}
+        
       </div>
     </>
   )
