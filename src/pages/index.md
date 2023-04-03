@@ -38,5 +38,7 @@ Learn how to build a dapp on Tezos today, quickly and easily. {% .lead %}
 
 {% quick-link title="Build an NFT Marketplace" icon="theming" href="/docs/dapp/introduction/introduction" description="Build an NFT marketplace" /%}
 
+{% quick-link title="Installation" icon="installation" href="/docs/tezos-basics/introduction" description="Step-by-step guide to install and use the Tezos client Octez" /%}
+
 {% /quick-links %}
 

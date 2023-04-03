@@ -11,7 +11,7 @@ export function QuickLinks({ children }) {
 
 export function QuickLink({ title, description, href, icon }) {
   return (
-    <div className="relative flex items-center h-52">
+    <div className="relative flex items-center h-28">
       <div className="absolute -inset-px rounded-xl border-2 border-transparent opacity-0" />
       <div className="relative overflow-hidden rounded-xl p-6 flex justify-center h-full items-center">
         <div className="flex-shrink-0 mr-4">
