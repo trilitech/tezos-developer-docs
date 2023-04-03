@@ -1,4 +1,5 @@
 import { Callout } from '@/components/Callout'
+import { LgLink, LgLinks } from '@/components/LgLinks'
 import { QuickLink, QuickLinks } from '@/components/QuickLinks'
 
 const tags = {
@@ -35,6 +36,19 @@ const tags = {
   'quick-link': {
     selfClosing: true,
     render: QuickLink,
+    attributes: {
+      title: { type: String },
+      description: { type: String },
+      icon: { type: String },
+      href: { type: String },
+    },
+  },
+  'lg-links': {
+    render: LgLinks,
+  },
+  'lg-link': {
+    selfClosing: true,
+    render: LgLink,
     attributes: {
       title: { type: String },
       description: { type: String },
