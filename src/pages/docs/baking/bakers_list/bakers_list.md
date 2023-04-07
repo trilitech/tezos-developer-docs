@@ -12,18 +12,17 @@ Most Tezos blockchain explorers have a list of bakers ordered according to diffe
 
 [Baking Bad](https://tzkt.io/bakers/), [TzStats](https://tzstats.com/bakers) or [Tezos Nodes](https://tezos-nodes.com/) allow you to browse through bakers.
 
-<p align="center">
 
-![baking-bad-bakers](baking_bad_bakers.png)
+
+![baking-bad-bakers](./baking_bad_bakers.png)
 <small className="figure">FIGURE 1: Baking Bad Bakers</small>
 
-![tzstats-bakers](tzstats_bakers.png)
+![tzstats-bakers](./tzstats_bakers.png)
 <small className="figure">FIGURE 2: TzStats Bakers</small>
 
-![tezos-nodes-bakers](tezos_node_bakers.png)
+![tezos-nodes-bakers](./tezos_node_bakers.png)
 <small className="figure">FIGURE 3: Tezos Nodes Bakers</small>
 
-</p>
 
 ### What kind of baker?
 
