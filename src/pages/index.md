@@ -1,44 +1,48 @@
 ---
 title: Getting started
-pageTitle: Tezos Developer Docs
+pageTitle: Tezos Developer Documentation and References
 description: Everything you need to know for Tezos development, from novice to expert. Learn how to build your next Game, NFT, or DeFi dapp here.
 ---
 
-Learn how to build a dapp on Tezos today, quickly and easily. {% .lead %}
-
 {% lg-links %}
 
-{% lg-link title="Installation" icon="installation" href="/docs/tezos-basics/introduction" description="Step-by-step guide to install and use the Tezos client Octez" /%}
+{% lg-link title="Installing Tezos" icon="installation" href="/docs/tezos-basics/introduction" description="Step-by-step guide to install and use the Tezos client Octez." /%}
 
-{% lg-link title="Architecture guide" icon="presets" href="/docs/economic-protocol/protocol-overview" description="Understand how Tezos works" /%}
-
-{% lg-link title="Gaming Dapp" icon="plugins" href="/docs/gaming/unity-sdk/introduction/introduction" description="Build your first gaming dapp with Unity" /%}
-
-{% lg-link title="Build an NFT Marketplace" icon="theming" href="/docs/dapp/introduction/introduction" description="Build an NFT marketplace" /%}
+{% lg-link title="Write your first smart contract guide" icon="presets" href="/docs/economic-protocol/protocol-overview" description="Learn how to write your first smart contract and get it deployed in less than 10 minutes." /%}
 
 {% /lg-links %}
 
-
-
 {% quick-links %}
 
-{% quick-link title="Installation" icon="installation" href="/docs/tezos-basics/introduction" description="Step-by-step guide to install and use the Tezos client Octez" /%}
+{% quick-link title="Get and install Tezos" icon="installation" href="/docs/tezos-basics/introduction" description="Description goes here..." /%}
 
-{% quick-link title="Architecture guide" icon="presets" href="/docs/economic-protocol/protocol-overview" description="Understand how Tezos works" /%}
+{% quick-link title="Baking on Tezos" icon="presets" href="/docs/economic-protocol/protocol-overview" description="Description goes here..." /%}
 
-{% quick-link title="Gaming Dapp" icon="plugins" href="/docs/gaming/unity-sdk/introduction/introduction" description="Build your first gaming dapp with Unity" /%}
+{% quick-link title="Tezos Economics and Rewards" icon="plugins" href="/docs/gaming/unity-sdk/introduction/introduction" description="Description goes here..." /%}
 
-{% quick-link title="Build an NFT Marketplace" icon="theming" href="/docs/dapp/introduction/introduction" description="Build an NFT marketplace" /%}
+{% quick-link title="Governance" icon="theming" href="/docs/dapp/introduction/introduction" description="Description goes here..." /%}
 
-{% quick-link title="Installation" icon="installation" href="/docs/tezos-basics/introduction" description="Step-by-step guide to install and use the Tezos client Octez" /%}
+{% quick-link title="Test Networks" icon="installation" href="/docs/tezos-basics/introduction" description="Description goes here..." /%}
 
-{% quick-link title="Architecture guide" icon="presets" href="/docs/economic-protocol/protocol-overview" description="Understand how Tezos works" /%}
+{% quick-link title="NFTs and Tokens" icon="presets" href="/docs/economic-protocol/protocol-overview" description="Description goes here..." /%}
 
-{% quick-link title="Gaming Dapp" icon="plugins" href="/docs/gaming/unity-sdk/introduction/introduction" description="Build your first gaming dapp with Unity" /%}
+{% quick-link title="Stablecoins" icon="plugins" href="/docs/gaming/unity-sdk/introduction/introduction" description="Description goes here..." /%}
 
-{% quick-link title="Build an NFT Marketplace" icon="theming" href="/docs/dapp/introduction/introduction" description="Build an NFT marketplace" /%}
+{% quick-link title="Synthetics" icon="plugins" href="/docs/gaming/unity-sdk/introduction/introduction" description="Description goes here..." /%}
 
-{% quick-link title="Installation" icon="installation" href="/docs/tezos-basics/introduction" description="Step-by-step guide to install and use the Tezos client Octez" /%}
+{% quick-link title="Cross-chain swaps" icon="theming" href="/docs/dapp/introduction/introduction" description="Description goes here..." /%}
+
+{% quick-link title="Lending and Flash Loans" icon="installation" href="/docs/tezos-basics/introduction" description="Description goes here..." /%}
+
+{% quick-link title="Tezos Protocol & Shell" icon="installation" href="/docs/tezos-basics/introduction" description="Description goes here..." /%}
+
+{% quick-link title="Tezos Client" icon="installation" href="/docs/tezos-basics/introduction" description="Description goes here..." /%}
+
+{% quick-link title="API Reference" icon="installation" href="/docs/tezos-basics/introduction" description="Description goes here..." /%}
+
+{% quick-link title="Private Blockchain" icon="installation" href="/docs/tezos-basics/introduction" description="Description goes here..." /%}
+
+{% quick-link title="Smart Contract Languages" icon="installation" href="/docs/tezos-basics/introduction" description="Description goes here..." /%}
 
 {% /quick-links %}
 
