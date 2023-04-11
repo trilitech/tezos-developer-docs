@@ -4,8 +4,6 @@ pageTitle: Tezos Developer Docs
 description: Everything you need to know for Tezos development, from novice to expert. Learn how to build your next Game, NFT, or DeFi dapp here.
 ---
 
-Learn how to build a dapp on Tezos today, quickly and easily. {% .lead %}
-
 {% lg-links %}
 
 {% lg-link title="Installation" icon="installation" href="/docs/tezos-basics/introduction" description="Step-by-step guide to install and use the Tezos client Octez" /%}

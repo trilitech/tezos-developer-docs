@@ -242,7 +242,7 @@ function Header({ navigation }) {
       <div className="relative flex flex-grow basis-0 items-center">
         <Link href="/" aria-label="Home page">
           <Logomark className="h-8 w-8 inline-flex" />
-          <h1 className="hidden h-8 w-auto fill-slate-700 dark:fill-sky-100 lg:inline-flex text-blue-600 text-xl" >
+          <h1 className="hidden h-8 w-auto fill-slate-700 dark:fill-sky-100 lg:inline-flex text-blue-600 dark:text-white text-xl" >
           Tezos Docs
           </h1>
         </Link>
@@ -354,7 +354,7 @@ export function Layout({ children, title, tableOfContents }) {
           <article>
             {(title || section) && (
               <header className="mb-9 space-y-1">
-                {section && (
+                {section && !isHomePage &&  (
                   <p className="font-display text-sm font-medium text-blue-600">
                     {section.title}
                   </p>
