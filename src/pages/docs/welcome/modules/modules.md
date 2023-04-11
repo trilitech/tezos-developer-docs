@@ -27,14 +27,14 @@ Welcome Tezos Developers! Explore the technical and economic concepts behind the
 
 <CardsWrapper>
   <OverlayCard
-      description="What is a blockchain and how it works."
+      description="What is a blockchain and how does it work."
       icon="img/icons/blockchain-big-light.svg"
       iconDark="img/icons/blockchain-big-dark.svg"
       title="Blockchain Basics"
       to="/blockchain-basics"
   />
   <OverlayCard
-      description="What is Tezos and how it works."
+      description="What is Tezos and how does it work."
       icon="img/icons/tezos-big-light.svg"
       iconDark="img/icons/tezos-big-dark.svg"
       title="Tezos Basics"
