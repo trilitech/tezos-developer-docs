@@ -29,7 +29,7 @@ On **January 3rd, 2009**, this "blockchain" went live, and the first _block_ was
 
 This message clearly showed the intention of Satoshi Nakamoto and his Bitcoin to trigger the so-called **de-centralization of money**.
 
-![](the-times.png)
+![the times](./the-times.png)
 <small className="figure">FIGURE 1: <em>The Times</em> newspaper from January 3rd, 2009</small>
 
 ### What is Bitcoin?

@@ -13,9 +13,8 @@ import { ThemeSelector } from '@/components/ThemeSelector'
 
 const navigation = [
   {
-    title: 'Tezos Basics',
+    title: 'Overview',
     links: [
-      { title: 'Getting started', href: '/' },
       { title: 'Introduction', href: '/docs/tezos-basics/introduction' },
       { title: 'Nodes', href: '/docs/tezos-basics/nodes' },
       { title: 'Liquid Proof of Stake', href: '/docs/tezos-basics/liquid-proof-of-stake' },
