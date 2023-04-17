@@ -109,12 +109,12 @@ Other sources of public nodes include:
 
 In some special cases, you may want to run your own private network for your testing. This could be true if you are developing tools that you want to keep confidential until you put them in production, and if the `sandboxed mode` is not sufficient for your situation.
 
-Check our [Private blockchain](/private) section to learn how to setup your own network.
+See the [Private blockchain](https://opentezos.com/private) section on OpenTezos to learn how to setup your own network.
 
 ## Further reading
 
 - Tezos reference:
-  - [Test networks](https://tezos.gitlab.io/introduction/test_networks.html)
+  - [Test networks by Nomadic Labs](https://tezos.gitlab.io/introduction/test_networks.html)
   - [Mockup mode](https://tezos.gitlab.io/user/mockup.html)
   - [Sandboxed mode](https://tezos.gitlab.io/user/sandbox.html)
 - Medium post: [Introducing Ghostnet](https://medium.com/the-aleph/introducing-ghostnet-1bf39976e61f)
