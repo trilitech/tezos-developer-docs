@@ -9,11 +9,18 @@ authors: Tezos Ukraine
 This content was created by [Tezos Ukraine](https://tezos.org.ua/en) under MIT Licence, and integrated on OpenTezos by Nomadic Labs. The original version can be found [here](https://indexers.tezos.org.ua/) in multiple languages.
 :::
 
+
+# Connecting to a hosted indexer
+
+If you're looking for the API docs for a hosted indexer, [here is the one from TzStats(https://tzstats.com/docs/api/index.html). 
+
+
 # How Blockchain Indexers Work and Why We Need Them
 
 Blockchain Indexers are programs that simplify querying and searching through blockchain data. Almost any decentralized application uses indexers, and if you want to build your dApp, chances are you’ll need to use them too.
 
 This course will cover all you need to know about blockchain indexers: how they work, what kinds of indexers there are, and how to use them with real examples.
+
 
 ## A simple explanation of how indexers work
 
