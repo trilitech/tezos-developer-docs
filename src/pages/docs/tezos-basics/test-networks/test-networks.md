@@ -1,12 +1,12 @@
 ---
 id: test-networks
-title: Testing modes and networks
+title: Test networks
 authors: Mathias Hiron, Nomadic Labs
 ---
 
-Before putting new software in production, as a developer or baker, you need to test it in environments where trying and breaking things doesn't cost much, in terms of time, computing resources or even fees.
-
-A number of possibilities are made available thanks to tools and services provided by the Tezos ecosystem. In this document, we will briefely introduce them, present their specificities, and what use cases they are suitable for.
+{% callout type="note" %}
+The Tezos testnets are overseen and coordinated by [Oxhead Alpha](https://oxheadalpha.com/). The current testnets are [listed here](https://teztnets.xyz/), with an overview of the various testnets [described here](https://teztnets.xyz/).
+{% /callout %}
 
 ## Testing without a node
 
