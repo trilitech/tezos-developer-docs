@@ -5,16 +5,16 @@ slug: /first-smart-contract
 authors: 
 ---
 
-## Dependencies
+## Prerequisites
 
 | Dependency         | Installation instructions                                                                                                                   |
 |--------------------|---------------------------------------------------------------------------------------------------------------------------------------------|
 | Smartpy CLI        | Follow the _Installation_ steps in this [guide](https://smartpy.dev/docs/manual/introduction/installation).                                                 |
 | _octez-client_ CLI | Follow the _How to install the octez-client_ steps [here](/docs/tezos-basics/get-started-with-octez/get-started-with-octez). |
 
-{% hint style="danger" %}
+{% callout type="warning" title="Note" %}
 Make sure you have **installed** the above CLI tools before getting started.
-{% /hint %}
+{% /callout %}
 
 Now that you have installed the [_octez-client_](https://opentezos.com/tezos-basics/cli-and-rpc/#how-to-install-the-octez-client) and [_Smartpy_](https://smartpy.io/docs/cli/#installation), we'll go ahead and dive right in.
 
@@ -174,7 +174,7 @@ Tezos provides a [Faucet](https://faucet.ghostnet.teztnets.xyz) to allow you to 
 
 Let's go ahead and fund our wallet through the [Ghostnet Faucet](https://faucet.ghostnet.teztnets.xyz). Paste the hash you copied earlier into the input field for "Or fund any address" and select the amount you'd like to add to your wallet.
 
-![Fund your wallet using the Ghostnet Faucet](https://files.gitbook.com/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F88gyJUnwmNVS0hg6tFJm%2Fuploads%2FoCQ0Sl92ENrN8E4QroUI%2FScreenshot%202022-11-04%20at%2015.30.44.png?alt=media&token=4903bd2d-270f-4917-bd29-d70c0befc5af)
+![Fund your wallet using the Ghostnet Faucet](/images/wallet-funding.png)
 
 Wait a minute or two and you can then run the following command to check that your wallet has funds in it:
 
@@ -276,11 +276,7 @@ Make sure you copy the contract address for the next step!
 
 ## Confirm that all worked as expected
 
-To interect with the contract and confirm that all went as expected, you can use an Explorer such as:[ ](https://tzkt.io)
-
-{% embed url="https://tzkt.io" %}
-Tezos Explorer
-{% /embed %}
+To interect with the contract and confirm that all went as expected, you can use an Explorer such as:[TzKT ](https://tzkt.io)
 
 Make sure you switch to the [Ghostnet](https://ghostnet.tzkt.io) before you start.
 
@@ -288,7 +284,7 @@ Then paste the contract address (starting with KT) `KT1Nnk.................UFsJr
 
 Then navigate to the `Storage` tab to see your initial value of `Hello`.
 
-![Confirmation that all worked correctly](https://files.gitbook.com/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F88gyJUnwmNVS0hg6tFJm%2Fuploads%2FteKCAF6QeZxEPKI7Ztke%2FScreenshot%202022-11-04%20at%2016.16.03.png?alt=media&token=1c28b49b-3899-4084-9121-61b80c343aea)
+![Confirmation that all worked correctly](/images/storage.png)
 
 ## Replace or append the text
 
@@ -298,9 +294,9 @@ Now that we've successfully deployed our smart contract let's test out the two e
 
 To replace "Hello" with "Hi there!", we can run the command below:
 
-{% hint style="warning" %}
+{% callout title="Information" %}
 Make sure that you replace **\<my\_wallet>** with the name of the wallet your created earlier and **\<contract-address>** with the contract address starting with KT.
-{% /hint %}
+{% /callout %}
 
 ```
 octez-client transfer 0 from <my_wallet> to <contract-address> --entrypoint replace --arg '"Hi there!"'
