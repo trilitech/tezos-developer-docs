@@ -1,5 +1,3 @@
-Wallets and Beacon SDK
-
 # Overview of wallets
 
 Wallets are an essential component of using blockchain services. They allow users to see their balances, find the NFTs they own and interact with the Tezos blockchain and its smart contracts.
