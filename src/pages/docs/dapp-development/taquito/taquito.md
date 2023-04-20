@@ -53,6 +53,15 @@ const Tezos = new TezosToolkit('https://ghostnet.ecadinfra.com')
 
 ## Wallet setup
 
+First, download the `@taquito/beacon-wallet` package from NPM:
+
+```
+npm install @taquito/beacon-wallet
+```
+
+Next, import the `BeaconWallet` class and create a new instance by passing an object with the different options required by the Beacon SDK.  
+After creating the instance of the wallet, you can request the permission from the user to connect their wallet before passing the wallet instance to the wallet provider in the TezosToolkit provided by Taquito:
+
 ```typescript
 import { TezosToolkit } from '@taquito/taquito'
 import { BeaconWallet, NetworkType } from '@taquito/beacon-wallet'
@@ -79,7 +88,15 @@ Tezos.setWalletProvider(wallet)
 
 # Getting data from the Tezos blockchain
 
+Taquito provides methods to get different types of data from the Tezos blockchain, for example, the balance of an implicit account, the storage of a contract or token metadata.
+
+> Note: querying data from the blockchain doesn't create a new transaction.
+
 ## Getting the balance of an account
+
+Taquito allows developers to get the current balance in tez of an implicit account. The `getBalance` method is available on the instance of the TezosToolkit and requires a parameter of type `string` that represents the address of the account.
+
+The returned value is of type `BigNumber`:
 
 ```typescript
 import { TezosToolkit } from '@taquito/taquito'
@@ -98,11 +115,16 @@ const balance: BigNumber = await Tezos.tz.getBalance(userAddress)
 
 ## Getting the storage of a contract
 
+One of the distinctive features of the Tezos blockchain is having the storage of smart contracts publicly available.
+
+Taquito provides an easy way to get the storage of any contract and exposes it as a JavaScript value:
+
 ```typescript
 import { TezosToolkit } from '@taquito/taquito'
 const Tezos = new TezosToolkit('https://ghostnet.ecadinfra.com')
-
+// creates the contract abstraction required to get the storage
 const contract = await Tezos.wallet.at(CONTRACT_ADDRESS)
+// returns the storage of the contract
 const storage = await contract.storage()
 ```
 
