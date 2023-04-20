@@ -2,7 +2,7 @@
 id: first-smart-contract
 title: Deploy your first Smart Contract
 slug: /first-smart-contract
-authors: 
+authors: John Joubert
 ---
 
 ## Prerequisites
@@ -56,7 +56,7 @@ And we should see something like this returned:
 SmartPy Version: 0.15.0
 ```
 
-### _octez-client_
+### Octez-client
 
 We can check that it's correctly installed by running the following command:
 
