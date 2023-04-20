@@ -1,25 +1,8 @@
 ---
 id: indexers
-<<<<<<< HEAD
-title: Indexers
-slug: /indexers
-authors: Claude Barde
----
-
-
-
-## How to Use Blockchain Indexers on Tezos
-
-Learn what blockchain indexers are and how to use TzKT, TzStats, Que Pasa, DipDup, or Dappetizer in your apps.
-=======
-disable_pagination: true
 title: Indexers
 authors: Tezos Ukraine
 ---
-
-{% callout type="note" %}
-This content was created by [Tezos Ukraine](https://tezos.org.ua/en) under MIT Licence. The original version can be found [here](https://indexers.tezos.org.ua/) in multiple languages.
-{% /callout %}
 
 {% callout type="note" %}
 If you're just looking for API docs for a hosted indexer, [here is the one from TzStats](https://tzstats.com/docs/api/index.html)
@@ -27,7 +10,6 @@ If you're just looking for API docs for a hosted indexer, [here is the one from 
 
 # What is an indexer ? 
 A block explorer, or an app that tracks activity on the blockchain, is typically made of:
->>>>>>> 9cd286b (indexers cleanup)
 
 - an indexer that is a node operator that extracts the on-chain data and stores it into a database
 - an API that queries the database
@@ -97,7 +79,7 @@ For example, a developer can access an operation's details only if they know whe
 
 Let's try to get data about this transaction using Tezos client and RPC API — [opRjkzJxJ1xZaUnBDykGUjrRV8qgHFvchcYnbkkcotS1Y7idCSL](https://tzstats.com/opRjkzJxJ1xZaUnBDykGUjrRV8qgHFvchcYnbkkcotS1Y7idCSL). 
 
-![](assets/transaction_tzstats.png)
+![](/images/transaction_tzstats.png)
 
 
 The highlighted part at the top of the screenshot is the command we used: 
@@ -114,11 +96,11 @@ To get the details of a specific operation, we need to know its location in the 
 
 Indexers simplify the task of getting the data you need from the blockchain. They request whole blocks from public nodes and write them to their databases. Then indexers create indexes—-additional data structures optimized for fast data retrieval that store either the data or a link to the corresponding place in the central database. When searching for any data, the indexer looks for it in the corresponding index, not in the central database. For even faster searching, some indexers don't store all data in one table but create separate tables for any valuable data. 
 
-![](assets/usdt_que_pasa.png)
+![](/images/usdt_que_pasa.png)
 
 Here is a USDT contract indexed with Que Pasa. It made tables for every entry point and big_map in the contract and an index for every table. It is an efficient way to fetch data. For example, the execution of a query to find a balance of a random USDT holder took only 0.064 milliseconds.
 
-![](assets/que_pasa_sql.png)
+![](/images/que_pasa_sql.png)
 
 The exact list of tables, indexes schemas, and command syntax depend on the indexer and database it uses. While using TzKT, a query for a USDT balance will look like this:
 
@@ -134,7 +116,7 @@ Let's look at the different parts of this url:
 
 In addition to search speed, indexing has another advantage: the ability to modify indexing rules. For example, TzKT provides an additional index, where each Tezos FA1.2 and FA2 token has its internal id. So instead of comparing relatively long contract addresses, it will compare small numbers and retrieve data even faster.
 
-![](assets/tzkt_api_token.png)
+![](/images/tzkt_api_token.png)
 
 There are two types of blockchain indexers: full and selective. 
 
@@ -168,7 +150,7 @@ Many applications that work with on-chain data use an indexer.
 
 The simplest example of working with an indexer is a blockchain wallet. For example, to display a user's token balances, Temple Wallet queries this data from the TzKT indexer and gets tokens' tickers and logos from the contract metadata. 
 
-![](assets/temple_query.png)
+![](/images/temple_query.png)
 
 Try it yourself: follow [this link](https://api.tzkt.io/v1/tokens/balances?account=tz1UEQzJbuaGJgwvkekk6HwGwaKvjZ7rr9v4) and replace tz1...9v4 with your wallet address to see which tokens you have. This is the same query to TzKT API that Temple uses: '/tokens/balances' in constants getTokenBalances and getNFTBalances.
 
@@ -196,13 +178,13 @@ Using an indexer is not necessary, but the alternative — to use public RPC nod
 
 `octez-client hash data '"{address}"' of type address`
 
-![](assets/hash_data.png)
+![](/images/hash_data.png)
 
 Then you would need to find out the big_map id of the token contracts, pools, and farms you want to map. For example, Kolibri USD (kUSD) stores user balances in a big_map with id 380.
 
 `octez-client get element exprvEJ9kYbvt2rmka1jac8voDT4xJSAiy48YJdtrXEVxrdZJRpLYr of big map 380`
 
-![](assets/get_element.png)
+![](/images/get_element.png)
 
 That is, to find out the balances of FA1.2 and FA2 tokens, you need to collect in advance the id of the necessary big_map contracts of tokens, and in turn, ask them for values ​​by address.
 
@@ -224,15 +206,15 @@ We will make a simple page where users can enter their addresses and check the b
 
 First, let's create an empty HTML file in VS Code (you may use another editor, of course) and add the essential elements: doctype, head, title, and body.
 
-![](assets/check_balance_html_1.png)
+![](/images/check_balance_html_1.png)
 
 We will use AJAX and the jQuery library to request data via the API and process it. Incorporating a library is simple: just provide a link to it in the script element.
 
-![](assets/check_balance_html_2.png)
+![](/images/check_balance_html_2.png)
 
 Let's get the balance of our address via AJAX. 
 
-![](assets/check_balance_ajax.png)
+![](/images/check_balance_ajax.png)
 
 First, we added the $(document).ready() command. It ensures the page is loaded before the scripts are processed.
 
@@ -246,13 +228,13 @@ In the end, we will add a h2 element, in which we will display the balance. To d
 
 Let's open the page and check the result.
 
-![](assets/check_balance_result.png)
+![](/images/check_balance_result.png)
 
 ### Adding a button and field to check specific address balance
 
 AJAX now sends an API request as soon as the page loads. Let's add a button, pressing which will launch the request.
 
-![](assets/check_balance_button.png)
+![](/images/check_balance_button.png)
 
 To do this, wrap the h2 in a div element and make it hidden with the style="display:none" parameter.
 
@@ -260,7 +242,7 @@ Let's create a button and add a call to the check function to it, in which we wi
 
 Now we need to add a field for entering the user's address and tweak the check() function to insert it into the API request.
 
-![](assets/check_balance_input.png)
+![](/images/check_balance_input.png)
 
 To do this, we did the following: 
 
@@ -271,13 +253,13 @@ To do this, we did the following:
 
 Now you can enter any address and, by pressing the button, get its balance in tez.
 
-![](assets/check_balance_input_result.png)
+![](/images/check_balance_input_result.png)
 
 Experiment: take [the code of this page](https://gist.github.com/pavelTU/e48c71d09ff5dcfb5343699d485760d9), paste it into an empty HTML file and open it in a browser. 
 
 This is a simple example: the TzKT API returns the user's balance as JSON with only one number. The answer does not even need to be further processed: everything works as it is.
 
-![](assets/tzkt_api_balance.png)
+![](/images/tzkt_api_balance.png)
 
 When solving real-life cases, however, you will have to work with JSON arrays and carefully read API responses to select the necessary data. The next chapter explores this matter further.
 
@@ -297,7 +279,7 @@ It remains to find out the current value of assets in Sirius DEX and the value o
 
 We are starting a new page. First, let's try to get something simple, like the Sirius DEX internal contract id in the TzKT database.
 
-![](assets/sirius_contract_id_html.png)
+![](/images/sirius_contract_id_html.png)
 
 Let's copy the code of the first example and remove the button and the field for entering the address from it. Let's replace the API request URL with https://api.tzkt.io/v1/contracts/KT1TxqZ8QtKvLu3V3JH7Gx58n7Co8pgtpQU5 to get information about the contract from the indexer.
 
@@ -305,37 +287,37 @@ Now it’s time to change the function for data processing. To get specific valu
 
 Ultimately, we assign an internal ID, "contractId", to the corresponding HTML element and display it on the page in the h2 element.
 
-![](assets/sirius_contract_id_result.png)
+![](/images/sirius_contract_id_result.png)
   
 We made sure everything worked, so now we can get the data we need: tez and tzBTC balances.
 
 First, we should examine TzKT's response to our API request. It has a balance field in tez, so we can get it without changing the request.
 
-![](assets/tzkt_sirius_contract.png)
+![](/images/tzkt_sirius_contract.png)
 
 Now, assign the value from the received array to the balanceInTez variable by the balance key.
 
-![](assets/sirius_balance_html.png)
+![](/images/sirius_balance_html.png)
 
-![](assets/sirius_balance_result.png)
+![](/images/sirius_balance_result.png)
 
 Now we need to get the amount of tzBTC. Let's examine the storage of the liquidity backing contract on TzKT: it shows the amount of tzBTC under the tokenPool key. You can access it by requesting the contents of the storage. 
 
-![](assets/tzkt_sirius_storage.png)
+![](/images/tzkt_sirius_storage.png)
 
 Now we should create another AJAX request. In the URL, we specify the API request for the storage content and assign the value of the corresponding entry, tokenPool, to the balanceInTZBTC variable.
 
-![](assets/sirius_balance_tzbtc_html.png)
+![](/images/sirius_balance_tzbtc_html.png)
 
 On the page, we will display the balance in tzBTC.
 
-![](assets/sirius_balance_tzbtc_result.png)
+![](/images/sirius_balance_tzbtc_result.png)
 
 Now it’s time to calculate the subsidies for the year. The average year has 31,556,926 seconds. We divide this value by the block creation time and multiply it by the subsidy amount.
 
 We can get the block creation time and subsidy amount from TzKT at https://api.tzkt.io/v1/protocols/current. They will be referred to as timeBetweenBlocks and lbSubsidy in the response.
 
-![](assets/tzkt_protocols.png)
+![](/images/tzkt_protocols.png)
 
 So, we need to get data from two API requests in one function and use it for calculations. But as the variables are local and can't be used in other functions, we need to use nested functions:
 
@@ -348,11 +330,11 @@ So, we need to get data from two API requests in one function and use it for cal
 
 First, let's add a call to the checkTimeAndSubsidy function to the function to get the Sirius DEX balance in tez.
 
-![](assets/call_time_and_subsidy.png)
+![](/images/call_time_and_subsidy.png)
 
 Below, we will declare the same function and add an AJAX call to request protocol data from TzKT.
 
-![](assets/time_and_subsidy_function_1.png)
+![](/images/time_and_subsidy_function_1.png)
  
 We should assign three new variables: 
 
@@ -362,7 +344,7 @@ We should assign three new variables:
 
 We now have all the data to calculate the annual subsidy and APY liquidity backing.
 
-![](assets/time_and_subsidy_function_2.png)
+![](/images/time_and_subsidy_function_2.png)
 
 Now we can calculate the necessary values by creating the variables yearlySubsidy and APY. 
 
@@ -370,7 +352,7 @@ To calculate APY, it is not necessary to obtain asset prices. At any given momen
 
 It’s now possible to give the annual amount of subsidies and APY internal ID values, and add them to the page. 
 
-![](assets/time_and_subsidy_result.png)
+![](/images/time_and_subsidy_result.png)
 
 [Example code on Github](https://gist.github.com/pavelTU/5a56c940952f01e838a3ca98215eab15).
 
@@ -388,19 +370,23 @@ Try to calculate the value of tez in the Sirius DEX liquidity pool.
 
 First, check [the tez/kUSD contract](https://tzkt.io/KT1K4EwTpbvYN9agJdjpyJm4ZZdhpUNKB3F6/storage/) on an exchange on TzKT. Then examine the storage and find the necessary keys: tez_pool is the amount of tez, and token_pool stands for the amount of kUSD. 
 
-![](assets/tez_kusd_contract.png)
+![](/images/tez_kusd_contract.png)
  
 And we need to remember that the token's amount in the contract's storage is a natural number. And to display the actual amount of tokens, we need to divide that nat by the corresponding number of decimals written in the contract's metadata. For example, kUSD has 18 zeros after the decimal point, and when we get raw token amount data, we need to divide it by 10^18 to get the actual amount.
 
-![](assets/kolibri_usd.png)
+![](/images/kolibri_usd.png)
 
 Since we need to know the number of tez in the pool to calculate the cost of all tez, we need to use nested functions. After receiving the balanceInTez variable, we call the checkValueOfTez function with the balanceInTez argument. In this function, we use AJAX to get data from the tez/kUSD pool (remember to divide the number of tokens depending on the required number of zeros!)
 
 Next, we calculate the price of one tez and the cost of all tez in the pool. At the end, we will add the readableValue variable: using the toLocaleString () method, we will add comma separators to the number.
 
-![](assets/homework_value_of_tez.png)
+![](/images/homework_value_of_tez.png)
 
 As a result, we get the cost of all tez in the Sirius DEX pool, which we get completely from on-chain data.
 
-![](assets/homework_value_of_tez_result.png)
->>>>>>> 9cd286b (indexers cleanup)
+![](/images/homework_value_of_tez_result.png)
+
+
+{% callout type="note" %}
+This content was created by [Tezos Ukraine](https://tezos.org.ua/en) under MIT Licence. The original version can be found [here](https://indexers.tezos.org.ua/) in multiple languages.
+{% /callout %}
