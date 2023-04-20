@@ -8,12 +8,6 @@ authors: Thomas Zoughebi, Aymeric Bethencourt, and Maxime Fernandez
 
 _Octez_ is the official client to interact with a Tezos node via RPC (remote procedural calls). In theory there can be multiple implementations of the Tezos protocol. Currently there is only Octez, but there may be others in the future. Octez consists of several binaries (i.e., executable files), including: a client, a node, and a baker.
 
-{% callout type="note" %}
-For a more compresensive guide on how to install Octez, including via docker images, see the [docs](https://tezos.gitlab.io/introduction/howtoget.html) by Nomadic Labs. 
-
-Below is an abrided version of the [Octez guide](https://opentezos.france-ioi.org/en/a/1332828229711949831;p=1,3556096645042535892;pa=0) found on OpenTezos.
-{% /callout %}
-
 ### How to install the *octez-client*
 
 #### On Mac OS with [Homebrew](https://brew.sh/)
@@ -300,3 +294,10 @@ You can observe your actions on explorers like *tzkt* or *tzstats*:
 * Ghostnet: [TzKT](https://ghostnet.tzkt.io/), [TzStats](https://edo.tzstats.com)
   
 OpenTezos has a guide on [how to use an explorer](https://opentezos.com/explorer).
+
+
+{% callout type="note" %}
+For a more compresensive guide on how to install Octez, including via docker images, see the [docs](https://tezos.gitlab.io/introduction/howtoget.html) by Nomadic Labs. 
+
+The above is an abrided version of the [Octez guide](https://opentezos.france-ioi.org/en/a/1332828229711949831;p=1,3556096645042535892;pa=0) found on OpenTezos.
+{% /callout %}
