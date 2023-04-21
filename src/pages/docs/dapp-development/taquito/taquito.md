@@ -1,6 +1,6 @@
 # Introduction
 
-Interacting with the Tezos blockchain can be done using to the Tezos CLI. However, it is not suitable for Dapps since it needs to be integrated into web interfaces.
+Interacting with the Tezos blockchain can be done using the Tezos CLI. However, it is not suitable for dapps since it needs to be integrated into web interfaces.
 
 Fortunately, the Tezos ecosystem offers libraries in several languages that enable developers to build efficient Dapps. _Taquito_ is one of these: it is a Typescript library developed and maintained by _ECAD Labs_. This library offers developers all of the everyday interactions with the blockchain: retrieving information about a Tezos network, sending a transaction, contract origination and interactions such as calling an entrypoint and fetching the storage, delegation, fetching metadata, etc.
 
@@ -41,7 +41,7 @@ $ npm install @taquito/taquito
 
 We first need to configure _Taquito_ with an RPC URL (to communicate with a Tezos node).
 
-To do that we use the `TezosToolkit`: it is the "facade class that surfaces all of the libraries capability and allow its configuration". When instantiated, it requires an RPC URL.
+To do that we use the `TezosToolkit`: it is the "facade class that surfaces all of the libraries capability and allows its configuration". When instantiated, it requires an RPC URL.
 
 Here, we will use the _Ghostnet_ RPC URL offered for free by ECAD Labs at [https://ghostnet.ecadinfra.com](https://ghostnet.ecadinfra.com).
 
@@ -60,7 +60,7 @@ npm install @taquito/beacon-wallet
 ```
 
 Next, import the `BeaconWallet` class and create a new instance by passing an object with the different options required by the Beacon SDK.  
-After creating the instance of the wallet, you can request the permission from the user to connect their wallet before passing the wallet instance to the wallet provider in the TezosToolkit provided by Taquito:
+After creating the instance of the wallet, you can request permission from the user to connect their wallet before passing the wallet instance to the wallet provider in the TezosToolkit provided by Taquito:
 
 ```typescript
 import { TezosToolkit } from '@taquito/taquito'
@@ -130,6 +130,9 @@ const storage = await contract.storage()
 
 ## Getting token metadata
 
+Taquito also provides a library to get token metadata, which can be very useful when you build a dapp that handles NFTs.  
+Without Taquito, you would have to fetch the location of the metadata from the contract, understand where the metadata is stored, fetch it and parse it. Taquito does all of that for you:
+
 ```typescript
 import { TezosToolkit } from '@taquito/taquito'
 import { Tzip12Module, tzip12 } from '@taquito/tzip12'
@@ -143,7 +146,11 @@ const tokenMetadata = await contract.tzip12().getTokenMetadata(TOKEN_ID)
 
 # Interacting with the Tezos blockchain
 
+Taquito lets you interact with the Tezos blockchain in multiple ways, for example, by sending tez, originating new contracts, interacting with existing contracts or reading events emitted by a contract. Most of these interactions start with an instance of the `TezosToolkit`:
+
 ## Sending tez
+
+After creating an instance of the `TezosToolkit`, you can use the Contract API (for backend apps) or the Wallet API (for frontend apps) to access the `transfer` method and pass an object as a parameter with a `to` property for the recipient of the transfer and an `amount` property for the amount to be sent:
 
 ```typescript
 import { TezosToolkit } from '@taquito/taquito'
@@ -154,6 +161,8 @@ await op.confirmation()
 ```
 
 ## Originating a contract
+
+The origination of a new contract is also possible through the Contract API or the Wallet API with the `originate` method. It takes an object as a parameter with a `code` property for the Michelson code of the contract and a `storage` property for the initial storage of the contract:
 
 ```typescript
 import { TezosToolkit } from '@taquito/taquito'
@@ -175,6 +184,10 @@ const { contractAddress } = op
 
 ## Sending a contract call
 
+One of the main features of your dapp is probably smart contract interactions.
+
+After creating the contract abstraction for the contract you want to interact with, you can call one of the entrypoints available as a method on the `methods` property. The entrypoint method takes a parameter of the type expected by the contract and returns a contract call that can be executed by calling the `send` method:
+
 ```typescript
 import { TezosToolkit } from '@taquito/taquito'
 
@@ -186,6 +199,10 @@ await op.confirmation()
 ```
 
 ## Reading smart contract events
+
+Contract events is a way for contracts to deliver event-like information to third-party (off-chain) applications. It can be emitted by using the `EMIT` instruction in Michelson.
+
+Taquito provides a simple way for users to subscribe to certain events on the blockchain via the `PollingSubscribeProvider`.
 
 ```typescript
 import { TezosToolkit, PollingSubscribeProvider } from '@taquito/taquito'
@@ -212,3 +229,26 @@ try {
 ```
 
 # Best practices
+
+## One single TezosToolkit instance
+
+You should make sure that you only have one instance of the `TezosToolkit` at all times in your app to avoid using the wrong one, which can have negative financial consequences for your users.  
+Even if your app requires a change in the network or Tezos node, it is better to create a new instance of the `TezosToolkit` and stop using the previous one to prevent unexpected behaviours.
+
+## Contract API vs Wallet API
+
+The Contract API is better suited for backend applications that don't require the manual signing of transactions, while the Wallet API is better suited for frontend applications that will interact with the users' wallets.  
+The use of one or the other should be consistent within the same app to prevent unexpected behaviours.
+
+## `methods` vs `methodsObject`
+
+The `methodsObject` property is better used in cases when the parameter for a contract call is a complex pair.  
+You can use `methods` to pass single parameters or simple pairs.
+
+## Catching transaction errors
+
+It is important to wrap contract calls and other transactions sent from the app inside a `try... catch` in order to handle transaction failures. Transactions fail more often than you think and you must handle it to provide visual feedback to your users and prevent unwanted behaviours like users clicking a button again even if the transaction already failed before.
+
+{% callout title="More information" %}
+You can find more information about Taquito on the official website: [Taquito](https://tezostaquito.io/docs/quick_start)
+{% /callout%}

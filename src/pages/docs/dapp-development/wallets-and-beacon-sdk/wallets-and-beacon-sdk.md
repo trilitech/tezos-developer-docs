@@ -148,4 +148,6 @@ In case your dapp is focussed around a specific time (eg. NFT drop or a countdow
 
 ---
 
+{% callout title="More information"%}
 You can find more details about Beacon by visiting [https://docs.walletbeacon.io/](https://docs.walletbeacon.io/)
+{% /callout%}
