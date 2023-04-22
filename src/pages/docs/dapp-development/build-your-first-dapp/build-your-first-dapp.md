@@ -30,32 +30,87 @@ You will also need a couple of dev dependencies:
 npm install --save-dev os-browserify stream-browserify buffer
 ```
 
-These dependencies are required to use Beacon with Webpack.
+These dependencies are required to use Beacon with Webpack and are used in the `config-overrides.js` file:
+
+```javascript
+const webpack = require('webpack')
+
+module.exports = function override(config, env) {
+  console.log('override')
+  let loaders = config.resolve
+  loaders.fallback = {
+    stream: require.resolve('stream-browserify'),
+    buffer: require.resolve('buffer'),
+    os: require.resolve('os-browserify/browser'),
+  }
+  config.plugins.push(
+    new webpack.ProvidePlugin({
+      Buffer: ['buffer', 'Buffer'],
+    })
+  )
+
+  return config
+}
+```
 
 # Setting up the app
 
+After the environment is ready, you can create a `App.tsx` file to be the entry point of your app.
+
+When the app mounts, you import the different classes and components needed and you create a new instance of the `TezosToolkit`. After that, you update the UI according to the connection status of the user's wallet.
+
 ```typescript
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { TezosToolkit } from '@taquito/taquito'
 import type { BeaconWallet } from '@taquito/beacon-wallet'
+import ConnectButton from './components/ConnectWallet'
+import DisconnectButton from './components/DisconnectWallet'
 
 const App = () => {
-  const [Tezos, setTezos] = useState<TezosToolkit>(
-    new TezosToolkit('https://ghostnet.ecadinfra.com')
-  )
+  const [Tezos, setTezos] = useState<TezosToolkit | null>(null)
   const [wallet, setWallet] = useState<BeaconWallet | null>(null)
   const [userAddress, setUserAddress] = useState<string>('')
   const [userBalance, setUserBalance] = useState<number>(0)
 
   const contractAddress: string = 'KT1...'
 
-  return <div>Your code here...</div>
+  useEffect(() => {
+    const tezos = new TezosToolkit('https://ghostnet.ecadinfra.com')
+    setTezos(tezos)
+  })
+
+  return (
+    <div>
+      <ConnectButton
+        Tezos={Tezos}
+        setWallet={setWallet}
+        setUserAddress={setUserAddress}
+        setUserBalance={setUserBalance}
+        setStorage={setStorage}
+        wallet={wallet}
+      />
+      <DisconnectButton
+        wallet={wallet}
+        setUserAddress={setUserAddress}
+        setUserBalance={setUserBalance}
+        setWallet={setWallet}
+        setTezos={setTezos}
+      />
+      <div>Your code here...</div>
+    </div>
+  )
 }
 
 export default App
 ```
 
 # Connecting /Disconnecting the wallet
+
+It is best practice to keep all the functions related to the connection, interactions and disconnection of the wallet in their respective components.
+
+You will here create 2 components: one responsible for the connection of the wallet and another one responsible for its disconnection.
+
+In the `ConnectButton.tsx` file, you will receive various data and functions from the main component to infer the state of the dapp and update it according to the user's actions.
 
 ```typescript
 import React, { Dispatch, SetStateAction, useState, useEffect } from 'react'
@@ -69,27 +124,21 @@ import {
 
 type ButtonProps = {
   Tezos: TezosToolkit
-  setContract: Dispatch<SetStateAction<any>>
   setWallet: Dispatch<SetStateAction<any>>
   setUserAddress: Dispatch<SetStateAction<string>>
   setUserBalance: Dispatch<SetStateAction<number>>
   setStorage: Dispatch<SetStateAction<number>>
   contractAddress: string
-  setBeaconConnection: Dispatch<SetStateAction<boolean>>
-  setPublicToken: Dispatch<SetStateAction<string | null>>
   wallet: BeaconWallet
 }
 
 const ConnectButton = ({
   Tezos,
-  setContract,
   setWallet,
   setUserAddress,
   setUserBalance,
   setStorage,
   contractAddress,
-  setBeaconConnection,
-  setPublicToken,
   wallet,
 }: ButtonProps): JSX.Element => {
   const setup = async (userAddress: string): Promise<void> => {
@@ -115,7 +164,6 @@ const ConnectButton = ({
       // gets user's address
       const userAddress = await wallet.getPKH()
       await setup(userAddress)
-      setBeaconConnection(true)
     } catch (error) {
       console.log(error)
     }
@@ -134,7 +182,6 @@ const ConnectButton = ({
         if (activeAccount) {
           const userAddress = await wallet.getPKH()
           await setup(userAddress)
-          setBeaconConnection(true)
         }
       })(),
     []
@@ -154,6 +201,10 @@ const ConnectButton = ({
 export default ConnectButton
 ```
 
+In the `DisconnectButton.tsx` component, you receive functions as props to update the general UI after the user disconnects their wallet.
+
+It is essential in this step to clean up the state of the dapp so that the user can reconnect their wallet as if they just had loaded the dapp and to reset the UI to what it was before the user connects their wallet.
+
 ```typescript
 import React, { Dispatch, SetStateAction } from 'react'
 import { BeaconWallet } from '@taquito/beacon-wallet'
@@ -161,22 +212,18 @@ import { TezosToolkit } from '@taquito/taquito'
 
 interface ButtonProps {
   wallet: BeaconWallet | null
-  setPublicToken: Dispatch<SetStateAction<string | null>>
   setUserAddress: Dispatch<SetStateAction<string>>
   setUserBalance: Dispatch<SetStateAction<number>>
   setWallet: Dispatch<SetStateAction<any>>
   setTezos: Dispatch<SetStateAction<TezosToolkit>>
-  setBeaconConnection: Dispatch<SetStateAction<boolean>>
 }
 
 const DisconnectButton = ({
   wallet,
-  setPublicToken,
   setUserAddress,
   setUserBalance,
   setWallet,
   setTezos,
-  setBeaconConnection,
 }: ButtonProps): JSX.Element => {
   const disconnectWallet = async (): Promise<void> => {
     if (wallet) {
@@ -187,8 +234,6 @@ const DisconnectButton = ({
     setWallet(null)
     const tezosTK = new TezosToolkit('https://ghostnet.ecadinfra.com')
     setTezos(tezosTK)
-    setBeaconConnection(false)
-    setPublicToken(null)
   }
 
   return (
@@ -204,6 +249,15 @@ export default DisconnectButton
 ```
 
 # Transfering tez
+
+You can add a feature to your dapp that lets the users transfer tez from their account to another account.
+
+The flow of sending a transfer transaction is the following:
+
+1. You use the `wallet` property of the `TezosToolkit` instance to call the `transfer` method
+2. The `transfer` method takes an object as a parameter with a `to` property for the recipient's address and an `amount` property for the amount in tez to be sent
+3. You call the `send` method on the object returned by `transfer`
+4. This returns an operation object, you can wait for the confirmation by calling the `confirmation` method (if no parameter is passed, the number of confirmations by default is 1)
 
 ```typescript
 import React, { useState, Dispatch, SetStateAction } from 'react'
@@ -279,6 +333,17 @@ export default Transfers
 ```
 
 # Sending a contract call
+
+One of the most interesting features of a dapp is the possibility to interact with smart contracts on-chain.
+
+Here is how it works:
+
+1. You use the instance of the `TezosToolkit` to create the contract abstraction for the contract you target
+2. The contract abstraction exposes a `methods` property that contains methods named after each entrypoint of the contract
+3. You call the entrypoint you target and you pass the required parameters
+4. This returns an object with a `send` method that you must call to send the transaction
+5. After being sent, Taquito returns an operation object with a `confirmation` property. By default, Taquito waits for 1 confirmation
+6. After the transaction is confirmed, you can call the `storage` method on the contract abstraction to get the updated storage of the contract
 
 ```typescript
 import React, { useState, Dispatch, SetStateAction } from 'react'
