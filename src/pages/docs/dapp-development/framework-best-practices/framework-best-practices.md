@@ -1,10 +1,15 @@
-# Framework Best Practices
+---
+id: framework-best-practices
+title: Framework best practices
+slug: /framework-best-practices
+authors: Claude Barde
+---
 
 When creating a frontend application that uses the Tezos blockchain, you will most probably use a JavaScript framework, may it be React, Vue, Svelte or another one.
 
 There are some best practices to follow when you use one of these frameworks to make sure that your code is safe, your app behaves in the intended way and your users enjoy a great experience. Here are the most important ones.
 
-# Dapp lifecycle
+## Dapp lifecycle
 
 The JS framework of your choice probably introduces different functions or models to manage the lifecycles of your application: when it's mounted, when it's updated and when it's unmounted.
 
@@ -14,7 +19,7 @@ There are actions specific to a Tezos dapp that are better implemented during th
 - On update: this is when you ask the user if they want to connect their wallet after they interact with your dapp. Once the dapp is mounted, you can also fetch relevant information like XTZ balance, token balances or connection status.
 - On unmount: you can disconnect the wallet if you wish to, and you should also clear any interval you set, for example, to regularly fetch data from the blockchain.
 
-# Wallet connection
+## Wallet connection
 
 Connecting and interacting with a wallet is an experience specific to web3 apps and although there is still a lot to learn about user experience with wallets, some rules already exist to provide the best user experience possible.
 
@@ -24,7 +29,7 @@ Connecting and interacting with a wallet is an experience specific to web3 apps 
 4. **Offer the option to select the RPC node**: network traffic can get busy on Tezos, but you can provide a better UX by adding a switch for a different Tezos node if the one selected by default becomes too slow. Some power users may also like having the choice to enter the address of their favourite node!
 5. **Add an option to disconnect the wallet**: some users want to switch wallets while using your dapp, so there must be a way to disconnect their wallet and connect a new one effortlessly.
 
-# Interacting with Tezos
+## Interacting with Tezos
 
 The interactions with a blockchain introduce new challenges and solutions for these challenges:
 
