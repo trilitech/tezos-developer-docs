@@ -69,7 +69,7 @@ function Header({ navigation }) {
   return (
     <header
       className={clsx(
-        'sticky top-0 z-50 flex flex-wrap items-center justify-between bg-white px-4 py-5 shadow-md shadow-slate-900/5 transition duration-500 dark:shadow-none sm:px-6 lg:px-8',
+        'sticky top-0 z-50 flex flex-wrap items-center justify-between bg-slate-900 px-4 py-5 shadow-md shadow-slate-900/5 transition duration-500 dark:shadow-none sm:px-6 lg:px-8',
         isScrolled
           ? 'dark:bg-slate-900/95 dark:backdrop-blur dark:[@supports(backdrop-filter:blur(0))]:bg-slate-900/75'
           : 'dark:bg-transparent'
@@ -81,9 +81,9 @@ function Header({ navigation }) {
       <div className="relative flex flex-grow basis-0 items-center">
         <Link href="/" aria-label="Home page">
           <Logomark className="h-8 w-8 inline-flex" />
-          <h1 className="hidden h-8 w-auto fill-slate-700 dark:fill-sky-100 lg:inline-flex text-blue-600 dark:text-white text-xl" >
+          <h1 className="hidden h-8 w-auto fill-slate-700 dark:fill-sky-100 lg:inline-flex text-white dark:text-white text-xl" >
           Tezos Docs
-          <span class="inline-flex items-center rounded-md bg-blue-50 px-1.5 py-0.5 m-2 text-xs text-blue-700 ring-1 ring-inset ring-blue-600/20 dark:text-white dark:bg-transparent dark:ring-white">Beta</span>
+          <span class="inline-flex items-center rounded-md bg-transparent px-1.5 py-0.5 m-2 text-xxs text-white ring-1 ring-inset ring-white dark:text-white dark:bg-transparent dark:ring-white">Beta</span>
           </h1>
         </Link>
       </div>
@@ -92,8 +92,14 @@ function Header({ navigation }) {
       </div>
       <div className="relative flex basis-0 justify-end gap-6 sm:gap-8 md:flex-grow">
         <ThemeSelector className="relative z-10" />
-        <Link href="https://github.com/trilitech/docs-staging" className="group" aria-label="GitHub">
-          <GitHubIcon className="h-6 w-6 fill-slate-400 group-hover:fill-slate-500 dark:group-hover:fill-slate-300" />
+        <Link
+          href="https://github.com/trilitech/docs-staging"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group"
+          aria-label="GitHub"
+        >
+          <GitHubIcon className="h-6 w-6 fill-slate-400 group-hover:fill-slate-300" />
         </Link>
       </div>
     </header>
@@ -200,7 +206,7 @@ export function Layout({ children, title, tableOfContents }) {
                   </p>
                 )}
                 {title && (
-                  <h1 className="font-display text-3xl tracking-tight text-slate-900 dark:text-white">
+                  <h1 className="font-display text-4xl text-gradient dark:text-white">
                     {title}
                   </h1>
                 )}

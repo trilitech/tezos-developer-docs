@@ -6,6 +6,7 @@ module.exports = {
   darkMode: 'class',
   theme: {
     fontSize: {
+      xxs: ['0.625rem', { lineHeight: '0.75rem' }],
       xs: ['0.75rem', { lineHeight: '1rem' }],
       sm: ['0.875rem', { lineHeight: '1.5rem' }],
       base: ['1rem', { lineHeight: '2rem' }],
@@ -23,7 +24,7 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['Inter', ...defaultTheme.fontFamily.sans],
-        display: ['Lexend', ...defaultTheme.fontFamily.sans],
+        display: ['GT-Eesti-Display-Regular', ...defaultTheme.fontFamily.sans],
       },
       maxWidth: {
         '8xl': '88rem',

@@ -4,13 +4,13 @@ import { Icon } from '@/components/Icon'
 export function QuickLinks({ children }) {
   return (
     <div className="not-prose my-12 grid grid-cols-1 sm:grid-rows-6 sm:grid-flow-col sm:grid-cols-3 sm:gap-1">
-        <h2 className="font-semibold text-lg">Tezos Basics</h2>
+        <h2 className="font-semibold text-lg text-slate-900">Tezos Basics</h2>
         {children.slice(0, Math.ceil(children.length / 3))}
 
-        <h2 className="font-semibold text-lg">NFTs, Gaming and DeFi</h2>
+        <h2 className="font-semibold text-lg text-slate-900">NFTs, Gaming and DeFi</h2>
         {children.slice(Math.ceil(children.length / 3), Math.ceil(children.length / 3) * 2)}
  
-        <h2 className="font-semibold text-lg">DApp Development</h2>
+        <h2 className="font-semibold text-lg text-slate-900">DApp Development</h2>
         {children.slice(Math.ceil(children.length / 3) * 2)}
 
     </div>
