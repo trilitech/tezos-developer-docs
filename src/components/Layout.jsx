@@ -23,7 +23,7 @@ const navigation = [
     ],
   },
   {
-    title: 'NFTs and Gaming',
+    title: 'NFTs, Gaming and DeFi',
     links: [
       { title: 'NFTs and Tokens', href: '/docs/nft/nfts-and-tokens/nfts-and-tokens' },
       { title: 'Create an NFT', href: '/docs/nft/create-an-nft/create-an-nft' },
@@ -83,6 +83,7 @@ function Header({ navigation }) {
           <Logomark className="h-8 w-8 inline-flex" />
           <h1 className="hidden h-8 w-auto fill-slate-700 dark:fill-sky-100 lg:inline-flex text-blue-600 dark:text-white text-xl" >
           Tezos Docs
+          <span class="inline-flex items-center rounded-md bg-blue-50 px-1.5 py-0.5 m-2 text-xs text-blue-700 ring-1 ring-inset ring-blue-600/20 dark:text-white dark:bg-transparent dark:ring-white">Beta</span>
           </h1>
         </Link>
       </div>
