@@ -1,4 +1,9 @@
-# Build your first dapp on Tezos
+---
+id: build-your-first-dapp
+title: Build your first dapp on Tezos
+slug: /build-your-first-dapp
+authors: Claude Barde
+---
 
 A decentralized application or dapp is an application that connects to a blockchain and provides services that are related to the blockchain it connects to.
 
@@ -6,7 +11,7 @@ You can use the framework of your choice to build a dapp on Tezos. In this artic
 
 The code presented here is made of snippets you can use in your React application. You will learn how to set up a dapp, connect and disconnect a wallet, transfer tez and make a contract call.
 
-# Installing the packages
+## Installing the packages
 
 The first step is to install the NPM packages you need to run your dapp with the following command:
 
@@ -53,7 +58,7 @@ module.exports = function override(config, env) {
 }
 ```
 
-# Setting up the app
+## Setting up the app
 
 After the environment is ready, you can create a `App.tsx` file to be the entry point of your app.
 
@@ -104,7 +109,7 @@ const App = () => {
 export default App
 ```
 
-# Connecting /Disconnecting the wallet
+## Connecting /Disconnecting the wallet
 
 It is best practice to keep all the functions related to the connection, interactions and disconnection of the wallet in their respective components.
 
@@ -248,7 +253,7 @@ const DisconnectButton = ({
 export default DisconnectButton
 ```
 
-# Transfering tez
+## Transfering tez
 
 You can add a feature to your dapp that lets the users transfer tez from their account to another account.
 
@@ -332,7 +337,7 @@ const Transfers = ({
 export default Transfers
 ```
 
-# Sending a contract call
+## Sending a contract call
 
 One of the most interesting features of a dapp is the possibility to interact with smart contracts on-chain.
 
@@ -434,5 +439,5 @@ export default UpdateContract
 ```
 
 {% callout title="More information" %}
-You can find the code for this dapp in [this GitHub repo](https://github.com/ecadlabs/taquito-react-template)
+You can find the code for this dapp in [this GitHub repo.](https://github.com/ecadlabs/taquito-react-template)
 {% /callout %}
