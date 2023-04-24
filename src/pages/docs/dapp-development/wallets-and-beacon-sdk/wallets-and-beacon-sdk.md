@@ -1,21 +1,28 @@
-# Overview of wallets
+---
+id: wallets-and-beacon-sdk
+title: Wallets and Beacon SDK
+slug: /wallets-and-beacon-sdk
+authors: Claude Barde
+---
+
+## Overview of wallets
 
 Wallets are an essential component of using blockchain services. They allow users to see their balances, find the NFTs they own and interact with the Tezos blockchain and its smart contracts.
 
-## Desktop wallets
+### Desktop wallets
 
 - [Temple](https://templewallet.com/) (browser extension)
 - [Kukai](https://wallet.kukai.app/) (website)
 - [Umami](https://umamiwallet.com/) (app)
 
-## Mobile wallets
+### Mobile wallets
 
 - [Naan](https://www.naan.app/)
 - [Temple](https://templewallet.com/)
 - [Kukai](https://wallet.kukai.app/)
 - [Umami](https://umamiwallet.com/)
 
-# Introduction to the Beacon SDK
+## Introduction to the Beacon SDK
 
 Beacon is the implementation of the [tzip-10 proposal](https://gitlab.com/tezos/tzip/-/tree/master/proposals/tzip-10), which describes an interaction standard between a wallet and a dapp.
 
@@ -27,7 +34,7 @@ The Beacon SDK also includes default UI elements for pairing wallets and showing
 
 > The Beacon SDK is generally used with Taquito. If you plan to interact with smart contracts, you can check the section about Taquito to see how to use Beacon with Taquito.
 
-# Setting up the Beacon SDK
+## Setting up the Beacon SDK
 
 The Beacon SDK can be installed with NPM:
 `npm install --save @airgap/beacon-sdk`
@@ -82,9 +89,9 @@ const dAppClient = new DAppClient({ name: "My dope dapp" });
 await dAppClient.clearActiveAccount();
 ```
 
-# Interacting with Tezos
+## Interacting with Tezos
 
-## Sending tez
+### Sending tez
 
 Let's send a simple transaction to the wallet that sends 1 tez to ourselves:
 
@@ -100,7 +107,7 @@ const response = await dAppClient.requestOperation({
 })
 ```
 
-## Making a contract call
+### Making a contract call
 
 Let's call an entrypoint called `mint` with a value of `3` and an amount of 0 tez:
 
@@ -124,25 +131,25 @@ const result = await dAppClient.requestOperation({
 })
 ```
 
-# Best practices
+## Best practices
 
-## Make sure the Beacon SDK is up to date
+### Make sure the Beacon SDK is up to date
 
 The Beacon SDK receives frequent updates with small bugfixes and performance improvements. We keep breaking changes to a minimum, so updating is usually as easy as increasing the version number.
 
-## Reusing connected accounts
+### Reusing connected accounts
 
 This one is a basic concept of Beacon, but still very important.
 
 Every time a user connects their wallet and shares permission to use an account, that account is persisted on the dapp side. At this point, the UI should reflect that the user is connected and display the address that was shared. The "Connect" or "Sync" button should be replaced by a "Disconnect" or "Unsync" button. Even when the user refreshes, the account is still present and can be retrieved by calling `dAppClient.getActiveAccount()`.
 
-## Connect to multiple RPCs
+### Connect to multiple RPCs
 
 If a high number of users are using your dapp at the same time, the load on the RPC can spike. Ideally, the server infrastructure should be using a load balancer and caching to handle the load. If no such infrastructure is available, it is a good idea to provide an array of nodes and randomly select one on pageload. In case one of the nodes goes down, a user can connect to a different one by refreshing.
 
 An even better approach is to add a node selection to your dapp, including a way for users to provide their own RPC.
 
-## Allow users to connect their wallet early on
+### Allow users to connect their wallet early on
 
 In case your dapp is focussed around a specific time (eg. NFT drop or a countdown of some sorts), you should already provide a way for users to pair their wallet with the dapp. This will reduce the load on the Beacon Network once the countdown hits 0.
 
