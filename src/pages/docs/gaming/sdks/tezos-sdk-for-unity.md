@@ -130,6 +130,6 @@ The Tezos SDK utilizes modified versions of the following libraries for communic
 
 The SDK supports Windows, Linux, MacOS, iOS, Android, and WebGL platforms.
 
-{% callout titel="More information"%}
-For more information you can read detailed [documentation](https://opentezos.com/gaming/unity-sdk/) on OpenTezos.
+{% callout title="More information"%}
+For more information you can read detailed [documentation](https://opentezos.com/gaming/unity-sdk/api-documentation/) on OpenTezos.
 {% /callout %}
