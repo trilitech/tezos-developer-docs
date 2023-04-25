@@ -84,5 +84,5 @@ That’s it, you can now use ctez while receiving rewards for baking. Put them i
 To return the collateralized XTZ, buy the respective amount of ctez and redeem it in your farm interface.
 
 {% callout type="note" %}
-This guide is from Tezos Ukraine and can be found [here](https://tezos.org.ua/en/blog/guide-to-ctez).
+This guide was created by Tezos Ukraine and can be found [here](https://tezos.org.ua/en/blog/guide-to-ctez).
 {% /callout %}
