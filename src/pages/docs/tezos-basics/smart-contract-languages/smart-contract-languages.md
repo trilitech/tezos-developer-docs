@@ -1,88 +1,190 @@
 ---
-title: A Guide to Ctez
-description: Learn more about NFTs and how to create them using the Tezos blockchain and the IPFS
-id: guide-to-ctez
+id: smart-contracts
+title: Smart contracts
+authors: Thomas Zoughebi, Aymeric Bethencourt, and Maxime Fernandez
 ---
+In this chapter, you will learn the basics of Tezos smart contracts. Their components and the workflow to deploy and use them on the Tezos *blockchain*.
 
-## Ctez in a Nutshell
+## General definition of a Tezos smart contract
+A smart contract is a piece of code stored on the *blockchain*. It contains a **set of instructions** and **rules** to trigger them (see the [promises](/blockchain-basics/smart-contracts#definition-of-a-smart-contract) from the "*Blockchain Basics*" module).
 
-Ctez is a synthetic XTZ that accumulates rewards from delegating XTZ. Literally: 1 ctez can be worth 1 XTZ today, and a year from now it will be worth 1.06 XTZ or more.
+Once deployed (stored), it becomes **immutable**. A Tezos smart contract is deployed using an **operation** (note here the Tezos' vocabulary, we don't talk about a "transaction" for a deployment like before). This operation still requires payment of fees.
 
-In this post, we explain how the ctez exchange rate is formed, when it is rational to aquire ctez, and when it's sensible to release in your own oven.
+So, because we embed the instructions and the rules inside the smart contract, they are **immutable** too. Though for smart contracts, the key difference with a transfer of coins is a user *can trigger the execution of the code without modifying it. Therefore, without moving it to another operation or block like coins*. It stays where it was stored **forever**.
 
-DEX pools and DeFi project contracts accumulate large amounts of XTZ. Therefore, a question arises: who bakes these XTZs? If the project delegates them, then to whom exactly? What is a user to do if they want to use DeFi but don’t want to delegate to a particular baker?
+Tezos doesn't use an [UTXO model](https://en.wikipedia.org/wiki/Unspent_transaction_output) (no "*vaults*", see *Blockchain Basics*) but a **stateful accounts** one [[1]](/tezos-basics/smart-contracts#references).
 
-These problems are solved by ctez. Users issue ctez against XTZ using their own ovens, and choose to whom to delegate their funds.
+Like in Ethereum, Tezos uses 2 types of accounts:
+1. Classic accounts with a primary address, to store tez (ꜩ)
+2. Smart contract accounts with an address, storing code and tez (ꜩ)
 
-The ctez not only represents the value of XTZ but also the accumulated reward from baking. For example, 1 ctez may be worth 1 XTZ today, after one year it will be 1.06 XTZ, and after two years it will be 1.12 XTZ. In reality, the exchange rate is not regulated through pegging to collateral. Instead, it uses the mechanism of ctez supply and demand regulation.
+In Tezos vocabulary, "*contracts*" refers to both types in general. Actually each *contract* has a "**_manager_**". Precisely, a classic account has an "**_owner_**". If a contract has the "*spendable*" property, the manager is the entity allowed to spend funds from it.
 
-## How ctez Works
+Smart contracts can achieve different kinds of operations with coins and *other smart contracts*. They're comparable to *automatic* **sealed** food and drink dispensers from the same company:  
+- Each machine has a contract saying "*Give me cryptocurrency, then I give you food or drink*" (promises)
+- Each machine can have a different smart contract for various foods or drinks (see that as asset types)
+- There could be another smart contract gathering the cryptocurrency total for the company (from previous smart contracts)
 
-The ctez exchange rate mechanism consists of two parts:
+Each machine doesn't operate until enough currency is delivered (*Gas*). Note that the **quantities** of foods or drinks changes while their **types** can't (ever).
 
-*   ctez issuance ovens;
-*   AMM for the pairing of ctez and XTZ
+Of course, smart contracts like the Tezos ones go beyond this metaphor. Thanks to *transparency* and *immutability*, they allow an **agreement** to be secured between two or more parties. In this context, the concept of "[Code is Law](https://en.wikipedia.org/wiki/Lawrence_Lessig#%22Code_is_law%22)" from [_Lawrence Lessig_](https://en.wikipedia.org/wiki/Lawrence_Lessig) is very appropriate.
 
-Users release ctez against XTZ collateral. To do this, they create contract ovens, make deposits, and release the ctez. When a user creates an oven, they choose a baker to whom they delegate the deposited XTZ. The baker deposits the rewards into the same ovens.
+For example, it is common to create financial instruments like various *tokens* (usually worth a fraction of the blockchain's *coin*) with different usability and characteristics inside a multiple smart contracts system. Other more or less complex projects can propose *lending*, *stablecoins*, or *crowdfundings*.
 
-Along with the ovens, a separate AMM pool for exchanging ctez for XTZ and back works. In addition to the direct exchange function, it acts as an oracle: the rate of this pool affects the value of the drift, i.e. the rate of change of the target price:
+In most cases, smart contracts remove *intermediates* and drastically reduce costs compared to classic paper contracts and their validations.
 
-*   ctez in AMM is worth less than the target price. The drift increases, and if it is above zero, the target price increases faster or decreases less.
-*   ctez is worth more than the target price. The drift decreases and the target price increases more slowly or even decreases.
+Notice that like any other, a Tezos smart contract can only run and interact with the blockchain it's stored on (Bitcoin's smart contracts are exceptions here). It can't interact with the outside world. That's where *decentralized applications* or "_Dapps_" come in because they provide interfaces for the outside world.
 
-The value of the drift is recalculated each time AMM is called. It changes slowly, no faster than 1% per day. This solution protects the ctez from machinations through [oracle contract manipulation](https://medium.com/bandprotocol/why-defi-needs-real-oracles-beyond-dex-9c80cf192883).
+To build your own Dapp, please refer to the [*Build a Dapp*](/dapp) module.
 
-The target price, i.e. the value of the ctez in XTZ, is required to calculate the collateral percentage of the oven and the conditions of liquidation. An oven can become subject to liquidation if the value of the ctez issued exceeds 93.33% of the deposit in XTZ.
+## Lifecycle of a Tezos smart contract
+As we saw, a smart contract can only be deployed once but can be called many times. The Tezos smart contract lifecycle steps are two:
 
-In total, every swap on ctez/XTZ AMM launch a chain of events which lead to ctez supply adjustment.
+1. Deployment
+2. Interactions through calls
 
-![](/images/ctez-diagram.png)
+### Deployment of a Tezos smart contract
+The deployment of a Tezos smart contract is named "**origination**".
 
-Suppose Alice has deposited 100 XTZ in the oven and released 90 ctez at the target price of 1.0. The security percentage is 90%. If the target price rises to 1.05, the collateral percentage is 94.5% and the oven will be subject to liquidation. Bob will deposit the ctez in it and take the XTZ.
+When a smart contract is deployed, an **address** and a corresponding *persistent space* called "**storage**" are allocated to this smart contract. The smart contract address is like its *identity* and *where* it lives on the ledger. Its storage is its *usable space*.
 
-As a result, AMM, drift, and target price allow ctez to regulate supply and demand. There are several basic scenarios:
+Once deployed, anyone or *anything* can call the smart contract (e.g. other contracts) with an *operation* (in Tezos vocabulary, *transactions* are a sub-type of *operations*; see more about them in the [*Operations*](/tezos-basics/operations) chapter) sent to its address with arguments. This call triggers the execution of the set of pre-defined instructions (promises).
 
-*   Users prefer to issue ctez: that’s excess supply. The AMM rate falls below the target price, the drift rises, and the target price follows. If the value of the drift exceeds the reward from baking, users buyback ctez to redeem or liquidate ovens, and the rate rises to the target price.
-*   Users prefer to buy ctez: that’s excess demand. AMM rate rises above the target price, drift decreases, and the target price follows suit. It becomes profitable to take advantage of the mint-sell-mint loop: release ctez, sell them for XTZ, release more ctez, sell them, and so on several times. The rate decreases to the target price.
-*   Users have found the balance between buying and releasing ctez: that’s equilibrium. The value of the drift equals the profit from the delegation, and the value of the ctez represents XTZ and the accumulated rewards.
+The origination of a Tezos smart contract must define:
+* A complex **Parameter Type** in the low-level *Michelson* language  
+  List or tuple of each parameter type (see more below with high-level languages)
+* **Storage Type**
+* **Set of instructions** in the low-level *Michelson* language
 
-In a word, ctez cannot and should not maintain the pegging to XTZ. Its value fluctuates smoothly through drift, target price changes, and liquidations.
+![](/images/tezos_smart_contract_content.svg)
+*FIGURE 1: Content of a Tezos smart contract*
 
-## How to create ctez
+The CLI command "`octez-client originate`" can be used to deploy a Tezos smart contract. Arguments are the following:
+- Name of the smart contract
+- Michelson script containing: 
+    - Parameter Type
+    - Storage Type
+    - Set of instructions
+- Initial storage value
+- Amount of tez sent to the smart contract
+- An optional address of a delegate
 
-Go to [ctez.app](https://ctez.app/) and check out the drift value.
+The command returns the newly deployed contract's address (more detail in the ["*CLI and RPC*"](/tezos-basics/cli-and-rpc) chapter).
 
-![](/images/ctez6.png)
+### Code of a Tezos smart contract
+The code of a smart contract is composed of Michelson instructions. Calls to the smart contract execute these instructions.
 
-If the drift value is lower than the yield from delegating, you can try to create an oven and benefit from mint-sell-mint. To do this, click on the Create Oven button in the menu on the left.
+The execution of instructions results in a new storage "**state**". The instructions define how to produce this new state. The instructions may also lead to other operations, including originations of other smart contracts, and of course, transactions.
 
-If it is above 6 percent, it is advantageous to accumulate ctez. Its price will go up: oven owners will have to buy back and redeem ctez to avoid liquidation.
+You can find the full description of the Michelson language in the [Michelson module](/michelson).
 
-![](/images/ctez1.png)
+### Storage of a Tezos smart contract
+During the origination, the process must specify the storage **initial state** (and type).
 
-Enter the address of the baker to whom the oven delegates XTZ, and specify how many XTZ you want to put into the oven. Click Whitelist if you want only the specified addresses to be able to contribute additional XTZ to your oven. Then click Create Oven and confirm the transaction in your wallet.
+For more details, check out the ["*Fees and Rewards*"](/tezos-basics/economics-and-rewards) chapter.
 
-![](/images/ctez2.png)
+### Call of a Tezos smart contract
+A smart contract can be called by a classic account whose address starts with "**tz**" (more details in the "[*Operations*](/tezos-basics/operations)" chapter) or by a smart contract's account whose address begins with "**KT1**". The operation or transaction specifies *arguments*, that are ordered types. In the below example, we increase or decrease a value in the storage:
 
-Wait a minute until the transaction is included in the block and click on My Ovens on the left-hand side of the menu.
+![](/images/invoke_smart_contract_wo_entrypoint.svg)
+*FIGURE 2: Call of a smart contract triggering its code and modifying its storage's state*
 
-![](/images/ctez3.png)
+One can use the Command Line Interface (CLI) provided by Tezos to interact with a node and make calls. The "`octez-client`" application allows anyone to deploy and call Tezos smart contracts.
 
-Click on the oven you mean to open. It will pop open its data, such as the collateralization level, the amount of deposited XTZ, and the amount of issued ctez.
+It is also possible to send requests to a node through RPC (Remote Procedure Call) via HTTP (more details in ["*CLI and RPC*"](/tezos-basics/cli-and-rpc) chapter).
 
-![](/images/ctez4.png)
+## High-level languages for Tezos smart contracts implementations
+Michelson is a low-level stack-based language. Therefore its adoption is quite limited because most developers won't take time to learn it. Several Michelson *compilers* have been developed to avoid this friction and led to several high-level languages closer to developers habits. For example: [*SmartPy*](/smartpy) (inspired by *Python*); [*LIGO*](/ligo) (inspired by *Camel* with a *Pascal*-like syntax); or [*Morley*](https://serokell.io/project-morley) (framework).
 
-Press Mint to issue ctez. Enter the amount and confirm the transaction in the wallet. After a few minutes, check your wallet: ctez should appear there.
+Depending on the high-level language used, a smart contract deployment also defines its *entrypoints* using the complex **Parameter Type**. These are special functions used to dispatch invocations of the smart contract. Each entrypoint is in charge of triggering an instruction. Below is the same example as before, abstracting the complex Parameter Type:
 
-![](/images/ctez5.png)
+![](/images/invoke_smart_contract.svg)
+*FIGURE 3: Call of a smart contract triggering its entrypoints, code, and modifying its storage's state*
+
+Each type and position of a parameter in the list (or tupple) allows you to define an entrypoint (a function). For instance, in our example, there are two parameters, hence two types. Both types are integers (to increase or decrease a value). Because the type is the same, its position (left, right, or index number) determines which entrypoint is correct.  
+It could be:
+- Left type: "Increment" entrypoint
+- Right type: "Decrement" entrypoint
+
+Below is another illustration of this process:
+
+![](/images/tezos_smart_contract_deploy_invoke.svg)
+*FIGURE 4: Deployment and call of a Tezos smart contract with high-level languages*
+
+## Smart contracts versioning
+You need to remember the code of a smart contract is **immutable**. Only the storage state changes. Hence, to handle smart contracts [versioning](https://en.wikipedia.org/wiki/Software_versioning) (handle new developments and versions of the smart contracts), you should think about **implementations structures** to allow transfer of information **from old contracts to new contracts**. If you don't, you risk increasing errors and costs during the transfer.
+
+Hopefully, the above high-level languages make this kind of complex implementation easier. We will present to you two patterns to build **evolutive** smart contracts or *Dapps*.
+
+### Lambda pattern
+The Lambda pattern is based on *lambda functions*. These anonymous functions only have a mandatory *type* (function!); non-mandatory *parameters*; and non-mandatory *return values*. The idea is to exchange the **body** of a classic function with a **lambda function**. While the classic function is immutable, the lambda function is stored in the storage, therefore mutable.
+
+Instead of simply sealing the classic function's body as an immutable structure, you make it a mutable *data* of the storage.  
+In an **imaginary** high-level language syntax:
+
+- *An entrypoint*
+
+```d
+Entrypoint_for_doSomething(p1, ... , pP) {
+    doSomething(p1, ... , pP);
+}
+```
+- *The corresponding immutable function*
+
+```d
+function doSomething(p1, ... , pP) return (v1, ... , vR) {
+    storage.lambdaFunction();
+}
+```
+- *The lambda function in the storage as a variable*
+
+```d
+lambdaFunction = function (p1, ... , pP) return (v1, ... , vR) {
+    actual_instructions;
+};
+```
+
+**Warnings**:  
+>In this algorithmic example, almost all types are implicit, which limits the number of words. Furthermore, the syntax isn't as functional as in languages used for Tezos smart contracts (e.g. *LIGO*).
+
+![](/images/lambda-pattern.svg)  
+*FIGURE 5: Lambda pattern illustration*
+
+### Data-Proxy pattern
+
+The idea of the "*Data-Proxy*" pattern is pretty simple: separate the logic from the data into different smart contracts. Instead of duplicating and transferring the data into a new smart contract, we only update the logic smart contract.
+
+The first smart contract is the Data smart contract. It stores important data, including the address and entrypoints of the Logic smart contract. It also plays a proxy role as any request always goes through it first. It usually doesn't have a lot of functions. The mandatory functions set and retrieve its storage data (including new addresses for the new logic smart contracts).
+
+When you need to update the logic (e.g. new features; corrections...) you only deploy a new logic smart contract and update the Data smart contract storage with the new address. See below fig. 6 for an update of the Logic smart contract from version 1.0 to 2.1.:
+
+![](/images/data-proxy.svg)  
+*FIGURE 6: Data-Proxy pattern illustration*
+
+Once the Data-Proxy architecture is in place, we can make the Data smart contract more dynamic with a Map structure and the Logic smart contract upgradable with a Lambda pattern.
+
+#### Map structure
+The idea is to make the Data smart contract storage more dynamic. We organize data with a "data mapping". This mapping or "map" makes a classic "Key / Value" association between two data types. What's interesting here is that it's evolutive, even in the storage. Of course, the data types are fixed, but it is possible to add or remove pairs or change a *value* associated with the same *key*.
+
+For example, in our Data smart contract, we can define a Map with versions' numbers as keys and logic smart contracts addresses as values:
+
+![](/images/map-structure-example.svg)  
+*FIGURE 7: Map structure example*
+
+Note that even if a value or pair is deleted from a map, the blockchain ledger keeps the complete history of its state.  
+In the versions' example, you can still see all versions' history (and addresses) using a block explorer.
+
+The idea we described in this Data-Proxy pattern is actually a basic form of [modular programming](https://en.wikipedia.org/wiki/Modular_programming).
+
+This pattern isn't limited to 2 smart contracts only. You can imagine various architectures combining various patterns. For instance, you can imagine a central Data smart contract and multiple upgradable other smart contracts revolving around it. This example implies a single point of failure in the Data smart contract, but there are other questions you should keep in mind, like access rights (to get and set data, to upgrade logic, etc.).
+
+These patterns aren't magical and just allow more flexibility. You still need to think about the best architecture for your *dapp*. Patterns can still notably increase the deployment and *gaz* using fees.
 
 
-If they didn’t, add the tokens manually to the ctez contract address: ([KT1SjXiUX63QvdNMcM2m492f7kuf8JxXRLp4](https://tzkt.io/KT1SjXiUX63QvdNMcM2m492f7kuf8JxXRLp4/operations/)).
+## Tutorials on smart contract languages LIGO, SmartPy & Archetype
 
-That’s it, you can now use ctez while receiving rewards for baking. Put them into the [Plenty farm](https://www.plentydefi.com/farms) or exchange them for another asset on [Quipuswap](https://quipuswap.com/swap/KT1SjXiUX63QvdNMcM2m492f7kuf8JxXRLp4-KT193D4vozYnhGJQVtw7CoxxqphqUEEwK6Vb_0).
+- **LIGO:** [Docs](https://ligolang.org/docs/intro/introduction?lang=jsligo) and [Tutorials](https://ligolang.org/docs/tutorials/getting-started?lang=jsligo)
 
-To return the collateralized XTZ, buy the respective amount of ctez and redeem it in your farm interface.
+- **SmartPy:** [Manual](https://smartpy.dev/docs/manual/introduction/overview) and [Guides](https://smartpy.dev/docs/guides/) on particular topics
 
-{% callout type="note" %}
-This guide is from Tezos Ukraine and can be found [here](https://tezos.org.ua/en/blog/guide-to-ctez).
-{% /callout %}
+- **Archetype:** [Docs](https://archetype-lang.org/docs/introduction/)
