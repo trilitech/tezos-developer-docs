@@ -1,6 +1,6 @@
 import { DarkMode, Gradient, LightMode } from '@/components/Icon'
 
-export function InstallationIcon({ id, color }) {
+export function ContractIcon({ id, color }) {
   return (
     <>
       <defs>
@@ -18,17 +18,17 @@ export function InstallationIcon({ id, color }) {
       <LightMode>
         <circle cx={15} cy={16} r={12} fill={`url(#${id}-gradient)`} />
         <path
-          d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m8.25 3v6.75m0 0l-3-3m3 3l3-3M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"
+          d="M14.25 9.75L16.5 12l-2.25 2.25m-4.5 0L7.5 12l2.25-2.25M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z"
           fillOpacity={0.5}
           className="fill-[var(--icon-background)] stroke-[color:var(--icon-foreground)]"
-          strokeWidth={2}
+          strokeWidth={1.5}
           strokeLinecap="round"
           strokeLinejoin="round"
         />
       </LightMode>
       <DarkMode>
         <path
-          d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m8.25 3v6.75m0 0l-3-3m3 3l3-3M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"
+          d="M14.25 9.75L16.5 12l-2.25 2.25m-4.5 0L7.5 12l2.25-2.25M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z"
           fillOpacity={0.5}
           stroke={`url(#${id}-gradient-dark)`}
           strokeWidth={1.5}
