@@ -20,4 +20,4 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_S3_STAGE_SECRET }}
           aws-region: eu-west-1
       - run: aws s3 sync ./out ${{ secrets.AWS_S3_STAGE_PATH }}
-      - run: aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_DISTRIBUTION_STAGE }} --paths '/docs/*'
+      - run: aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_DISTRIBUTION_STAGE }} --paths 'developers/docs/*'
