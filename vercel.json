@@ -1,0 +1,6 @@
+{
+    "rewrites": [
+      { "source": "/docs", "destination": "https://docs-staging-iota.vercel.app/docs" },
+      { "source": "/docs/:path*", "destination": "https://docs-staging-iota.vercel.app/docs/:path*" }
+    ]
+  }
