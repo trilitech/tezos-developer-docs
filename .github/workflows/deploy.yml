@@ -1,0 +1,22 @@
+name: CD
+
+on:
+  push:
+    branches: [ staging ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - run: npm ci
+      - run: npm run build
+      - uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_S3_STAGE_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_S3_STAGE_SECRET }}
+          aws-region: eu-west-1
+      - run: aws s3 sync ./out s3://[${{ secrets.AWS_S3_STAGE_PATH }}]
