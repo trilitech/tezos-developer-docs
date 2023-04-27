@@ -8,7 +8,7 @@ description: Everything you need to know for Tezos development, from novice to e
 
 {% lg-link title="Tezos Blockchain Overview" icon="overview" href="/tezos-blockchain-overview/tezos-blockchain-overview" description="Understanding what makes Tezos different and what you need to start building" /%}
 
-{% lg-link title="Quickstart guide" icon="quickstart" href="/quickstart-guide/quickstart-guide" description="Learn how to write a smart contract and get it deployed quickly" /%}
+{% lg-link title="Quickstart guide" icon="quickstart" href="/dapp-development/build-your-first-dapp/build-your-first-dapp" description="Learn how to write a smart contract and get it deployed quickly" /%}
 
 {% /lg-links %}
 

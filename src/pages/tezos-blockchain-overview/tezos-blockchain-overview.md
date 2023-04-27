@@ -6,28 +6,29 @@ slug: /tezos-blockchain-overview
 
 # History
 
-Tezos a decentralized and open-source blockchain network started out as a concept in 2014 as the brainchild of Arthur and Kathleen Breitman. It raised awareness and support in 2017 and launched the following year. Since inception, Tezos has gone through multiple iterations of upgrades and development, being true to its ethos - "A blockchain designed to evolve”.
+Tezos is an open-source, decentralized blockchain network conceived in 2014 by Arthur Breitman. It raised awareness and support in 2017 with its crowdfunder and launched the following year. Since its inception, Tezos has gone through multiple iterations of upgrades and development, being true to its ethos -- "a blockchain designed to evolve”.
 
 # What Makes Tezos Different?
 
-Tezos stands apart from other blockchains its capability to upgrade, so the network can evolve without requiring a hard fork. Anyone building on Tezos can propose a protocol upgrade and have it adopted by the network without compromising the platform's stability or causing fragmentation. This makes Tezos more adaptable to new technologies, security threats, and user needs in comparison to other blockchains.
+Tezos stands apart from other blockchains in its capability to upgrade, allowing the network to evolve without requiring a hard fork. Anyone building on Tezos can propose a new protocol upgrade and have it adopted by the network without compromising the platform's stability or causing fragmentation. This makes Tezos adaptable to new technologies and addressing user needs where other blockchains stuggle to evolve.
 
-Tezos is also unique in its governance model. All stakeholders can participate in the decision-making processes that will have an impact on the network's future direction. Holders of XTZ —the chain’s native token—can propose and vote on changes to the protocol, such as modifications to gas fees, block times, and the addition of new features such as smart rollups.
+Tezos is unique in its governance model. All stakeholders can participate in the decision-making processes that impacts the network's future direction. Holders of XTZ—-the chain’s native token-—can propose and vote on changes to the protocol, such as improvements to gas fees, block times, and adding new features such as smart rollups.
 
-The use of formal verification is a powerful feature of Tezos where the code can be formally proven to be correct without side effects. The rigorous process of formal verification ensures the network's smart contracts and other software components function as intended, reducing the likelihood of errors, bugs, and security vulnerabilities. This approach gives Tezos an edge in security and reliability. 
+The use of formal verification is a powerful Tezos feature where the code can be formally proven to be correct without side effects. The rigorous process of formal verification ensures the network's smart contracts and other software components function as intended, reducing the likelihood of errors, bugs, and security vulnerabilities. This approach gives Tezos an edge in security and reliability. 
 
-Tezos’ proof-of-stake consensus model eliminates the need for intensive energy use, making it the “green” choice for blockchains. 
+Tezos’ proof-of-stake consensus model eliminates the need for high energy use, making it the “green” choice for blockchains. 
 
 # The Tezos Ecosystem
 
-Tezos has a robust ecosystem including NFTs, DeFi, gaming, stablecoins, enterprise and government use-cases. 
+Tezos has a robust ecosystem from NFTs, DeFi, gaming, and stablecoins to enterprise and government use-cases. 
 
 
-## Tezos NFT Marketplaces
+## NFTs on Tezos
 
-The rise in non-fungible tokens (NFTs) has become a core area of activity and growth in the blockchain space where new communities are growing around artists, musicians and other creators. NFTs allow collectors and fans to hold a piece of content by a creator that is verifiable on the blockchain, providing proof of ownership.
+The rise of non-fungible tokens (NFTs) has become a core arena of activity and growth in the blockchain space, where new communities are growing around artists, musicians and other creators. NFTs allow collectors and fans to hold a piece of content by a creator, that is verifiable on the blockchain, providing proof of ownership.
 
-objkt.com, Teia, FxHash https://dns.xyz/ are some of the large marketplaces allowing creators to mint and sell NFTs on the Tezos blockchain. 
+[Objkt](https://objkt.com/), [FxHash](https://www.fxhash.xyz/), [Teia](https://teia.art/), [DNS.xyz](https://dns.xyz/) are some of the marketplaces showcasing Tezos' art and music NFTs. They allow creators to mint and sell their work, and for users to collect such works.
+
 Tezos is also being used for other NFT-related projects, such as MoneyTrack, which is a payment platform that uses NFTs to control directed payment flows.
 
 ## Enterprise and Government Uses of Tezos
@@ -40,13 +41,13 @@ Tezos is also the first blockchain platform used by the French Armies and Gendar
 
 In recent years, the concept of Central Bank Digital Currencies (CBDCs) has gained traction, with several countries around the world exploring their own CBDC projects. The Bank of France carried out a series of successful tests using Tezos to explore the potential of CBDCs. In September 2020, the bank announced that it had completed a pilot program using a custom-built version of the Tezos blockchain to simulate the issuance and circulation of CBDCs. The pilot involved testing the technology's ability to handle transactions, make payments, and settle transactions in a digital environment.
 
-The Califonia DMV is also using Tezos for their project of putting can titles on the blockchain. 
+The Califonia DMV is also using Tezos for their project to [put car titles on the blockchain](https://fortune.com/crypto/2023/01/26/california-announces-dmv-run-blockchain-through-partnership-with-tezos/). 
 
 ## Tezos in Gaming
 
 Tazos is making strides in blockchain gaming. The Tezos SDK for Unity promises to make blockchain game development easier and faster. It allows for the addition of web3 features such as allowing players link their accounts across games, mint and trade in-game items and currencies, and show off their ranks and accomplishments on public, on-chain leaderboards.
 
-# Latest cutting-edge developments on Tezos
+# Cutting-edge developments on Tezos
 
 With recent improvements heavily focusing on scaling solutions, Tezos has been at the forefront of blockchain research. Up to 1 million transactions per second (TPS) are now possible on the Tezos blockchain with the advent of smart rollups, which have emerged as a promising scaling solution. With smart rollups (also known as optimistic rollups) transactions can be performed more quickly and cheaply and use other VMs that “rollup” state changes onto Tezos.
 
