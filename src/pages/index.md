@@ -1,8 +1,9 @@
 ---
 title: Tezos Documentation
 pageTitle: Tezos Developer Documentation and Reference
-description: Everything you need to know for Tezos development, from novice to expert. Learn how to build your next Game, NFT, or DeFi dapp here. Learn how to launch a Tezos baker or implement smart rollups on Tezos.
+description: Welcome to the Tezos Developer Documentation. 
 ---
+Welcome to the Tezos Documentation Portal. We're currently in _BETA_ so please share your [feedback](#) to help us improve.
 
 {% lg-links %}
 

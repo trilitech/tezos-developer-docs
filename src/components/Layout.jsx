@@ -199,14 +199,14 @@ export function Layout({ children, title, tableOfContents }) {
         <div className="min-w-0 max-w-2xl flex-auto px-4 py-16 lg:max-w-none lg:pr-0 lg:pl-8 xl:px-16">
           <article>
             {(title || section) && (
-              <header className="mb-9 space-y-1">
+              <header className="mb-6 space-y-1">
                 {section && !isHomePage &&  (
                   <p className="font-display text-sm font-medium text-blue-600">
                     {section.title}
                   </p>
                 )}
                 {title && (
-                  <h1 className="font-display text-4xl text-gradient dark:text-white">
+                  <h1 className="font-display font-semibold text-4xl text-gradient dark:text-white">
                     {title}
                   </h1>
                 )}
