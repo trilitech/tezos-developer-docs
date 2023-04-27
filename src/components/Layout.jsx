@@ -25,7 +25,7 @@ const navigation = [
   {
     title: 'NFTs, Gaming and DeFi',
     links: [
-      { title: 'DeFi Tokens', href: '/docs/defi/token-contract-fa2/token-contract-fa2' },
+      { title: 'DeFi Tokens', href: '/docs/defi/defi-tokens/defi-tokens' },
       { title: 'Create an NFT', href: '/docs/nft/create-an-nft/create-an-nft' },
       { title: 'Build an NFT Marketplace', href: '/docs/nft/build-an-nft-marketplace/build-an-nft-marketplace' },
       { title: 'Tezos SDK for Unity', href: '/docs/gaming/tezos-sdk-for-unity/tezos-sdk-for-unity' },

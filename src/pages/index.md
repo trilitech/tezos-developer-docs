@@ -24,7 +24,7 @@ description: Everything you need to know for Tezos development, from novice to e
 
 {% quick-link title="Smart Contract Languages" icon="contract" href="/docs/tezos-basics/smart-contract-languages/smart-contract-languages" description="Overview of Smart Contract languages" /%}
 
-{% quick-link title="DeFi Tokens" icon="presets" href="/docs/defi/token-contract-fa2/token-contract-fa2" description="Learn about various DeFi tokens and how to create your own" /%}
+{% quick-link title="DeFi Tokens" icon="presets" href="/docs/defi/defi-tokens/defi-tokens" description="Learn about ctez and wrapped tokens. Two building blocks for DeFi on Tezos. " /%}
 
 {% quick-link title="Create an NFT" icon="nft" href="/docs/nft/create-an-nft/create-an-nft" description="Create your own NFT" /%}
 
