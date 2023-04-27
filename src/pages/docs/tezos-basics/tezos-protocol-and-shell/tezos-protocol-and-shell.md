@@ -1,32 +1,38 @@
 ---
-title: Overview of the economic protocol
+id: tezos-protocol-and-shell
+title: Tezos Protocol and Shell
 ---
 
-# Tezos overview
+## Tezos' Self-Amending Protocol
 
-Tezos is a distributed system in which nodes agree upon a chain of
-blocks of operations. Tezos is also an account-based crypto-ledger,
-where an account is associated to a public-private key pair, and has a
-balance, that is, a number of tokens. Tezos is a
-`proof-of-stake<proof_of_stake>`{.interpreted-text role="doc"} system in
-which any account that has a minimal stake amount has the right to
-produce blocks, in proportion to their balance.
+The primany characteristic that makes Tezos unique is its self-amending property. The part that amends itself is called the economic protocol. The rest of a Tezos node is what we call the shell.
+
+The protocol is responsible for interpreting the transactions and other administrative operations. It also has the responsibility to detect erroneous blocks.
+
+An important thing to notice is that the protocol always sees only one blockchain, that is a linear sequence of blocks since the genesis. It does not know that it lives in an open network where nodes can propose alternative heads.
+
+Only the shell knows about the multiple heads. It is responsible for choosing between the various chain proposals that come from the bakers (the programs that cook new blocks) of the network. The shell has the responsibility of selecting and downloading alternative chains, feed them to the protocol, which in turn has the responsibility to check them for errors, and give them an absolute score. The shell then simply selects the valid head of the highest absolute score. This part of the shell is called the validator.
+
+The rest of the shell includes the peer-to-peer layer, the disk storage of blocks, the operations to allow the node to transmit the chain data to new nodes and the versioned state of the ledger. In-between the validator, the peer-to-peer layer, and the storage sits a component called the distributed database, that abstracts the fetching and replication of new chain data to the validator.
+
+Protocols are compiled using a tweaked OCaml compiler that does two things. First, it checks that the protocol’s main module has the right type. A good analogy is to see protocol as plug-ins, and in this case, it means that it respects the common plugin interface. Then, it restricts the typing environment of the protocol’s code so that it only calls authorized modules and functions. Seeing protocols as plug-ins, it means that the code only called primitives from the plug-in API. It is a form of statically enforced sandboxing (see Protocol Environment).
+
+Note that the economic protocol on the chain is subject to an amendment procedure. On-chain operations can be used to switch from one protocol to another. The procedure is described in more details in the protocol’s voting procedure documentation.
+
+Finally, the RPC layer is an important part of the node. It is how the client, third-party applications and daemons can interact with the node and introspect its state. This component uses the mainstream JSON format and HTTP protocol. It uses the library resto. It is fully interoperable, and auto descriptive, using JSON schema.
 
 A Tezos node has mainly three roles: it validates blocks and operations,
 it broadcasts them to (and retrieves them from) other nodes, and it
 maintains a main chain and its associated state (i.e. the ledger), which
 includes accounts and their balances, among other things. Note that, as
 blocks only specify a predecessor block, exchanged blocks do not
-necessarily form a chain, but rather a tree. Nodes communicate over
-`a gossip network<../shell/p2p>`{.interpreted-text role="doc"}.
+necessarily form a chain, but rather a tree.
 
 A Tezos node acts as a server, which responds to queries and requests
-from clients. Such queries and requests are implemented via `RPC
-calls<../developer/rpc>`{.interpreted-text role="doc"}. A client can
-query the chain's state and can inject blocks and operations into a
-node. One particular client is the
-`baker daemon <baker_run>`{.interpreted-text role="ref"}, which is
-associated to an account. In particular the baker has access to the
+from clients. Such queries and requests are implemented via RPC
+calls. A client can query the chain's state and can inject blocks and operations into a
+node. One particular client is the `baker daemon`, which is
+associated to an account. In particular, the baker has access to the
 account's private key and thus can sign blocks and operations.
 
 The main reason for using such a client-server architecture is safety:
@@ -42,152 +48,42 @@ have different implementations, and this is important, for instance
 because different bakers may want to implement different transaction
 selection strategies.
 
-Tezos is a self-amending blockchain, in that a large part of Tezos can
-be changed through a so-called amendment procedure. To this end, as
-mentioned in `the big picture<the_big_picture>`{.interpreted-text
-role="ref"}, a Tezos node consists of two components:
+As previously stated, Tezos is a self-amending blockchain. In large part of Tezos can
+be changed through a so-called amendment procedure.
 
 -   the shell, which comprises the network and storage layer, and embeds
 -   the economic protocol component, which is the part that can be
     changed through amendment.
 
-# The role of the economic protocol
+## The role of the economic protocol
 
-> Update for pipelined validation up to Lima.
+The economic protocol provides the rules for checking the validity of the blocks and operations, and for updating the blockchain state accordingly, by applying new valid blocks and operations on the current blockchain state. It defines under which conditions a block is a valid extension of the current blockchain, and defines an ordering on blocks to arbitrate between concurrent extensions.
 
-At a very high level, a protocol must:
+The rules it uses for recognizing and applying valid blocks can be changed through voting. Thus, the economic protocol represents the amendable part of Tezos. To learn about the voting and amendment process see [Tezos Agora's overview](https://www.tezosagora.org/learn) of Tezos Governance. 
 
--   implement protocol-specific types, such as the type of operations or
-    protocol-specific block header data (in addition to the shell
-    generic header),
--   define under which conditions a block is a valid extension of the
-    current blockchain, and define an ordering on blocks to arbitrate
-    between concurrent extensions.
+Each Tezos protocol is named after a (usually ancient) city, with the first one named Athens. Each successive name follows the previous alphabectically, continuing to Babylon, Carthage, Delphi and so on. Currently the network is on the Mumbai protocol, with Nairobi planned for June 2023. There is a protocol upgrade roughly every 3 months. 
 
-Validity conditions are implemented in the `apply` function which is
-called whenever the node processes a block\-\--see the dedicated
-`protocol validation and operation<validation>`{.interpreted-text
-role="doc"} entry for further detail into the validation and application
-process for `blocks<block_validation_overview_mumbai>`{.interpreted-text
-role="ref"} and their
-`operations<operation_validity_mumbai>`{.interpreted-text role="ref"}.
+## Shell-protocol interaction 
 
-# Shell-protocol interaction {#shell_proto_interact_mumbai}
+The economic protocol and the shell interact in order to
+ensure that the blocks being appended to the blockchain are valid. The shell does not accept a branch whose fork point is some number of cycles in the past--anything before is deemed immutable. Also, when receiving a new block the shell determines if the block is valid and its fitness is higher than the current head. 
 
-In the Tezos `architecture<the_big_picture>`{.interpreted-text
-role="ref"}, the economic protocol and the shell interact in order to
-ensure that the blocks being appended to the blockchain are valid. There
-are mainly two rules that the shell uses when receiving a new block:
+The protocol provides the support for validating blocks which can be
+modulated by different "validation modes".
 
--   The shell does not accept a branch whose fork point is in a cycle
-    more than `PRESERVED_CYCLES` in the past. More precisely, if `n` is
-    the current cycle,
-    `the last allowed fork point<lafl>`{.interpreted-text role="ref"} is
-    the first level of cycle `n-PRESERVED_CYCLES`. The parameter
-    `PRESERVED_CYCLES` therefore plays a central role in Tezos: any
-    block before the last allowed fork level is immutable.
--   The shell changes the head of the chain to this new block only if
-    the block is `valid<../shell/validation>`{.interpreted-text
-    role="doc"}, and it has a higher fitness than the current head; a
-    block is `valid<block_validation_overview_mumbai>`{.interpreted-text
-    role="ref"} only if all the operations included are also
-    `valid<operation_validity_mumbai>`{.interpreted-text role="ref"}.
 
-The support provided by the protocol for validating blocks can be
-modulated by different `validation
-modes<validation_modes_mumbai>`{.interpreted-text role="ref"}. They
-allow using this same interface for quite different use cases, as
-follows:
+## The Shell 
 
--   being able to `apply<full_application_mumbai>`{.interpreted-text
-    role="ref"} a block, typically used by the shell\'s
-    `validator <../shell/validation>`{.interpreted-text role="doc"}
-    component;
--   being able to
-    `construct<full_construction_mumbai>`{.interpreted-text role="ref"}
-    a block, typically used by the baker daemon to *bake* \-- that is,
-    to produce \-- a new block;
--   being able to
-    `partially construct<partial_construction_mumbai>`{.interpreted-text
-    role="ref"} a block, typically used by the `prevalidator
-    <../shell/prevalidation>`{.interpreted-text role="doc"} to determine
-    valid operations in the mempool; and,
--   being able to
-    `pre-apply<partial_application_mumbai>`{.interpreted-text
-    role="ref"} a block, typically used in the
-    `validator <../shell/validation>`{.interpreted-text role="doc"} to
-    precheck a block, avoiding to further consider invalid blocks.
+The shell contains everything that is not part of the economic protocol. It includes: 
 
-# Blocks, Operations and their Validation {#block_contents_mumbai}
+- The Validator: component responsible for checking that blocks coming from the network or a baker are valid, w.r.t. the rules defined by the economic protocol.
+- The Prevalidator: responsible for determining which operations to propagate for this chain over the peer-to-peer network.
+- The Storage Layer: responsible for aggregating blocks (along with their respective ledger state) and operations within blocks (along with their associated metadata).
+- Synchronisation heuristic: Process to bootstrap a node when first joining the network, and knowing when it's synced with the network. 
+- The peer-to-peer layer: this part is in charge of establishing and maintaining network connections with other nodes (via a gossip protocol).
+- Protocol Environment: a restricted API that may be used by the Octez code to interact with the protocol, and vice versa.
 
-> Integrate protocol-specific block parts in the blocks and ops entry.
 
-A block consists of a header and operations. A block\'s header is
-composed of two parts:
-`the protocol-agnostic part<shell_header>`{.interpreted-text role="ref"}
-and
-`the protocol-specific part<shell_proto_revisit_mumbai>`{.interpreted-text
-role="ref"}. This separation enables the shell to interact with
-different protocols. Each Tezos economic protocol can specify different
-kinds of operations, which are described further in detail in
-`./blocks_ops`{.interpreted-text role="doc"}.
-
-The semantics of, respectively, operations and blocks is indeed also
-dependent on each economic protocol. The `Validation and
-Application<validation>`{.interpreted-text role="doc"} entry explains
-the internals of *validation* \-- that is, how to determine whether
-operations and blocks can be safely be included in the Tezos blockchain
-\-- and *application* \--that is, how the effects of operations and
-blocks are taken into account \-- for this economic protocol.
-
-# Protocol constants {#protocol_constants_mumbai}
-
-Protocols are tuned by several *protocol constants*, such as the size of
-a nonce, or the number of blocks per cycle. One can distinguish two
-kinds of protocol constants:
-
--   *fixed* protocol constants, such as the size of a nonce, are values
-    wired in the code of a protocol, and can only be changed by protocol
-    amendment (that is, by adopting a new protocol)
--   *parametric* protocol constants, such as the number of blocks per
-    cycle, are values maintained in a read-only data structure that can
-    be instantiated differently, for the same protocol, from one network
-    to another (for instance, test networks move faster).
-
-The *list* of protocol constants can be found in the OCaml APIs:
-
--   fixed protocol constants are defined in the module `Constants_repr
-    <tezos-protocol-016-PtMumbai/Tezos_raw_protocol_016_PtMumbai/Constants_repr/index.html>`{.interpreted-text
-    role="package-api"}
--   parametric constants are defined in the module
-    `Constants_parametric_repr
-    <tezos-protocol-016-PtMumbai/Tezos_raw_protocol_016_PtMumbai/Constants_parametric_repr/index.html>`{.interpreted-text
-    role="package-api"}
-
-The *values* of protocol constants in any given protocol can be found
-using specific RPC calls:
-
--   one RPC for
-    `all constants <GET_..--block_id--context--constants>`{.interpreted-text
-    role="ref"}, as shown in
-    `this example <get_protocol_constants>`{.interpreted-text
-    role="ref"}
--   one RPC for
-    `the parametric constants <GET_..--block_id--context--constants--parametric>`{.interpreted-text
-    role="ref"}.
-
-Further documentation of various protocol constants can be found in the
-subsystems where they conceptually belong. See, for example:
-
--   `proof-of-stake parameters <ps_constants_mumbai>`{.interpreted-text
-    role="ref"}.
--   `consensus-related parameters <cs_constants_mumbai>`{.interpreted-text
-    role="ref"}
--   `randomness generation parameters <rg_constants_mumbai>`{.interpreted-text
-    role="ref"}.
-
-# See also
-
-An in-depth description of the internals of developing a new Tezos
-protocol can be found in the blog post: [How to write a Tezos
-protocol](https://research-development.nomadic-labs.com/how-to-write-a-tezos-protocol.html).
+{% callout type="note" %}
+In-depth documentation on the [shell](https://tezos.gitlab.io/shell/the_big_picture.html) and [protocol](https://tezos.gitlab.io/active/protocol.html) and the semantics of [operations and blocks](https://tezos.gitlab.io/active/blocks_ops.html) can be found in the [Nomadic Labs documentation](https://tezos.gitlab.io/index.html). 
+{% /callout %}
