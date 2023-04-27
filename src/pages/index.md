@@ -32,7 +32,7 @@ description: Everything you need to know for Tezos development, from novice to e
 
 {% quick-link title="Tezos SDK for Unity" icon="unity" href="/docs/gaming/tezos-sdk-for-unity/tezos-sdk-for-unity" description="Tezos SDK for Unity" /%}
 
-{% quick-link title="Build a Game on Tezos" icon="game" href="/docs/gaming/build-a-game-on-tezos/build-a-game-on-tezos" description="Building a Game on Tezos" /%}
+{% quick-link title="Build a Game on Tezos" icon="game" href="" description="Building a Game on Tezos" /%}
 
 {% quick-link title="Build your first DApp" icon="dapp" href="/docs/dapp-development/build-your-first-dapp/build-your-first-dapp" description="Build your first DApp" /%}
 

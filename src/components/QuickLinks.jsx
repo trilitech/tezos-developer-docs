@@ -4,13 +4,13 @@ import { Icon } from '@/components/Icon'
 export function QuickLinks({ children }) {
   return (
     <div className="not-prose my-12 grid grid-cols-1 sm:grid-rows-6 sm:grid-flow-col sm:grid-cols-3 sm:gap-1">
-        <h2 className="font-semibold text-lg text-slate-900">Tezos Basics</h2>
+        <h2 className="font-semibold text-lg text-slate-900 uppercase">Tezos Basics</h2>
         {children.slice(0, Math.ceil(children.length / 3))}
 
-        <h2 className="font-semibold text-lg text-slate-900">NFTs, Gaming and DeFi</h2>
+        <h2 className="font-semibold text-lg text-slate-900 uppercase">NFTs, Gaming and DeFi</h2>
         {children.slice(Math.ceil(children.length / 3), Math.ceil(children.length / 3) * 2)}
  
-        <h2 className="font-semibold text-lg text-slate-900">DApp Development</h2>
+        <h2 className="font-semibold text-lg text-slate-900 uppercase">DApp Development</h2>
         {children.slice(Math.ceil(children.length / 3) * 2)}
 
     </div>
@@ -27,10 +27,17 @@ export function QuickLink({ title, description, href, icon }) {
         </div>
         <div className="flex-grow">
           <h2 className="mt-4 font-display font-senu text-sm text-slate-900 dark:text-white" style={{ lineHeight: '1.5rem' }}>
-            <Link href={href}>
-              <span className="absolute -inset-px rounded-xl" />
-              {title}
-            </Link>
+            {href === '' ? (
+              <>
+                {title}
+                <span className="ml-2 block sm:inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xxs font-medium text-green-700 ring-1 ring-inset ring-green-600/10">Coming Soon</span>
+              </>
+            ) : (
+              <Link href={href}>
+                <span className="absolute -inset-px rounded-xl" />
+                {title}
+              </Link>
+            )}
           </h2>
           <p className="mt-1 text-xs text-slate-700 dark:text-slate-400" style={{ height: '3rem', overflow: 'hidden' }}>
             {description}
@@ -40,3 +47,4 @@ export function QuickLink({ title, description, href, icon }) {
     </div>
   )
 }
+
