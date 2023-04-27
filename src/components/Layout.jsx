@@ -15,31 +15,31 @@ const navigation = [
   {
     title: 'Tezos Basics',
     links: [
-      { title: 'Get Started with Octez', href: '/docs/tezos-basics/get-started-with-octez/get-started-with-octez' },
-      { title: 'Deploy your first smart contract', href: '/docs/tezos-basics/deploy-your-first-smart-contract/first-smart-contract' },
-      { title: 'Tezos Protocol & Shell', href: '/docs/tezos-basics/tezos-protocol-and-shell/tezos-protocol-and-shell' },
-      { title: 'Test Networks', href: '/docs/tezos-basics/test-networks/test-networks' },
-      { title: 'Smart Contract Languages', href: '/docs/tezos-basics/smart-contract-languages/smart-contract-languages' },
+      { title: 'Get Started with Octez', href: '/tezos-basics/get-started-with-octez/get-started-with-octez' },
+      { title: 'Deploy your first smart contract', href: '/tezos-basics/deploy-your-first-smart-contract/first-smart-contract' },
+      { title: 'Tezos Protocol & Shell', href: '/tezos-basics/tezos-protocol-and-shell/tezos-protocol-and-shell' },
+      { title: 'Test Networks', href: '/tezos-basics/test-networks/test-networks' },
+      { title: 'Smart Contract Languages', href: '/tezos-basics/smart-contract-languages/smart-contract-languages' },
     ],
   },
   {
     title: 'NFTs, Gaming and DeFi',
     links: [
-      { title: 'DeFi Tokens', href: '/docs/defi/defi-tokens/defi-tokens' },
-      { title: 'Create an NFT', href: '/docs/nft/create-an-nft/create-an-nft' },
-      { title: 'Build an NFT Marketplace', href: '/docs/nft/build-an-nft-marketplace/build-an-nft-marketplace' },
-      { title: 'Tezos SDK for Unity', href: '/docs/gaming/sdks/tezos-sdk-for-unity' },
-      { title: 'Build a Game on Tezos', href: '/docs/gaming/build-a-game-on-tezos/build-a-game-on-tezos' },
+      { title: 'DeFi Tokens', href: '/defi/defi-tokens/defi-tokens' },
+      { title: 'Create an NFT', href: '/nft/create-an-nft/create-an-nft' },
+      { title: 'Build an NFT Marketplace', href: '/nft/build-an-nft-marketplace/build-an-nft-marketplace' },
+      { title: 'Tezos SDK for Unity', href: '/gaming/tezos-sdk-for-unity/tezos-sdk-for-unity' },
+      // { title: 'Build a Game on Tezos', href: '/gaming/build-a-game-on-tezos/build-a-game-on-tezos' },
     ],
   },
   {
     title: 'Dapp Development',
     links: [
-      { title: 'Build your first DApp', href: '/docs/dapp-development/build-your-first-dapp/build-your-first-dapp' },
-      { title: 'Taquito', href: '/docs/dapp-development/taquito/taquito' },
-      { title: 'Indexers', href: '/docs/dapp-development/indexers/indexers' },
-      { title: 'Wallets and Beacon SDK', href: '/docs/dapp-development/wallets-and-beacon-sdk/wallets-and-beacon-sdk' },
-      { title: 'Framework Best Practices', href: '/docs/dapp-development/framework-best-practices/framework-best-practices/' },
+      { title: 'Build your first DApp', href: '/dapp-development/build-your-first-dapp/build-your-first-dapp' },
+      { title: 'Taquito', href: '/dapp-development/taquito/taquito' },
+      { title: 'Indexers', href: '/dapp-development/indexers/indexers' },
+      { title: 'Wallets and Beacon SDK', href: '/dapp-development/wallets-and-beacon-sdk/wallets-and-beacon-sdk' },
+      { title: 'Framework Best Practices', href: '/dapp-development/framework-best-practices/framework-best-practices/' },
     ],
   },
 ]
@@ -199,14 +199,14 @@ export function Layout({ children, title, tableOfContents }) {
         <div className="min-w-0 max-w-2xl flex-auto px-4 py-16 lg:max-w-none lg:pr-0 lg:pl-8 xl:px-16">
           <article>
             {(title || section) && (
-              <header className="mb-9 space-y-1">
+              <header className="mb-6 space-y-1">
                 {section && !isHomePage &&  (
                   <p className="font-display text-sm font-medium text-blue-600">
                     {section.title}
                   </p>
                 )}
                 {title && (
-                  <h1 className="font-display text-4xl text-gradient dark:text-white">
+                  <h1 className="font-display font-semibold text-4xl text-gradient dark:text-white">
                     {title}
                   </h1>
                 )}
