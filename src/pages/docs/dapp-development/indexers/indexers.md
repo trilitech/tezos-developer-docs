@@ -15,42 +15,9 @@ A block explorer, or an app that tracks activity on the blockchain, is typically
 - an API that queries the database
 - a frontend that displays the data
 
-<<<<<<< HEAD
-1. [How Blockchain Indexers Work and Why We Need Them](.../../how-indexers-work//how-indexers-work)
-    - What are databases and indexes
-    - What data can be obtained from an indexer
-    - Where indexers are used
-
-2. [Full and Selective Indexers on Tezos](.../../full-and-selective-indexers/full-and-selective-indexers)
-    - The differences between full and selective indexers
-    - An overview of the features of full TzKT and TzStats
-    - Short summaries of selective Que Pasa, DipDup and Dappetizer
-
-3. [How to Use the TzKT API in a Simple Project on Tezos](.../../tzkt/tzkt)
-    - Display the balance of the address 
-    - Display liquidity backing stats
-    - Improve the project
-
-4. [How to Use Que Pasa in a Simple Project on Tezos](.../../que-pasa/que-pasa)
-    - Install and configure Que Pasa and PostgreSQL
-    - Index data from the Signum's smart contract  
-    - Display indexed data in the project
-
-5. [How to Use DipDup and Dappetizer on Tezos](.../../dip-dup-dappetizer/dip-dup-dappetizer)
-    - Install and set up DipDup and Dappetizer
-    - Do a simple project with DipDup
-    - Create a similar project in Dappetizer
-
-{% callout title="Info" %}
-
-This content was created by [Tezos Ukraine.](https://tezos.org.ua/en) 
-The original version can be found [here](https://indexers.tezos.org.ua/) in multiple languages.
-{% /callout %}
-=======
-Since, the on-chain data is already in the database of the node itself why is an indexer needed? The indexer is relevant because it optimizes the way a node stores data. The purpose is to provide very quick access to blockchain data according to some specific criteria related to a given address.
+Since the on-chain data is already in the database of the node itself why is an indexer needed? The indexer is relevant because it optimizes the way a node stores data. The purpose is to provide very quick access to blockchain data according to some specific criteria related to a given address.
 
 So, the indexer is the part of the explorer that fetches the raw data from the node, then processes it and stores it in the database in an efficient way.
-
 
 # How Blockchain Indexers Work and Why We Need Them
 
