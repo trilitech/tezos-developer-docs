@@ -4,9 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && next export",
     "start": "next start",
     "lint": "next lint"
+  },
+  "eslintConfig": {
+    "extends": "next"
   },
   "browserslist": "defaults, not ie <= 11",
   "dependencies": {
