@@ -25,10 +25,10 @@ const navigation = [
   {
     title: 'NFTs, Gaming and DeFi',
     links: [
-      { title: 'NFTs and Tokens', href: '/docs/nft/nfts-and-tokens/nfts-and-tokens' },
+      { title: 'DeFi Tokens', href: '/docs/defi/defi-tokens/defi-tokens' },
       { title: 'Create an NFT', href: '/docs/nft/create-an-nft/create-an-nft' },
       { title: 'Build an NFT Marketplace', href: '/docs/nft/build-an-nft-marketplace/build-an-nft-marketplace' },
-      { title: 'Tezos SDK for Unity', href: '/docs/gaming/tezos-sdk-for-unity/tezos-sdk-for-unity' },
+      { title: 'Tezos SDK for Unity', href: '/docs/gaming/sdks/tezos-sdk-for-unity' },
       { title: 'Build a Game on Tezos', href: '/docs/gaming/build-a-game-on-tezos/build-a-game-on-tezos' },
     ],
   },
