@@ -1,6 +1,6 @@
 # Tezos Documentation Portal (Beta)
 
-This is the source code for the Tezos Documentation Portal: https://tezos.com/developer/docs
+This is the source code for the Tezos Documentation Portal: https://tezos.com/developers/docs
 
 ## Contributing
 
