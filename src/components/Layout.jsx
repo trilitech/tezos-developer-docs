@@ -322,7 +322,7 @@ export function Layout({ children, title, tableOfContents }) {
         
           
           <div class="mb-2 md:order-1 md:mt-0">
-            <p class="text-left lg:text-center text-sm leading-5 text-white hover:text-gray-300 "> <a href='/'>Back to Tezos.com</a> </p>
+            <p class="text-left lg:text-center text-sm leading-5 text-white hover:text-gray-300 "> <a href='/'>Return to Tezos.com</a> </p>
           </div>
           
         </div>
