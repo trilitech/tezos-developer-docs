@@ -9,7 +9,7 @@ export function Prose({ as: Component = 'div', className, ...props }) {
         // headings
         'prose-headings:scroll-mt-28 prose-headings:font-display prose-headings:font-normal lg:prose-headings:scroll-mt-[8.5rem]',
         // lead
-        'prose-lead:text-slate-500 dark:prose-lead:text-slate-400',
+        'prose-lead:text-slate-500 prose-lead:text-base dark:prose-lead:text-slate-400 dark:prose-lead:text-base',
         // links
         'prose-a:font-semibold dark:prose-a:text-sky-400',
         // link underline
