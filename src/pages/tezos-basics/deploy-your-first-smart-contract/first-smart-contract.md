@@ -251,7 +251,7 @@ You should now see a new folder created called `/output/` which will contain all
 
 ## Deploy to the Testnet
 
-We're now going to deploy to the Testnet! :tada:
+We're now going to deploy to the Testnet!
 
 First you need to make sure that your current directory is `/output/storeGreeting/`.
 
