@@ -1,6 +1,6 @@
 ---
 id: test-networks
-title: Test networks
+title: Test Networks
 authors: Mathias Hiron, Nomadic Labs
 ---
 

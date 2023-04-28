@@ -295,9 +295,8 @@ You can observe your actions on explorers like *tzkt* or *tzstats*:
   
 OpenTezos has a guide on [how to use an explorer](https://opentezos.com/explorer).
 
-
 {% callout type="note" %}
 For a more compresensive guide on how to install Octez, including via docker images, see the [docs](https://tezos.gitlab.io/introduction/howtoget.html) by Nomadic Labs. 
 
-The above is an abrided version of the [Octez guide](https://opentezos.france-ioi.org/en/a/1332828229711949831;p=1,3556096645042535892;pa=0) found on OpenTezos.
+The above is an abridged version of the [Octez guide](https://opentezos.france-ioi.org/en/a/1332828229711949831;p=1,3556096645042535892;pa=0) found on OpenTezos.
 {% /callout %}

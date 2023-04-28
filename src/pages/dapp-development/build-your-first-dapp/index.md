@@ -1,6 +1,6 @@
 ---
 id: build-your-first-dapp
-title: Build your first dapp on Tezos
+title: Build your First DApp on Tezos
 slug: /build-your-first-dapp
 authors: Claude Barde
 ---

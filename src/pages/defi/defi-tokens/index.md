@@ -1,5 +1,5 @@
 ---
-title: DeFi tokens 
+title: DeFi Tokens 
 id: defi-tokens
 ---
 
