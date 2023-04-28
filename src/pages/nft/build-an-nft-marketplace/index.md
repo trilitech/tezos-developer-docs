@@ -11,7 +11,7 @@ You can find the [Github version and full code here](https://github.com/marigold
 
 Business objects managed by a blockchain are called `assets`. On Tezos you will find the term `Financial Asset or FA` with different version 1, 2 or 2.1.
 
-Here below different categorization of assets.
+Here are different categorization of assets.
 
 ![](http://jingculturecommerce.com/wp-content/uploads/2021/03/nft-assets-1024x614.jpg)
 
@@ -49,10 +49,6 @@ Here we present Part 1 of 4 of a training course by [Marigold](https://www.marig
 > Note : because we are in web3, buy or sell features are a real payment system using onchain XTZ token as money. This differs from traditional web2 applications where you have to integrate payment system and so, pay extra fees.
 
 # Glossary
-
-## What are NFTs?
-
-A non-fungible token is a unique and non-interchangeable unit of data stored on a digital ledger. NFTs can be used to represent easily-reproducible items such as photos, videos, audio, and other types of digital files as unique items, and use blockchain technology to establish a verified and public proof of ownership.
 
 ## What is IPFS?
 
@@ -366,7 +362,7 @@ taq deploy nft.tz -e "testing"
 └──────────┴──────────────────────────────────────┴───────┴──────────────────┴────────────────────────────────┘
 ```
 
-** Hooray! We have finished the backend **
+** We have finished the backend! **
 
 # NFT Marketplace frontend
 
