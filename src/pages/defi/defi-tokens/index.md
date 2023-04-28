@@ -101,7 +101,7 @@ Let's consider the following facts:
 
 - The _FA1.2_ and _FA2_ standards define how tokens are transferred and how to keep a consistent record of those token transfers in the Tezos network.
 
-Now here is the issue: **XTZ doesn't conform to its own FA standards**.
+Now here is the issue: XTZ doesn't conform to its own FA standards.
 
 Indeed, XTZ is the proto-token of the Tezos Blockchain, i.e., it was built before the FA standards existed. This makes XTZ not compliant with the FA standards used by most Dapps, e.g., DEXs, NFT marketplaces, etc.
 
@@ -122,7 +122,9 @@ In practice, when wrapping, your XTZ are stored in a smart contract, and an equa
 
 ## Properties of wXTZ
 
+{% callout %}
 wXTZ has been developed by [Stove Labs](https://github.com/stove-labs)
+{% /callout %}
 
 - **Liquid**: wXTZ are liquid and may be used as a standard developer building block (FA1.2) for Tezos DeFi and to participate in DeFi systems on Tezos.
 
@@ -136,7 +138,7 @@ wXTZ has been developed by [Stove Labs](https://github.com/stove-labs)
 
 - **Non-custodial**: XTZ locked in the smart contract to mint wXTZ are only redeemable by the user himself. No one can move or touch these tokens until the user burns its wXTZ and gets his or her XTZ back.
 
-Please refer to their [medium article](https://medium.com/stakerdao/the-wrapped-tezos-wxtz-beta-guide-6917fa70116e) to learn more about wXTZ and get started.
+Please refer to the [medium article](https://medium.com/stakerdao/the-wrapped-tezos-wxtz-beta-guide-6917fa70116e) to learn more about wXTZ and get started.
 
 ## Other wrapped assets
 
@@ -155,7 +157,7 @@ Wrapped assets not only improve the functionality and usability of the asset it 
 On Tezos, we've seen the addition of [Wrapped XTZ (wXTZ)](https://medium.com/stakerdao/the-wrapped-tezos-wxtz-beta-guide-6917fa70116e), [Wrapped Bitcoin (tzBTC)](https://tzbtc.io/), [Wrapped ETH (ETHtz)](https://decrypt.co/51860/wrapped-eth-comes-to-tezos-as-it-takes-on-ethereum-defi-market) and the addition of ERC-20 from [Plenty Defi](https://analytics.plentydefi.com/) wrapped assets (among which, WBTC, USDC, WETH, BUSD, DAI, USDT, LINK, MATIC, agEUR).
 
 {% callout type="note" %}
-See more:
+Learn more:
 - [Wrapped XTZ Guide](https://medium.com/stakerdao/the-wrapped-tezos-wxtz-beta-guide-6917fa70116e)
 - [tzBTC](https://tzbtc.io/)
 {% /callout %}

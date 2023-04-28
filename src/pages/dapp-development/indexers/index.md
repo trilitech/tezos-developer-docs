@@ -17,18 +17,12 @@ A block explorer, or an app that tracks activity on the blockchain, is typically
 
 Since the on-chain data is already in the database of the node itself why is an indexer needed? The indexer is relevant because it optimizes the way a node stores data. The purpose is to provide very quick access to blockchain data according to some specific criteria related to a given address.
 
-So, the indexer is the part of the explorer that fetches the raw data from the node, then processes it and stores it in the database in an efficient way.
-
-# How Blockchain Indexers Work and Why We Need Them
-
-Blockchain Indexers are programs that simplify querying and searching through blockchain data. Almost any decentralized application uses indexers, and if you want to build your dApp, chances are you’ll need to use them too.
+So, the indexer is the part of the explorer that fetches the raw data from the node, then processes it and stores it in the database in an efficient way. They simplify querying and searching through blockchain data. Almost any decentralized application uses indexers, and if you want to build your dApp, chances are you’ll need to use them too.
 
 
 ## A simple explanation of how indexers work
 
-Indexers are programs for transforming a large amount of information into a database with convenient and fast search. Understanding indexers is easy if we use a library as an example.
-
-There are thousands of books on the shelves in the library. They are usually sorted by genre and authors' names. The reader will quickly find the stand with novels or gardening books.
+Understanding indexers is easy if we use a library as an example. There are thousands of books on the shelves in the library. They are usually sorted by genre and authors' names. The reader will quickly find the stand with novels or gardening books.
 
 But let's say the reader wants to find something specific: a poem about an acacia tree, a story about a gas station architect, or all the books written in 1962. They will have to check all the books in the library until they come across what they are looking for.
 
@@ -46,7 +40,7 @@ For example, a developer can access an operation's details only if they know whe
 
 Let's try to get data about this transaction using Tezos client and RPC API — [opRjkzJxJ1xZaUnBDykGUjrRV8qgHFvchcYnbkkcotS1Y7idCSL](https://tzstats.com/opRjkzJxJ1xZaUnBDykGUjrRV8qgHFvchcYnbkkcotS1Y7idCSL). 
 
-![](/developers/docs/images/transaction_tzstats.png)
+![tzstats transaction](/developers/docs/images/transaction_tzstats.png)
 
 
 The highlighted part at the top of the screenshot is the command we used: 
@@ -117,9 +111,9 @@ Many applications that work with on-chain data use an indexer.
 
 The simplest example of working with an indexer is a blockchain wallet. For example, to display a user's token balances, Temple Wallet queries this data from the TzKT indexer and gets tokens' tickers and logos from the contract metadata. 
 
-![](/developers/docs/images/temple_query.png)
+![temple query](/developers/docs/images/temple_query.png)
 
-Try it yourself: follow [this link](https://api.tzkt.io/v1/tokens/balances?account=tz1UEQzJbuaGJgwvkekk6HwGwaKvjZ7rr9v4) and replace tz1...9v4 with your wallet address to see which tokens you have. This is the same query to TzKT API that Temple uses: '/tokens/balances' in constants getTokenBalances and getNFTBalances.
+Try it yourself: [Go here](https://api.tzkt.io/v1/tokens/balances?account=tz1UEQzJbuaGJgwvkekk6HwGwaKvjZ7rr9v4) and replace tz1...9v4 with your wallet address to see which tokens you have. This is the same query to TzKT API that Temple uses: '/tokens/balances' in constants getTokenBalances and getNFTBalances.
 
 In the same way, Temple Wallet receives transaction details and displays NFTs, delegation rewards, the value of your tokens, and other data. For different queries, it uses various sources. For example, it requests the XTZ price from Coingecko.
 
@@ -138,10 +132,12 @@ Let's say you plan to launch a DeFi dashboard that will display the user's token
 
 The simple way to do this is to make a list of all token smart contracts addresses and then run an indexer to store the contents of their storage in a database. Then you could run queries to get all balance records about the selected address. TzKT does it this way and even has a specific API endpoint:
 
+```
 https://api.tzkt.io/v1/tokens/balances?account=tz1UEQzJbuaGJgwvkekk6HwGwaKvjZ7rr9v4
+```
 
 
-Using an indexer is not necessary, but the alternative — to use public RPC nodes and fetch data directly from the blockchain — is much more complicated. Token balances can be obtained by reading big_map contracts that store balance records. First, you would need to get the hash of the user's address in script-expression format. To do this, run the command
+Using an indexer is not necessary, but the alternative — to use public RPC nodes and fetch data directly from the blockchain — is much more complicated. Token balances can be obtained by reading *big_map* contracts that store balance records. First, you would need to get the hash of the user's address in script-expression format. To do this, run the command
 
 `octez-client hash data '"{address}"' of type address`
 
@@ -173,15 +169,15 @@ We will make a simple page where users can enter their addresses and check the b
 
 First, let's create an empty HTML file in VS Code (you may use another editor, of course) and add the essential elements: doctype, head, title, and body.
 
-![](/developers/docs/images/check_balance_html_1.png)
+![check balance 1](/developers/docs/images/check_balance_html_1.png)
 
 We will use AJAX and the jQuery library to request data via the API and process it. Incorporating a library is simple: just provide a link to it in the script element.
 
-![](/developers/docs/images/check_balance_html_2.png)
+![check balance 2](/developers/docs/images/check_balance_html_2.png)
 
 Let's get the balance of our address via AJAX. 
 
-![](/developers/docs/images/check_balance_ajax.png)
+![check balance ajax](/developers/docs/images/check_balance_ajax.png)
 
 First, we added the $(document).ready() command. It ensures the page is loaded before the scripts are processed.
 
