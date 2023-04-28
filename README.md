@@ -1,10 +1,28 @@
-# Syntax
+# Tezos Documentation Portal (Beta)
 
-Syntax is a [Tailwind UI](https://tailwindui.com) site template built using [Tailwind CSS](https://tailwindcss.com) and [Next.js](https://nextjs.org).
+This is the source code for the Tezos Documentation Portal: https://tezos.com/developers/docs
+
+## Contributing
+
+We welcome contributions to the documentation! Here's how you can get involved:
+
+1. Fork the repository: Click the "Fork" button at the top-right corner of this page to create your own copy of the repository.
+
+2. Clone your fork: Clone the repository to your local machine using `git clone https://github.com/<your-username>/<repository>.git`.
+
+3. Create a branch: Create a new branch with a descriptive name for your changes, e.g., `git checkout -b my-feature`.
+
+4. Make changes: Implement your changes, enhancements, or bug fixes on your branch.
+
+5. Commit your changes: Add and commit your changes using `git add .` and `git commit -m "Your commit message"`.
+
+6. Push your changes: Push your changes to your fork using `git push origin my-feature`.
+
+7. Create a pull request: Navigate to the original repository on GitHub and click the "New Pull Request" button. Select your fork and branch, then click "Create Pull Request".
 
 ## Getting started
 
-To get started with this template, first install the npm dependencies:
+To setup the site locally, first install the npm dependencies:
 
 ```bash
 npm install
@@ -19,30 +37,7 @@ npm run dev
 
 Finally, open [http://localhost:3000](http://localhost:3000) in your browser to view the website.
 
-## Customizing
-
-You can start editing this template by modifying the files in the `/src` folder. The site will auto-update as you edit these files.
-
-## Global search
-
-By default this template uses [Algolia DocSearch](https://docsearch.algolia.com) for the global search. DocSearch is free for open-source projects, and you can sign up for an account on their website. Once your DocSearch account is ready, update the following [environment variables](https://nextjs.org/docs/basic-features/environment-variables) in your project with the values provided by Algolia:
-
-```
-NEXT_PUBLIC_DOCSEARCH_APP_ID=
-NEXT_PUBLIC_DOCSEARCH_API_KEY=
-NEXT_PUBLIC_DOCSEARCH_INDEX_NAME=
-```
 
 ## License
 
-This site template is a commercial product and is licensed under the [Tailwind UI license](https://tailwindui.com/license).
-
-## Learn more
-
-To learn more about the technologies used in this site template, see the following resources:
-
-- [Tailwind CSS](https://tailwindcss.com/docs) - the official Tailwind CSS documentation
-- [Next.js](https://nextjs.org/docs) - the official Next.js documentation
-- [Headless UI](https://headlessui.dev) - the official Headless UI documentation
-- [Markdoc](https://markdoc.io) - the official Markdoc documentation
-- [DocSearch](https://docsearch.algolia.com) - the official DocSearch documentation
+This project is open for contribution but the source code itself uses a commercial template and is therefore not licensed under any open-source license. Forking this project as a base for your own projects is not permitted under the license of the original template.
