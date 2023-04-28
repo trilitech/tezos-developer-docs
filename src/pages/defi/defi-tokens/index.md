@@ -48,13 +48,13 @@ As a result, AMM, drift, and target price allow ctez to regulate supply and dema
 
 *   Users prefer to issue ctez i.e. there's excess supply. The AMM rate falls below the target price, the drift rises, and the target price follows. If the value of the drift exceeds the reward from baking, users buyback ctez to redeem or liquidate ovens, and the rate rises to the target price.
 *   Users prefer to buy cte i.e. there's excess demand. AMM rate rises above the target price, drift decreases, and the target price follows suit. It becomes profitable to take advantage of the mint-sell-mint loop: release ctez, sell them for XTZ, release more ctez, sell them, and so on several times. The rate decreases to the target price.
-*   Users find the balance between buying and releasing ctez: that’s equilibrium. The value of the drift equals the profit from the delegation, and the value of the ctez represents XTZ and the accumulated rewards.
+*   Users find the balance between buying and releasing ctez--there's equilibrium. The value of the drift equals the benefits from delegation, and the value of the ctez represents XTZ and the accumulated rewards.
 
 To summarize, ctez cannot (and should not) maintain the pegging to XTZ. Its value fluctuates smoothly through drift, target price changes, and liquidations.
 
 ## How to create ctez
 
-Go to [ctez.app](https://ctez.app/) and check out the drift value.
+Go to [ctez.app](https://ctez.app/) and observe the drift value.
 
 ![](/developers/docs/images/ctez6.png)
 If the drift value is lower than the yield from delegating, you can try to create an oven and benefit from mint-sell-mint. To do this, click on the Create Oven button in the menu on the left.
