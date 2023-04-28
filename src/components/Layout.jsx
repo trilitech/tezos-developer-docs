@@ -15,6 +15,7 @@ const navigation = [
   {
     title: 'Tezos Basics',
     links: [
+      { title: 'Tezos Blockchain Overview', href: '/tezos-blockchain-overview/tezos-blockchain-overview' },
       { title: 'Get Started with Octez', href: '/tezos-basics/get-started-with-octez/get-started-with-octez' },
       { title: 'Deploy your first smart contract', href: '/tezos-basics/deploy-your-first-smart-contract/first-smart-contract' },
       { title: 'Tezos Protocol & Shell', href: '/tezos-basics/tezos-protocol-and-shell/tezos-protocol-and-shell' },
