@@ -3,7 +3,7 @@ import { Icon } from '@/components/Icon'
 
 export function QuickLinks({ children }) {
   return (
-    <div className="not-prose my-12 grid grid-cols-1 sm:grid-rows-6 sm:grid-flow-col sm:grid-cols-3 sm:gap-1">
+    <div className="not-prose my-12 grid grid-cols-1 gap-1 lg:grid-rows-6 lg:grid-flow-col lg:grid-cols-3 lg:gap-1">
         <h2 className="font-semibold text-lg text-slate-800 uppercase dark:text-white">Tezos Basics</h2>
         {children.slice(0, Math.ceil(children.length / 3))}
 
