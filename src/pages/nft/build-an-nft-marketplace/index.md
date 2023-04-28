@@ -735,7 +735,7 @@ const mint = async (newTokenDefinition: TZIP21TokenMetadata) => {
 };
 ```
 
-![mintForm.png](/images/mintForm.png)
+![mint form](/developers/docs/images/mintForm.png)
 
 Explanations:
 
@@ -761,7 +761,7 @@ useEffect(() => {
 
 ### Display all minted bottles
 
-Replace the `"//TODO"` keyword by this template
+Replace the `"//TODO"` keyword with this template
 
 ```html
 <Box sx={{ width: "70vw" }}>
@@ -907,7 +907,7 @@ const handleStepChange = (step: number) => {
 
 4. Click on Mint button
 
-![minting.png](/images/minting.png)
+![minting](/developers/docs/images/minting.png)
 
 Your picture will be pushed to IPFS and displayed.
 
@@ -915,7 +915,7 @@ Then, Temple Wallet _(or whatever other wallet you choose)_ will ask you to sign
 
 Now you can see all NFTs
 
-![winecollection.png](/images/winecollection.png)
+![wine collection](/developers/docs/images/winecollection.png)
 
 # Conclusion
 
