@@ -10,7 +10,7 @@ export function QuickLinks({ children }) {
         {children.slice(0, Math.ceil(children.length / 3))}
 
         <div className="mt-4 relative flex items-center h-fit max-h-10 pr-4">
-          <h2 className="font-semibold text-lg text-slate-800 uppercase dark:text-white">NFTs, Gaming and DeFi</h2>
+          <h2 className="font-semibold text-lg text-slate-800 uppercase dark:text-white">DeFi, NFTs and Gaming</h2>
         </div>
         {children.slice(Math.ceil(children.length / 3), Math.ceil(children.length / 3) * 2)}
 

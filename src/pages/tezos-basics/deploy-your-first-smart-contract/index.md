@@ -1,6 +1,6 @@
 ---
 id: first-smart-contract
-title: Deploy your first Smart Contract
+title: Deploy your First Smart Contract
 slug: /first-smart-contract
 authors: John Joubert
 ---
@@ -10,7 +10,7 @@ authors: John Joubert
 | Dependency         | Installation instructions                                                                                                                   |
 |--------------------|---------------------------------------------------------------------------------------------------------------------------------------------|
 | Smartpy CLI        | Follow the _Installation_ steps in this [guide](https://smartpy.dev/docs/manual/introduction/installation).                                                 |
-| _octez-client_ CLI | Follow the _How to install the octez-client_ steps [here](/docs/tezos-basics/get-started-with-octez/get-started-with-octez). |
+| _octez-client_ CLI | Follow the _How to install the octez-client_ steps [here](/developers/docs/tezos-basics/get-started-with-octez/). |
 
 {% callout type="warning" title="Note" %}
 Make sure you have **installed** the above CLI tools before getting started.

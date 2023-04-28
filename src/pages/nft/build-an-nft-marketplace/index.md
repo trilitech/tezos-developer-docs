@@ -45,8 +45,9 @@ Here we present Part 1 of 4 of a training course by [Marigold](https://www.marig
 | single asset   | 0..1            | 1..n                     |
 | multi asset    | 0..n            | 1..n                     |
 
-
-> Note : because we are in web3, buy or sell features are a real payment system using onchain XTZ token as money. This differs from traditional web2 applications where you have to integrate payment system and so, pay extra fees.
+{% callout type="note" %}
+Because we are in web3, buy or sell features are a real payment system using onchain XTZ token as money. This differs from traditional web2 applications where you have to integrate payment system and so, pay extra fees
+{% /callout %}
 
 # Glossary
 
@@ -218,7 +219,9 @@ Compile the contract
 TAQ_LIGO_IMAGE=ligolang/ligo:0.60.0 taq compile nft.jsligo
 ```
 
-> Note : to be sure that taqueria will use a correct version of ligo containing the ligo package installer w/ Docker fix, we set the env var `TAQ_LIGO_IMAGE`
+{% callout type="note" %}
+To be sure that taqueria will use a correct version of ligo containing the ligo package installer w/ Docker fix, we set the env var `TAQ_LIGO_IMAGE`
+{% /callout %}
 
 The contract compiles, now let's write `Transfer,Balance_of,Update_operators` entrypoints. We will do a passthrough call to the underlying library. On `main` function, **replace the default cases code by this one**
 
@@ -242,7 +245,9 @@ Explanations:
 - every NFT.xxx() called function is taking the storage type of the NFT library, so we send a partial object from our storage definition to match the type definition
 - the return type contains also the storage type of the library, so we need to reconstruct the storage by copying the modified fields
 
-> Note : Ligo team is working on merging type definitions. You could be able to do `type union` or `merge 2 objects` like in Typescript
+{% callout type="note" %}
+The LIGO team is working on merging type definitions, so you then can do `type union` or `merge 2 objects` like in Typescript
+{% /callout %}
 
 Let's add the `Mint` function now. Add the new function, and update the main function
 
@@ -331,7 +336,9 @@ taq install @taqueria/plugin-taquito@next
 taq deploy nft.tz -e "testing"
 ```
 
-> Note : if it is the first time you use `taqueria`, I recommend to look at [this training first](https://github.com/marigold-dev/training-dapp-1#ghostnet-testnet-wallet)
+{% callout type="note" %}
+If this is the first time you're using `taqueria`, you may want to run through [this training](https://github.com/marigold-dev/training-dapp-1#ghostnet-testnet-wallet).
+{% /callout %}
 
 > For advanced users, just go to `.taq/config.local.testing.json` and change the default account by alice one's (publicKey,publicKeyHash,privateKey) and then redeploy:
 >

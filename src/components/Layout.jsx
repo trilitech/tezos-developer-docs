@@ -24,7 +24,7 @@ const navigation = [
     ],
   },
   {
-    title: 'NFTs, Gaming and DeFi',
+    title: 'DeFi, NFTs and Gaming',
     links: [
       { title: 'DeFi Tokens', href: '/defi/defi-tokens' },
       { title: 'Create an NFT', href: '/nft/create-an-nft' },

@@ -1,6 +1,6 @@
 ---
 id: framework-best-practices
-title: Framework best practices
+title: Framework Best Practices
 slug: /framework-best-practices
 authors: Claude Barde
 ---
