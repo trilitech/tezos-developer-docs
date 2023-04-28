@@ -174,7 +174,7 @@ Tezos provides a [Faucet](https://faucet.ghostnet.teztnets.xyz) to allow you to 
 
 Let's go ahead and fund our wallet through the [Ghostnet Faucet](https://faucet.ghostnet.teztnets.xyz). Paste the hash you copied earlier into the input field for "Or fund any address" and select the amount you'd like to add to your wallet.
 
-![Fund your wallet using the Ghostnet Faucet](/images/wallet-funding.png)
+![Fund your wallet using the Ghostnet Faucet](/developers/docs/images/wallet-funding.png)
 
 Wait a minute or two and you can then run the following command to check that your wallet has funds in it:
 
@@ -251,7 +251,7 @@ You should now see a new folder created called `/output/` which will contain all
 
 ## Deploy to the Testnet
 
-We're now going to deploy to the Testnet! :tada:
+We're now going to deploy to the Testnet!
 
 First you need to make sure that your current directory is `/output/storeGreeting/`.
 
@@ -284,7 +284,7 @@ Then paste the contract address (starting with KT) `KT1Nnk.................UFsJr
 
 Then navigate to the `Storage` tab to see your initial value of `Hello`.
 
-![Confirmation that all worked correctly](/images/storage.png)
+![Confirmation that all worked correctly](/developers/docs/images/storage.png)
 
 ## Replace or append the text
 

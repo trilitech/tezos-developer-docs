@@ -12,7 +12,7 @@ In this document we cover two tokens that are instrumental for DeFi on Tezos: ct
 
 Ctez is a synthetic XTZ that accumulates rewards from delegating XTZ. Literally: 1 ctez can be worth 1 XTZ today, and a year from now it will be worth 1.06 XTZ or more.
 
-In this post, we explain how the ctez exchange rate is formed, when it is rational to aquire ctez, and when it's sensible to release in your own oven.
+Here we explain how the ctez exchange rate is formed, when it is rational to aquire ctez, and when it's sensible to release your own "oven".
 
 DEX pools and DeFi project contracts accumulate large amounts of XTZ. Therefore, a question arises: who bakes these XTZs? If the project delegates them, then to whom exactly? What is a user to do if they want to use DeFi but don’t want to delegate to a particular baker?
 
@@ -31,54 +31,53 @@ Users release ctez against XTZ collateral. To do this, they create contract oven
 
 Along with the ovens, a separate AMM pool for exchanging ctez for XTZ and back works. In addition to the direct exchange function, it acts as an oracle: the rate of this pool affects the value of the drift, i.e. the rate of change of the target price:
 
-*   ctez in AMM is worth less than the target price. The drift increases, and if it is above zero, the target price increases faster or decreases less.
+*   ctez in the AMM is worth less than the target price. The drift increases, and if it is above zero, the target price increases faster or decreases less.
 *   ctez is worth more than the target price. The drift decreases and the target price increases more slowly or even decreases.
 
 The value of the drift is recalculated each time AMM is called. It changes slowly, no faster than 1% per day. This solution protects the ctez from machinations through [oracle contract manipulation](https://medium.com/bandprotocol/why-defi-needs-real-oracles-beyond-dex-9c80cf192883).
 
 The target price, i.e. the value of the ctez in XTZ, is required to calculate the collateral percentage of the oven and the conditions of liquidation. An oven can become subject to liquidation if the value of the ctez issued exceeds 93.33% of the deposit in XTZ.
 
-In total, every swap on ctez/XTZ AMM launch a chain of events which lead to ctez supply adjustment.
+In total, every swap on ctez/XTZ AMM creates a chain of events which lead to ctez supply adjustment.
 
-![](/images/ctez-diagram.png)
+![](/developers/docs/images/ctez-diagram.png)
 
-Suppose Alice has deposited 100 XTZ in the oven and released 90 ctez at the target price of 1.0. The security percentage is 90%. If the target price rises to 1.05, the collateral percentage is 94.5% and the oven will be subject to liquidation. Bob will deposit the ctez in it and take the XTZ.
+Suppose Alice has deposited 100 XTZ in the oven and released 90 ctez at the target price of 1.0. The security percentage is 90%. If the target price rises to 1.05, the collateral percentage is 94.5% and the oven will be subject to liquidation. Bob will deposit the ctez into it and withdraw the XTZ.
 
 As a result, AMM, drift, and target price allow ctez to regulate supply and demand. There are several basic scenarios:
 
-*   Users prefer to issue ctez: that’s excess supply. The AMM rate falls below the target price, the drift rises, and the target price follows. If the value of the drift exceeds the reward from baking, users buyback ctez to redeem or liquidate ovens, and the rate rises to the target price.
-*   Users prefer to buy ctez: that’s excess demand. AMM rate rises above the target price, drift decreases, and the target price follows suit. It becomes profitable to take advantage of the mint-sell-mint loop: release ctez, sell them for XTZ, release more ctez, sell them, and so on several times. The rate decreases to the target price.
-*   Users have found the balance between buying and releasing ctez: that’s equilibrium. The value of the drift equals the profit from the delegation, and the value of the ctez represents XTZ and the accumulated rewards.
+*   Users prefer to issue ctez i.e. there's excess supply. The AMM rate falls below the target price, the drift rises, and the target price follows. If the value of the drift exceeds the reward from baking, users buyback ctez to redeem or liquidate ovens, and the rate rises to the target price.
+*   Users prefer to buy cte i.e. there's excess demand. AMM rate rises above the target price, drift decreases, and the target price follows suit. It becomes profitable to take advantage of the mint-sell-mint loop: release ctez, sell them for XTZ, release more ctez, sell them, and so on several times. The rate decreases to the target price.
+*   Users find the balance between buying and releasing ctez: that’s equilibrium. The value of the drift equals the profit from the delegation, and the value of the ctez represents XTZ and the accumulated rewards.
 
-In a word, ctez cannot and should not maintain the pegging to XTZ. Its value fluctuates smoothly through drift, target price changes, and liquidations.
+To summarize, ctez cannot (and should not) maintain the pegging to XTZ. Its value fluctuates smoothly through drift, target price changes, and liquidations.
 
 ## How to create ctez
 
 Go to [ctez.app](https://ctez.app/) and check out the drift value.
 
-![](/images/ctez6.png)
-
+![](/developers/docs/images/ctez6.png)
 If the drift value is lower than the yield from delegating, you can try to create an oven and benefit from mint-sell-mint. To do this, click on the Create Oven button in the menu on the left.
 
 If it is above 6 percent, it is advantageous to accumulate ctez. Its price will go up: oven owners will have to buy back and redeem ctez to avoid liquidation.
 
-![](/images/ctez1.png)
+![](/developers/docs/images/ctez1.png)
 
 Enter the address of the baker to whom the oven delegates XTZ, and specify how many XTZ you want to put into the oven. Click Whitelist if you want only the specified addresses to be able to contribute additional XTZ to your oven. Then click Create Oven and confirm the transaction in your wallet.
 
-![](/images/ctez2.png)
+![](/developers/docs/images/ctez2.png)
 
 Wait a minute until the transaction is included in the block and click on My Ovens on the left-hand side of the menu.
 
-![](/images/ctez3.png)
+![](/developers/docs/images/ctez3.png)
 
 Click on the oven you mean to open. It will pop open its data, such as the collateralization level, the amount of deposited XTZ, and the amount of issued ctez.
 
-![](/images/ctez4.png)
+![](/developers/docs/images/ctez4.png)
 
 Press Mint to issue ctez. Enter the amount and confirm the transaction in the wallet. After a few minutes, check your wallet: ctez should appear there.
 
-![](/images/ctez5.png)
+![](/developers/docs/images/ctez5.png)
 
 
 If they didn’t, add the tokens manually to the ctez contract address: ([KT1SjXiUX63QvdNMcM2m492f7kuf8JxXRLp4](https://tzkt.io/KT1SjXiUX63QvdNMcM2m492f7kuf8JxXRLp4/operations/)).
@@ -106,19 +105,19 @@ Now here is the issue: **XTZ doesn't conform to its own FA standards**.
 
 Indeed, XTZ is the proto-token of the Tezos Blockchain, i.e., it was built before the FA standards existed. This makes XTZ not compliant with the FA standards used by most Dapps, e.g., DEXs, NFT marketplaces, etc.
 
-![](/images/non-compliant.svg)
+![](/developers/docs/images/non-compliant.svg)
 FIGURE 1: XTZ can't interact with FA tokens
 
 One solution consists in _wrapping_ XTZ into an FA-compliant token called _wXTZ_. Wrapping XTZ allows you to trade them directly with alt tokens. You need wXTZ to trade XTZ for other FA tokens on decentralized platforms like _Dexter_ and _Quipuswap_. Because decentralized platforms running on Tezos use smart contracts to facilitate trades, directly between users, every user needs to have the same standardized format for the tokens they trade. This ensures tokens don't get lost.
 
-![](/images/wrap.svg)
+![](/developers/docs/images/wrap.svg)
 FIGURE 2: Wrapping XTZ and unwrapping wXTZ
 
 When you "wrap" XTZ, you aren't really wrapping so much as trading XTZ for an equal token called wXTZ via a smart contract. If you want to get plain XTZ back you need to "unwrap" it, i.e., trade it back for XTZ.
 
 In practice, when wrapping, your XTZ are stored in a smart contract, and an equal amount of wXTZ is minted by the contract and transferred to you. When unwrapping, your wXTZ are burned (a.k.a. destroyed), and some XTZ are released and sent back to you.  
 
-![](/images/compliant.svg)
+![](/developers/docs/images/compliant.svg)
 FIGURE 3: wXTZ can interact with other FA tokens
 
 ## Properties of wXTZ
