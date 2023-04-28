@@ -5,7 +5,7 @@ slug: /build-your-first-dapp
 authors: Claude Barde
 ---
 {% callout title="Smart Contracts" %}
-This guide assumes you are already familiar with smart contracts. See our guide [Deploy your first Smart Contract](../../docs/tezos-basics/deploy-your-first-smart-contract) to get that background.
+This guide assumes you are already familiar with smart contracts. See our guide [Deploy your first Smart Contract](../../tezos-basics/deploy-your-first-smart-contract) to get that background.
 {% /callout %}
 
 A decentralized application or dapp is an application that connects to a blockchain and provides services that are related to the blockchain it connects to.
