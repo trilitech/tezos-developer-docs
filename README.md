@@ -4,7 +4,7 @@ This is the source code for the Tezos Documentation Portal: https://tezos.com/de
 
 ## Contributing
 
-We welcome contributions to this project! Here's how you can get involved:
+We welcome contributions to the documentation! Here's how you can get involved:
 
 1. Fork the repository: Click the "Fork" button at the top-right corner of this page to create your own copy of the repository.
 
@@ -22,7 +22,7 @@ We welcome contributions to this project! Here's how you can get involved:
 
 ## Getting started
 
-To get started with this template, first install the npm dependencies:
+To setup the site locally, first install the npm dependencies:
 
 ```bash
 npm install
