@@ -1,12 +1,12 @@
 ---
 id: get-started-with-octez
-title: Get Started with Octez
+title: Getting Started with Octez
 authors: Thomas Zoughebi, Aymeric Bethencourt, and Maxime Fernandez
 ---
 
 ## Octez - The Tezos Client 
 
-_Octez_ is the official client to interact with a Tezos node via RPC (remote procedural calls). In theory there can be multiple implementations of the Tezos protocol. Currently there is only Octez, but there may be others in the future. Octez consists of several binaries (i.e., executable files), including: a client, a node, and a baker.
+_Octez_ is the official client to interact with a Tezos node via RPC (remote procedural calls). In theory there can be multiple implementations of the Tezos protocol, but currently there is only Octez. Octez consists of several binaries (i.e., executable files), including: a client, a node, and a baker.
 
 ### How to install the *octez-client*
 
@@ -40,7 +40,7 @@ Below we'll connect to a community node (<https://ghostnet.tezos.marigold.dev>) 
 `octez-client --endpoint https://ghostnet.tezos.marigold.dev config update`
 
 
-The result should look like the lines below:
+The result should look like this:
 
 ```bash
 Warning:
