@@ -3,10 +3,6 @@ id: build-an-nft-marketplace
 title: Build an NFT Marketplace
 ---
 
-{% callout type="note" %}
-You can find the [Github version and full code here](https://github.com/marigold-dev/training-nft-1)
-{% /callout %}
-
 # Introduction
 
 Business objects managed by a blockchain are called `assets`. On Tezos you will find the term `Financial Asset or FA` with different version 1, 2 or 2.1.

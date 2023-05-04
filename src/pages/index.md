@@ -1,7 +1,7 @@
 ---
 title: Tezos Documentation
 pageTitle: Tezos Developer Documentation and Reference
-description: Everything you need to know for Tezos development, from novice to expert. Learn how to build your next Game, NFT, or DeFi dapp here. Learn how to launch a Tezos baker or implement smart rollups on Tezos.
+description: Get started building on Tezos today. This collection of guides will take you through writing your first smart contract, using the Unity SDK, and building an NFT Marketplace.
 ---
 
 Welcome to the Tezos Documentation Portal. We're currently in _beta_. Please share your [feedback](https://github.com/trilitech/tezos-developer-docs/issues/new/choose) to help us improve. {% .lead %}
