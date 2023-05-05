@@ -2,6 +2,7 @@ import Head from 'next/head'
 import { slugifyWithCounter } from '@sindresorhus/slugify'
 
 import { Layout } from '@/components/Layout'
+import { ChatBob} from '@/components/ChatBob'
 
 import 'focus-visible'
 import '@/styles/tailwind.css'
@@ -69,6 +70,7 @@ export default function App({ Component, pageProps }) {
       </Head>
       <Layout title={title} tableOfContents={tableOfContents}>
         <Component {...pageProps} />
+        <ChatBob/>
       </Layout>
     </>
   )
