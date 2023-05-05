@@ -14,9 +14,13 @@
   "browserslist": "defaults, not ie <= 11",
   "dependencies": {
     "@docsearch/react": "^3.2.1",
+    "@emotion/react": "^11.10.8",
+    "@emotion/styled": "^11.10.8",
     "@headlessui/react": "^1.7.8",
     "@markdoc/markdoc": "0.1.7",
     "@markdoc/next.js": "0.1.6",
+    "@mui/icons-material": "^5.11.16",
+    "@mui/material": "^5.12.3",
     "@sindresorhus/slugify": "^2.1.0",
     "@tailwindcss/typography": "^0.5.7",
     "autoprefixer": "^10.4.12",
