@@ -1,0 +1,73 @@
+---
+id: archetype
+title: Archetype
+---
+
+## Introduction
+Archetype is an elegant generic-purpose language to develop Smart Contracts on the Tezos blockchain.
+
+It supports all [Michelson](https://tezos.gitlab.io/michelson-reference/) features, but also provides exclusive high-level features for a precise and concise source code, that make contracts easier to develop, read and maintain.
+
+## Looking at a simple Archetype contract
+
+Create a file `hello.arl`
+
+```
+archetype hello
+
+variable msg : string = "Hello"
+
+entry input(name : string) {
+  msg += (length(msg) > 5 ? "," : "") + " " + name
+}
+```
+
+The contract starts with the `archetype` keyword followed by a contract identifier.
+
+For example:
+```
+archetype escrow
+
+/* ... */
+```
+
+#### Parameters
+
+A contract may have parameters. A parameter value is not in the source code and is provided at deployment (origination) time. For example, the address of the contract owner is typically a contract parameter.
+
+By default, a contract parameter is an element of the contract storage. It is defined by an identifier and a type. The list of parameters follows the contract's identifier between parenthesis and separated by comma.
+
+For example:
+```
+archetype escrow(seller : address, buyer : address)
+
+/* ... */
+```
+
+The `seller` and `buyer` [addresses](https://archetype-lang.org/docs/reference/types/#address) then need to be set at deployment time.
+
+## Deploy contract with Completium:
+
+The Completium CLI is the command line utility to install Archetype compiler and manage contracts (deploy, call).
+
+To install and initialize Completium do:
+```
+$ npm install -g @completium/completium-cli
+$ completium-cli init
+```
+
+Then you can deploy the contract with 
+
+```
+completium-cli deploy hello.arl
+```
+
+Call contract's entrypoint `input` with argument "Archetype":
+
+```
+completium-cli call hello --entry input --arg '{ "name": "Archetype" }'
+```
+
+{% callout type="note" %}
+The full documentation on Archetype can be found on [archetype-lang.org](https://archetype-lang.org/docs/introduction). Also see the material on OpenTezos [here](https://opentezos.com/archetype).
+{% /callout %}

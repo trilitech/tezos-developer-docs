@@ -4,19 +4,6 @@ title: Smart Contracts
 authors: Thomas Zoughebi, Aymeric Bethencourt, and Maxime Fernandez
 ---
 
-# Tutorials on smart contract languages LIGO, SmartPy & Archetype
-
-To directly jump into writing a smart contract in one of the high-level languages available for Tezos, see the documentation on their respective sites. 
-
-- **LIGO:** [Docs](https://ligolang.org/docs/intro/introduction?lang=jsligo) and [Tutorials](https://ligolang.org/docs/tutorials/getting-started?lang=jsligo)
-
-- **SmartPy:** [Manual](https://smartpy.dev/docs/manual/introduction/overview) and [Guides](https://smartpy.dev/docs/guides/).
-
-- **Archetype:** [Docs](https://archetype-lang.org/docs/introduction/)
-
-You can also see the lessons for each on OpenTezos for [LIGO](https://opentezos.com/ligo), [SmartPy](https://opentezos.com/smartpy) and [Archetype](https://opentezos.com/archetype).
-
-
 # Introduction to smart contracts 
 A smart contract is a piece of code stored on the *blockchain*. It contains a set of instructions and rules to trigger them. Once deployed, it becomes immutable, but a user can trigger the execution of the code without modifying it. 
 
