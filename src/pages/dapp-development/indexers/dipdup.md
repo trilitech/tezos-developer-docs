@@ -24,7 +24,9 @@ DipDup only works on Unix systems: macOS and Linux distributions. If you have Wi
 
 First, you need to install [the Python environment](https://www.python.org/downloads/) in any convenient way. Then open a terminal and install DipDup using the command:
 
-    python -c "$(curl -sSL https://dipdup.io/install.py)"
+```
+python -c "$(curl -sSL https://dipdup.io/install.py)"
+```
 
 If you have macOS 12 or higher, replace `python` with `python3`.
 
@@ -64,8 +66,9 @@ Check [DipDup Config Documentation](https://docs.dipdup.io/getting-started/creat
 ### [](https://indexers.tezos.org.ua/dipdup-dappetizer#models-and-data-handlers)Models and data handlers
 
 Next, you need to create indexes, schemas, models, and handlers. To do this, go to the tzbtc folder in the terminal and execute the command:
-
-    dipdup init
+```
+dipdup init
+```
 
 [![5](/developers/docs/images/indexers/dipdup5.png)](https://indexers.tezos.org.ua/static/7c0f6b39910885a54a171086ff53ead6/5ca22/5.png)
 
@@ -113,8 +116,9 @@ As in the on_mint handler, we get on-chain data from the call parameters of the 
 ### [](https://indexers.tezos.org.ua/dipdup-dappetizer#running-the-indexer)Running the indexer
 
 In the terminal, run the following command:
-
-    dipdup run
+```
+dipdup run
+```
 
 DipDup will start downloading the required data from the TzKT public API. Upon completion, it will begin processing new blocks.
 
@@ -142,7 +146,9 @@ Then we close the connection to the database with the $db\_handle = null command
 
 In the terminal, go to the folder with tzbtc\_dipdup.php and start the PHP server with the command:
 
-    php -S localhost:8000
+```
+php -S localhost:8000
+```
 
 [![15](/developers/docs/images/indexers/dipdup15.png)](https://indexers.tezos.org.ua/static/b6a8333f49c6dc19a1bd91e22bb1457f/abe8a/15.png)
 
@@ -158,19 +164,24 @@ With Dappetizer, we will index the same tzBTC contract, but this time we will di
 
 First, install [Node.js](https://nodejs.org/) to work with the npm package manager. Then we will create a folder for the project and install Dappetizer there. The easiest way to do everything is from the terminal:
 
-    mkdir dappetizer
-    cd dappetizer
-    npm install @tezos-dappetizer/cli
+```
+mkdir dappetizer
+cd dappetizer
+npm install @tezos-dappetizer/cli
+```
 
 Check if the installation was successful with the version check command:
-
-    npx dappetizer --version
+```
+npx dappetizer --version
+```
 
 [![17](/developers/docs/images/indexers/dipdup17.png)](https://indexers.tezos.org.ua/static/228af948a104a02c0587fb9cfb252081/1855e/17.png)
 
 Now initialize a new project with the tzBTC name and contract address:
 
-    npx dappetizer init --contractName=tzBTC KT1PWx2mnDueood7fEmfbBDKx1D9BAnnXitn
+```
+npx dappetizer init --contractName=tzBTC KT1PWx2mnDueood7fEmfbBDKx1D9BAnnXitn
+```
 
 [![18](/developers/docs/images/indexers/dipdup18.png)](https://indexers.tezos.org.ua/static/513ca79035e04adb259631c74649b680/5ca22/18.png)
 
@@ -208,12 +219,15 @@ Now we need to add the Transaction model to the index.ts module. To do this, we 
 ### [](https://indexers.tezos.org.ua/dipdup-dappetizer#starting-the-indexer)Starting the indexer
 
 In the terminal, go to the project folder and execute the command to build the project:
-
-    npm run build
+```
+npm run build
+```
 
 Then start indexing:
 
-    npx dappetizer start
+```
+npx dappetizer start
+```
 
 Dappetizer will begin indexing the blocks and writing data to the database.
 

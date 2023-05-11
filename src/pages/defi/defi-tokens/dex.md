@@ -4,8 +4,6 @@ title: Decentralized Exchanges
 author: Aymeric Bethencourt
 ---
 
-An exchange is a marketplace where coins and tokens are traded. The core function of an exchange is to ensure fair, orderly trading and the efficient dissemination of price information for everyone trading on the exchange. Exchanges give companies, traders, and crypto-enthusiasts a platform from which to sell and buy crypto-currencies publicly.
-
 ## Centralized Exchanges and Order Book
 
 Apart from the _DeFi_ movement, the order book model is the usual way of organising exchanges. All centralized crypto-currency exchanges like _Coinbase_ and _Binance_  still use this model. This is also the way traditional stock exchanges such as _NYSE_ or _Nasdaq_ work.
@@ -14,21 +12,15 @@ Simply put, traders set buy and sell orders for an asset, and the order book ord
 
 The order book model puts buyers and sellers in contact. Buyers try to buy the asset for the lowest possible price, whereas sellers try to sell the asset for the highest possible price.
 
-Note that order books have existed for centuries in paper form and are now based on fully automated software.
-
 For a trade to happen, both buyers and sellers have to converge on a price. This can happen by either a buyer bidding higher or a seller lowering their asking price.
 
 For instance: _Alice has a sell order at \$5.0_, and _Bob has a buy order at \$4.6_. Their orders don't meet.
 We call the mid-market price the average point between buyers and sellers, here it's at \$4.8 (see Fig. 1). For a trade to happen, Alice has to lower its offer to \$4.6, or Bob has to increase his demand to \$5.0. Another solution would be to wait for another trader to bid or sell at these prices. As exchanges normally have thousands of orders in and out the mid-market price move constantly.
 
-<p align="center">
 
 ![centralized-exchange](/developers/docs/images/dex/centralized-exchange.svg)
-<small className="figure" align="center">
 FIGURE 1: Illustration of an Order Book. Here buyers and sellers are meeting at the \$4.80 price point.
-</small>
 
-</p>
 
 But what happens if the gap between sellers and buyers is too large and no one wants to compromise? Or if not enough coins are on sale to meet the demand? This is where _market makers_ come into play.
 
@@ -46,9 +38,9 @@ Following the hacks of multiple centralized exchanges, investors started to look
 
 At first, developers tried to reproduce the order book model into smart contracts, but this proved to be very inefficient. Indeed, the model relies heavily on market makers, and they require to constantly adjust their buy and sell prices to meet the market. Supply and demand constantly evolve on an exchange, making the mid-market price move. When that happens, market makers have to cancel their offers and create new orders at the new mid-market price. This results in a vast number of orders and order cancellations being sent to the exchange.
 
-With blockchains such as Ethereum or Tezos, with a throughput of 10 transactions per second (respectively 40) and a 15 seconds block time (respectively <:MINIMAL_BLOCK_DELAY:>) they can not be a viable option for an order book exchange. _Binance_, for instance, handles thousands of order book operations per second.
+With blockchains such as Ethereum or Tezos, with a throughput of roughly 50 transactions per second and a 15 seconds block time they can not be a viable option for an order book exchange. _Binance_, for instance, handles thousands of order book operations per second.
 
-On top of that, every interaction with a smart contract costs a [gas fee](/tezos-basics/smart-contracts), so market makers would go bankrupt just updating their orders.
+On top of that, every interaction with a smart contract has a gas fee, so market makers would go bankrupt just updating their orders.
 
 If exchanges were to thrive on the blockchain, there was a need for a new model.
 
@@ -84,14 +76,9 @@ For instance, for a pool with 20 _XTZ_ and 100 _USDtz_, the marginal price of _X
 
 The difference between the effective swap price and the marginal price is referred to as _slippage_, i.e., the tendency of prices to move against a trader's actions as the trader absorbs liquidity — the larger the trade relative to the pool size, the greater the possible slippage.
 
-<p align="center">
 
 ![swap](/developers/docs/images/dex/swap.svg)
-<small className="figure">
 FIGURE 2: Illustration of a token Swap. The trader first sends his input tokens, then the pool computes the effective swap price by maintaining a constant product, and finally sends the output of tokens.
-</small>
-
-</p>
 
 From this, you can deduce two things:
 
@@ -103,16 +90,12 @@ Like centralized exchanges, liquidity providers (LP) play an essential role by p
 
 This is why liquidity pools are also known as _Automated Market Maker_ (AMM) their price is automatically set based on the number of tokens currently available in the pool (and not by some arbitrary order book that represents potential orders and not the actual liquidity).
 
-<p align="center">
 
 ![pool-size](/developers/docs/images/dex/pool-size.svg)
-<small className="figure">
 FIGURE 3: Marginal price vs. effective swap price of two pools of different sizes.
-</small>
 
-</p>
 
-From now on, let's consider only pools with enough liquidities, so that the effective swap price is almost the same as the marginal price, and only refer to it as _the price_.
+From now on, let's consider only pools with enough liquidity, so that the effective swap price is almost the same as the marginal price, and only refer to it as _the price_.
 
 ## Arbitrage
 
@@ -122,14 +105,9 @@ Arbitrage happens when the price offered by the pool diverges from the price sho
 
 When liquidity is supplied to a pool, the liquidity provider (or _LP_ for short) receives unique tokens called LP tokens in proportion to how much liquidity they provided to the pool. When a swap occurs in the pool, a 0.3% fee is proportionally distributed amongst all the LP token holders. If a liquidity provider wants to get his underlying liquidity back and any accrued fees, he must burn his LP tokens.
 
-<p align="center">
-
 ![liquidity](/developers/docs/images/dex/liquidity.svg)
-<small className="figure">
 FIGURE 4: How liquidity providers are rewarded
-</small>
 
-</p>
 
 ## Different types of AMM
 
@@ -175,14 +153,12 @@ If you want to provide liquidity to an AMM, make sure to become familiar with th
 - [Youves](https://app.youves.com/)
 - [Quipuswap](https://quipuswap.com/)
 - [Plenty DeFi](https://www.plentydefi.com/)
-- [SpicySwap](https://spicyswap.xyz/#/app)
-- [FlameDex](https://app.flamedex.io/)
-- [Alien's Farm](https://aliens.farm/exchange)
-- [Crunchy Network](https://app.crunchy.network/#/)
+- [SpicySwap](https://spicyswap.xyz/#/)
+- [Crunchy Network](https://crunchy.network/#/)
 
 ### Liquidity Baking
 
-Liquidity Baking is a _tez/tzBTC_ single pair AMM voted through the [Granada amendment](/tezos-basics/history-of-amendments#granada-ptgranad).
+Liquidity Baking is a _tez/tzBTC_ single pair AMM introduced on Tezos with the Granada protocol.
 
 The motivation behind such a contract—brought for the ﬁrst time by an amendment instead of an independent set of smart contracts built separately from the protocol—is to increase the overall tez liquidity along with [tzBTC](/defi/wrapped-assets#other-wrapped-assets), a wrapped version of Bitcoin (BTC) on Tezos.
 
@@ -197,7 +173,7 @@ The smart contract used for Liquidity Baking is not speciﬁc to tzBTC and can b
 
 ## Conclusion
 
-The concepts behind liquidity pools and automated market-making are pretty simple yet extremely powerful. They alleviate the need for centralized order books. The only obstacle to the further development of liquidity pools are the sometimes high gas fees and the execution time. Still, as gas fees are reduced and transactions made faster with each amendment of Tezos, liquidity pools could soon become the primary way of trading on Tezos.
+The concepts behind liquidity pools and automated market-making are pretty simple yet extremely powerful. They alleviate the need for centralized order books. The only obstacle to the further development of liquidity pools is the execution time. Still, as transactions are made faster with each amendment of Tezos, liquidity pools could soon become the primary way of trading on Tezos.
 
 ## References
 
