@@ -919,7 +919,3 @@ Now you can see all NFTs
 # Conclusion
 
 You are able to create an NFT collection marketplace from the `ligo/fa` library.
-
-{% callout type="note" %}
-If you would like to add additional functionality like add a Buy and Sell functions to your smart contract, [see part 2](https://marigold-dev.github.io/training-nft-2) from Marigold. 
-{% /callout %}

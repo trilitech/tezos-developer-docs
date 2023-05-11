@@ -1493,4 +1493,4 @@ To add more collections, go to the Mint page and repeat the process.
 
 You are able to play with an any NFT template from the ligo library.
 
-Congratulations !
+Congratulations!
