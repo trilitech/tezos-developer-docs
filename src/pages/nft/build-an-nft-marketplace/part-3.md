@@ -9,7 +9,7 @@ This time we are going to use the single asset template. It is a bit the contrar
 
 To resume, you are producting wine bottles from same collection with `n` quantity.
 
-# Go forward
+# Next step
 
 Keep your code from previous training or get the solution [here](https://github.com/marigold-dev/training-nft-2/tree/main/solution)
 
@@ -55,7 +55,7 @@ type storage =
   };
 ```
 
-Explanations:
+Explanation:
 
 - `offers` is now a `map<address,offer>`, because you don't have to store `token_id` as key, now the key is the owner address. Each owner can sell a part of the unique collection
 - `offer` requires a quantity, each owner will sell a part of the unique collection
@@ -227,9 +227,9 @@ taq deploy nft.tz -e "testing"
 └──────────┴──────────────────────────────────────┴───────┴──────────────────┴────────────────────────────────┘
 ```
 
-Hooray! We finished the smart contract _(backend)_
+We finished the smart contract! _(backend)_
 
-# :performing_arts: NFT Marketplace front
+# NFT Marketplace front
 
 Generate Typescript classes and go to the frontend to run the server
 
@@ -1353,6 +1353,6 @@ For buying,
 
 # Conclusion 
 
-You are able to play with an unique NFT collection from the ligo library.
+You are now able to play with an unique NFT collection from the ligo library.
 
-On next training, you will use the last template `multi asset` that will allow multiple NFT collections on same contract
+On next lesson, you will use the last template `multi asset` that will allow multiple NFT collections on same contract

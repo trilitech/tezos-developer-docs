@@ -1,12 +1,8 @@
 # NFT Marketplace Part 2
 
-![https://img.etimg.com/thumb/msid-71286763,width-1070,height-580,overlay-economictimes/photo.jpg](https://img.etimg.com/thumb/msid-71286763,width-1070,height-580,overlay-economictimes/photo.jpg)
+This time we will add the ability to buy and sell an NFT!
 
-This time we will add the ability to buy and sell NFT!
-
-# Go forward
-
-Keep your code from previous training or get the solution [here](https://github.com/marigold-dev/training-nft-1/tree/main/solution)
+Keep your code from previous lesson or get the solution [here](https://github.com/marigold-dev/training-nft-1/tree/main/solution)
 
 > If you clone/fork a repo, rebuild locally
 
@@ -19,9 +15,9 @@ cd ..
 
 # Smart contract
 
-Add these code sections on your `nft.jsligo` smart contract
+Add the following code sections on your `nft.jsligo` smart contract
 
-1. Add offer type
+Add offer type
 
 ```ligolang
 type offer = {
@@ -30,7 +26,7 @@ type offer = {
 };
 ```
 
-2. Add `offers` field to storage
+Add `offers` field to storage
 
 ```ligolang
 type storage =
@@ -45,7 +41,7 @@ type storage =
   };
 ```
 
-3. Add 2 variants `Buy` and `Sell` to parameter
+Add 2 variants `Buy` and `Sell` to parameter
 
 ```ligolang
 type parameter =
@@ -58,7 +54,7 @@ type parameter =
   | ["Update_operators", NFT.update_operators];
 ```
 
-4. Add 2 entrypoints `Buy` and `Sell` inside `main` function
+Add 2 entrypoints `Buy` and `Sell` inside `main` function
 
 ```ligolang
 const main = ([p, s]: [parameter,storage]): ret =>
@@ -143,7 +139,7 @@ const main = ([p, s]: [parameter,storage]): ret =>
   );
 ```
 
-Explanations:
+Explanation:
 
 - an `offer` is an NFT _(owned by someone)_ with a price
 - `storage` has a new field to store `offers`: a `map` of offers
@@ -289,7 +285,7 @@ const main = ([p, s]: [parameter, storage]): ret =>
   );
 ```
 
-Explanations:
+Explanation:
 
 - User must have enough tokens _(wine bottles)_ to place an offer
 - the seller will set the NFT marketplace smart contract as an operator. When the buyer send his money to buy the NFT, the smart contract will change the NFT ownership _(it is not interactive with the seller, the martketplace will do it on behalf of the seller based on the offer data)_
@@ -423,7 +419,7 @@ const main = ([p, s]: [parameter, storage]): ret =>
   );
 ```
 
-Explanations:
+Explanation:
 
 - search for the offer based on the `token_id` or return an error if it does not exist
 - check that the amount sent by the buyer is greater than the offer price. If it is ok, transfer the offer price to the seller and transfer the NFT to the buyer
@@ -447,7 +443,7 @@ taq deploy nft.tz -e "testing"
 └──────────┴──────────────────────────────────────┴───────┴──────────────────┴────────────────────────────────┘
 ```
 
-** Hooray! We have implemented and deployed the smart contract (backend) :tada:**
+** We have implemented and deployed the smart contract (backend)!**
 
 # NFT Marketplace front
 
@@ -781,7 +777,7 @@ export default function OffersPage() {
 }
 ```
 
-Explanations :
+Explanation:
 
 - the template will display all owned NFTs. Only NFTs belonging to the logged user are selected
 - for each nft, we have a form to make an offer at a price
@@ -1071,6 +1067,4 @@ As you are connected with the default administrator you can see your own unique 
 
 You created an NFT collection marketplace from the ligo library, now you can buy and sell NFTs at your own price.
 
-This concludes the NFT training!
-
-On next training, you will see another kind of NFT called `single asset`. Instead of creating x token types, you will be authorize to create only 1 token_id 0, on the other side, you can mint a quantity n of this token.
+On next lesson, you will see another kind of NFT called `single asset`. Instead of creating *X* token types, you will be authorize to create only 1 token_id 0, on the other side, you can mint a quantity *n* of this token.

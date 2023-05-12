@@ -4,12 +4,12 @@
 
 We finish by using multi asset template.
 
-- you have unlimited NFT collections
+- you have an unlimited number of NFT collections
 - you have unlimited quantity of items in each collection
 
 To resume, you are producing any quantity of wine bottles on `n` collections
 
-# Go forward
+# Next step
 
 Keep your code from previous training or get the solution [here](https://github.com/marigold-dev/training-nft-3/tree/main/solution)
 
