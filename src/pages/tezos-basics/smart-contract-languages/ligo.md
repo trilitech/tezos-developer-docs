@@ -5,11 +5,9 @@ title: Ligo
 
 ## Introduction to LIGO
 
-LIGO is a programming language for writing Tezos smart contracts. Smart contracts are a unique domain with extreme resource constraints and even more extreme security risks. Unlike desktop, mobile, or web application development, smart contracts cannot rely on cheap CPU time and memory. All resources used by contracts are expensive, and tracked as 'gas costs'. Smart contracts often directly control money or assets, which if stolen could rack up to a large financial loss to the contracts controllers and users. Tezos smart contracts live on the blockchain forever, if there's a bug in them they can't be patched or amended. Naturally, under these conditions, it's not possible to develop smart contracts the way we're used to developing user-facing applications.
+The LIGO design philosophy can be described as follows:
 
-LIGO is designed with these problems in mind. The design philosophy can be described in a few bullet points:
-
-1. Make a clean, simple language with no unnecessary parts.
+1. A clean simple language with no unnecessary parts.
 2. Offer multiple familiar syntaxes so users can get up and running quickly.
 3. Encourage people to write simple code, so that it's easy to formally verify the compiled output using a project like Mi-Cho-Coq.
 4. Significantly reduce the risk that your smart contract will lose its balance to an avoidable exploit.

@@ -6,7 +6,7 @@ authors: Mathias Hiron and Maxime Sallerin
 
 ## Introduction
 
-SmartPy is a comprehensive solution for developing, testing, and deploying smart contracts on the Tezos blockchain. With its easy-to-use Python syntax, developers can create contracts in a familiar and intuitive way, while SmartPy's type inference provides added safety.
+SmartPy is a comprehensive solution for developing, testing, and deploying smart contracts on Tezos. With its easy-to-use Python syntax, developers can create contracts in a familiar and intuitive way, while SmartPy's type inference provides added safety.
 
 Before deployment, contracts can be tested in simulated scenarios, including complex cases with multiple interacting contracts. Once ready, SmartPy contracts are compiled to Michelson, the Tezos blockchain's native language, for deployment.
 
