@@ -20,10 +20,15 @@ const navigation = [
       { title: 'Deploy your first smart contract', href: '/tezos-basics/deploy-your-first-smart-contract' },
       { title: 'Tezos Protocol & Shell', href: '/tezos-basics/tezos-protocol-and-shell' },
       { title: 'Test Networks', href: '/tezos-basics/test-networks' },
-      { title: 'Smart Contract Languages', href: '/tezos-basics/smart-contract-languages' },
-      { title: 'LIGO', href: '/tezos-basics/smart-contract-languages/ligo' },
-      { title: 'SmartPy', href: '/tezos-basics/smart-contract-languages/smartpy' },
-      { title: 'Archetype', href: '/tezos-basics/smart-contract-languages/archetype' },
+      { 
+        title: 'Smart Contract Languages', 
+        href: '/tezos-basics/smart-contract-languages',
+        children: [
+          { title: 'LIGO', href: '/tezos-basics/smart-contract-languages/ligo' },
+          { title: 'SmartPy', href: '/tezos-basics/smart-contract-languages/smartpy' },
+          { title: 'Archetype', href: '/tezos-basics/smart-contract-languages/archetype' }
+        ] 
+      }
     ],
   },
   {
@@ -165,9 +170,24 @@ export function Layout({ children, title, tableOfContents }) {
   let linkIndex = allLinks.findIndex((link) => link.href === router.pathname)
   let previousPage = allLinks[linkIndex - 1]
   let nextPage = allLinks[linkIndex + 1]
-  let section = navigation.find((section) =>
-    section.links.find((link) => link.href === router.pathname)
-  )
+  let selectedLink, selectedParent
+  let section = navigation.find((section) => {
+    return section.links.find((link) => {
+      if (link.href === router.pathname) {
+        selectedLink = link;
+        return true;
+      } else if (link.children) {
+        let foundChild = link.children.find((childLink) => childLink.href === router.pathname);
+        if (foundChild) {
+          selectedLink = foundChild;
+          selectedParent = link; // sets the direct parent link as the selected parent
+          return true;
+        }
+      }
+      return false;
+    })
+  })
+
   let currentSection = useTableOfContents(tableOfContents)
 
   function isActive(section) {
@@ -207,16 +227,16 @@ export function Layout({ children, title, tableOfContents }) {
 
         <div className="min-w-0 max-w-2xl flex-auto px-4 py-16 lg:max-w-none lg:pr-0 lg:pl-8 xl:px-16">
           <article>
-            {(title || section) && (
+            {(selectedParent || section) && (
               <header className="mb-6 space-y-1">
-                {section && !isHomePage &&  (
+                {section && !isHomePage && (
                   <p className="font-display text-sm font-medium text-blue-600">
-                    {section.title}
+                    {`${section.title}${selectedParent ? " > " + selectedParent.title : ""}`}
                   </p>
                 )}
-                {title && (
+                {selectedLink && (
                   <h1 className="font-display font-semibold text-4xl text-gradient dark:text-white">
-                    {title}
+                    {selectedLink.title}
                   </h1>
                 )}
               </header>
@@ -334,9 +354,7 @@ export function Layout({ children, title, tableOfContents }) {
           
         </div>
         
-      </footer>
-                              
-
+      </footer>                        
     </>
     
   )
