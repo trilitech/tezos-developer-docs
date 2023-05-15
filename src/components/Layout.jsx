@@ -236,7 +236,7 @@ export function Layout({ children, title, tableOfContents }) {
                 )}
                 {selectedLink && (
                   <h1 className="font-display font-semibold text-4xl text-gradient dark:text-white">
-                    {selectedLink.title}
+                    {title}
                   </h1>
                 )}
               </header>
