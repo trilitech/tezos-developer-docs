@@ -227,14 +227,14 @@ export function Layout({ children, title, tableOfContents }) {
 
         <div className="min-w-0 max-w-2xl flex-auto px-4 py-16 lg:max-w-none lg:pr-0 lg:pl-8 xl:px-16">
           <article>
-            {(selectedParent || section) && (
+            {(selectedParent || section || isHomePage) && (
               <header className="mb-6 space-y-1">
                 {section && !isHomePage && (
                   <p className="font-display text-sm font-medium text-blue-600">
                     {`${section.title}${selectedParent ? " > " + selectedParent.title : ""}`}
                   </p>
                 )}
-                {selectedLink && (
+                {(isHomePage || selectedLink) && (
                   <h1 className="font-display font-semibold text-4xl text-gradient dark:text-white">
                     {title}
                   </h1>
