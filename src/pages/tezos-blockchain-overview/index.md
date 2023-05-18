@@ -13,12 +13,13 @@ Tezos is an open-source, decentralized blockchain [conceived in 2014](https://te
 
 Tezos stands apart from other blockchains in its capability to upgrade, allowing the network to evolve without requiring a hard fork. Anyone building on Tezos can propose a new protocol upgrade and have it adopted by the network without compromising the platform's stability or causing fragmentation. This makes Tezos adaptable to new technologies and able to address user needs where other blockchains stuggle to make changes.
 
-Tezos is unique in its governance model. All stakeholders can participate in the decision-making processes that impacts the network's future direction. Holders of XTZ—-the chain’s native token-—can propose and vote on changes to the protocol, such as changes to gas fees, reduction in block times, and adding new features such as smart rollups.
+Tezos is unique in its governance model. All stakeholders can participate in the decision-making processes that impacts the network's future direction. Holders of XTZ—-the chain’s native token-—can propose and vote on changes to the protocol, such as changes to gas fees, reduction in block times, adding new features such as smart rollups, and even changing the concensus mechanism itself.
 
 The use of formal verification is a powerful Tezos feature where the code can be formally proven to be correct without side effects. The rigorous process of formal verification ensures the network's smart contracts and other components function as intended, reducing the likelihood of errors, bugs, and security vulnerabilities. This approach gives Tezos an edge in security and reliability. 
 
-Tezos’ proof-of-stake consensus model eliminates the need for high energy use, making it the “green” choice for blockchains. 
+Tezos’ proof-of-stake consensus model eliminates the need for high energy use, making it the “green” choice for blockchains. Tezos' mechanism is known as baking and features optional delegation, allowing any stakeholder to participate in consensus without giving up custody of their tokens. Tezos' approach to consensus has been described as [Liquid Proof of Stake](https://medium.com/tezos/liquid-proof-of-stake-aec2f7ef1da7). Tezos allows its stakers \(a.k.a. delegators\) to earn rewards by delegating their tez coins without any lock-in or freeze mechanism. This gives the "liquid" nature to Tezos's proof-of-stake implementation.
 
+Proof-of-stake improves scalability and encourages incentive alignment. It also increases the cost of 51% attacks and avoids environmentally wasteful proof-of-work. Tezos launched in June 2018 as one of the first major Proof-of-Stake networks.
 
 # The Tezos Ecosystem
 

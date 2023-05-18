@@ -64,6 +64,12 @@ On the other hand, as transactions and blocks keep accumulating over time, synch
 
 As the protocol on `Ghostnet` migrates to the newly adopted amendment a few days before `Mainnet`, during the Adoption period, it can serve as a _dress-rehersal_ for the actual migration on `Mainnet`. Both bakers and developers can check that they are ready for the migration, and that nothing in their configuration breaks when it happens.
 
+#### Getting tez testnet tokens
+
+In order to get Tez tokens to use when testing your application on testnet, you can use a faucet. You 
+can request some tokens from the [Ghostnet faucet](https://faucet.ghostnet.teztnets.xyz/)
+
+
 ### Protocol test networks
 
 _Protocol test networks_ are networks that are created specifically for a given version of the protocol.
