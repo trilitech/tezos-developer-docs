@@ -37,6 +37,7 @@ const navigation = [
       { title: 'DeFi Tokens', href: '/defi/defi-tokens' },
       { title: 'Decentralized Exchanges', href: '/defi/defi-tokens/dex' },
       { title: 'Create an NFT', href: '/nft/create-an-nft' },
+      { title: 'Mint NFT using Taquito and Pinata', href: '/nft/create-an-nft/nft-pinata' },
       { title: 'Build an NFT Marketplace - Part 1', href: '/nft/build-an-nft-marketplace' },
       { title: 'Build an NFT Marketplace - Part 2', href: '/nft/build-an-nft-marketplace/part-2' },
       { title: 'Build an NFT Marketplace - Part 3', href: '/nft/build-an-nft-marketplace/part-3' },
