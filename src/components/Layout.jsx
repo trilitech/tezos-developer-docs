@@ -16,20 +16,27 @@ const navigation = [
     title: 'Tezos Basics',
     links: [
       { title: 'Tezos Blockchain Overview', href: '/tezos-blockchain-overview' },
-      { title: 'Get Started with Octez', href: '/tezos-basics/get-started-with-octez' },
-      { title: 'The CLI and RPC', href: '/tezos-basics/get-started-with-octez/cli-rpc' },
-      { title: 'Installation and Setup', href: '/tezos-basics/get-started-with-octez/installation-and-setup' },
-      { title: 'Sandbox Mode', href: '/tezos-basics/get-started-with-octez/run-a-sandbox' },
+      { 
+        title: 'Get Started with Octez', 
+        href: '/tezos-basics/get-started-with-octez',
+        children: [
+          { title: 'The CLI and RPC', href: '/tezos-basics/get-started-with-octez/cli-rpc' },
+          { title: 'Installation and Setup', href: '/tezos-basics/get-started-with-octez/installation-and-setup' },
+          { title: 'ArchetySandbox Mode', href: '/tezos-basics/get-started-with-octez/run-a-sandbox' }
+        ] 
+      },
       { title: 'Deploy your first smart contract', href: '/tezos-basics/deploy-your-first-smart-contract' },
       { title: 'Tezos Protocol & Shell', href: '/tezos-basics/tezos-protocol-and-shell' },
       { title: 'Test Networks', href: '/tezos-basics/test-networks' },
+      { title: 'Block Explorers', href: '/tezos-basics/block-explorers' },
       { 
         title: 'Smart Contract Languages', 
         href: '/tezos-basics/smart-contract-languages',
         children: [
           { title: 'LIGO', href: '/tezos-basics/smart-contract-languages/ligo' },
           { title: 'SmartPy', href: '/tezos-basics/smart-contract-languages/smartpy' },
-          { title: 'Archetype', href: '/tezos-basics/smart-contract-languages/archetype' }
+          { title: 'Archetype', href: '/tezos-basics/smart-contract-languages/archetype' },
+          { title: 'Michelson', href: '/tezos-basics/smart-contract-languages/michelson' }
         ] 
       }
     ],
@@ -41,10 +48,15 @@ const navigation = [
       { title: 'Decentralized Exchanges', href: '/defi/defi-tokens/dex' },
       { title: 'Create an NFT', href: '/nft/create-an-nft' },
       { title: 'Mint NFT using Taquito and Pinata', href: '/nft/create-an-nft/nft-pinata' },
-      { title: 'Build an NFT Marketplace - Part 1', href: '/nft/build-an-nft-marketplace' },
-      { title: 'Build an NFT Marketplace - Part 2', href: '/nft/build-an-nft-marketplace/part-2' },
-      { title: 'Build an NFT Marketplace - Part 3', href: '/nft/build-an-nft-marketplace/part-3' },
-      { title: 'Build an NFT Marketplace - Part 4', href: '/nft/build-an-nft-marketplace/part-4' },
+      { 
+        title: 'Build an NFT Marketplace', 
+        href: '/nft/build-an-nft-marketplace',
+        children: [
+          { title: 'NFT Marketplace - Part 2', href: '/nft/build-an-nft-marketplace/part-2' },
+          { title: 'NFT Marketplace - Part 3', href: '/nft/build-an-nft-marketplace/part-3' },
+          { title: 'NFT Marketplace - Part 4', href: '/nft/build-an-nft-marketplace/part-4' }
+        ] 
+      },
       { title: 'Tezos SDK for Unity', href: '/gaming/tezos-sdk-for-unity' },
       // { title: 'Build a Game on Tezos', href: '/gaming/build-a-game-on-tezos' },
     ],
