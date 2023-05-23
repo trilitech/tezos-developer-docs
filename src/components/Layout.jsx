@@ -15,7 +15,16 @@ const navigation = [
   {
     title: 'Tezos Basics',
     links: [
-      { title: 'Tezos Blockchain Overview', href: '/tezos-blockchain-overview' },
+      { 
+        title: 'Tezos Blockchain Overview', 
+        href: '/tezos-blockchain-overview',
+        children: [
+          { title: 'Whitepaper', href: '/tezos-blockchain-overview/whitepaper' },
+          { title: 'Position Paper', href: '/tezos-blockchain-overview/positionpaper' },
+          { title: 'Nomenclature', href: '/tezos-blockchain-overview/nomenclature' }
+        ] 
+      },
+
       { 
         title: 'Get Started with Octez', 
         href: '/tezos-basics/get-started-with-octez',
