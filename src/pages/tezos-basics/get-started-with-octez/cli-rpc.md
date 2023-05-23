@@ -6,11 +6,7 @@ sidebar_label: "Introduction"
 slug: "/build/clients/"
 sidebar_position: 1
 ---
-## Tezos Clients
-
-### CLI and RPC
-
-### Connecting to the network
+## Connecting to the network
 
 The _tezos-client_ and Tezos RPC need to be connected to a Tezos node. You can connect to your own [tezos node](https://opentezos.com/%20) or you can use a community node on the Tezos mainnet or testnet.
 
@@ -18,7 +14,7 @@ You can find a list of community nodes [here](https://tezostaquito.io/docs/rpc_n
 
 If you use a testnet you can download a free faucet file with test XTZ on it [here](https://faucet.tzalpha.net/).
 
-### Tezos RPC \(Remote Procedure Call\)
+## Tezos RPC \(Remote Procedure Call\)
 
 [RPC](https://tezos.gitlab.io/developer/rpc.html) is a client-server protocol where the requesting program is the client and the program providing the service is the server.
 
@@ -138,11 +134,7 @@ The recipe of this command is as follows:
 
 `Current head: BM3smBpBVtHD (timestamp: 2021-03-12T09:42:28.000-00:00, validation: 2021-03-12T09:42:38.372-00:00)Node is bootstrapped.Estimated gas: 1000 units (will add 100 for safety)Operation successfully injected in the node.Operation hash is 'oo4745Q5mq8snHYAxUYWedBCVb7yQJ7jvFhKECPN9xqgwE4Ni8A'Waiting for the operation to be included...Operation found in block: BKnKoaYqCz3dTWr66x4X1mvXC95kuozRkdd23LDuM5ZA1ayF5mi (pass: 3, offset: 0)This sequence of operations was run: Manager signed operations: From: tz1gWQz5iTP6UDkWjm1jnKsCq1HHG4hgEmJn Fee to the baker: ꜩ0.000369 Expected counter: 1412932 Gas limit: 1100 Storage limit: 0 bytes Balance updates: tz1gWQz5iTP6UDkWjm1jnKsCq1HHG4hgEmJn ............. -ꜩ0.000369 fees(tz1aWXP237BLwNHJcCD4b3DutCevhqq2T1Z9,248) ... +ꜩ0.000369 Revelation of manager public key: Contract: tz1gWQz5iTP6UDkWjm1jnKsCq1HHG4hgEmJn Key: edpktpMjpmsK6fLKGrXzhp67tRdu2m5HyzGrp1tuS8ZJBc7dGqBeAq This revelation was successfully applied Consumed gas: 1000`
 
-You can observe your actions on the block explorers :
-
-* Mainnet: [https://tzstats.com](https://tzstats.com/)
-* Edonet: [https://edo2net.tzkt.io/](https://edo2net.tzkt.io/)
-* DelphiNet: [https://delphinet.tzkt.io/](https://delphinet.tzkt.io/)
+You can observe your actions on [https://tzstats.com](https://tzstats.com/)
 
 ### Tezos-admin-client
 

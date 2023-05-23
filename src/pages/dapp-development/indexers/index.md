@@ -20,6 +20,37 @@ Since the on-chain data is already in the database of the node itself why is an 
 So, the indexer is the part of the explorer that fetches the raw data from the node, then processes it and stores it in the database in an efficient way. They simplify querying and searching through blockchain data. Almost any decentralized application uses indexers, and if you want to build your dApp, chances are you’ll need to use them too.
 
 
+## TzKT
+
+For instance [TzKT](https://github.com/baking-bad/tzkt) is a lightweight Tezos blockchain indexer with an advanced API created by [Baking Bad](https://baking-bad.org/docs).The indexer fetches raw data from the Tezos node, then processes it and stores in the database in such a way as to provide effective access to the blockchain data. For example, getting operations by hash, or getting all operations of the particular account, or getting detailed baking rewards, etc. None of this can be accessed via node RPC, but TzKT indexer makes this data \(and much more\) available.
+
+You can [install](https://github.com/baking-bad/tzkt#installation-docker) or [build](https://github.com/baking-bad/tzkt#installation-from-source) it, and [configure](https://github.com/baking-bad/tzkt#install-tzkt-indexer-and-api-for-testnets) it for the testnet.
+
+To work with the **TzKT API** you can use this [public endpoint](https://api.tzkt.io/#section/Introduction).
+
+### Traditional Blockchain Explorer Backends
+
+Indexers are node operators. The **ETL** extract, transform and load data into the **SQL database** by mapping the data into a pre-defined schema of tables with referential integrity in order to provide indexing and query processing services via the **API**.
+
+* A **Tezos Node** is the heart of the blockchain, it manages the protocol.
+* **ETL** stands for _extract, transform, and load_ The process of ETL plays a key role in data integration strategies. ETL allow businesses to gather data from multiple sources and consolidate it into a single, centralized location.
+* **API** is the acronym for _Application Programming Interface_, which is a software intermediary that allows two applications to talk to each other.
+
+### Focus on BlockWatch Indexer \(TzIndex\)
+
+The Blockwatch Indexer [TzIndex](https://github.com/blockwatch-cc/tzindex) is used for the [TzStats explorer](https://tzstats.com/).
+
+The **Blockwatch indexer** replaces the slow and expensive SQL datastore with a high-performance columnar database that allows for extremely fast analytical queries.
+
+ **Columnar database** is a column-oriented storage for database. It is optimized for fast retrieval of data columns, for example for analytical applications. It significantly reduces the overall disk I/O requirements and limits the amount of data you need to load from the disk.
+
+It's a custom-made database for blockchain analytics. Avoiding the storage bottleneck allows for more complex data processing.
+
+> **Storage bottleneck** is a situation where the flow of data gets impaired or stopped completely due to bad performance or lack of resources.
+
+State updates happen at each block, which means all the balance updates are always verified, and the indexer will follow chain reorganizations in real-time.
+
+
 ## A simple explanation of how indexers work
 
 Understanding indexers is easy if we use a library as an example. There are thousands of books on the shelves in the library. They are usually sorted by genre and authors' names. The reader will quickly find the stand with novels or gardening books.

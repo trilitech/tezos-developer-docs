@@ -4,7 +4,7 @@ title: Archetype
 ---
 
 ## Introduction
-Archetype is an elegant generic-purpose language to develop Smart Contracts on the Tezos blockchain.
+Archetype is an elegant generic-purpose language to develop Smart Contracts on the Tezos blockchain.It's a DSL \(domain-specific language \) for Tezos which facilitates formal verification and transcodes contracts to SmartPy and LIGO.
 
 It supports all [Michelson](https://tezos.gitlab.io/michelson-reference/) features, but also provides exclusive high-level features for a precise and concise source code, that make contracts easier to develop, read and maintain.
 
@@ -71,3 +71,8 @@ completium-cli call hello --entry input --arg '{ "name": "Archetype" }'
 {% callout type="note" %}
 The full documentation on Archetype can be found on [archetype-lang.org](https://archetype-lang.org/docs/introduction). Also see the material on OpenTezos [here](https://opentezos.com/archetype).
 {% /callout %}
+
+#### Further reading:
+
+* [Medium article](https://medium.com/coinmonks/archetype-a-dsl-for-tezos-6f55c92d1035%20)
+* [How To Verify a smart contract with Archetype](https://medium.com/coinmonks/verify-a-smart-contract-with-archetype-6e0ea548e2da%20)

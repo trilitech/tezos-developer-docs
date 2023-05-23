@@ -28,6 +28,11 @@ When someone calls a smart contract, all the contract can do can be summarized a
 One key property of the execution of smart contracts on Tezos, designed to reduce the risk of bugs, is that if any part of the execution of a contract itself, or in the call of any other contract it calls, generates an error, then everything is canceled, and the result is as if the initial call to the contract had never been done. The idea is that either everything goes as intended, or nothing happens at all, reducing the risk of unintended situations.
 
 
+## High-Level Languages of Tezos
+
+Tezos has several popular high-level languages which offer more approachable syntaxes and familiar developer experience \(e.g. local variables\) compared to writing Michelson directly. While Michelson is the domain-specific smart contract language that was developed for Tezos, SmartPy and LIGO are the most popular and widely-supported languages for writing Tezos smart contracts.
+
+
 ## Overview of Smart Contracts on Tezos
 
 As in Ethereum, Tezos uses 2 types of accounts:

@@ -17,6 +17,9 @@ const navigation = [
     links: [
       { title: 'Tezos Blockchain Overview', href: '/tezos-blockchain-overview' },
       { title: 'Get Started with Octez', href: '/tezos-basics/get-started-with-octez' },
+      { title: 'The CLI and RPC', href: '/tezos-basics/get-started-with-octez/cli-rpc' },
+      { title: 'Installation and Setup', href: '/tezos-basics/get-started-with-octez/installation-and-setup' },
+      { title: 'Sandbox Mode', href: '/tezos-basics/get-started-with-octez/run-a-sandbox' },
       { title: 'Deploy your first smart contract', href: '/tezos-basics/deploy-your-first-smart-contract' },
       { title: 'Tezos Protocol & Shell', href: '/tezos-basics/tezos-protocol-and-shell' },
       { title: 'Test Networks', href: '/tezos-basics/test-networks' },

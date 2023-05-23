@@ -5,9 +5,7 @@ title: "Run a Sandbox"
 hide_title: true
 ---
 
-## Sandbox
-
-### Use Docker and Flextesa to Run an Independent Tezos Sandbox <a id="__docusaurus"></a>
+## Use Docker and Flextesa to Run an Independent Tezos Sandbox
 
 Running ephemeral and isolated sandboxes can be useful to experiment with faster networks or to automate reproducible tests.
 
