@@ -73,7 +73,15 @@ const navigation = [
   {
     title: 'Dapp Development',
     links: [
-      { title: 'Build your first DApp', href: '/dapp-development/build-your-first-dapp' },
+      { 
+        title: 'Build your first DApp', 
+        href: '/dapp-development/build-your-first-dapp',
+        children: [
+          { title: 'Wallets and user tokens', href: '/dapp-development/build-your-first-dapp/wallets-tokens' },
+          { title: 'Swapping tokens', href: '/dapp-development/build-your-first-dapp/swapping-tokens' },
+          { title: 'Adding and removing liquidity', href: '/dapp-development/build-your-first-dapp/adding-removing-liquidity' }
+        ] 
+      },
       { title: 'Taquito', href: '/dapp-development/taquito' },
       { title: 'Indexers', href: '/dapp-development/indexers' },
       { title: 'DipDup and Dappetizer', href: '/dapp-development/indexers/dipdup' },
