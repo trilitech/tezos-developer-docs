@@ -20,7 +20,7 @@ export function ChatBob() {
           bottom: '23px',
           right: '28px',
         }}
-        style={{ backgroundColor: '#0f172a' }}
+        style={{ backgroundColor: '#0f172a', border: '1px solid white' }}
         onClick={toggleVisibility}
       >
         <ChatIcon/>
