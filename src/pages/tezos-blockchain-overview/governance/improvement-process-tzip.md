@@ -14,10 +14,6 @@ Specifically, a TZIP is a design document providing information to the Tezos com
 
 The TZIP document should contain a concise technical specification and rationale that clearly articulates what the proposal is, how it may be implemented, and why the proposal is an improvement. It should also include an FAQ that documents, compares, and answers alternative options, opinions, and objections.  
   
-The TZIP process is as follows:
-
-![](https://lh5.googleusercontent.com/S6RtLcgx3jMgAIIlmejGXfVzauiN9Wr0zbfw_dQgy1SUgze7XPOpgnCy-anupBD37azDaW9do9V1JMkkot1mWsUlMmeG7ydFCHbOZaEMQzk1K4B6c1tOKgGVz6Ve0tYKbVx0jBQN)
-
 An explorer for all of the TZIPs, both past and present, can be found [here](https://tzip.tezosagora.org/).
 
 ### Key TZIP Standards

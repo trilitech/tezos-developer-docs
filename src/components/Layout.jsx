@@ -21,7 +21,16 @@ const navigation = [
         children: [
           { title: 'Whitepaper', href: '/tezos-blockchain-overview/whitepaper' },
           { title: 'Position Paper', href: '/tezos-blockchain-overview/positionpaper' },
-          { title: 'Nomenclature', href: '/tezos-blockchain-overview/nomenclature' }
+          { title: 'Nomenclature', href: '/tezos-blockchain-overview/nomenclature' },
+          { 
+            title: 'Governance', 
+            href: '/tezos-blockchain-overview/governance/intro',
+            children: [
+              { title: 'Governance Overview', href: '/tezos-blockchain-overview/governance/governance-overview' },
+              { title: 'Tezos Improvement Process', href: '/tezos-blockchain-overview/governance/improvement-process-tzip' },
+              { title: 'Functional Programming', href: '/tezos-blockchain-overview/governance/functional-programming' }
+            ] 
+          },
         ] 
       },
 
