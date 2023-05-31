@@ -2,18 +2,19 @@
 hide_table_of_contents: true
 title: "Tezos Nomenclature"
 hide_title: true
+proofread: true
 ---
 
 ## Tezos Nomenclature
 
-The following is adapted from this [Agora post](https://forum.tezosagora.org/t/nomenclature/2376) by Tezos Co-founder Arthur Breitman. As noted in the post, there is no official body which can authoritatively set Tezos nomenclature, but the following is recommended:
+The following is adapted from this [Agora post](https://forum.tezosagora.org/t/nomenclature/2376) by Tezos Co-founder Arthur Breitman. As noted in the post, there is no official body that can authoritatively set Tezos' nomenclature, but the following is recommended:
 
 **Tezos**
 
 Used somewhat interchangeably, either as a noun or an adjective to designate:
 
-* A open-source project and software \(as in, “contributing to the Tezos codebase”\)
-* A peer to peer network of nodes maintaining a blockchain \(as in “a Tezos node”\)
+* An open-source project and software \(as in, “contributing to the Tezos codebase”\)
+* A peer-to-peer network of nodes maintaining a blockchain \(as in “a Tezos node”\)
 * The specific Tezos chain with the most economic relevance \(as in “the Tezos chain”\). Typically, this would be today the chain whose [millionth block](https://tzkt.io/BKtC4QCWoF73kxLj773vFpQuuwrnye6PS7T1aM3XEPvFXiQbNu7/endorsements) had hash BKtC4QCWoF73kxLj773vFpQuuwrnye6PS7T1aM3XEPvFXiQbNu7.
 
 **Tez**
