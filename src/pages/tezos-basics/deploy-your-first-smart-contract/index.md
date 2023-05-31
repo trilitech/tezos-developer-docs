@@ -3,6 +3,7 @@ id: first-smart-contract
 title: Deploy your First Smart Contract
 slug: /first-smart-contract
 authors: John Joubert
+proofread: true
 ---
 
 ## Prerequisites
@@ -32,7 +33,7 @@ cd example-smart-contract
 
 ## Create a project file
 
-Inside the `example-smart-contract` folder, let's create a file called `store_greeting.py` and save. We'll need this file later.
+Inside the `example-smart-contract` folder, let's create a file called `store_greeting.py` and save it. We'll need this file later.
 
 ```bash
 touch store_greeting.py
@@ -109,7 +110,7 @@ View the available Testnets:
 https://teztnets.xyz
 ```
 
-The [Ghostnet](https://teztnets.xyz/ghostnet-about) might be a good choice for this guide (at time of writing).&#x20;
+The [Ghostnet](https://teztnets.xyz/ghostnet-about) might be a good choice for this guide (at the time of writing).&#x20;
 
 Copy the _Public RPC endpoint_ which looks something like this:
 
@@ -143,7 +144,7 @@ Run the following command to generate a local wallet with _octez-client_, making
 octez-client gen keys <my_wallet>
 ```
 
-Let's get the address for this wallet, because we'll need it later:
+Let's get the address for this wallet because we'll need it later:
 
 ```
 octez-client show address <my_wallet>
@@ -170,7 +171,7 @@ tz1dW9Mk...........H67L
 
 ## Fund your test wallet&#x20;
 
-Tezos provides a [Faucet](https://faucet.ghostnet.teztnets.xyz) to allow you to use the Testnet for free (has no value and can't be used on the Mainnet).
+Tezos provides a [faucet](https://faucet.ghostnet.teztnets.xyz) to allow you to use the Testnet for free (has no value and can't be used on the Mainnet).
 
 Let's go ahead and fund our wallet through the [Ghostnet Faucet](https://faucet.ghostnet.teztnets.xyz). Paste the hash you copied earlier into the input field for "Or fund any address" and select the amount you'd like to add to your wallet.
 
@@ -225,19 +226,19 @@ def test():
   sp.add_compilation_target("storeGreeting", StoreGreeting("Hello"))   # Set an initial value on compile
 ```
 
-As you can see we're going to set the intial value to "Hello" and we'll have the ability later to either replace this greeting or add to it (append).
+As you can see we're going to set the initial value to "Hello" and we'll have the ability later to either replace this greeting or add to it (append).
 
 We've also included some tests to make sure all is working as expected.
 
 ## Run the tests
 
-Now that we have our code setup, let's run the tests.
+Now that we have our code set up, let's run the tests.
 
 ```
 ~/smartpy-cli/SmartPy.sh test store_greeting.py ./test-output
 ```
 
-You should see this command ouput our test files to the folder `/test-ouput/`.
+You should see this command output our test files to the folder `/test-ouput/`.
 
 ## Compile the smart contract to Michelson&#x20;
 
@@ -253,7 +254,7 @@ You should now see a new folder created called `/output/` which will contain all
 
 We're now going to deploy to the Testnet!
 
-First you need to make sure that your current directory is `/output/storeGreeting/`.
+First, you need to make sure that your current directory is `/output/storeGreeting/`.
 
 ```bash
 cd output/storeGreeting
@@ -276,11 +277,11 @@ Make sure you copy the contract address for the next step!
 
 ## Confirm that all worked as expected
 
-To interect with the contract and confirm that all went as expected, you can use an Explorer such as:[TzKT ](https://tzkt.io)
+To interact with the contract and confirm that all went as expected, you can use an explorer such as:[TzKT ](https://tzkt.io)
 
 Make sure you switch to the [Ghostnet](https://ghostnet.tzkt.io) before you start.
 
-Then paste the contract address (starting with KT) `KT1Nnk.................UFsJrq` into the search field and hit `enter` to find it.
+Then paste the contract address (starting with KT1) `KT1Nnk.................UFsJrq` into the search field and hit `enter` to find it.
 
 Then navigate to the `Storage` tab to see your initial value of `Hello`.
 
@@ -288,14 +289,14 @@ Then navigate to the `Storage` tab to see your initial value of `Hello`.
 
 ## Replace or append the text
 
-Now that we've successfully deployed our smart contract let's test out the two entrypoints that we created: `replace` and `append`
+Now that we've successfully deployed our smart contract, let's test out the two entrypoints that we created: `replace` and `append`
 
 #### Replace
 
 To replace "Hello" with "Hi there!", we can run the command below:
 
 {% callout title="Information" %}
-Make sure that you replace **\<my\_wallet>** with the name of the wallet your created earlier and **\<contract-address>** with the contract address starting with KT.
+Make sure that you replace **\<my\_wallet>** with the name of the wallet your created earlier and **\<contract-address>** with the contract address starting with KT1.
 {% /callout %}
 
 ```
