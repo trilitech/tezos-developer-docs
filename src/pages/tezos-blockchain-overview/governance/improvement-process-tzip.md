@@ -3,6 +3,7 @@ sidebar_position: 3
 hide_table_of_contents: true
 title: "Tezos Improvement Process (TZIP)"
 hide_title: true
+proofread: true
 ---
 ## Tezos Improvement Process (TZIP)
 
