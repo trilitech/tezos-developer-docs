@@ -14,7 +14,7 @@ Tezos is an open-source, decentralized blockchain [created in 2014](https://tezo
 
 Tezos stands apart from other blockchains in its capability to upgrade, allowing the network to evolve without requiring a hard fork. Anyone building on Tezos can propose a new protocol upgrade and have it adopted by the network without compromising the platform's stability or causing fragmentation. This makes Tezos adaptable to new technologies and able to address user needs where other blockchains struggle to make changes.
 
-Tezos is unique in its governance model. All stakeholders can participate in the decision-making processes that impact the future direction of the network. Holders of XTZ —-the chain’s native token-— can propose and vote on changes to the protocol, such as changes to gas fees, reduction in block times, adding new features such as smart rollups, and even changing the consensus mechanism itself.
+Tezos is unique in its governance model. All stakeholders can participate in the decision-making processes that impact the future direction of the network. Holders of XTZ —-the chain’s native token-— can propose changes to the protocol and bakers vote on them, such as changes to gas fees, reduction in block times, adding new features such as smart rollups, and even changing the consensus mechanism itself.
 
 The use of formal verification is a powerful feature where the code can be mathematically proven to be correct without side effects. The rigorous process of formal verification ensures that the smart contracts and other components function as intended, reducing the likelihood of errors, bugs, and security vulnerabilities. This approach gives Tezos an edge in security and reliability. 
 
