@@ -3,6 +3,7 @@ sidebar_position: 2
 hide_table_of_contents: true
 title: "Michelson"
 hide_title: true
+proofread: true
 ---
 
 ## Michelson
@@ -21,7 +22,7 @@ Michelson is a low-level, stack-based programming language used to write smart c
 
 It uses a stack rewriting paradigm, whereby each function rewrites an input stack into an output stack. \(The meaning of this will be fully explained below.\) This runs in a purely functional way and does not modify the inputs at all. Thus, all data structures are **immutable**.
 
-### What is a Stack?
+### What is a stack?
 
 A stack is an abstract data type that serves as a collection of elements, with two principal operations: push \(adds an element to the collection\) and pop \(removes the most recently added element that has not yet been removed\). The order in which elements come off a stack gives rise to its alternative name, LIFO \(last in, first out\). Additionally, a peek operation may give access to the top without modifying the stack.
 
@@ -31,7 +32,7 @@ Source: Wikipedia.
 
 ### Rewriting Stacks
 
-To see what mean it means to rewrite stacks, we will run through a transaction in Michelson. First, before a transaction runs, the blockchain state at a certain hash is deserialized and put onto the stack as the variable `storage`. We have a `from` function that receives the transaction data `amount` , the amount of attached ꜩ, and the `parameter` , the function's parameters.
+To see what mean it means to rewrite stacks, we will run through a transaction in Michelson. First, before a transaction runs, the blockchain state at a certain hash is deserialized and put onto the stack as the variable `storage`. We have a `from` function that receives the transaction data `amount`, the amount of attached tez, and the `parameter`, the function's parameters.
 
 ```text
 from [ (Pair (Pair amount parameter) storage) ]
