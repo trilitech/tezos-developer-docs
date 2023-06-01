@@ -3,15 +3,16 @@ sidebar_position: 2
 hide_table_of_contents: true
 title: "Installation and Setup"
 hide_title: true
+proofread: true
 ---
 
-To start with we'll download and install tezos-client and create a couple of test wallets. We'll use [tezos-client](https://tezos.gitlab.io/api/cli-commands.html) - a command line interface to Tezos.
+To start, we'll download and install tezos-client and create a couple of test wallets. We'll use [tezos-client](https://tezos.gitlab.io/api/cli-commands.html) - a command line interface to Tezos.
 
 ## Install
 
 ### Linux \(64-bit\)
 
-A quick and easy way to get tezos-client running on Linux is to download the latest `tezos-client` binary, make it executable, and put it somewhere in your path. Alternatively you can add a package repository for your distribution, and install it from there. Using a package is a good idea for production systems as it automates the installation and allow easy updates.
+A quick and easy way to get tezos-client running on Linux is to download the latest `tezos-client` binary, make it executable, and put it somewhere in your path. Alternatively, you can add a package repository for your distribution, and install it from there. Using a package is a good idea for production systems as it automates the installation and allows easy updates.
 
 #### Option 1: Install the binary
 
@@ -29,7 +30,7 @@ This information is based on documentation from: [Get Tezos](https://tezos.gitla
 
 Tips:
 
-* Use ```tab```to autocomplete partial commands previously entered
+* Use ```tab``` to autocomplete partial commands previously entered
 * Use the up and down arrows to cycle through previously entered commands
 
 **1.** Make sure your system is up to date.
@@ -82,7 +83,7 @@ cd tezos
 ```text
 git checkout latest-release
 ```
-**5.** Install the tezos dependencies.
+**5.** Install the Tezos dependencies.
 
 ```text
 opam init --bare
@@ -111,7 +112,7 @@ make
 wget https://mainnet.xtz-shots.io/rolling -O tezos-mainnet.rolling
 ```
 
-**8.** Import the snapshot ( This step can take a longtime depending on your hardware )
+**8.** Import the snapshot (This step can take a long time depending on your hardware)
 
 ```text
 ./tezos-node snapshot import tezos-mainnet.rolling
@@ -257,9 +258,9 @@ $ export TEZOS_CLIENT_UNSAFE_DISABLE_DISCLAIMER=yes
 * Go to the [faucet](https://faucet.tzalpha.net/).
 * Complete the captcha and download the wallet in the form of a .json file.
 * The file name is the wallet address \(also known as the public key hash, or PKH\) with a .json extension.
-* If you look inside the file you will see a property called pkh which contains the address.
-* The public key hash is used to identify the account on the Tezos block chain and can be though of as an address or account number.
-* Next we'll activate the account, passing it the path to the `.json` wallet we just downloaded
+* If you look inside the file you will see a property called *pkh* which contains the address.
+* The public key hash is used to identify the account on the Tezos blockchain and can be thought of as an address or account number.
+* Next, we'll activate the account, passing it the path to the `.json` wallet we just downloaded
 * We'll first create an account for Alice, then Bob, so we can perform some test transactions.
 * Don't be alarmed by the blank `Error:` we'll explain why shortly.
 

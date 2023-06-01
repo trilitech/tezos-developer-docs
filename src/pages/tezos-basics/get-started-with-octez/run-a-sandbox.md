@@ -3,6 +3,7 @@ sidebar_position: 3
 hide_table_of_contents: true
 title: "Run a Sandbox"
 hide_title: true
+proofread: true
 ---
 
 ## Use Docker and Flextesa to Run an Independent Tezos Sandbox
@@ -13,7 +14,7 @@ Here we use [Flextesa](https://gitlab.com/tezos/flextesa) to run one or more Tez
 
 ### Dependencies
 
-This example requires Docker, available for Linux, Mac or Windows at [https://www.docker.com](https://www.docker.com/).
+This example requires Docker, available for Linux, Mac, or Windows at [https://www.docker.com](https://www.docker.com/).
 
 ### Starting and Using a Sandbox
 
@@ -21,10 +22,10 @@ Start the sandbox _in the background_ \(will run with baking enabled\):
 
 ```text
 docker run --rm --name my-sandbox --detach -p 20000:20000 \
-       tqtezos/flextesa:20210602 flobox start
+       oxheadalpha/flextesa:20230502 mumbaibox start
 ```
 
-After a few seconds this should succeed:
+After a few seconds, this should succeed:
 
 ```text
 tezos-client config reset        # Cleans-up left-over configuration.
@@ -37,10 +38,10 @@ Configure the client to communicate with the sandbox:
 tezos-client --endpoint http://localhost:20000 config update
 ```
 
-Then, instead of using a public faucet one can just use ꜩ by importing accounts already existing in the sandbox. They are visible with:
+Then, instead of using a public faucet, you can just use tez by importing accounts already existing in the sandbox. They are visible with:
 
 ```text
- $ docker run --rm tqtezos/flextesa:20210602 flobox info
+ $ docker run --rm oxheadalpha/flextesa:20230502 mumbaibox info
 
 Usable accounts:
 
@@ -73,7 +74,7 @@ tezos-client get balance for alice
 
 See also the [Tezos Client](https://assets.tqtezos.com/docs/setup/1-tezos-client) section or the [Wallet-usage](https://tezos.gitlab.io/introduction/howtouse.html#transfers-and-receipts) tutorial of the Tezos manual.
 
-For instance, one can originate the most minimalistic [contract](https://gitlab.com/tezos/tezos/blob/mainnet/src/bin_client/test/contracts/attic/id.tz):
+For instance, you can originate the most minimalistic [contract](https://gitlab.com/tezos/tezos/blob/mainnet/src/bin_client/test/contracts/attic/id.tz):
 
 ```text
 # Download the contract:
@@ -100,39 +101,39 @@ One can see the configuration of the protocol running in the sandbox with:
 tezos-client rpc get /chains/main/blocks/head/context/constants
 ```
 
-One important field is `"time_between_blocks": [ "5" ],` which means that blocks are baked every 5 seconds \(as opposed to 60 seconds on Mainnet\).
+One important field is `"time_between_blocks": [ "5" ],` which means that blocks are baked every 5 seconds \(as opposed to 60 seconds on mainnet\).
 
-This constant can be configured with the `block_time` environment variable, see example below:
+This constant can be configured with the `block_time` environment variable, see the example below:
 
 ```text
 docker run --rm --name my-sandbox -e block_time=2 --detach -p 20000:20000 \
-       tqtezos/flextesa:20210602 flobox start
+       oxheadalpha/flextesa:20230502 mumbaibox start
 ```
 
 The above command runs a full sandbox with the Florence protocol and a faster time-between-blocks of 2 seconds.
 
-Many other parameters are set by the `flobox` [script](https://gitlab.com/tezos/flextesa/-/blob/master/src/scripts/tutorial-box.sh). All the configuration options available can be seen with the command:
+Many other parameters are set by the `mumbaibox` [script](https://gitlab.com/tezos/flextesa/-/blob/master/src/scripts/tutorial-box.sh). All the configuration options available can be seen with the command:
 
 ```text
-docker run --rm -it tqtezos/flextesa:20210602 flextesarl mini-net --help
+docker run --rm -it oxheadalpha/flextesa:20230502 flextesarl mini-net --help
 ```
 
-#### Try The Granada Protocol
+#### Try The Nairobi Protocol
 
-The Docker image also contains a `granabox` script:
+The Docker image also contains a `nairobibox` script:
 
 ```text
 docker run --rm --name my-sandbox --detach -p 20000:20000 \
-       tqtezos/flextesa:20210602 granabox start
+       oxheadalpha/flextesa:20230502 nairobibox start
 ```
 
-On can then check that the protocol hash is `PtGRANADsDU8R9daYKAgWnQYAJ64omN1o3KMGVCykShA97vQbvV`:
+You can then check that the protocol hash is `PtNairobiyssHuh87hEhfVBGCVrK3WnS8Z2FT4ymB5tAa4r1nQf`:
 
 ```text
  $ tezos-client rpc get /chains/main/blocks/head/metadata | grep protocol
 
-{ "protocol": "PtGRANADsDU8R9daYKAgWnQYAJ64omN1o3KMGVCykShA97vQbvV",
-  "next_protocol": "PtGRANADsDU8R9daYKAgWnQYAJ64omN1o3KMGVCykShA97vQbvV",
+{ "protocol": "PtNairobiyssHuh87hEhfVBGCVrK3WnS8Z2FT4ymB5tAa4r1nQf",
+  "next_protocol": "PtNairobiyssHuh87hEhfVBGCVrK3WnS8Z2FT4ymB5tAa4r1nQf",
 ```
 
 or that there are new constants like the one related to liquidity baking:
