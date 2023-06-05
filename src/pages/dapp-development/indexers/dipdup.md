@@ -16,7 +16,7 @@ But selective indexers have two advantages. First, they use hardly any resources
 
 As DipDup and Dappetizer are harder to set up, we will index a simple contract and perform a simple query. We chose tzBTC—wrapped Bitcoin on Tezos as a FA1.2 token.
 
-We will install each indexer and create an empty project. Then we will set it up to index what we need, for example, tzBTC holders' balances from storage or tzBTC transactions from the “transfer” entry point. And in the end, we will process the data and display it on a simple webpage.
+We will install each indexer and create an empty project. Then we will set it up to index what we need, for example, tzBTC holders' balances from storage or tzBTC transactions from the “transfer” entrypoint. And in the end, we will process the data and display it on a simple webpage.
 
 ### [](https://indexers.tezos.org.ua/dipdup-dappetizer#installing-and-configuring-dipdup)Installing and configuring DipDup
 
@@ -53,9 +53,9 @@ The dipdup.yml file will appear in the project folder. Its structure is as follo
 *   Contracts: the name of the contract, its address, and typename for further use in the code.
 *   Datasources: data sources for indexing. By default, it’s TzKT, but you can add APIs from other websites for data, crypto exchanges for price quotes, or IPFS for NFTs;
 *   Indexes: a list of indexes that DipDup will create and use. In our case, we will collect information about tzBTC holders.
-*   Templates: schemes of operations to be indexed. Inside there are handlers, which are instructions on how tzBTC should process entry points calls: which data to fetch and where to store it. On a side note, and refer to "contract" and "datasource" keys inside the "indexes" dictionary.
+*   Templates: schemes of operations to be indexed. Inside there are handlers, which are instructions on how tzBTC should process entrypoint calls: which data to fetch and where to store it.
 
-The most important thing here is templates. In these modules, we specify the entry points that need to be indexed: for on\_transfer data, we need to check operations with the transfer entry point, and for on\_mint it’s operations with mint. This is important because there will be no direct references to entry points or contracts in the handler code, and this feature can raise questions like “Where does the data come from?”.
+The most important thing here is templates. In these modules, we specify the entrypoints that need to be indexed: for on\_transfer data, we need to check operations with the transfer entrypoint, and for on\_mint it’s operations with mint. This is important because there will be no direct references to entry points or contracts in the handler code, and this feature can raise questions like “Where does the data come from?”.
 
 In this example, we will be checking tzBTC holders' balances. They change when the transfer and mint entry points are called, so we specify two handlers by entry point names — on\_mint and on\_transfer.
 
@@ -76,10 +76,10 @@ DipDup will create several files — models and handlers — that describe worki
 
 The first file is models.py. It stores data models, roughly speaking, descriptions of tables and columns in the database. In the Holder model, we will declare several types of columns:
 
-*   an address with a length of 36 characters.
-*   balance and turnover in numerical format while specifying eight decimal places (decimal\_places).
-*   the number of transactions.
-*   last activity time.
+*   an address with a length of 36 characters
+*   balance and turnover in a numeric format while specifying eight decimal places (decimal\_places)
+*   the number of transactions
+*   last activity time
 
 [![6](/developers/docs/images/indexers/dipdup6.png)](https://indexers.tezos.org.ua/static/96c7b5f909c56975fdb566de6566e5b0/5ca22/6.png)
 
@@ -128,7 +128,7 @@ DipDup will start downloading the required data from the TzKT public API. Upon c
 
 Let's make a project similar to the one in the previous lesson. Back then, we displayed NFT collateralized loan offers and generated links to the NFTs.
 
-Let's create a tzbtc\_dipdup.php file in the ttzbtc\_dipdup folder and then connect it to the database first. By default, DipDup suggests you use [SQLite](https://www.sqlite.org/index.html). Connecting to it is slightly different from Postgres: you need to specify the full path to the database file, but you do not need to set the username, password, and port.
+Let's create a tzbtc\_dipdup.php file in the tzbtc\_dipdup folder and then connect it to the database first. By default, DipDup suggests you use [SQLite](https://www.sqlite.org/index.html). Connecting to it is slightly different from Postgres: you need to specify the full path to the database file, but you do not need to set the username, password, and port.
 
 In the $db\_dir variable, we specify the path to the database on the hard disk, and in $db\_handle - the new PDO($db\_dir) database connection method.
 
@@ -200,14 +200,14 @@ You need to create entities.ts and specify the class (table) and database column
 
 [![20](/developers/docs/images/indexers/dipdup20.png)](https://indexers.tezos.org.ua/static/879869b9b7c64aea21f136dc236c71cb/5dd2a/20.png)
 
-The src folder contains tz-btc-indexer.ts, in which Dappetizer will generate functions for indexing all entry points of the specified contract. In the code of the corresponding entry point, you need to describe the indexing logic: which entry point call parameter to write to the database.
+The src folder contains tz-btc-indexer.ts, in which Dappetizer will generate functions for indexing all entry points of the specified contract. In the code of the corresponding entrypoint, you need to describe the indexing logic: which entry point call parameter to write to the database.
 
 [![21](/developers/docs/images/indexers/dipdup21.png)](https://indexers.tezos.org.ua/static/4458d88f72d3cc315e464ea698b84da4/5ca22/21.png)
 
 In tzBTC, the entry point for sending tokens is called transfer. Accordingly, we will find the code for this entry point and add logic to it:
 
-*   at the beginning, we import the Transaction class to use it to write data;
-*   in the indexTransfer function, we describe the indexing logic: create a tzBTCtransfer constant, in which we write the sender and recipient addresses, as well as the transaction volume;
+*   at the beginning, we import the Transaction class to use it to write data,
+*   in the indexTransfer function, we describe the indexing logic: create a tzBTCtransfer constant, in which we write the sender and recipient addresses, as well as the transaction volume,
 *   at the end of the indexTransfer function, we will call the insert function to write the contents of tzBTCtransfer to the database.
 
 [![22](/developers/docs/images/indexers/dipdup22.png)](https://indexers.tezos.org.ua/static/92bd0f1229f79e6bbf945c17cf6d14d7/5ca22/22.png)
@@ -237,7 +237,7 @@ Dappetizer will begin indexing the blocks and writing data to the database.
 
 Let's make a page similar to the DipDup project. Let's create a tzbtc\_dappetizer.php file and describe the page structure in it. Since we are using the same SQLite database, we can directly copy the code from the DipDup project. You only need to change the path to the database, the SQL query, and the function for displaying data.
 
-In our example, we use SQL query to select sender, receiver and amount fields from the "transaction" table and then sort them by internal id, so the most recent ones (with a higher id value) will be displayed first.
+In our example, we use SQL query to select sender, receiver, and amount fields from the "transaction" table and then sort them by internal id, so the most recent ones (with a higher id value) will be displayed first.
 
 [![25](/developers/docs/images/indexers/dipdup25.png)](https://indexers.tezos.org.ua/static/6e12e4741cc38df7849681462501071f/46eb0/25.png)
 
