@@ -2,6 +2,7 @@
 id: test-networks
 title: Test Networks
 authors: Mathias Hiron, Nomadic Labs
+proofread: true
 ---
 
 {% callout type="note" %}
