@@ -2,15 +2,15 @@
 id: first-smart-contract
 title: Deploy your First Smart Contract
 slug: /first-smart-contract
-authors: John Joubert
+authors: John Joubert, Sasha Aldrick
 ---
 
 ## Prerequisites
 
-| Dependency         | Installation instructions                                                                                                                   |
-|--------------------|---------------------------------------------------------------------------------------------------------------------------------------------|
-| Smartpy CLI        | Follow the _Installation_ steps in this [guide](https://smartpy.dev/docs/manual/introduction/installation).                                                 |
-| _octez-client_ CLI | Follow the _How to install the octez-client_ steps [here](/developers/docs/tezos-basics/get-started-with-octez/). |
+| Dependency         | Installation instructions                                                                                                                                                                                                                                        |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| SmartPy            | Follow the _Installation_ steps in this [guide](https://smartpy.dev/docs/manual/introduction/installation). SmartPy requires Docker to run. For MacOS and Linux, it is recommended to install [Docker Desktop](https://www.docker.com/products/docker-desktop/). |
+| _octez-client_ CLI | Follow the _How to install the octez-client_ steps [here](/developers/docs/tezos-basics/get-started-with-octez/).                                                                                                                                                |
 
 {% callout type="warning" title="Note" %}
 Make sure you have **installed** the above CLI tools before getting started.
@@ -42,18 +42,40 @@ touch store_greeting.py
 
 ### Smartpy
 
-Installing the `smartpy-cli` would have created a  `/smartpy-cli/` directory in `home` (on a Mac).&#x20;
+The preferred way of running SmartPy is via the `smartPy` wrapper. To obtain the SmartPy executable within your local project folder:
+
+```bash
+wget smartpy.io/smartpy
+chmod a+x smartpy
+```
+
+If you are missing `wget` on MacOS, you can use `brew install wget` or the package manager of your choice.
+
+This creates a local executable file named `smartpy` which we will use to to compile our contract.
 
 We can check that it's correctly installed by running the following command:
 
 ```bash
-~/smartpy-cli/SmartPy.sh --version
+./smartpy
 ```
 
 And we should see something like this returned:
 
 ```
-SmartPy Version: 0.15.0
+./smartpy
+Usage:
+   ./smartpy test        <script> <output> <options>* (execute all test targets)
+   ./smartpy doc         <script> <output>            (document script)
+
+   Parameters:
+         <script>              : a script containing SmartPy code
+         <output>              : a directory for the results
+
+   Options:
+         --protocol <protocol> : optional, select target protocol - default is lima
+         --<flag> <arguments>  : optional, set some flag with arguments
+         --<flag>              : optional, activate some boolean flag
+         --no-<flag>           : optional, deactivate some boolean flag
 ```
 
 ### Octez-client
@@ -127,9 +149,9 @@ You should then see something like this returned:
 
 ```
 Warning:
-  
+
                  This is NOT the Tezos Mainnet.
-  
+
            Do NOT use your fundraiser keys on this network.
 ```
 
@@ -140,22 +162,22 @@ We're now going to create a local wallet to use throughout this guide.
 Run the following command to generate a local wallet with _octez-client_, making sure to replace `<my_wallet>` with a name of your choosing:
 
 ```bash
-octez-client gen keys <my_wallet>
+octez-client gen keys local_wallet
 ```
 
 Let's get the address for this wallet because we'll need it later:
 
-```
-octez-client show address <my_wallet>
+```bash
+octez-client show address local_wallet
 ```
 
 Which will return something like this:
 
 ```
 Warning:
-  
+
                  This is NOT the Tezos Mainnet.
-  
+
            Do NOT use your fundraiser keys on this network.
 
 Hash: tz1dW9Mk...........H67L
@@ -179,7 +201,7 @@ Let's go ahead and fund our wallet through the [Ghostnet Faucet](https://faucet.
 Wait a minute or two and you can then run the following command to check that your wallet has funds in it:
 
 ```
- octez-client get balance for <my_wallet>
+ octez-client get balance for local_wallet
 ```
 
 Which will return something like this:
@@ -197,63 +219,58 @@ Copy and paste the following code block into your file and save it.
 ```python
 import smartpy as sp
 
-class StoreGreeting(sp.Contract):
-    def __init__(self, value):  # Note the indentation
-        self.init(text = value)
+@sp.module
+def main():
+    class StoreGreeting(sp.Contract):
+        def __init__(self, greeting):  # Note the indentation
+            self.data.greeting = greeting
 
-    @sp.entry_point   # Note the indentation
-    def replace(self, params): 
-        self.data.text = params.text
+        @sp.entrypoint   # Note the indentation
+        def replace(self, params):
+            self.data.greeting = params.text
 
-    @sp.entry_point    # Note the indentation
-    def append(self, params):
-        self.data.text += params.text
+        @sp.entrypoint    # Note the indentation
+        def append(self, params):
+            self.data.greeting += params.text
 
 @sp.add_test(name = "StoreGreeting")
-
 def test():
-  scenario = sp.test_scenario()
-  contract = StoreGreeting("Hello")
+  scenario = sp.test_scenario(main)
+  scenario.h1("StoreGreeting")
+
+  contract = main.StoreGreeting("Hello")
   scenario += contract
 
-  scenario.verify(contract.data.text == "Hello")
+  scenario.verify(contract.data.greeting == "Hello")
 
   contract.replace(text = "Hi")
   contract.append(text = ", there!")
-  scenario.verify(contract.data.text == "Hi, there!")
-
-  sp.add_compilation_target("storeGreeting", StoreGreeting("Hello"))   # Set an initial value on compile
+  scenario.verify(contract.data.greeting == "Hi, there!")
 ```
 
-As you can see we're going to set the initial value to "Hello" and we'll have the ability later to either replace this greeting or add to it (append).
+As you can see we're going to set the intial greeting to "Hello" and we'll have the ability later to either replace this greeting or add to it (append).
 
-We've also included some tests to make sure all is working as expected.
-
-## Run the tests
-
-Now that we have our code set up, let's run the tests.
-
-```
-~/smartpy-cli/SmartPy.sh test store_greeting.py ./test-output
-```
-
-You should see this command output our test files to the folder `/test-ouput/`.
+We've also included some tests to make sure all is working as expected. You can read more about about SmartPy testing [here](https://smartpy.io/manual/scenarios/overview).
 
 ## Compile the smart contract to Michelson&#x20;
 
-Run the following commands to compile the smart contract in preparation for deploying it to the Testnet.
+Now that we have our code setup, let's compile the smart contract and run the tests simultaneously.
 
-```
- ~/smartpy-cli/SmartPy.sh compile store_greeting.py ./output
+```bash
+./smartpy test store_greeting.py store_greeting/
 ```
 
-You should now see a new folder created called `/output/` which will contain all of your compiled files.
+You should see this command output our test results and compiled contracts to the folder `/store_greeting/StoreGreeting`.
+
+There are two types of output, JSON Michelson in `.json` files and [Micheline Micelson](https://tezos.gitlab.io/shell/micheline.html) in `.tz` files.
+
+The most important file is `step_002_cont_0_contract.tz`. This Michelson file we can use to deploy (originate in Tezos terms) the contract to the testnet.
 
 ## Deploy to the Testnet
 
-We're now going to deploy to the Testnet!
+First you need to make sure that your current directory is `/store_greeting/StoreGreeting`.
 
-First, you need to make sure that your current directory is `/output/storeGreeting/`.
+From the project folder:
 
 ```bash
 cd output/storeGreeting
@@ -261,32 +278,35 @@ cd output/storeGreeting
 
 Then run the following command to deploy the smart contract:
 
-```
- ~/smartpy-cli/SmartPy.sh originate-contract --code step_000_cont_0_contract.json --storage step_000_cont_0_storage.json --rpc https://rpc.ghostnet.teztnets.xyz
+```bash
+octez-client originate contract storeGreeting transferring 0 from local_wallet running step_002_cont_0_contract.tz --init '"Hello"' --burn-cap 0.1
 ```
 
-You should get the following confirmation that your smart contract has been originated:
+This will originate the contract with an initial greeting of "Hello".
 
-```
-[INFO] - Using RPC https://rpc.ghostnet.teztnets.xyz...
-[INFO] - Contract KT1Nnk.................UFsJrq originated!!!
+You should get a similar confirmation that your smart contract has been originated:
+
+```bash
+New contract KT1Nnk.................UFsJrq originated.
+The operation has only been included 0 blocks ago.
+We recommend to wait more.
 ```
 
 Make sure you copy the contract address for the next step!
 
 ## Confirm that all worked as expected
 
-To interact with the contract and confirm that all went as expected, you can use an explorer such as:[TzKT ](https://tzkt.io)
+To interact with the contract and confirm that all went as expected, you can use an Explorer such as:[TzKT ](https://tzkt.io) or [Better Call Dev](https://better-call.dev/).
 
-Make sure you switch to the [Ghostnet](https://ghostnet.tzkt.io) before you start.
+Make sure you have switched to [Ghostnet](https://ghostnet.tzkt.io) before you start looking.
 
 Then paste the contract address (starting with KT1) `KT1Nnk.................UFsJrq` into the search field and hit `enter` to find it.
 
 Then navigate to the `Storage` tab to see your initial value of `Hello`.
 
-![Confirmation that all worked correctly](/developers/docs/images/storage.png)
+![Confirmation that all worked correctly](/images/confirmation_success)
 
-## Replace or append the text
+## Calling the entrypoints
 
 Now that we've successfully deployed our smart contract, let's test out the two entrypoints that we created: `replace` and `append`
 
@@ -294,30 +314,14 @@ Now that we've successfully deployed our smart contract, let's test out the two 
 
 To replace "Hello" with "Hi there!", we can run the command below:
 
-{% callout title="Information" %}
-Make sure that you replace **\<my\_wallet>** with the name of the wallet your created earlier and **\<contract-address>** with the contract address starting with KT1.
-{% /callout %}
-
+```bash
+octez-client --wait none transfer 0 from local_wallet to storeGreeting --entrypoint 'replace' --arg '"Hi there!"' --burn-cap 0.1
 ```
-octez-client transfer 0 from <my_wallet> to <contract-address> --entrypoint replace --arg '"Hi there!"'
-```
-
-You will likely see an error that says something like this:
-
-```
-Fatal error:
-  The operation will burn ꜩ0.001 which is higher than the configured burn cap (ꜩ0).
-   Use `--burn-cap 0.001` to emit this operation.
-```
-
-Just update your command to include `--burn-cap <amount>` to ensure that it is processed.
-
-Once you've done that, you can refresh the Explorer page and see your new text.
 
 #### &#x20;Append
 
 Finally, to append some text, you can run this command:
 
-```
-octez-client transfer 0 from <my_wallet> to <contract-address> --entrypoint append --arg '"My name is Jane Doe."'
+```bash
+octez-client --wait none transfer 0 from local_wallet to storeGreeting --entrypoint 'append' --arg '" Appended Greeting"' --burn-cap 0.1
 ```
