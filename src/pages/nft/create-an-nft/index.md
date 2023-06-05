@@ -17,17 +17,17 @@ FA2 refers to a token standard ([TZIP-12](https://gitlab.com/tzip/tzip/-/blob/ma
 on Tezos. FA2 proposes a unified token contract interface, supporting a wide range
 of token types. The FA2 provides a standard API to transfer tokens, check
 token balances, manage operators (addresses that are permitted to transfer tokens
-on behalf of the token owner) and manage token metadata.
+on behalf of the token owner), and manage token metadata.
 
 ### What is a Non-Fungible Token (NFT)?
 
-An NFT (non-fungible token) is a special type of cryptographic token which represents
+An NFT (non-fungible token) is a special type of cryptographic token that represents
 something unique; non-fungible tokens are thus not mutually interchangeable.
 NFTs can represent ownership over digital or physical assets like virtual collectibles
 or unique artwork.
 
-For each individual non-fungible token, the FA2 assigns a unique
-token ID and associates it with the token owner address. The FA2 API enables the
+For each non-fungible token, the FA2 assigns a unique
+token ID and associates it with the token owner's address. The FA2 API enables the
 inspection of token balances for the specific token ID and token owner address.
 For NFTs the balance can be either 0 (which means that the address does not own
 this particular token) or 1 (the address owns the token).
@@ -45,7 +45,7 @@ image or document URL and its crypto-hash.
   include `npm` (Node package manager).
 
 - [Docker](https://www.docker.com/) must be installed. You need docker to run
-  Flextesa sandbox. You might skip docker installation if you plan to run this
+  Flextesa sandbox. You might skip Docker installation if you plan to run this
   tutorial on the testnet (Mumbainet) only.
 
 ### The CLI Tool
@@ -57,7 +57,7 @@ following commands:
 - mint (contract origination) NFT with metadata command
 - token inspection commands
 - NFT transfer command
-- Configuration commands to bootstrap Tezos network and configure address aliases
+- configuration commands to bootstrap the Tezos network and configure address aliases
 
 The commands will be explained in more detail below. You can always run
 
@@ -119,7 +119,7 @@ to list all available commands.
    ```
 
    If you are bootstrapping a `sandbox` network for the first time, Docker will download
-   the Flextesa docker-image as well.
+   the Flextesa Docker image as well.
 
    The default configuration comes with two account aliases `bob` and `alice`
    that can be used for token minting and transferring.
@@ -128,12 +128,12 @@ to list all available commands.
 
 This tutorial uses an NFT collection contract. Each time the user mints a new set
 (collection) of tokens, a new NFT contract is created. The user cannot add more
-tokens or remove (burn) existing tokens within the contract. However tokens can
+tokens or remove (burn) existing tokens within the contract. However, tokens can
 be transferred to other owners.
 
 `mint` command requires the following parameters:
 
-- <owner> alias or address of the new tokens owner
+- <owner> alias or address of the new token's owner
 - `--tokens` new tokens metadata. Each token metadata is represented as comma
   delimited string: `'<token_id>, <token_symbol>, <token_name>'`:
 
@@ -152,7 +152,7 @@ originated NFT collection KT1XP3RE6S9t44fKR9Uo5rAfqHvHXu9Cy7fh
 
 ### Inspecting The NFT Contract
 
-Using `KT1..` address of the NFT contract created by the `mint` command, we can
+Using `KT1...` address of the NFT contract created by the `mint` command, we can
 inspect token metadata and balances (i. e. which addresses own the tokens).
 
 #### Inspect Token Metadata
@@ -217,7 +217,7 @@ Token metadata can store a reference to some external document and/or image.
 This tutorial supports storing external data on [IPFS](https://ipfs.io) and keeping
 an IPFS hash as a part of the token metadata.
 
-Let's create a single NFT token which references an image on IPFS.
+Let's create a single NFT token that references an image on IPFS.
 
 1. Upload your image to IPFS and obtain an image file hash. There are
    multiple ways to do that. One of the possible solutions is to install the
@@ -225,7 +225,7 @@ Let's create a single NFT token which references an image on IPFS.
    upload an image file from there. You can upload multiple images and/or documents
    if you plan to create a collection of multiple NFTs.
 
-2. Copy the IPFS file hash code (`CID`). For this example we will use
+2. Copy the IPFS file hash code (`CID`). For this example, we will use
    `QmRyTc9KbD7ZSkmEf4e7fk6A44RPciW5pM4iyqRGrhbyvj`
 
 3. Execute `tznft mint` command adding IPFS hash as a fourth parameter in the token
@@ -258,8 +258,8 @@ token_id: 0	symbol: TZT	name: Tezos Token	extras: { ipfs_cid=QmRyTc9KbD7ZSkmEf4e
 - `--nft` address of the FA2 NFT contract that holds tokens to be transferred
 - `--signer` alias or address that initiates the transfer operation
 - `--batch` a list of individual transfers. Each individual transfer is represented
-  as a comma delimited string: `<from_address_or_alias>, <to_address_or_alias>, <token_id>`.
-  We do not need to specify amount of the transfer for NFTs since we can only
+  as a comma-delimited string: `<from_address_or_alias>, <to_address_or_alias>, <token_id>`.
+  We do not need to specify the amount of the transfer for NFTs since we can only
   transfer a single token for any NFT type.
 
 ```sh
@@ -308,9 +308,9 @@ Tezos operation error: FA2_NOT_OPERATOR
 
 As we can see, this operation has failed. The default behavior of the FA2 token
 contract is to allow only token owners to transfer their tokens. In our example,
-bob (as an operator) tries to transfer token `1` that belongs to `alice`.
+Bob (as an operator) tries to transfer token `1` that belongs to `alice`.
 
-However, `alice` can add `bob` as an operator to allow him transfer any tokens on
+However, `alice` can add `bob` as an operator to allow him to transfer any tokens on
 behalf of `alice`.
 
 `update-ops` command has the following parameters:
@@ -373,7 +373,7 @@ and `testnet` (Carthagenet). Each pre-configured network has two bootstrap alias
 
 #### Network Configuration Commands
 
-- `set-network <network>` select specified pre-configured network as an active one.
+- `set-network <network>` selects a specified pre-configured network as an active one.
   All subsequent commands will operate on the active network
 
   Example:
@@ -397,8 +397,8 @@ and `testnet` (Carthagenet). Each pre-configured network has two bootstrap alias
   ```
 
 - `bootstrap` bootstrap selected network and deploy helper balance inspector contract.
-  If selected network is `sandbox` this command needs to be run each time sandbox
-  is restarted, for other public networks like `testnet` is it enough to run this
+  If the selected network is `sandbox`, this command needs to be run each time the sandbox
+  is restarted, for other public networks like `testnet` it is enough to run this
   command once.
 
   Example:
@@ -414,7 +414,7 @@ and `testnet` (Carthagenet). Each pre-configured network has two bootstrap alias
   originated balance inspector KT1WDqPuRFMm2HwDRBotGmnWdkWm1WyG4TYE
   ```
 
-- `kill-sandbox` stop Flextesa sandbox process if selected network is `sandbox`.
+- `kill-sandbox` stop Flextesa sandbox process if the selected network is `sandbox`.
   This command has no effect on other network types.
 
   Example:
@@ -432,7 +432,7 @@ every 5 seconds. It makes running the commands that interact with the network
 faster. However, all originated contracts will be lost after the sandbox is stopped.
 
 If you are using `testnet`, your originated contracts will remain on the blockchain
-and you can inspect them afterwards using an block explorer like [BCD](https://better-call.dev/).
+and you can inspect them afterwards using a block explorer like [BCD](https://better-call.dev/).
 
 _Note: Although `testnet` configuration already has two bootstrap aliases `bob`
 and `alice`, it is a good practice to create your own alias from the faucet file
@@ -466,8 +466,8 @@ commands:
   ```
 
 - `add-alias <alias> <private_key>` add alias using its private key. Aliases
-  that configured with the private key can be used to sign operations that
-  originate or call smart contracts on chain. `tznft` commands that require Tezos
+  that are configured with the private key can be used to sign operations that
+  originate or call smart contracts on-chain. `tznft` commands that require Tezos
   operation signing have `--signer` option.
 
   Example:
@@ -483,7 +483,7 @@ commands:
   ```
 
 - `add-alias <alias> <address>` add alias using Tezos address (public key hash).
-  Such aliases do not have associated private key and cannot be used to sign
+  Such aliases do not have an associated private key and cannot be used to sign
   Tezos operations.
 
   Example:
@@ -517,7 +517,7 @@ commands:
   john	tz1NfTBQM9QpZpEY6GSvdw3XBpyEjLLGhcEU	edskRzaCrGEDr1Ras1U55U73dXoLfQQJyuwE95rSkqbydxUS4oS3fGmWywbaVcYw7DLH34zedoJzwMQxzAXQdixi5QzYC5pGJ6
   ```
 
-- `remove-alias <alias>` remove alias from the selected network configuration.
+- `remove-alias <alias>` remove the alias from the selected network configuration.
 
   Example:
 

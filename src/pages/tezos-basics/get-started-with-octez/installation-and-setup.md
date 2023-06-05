@@ -3,7 +3,6 @@ sidebar_position: 2
 hide_table_of_contents: true
 title: "Installation and Setup"
 hide_title: true
-proofread: true
 ---
 
 To start, we'll download and install tezos-client and create a couple of test wallets. We'll use [tezos-client](https://tezos.gitlab.io/api/cli-commands.html) - a command line interface to Tezos.

@@ -1,7 +1,6 @@
 ---
 id: archetype
 title: Archetype
-proofread: true
 ---
 
 ## Introduction

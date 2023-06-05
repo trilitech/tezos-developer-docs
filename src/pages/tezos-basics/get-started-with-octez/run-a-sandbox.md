@@ -3,7 +3,6 @@ sidebar_position: 3
 hide_table_of_contents: true
 title: "Run a Sandbox"
 hide_title: true
-proofread: true
 ---
 
 ## Use Docker and Flextesa to Run an Independent Tezos Sandbox

@@ -1,7 +1,6 @@
 ---
 id: tezos-protocol-and-shell
 title: Tezos Protocol and Shell
-proofread: true
 ---
 
 ## Tezos' Self-Amending Protocol

@@ -5,7 +5,6 @@ hide_title: true
 sidebar_label: "Introduction"
 slug: "/learn/governance/"
 sidebar_position: 1
-proofread: true
 ---
 ## Tezos Governance
 

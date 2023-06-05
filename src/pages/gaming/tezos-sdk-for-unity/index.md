@@ -14,7 +14,7 @@ The Tezos SDK for Unity offers a comprehensive toolkit designed to facilitate We
 
 ## Get Started
 
-Begin by watching our [Getting started video](https://youtu.be/0ouzNVxYI9g).
+Begin by watching our [Getting Started video](https://youtu.be/0ouzNVxYI9g).
 
 This Getting Started guide covers the following five steps essential for using the Tezos SDK in your Unity game or app development:
 
@@ -41,7 +41,7 @@ The Tezos SDK has been developed and tested primarily in Unity 2021.3.13. If you
 
 Newer Unity versions can coexist with older ones, allowing you to maintain older games built in previous editor versions. Manage different Unity installations through the **Installs** tab of your **Unity Hub**. This tool helps you track installations, projects, and required **modules** for publishing games or dApps to platforms like Windows, iOS, Android, WebGL, and others.
 
-If you're new to Unity, download the [Unity editor for free.](https://unity.com/download) The free "personal" Unity editor offers a comprehensive core feature-set for creating 2D and 3D games, apps, and environments, including AR, VR, and Web3 development.
+If you're new to Unity, download the [Unity editor for free.](https://unity.com/download) The free "personal" Unity editor offers a comprehensive core feature set for creating 2D and 3D games, apps, and environments, including AR, VR, and Web3 development.
 
 {% callout type="warning" title="Warning" %}
 The current SDK version requires iOS Build Support, even if you don't plan to build for iOS. This will be fixed in a future update. In the meantime, enable iOS Build Support in the "Installs" tab of your Unity Hub.
@@ -114,7 +114,7 @@ The [SDK's API](https://opentezos.com/gaming/unity-sdk/api-documentation/) inclu
 3. **GetActiveWalletAddress**: Retrieves the Tezos address of the currently active wallet account.
 4. **ReadBalance**: Returns the tez balance of the current user.
 5. **ReadView**: Calls an off-chain view to obtain data from a smart contract and its storage.
-6. **CallContract**: Enables calling any Tezos contract by specifying the entry point, input parameters, and tez amount sent to the contract.
+6. **CallContract**: Enables calls to any Tezos contract by specifying the entrypoint, input parameters, and tez amount sent to the contract.
 7. **RequestSignPayload**: Requests the user to digitally sign data with their wallet.
 
 Additional features and data retrieval options from the Netezos SDK are included in this SDK.

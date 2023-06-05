@@ -2,7 +2,6 @@
 id: smart-contracts
 title: Smart Contracts
 authors: Thomas Zoughebi, Aymeric Bethencourt, and Maxime Fernandez
-proofread: true
 ---
 
 # Introduction to smart contracts 

@@ -5,7 +5,6 @@ hide_title: true
 sidebar_label: "Introduction"
 slug: "/build/clients/"
 sidebar_position: 1
-proofread: true
 ---
 ## Connecting to the network
 

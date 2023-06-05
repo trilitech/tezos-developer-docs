@@ -2,7 +2,6 @@
 hide_table_of_contents: true
 title: "Tezos Nomenclature"
 hide_title: true
-proofread: true
 ---
 
 ## Tezos Nomenclature
