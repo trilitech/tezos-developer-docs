@@ -50,7 +50,7 @@ Once the balances are fetched, they are saved into the store to be displayed in 
 
 ### Connecting the wallet
 
-Taquito and Beacon working in unison makes it very easy to connect the wallet. A few lines of code using the APIs of these two essential libraries on Tezos are going to make miracles.
+Taquito and Beacon working in unison make it very easy to connect the wallet. A few lines of code using the APIs of these two essential libraries on Tezos are going to make miracles.
 
 Here is how to do it:
 
@@ -124,7 +124,7 @@ The call to `clearActiveAccount()` on the wallet instance is the only thing that
 
 Writing code to interact with a wallet in a decentralized application is a very new paradigm and although you will be able to reuse a lot of concepts and good practices from your experience as a developer, there are also a few new things to keep in mind:
 
-1. Never prompt the users to connect their wallet after the dapp is mounted: getting a wallet popup on your screen just after the app is loaded is annoying, you have to remember that a lot of your users are non-technical and don't understand that connecting a wallet is harmless, so they may be wary about your dapp if you ask them to connect their wallet from the get-go. Instead, present some information about your dapp and a button to manually connect their wallet, if this is their first time.
+1. Never prompt the users to connect their wallet after the dapp is mounted: getting a wallet pop-up on your screen just after the app is loaded is annoying, you have to remember that a lot of your users are non-technical and don't understand that connecting a wallet is harmless, so they may be wary about your dapp if you ask them to connect their wallet from the get-go. Instead, present some information about your dapp and a button to manually connect their wallet, if this is their first time.
 2. The button to connect a wallet must stand out in your interface, whether you make it bigger, with a different color, or a different font, the users must not spend more than a couple of seconds to find it.
 3. The button must be in a predictable position: most dapps on Tezos place their button to connect a wallet at the top-left or top-right of the UI. You are not _"creative"_ by placing the button in some other location, you will just end up confusing your users.
 4. The text in the button should read **Connect** or something similar, avoid **Sync** or other words but "connect" as they can mean something different in the context of a decentralized application.

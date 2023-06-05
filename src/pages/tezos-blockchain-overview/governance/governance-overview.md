@@ -10,7 +10,7 @@ hide_title: true
 
 ### An introduction to Tezos Governance
 
-Tezos is a self-amending blockchain software which uses an on-chain process to propose, select, test, and activate protocol upgrades [without the need to hard fork](https://medium.com/tezos/there-is-no-need-for-hard-forks-86b68165e67d). In practice, this enables Tezos to improve itself over time via a structured, yet decentralized process while preserving a high level of consensus.
+Tezos is a self-amending blockchain software that uses an on-chain process to propose, select, test, and activate protocol upgrades [without the need to hard fork](https://medium.com/tezos/there-is-no-need-for-hard-forks-86b68165e67d). In practice, this enables Tezos to improve itself over time via a structured, yet decentralized process while preserving a high level of consensus.
 
 Tezos also allows stakeholders to upgrade the amendment process itself. As a result, details of the mechanism described below represent the current mechanism and are subject to change. This page will evolve as the network evolves.
 
@@ -32,7 +32,7 @@ If someone does not have 8,000 ꜩ or does not want to set up computing infrastr
 
 The self-amendment process is split into 5 periods: Proposal Period, Exploration Vote Period, Cooldown Period, Promotion Vote Period, and Adoption Period. Each of these five periods lasts five baking cycles (i.e.  20,480 blocks or roughly 14 days, 5 hours), comprising roughly 2 months and 10 days.
 
-As summarized in the flowchart diagram below, any failure to proceed to the subsequent period reverts the network back to a Proposal Period. In other words, failure to proceed restarts the entire amendment process.
+As summarized in the flowchart diagram below, any failure to proceed to the subsequent period reverts the network to a Proposal Period. In other words, failure to proceed restarts the entire amendment process.
 
 ##### Proposal Period
 
@@ -52,7 +52,7 @@ In the Exploration Period, bakers may vote on the top-ranked proposal from the p
 
 At the end of the Exploration Period, the network counts the votes. If voting participation meets the quorum, and an 80% supermajority of non-abstaining bakers approves, the proposal proceeds to the Testing Period.
 
-If the voting participation fails to achieve the quorum or the 80% supermajority is not met, the amendment process restarts to the beginning of the Proposal Period.
+If the voting participation fails to achieve the quorum or the 80% supermajority is not met, the amendment process restarts at the beginning of the Proposal Period.
 
 Regardless of the outcome of the vote, the quorum is updated based on past participation rates.
 
@@ -68,13 +68,13 @@ At the end of the Testing Period, the Promotion Period begins. In this period, t
 
 At the end of the Promotion Period, the network counts the number of votes. If the participation rate reaches the quorum and an 80% supermajority of non-abstaining bakers votes “Yay,” then the proposal is activated as the new mainnet.
 
-Regardless of the outcome of the vote, the process reverts back to the Proposal Period and the quorum is updated based on past participation rates.
+Regardless of the outcome of the vote, the process reverts to the Proposal Period and the quorum is updated based on past participation rates.
 
 ##### Adoption Period
 
 The Adoption Period provides a "cool-down" allowing developers and bakers some additional time to adapt their code and infrastructure to the upgrade based on the results of the Promotion Vote Period. Adoption period: at the end of the period the proposal is activated as the new protocol and we go back to a proposal period.
 
-Following the adoption period the protocol is activated. After this step the blocks added to the chain are interpreted in the newly activated protocol. As a result gas costs (and other such details of operation inclusion) may differ.
+Following the adoption period the protocol is activated. After this step, the blocks added to the chain are interpreted in the newly activated protocol. As a result, gas costs (and other such details of operation inclusion) may differ.
 
 #### The Supermajority and Quorum Requirements 
 

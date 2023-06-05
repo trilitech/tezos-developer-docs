@@ -5,18 +5,18 @@ slug: /framework-best-practices
 authors: Claude Barde
 ---
 
-When creating a frontend application that uses the Tezos blockchain, you will most probably use a JavaScript framework, may it be React, Vue, Svelte or another one.
+When creating a frontend application that uses the Tezos blockchain, you will most probably use a JavaScript framework, may it be React, Vue, Svelte, or another one.
 
 There are some best practices to follow when you use one of these frameworks to make sure that your code is safe, your app behaves in the intended way and your users enjoy a great experience. Here are the most important ones.
 
 ## Dapp lifecycle
 
-The JS framework of your choice probably introduces different functions or models to manage the lifecycles of your application: when it's mounted, when it's updated and when it's unmounted.
+The JS framework of your choice probably introduces different functions or models to manage the lifecycles of your application: when it's mounted, when it's updated, and when it's unmounted.
 
 There are actions specific to a Tezos dapp that are better implemented during these stages.
 
 - On mount: this is when you generally want to set up the `TezosToolkit` from [Taquito](https://tezostaquito.io/docs/quick_start) as it requires HTTP requests to be made to the selected Tezos node. At the same time, you can set up [Beacon](https://docs.walletbeacon.io/) and set the wallet provider on the instance of the `TezosToolkit` _without_ asking your user to connect their wallet.
-- On update: this is when you ask the user if they want to connect their wallet after they interact with your dapp. Once the dapp is mounted, you can also fetch relevant information like XTZ balance, token balances or connection status.
+- On update: this is when you ask the user if they want to connect their wallet after they interact with your dapp. Once the dapp is mounted, you can also fetch relevant information like XTZ balance, token balances, or connection status.
 - On unmount: you can disconnect the wallet if you wish to, and you should also clear any interval you set, for example, to regularly fetch data from the blockchain.
 
 ## Wallet connection

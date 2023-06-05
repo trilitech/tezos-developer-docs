@@ -2,6 +2,7 @@
 id: smartpy
 title: SmartPy
 authors: Mathias Hiron and Maxime Sallerin
+proofread: true
 ---
 
 ## Introduction
@@ -18,7 +19,7 @@ There is also the SmartPy explorer, which allows easy exploration and interactio
 
 SmartPy is a **Python library**. SmartPy scripts are regular Python scripts that use SmartPy constructions. This mechanism is useful because it brings very powerful **meta-programming** capabilities.
 
-**Meta-programming** is when we can write a program that writes a program, i.e., constructs a contract. Indeed, the functions of the SmartPy Library are used to construct a smart contract.
+**Meta-programming** is when we can write a program that writes a program, i.e., constructs a contract. Indeed, the functions of the SmartPy library are used to construct a smart contract.
 
 {% callout type="note" %}
 For a complete _SmartPy_ guide please refer to the [manual here](https://smartpy.dev/docs/manual/introduction/overview).
@@ -28,7 +29,7 @@ Smart contracts are executed once they are deployed in the Tezos blockchain (alt
 
 Like most languages, SmartPy has expressions. For example:
 - `self.data.x` represents the contract storage field `x`
-- `2` represents the number `2
+- `2` represents the number `2`
 - `self.data.x + 2` represents their sum
 
 Inside a contract, when we write
@@ -63,7 +64,7 @@ sp.if self.data.x > 2:
     self.data.x += 1
 ```
 
-If we would have used the `if` native to Python it could not be interpreted and compiled in Michelson. 
+If we would have used the `if` native to Python it would not be interpreted and compiled in Michelson. 
 
 ## About the raffle contract
 A raffle is a game of chance that distributes a winning prize.
@@ -120,18 +121,18 @@ class Raffle(sp.Contract):
 #### A few concepts first
 
 **A _SmartPy_ contract** is a class definition that inherits from the `sp.Contract`.
-> **A class** is a code template for creating objects. Objects have member variables and have a behaviour associated with them. In python a class is created by the keyword `class`.  
-> **Inheritance** allows us to define a class that can inherit all the methods and properties of another class.
+- **A class** is a code template for creating objects. Objects have member variables and have a behaviour associated with them. In Python a class is created by the keyword `class`.  
+- **Inheritance** allows us to define a class that can inherit all the methods and properties of another class.
 
 - **The _SmartPy_ storage** is defined into the constructor `__init__` which makes a call to `self.init()` that initializes the fields and sets up the storage.
 
 - **Entrypoints** are a method of a contract class that can be called on from the outside. Entrypoints need to be marked with the `@sp.entry_point` decorator.
-    > **Decorators** are functions that modify the functionality of other functions. They are introduced by `@` and are placed before the function.
+- **Decorators** are functions that modify the functionality of other functions. They are introduced by `@` and are placed before the function.
 
 **Test Scenarios** are good tools to make sure our smart contracts are working correctly.
 - A new test is a method marked with the `sp.add_test` decorator.
 - A new scenario is instantiated by `sp.test_scenario`.
-- Scenarios describe a sequence of actions: originating contracts, computing expressions or calling entry points, etc.
+- Scenarios describe a sequence of actions: originating contracts, computing expressions or calling entrypoints, etc.
 - In the online editor of SmartPy.io, the scenario is computed and then displayed as an HTML document on the output panel.
 
 > Note that there is a difference between **Test Case** which is a set of actions executed to verify particular features or functionality and **Test Scenario** which includes an end to end functionality to be tested.
@@ -260,16 +261,12 @@ def __init__(self, address):
 ```
 
 The definition of the storage is done in the constructor `__init__` and the different fields of the storage are stated as follows:  
-`self.init( field1=value1, field2=value2, field3=value3)`
+`self.init(field1=value1, field2=value2, field3=value3)`
 
 where:
 
 - `field1`, `field2`, `field3` are the names of the variables and are accessible via `self.data` (e.g. `self.data.field1`)
 - `value1`, `value2`, `value3` are initial values or variables passed as constructors like `__init__(self, value1)` as we did above for the `admin=address` field.
-
-<NotificationBar>
-  <p>
-
 
 SmartPy types are all of the form `sp.T<TypeName>`. Check out [Integers and mutez](https://smartpy.dev/docs/manual/syntax/integers-and-mutez).
 For examples:
@@ -286,9 +283,6 @@ Types are usually automatically inferred and not explicitly needed. However, it 
 
 They are then compiled into their corresponding Michelson type.
 
-  </p>
-</NotificationBar>
-
 
 For the storage of the raffle contract, we have defined five fields for the moment:
 
@@ -298,17 +292,9 @@ For the storage of the raffle contract, we have defined five fields for the mome
 - **raffle_is_open** is a `boolean` to indicate if the raffle is open or not.
 - **hash_winning_ticket** is the hash of the winning ticket indicated by the admin. It is of type `bytes`.
   
-
-<NotificationBar>
-  <p>
-  
   It's not possible to generate a truly random number from a smart contract, so an easy alternative is to use a hash that the admin will reveal the value later. 
   
   This example is for educational purposes and is not intended to be deployed on the real Tezos network.
-
-  </p>
-</NotificationBar>
-
 
 #### Entrypoint implementation
 
@@ -331,7 +317,7 @@ An entrypoint is a method of the contract class and is always preceded by the ke
 
 - With `sp.verify()` or `sp.verify_equal()`, we check that a statement is true or if it returns an error message (more info at [Checking a Condition](https://smartpy.io/reference.html#_checking_a_condition)). Here we check four statements :
   
-  1. The address that calls the entrypoint must be the administrator one indicated in the storage. We compare here `sp.source` and `self.data.admin`.
+  1. The address that calls the entrypoint must be the administrator indicated in the storage. We compare here `sp.source` and `self.data.admin`.
      > `sp.sender` is the address that calls the current entrypoint.  
      > `sp.source` is the address that initiates the current transaction. It may or may not be equal to `sp.sender`, but in our case, it is.
 
@@ -340,7 +326,7 @@ An entrypoint is a method of the contract class and is always preceded by the ke
 
   3. The amount `sp.amount` sent to the contract by the administrator during the transaction must be at least greater than the value specified in the `jackpot_amount` argument.
 
-  4. The closing date `close_date` passed as a parameter must be at least seven days in the future (more info on [Timestamps](https://smartpy.io/reference.html#_timestamps)).
+  4. The closing date `close_date` passed as a parameter must be at least seven days in the future (more info on [timestamps](https://smartpy.io/reference.html#_timestamps)).
 
 - Once all the conditions are passed we update the storage as follows:
 
@@ -353,7 +339,7 @@ self.data.raffle_is_open = True
 
 #### Test Scenario
 
-In a scenario, we simulate the origination and a number of calls to entry point, that can be made from different accounts. The execution of the test generates html code that can help visualize it.
+In a scenario, we simulate the origination and a number of calls to entrypoint, that can be made from different accounts. The execution of the test generates HTML code that can help visualize it.
 
 The purpose of the test scenario is to ensure that the smart contract functions properly by triggering the conditions and checking the changes made to the storage.
 
@@ -411,7 +397,7 @@ You can see a summary of our smart contract with the following information:
 - Address of the contract
 - Balance in tez
 - Storage
-- Entry points
+- Entrypoints
 
 By clicking on the _Types_ tab, we have access to the types of the storage elements and the parameters of the entrypoints.
 
@@ -419,13 +405,13 @@ By clicking on the _Types_ tab, we have access to the types of the storage eleme
 <small className="figure">FIGURE 5: Online Editor Types</small>
 
 > As with Python, most of the time, it is not necessary to specify the type of an object in _SmartPy_.  
-> But because the target language of SmartPy, Michelson, requires types.  
+> But it may be required because the target language of SmartPy, Michelson, requires types.  
 > Each _SmartPy_ expression, however, needs a type. This is why _SmartPy_ uses type inference to determine the type of each expression.  
 > See doc [Typing](https://smartpy.io/reference.html#_typing).
 
 By clicking on the _Deploy Michelson Contract_ tab, we have access to the codes compiled in Michelson for the storage (_Storage_ tab) and the smart contract (_Code_ tab).
 
-The michelson code of our smart contract is for now, the following:
+The Michelson code of our smart contract is for now, the following:
 
 ```js
 parameter (pair %open_raffle (timestamp %close_date) (pair (bytes %hash_winning_ticket) (mutez %jackpot_amount)));
@@ -517,7 +503,7 @@ code
   };
 ```
 
-By scrolling down a little, we have access to the results of the test scenario, with within each step a summary of the contract.
+By scrolling down a little, we have access to the results of the test scenario, and within each step a summary of the contract.
 
 ![](/developers/docs/images/smart-contracts/online_editor_scenario_output.png)
 <small className="figure">FIGURE 4: Online Editor Scenario Output</small>
@@ -688,8 +674,8 @@ With the addition of this entrypoint we have defined two new fields in the stora
 
 > `Maps` load their entries into the environment, which is fine for small maps, but for maps holding millions of entries, the cost of loading them would be too expensive. For this we use `BigMaps`. Their syntax is the same as for regular maps.
 
-Note that `Set` and a `Map` are used here to store the players. But in case there would be a very large number of players this can block the contract.
-The solution would be to use only a `BigMap`. Indeed, a `Map` uses more storage but costs less gas, whereas a `BigMap` consumes less storage but has higher gas costs during the Smart Contract's execution.
+Note that a `Set` and a `Map` are used here to store the players. But in case there would be a very large number of players this can block the contract.
+The solution would be to use only a `BigMap`. Indeed, a `BigMap` is a better solution to store large amounts of data while reducing the gas cost involved during the execution of the contract.
 
 #### Entrypoint implementation
 

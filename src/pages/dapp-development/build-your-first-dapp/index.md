@@ -47,7 +47,7 @@ As 99% of the dapps in the ecosystem, this dapp will use [Taquito](https://tezos
 
 ## The Liquidity Baking contract
 
-There is a special contract on Tezos called the **Liquidity Baking** contract. This contract is a decentralized exchange (or DEX) that handles only 3 tokens: **XTZ** (the native token of Tezos), **tzBTC** (a wrapped token to use Bitcoin on Tezos) and **SIRS** (for _Sirius_, the token that represents an equal amount of liquidity in XTZ and tzBTC added to the contract).
+There is a special contract on Tezos called the **Liquidity Baking** contract. This contract is a decentralized exchange (or DEX) that handles only 3 tokens: **XTZ** (the native token of Tezos), **tzBTC** (a wrapped token to use Bitcoin on Tezos), and **SIRS** (for _Sirius_, the token that represents an equal amount of liquidity in XTZ and tzBTC added to the contract).
 
 The particularity of this contract is that every time a new block is baked on Tezos, 2.5 XTZ are added to the contract. Users are expected to bring tzBTC in order to keep the DEX liquidity balanced and the price of SIRS stable.
 
@@ -404,7 +404,7 @@ Before continuing, this is what a Svelte file looks like:
 
 Svelte components are fully contained, which means that the style that you apply inside a component doesn't leak into the other components of your app. The style that we want to share among different components will be written in the `index.scss` file.
 
-There is a `script` tag with a `lang` attribute set to `ts` for TypeScript, a `style` tag with a `lang` attribute set to `scss` for SASS and the rest of the code in the file will be interpreted as HTML.
+There is a `script` tag with a `lang` attribute set to `ts` for TypeScript, a `style` tag with a `lang` attribute set to `scss` for SASS, and the rest of the code in the file will be interpreted as HTML.
 
 ### Configuring the dapp
 

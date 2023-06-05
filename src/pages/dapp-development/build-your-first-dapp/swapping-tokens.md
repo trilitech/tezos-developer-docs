@@ -114,7 +114,7 @@ export const xtzToTokenTokenOutput = (p: {
 };
 ```
 
-The `xtzToTokenTokenOutput` function requires 3 values to calculate an output in tzBtc from an input in XTZ: the said amount in XTZ (`xtzIn`), the state of the XTZ pool in the contract (`xtzPool`) and the state of the SIRS pool (`tokenPool`). Most of the modifications made to the original functions apply to the use of `BigNumber` in order to make it work more smoothly with Taquito. The function then returns the corresponding amount in tzBTC or `null` if an error occurs.
+The `xtzToTokenTokenOutput` function requires 3 values to calculate an output in tzBtc from an input in XTZ: the said amount in XTZ (`xtzIn`), the state of the XTZ pool in the contract (`xtzPool`), and the state of the SIRS pool (`tokenPool`). Most of the modifications made to the original functions apply to the use of `BigNumber` in order to make it work more smoothly with Taquito. The function then returns the corresponding amount in tzBTC or `null` if an error occurs.
 
 The same goes for `tokenToXtzXtzOutput`:
 
@@ -240,7 +240,7 @@ First, you create the `ContractAbstraction` for the tzBTC contract as you are ab
 
 > _Note: the `ContractAbstraction` is a very useful instance provided by Taquito that exposes different tools and properties to get details about a given contract or interact with it._
 
-After that, you use the [Batch API](https://tezostaquito.io/docs/batch_api/) provided by Taquito. The Batch API allows grouping multiple operations together in a single transaction, in order to save on gas and on processing time. This is how it works:
+After that, you use the [Batch API](https://tezostaquito.io/docs/batch_api/) provided by Taquito. The Batch API allows grouping multiple operations in a single transaction to save on gas and on processing time. This is how it works:
 
 1. You call the `batch()` method present on the `wallet` or `contract` property of the instance of the `TezosToolkit`
 2. This returns a batch instance with different methods that you can use to create transactions, in our example, `withContractCall()` is a method that will add a new contract call to the batch of operations

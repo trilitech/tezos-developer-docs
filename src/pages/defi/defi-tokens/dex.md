@@ -6,7 +6,7 @@ author: Aymeric Bethencourt
 
 ## Centralized Exchanges and Order Book
 
-Apart from the _DeFi_ movement, the order book model is the usual way of organising exchanges. All centralized crypto-currency exchanges like _Coinbase_ and _Binance_  still use this model. This is also the way traditional stock exchanges such as _NYSE_ or _Nasdaq_ work.
+Apart from the _DeFi_ movement, the order book model is the usual way of organising exchanges. All centralized cryptocurrency exchanges like _Coinbase_ and _Binance_  still use this model. This is also the way traditional stock exchanges such as _NYSE_ or _Nasdaq_ work.
 
 Simply put, traders set buy and sell orders for an asset, and the order book orders them by their prices. You can therefore trade any asset as long as there is a supply and a demand for it.
 
@@ -15,7 +15,7 @@ The order book model puts buyers and sellers in contact. Buyers try to buy the a
 For a trade to happen, both buyers and sellers have to converge on a price. This can happen by either a buyer bidding higher or a seller lowering their asking price.
 
 For instance: _Alice has a sell order at \$5.0_, and _Bob has a buy order at \$4.6_. Their orders don't meet.
-We call the mid-market price the average point between buyers and sellers, here it's at \$4.8 (see Fig. 1). For a trade to happen, Alice has to lower its offer to \$4.6, or Bob has to increase his demand to \$5.0. Another solution would be to wait for another trader to bid or sell at these prices. As exchanges normally have thousands of orders in and out the mid-market price move constantly.
+We call the mid-market price the average point between buyers and sellers, here it's at \$4.8 (see Fig. 1). For a trade to happen, Alice has to lower her offer to \$4.6, or Bob has to increase his demand to \$5.0. Another solution would be to wait for another trader to bid or sell at these prices. As exchanges normally have thousands of orders in and out the mid-market price move constantly.
 
 
 ![centralized-exchange](/developers/docs/images/dex/centralized-exchange.svg)
@@ -38,7 +38,7 @@ Following the hacks of multiple centralized exchanges, investors started to look
 
 At first, developers tried to reproduce the order book model into smart contracts, but this proved to be very inefficient. Indeed, the model relies heavily on market makers, and they require to constantly adjust their buy and sell prices to meet the market. Supply and demand constantly evolve on an exchange, making the mid-market price move. When that happens, market makers have to cancel their offers and create new orders at the new mid-market price. This results in a vast number of orders and order cancellations being sent to the exchange.
 
-With blockchains such as Ethereum or Tezos, with a throughput of roughly 50 transactions per second and a 15 seconds block time they can not be a viable option for an order book exchange. _Binance_, for instance, handles thousands of order book operations per second.
+With blockchains such as Ethereum or Tezos, with a throughput of roughly 50 transactions per second and a 15 seconds block time, they can not be a viable option for an order book exchange. _Binance_, for instance, handles thousands of order book operations per second.
 
 On top of that, every interaction with a smart contract has a gas fee, so market makers would go bankrupt just updating their orders.
 
@@ -58,7 +58,7 @@ where:
 - $R_y$ is the reserve quantity of the $y$ token in the pool (e.g., _XTZ_)
 - $k$ is a constant
 
-For instance, if a pool hold 20 _XTZ_ and 100 _USDtz_, its constant product is $k=2,000$. If someone wants to swap some _XTZ_ against some _USDtz_, they have to provide tokens in a manner such that $k$ remains constant. For instance, Fig. 2 illustrates a swap where a trader provides 5 _XTZ_ to the pool. For $k$ to stay constant at 2000 considering the addition of 5 XTZ, but the pool needs to keep $2000 / ( 20 + 5 ) = 80$ _USDtz_ in reserve, meaning the trader will receive 20 _USDtz_.
+For instance, if a pool hold 20 _XTZ_ and 100 _USDtz_, its constant product is $k=2,000$. If someone wants to swap some _XTZ_ against some _USDtz_, they have to provide tokens in a manner such that $k$ remains constant. For instance, Fig. 2 illustrates a swap where a trader provides 5 _XTZ_ to the pool. For $k$ to stay constant at 2000 considering the addition of 5 XTZ, the pool needs to keep $2000 / ( 20 + 5 ) = 80$ _USDtz_ in reserve, meaning the trader will receive 20 _USDtz_.
 
 The trader just got 20 _USDtz_ for 5 _XTZ_, meaning an **effective swap price** of 4 _USDtz_ per _XTZ_.
 
@@ -78,17 +78,17 @@ The difference between the effective swap price and the marginal price is referr
 
 
 ![swap](/developers/docs/images/dex/swap.svg)
-FIGURE 2: Illustration of a token Swap. The trader first sends his input tokens, then the pool computes the effective swap price by maintaining a constant product, and finally sends the output of tokens.
+FIGURE 2: Illustration of a token swap. The trader first sends his input tokens, then the pool computes the effective swap price by maintaining a constant product and finally sends the output of tokens.
 
 From this, you can deduce two things:
 
-1. You can never empty all the liquidity from a pool. As you withdraw more and more tokens from one side of the pool, the effective swap price will shift toward the other side of the curve in an asymptotically manner toward infinity.
+1. You can never empty all the liquidity from a pool. As you withdraw more and more tokens from one side of the pool, the effective swap price will shift toward the other side of the curve in an asymptotic manner toward infinity.
 
-2. The more liquidity a pool has, the closest the marginal price will be from the effective swap price (i.e., the lowest the slippage). Imagine a pool with 1,000,000 _USDtz_ and 200,000 _XTZ_, and thus constant $k$ equal to 200,000,000,000. The marginal price of _XTZ_ is $1000000 / 200000 = 5$ _USDtz_. If a trader inputs 5 _XTZ_, the pool needs to only keep $200000000000 / ( 200000 + 5 ) = 999975.00063$ _USDtz_ in reserve, meaning the trader will receive 24.99937 _USDtz_. The effective swap price is 4.99987 _USDtz_ and, therefore, very close to the 5 _USDtz_ marginal price. The slippage is therefore very low.
+2. The more liquidity a pool has, the closest the marginal price will be to the effective swap price (i.e., the lowest the slippage). Imagine a pool with 1,000,000 _USDtz_ and 200,000 _XTZ_, and thus constant $k$ equal to 200,000,000,000. The marginal price of _XTZ_ is $1000000 / 200000 = 5$ _USDtz_. If a trader inputs 5 _XTZ_, the pool needs to only keep $200000000000 / ( 200000 + 5 ) = 999975.00063$ _USDtz_ in reserve, meaning the trader will receive 24.99937 _USDtz_. The effective swap price is 4.99987 _USDtz_ and, therefore, very close to the 5 _USDtz_ marginal price. The slippage is therefore very low.
 
-Like centralized exchanges, liquidity providers (LP) play an essential role by providing liquidities to stabilize the price in pools.
+Like centralized exchanges, liquidity providers (LP) play an essential role by providing liquidity to stabilize the price in pools.
 
-This is why liquidity pools are also known as _Automated Market Maker_ (AMM) their price is automatically set based on the number of tokens currently available in the pool (and not by some arbitrary order book that represents potential orders and not the actual liquidity).
+This is why liquidity pools are also known as _Automated Market Makers_ (AMM), their price is automatically set based on the number of tokens currently available in the pool (and not by some arbitrary order book that represents potential orders and not the actual liquidity).
 
 
 ![pool-size](/developers/docs/images/dex/pool-size.svg)
@@ -99,7 +99,7 @@ From now on, let's consider only pools with enough liquidity, so that the effect
 
 ## Arbitrage
 
-Arbitrage happens when the price offered by the pool diverges from the price shown for the same pair on other platforms. In our example, the price of _XTZ_ is 5 _USDtz_. Now suppose that _XTZ_ is being traded everywhere else at 10 _USDtz_. Arbitrageurs will, therefore, immediately buy _XTZ_ from the pool at 5 _USDtz_ and resell it on other platforms at 10 _USDtz_, making profits in the process. This process will keep going until the reserves in our pool shift sufficiently to align with the rest of the market at 5 _USDtz_ per _XTZ_.
+Arbitrage happens when the price offered by the pool diverges from the price shown for the same pair on other platforms. In our example, the price of _XTZ_ is 5 _USDtz_. Now suppose that _XTZ_ is being traded everywhere else at 10 _USDtz_. Arbitrageurs will, therefore, immediately buy _XTZ_ from the pool at 5 _USDtz_ and resell it on other platforms at 10 _USDtz_, making profits in the process. This process will keep going until the reserves in our pool shift sufficiently to align with the rest of the market at 10 _USDtz_ per _XTZ_.
 
 ## LP tokens
 
@@ -115,7 +115,7 @@ Contrary to popular belief, Uniswap did not invent the AMM. The concept had actu
 
 The most popular AMM is the [Logarithmic Market Scoring Rule](http://mason.gmu.edu/~rhanson/mktscore.pdf), developed in 2002 and used in most prediction markets.
 
-While it is true that Uniswap is an AMM, we could refer to it more specifically as a _constant function market makers_ or _CFMMs_. CFMMs are the first class of AMMs to be applied explicitly to real-world financial markets. There are multiple types of CFMMs:
+While it is true that Uniswap is an AMM, we could refer to it more specifically as a _constant function market maker_ or _CFMM_. CFMMs are the first class of AMMs to be applied explicitly to real-world financial markets. There are multiple types of CFMMs:
 
 ### Constant Product Market Makers
 
@@ -131,11 +131,11 @@ A constant sum market maker is a relatively straightforward implementation of a 
 
 $\sum_{i=1}^{n} R_i = k$
 
-While this function produces "zero slippage", it does not provide infinite liquidity and thus is unlikely to be used as a standalone implementation for a decentralized exchange use case. In practice, what would happen is, any arbitrageur would always drain one of the reserves, if the relative reference price of the reserve tokens was not one.
+While this function produces "zero slippage", it does not provide infinite liquidity and thus is unlikely to be used as a standalone implementation for a decentralized exchange use case. In practice, what would happen is, any arbitrageur would always drain one of the reserves if the relative reference price of the reserve tokens was not one.
 
 ### Others
 
-There are also _Constant Mean Market Makers_ with weighted reserves, _Hybrid CFMMs_, and so on, each trying to find specific and innovative use-cases.
+There are also _Constant Mean Market Makers_ with weighted reserves, _Hybrid CFMMs_, and so on, each trying to find specific and innovative use cases.
 
 ## The risks of liquidity pools
 
@@ -143,9 +143,9 @@ Although DEXs are decentralized and trustless, keep in mind that there are alway
 
 When you deposit funds into a liquidity pool, they are in the smart contract, so while there are technically no middlemen holding your funds, the contract itself can be thought of as the custodian of those funds. If for example, there is a bug, your funds could be lost forever.
 
-Also, be wary of projects where the developers have permission to change the rules governing the pool. Sometimes, developers can have an admin key or some other privileged access within the smart contract code. This can enable them to potentially act malicious, like taking control of the funds in the pool.
+Also, be wary of projects where the developers have permission to change the rules governing the pool. Sometimes, developers can have an admin key or some other privileged access within the smart contract code. This can enable them to potentially act maliciously, like taking control of the funds in the pool.
 
-If you want to provide liquidity to an AMM, make sure to become familiar with the notion of _impermanent loss_. In short, it's a loss in dollar value when providing liquidity to an AMM rather than keeping the tokens themselves as they are in your wallet (a.k.a. _HODLing_) during times of bull market. [More on this here.](https://academy.binance.com/en/articles/impermanent-loss-explained)
+If you want to provide liquidity to an AMM, make sure to become familiar with the notion of _impermanent loss_. In short, it's a loss in dollar value when providing liquidity to an AMM rather than keeping the tokens themselves as they are in your wallet (a.k.a. _HODLing_) during times of a bull market. [More on this here.](https://academy.binance.com/en/articles/impermanent-loss-explained)
 
 ## Liquidity pools on Tezos
 
@@ -160,7 +160,7 @@ If you want to provide liquidity to an AMM, make sure to become familiar with th
 
 Liquidity Baking is a _tez/tzBTC_ single pair AMM introduced on Tezos with the Granada protocol.
 
-The motivation behind such a contract—brought for the ﬁrst time by an amendment instead of an independent set of smart contracts built separately from the protocol—is to increase the overall tez liquidity along with [tzBTC](/defi/wrapped-assets#other-wrapped-assets), a wrapped version of Bitcoin (BTC) on Tezos.
+The motivation behind such a contract (brought for the ﬁrst time by an amendment instead of an independent set of smart contracts built separately from the protocol) is to increase the overall tez liquidity along with [tzBTC](/defi/wrapped-assets#other-wrapped-assets), a wrapped version of Bitcoin (BTC) on Tezos.
 
 How this DEX works is quite innovative:
 

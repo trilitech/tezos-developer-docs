@@ -3,13 +3,14 @@ sidebar_position: 4
 hide_table_of_contents: true
 title: "Block Explorers"
 hide_title: true
+proofread: true
 ---
 
 ## Block Explorers
 
 **What is a blockchain explorer?**
 
-A _blockchain explorer_, also known as a _block explorer_, is an app tracking activity on the blockchain. All transactions ever performed on a network can be viewed using such a tool.
+A _blockchain explorer_, also known as a _block explorer_, is an app that tracks activity on the blockchain. All transactions ever performed on a network can be viewed using such a tool.
 
 **Blockchain explorers are like search engines for blockchains.**  
 You can think of it as a window into the blockchain world, giving you the opportunity to observe what's happening in it.
@@ -30,7 +31,7 @@ Block explorers are not only made for casual users to check if their coins are s
 Block explorers are also used by:
 
 * blockchain engineers who develop and debug new features in sandboxes \(e.g. new blockchain consensus\).
-* DApp developers who need debugging tools and more visibility into the current and past state of their contracts running on internal testnets and on the mainnet.
+* dApp developers who need debugging tools and more visibility into the current and past state of their contracts running on internal testnets and on the mainnet.
 * bakers and staking services who need reliable data about delegation and earnings history in order to calculate correct payouts, plan their bond pools and execute operations.
 * less technical user groups like auditors and regulators with strict requirements for the data quality, as they need to access a trusted copy of the full on-chain history in a format that's easy to digest for their spreadsheets and compliance tools.
 

@@ -5,6 +5,7 @@ hide_title: true
 slug: /learn/baking/
 sidebar_label: "Introduction"
 sidebar_position: 1
+proofread: true
 ---
 
 ## Baking
@@ -13,17 +14,15 @@ sidebar_position: 1
 
 “Baking” is the act of signing and publishing blocks to the Tezos blockchain. Bakers are a crucial component of the Proof-of-Stake consensus mechanism by ensuring that all transactions in a block are correct, that the order of transactions is agreed upon, and that no double-spending has occurred.
 
-To bake blocks, a baker needs to participate in Proof-of-Stake, which requires a minimum of 6,000 XTZ \(1 roll\). The more tez that a baker owns, the higher your chances are at baking blocks and earning baking rewards.
+To bake blocks, a baker needs to participate in Proof-of-Stake, which requires a minimum of 6,000 XTZ \(1 roll\). The more tez a baker owns, the higher their chances are at baking blocks and earning baking rewards.
 
 ### What is delegating?
 
-If someone does not have 6,000 XTZ or does not want to set up computing infrastructure to bake blocks, they may delegate their coins to a baker \(aka "delegate"\). Delegating lets coin holders \(i.e. "delegators"\) "lend" their coins to a baker \(i.e. a "delegate"\), giving the baker a higher probability of being selected to bake and endorse blocks. In practice, bakers usually share the additional revenue generated from the delegated tokens with the coin holder. Importantly, this process does not actually transfer ownership of coins and hence the baker cannot spend or control the XTZ delegated to it, ensuring that bakers cannot appropriate the delegators' funds.
-
-## Should I bake or delegate?
+If someone does not have 6,000 XTZ or does not want to set up computing infrastructure to bake blocks, they may delegate their coins to a baker \(i.e. "delegate"\). Delegating lets coin holders \(i.e. "delegators"\) "lend" their coins to a baker \(i.e. a "delegate"\), giving the baker a higher probability of being selected to bake and endorse blocks. In practice, bakers usually share the additional revenue generated from the delegated tokens with the coin holder. Importantly, this process does not actually transfer ownership of coins and hence the bakers cannot spend or control the XTZ delegated to them, ensuring that bakers cannot appropriate the delegators' funds.
 
 ### Should I bake or delegate?
 
-Self-baking lets a baker earn a higher yield, but requires technical expertise and time in setting up a baker and running the baking software reliably with as little downtime as possible. By delegating Tezos tokens, a token holder avoids this process altogether but usually earns a lower yield. In the current protocol, token holders with less than 8,000 XTZ can only participate in baking by delegating to another baker.
+Self-baking lets a baker earn a higher yield, but requires technical expertise and time in setting up a baker and running the baking software reliably with as little downtime as possible. By delegating Tezos tokens, a token holder avoids this process altogether but usually earns a lower yield. In the current protocol, token holders with less than 6,000 XTZ can only participate in baking by delegating to another baker.
 
 ### How much can I earn by baking or delegating? 
 
@@ -38,6 +37,6 @@ In practice, the rewards for token holders who delegate are less than that of ba
 [Baking Bad](https://baking-bad.org/docs/where-to-stake-tezos) or [Tezos Nodes](https://tezos-nodes.com/) allow you to browse through bakers. There are a few factors to consider when choosing a baker to delegate with:
 
 1. **Fees**. How much of the rewards the baker is keeping? 
-2. **Capacity**. Each baker has a capacity of how many coins it can accept, which is based on how many coins it currently holds itself. A baker is "overdelegated" when it has exceeded the amount of delegation it can take considering the coins they currently hold.    
+2. **Capacity**. Each baker has a capacity of how many coins they can accept, which is based on how many coins they currently hold themselves. A baker is "overdelegated" when they have exceeded the amount of delegation they can take considering the coins they currently hold.    
 3. **Reliability + Responsiveness**. Does this baker pay out on time? Does this baker pay correctly? Will this baker respond to my questions about their services? Many bakers operate forums and chat rooms in which they engage with delegators.
 4. **Security**. Is this baker's staking setup secure? Does this baker have a track record? Has this baker double-baked in the past and lost coins?

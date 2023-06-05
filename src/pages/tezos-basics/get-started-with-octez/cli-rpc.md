@@ -5,14 +5,15 @@ hide_title: true
 sidebar_label: "Introduction"
 slug: "/build/clients/"
 sidebar_position: 1
+proofread: true
 ---
 ## Connecting to the network
 
-The _tezos-client_ and Tezos RPC need to be connected to a Tezos node. You can connect to your own [tezos node](https://opentezos.com/%20) or you can use a community node on the Tezos mainnet or testnet.
+The _tezos-client_ and Tezos RPC need to be connected to a Tezos node. You can connect to your own [Tezos node](https://opentezos.com/%20) or you can use a community node on the Tezos mainnet or testnet.
 
 You can find a list of community nodes [here](https://tezostaquito.io/docs/rpc_nodes/).
 
-If you use a testnet you can download a free faucet file with test XTZ on it [here](https://faucet.tzalpha.net/).
+If you use a testnet, you can download a free faucet file with test XTZ on it [here](https://faucet.tzalpha.net/).
 
 ## Tezos RPC \(Remote Procedure Call\)
 
@@ -20,19 +21,19 @@ If you use a testnet you can download a free faucet file with test XTZ on it [he
 
 Tezos nodes provide a JSON/RPC interface to interact with the Tezos network. Note that although it uses RPC and is JSON based, it does not follow the `JSON-RPC` protocol.
 
-A complete list of RPC calls is available [here](http://tezos.gitlab.io/shell/rpc.html#rpc-index-shell). Make sure to check the protocol version before using these calls. The calls available in the Granada protocol are available[ here](https://tezos.gitlab.io/010/rpc.html%20).
+A complete list of RPC calls is available [here](http://tezos.gitlab.io/shell/rpc.html#rpc-index-shell). Make sure to check the protocol version before using these calls. The calls available in the Granada protocol are available [here](https://tezos.gitlab.io/010/rpc.html%20).
 
 #### RPC call examples
 
 **Get block**
 
-This call is used to find all the information about a block. The associated metadata may not be present depending on the history mode and block's distance from the head.
+This call is used to find all the information about a block. The associated metadata may not be present depending on the history mode and block distance from the head.
 
 `GET NodeUrl/chains/[chain_id]/blocks/[blocks_id]`
 
-Example: To get the block number _1400114_ from the mainnet using giganode, do as follows:
+Example: To get the block number _1400114_ from the mainnet using the ECAD Labs node, do as follows:
 
-`GET https://mainnet-tezos.giganode.io/chains/main/blocks/1400114`
+`GET https://mainnet.api.tez.ie/chains/main/blocks/1400114`
 
 **Get contract storage**
 
@@ -40,9 +41,9 @@ This call is used to access the storage of the contract.
 
 `GET NodeUrl/chains/[chain_id]/blocks/[blocks_id]/context/contracts/[contract_id]/storage`
 
-Example: To get the storage of contract _KT1Hkg5qeNhfwpKW4fXvq7HGZB9z2EnmCCA9_ from block number _1400114_ on the mainnet using giganode, do as follows:
+Example: To get the storage of contract _KT1Hkg5qeNhfwpKW4fXvq7HGZB9z2EnmCCA9_ from block number _1400114_ on the mainnet using the ECAD Labs node, do as follows:
 
-`GET https://mainnet-tezos.giganode.io/chains/main/blocks/1400114/context/contracts/KT1Hkg5qeNhfwpKW4fXvq7HGZB9z2EnmCCA9/storage`
+`GET https://mainnet.api.tez.ie/chains/main/blocks/1400114/context/contracts/KT1Hkg5qeNhfwpKW4fXvq7HGZB9z2EnmCCA9/storage`
 
 ### Tezos-client \(CLI\)
 
@@ -130,15 +131,15 @@ Notice that `--burn-cap` specifies the maximum fee the user is willing to pay fo
 
 You can also add `--dry-run` if you just want to practice by running a transaction simulation instead of a real transaction.
 
-The recipe of this command is as follows:
+The recipe for this command is as follows:
 
 `Current head: BM3smBpBVtHD (timestamp: 2021-03-12T09:42:28.000-00:00, validation: 2021-03-12T09:42:38.372-00:00)Node is bootstrapped.Estimated gas: 1000 units (will add 100 for safety)Operation successfully injected in the node.Operation hash is 'oo4745Q5mq8snHYAxUYWedBCVb7yQJ7jvFhKECPN9xqgwE4Ni8A'Waiting for the operation to be included...Operation found in block: BKnKoaYqCz3dTWr66x4X1mvXC95kuozRkdd23LDuM5ZA1ayF5mi (pass: 3, offset: 0)This sequence of operations was run: Manager signed operations: From: tz1gWQz5iTP6UDkWjm1jnKsCq1HHG4hgEmJn Fee to the baker: ꜩ0.000369 Expected counter: 1412932 Gas limit: 1100 Storage limit: 0 bytes Balance updates: tz1gWQz5iTP6UDkWjm1jnKsCq1HHG4hgEmJn ............. -ꜩ0.000369 fees(tz1aWXP237BLwNHJcCD4b3DutCevhqq2T1Z9,248) ... +ꜩ0.000369 Revelation of manager public key: Contract: tz1gWQz5iTP6UDkWjm1jnKsCq1HHG4hgEmJn Key: edpktpMjpmsK6fLKGrXzhp67tRdu2m5HyzGrp1tuS8ZJBc7dGqBeAq This revelation was successfully applied Consumed gas: 1000`
 
 You can observe your actions on [https://tzstats.com](https://tzstats.com/)
 
-### Tezos-admin-client
+### tezos-admin-client
 
-The admin client allows you to interact with the peer-to-peer layer in order to:
+The admin client allows you to interact with the peer-to-peer layer to:
 
 * check the status of the connections
 * force connections to known peers
@@ -174,13 +175,13 @@ The admin client allows you to interact with the peer-to-peer layer in order to:
 
 `$ tezos-admin-client --version`
 
-The full documentation on Tezos-admin-client can be found [here](https://tezos.gitlab.io/shell/cli-commands.html).
+The full documentation on tezos-admin-client can be found [here](https://tezos.gitlab.io/shell/cli-commands.html).
 
 #### Admin-client examples
 
 This is a non-exhaustive list of possible commands with tezos-admin-client. To discover more commands please refer to the [CLI manual](https://tezos.gitlab.io/shell/cli-commands.html).
 
-**Commands for the low level RPC layer**
+**Commands for the low-level RPC layer**
 
 * List RPCs under a given URL prefix:
 

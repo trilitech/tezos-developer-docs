@@ -5,24 +5,24 @@ authors: Tezos Ukraine
 ---
 
 {% callout type="note" %}
-If you're just looking for API docs for a hosted indexer, [here is the one from TzStats](https://tzstats.com/docs/api/index.html)
+If you're just looking for API docs for a hosted indexer, [here is the one from TzKT](https://api.tzkt.io/), and [here is the one from TzStats](https://tzstats.com/docs/api/index.html)
 {% /callout %}
 
 # What is an indexer ? 
 A block explorer, or an app that tracks activity on the blockchain, is typically made of:
 
-- an indexer that is a node operator that extracts the on-chain data and stores it into a database
+- an indexer that is a node operator that extracts the on-chain data and stores it in a database
 - an API that queries the database
 - a frontend that displays the data
 
-Since the on-chain data is already in the database of the node itself why is an indexer needed? The indexer is relevant because it optimizes the way a node stores data. The purpose is to provide very quick access to blockchain data according to some specific criteria related to a given address.
+Since the on-chain data is already in the database of the node itself, why is an indexer needed? The indexer is relevant because it optimizes the way a node stores data. The purpose is to provide very quick access to blockchain data according to some specific criteria related to a given address.
 
 So, the indexer is the part of the explorer that fetches the raw data from the node, then processes it and stores it in the database in an efficient way. They simplify querying and searching through blockchain data. Almost any decentralized application uses indexers, and if you want to build your dApp, chances are you’ll need to use them too.
 
 
 ## TzKT
 
-For instance [TzKT](https://github.com/baking-bad/tzkt) is a lightweight Tezos blockchain indexer with an advanced API created by [Baking Bad](https://baking-bad.org/docs).The indexer fetches raw data from the Tezos node, then processes it and stores in the database in such a way as to provide effective access to the blockchain data. For example, getting operations by hash, or getting all operations of the particular account, or getting detailed baking rewards, etc. None of this can be accessed via node RPC, but TzKT indexer makes this data \(and much more\) available.
+For instance, [TzKT](https://github.com/baking-bad/tzkt) is a lightweight Tezos blockchain indexer with an advanced API created by [Baking Bad](https://baking-bad.org/docs).The indexer fetches raw data from the Tezos node, then processes it and stores it in the database in such a way as to provide effective access to the blockchain data. For example, getting operations by hash, getting all operations of the particular account, or getting detailed baking rewards, etc. None of this can be accessed via node RPC, but TzKT indexer makes this data \(and much more\) available.
 
 You can [install](https://github.com/baking-bad/tzkt#installation-docker) or [build](https://github.com/baking-bad/tzkt#installation-from-source) it, and [configure](https://github.com/baking-bad/tzkt#install-tzkt-indexer-and-api-for-testnets) it for the testnet.
 
@@ -33,7 +33,7 @@ To work with the **TzKT API** you can use this [public endpoint](https://api.tzk
 Indexers are node operators. The **ETL** extract, transform and load data into the **SQL database** by mapping the data into a pre-defined schema of tables with referential integrity in order to provide indexing and query processing services via the **API**.
 
 * A **Tezos Node** is the heart of the blockchain, it manages the protocol.
-* **ETL** stands for _extract, transform, and load_ The process of ETL plays a key role in data integration strategies. ETL allow businesses to gather data from multiple sources and consolidate it into a single, centralized location.
+* **ETL** stands for _extract, transform, and load_. The process of ETL plays a key role in data integration strategies. ETL allows businesses to gather data from multiple sources and consolidate it into a single, centralized location.
 * **API** is the acronym for _Application Programming Interface_, which is a software intermediary that allows two applications to talk to each other.
 
 ### Focus on BlockWatch Indexer \(TzIndex\)
@@ -42,7 +42,7 @@ The Blockwatch Indexer [TzIndex](https://github.com/blockwatch-cc/tzindex) is us
 
 The **Blockwatch indexer** replaces the slow and expensive SQL datastore with a high-performance columnar database that allows for extremely fast analytical queries.
 
- **Columnar database** is a column-oriented storage for database. It is optimized for fast retrieval of data columns, for example for analytical applications. It significantly reduces the overall disk I/O requirements and limits the amount of data you need to load from the disk.
+ **Columnar database** is a column-oriented storage for databases. It is optimized for fast retrieval of data columns, for example for analytical applications. It significantly reduces the overall disk I/O requirements and limits the amount of data you need to load from the disk.
 
 It's a custom-made database for blockchain analytics. Avoiding the storage bottleneck allows for more complex data processing.
 
@@ -94,17 +94,17 @@ Here is a USDT contract indexed with Que Pasa. It made tables for every entry po
 
 ![](/developers/docs/images/que_pasa_sql.png)
 
-The exact list of tables, indexes schemas, and command syntax depend on the indexer and database it uses. While using TzKT, a query for a USDT balance will look like this:
+The exact list of tables, indexes schemas, and command syntax depends on the indexer and database it uses. While using TzKT, a query for a USDT balance will look like this:
 
 ```
 https://api.tzkt.io/v1/tokens/balances?token.contract=KT1XnTn74bUtxHfDtBmm2bGZAQfhPbvKWR8o&account=tz1a1RTsGUbads3VucUQDxJF4EDXkDWcDHPK
 ```
 
 Let's look at the different parts of this url:
-- `https://api.tzkt.io/v1/`: link to TzKT API.
-- `tokens/balancesGreen`: the path to the table with token balances.
-- `?token.contract=KT1XnTn74bUtxHfDtBmm2bGZAQfhPbvKWR8o`: first search filter, where we specify the contract address we need.
-- `&account=tz1a1RTsGUbads3VucUQDxJF4EDXkDWcDHPK`: second search filter, where we specify holder address.
+- `https://api.tzkt.io/v1/`: link to TzKT API
+- `tokens/balances`: the path to the table with token balances
+- `?token.contract=KT1XnTn74bUtxHfDtBmm2bGZAQfhPbvKWR8o`: first search filter, where we specify the contract address we need
+- `&account=tz1a1RTsGUbads3VucUQDxJF4EDXkDWcDHPK`: second search filter, where we specify holder address
 
 In addition to search speed, indexing has another advantage: the ability to modify indexing rules. For example, TzKT provides an additional index, where each Tezos FA1.2 and FA2 token has its internal id. So instead of comparing relatively long contract addresses, it will compare small numbers and retrieve data even faster.
 
@@ -124,7 +124,7 @@ Popular selective indexers like [Que Pasa](https://github.com/tzConnectBerlin/qu
 
 The exact list of queries and filters depends on the selected indexer. But in general, from a full indexer, you can get information about:
 
-- Account: tez balance, transaction history, address type and status like "baker" or “delegator,” etc.
+- Account: tez balance, transaction history, address type, and status like "baker" or “delegator,” etc.
 - Block: header, content, and metadata like address and socials of the baker who made the block.
 - Contract: description, entry points, balance, code in Michelson, storage, and the content of a specific big map.
 - Bakers and delegators: who earned how much, who endorsed a particular block, how much users delegate.
@@ -249,7 +249,7 @@ Now you can enter any address and, by pressing the button, get its balance in te
 
 ![](/developers/docs/images/check_balance_input_result.png)
 
-Experiment: take [the code of this page](https://gist.github.com/pavelTU/e48c71d09ff5dcfb5343699d485760d9), paste it into an empty HTML file and open it in a browser. 
+Experiment: take [the code of this page](https://gist.github.com/pavelTU/e48c71d09ff5dcfb5343699d485760d9), paste it into an empty HTML file, and open it in a browser. 
 
 This is a simple example: the TzKT API returns the user's balance as JSON with only one number. The answer does not even need to be further processed: everything works as it is.
 
@@ -265,7 +265,7 @@ Liquidity Baking is Tezos' unique DeFi protocol. Users contribute tez and tzBTC 
 
 Since all liquidity backing data is stored on-chain, we can get it using API requests to public indexers and then calculate the annual yield and other helpful information.
 
-First, we are interested in the balance of Sirius DEX, particularly how much the contract has tez and tzBTC. We will receive these numbers from the indexer. 
+First, we are interested in the balance of Sirius DEX, particularly how many tez and tzBTC the contract holds. We will receive these numbers from the indexer. 
 
 We need to calculate how much tez the protocol subsidies per year. Here you can calculate the number of seconds in a year, divide this value by the average block creation time—30 seconds—and multiply by one subsidy.
 
@@ -317,12 +317,12 @@ So, we need to get data from two API requests in one function and use it for cal
 
 1. Get the number of tez.
 2. Write them to a variable.
-3. Call the function to calculate annual percentage yield(APY) and pass it the number of tez as an argument.
+3. Call the function to calculate annual percentage yield (APY) and pass it the number of tez as an argument.
 4. In the APY function, get the necessary data and make calculations.
 5. Write the results to variables and assign an ID.
 6. Return to the first AJAX function and add a variable ID assignment at the end with the amount of tez.
 
-First, let's add a call to the checkTimeAndSubsidy function to the function to get the Sirius DEX balance in tez.
+First, let's add a call to the checkTimeAndSubsidy function to get the Sirius DEX balance in tez.
 
 ![](/developers/docs/images/call_time_and_subsidy.png)
 
@@ -344,7 +344,7 @@ Now we can calculate the necessary values by creating the variables yearlySubsid
 
 To calculate APY, it is not necessary to obtain asset prices. At any given moment, the value of all tez in the pool equals the value of all tzBTC. To simplify APY calculation, we assume that the user adds to the liquidity pool not tez and tzBTC, but twice as much tez. His APY would be a share of the yearly subsidy divided by the liquidity he provided. Roughly speaking, APY = yearlySubsidy / (balanceInTez × 2) × 100%.
 
-It’s now possible to give the annual amount of subsidies and APY internal ID values, and add them to the page. 
+It’s now possible to give the annual amount of subsidies and APY internal ID values and add them to the page. 
 
 ![](/developers/docs/images/time_and_subsidy_result.png)
 
@@ -366,13 +366,13 @@ First, check [the tez/kUSD contract](https://tzkt.io/KT1K4EwTpbvYN9agJdjpyJm4ZZd
 
 ![](/developers/docs/images/tez_kusd_contract.png)
  
-And we need to remember that the token's amount in the contract's storage is a natural number. And to display the actual amount of tokens, we need to divide that nat by the corresponding number of decimals written in the contract's metadata. For example, kUSD has 18 zeros after the decimal point, and when we get raw token amount data, we need to divide it by 10^18 to get the actual amount.
+And we need to remember that the token's amount in the contract's storage is a natural number. And to display the actual amount of tokens, we need to divide that number by the corresponding number of decimals written in the contract's metadata. For example, kUSD has 18 decimals, and when we get raw token amount data, we need to divide it by 10^18 to get a human-readable amount.
 
 ![](/developers/docs/images/kolibri_usd.png)
 
-Since we need to know the number of tez in the pool to calculate the cost of all tez, we need to use nested functions. After receiving the balanceInTez variable, we call the checkValueOfTez function with the balanceInTez argument. In this function, we use AJAX to get data from the tez/kUSD pool (remember to divide the number of tokens depending on the required number of zeros!)
+Since we need to know the number of tez in the pool to calculate the cost of all tez, we need to use nested functions. After receiving the balanceInTez variable, we call the checkValueOfTez function with the balanceInTez argument. In this function, we use AJAX to get data from the tez/kUSD pool (remember to divide the number of tokens depending on the required decimals).
 
-Next, we calculate the price of one tez and the cost of all tez in the pool. At the end, we will add the readableValue variable: using the toLocaleString () method, we will add comma separators to the number.
+Next, we calculate the price of one tez and the cost of all tez in the pool. In the end, we will add the readableValue variable: using the toLocaleString () method, we will add comma separators to the number.
 
 ![](/developers/docs/images/homework_value_of_tez.png)
 
