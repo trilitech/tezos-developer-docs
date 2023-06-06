@@ -26,7 +26,7 @@ export function ChatBob() {
         <ChatIcon/>
       </Fab>
       (
-        <div style={{ borderRadius: '100px'}}>
+        <div style={{ borderRadius: '100px', zIndex: 20}}>
         <iframe
           src="https://tezosbot.vercel.app/chatbox?history_enabled=true"
           title="chatbox"
