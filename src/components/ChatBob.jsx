@@ -41,6 +41,7 @@ export function ChatBob() {
             boxShadow: '0 0 10px rgba(0, 0, 0, 0.5)',
             borderRadius: '6px',
             display: isVisible ? 'block' : 'none',
+            zIndex: 20
           }}
         />
         </div>
