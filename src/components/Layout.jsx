@@ -27,10 +27,10 @@ const navigation = [
             href: '/tezos-blockchain-overview/governance/intro',
             children: [
               { title: 'Governance Overview', href: '/tezos-blockchain-overview/governance/governance-overview' },
-              { title: 'Tezos Improvement Process', href: '/tezos-blockchain-overview/governance/improvement-process-tzip' },
-              { title: 'Functional Programming', href: '/tezos-blockchain-overview/governance/functional-programming' }
+              { title: 'Tezos Improvement Process', href: '/tezos-blockchain-overview/governance/improvement-process-tzip' }
             ] 
           },
+          { title: 'Functional Programming', href: '/tezos-blockchain-overview/governance/functional-programming' }
         ] 
       },
 
@@ -40,7 +40,7 @@ const navigation = [
         children: [
           { title: 'The CLI and RPC', href: '/tezos-basics/get-started-with-octez/cli-rpc' },
           { title: 'Installation and Setup', href: '/tezos-basics/get-started-with-octez/installation-and-setup' },
-          { title: 'ArchetySandbox Mode', href: '/tezos-basics/get-started-with-octez/run-a-sandbox' }
+          { title: 'Sandbox Mode', href: '/tezos-basics/get-started-with-octez/run-a-sandbox' }
         ] 
       },
       { title: 'Deploy your first smart contract', href: '/tezos-basics/deploy-your-first-smart-contract' },
@@ -70,6 +70,7 @@ const navigation = [
         title: 'Build an NFT Marketplace', 
         href: '/nft/build-an-nft-marketplace',
         children: [
+          { title: 'NFT Marketplace - Part 1', href: '/nft/build-an-nft-marketplace' },
           { title: 'NFT Marketplace - Part 2', href: '/nft/build-an-nft-marketplace/part-2' },
           { title: 'NFT Marketplace - Part 3', href: '/nft/build-an-nft-marketplace/part-3' },
           { title: 'NFT Marketplace - Part 4', href: '/nft/build-an-nft-marketplace/part-4' }
