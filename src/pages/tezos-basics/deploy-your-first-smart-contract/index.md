@@ -304,7 +304,7 @@ Then paste the contract address (starting with KT1) `KT1Nnk.................UFsJ
 
 Then navigate to the `Storage` tab to see your initial value of `Hello`.
 
-![Confirmation that all worked correctly](/images/confirmation_success)
+![Confirmation that all worked correctly](/developers/docs/images/storage_success.png)
 
 ## Calling the entrypoints
 
