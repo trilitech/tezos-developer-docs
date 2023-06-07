@@ -3,7 +3,6 @@ sidebar_position: 4
 hide_table_of_contents: true
 title: "Block Explorers"
 hide_title: true
-proofread: true
 ---
 
 ## Block Explorers

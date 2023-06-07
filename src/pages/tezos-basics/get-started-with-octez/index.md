@@ -2,7 +2,6 @@
 id: get-started-with-octez
 title: Getting Started with Octez
 authors: Thomas Zoughebi, Aymeric Bethencourt, and Maxime Fernandez
-proofread: true
 ---
 
 ## Octez - The Tezos Client 

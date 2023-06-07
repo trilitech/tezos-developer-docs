@@ -2,12 +2,12 @@
 
 ![https://vinepair.com/wp-content/uploads/2016/06/Cellar-HEAD.jpg](https://vinepair.com/wp-content/uploads/2016/06/Cellar-HEAD.jpg)
 
-This time we are going to use the single asset template. It is a bit the contrary of the previous NFT template because:
+This time we are going to use the single asset template. It is the opposite of the previous NFT template because:
 
 - you have a unique `token_id`, so only 1 wine collection
-- you have a quantity of items into the same collection
+- you have a certain quantity of items in the same collection
 
-To resume, you are producting wine bottles from same collection with `n` quantity.
+To sum up, you are producing wine bottles from the same collection with `n` quantity.
 
 # Next step
 
@@ -24,7 +24,7 @@ cd ..
 
 # Smart contract
 
-## Do breaking changes on nft template to fit with the new library
+## Do breaking changes on NFT template to fit with the new library
 
 Point to the new template changing the first import line of your `nft.jsligo` file to
 
@@ -57,13 +57,13 @@ type storage =
 
 Explanation:
 
-- `offers` is now a `map<address,offer>`, because you don't have to store `token_id` as key, now the key is the owner address. Each owner can sell a part of the unique collection
+- `offers` is now a `map<address,offer>`, because you don't have to store `token_id` as a key, now the key is the owner's address. Each owner can sell a part of the unique collection
 - `offer` requires a quantity, each owner will sell a part of the unique collection
-- `totalSupply` is set at mint time in order to track the global quantity of minted items on the collection. It avoids to recalculate all the time the quantity from each owner holdings (this value is constant)
+- `totalSupply` is set while minting in order to track the global quantity of minted items on the collection. It makes it unnecessary to recalculate each time the quantity from each owner's holdings (this value is constant)
 - Because the ledger is made of `big_map` of key `owners`, we cache the keys to be able to loop on it
 - Since we have a unique collection, we remove `token_ids`. `token_id` will be set to `0`
 
-We don't change `parameter` type because the signature is the same, but you can edit the comments because it is no more same parameter and also change to the new namespace `SINGLEASSET`
+We don't change the `parameter` type because the signature is the same, but you can edit the comments because it is not the same parameter anymore and also changes to the new namespace `SINGLEASSET`
 
 ```ligolang
 type parameter =
@@ -289,7 +289,7 @@ const refreshUserContextOnPageReload = async () => {
 
 ## Update in `MintPage.tsx`
 
-We introduce the quantity and remove the `token_id` variable. Replace the full file by the following content:
+We introduce the quantity and remove the `token_id` variable. Replace the full file with the following content:
 
 ```typescript
 import OpenWithIcon from "@mui/icons-material/OpenWith";
@@ -723,7 +723,7 @@ export default function MintPage() {
 
 ## Update in `OffersPage.tsx`
 
-We introduce the quantity and remove the `token_id` variable. Replace the full file by the following content:
+We introduce the quantity and remove the `token_id` variable. Replace the full file with the following content:
 
 ```typescript
 import { InfoOutlined } from "@mui/icons-material";
@@ -1045,7 +1045,7 @@ export default function OffersPage() {
 
 ## Update in `WineCataloguePage.tsx`
 
-We introduce the quantity and remove the `token_id` variable. Replace the full file by the following content:
+We introduce the quantity and remove the `token_id` variable. Replace the full file with the following content:
 
 ```typescript
 import { InfoOutlined } from "@mui/icons-material";
@@ -1307,7 +1307,7 @@ export default function WineCataloguePage() {
 
 ## Let's play
 
-1. Connect with your wallet an choose `alice` account (or one of the administrators you set on the smart contract earlier). You are redirected to the Administration/mint page as there is no minted NFT yet
+1. Connect with your wallet and choose `alice` account (or one of the administrators you set on the smart contract earlier). You are redirected to the Administration/mint page as there is no minted NFT yet
 2. Create an asset, for example:
 
 - `name`: Saint Emilion - Franc la Rose
@@ -1316,11 +1316,11 @@ export default function WineCataloguePage() {
 - `quantity`: 1000
 
 3. Click on `Upload an image` and select a bottle picture on your computer
-4. Click on Mint button
+4. Click on the Mint button
 
 ![minting.png](/developers/docs/images/minting_part3.png)
 
-Your picture will be pushed to IPFS and be displayed, then your wallet will ask you to sign the `mint` operation.
+Your picture will be pushed to IPFS and displayed, then your wallet will ask you to sign the `mint` operation.
 
 - Confirm operation
 - Wait less than 1 minute to get the confirmation notification, the page will be automatically refreshed.
@@ -1331,11 +1331,11 @@ Now you can see the `Trading` menu and the `Bottle offers` sub menu
 
 Click on the sub-menu entry
 
-You are owner of this bottle so you can make an offer on it
+You are the owner of this bottle so you can make an offer on it
 
 - Enter a quantity
 - Enter a price offer
-- Click on `SELL` button
+- Click on the `SELL` button
 - Wait a bit for the confirmation, then once automatically refreshed you have an offer attached to your NFT
 
 ![offer.png](/developers/docs/images/offer.png)
@@ -1353,6 +1353,6 @@ For buying,
 
 # Conclusion 
 
-You are now able to play with an unique NFT collection from the ligo library.
+You are now able to play with a unique NFT collection from the Ligo library.
 
-On next lesson, you will use the last template `multi asset` that will allow multiple NFT collections on same contract
+In the next lesson, you will use the last template `multi-asset` that will allow multiple NFT collections on the same contract

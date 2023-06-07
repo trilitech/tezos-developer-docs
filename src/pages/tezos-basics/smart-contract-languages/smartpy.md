@@ -2,7 +2,6 @@
 id: smartpy
 title: SmartPy
 authors: Mathias Hiron and Maxime Sallerin
-proofread: true
 ---
 
 ## Introduction

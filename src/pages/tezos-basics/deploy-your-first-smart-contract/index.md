@@ -3,7 +3,6 @@ id: first-smart-contract
 title: Deploy your First Smart Contract
 slug: /first-smart-contract
 authors: John Joubert
-proofread: true
 ---
 
 ## Prerequisites

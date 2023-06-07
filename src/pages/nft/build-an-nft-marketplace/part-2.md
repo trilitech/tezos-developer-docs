@@ -2,7 +2,7 @@
 
 This time we will add the ability to buy and sell an NFT!
 
-Keep your code from previous lesson or get the solution [here](https://github.com/marigold-dev/training-nft-1/tree/main/solution)
+Keep your code from the previous lesson or get the solution [here](https://github.com/marigold-dev/training-nft-1/tree/main/solution)
 
 > If you clone/fork a repo, rebuild locally
 
@@ -41,7 +41,7 @@ type storage =
   };
 ```
 
-Add 2 variants `Buy` and `Sell` to parameter
+Add 2 variants `Buy` and `Sell` to the parameter
 
 ```ligolang
 type parameter =
@@ -54,7 +54,7 @@ type parameter =
   | ["Update_operators", NFT.update_operators];
 ```
 
-Add 2 entrypoints `Buy` and `Sell` inside `main` function
+Add 2 entrypoints `Buy` and `Sell` inside the `main` function
 
 ```ligolang
 const main = ([p, s]: [parameter,storage]): ret =>
@@ -146,7 +146,7 @@ Explanation:
 - `parameter` has two new entrypoints `buy` and `sell`
 - `main` function exposes these two new entrypoints
 
-Also update the initial storage on file `nft.storages.jsligo` to initialize `offers`
+Update also the initial storage on file `nft.storages.jsligo` to initialize `offers`
 
 ```ligolang
 #include "nft.jsligo"
@@ -288,7 +288,7 @@ const main = ([p, s]: [parameter, storage]): ret =>
 Explanation:
 
 - User must have enough tokens _(wine bottles)_ to place an offer
-- the seller will set the NFT marketplace smart contract as an operator. When the buyer send his money to buy the NFT, the smart contract will change the NFT ownership _(it is not interactive with the seller, the martketplace will do it on behalf of the seller based on the offer data)_
+- the seller will set the NFT marketplace smart contract as an operator. When the buyer sends his money to buy the NFT, the smart contract will change the NFT ownership _(it is not interactive with the seller, the martketplace will do it on behalf of the seller based on the offer data)_
 - we update the `storage` to publish the offer
 - finally, do the correct business by calling `sell` function inside the `sell` case on `main`
 
@@ -322,7 +322,7 @@ const buy = (token_id : nat, seller : address, s : storage) : ret => {
 };
 ```
 
-Call `buy` function on main
+Call `buy` function on `main`
 
 ```ligolang
 const main = ([p, s]: [parameter, storage]): ret =>
@@ -780,12 +780,12 @@ export default function OffersPage() {
 Explanation:
 
 - the template will display all owned NFTs. Only NFTs belonging to the logged user are selected
-- for each nft, we have a form to make an offer at a price
-- if you do an offer, it calls the `sell` function and the smart contract entrypoint `nftContrat?.methods.sell(BigNumber(token_id) as nat,BigNumber(price * 1000000) as nat).send()`. We multiply the XTZ price by 10^6 because the smartcontract manipulates mutez.
+- for each NFT, we have a form to make an offer at a price
+- if you do an offer, it calls the `sell` function and the smart contract entrypoint `nftContrat?.methods.sell(BigNumber(token_id) as nat,BigNumber(price * 1000000) as nat).send()`. We multiply the XTZ price by 10^6 because the smart contract manipulates mutez.
 
 ## Let's play : Sell
 
-1. Connect with your wallet an choose `alice` account (or one of the administrators you set on the smart contract earlier). You are redirected to the Administration /mint page as there is no nft minted yet
+1. Connect with your wallet and choose `alice` account (or one of the administrators you set on the smart contract earlier). You are redirected to the Administration /mint page as there is no NFT minted yet
 
 2. Enter these values on the form for example :
 
@@ -793,27 +793,27 @@ Explanation:
 - `symbol`: SEMIL
 - `description`: Grand cru 2007
 
-3. Click on `Upload an image` an select a bottle picture on your computer
+3. Click on `Upload an image` and select a bottle picture on your computer
 
-4. Click on Mint button
+4. Click on the Mint button
 
-Your picture will be pushed to IPFS and be displayed, then your wallet ask you to sign the mint operation.
+Your picture will be pushed to IPFS and displayed, then your wallet ask you to sign the mint operation.
 
 - Confirm operation
 
 - Wait less than 1 minute until you get the confirmation notification, the page will automatically be refreshed.
 
-5. Now, go to the `Trading` menu and the `Sell bottles` sub menu.
+5. Now, go to the `Trading` menu and the `Sell bottles` submenu.
 
-6. Click on the sub-menu entry
+6. Click on the submenu entry
 
 ![sell.png](/developers/docs/images/sell.png)
 
-You are owner of this bottle so you can create an offer to sell it.
+You are the owner of this bottle so you can create an offer to sell it.
 
 - Enter a price offer
 - Click on `SELL` button
-- Wait a bit for the confirmation, then after auto refresh you have an offer for this NFT
+- Wait a bit for the confirmation, then after auto-refresh you have an offer for this NFT
 
 ## Wine Catalogue page
 
@@ -1050,21 +1050,21 @@ export default function WineCataloguePage() {
 
 ## Buy some wine!
 
-Now you can see on `Trading` menu the `Wine catalogue` sub menu, click on it.
+Now you can see on `Trading` menu the `Wine catalogue` submenu, click on it.
 
 ![buy.png](/developers/docs/images/buy.png)
 
 As you are connected with the default administrator you can see your own unique offer on the market
 
-- Disconnect from your user and connect with another account who has enough XTZ to buy the bottle
-- The buyer can see that alice is selling a bottle
-- Buy the bottle by clicking on `BUY` button
+- Disconnect from your user and connect with another account that has enough tez to buy the bottle
+- The buyer can see that Alice is selling a bottle
+- Buy the bottle by clicking on the `BUY` button
 - Once confirmed, the offer is removed from the market
 - Click on `bottle offers` sub menu
 - You are now the owner of this bottle, you can resell it at your own price, etc ...
 
 # Conclusion 
 
-You created an NFT collection marketplace from the ligo library, now you can buy and sell NFTs at your own price.
+You created an NFT collection marketplace from the Ligo library, now you can buy and sell NFTs at your own price.
 
-On next lesson, you will see another kind of NFT called `single asset`. Instead of creating *X* token types, you will be authorize to create only 1 token_id 0, on the other side, you can mint a quantity *n* of this token.
+In the next lesson, you will see another kind of NFT called `single asset`. Instead of creating *X* token types, you will be allowed to create only 1 token_id 0, on the other side, you can mint a quantity *n* of this token.

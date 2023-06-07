@@ -1,7 +1,6 @@
 ---
 id: ligo
 title: Ligo
-proofread: true
 ---
 
 ## Introduction to LIGO

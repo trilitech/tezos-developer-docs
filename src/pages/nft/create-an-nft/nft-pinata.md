@@ -8,11 +8,11 @@ description: >-
 
 ## Overview
 
-In this guide you will get an overview of the mechanics of NFTs, in general, and on Tezos. If you want to get your hands dirty, you will get an explanation of how the code of an NFT platform works, on the contract level but also on the dapp level. This article is mainly designed for beginner programmers who want to get a better idea of the code involved in the creation and use of NFTs, but non-technical readers will also find important information to deepen their understanding of both NFTs and the Tezos blockchain.
+In this guide, you will get an overview of the mechanics of NFTs, in general, and on Tezos. If you want to get your hands dirty, you will get an explanation of how the code of an NFT platform works, on the contract level but also on the dapp level. This article is mainly designed for beginner programmers who want to get a better idea of the code involved in the creation and use of NFTs, but non-technical readers will also find important information to deepen their understanding of both NFTs and the Tezos blockchain.
 
 You will learn how to build a simple NFT platform backed by a smart contract on the Tezos blockchain capable of minting, transferring, and burning NFTs while hosting their metadata on the IPFS. You need a basic knowledge of JavaScript to follow along in part 2. We will only have a high-level overview of the smart contract so no knowledge of Ligo is required, but a general knowledge of programming concepts would help.
 
-If you just want the code, you can find the complete source code in [this Github repository](https://github.com/claudebarde/taquito-pinata-tezos-nft). The **backend** folder holds the code that generates the metadata and pins the picture and the metadata to the IPFS. The **frontend** folder holds the code for the dapp that allows users to connect to their Tezos wallet and mint NFTs. The **contract** folder holds the FA2 contract written in CameLigo to mint, transfer, and burn NFTs.
+If you just want the code, you can find the complete source code in [this GitHub repository](https://github.com/claudebarde/taquito-pinata-tezos-nft). The **backend** folder holds the code that generates the metadata and pins the picture and the metadata to the IPFS. The **frontend** folder holds the code for the dapp that allows users to connect to their Tezos wallet and mint NFTs. The **contract** folder holds the FA2 contract written in CameLigo to mint, transfer, and burn NFTs.
 
 Now, let’s start by understanding better what NFTs are and how they work!
 
@@ -36,7 +36,7 @@ Although NFTs are mostly known for representing artwork, they can actually repre
 
 On a technical level, NFTs are stored in smart contracts, little programs that live on blockchains and that are able to execute and store data. This point is particularly important to remember: if you have an NFT on your favorite platform, the data is saved in the contract the platform is built upon and the other platforms in the ecosystem built on different contracts are not aware of your NFT. In most cases, this also means you cannot transfer your NFT from one platform to another. If you are the creator of the NFT, you can “_burn_” it \(i.e destroy it\) and “_mint_” it \(i.e create it\) on another platform.
 
-On Tezos, NFTs are stored in contracts that follow the [TZIP-12 standard](https://gitlab.com/tzip/tzip/-/blob/master/proposals/tzip-12/tzip-12.md) that you will often see labeled as “**FA2 contracts**”. The NFT is made of 2 main parts: an id to identify it in the contract and metadata to describe what the NFT is. The contract holds a _ledger_, a table where the ids of every NFT are matched with the address of their owner. Another table in the contract matches the ids of every NFT with their metadata, so knowing the id of an NFT, you can easily find out who owns it and what it represents. The metadata is basically just text and can be stored directly in the contract or somewhere else on the Internet, in which case the address of the metadata is stored in the contract.  
+On Tezos, NFTs are stored in contracts that follow the [TZIP-12 standard](https://gitlab.com/tzip/tzip/-/blob/master/proposals/tzip-12/tzip-12.md) that you will often see labeled as “**FA2 contracts**”. The NFT is made of 2 main parts: an id to identify it in the contract and metadata to describe what the NFT is. The contract holds a _ledger_, a table where the ids of every NFT are matched with the address of their owner. Another table in the contract matches the ids of every NFT with their metadata, so knowing the id of an NFT, you can easily find out who owns it and what it represents. The metadata is just text and can be stored directly in the contract or somewhere else on the Internet, in which case the address of the metadata is stored in the contract.  
 The contract that holds the NFTs can implement different features according to the platform, it can allow its users to transfer their NFTs to other users of the contract, sell them, burn them, track royalties for every purchase, etc. As the smart contract is just a piece of code, the possibilities are virtually limitless!
 
 ### Creating an NFT platform on Tezos 
@@ -58,11 +58,11 @@ The goal of this tutorial is not to create an FA2 contract from scratch but rath
 An FA2 contract generally consists of the following parts:
 
 * A bigmap called **ledger** whose purpose is to associate the token ids created in the contract with their owner
-* A bigmap called **metadata** that records the metadata associated with the contract itself \(its name, version, etc.\)
-* A bigmap called **token\_metadata** that records the metadata associated with every token stored in the contract
-* An entrypoint called **transfer** that allows \(or forbids\) the transfer of one or multiple tokens from one address to another
-* An entrypoint called **update\_operators** that allows owners of tokens to give permission to other addresses to handle their tokens. This can be useful, for example, if the contract implements a marketplace where you can set your NFTs on sale and let the contract handle the sale
-* An entrypoint often called **mint** \(or its variations\) that creates new tokens with the provided data. This is where the token metadata is provided to be stored and where the token id is assigned to the NFT that’s being created.
+* A bigmap called **metadata** records the metadata associated with the contract itself \(its name, version, etc.\)
+* A bigmap called **token\_metadata** records the metadata associated with every token stored in the contract
+* An entrypoint called **transfer** allows \(or forbids\) the transfer of one or multiple tokens from one address to another
+* An entrypoint called **update\_operators** allows owners of tokens to give permission to other addresses to handle their tokens. This can be useful, for example, if the contract implements a marketplace where you can set your NFTs on sale and let the contract handle the sale
+* An entrypoint often called **mint** \(or its variations\) creates new tokens with the provided data. This is where the token metadata is provided to be stored and where the token id is assigned to the NFT that’s being created.
 
 > Note: in addition to these entrypoints and bigmaps, an NFT contract can implement other structures according to its use case, for example, you can have a bigmap with all the NFTs on sale and different entrypoints to set an NFT on sale, to purchase it or to withdraw it from the marketplace, you can have a burn entrypoint to destroy the NFTs you don’t want on the platform anymore, etc.
 
@@ -100,11 +100,11 @@ The app uses 5 packages:
 * **cors** allows us to set up a CORS policy for our app and avoid unwanted requests from unauthorized sources
 * **multer** is a package that will make handling the picture sent by the user a lot easier
 
-Next, we have to do some set up before writing the “mint” endpoint. Because I used [Heroku](https://id.heroku.com/login) to host the app, there is also some Heroku-specific setting up to do to start the server:
+Next, we have to do some setup before writing the “mint” endpoint. Because I used [Heroku](https://id.heroku.com/login) to host the app, there is also some Heroku-specific setting up to do to start the server:
 
 ![](/developers/docs/images/nft-pinata/image28.png)
 
-Heroku doesn’t like it too much when you try to tell it which port to use 😅 So for the production version, you must let Heroku decide on which port your app is going to listen.
+Heroku doesn’t like it too much when you try to tell it which port to use 😅 So for the production version, you must let Heroku decide on which port your app is going to listen to.
 
 Setting up the Pinata SDK will also depend on the `process.env.NODE_ENV` variable. You can choose to have your API keys in a separate file, both in the development and production environment, but Heroku lets you define environment variables that are automatically injected in your build and stored securely, so this is generally the solution you would prefer, i.e having a separate file with your keys for development and having your keys in environment variables for production. Whichever solution you choose, the Pinata SDK can be easily instantiated by passing the API key and the secret key as parameters:
 
@@ -118,7 +118,7 @@ In the `corsOptions` variable, we indicate the URLs that are allowed to communic
 
 Now, we can set up the different middlewares:
 
-* `upload` is a middleware returnd by `multer` that we set by passing an object whose `dest` property is the path to the folder where we want to store the picture we will receive
+* `upload` is a middleware returned by `multer` that we set by passing an object whose `dest` property is the path to the folder where we want to store the picture we will receive
 * `cors` with the options set up above
 * `express.json({ limit: “50mb” })` allows the app to receive up to 50 MB of JSON \(which will be necessary to pass the picture\)
 * `express.urlencoded({ limit: “50mb”, extended: true, parameterLimit: 50000 })` works in conjunction with the setting above and allows the server to receive a picture up to 50 MB in size
@@ -190,7 +190,7 @@ The dapp we will build for the frontend has the typical structure of a Tezos dap
 
 _1- Displaying the NFTs_
 
-As explained earlier, the NFTs are basically just token ids stored in the contract. In order to find the NFTs owned by the users connected to the dapp, we just have to find the token ids associated with their address. The contract for this tutorial implements a convenient **reverse ledger** that allows you to fetch all the token ids associated with an address in a single call.
+As explained earlier, the NFTs are just token ids stored in the contract. In order to find the NFTs owned by the users connected to the dapp, we just have to find the token ids associated with their addresses. The contract for this tutorial implements a convenient **reverse ledger** that allows you to fetch all the token ids associated with an address in a single call.
 
 > Note: a reverse ledger is not a standard feature of NFT contracts and it may be absent from other platforms. If that’s the case, they may implement other ways of tracking token ids owned by a wallet address, for example, an external ledger file.
 
@@ -208,7 +208,7 @@ Now, we can look for the token ids owned by the user by searching the `reverse_l
 
 ![](/developers/docs/images/nft-pinata/image19.png)
 
-`getTokenIds` is an array containing all the ids owned by the `address`. We can simply loop through the array to get each individual id and look for the id in the `ledger` bigmap:
+`getTokenIds` is an array containing all the ids owned by the `address`. We can simply loop through the array to get each id and look for the id in the `ledger` bigmap:
 
 ![](/developers/docs/images/nft-pinata/image37.png)
 
@@ -218,17 +218,17 @@ The id is returned by Taquito as a `BigNumber`, so you have to call `.toNumber()
 
 _2- Sending the picture and metadata to the backend_
 
-First, we set up the HTML tags we need to get the picture, the name of the picture and its description:
+First, we set up the HTML tags we need to get the picture, the name of the picture, and its description:
 
 ![](/developers/docs/images/nft-pinata/image23.png)
 
-The `bind` attribute in Svelte makes it very easy to store the input in a variable that we can use later when we want to pin the NFT to the IPFS. A click on the `upload` button will trigger the upload of the picture, its title and description to the server.
+The `bind` attribute in Svelte makes it very easy to store the input in a variable that we can use later when we want to pin the NFT to the IPFS. A click on the `upload` button will trigger the upload of the picture, its title, and description to the server.
 
 Now, let’s see how uploading the user data works!
 
 ![](/developers/docs/images/nft-pinata/image26.png)
 
-We define 2 boolean variables called `pinningMetadata` and `mintingToken` that we will update according to the result of the different steps of the upload to give some visual feedback to the users in the UI. Because we are not using a traditional, we must build the form data manually. After instantiating a new `FormData`, we use the `append` method to add the different details of the form, the picture, the title, the description and the creator of the NFT.
+We define 2 boolean variables called `pinningMetadata` and `mintingToken` that we will update according to the result of the different steps of the upload to give some visual feedback to the users in the UI. Because we are not using a traditional form, we must build the form data manually. After instantiating a new `FormData`, we use the `append` method to add the different details of the form, the picture, the title, the description, and the creator of the NFT.
 
 Once the form is ready, we can use the [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) to make a POST request to the `/mint` endpoint of our server app. The request should include the required headers and the form in the `body`. The response from the server will include the hash for the picture and the hash for the metadata:
 
@@ -238,24 +238,24 @@ When the `response` comes, we can convert it to a usable JS object with the `jso
 
 ![](/developers/docs/images/nft-pinata/image15.png)
 
-This is a regular contract call. You create an instance of the contract by calling `Tezos.wallet.at(contractAddress)`, then you call the `mint` entrypoint in the `contract.methods` property. Because the entrypoint expects bytes, we have to convert the IPFS hash into bytes without forgetting to prefix `ipfs://` to make it valid. We pass the `userAddress` at the same time to identify the owner of the NFT in the contract. After the NFT is minted and the minting is confirmed, we save the data of the NFT into `newNft` to have it displayed in the interface, we reset the files, title and description variables to give the opportunity to the user to mint another NFT and we refresh the list of NFTs owned by the user by querying them \(this is not absolutely necessary but getting up-to-date data from the contract never hurts\).
+This is a regular contract call. You create an instance of the contract by calling `Tezos.wallet.at(contractAddress)`, then you call the `mint` entrypoint in the `contract.methods` property. Because the entrypoint expects bytes, we have to convert the IPFS hash into bytes without forgetting to prefix `ipfs://` to make it valid. We pass the `userAddress` at the same time to identify the owner of the NFT in the contract. After the NFT is minted and the minting is confirmed, we save the data of the NFT into `newNft` to have it displayed in the interface, we reset the files, title, and description variables to give the opportunity to the user to mint another NFT and we refresh the list of NFTs owned by the user by querying them \(this is not absolutely necessary but getting up-to-date data from the contract never hurts\).
 
 Now, the NFT has been successfully minted, its metadata is pinned on the IPFS and it is available to the world 🥳
 
 ### Suggested improvements
 
-The purpose of this tutorial is to build a simple NFT platform and introduce some concepts related to creating and minting NFTs, in general, and specifically on the Tezos blockchain. Here are a few additional features and design considerations you would want to consider on a fully-featured NFT dapp:
+The purpose of this tutorial is to build a simple NFT platform and introduce some concepts related to creating and minting NFTs, in general, and specifically on the Tezos blockchain. Here are a few additional features and design considerations you would like to take into account for a fully-featured NFT dapp:
 
 * Generate the IPFS hashes client-side first before pinning them: a failed transaction and other worst-case scenarios may leave unused content pinned into your Pinata account, to avoid this, you can spin up an IPFS node in the client browser, pin the data, mint the NFT and then pin it to your Pinata account
 * Add a `burn` endpoint: right now, your users can only create tokens, but you could also allow them to delete their NFTs
 * Display other NFTs of the platform in the front-end interface
 * Add a fee to mint new NFTs: when sending a call to the mint entrypoint, add `.send({ amount: fee })` to monetize your service.
 
-If you want to get your hands dirty, you can also improve on the contract. You can add a marketplace to the contract where NFT creators can sell their artwork, you can implement royalties every time an NFT is sold, you can track the sales and their amount and create a “reputation” system for the artists, etc., the possibilities are endless!
+If you want to get your hands dirty, you can also improve the contract. You can add a marketplace to the contract where NFT creators can sell their artwork, you can implement royalties every time an NFT is sold, you can track the sales and their amount and create a “reputation” system for the artists, etc., the possibilities are endless!
 
 ### Conclusion
 
-This tutorial introduced a lot of information about NFTs. You learned about the 3 different parts that make up an NFT platform: the contract that records the NFT ids and a link to their associated metadata, the backend that securely builds the metadata and pins it to the IPFS, and the frontend that collects the picture and the related information from the user before minting the NFT. These 3 elements work in concert to receive the user’s input, process it, format it, save it on the IPFS and record it on the Tezos blockchain.
+This tutorial introduced a lot of information about NFTs. You learned about the 3 different parts that make up an NFT platform: the contract that records the NFT ids and a link to their associated metadata, the backend that securely builds the metadata and pins it to the IPFS, and the frontend that collects the picture and the related information from the user before minting the NFT. These 3 elements work in concert to receive the user’s input, process it, format it, save it on the IPFS, and record it on the Tezos blockchain.
 
 These 3 parts of the minting and pinning process require 3 tools that are the cornerstones of building NFT platforms on Tezos: a smart contract language like [Ligo](https://ligolang.org/) to write the smart contract, an IPFS pinning service like [Pinata](https://pinata.cloud/) to easily save data to the IPFS, and a JavaScript library like [Taquito](https://tezostaquito.io/) to let the users interact with the smart contract. This is everything you need to build yourself the next Hic et Nunc!
 

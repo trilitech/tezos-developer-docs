@@ -3,7 +3,6 @@ sidebar_position: 2
 hide_table_of_contents: true
 title: "Michelson"
 hide_title: true
-proofread: true
 ---
 
 ## Michelson

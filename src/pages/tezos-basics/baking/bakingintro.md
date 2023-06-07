@@ -5,7 +5,6 @@ hide_title: true
 slug: /learn/baking/
 sidebar_label: "Introduction"
 sidebar_position: 1
-proofread: true
 ---
 
 ## Baking

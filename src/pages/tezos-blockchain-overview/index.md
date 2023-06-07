@@ -2,7 +2,6 @@
 id: tezos-blockchain-overview
 title: An Overview of Tezos
 slug: /tezos-blockchain-overview
-proofread: true
 ---
 
 # History

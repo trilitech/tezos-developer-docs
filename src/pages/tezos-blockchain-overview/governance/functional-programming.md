@@ -3,7 +3,6 @@ sidebar_position: 7
 hide_table_of_contents: true
 title: "Tezos and Functional Programming"
 hide_title: true
-proofread: true
 ---
 
 ## Tezos and Functional Programming
