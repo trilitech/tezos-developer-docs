@@ -99,6 +99,18 @@ const navigation = [
       { title: 'Framework Best Practices', href: '/dapp-development/framework-best-practices' },
     ],
   },
+
+  {
+    title: 'Smart Contract Topics',
+    links: [
+      { title: 'Smart Contract Concepts', href: '/smart-contract-topics/smart-contracts-concepts' },
+      { title: 'Simplified Contracts', href: '/smart-contract-topics/simplified-contracts' },
+      { title: 'Avoiding Flaws', href: '/smart-contract-topics/avoiding-flaws' },
+      { title: 'Oracles', href: '/smart-contract-topics/oracles' }
+    ],
+  },
+
+
 ]
 
 function GitHubIcon(props) {
