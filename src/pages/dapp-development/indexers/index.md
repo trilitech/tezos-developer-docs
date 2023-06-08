@@ -71,7 +71,32 @@ For example, a developer can access an operation's details only if they know whe
 
 Let's try to get data about this transaction using Tezos client and RPC API — [opRjkzJxJ1xZaUnBDykGUjrRV8qgHFvchcYnbkkcotS1Y7idCSL](https://tzstats.com/opRjkzJxJ1xZaUnBDykGUjrRV8qgHFvchcYnbkkcotS1Y7idCSL). 
 
-![tzstats transaction](/developers/docs/images/transaction_tzstats.png)
+```
+user:~/tezos % tezos-client rpc get /chains/main/blocks/2283690/operations/3/2
+
+Disclaimer:
+The Tezos network is a new blockchain technology.
+Users are solely responsible for any risks associated
+with usage of the Tezos network. Users should do their
+own research to determine if Tezos is the appropriate
+platform for their needs and should apply judgement and
+care in their network interactions.
+
+{ "protocol": "Psithaca2MLRFYargivpo7YvUr7wUDqyxrdhC5CQq78mRvimz6A",
+"chain_id": "NetXdQprcVkpawu",
+"hash": "opRjkzJxJ1xZaUnBDykGUjrRV8qgHFvchcYnbkkcotS1Y7idCSL",
+"branch": "BLPELRQsDcAbeXzVcKnqtT7XG7qmtcSuleddD6235sCyN4x21q6",
+"contents":
+[ { "kind": "transaction",
+"source": "tzlUEQzJbuaGJgwvkekké6HwGwaKvjZ7rr9v4", "fee": "543",
+"counter": "18321546", "gas_limit": "1521", "storage_limit": "@",
+"amount": "1500000",
+"destination": "tz1dFq5gcAMi6éTAUJarNJeP6DffyjrPXzhid" } ],
+"signature":
+"sigPWea9tsDXrornNziEMWPeEpFfTkf4YdPz7GmgPDPVXQyKwsrpze7wLIXDgZCglL2aaciMa8J1QHAUr2b9zhrK26kpvv8Jz" }
+
+user:~/tezos %
+```
 
 
 The highlighted part at the top of the screenshot is the command we used: 
@@ -108,7 +133,14 @@ Let's look at the different parts of this url:
 
 In addition to search speed, indexing has another advantage: the ability to modify indexing rules. For example, TzKT provides an additional index, where each Tezos FA1.2 and FA2 token has its internal id. So instead of comparing relatively long contract addresses, it will compare small numbers and retrieve data even faster.
 
-![](/developers/docs/images/tzkt_api_token.png)
+```
+staging.api.tzkt.io/v1/tokens?id=85
+[{"id":85,"contract":
+{"alias":"kUSD", "address":"KT1K9gCRgaLRFKTErYt1wVxA3Frb9FjasjTV"},"to
+kenId":"0","standard":"fal.2","firstLevel":1330112,"firstTime":"2021-
+02-04T05:43:23Z","lastLevel":2667753,"lastTime":"2022-08-
+30T20:13:29Z", "transfersCount":323378,"balancesCount":9030, "holdersCo unt":3854,"totalMinted":"31442022884393231737144909","totalBurned":"2 9832264735683726828828184","totalSupply":"1609758148709504908316725", "metadata":{"name":"Kolibri USD","symbol": "kUSD","decimals":"18"}}]
+```
 
 There are two types of blockchain indexers: full and selective. 
 
@@ -172,13 +204,25 @@ Using an indexer is not necessary, but the alternative — to use public RPC nod
 
 `octez-client hash data '"{address}"' of type address`
 
-![](/developers/docs/images/hash_data.png)
+```
+user:~ % tezos-client hash data '"KT1Gxqznvqznkd3fQRRf95ftYByLpE8uqfTg"' of type address
+Raw packed data: 0x050a00000016015beddb4e4cc337681090176a860473a7eba9c4a000 Script-expression-ID-Hash: exprvD3jLXJyLguSwR7D95ZZORHvahH2jdbBbv83m5yrZzyUFR2pVY
+Raw Script-expression-ID-Hash: 0xdee7e7a90d3a74fe619d8c201181230a911d4e0427648cd175b7bab29e64a4d2 Ledger Blake2b hash: G18cCFYnGr9yviP24UTXUXasqYiqx5uC4fbx1nRHkFuT
+Raw Sha256 hash: 0x08ebb0f9abe29615e6a6ca128e15b4811a70de097b595de72192dfe72755985b
+Raw Sha512 hash: 0x1b4a9ecdc318d7f1fa0f6dd67f1ff11dfcfda7530667f07ebcd0301f96fb9377cedcac567bfe36ab60c976b
+009b99c791eee28917b3bbe7a10ea73e24c3c288f
+Gas remaining: 1039995.417 units remaining
+```
 
 Then you would need to find out the big_map id of the token contracts, pools, and farms you want to map. For example, Kolibri USD (kUSD) stores user balances in a big_map with id 380.
 
 `octez-client get element exprvEJ9kYbvt2rmka1jac8voDT4xJSAiy48YJdtrXEVxrdZJRpLYr of big map 380`
 
-![](/developers/docs/images/get_element.png)
+```
+user:~ % tezos-client get element exprvD3jLXJyLguSwR7D95ZZoRHvahH2jdbBbv83m5yrZzyUfR2pVY of big map 380
+Pair {} 784604439440371
+user:~ %
+```
 
 That is, to find out the balances of FA1.2 and FA2 tokens, you need to collect in advance the id of the necessary big_map contracts of tokens, and in turn, ask them for values ​​by address.
 
