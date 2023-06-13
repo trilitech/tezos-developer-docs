@@ -127,7 +127,21 @@ const navigation = [
       { title: 'Oracles', href: '/smart-contract-topics/oracles' }
     ],
   },
-
+  {
+    title: 'Baking',
+    links: [
+      { title: 'Introduction', href: '/baking/introduction' },
+      { title: 'How Baking Works', href: '/baking/baking-explained' },
+      { title: 'Rewards', href: '/baking/rewards' },
+      { title: 'Risks', href: '/baking/risks' },
+      { title: 'Delegating', href: '/baking/delegating' },
+      { title: 'List of Bakers', href: '/baking/bakers-list' },
+      { title: 'Become a Baker', href: '/baking/become-a-baker' },
+      { title: 'Baker Consensus Key', href: '/baking/consensus-key' },
+      { title: 'Run a Persistent Baking Node', href: '/baking/persistent-baker' },
+      { title: 'Submit Transaction to Specific Baker', href: '/baking/baker-selection' }
+    ],
+  },
 
 ]
 
