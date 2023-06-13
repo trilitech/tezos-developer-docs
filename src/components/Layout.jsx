@@ -40,7 +40,11 @@ const navigation = [
         children: [
           { title: 'The CLI and RPC', href: '/tezos-basics/get-started-with-octez/cli-rpc' },
           { title: 'Installation and Setup', href: '/tezos-basics/get-started-with-octez/installation-and-setup' },
-          { title: 'Sandbox Mode', href: '/tezos-basics/get-started-with-octez/run-a-sandbox' }
+          { title: 'Node Upgrade', href: '/tezos-basics/get-started-with-octez/upgrade' },
+          { title: 'Monitor a Node', href: '/tezos-basics/get-started-with-octez/monitor-a-node' },
+          { title: 'Sandbox Mode', href: '/tezos-basics/get-started-with-octez/run-a-sandbox' },
+          { title: 'Best Practices', href: '/tezos-basics/get-started-with-octez/best-practices' },
+          { title: 'Deploy a Cluster of Nodes', href: '/tezos-basics/get-started-with-octez/node-cluster' }
         ] 
       },
       { title: 'Deploy your first smart contract', href: '/tezos-basics/deploy-your-first-smart-contract' },
