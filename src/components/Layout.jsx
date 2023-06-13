@@ -62,8 +62,22 @@ const navigation = [
   {
     title: 'DeFi, NFTs and Gaming',
     links: [
-      { title: 'DeFi Tokens', href: '/defi/defi-tokens' },
-      { title: 'Decentralized Exchanges', href: '/defi/defi-tokens/dex' },
+      { 
+        title: 'DeFi', 
+        href: '/defi/defi-tokens',
+        children: [
+          { title: 'DeFi Tokens', href: '/defi/defi-tokens' },
+          { title: 'Token Standards', href: '/defi/token-standards' },
+          { title: 'Decentralized Exchanges', href: '/defi/dex' },
+          { title: 'Wrapped Assets', href: '/defi/wrapped-assets' },
+          { title: 'Cross-chain Swaps', href: '/defi/cross-chain-swaps' },
+          { title: 'Stablecoins', href: '/defi/stablecoins' },
+          { title: 'Synthetics', href: '/defi/synthetics' },
+          { title: 'Decentralized Autonomous Organization', href: '/defi/dao' },
+          { title: 'Lending and Flash Loans', href: '/defi/lending' },
+          { title: 'Decentralized Fundraising', href: '/defi/decentralized-fundraising' }
+        ] 
+      },
       { title: 'Create an NFT', href: '/nft/create-an-nft' },
       { title: 'Mint NFT using Taquito and Pinata', href: '/nft/create-an-nft/nft-pinata' },
       { 
