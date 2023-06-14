@@ -303,7 +303,7 @@ Now, you can graphically monitor your cluster liveness (in our case, our 3 rolli
 
 <p align="center">
 
-![lens](lens.png)
+![lens](developers/docs/images/node-cluster/lens.png)
 <small className="figure">Lens monitoring</small>
 </p>
 

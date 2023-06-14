@@ -8,7 +8,7 @@ In this section, we will discuss how baking works. The different actors of the m
 
 <p align="center">
 
-![baking-explained](baking_explained.svg)
+![baking-explained](/developers/docs/images/baking-explained/baking_explained.svg)
 <small className="figure">FIGURE 1: How Baking Works?</small>
 
 </p>
@@ -109,7 +109,7 @@ The random seed for cycle `n` is a 256-bit number generated at the very end of c
 
 <p align="center">
 
-![commit-reveal](commit_reveal.svg)
+![commit-reveal](/developers/docs/images/baking-explained/commit_reveal.svg)
 <small className="figure">FIGURE 2: Commit & Reveal</small>
 
 </p>
@@ -186,7 +186,7 @@ For example: Ledger Nano S together with Kiln meets these two conditions.
 
 <p align="center">
 
-![summary-diagram](summary_diagram.png)
+![summary-diagram](/developers/docs/images/baking-explained/summary_diagram.png)
 <small className="figure">FIGURE 3: Summary Diagram</small>
 
 </p>

@@ -27,18 +27,18 @@ There are two types of metrics on an Octez node that can be monitored:
 
 Netdata is a light and open-source software that collects and exposes hardware metrics of a physical machine, and is capable of collecting fresh data every second. Netdata is a complete tool that provides various graphics visualization (histogram, tables, gauge, points...), alerting + triggering tools, and many other features...
 
-### What is [Grafana](https://grafana.com/) ? ![](grafana-logo.png)
+### What is [Grafana](https://grafana.com/) ? ![](developers/docs/images/monitor-a-node/grafana-logo.png)
 
 Basically, Grafana is a software that takes JSON in input and makes dashboards that you can display using your browser (the high-level web interface that displays all the metrics). In our case, JSONs are provided by Grafazos.
 
 ### What is [Grafazos](https://gitlab.com/nomadic-labs/grafazos) ?
 Grafazos is a jsonnet library written by Nomadic Labs, which uses itself [grafonet-lib](https://github.com/grafana/grafonnet-lib), which is a jsonnet library to write Grafana dashboards as code.
 
-### What is [jsonnet](https://jsonnet.org/) ?  ![](jsonnet-logo.png)
+### What is [jsonnet](https://jsonnet.org/) ?  ![](developers/docs/images/monitor-a-node/jsonnet-logo.png)
 
 Jsonnet is a programming language that allows to create JSONs easily.
 
-### What is [Prometheus](https://prometheus.io/docs/introduction/overview/#what-is-prometheus) ? ![](prometheus-logo.png)
+### What is [Prometheus](https://prometheus.io/docs/introduction/overview/#what-is-prometheus) ? ![](developers/docs/images/monitor-a-node/prometheus-logo.png)
 
 Prometheus server is a toolkit that scrapes and stores time series data by making requests to the nodes. Basically, prometheus is fed by both netdata and tezos-metrics (which is deprecated and not used), and then, grafana displays the data gathered by prometheus.
 
@@ -218,7 +218,7 @@ This is an example of a Demo Dashboard with the following metrics:
 - `octez_p2p_peers_running`
 - `octez_store_last_written_block_size`
 
-![Example of a light monitoring dashboard](netdata_dashboard.png)
+![Example of a light monitoring dashboard](developers/docs/images/monitor-a-node/netdata_dashboard.png)
 
 
 ### Monitoring several nodes
@@ -397,7 +397,7 @@ Daemon configuration:
 
 Here is the global picture of a monitoring system, connecting all these tools together:
 
-![](all-in-all.png)
+![](developers/docs/images/monitor-a-node/all-in-all.png)
 
 A Grafazos dashboard looks like this:
 <figure align="center">
@@ -493,7 +493,7 @@ Another useful metric is the *Block validation time*, which measures the time be
 
 <figure align="center">
 
-![](metrics-block-validation-time.png)
+![](developers/docs/images/monitor-a-node/metrics-block-validation-time.png)
 
 <figcaption align="center"> <b>Graph 2:</b> Block validation time
 </figcaption>
@@ -504,7 +504,7 @@ A healthy node should typically have a few dozen peer connections (depending on 
 
 <figure align="center">
 
-![](metrics-p2p-connections.png)
+![](developers/docs/images/monitor-a-node/metrics-p2p-connections.png)
 
 <figcaption align="center"> <b>Graph 3:</b> P2P connections
 </figcaption>

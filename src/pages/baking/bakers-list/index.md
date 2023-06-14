@@ -14,13 +14,13 @@ Most Tezos blockchain explorers have a list of bakers ordered according to diffe
 
 <p align="center">
 
-![baking-bad-bakers](baking_bad_bakers.png)
+![baking-bad-bakers](/developers/docs/images/bakers-list/baking_bad_bakers.png)
 <small className="figure">FIGURE 1: Baking Bad Bakers</small>
 
-![tzstats-bakers](tzstats_bakers.png)
+![tzstats-bakers](/developers/docs/images/bakers-list/tzstats_bakers.png)
 <small className="figure">FIGURE 2: TzStats Bakers</small>
 
-![tezos-nodes-bakers](tezos_node_bakers.png)
+![tezos-nodes-bakers](/developers/docs/images/bakers-list/tezos_node_bakers.png)
 <small className="figure">FIGURE 3: Tezos Nodes Bakers</small>
 
 </p>
@@ -41,7 +41,7 @@ These days, it is the centralized exchanges like Coinbase, Binance or Kraken, th
 
 <p align="center">
 
-![tzstats-bakers-top20](tzstats_bakers_top20.png)
+![tzstats-bakers-top20](/developers/docs/images/bakers-list/tzstats_bakers_top20.png)
 
 </p>
 

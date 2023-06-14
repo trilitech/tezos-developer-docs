@@ -8,7 +8,7 @@ A **stablecoin** is a cryptocurrency whose price is fixed to another asset. Most
 
 <p align="center">
 
-![stablecoin](stablecoin.svg)
+![stablecoin](/developers/docs/images/stablecoins/stablecoin.svg)
 <small className="figure">FIGURE 1: Illustration of a stablecoin volatility compared to his pegged asset (e.g. USD).</small>
 
 </p>
@@ -35,7 +35,7 @@ As shown above, these entities must keep as much USD in their bank account as th
 
 <p align="center">
 
-![stablecoin-kyc](stablecoin-kyc.svg)
+![stablecoin-kyc](/developers/docs/images/stablecoins/stablecoin-kyc.svg)
 <small className="figure">FIGURE 2: Exchanging stable coins against fiat currencies (or the other way around) is secured by a KYC. Exchanging stable coins between users do not require a KYC (i.e. as long as it stays inside the world of crypto)</small>
 
 </p>
@@ -80,7 +80,7 @@ This happened with [the crash of the UST](https://blog.chainalysis.com/reports/h
 
 <p align="center">
 
-![stablecoin-type](stablecoin-types.svg)
+![stablecoin-type](/developers/docs/images/stablecoins/stablecoin-types.svg)
 <small className="figure">FIGURE 3: Recapitulation of the 3 types of stablecoins.</small>
 
 </p>

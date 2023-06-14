@@ -14,7 +14,7 @@ One way is to use a centralized exchange like Binance. This means that you must 
 
 <p align="center">
 
-![swap-cex](swap-cex.svg)
+![swap-cex](/developers/docs/images/cross-chain-swaps/swap-cex.svg)
 <small className="figure">FIGURE 1: Illustration of non-atomic swap on a centralized exchange</small>
 
 </p>
@@ -25,7 +25,7 @@ Using a DEX is a great solution for making trustless token swaps. However, they 
 
 <p align="center">
 
-![swap-dex](swap-dex.svg)
+![swap-dex](/developers/docs/images/cross-chain-swaps/swap-dex.svg)
 <small className="figure">FIGURE 2: Illustration of non-atomic swap on a decentralized exchange</small>
 
 </p>
@@ -48,7 +48,7 @@ The term **atomic** relates to the fact that these transactions either happen en
 
 <p align="center">
 
-![atomic-swap](atomic-swap.svg)
+![atomic-swap](/developers/docs/images/cross-chain-swaps/atomic-swap.svg)
 <small className="figure">FIGURE 3: Illustration of an atomic swap.</small>
 
 </p>
@@ -57,7 +57,7 @@ Alice's HTLC will time-out and refund the funds to Alice automatically if Bob ne
 
 <p align="center">
 
-![atomic-swap-fail](atomic-swap-fail.svg)
+![atomic-swap-fail](/developers/docs/images/cross-chain-swaps/atomic-swap-fail.svg)
 <small className="figure">FIGURE 4: Illustration of a failed atomic swap (Bob did not send the funds).</small>
 
 </p>

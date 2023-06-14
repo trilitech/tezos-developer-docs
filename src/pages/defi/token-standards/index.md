@@ -15,7 +15,7 @@ Multiple implementations of a standard can co-exist, but they must all respect t
 
 <p align="center">
 
-![standards](standards.svg)
+![standards](/developers/docs/images/token-standards/standards.svg)
 <small className="figure">FIGURE 1: Illustration of 2 implementations of the same token standard</small>
 
 </p>
@@ -51,7 +51,7 @@ Note that FA2 is the successor to [FA1.2](/defi/token-standards#fa12) that only 
 
 <p align="center">
 
-![tokens](tokens.svg)
+![tokens](/developers/docs/images/token-standards/tokens.svg)
 <small className="figure">FIGURE 2: Illustration of the multi-purposes aspect of the <em>FA2</em> token standard.</small>
 
 </p>

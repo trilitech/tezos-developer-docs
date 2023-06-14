@@ -18,7 +18,7 @@ As you don't actually purchase the asset, synthetics are particularly interestin
 
 <p align="center">
 
-![synthetic](synthetic.svg)
+![synthetic](/developers/docs/images/synthetics/synthetic.svg)
 <small className="figure">
 FIGURE 1: Illustration of the synthethic contract between Alice and Bob
 </small>

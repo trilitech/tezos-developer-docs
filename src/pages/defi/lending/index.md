@@ -83,7 +83,7 @@ Remember that a flash loan has to be borrowed and repaid within the same transac
 
 <p align="center">
 
-![flash-loan](flash-loan.svg)
+![flash-loan](/developers/docs/images/lending/flash-loan.svg)
 <small className="figure">
 FIGURE 1: Operation flow of a flash loan in the case of a successful repayment (green arrows) or failed repayment (red arrows)
 </small>
@@ -110,7 +110,7 @@ All these steps are included in one transaction. They either all succeed, or the
 
 <p align="center">
 
-![arbitrage](arbitrage.svg)
+![arbitrage](/developers/docs/images/lending/arbitrage.svg)
 <small className="figure">
 FIGURE 2: A typical arbitrage operation involving a flash loan.
 </small>
