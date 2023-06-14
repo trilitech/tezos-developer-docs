@@ -2,6 +2,9 @@ import { Callout } from '@/components/Callout'
 import { LgLink, LgLinks } from '@/components/LgLinks'
 import { QuickLink, QuickLinks } from '@/components/QuickLinks'
 
+import Math from '../src/components/Math'
+import Code from '../src/components/Code'
+
 const tags = {
   callout: {
     attributes: {
@@ -55,6 +58,28 @@ const tags = {
       icon: { type: String },
       href: { type: String },
     },
+  },
+  math: {
+    render: Math,
+    children: ['text'],
+    attributes: {
+      inline: {
+        type: Boolean,
+        default: false,
+      },
+    },
+  },
+  code: {
+    render: 'Code',
+    children: ['text'],
+    attributes: {
+      language: {
+        type: String,
+        default: 'javascript',
+        errorLevel: 'critical',
+      },
+    },
+    render: Code,
   },
 }
 

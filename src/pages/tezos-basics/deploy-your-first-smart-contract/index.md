@@ -7,9 +7,9 @@ authors: John Joubert
 
 ## Prerequisites
 
-| Dependency         | Installation instructions                                                                                                                   |
-|--------------------|---------------------------------------------------------------------------------------------------------------------------------------------|
-| Smartpy CLI        | Follow the _Installation_ steps in this [guide](https://smartpy.dev/docs/manual/introduction/installation).                                                 |
+| Dependency         | Installation instructions                                                                                         |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------- |
+| Smartpy CLI        | Follow the _Installation_ steps in this [guide](https://smartpy.dev/docs/manual/introduction/installation).       |
 | _octez-client_ CLI | Follow the _How to install the octez-client_ steps [here](/developers/docs/tezos-basics/get-started-with-octez/). |
 
 {% callout type="warning" title="Note" %}
@@ -19,6 +19,30 @@ Make sure you have **installed** the above CLI tools before getting started.
 Now that you have installed the [_octez-client_](https://opentezos.com/tezos-basics/cli-and-rpc/#how-to-install-the-octez-client) and [_Smartpy_](https://smartpy.io/docs/cli/#installation), we'll go ahead and dive right in.
 
 ## Create a project folder
+
+This is some text. Now I will include a math equation:
+
+{% math %}
+E = mc^2
+{% /math %}
+
+This equation states that energy (E) is equal to mass (m) times the speed of light (c) squared.
+
+This is an inline math equation: {% math inline=true %}E = mc^2{% /math %}
+
+{% math %}
+i \hbar \frac{\partial}{\partial t} \Psi = \hat{H} \Psi
+{% /math %}
+
+{% code language="javascript" %}
+const hello = "Hello, world!";
+console.log(hello);
+mkdir example-smart-contract
+{% /code %}
+
+{% code language="bash" %}
+mkdir example-smart-contract
+{% /code %}
 
 Now we can go ahead and create a folder somewhere on our local drive with the name of the project. Let's call it `example-smart-contract`.
 
@@ -42,7 +66,7 @@ touch store_greeting.py
 
 ### Smartpy
 
-Installing the `smartpy-cli` would have created a  `/smartpy-cli/` directory in `home` (on a Mac).&#x20;
+Installing the `smartpy-cli` would have created a `/smartpy-cli/` directory in `home` (on a Mac).&#x20;
 
 We can check that it's correctly installed by running the following command:
 
@@ -127,9 +151,9 @@ You should then see something like this returned:
 
 ```
 Warning:
-  
+
                  This is NOT the Tezos Mainnet.
-  
+
            Do NOT use your fundraiser keys on this network.
 ```
 
@@ -153,9 +177,9 @@ Which will return something like this:
 
 ```
 Warning:
-  
+
                  This is NOT the Tezos Mainnet.
-  
+
            Do NOT use your fundraiser keys on this network.
 
 Hash: tz1dW9Mk...........H67L
@@ -202,7 +226,7 @@ class StoreGreeting(sp.Contract):
         self.init(text = value)
 
     @sp.entry_point   # Note the indentation
-    def replace(self, params): 
+    def replace(self, params):
         self.data.text = params.text
 
     @sp.entry_point    # Note the indentation
@@ -295,7 +319,7 @@ Now that we've successfully deployed our smart contract, let's test out the two 
 To replace "Hello" with "Hi there!", we can run the command below:
 
 {% callout title="Information" %}
-Make sure that you replace **\<my\_wallet>** with the name of the wallet your created earlier and **\<contract-address>** with the contract address starting with KT1.
+Make sure that you replace **\<my_wallet>** with the name of the wallet your created earlier and **\<contract-address>** with the contract address starting with KT1.
 {% /callout %}
 
 ```
