@@ -28,15 +28,15 @@ export function QuickLink({ title, description, href, icon }) {
     <div className="relative flex items-center h-fit max-h-[4.75rem] pr-4 my-2">
       <div className="absolute -inset-px rounded-xl border-2 border-transparent opacity-0" />
       <div className="relative overflow-hidden rounded-xl p-2 flex justify-center h-full items-center">
-        <div className="flex-shrink-0 mr-4">
+        <div className="flex-shrink-0 mr-2">
           <Icon icon={icon} className="h-10 w-10 transition duration-250 ease-in-out transform-gpu group-hover:scale-110" />
         </div>
         <div className="flex-grow">
-          <h2 className="mt-4 font-display font-bold text-base text-slate-700 dark:text-white hover:text-blue-800 hover:dark:hover:text-gray-400" style={{ lineHeight: '1.5rem' }}>
+          <h2 className="mt-1 mb-1 font-display font-bold text-base text-slate-700 dark:text-white hover:text-blue-800 hover:dark:hover:text-gray-400" style={{ lineHeight: '1rem' }}>
             {href === '' ? (
               <>
-                <div className="flow-root w-fit mb-0.5 items-center rounded-full bg-purple-50 px-1 py-0.5 text-xxs font-medium text-purple-700 ring-1 ring-inset ring-purple-600/10 dark:ring-white dark:bg-transparent dark:text-white">Coming Soon</div>
                 {title}  
+                <div className="flow-root w-fit mt-0.5 items-center rounded-full bg-purple-50 px-1 py-0.5 text-xxs font-medium text-purple-700 ring-1 ring-inset ring-purple-600/10 dark:ring-white dark:bg-transparent dark:text-white">Coming Soon</div>
               </>
             ) : (
               <Link href={href}>
@@ -45,9 +45,9 @@ export function QuickLink({ title, description, href, icon }) {
               </Link>
             )}
           </h2>
-          <p className="mt-1 text-sm text-slate-700 dark:text-slate-400" style={{ height: '3rem', overflow: 'hidden' }}>
+          {/* <p className="mt-1 text-sm text-slate-700 dark:text-slate-400" style={{ height: '3rem', overflow: 'hidden' }}>
             {description}
-          </p>
+          </p> */}
         </div>
       </div>
     </div>

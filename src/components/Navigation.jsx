@@ -30,8 +30,8 @@ function NavigationItem({ link, selectedLink, selectedParent }) {
           className={clsx(
             'block w-full pl-3.5',
             link.href === router.pathname
-              ? 'font-semibold text-blue-600'
-              : 'text-slate-500 hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-300'
+              ? 'font-semibold text-blue-600 before:bg-blue-500'
+              : 'text-slate-500 before:hidden before:bg-slate-300 hover:text-slate-600 hover:before:block dark:text-slate-400 dark:before:bg-slate-700 dark:hover:text-slate-300'
           )}
         >
           <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -39,7 +39,10 @@ function NavigationItem({ link, selectedLink, selectedParent }) {
             {hasChildren && (
               <button
                 onClick={handleChevronClick}
-                style={{ fontSize: '1.2em', marginLeft: '5px' }}
+                style={{
+                  fontSize: '1.2em',
+                  marginLeft: '5px',
+                }}
               >
                 {isOpen ? <FiChevronDown /> : <FiChevronRight />}
               </button>
