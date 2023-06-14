@@ -1,13 +1,26 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import clsx from 'clsx'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { FiChevronRight, FiChevronDown } from 'react-icons/fi'
 
-function NavigationItem({ link }) {
+function NavigationItem({ link, selectedLink, selectedParent }) {
   const router = useRouter()
   const [isOpen, setIsOpen] = useState(false)
   const hasChildren = !!link.children
+
+  // Update the isOpen state based on whether this link is the current link or a parent of the current link
+  useEffect(() => {
+    if (link === selectedLink || link === selectedParent) {
+      setIsOpen(true)
+    }
+  }, [link, selectedLink, selectedParent])
+
+  // Handles the click on a chevron
+  const handleChevronClick = (event) => {
+    event.preventDefault()
+    setIsOpen(!isOpen)
+  }
 
   return (
     <li key={link.href} className="relative">
@@ -22,29 +35,37 @@ function NavigationItem({ link }) {
           )}
         >
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            {link.title}
-            {hasChildren &&
-              (isOpen ? (
-                <FiChevronDown
-                  style={{ fontSize: '0.8em', marginLeft: '5px' }}
-                />
-              ) : (
-                <FiChevronRight
-                  style={{ fontSize: '0.8em', marginLeft: '5px' }}
-                />
-              ))}
+            <span>{link.title}</span>
+            {hasChildren && (
+              <button
+                onClick={handleChevronClick}
+                style={{ fontSize: '1.2em', marginLeft: '5px' }}
+              >
+                {isOpen ? <FiChevronDown /> : <FiChevronRight />}
+              </button>
+            )}
           </div>
         </Link>
       </div>
       {/* Render nested links if they exist */}
       {hasChildren && isOpen && (
-        <NavigationLinks links={link.children} isNested />
+        <NavigationLinks
+          links={link.children}
+          selectedLink={selectedLink}
+          selectedParent={selectedParent}
+          isNested
+        />
       )}
     </li>
   )
 }
 
-function NavigationLinks({ links, isNested = false }) {
+function NavigationLinks({
+  links,
+  selectedLink,
+  selectedParent,
+  isNested = false,
+}) {
   return (
     <ul
       role="list"
@@ -59,13 +80,23 @@ function NavigationLinks({ links, isNested = false }) {
       )}
     >
       {links.map((link) => (
-        <NavigationItem key={link.href} link={link} />
+        <NavigationItem
+          key={link.href}
+          link={link}
+          selectedLink={selectedLink}
+          selectedParent={selectedParent}
+        />
       ))}
     </ul>
   )
 }
 
-export function Navigation({ navigation, className }) {
+export function Navigation({
+  navigation,
+  className,
+  selectedLink,
+  selectedParent,
+}) {
   return (
     <nav className={clsx('text-base lg:text-sm', className)}>
       <ul role="list" className="space-y-9">
@@ -74,7 +105,11 @@ export function Navigation({ navigation, className }) {
             <h2 className="font-display font-medium text-slate-900 dark:text-white">
               {section.title}
             </h2>
-            <NavigationLinks links={section.links} />
+            <NavigationLinks
+              links={section.links}
+              selectedLink={selectedLink}
+              selectedParent={selectedParent}
+            />
           </li>
         ))}
       </ul>
