@@ -56,14 +56,27 @@ const navigation = [
         title: 'Get Started with Octez',
         href: '/tezos-basics/get-started-with-octez',
         children: [
-          { title: 'The CLI and RPC', href: '/tezos-basics/get-started-with-octez/cli-rpc' },
-          { title: 'Installation and Setup', href: '/tezos-basics/get-started-with-octez/installation-and-setup' },
-          { title: 'Node Upgrade', href: '/tezos-basics/get-started-with-octez/upgrade' },
-          { title: 'Monitor a Node', href: '/tezos-basics/get-started-with-octez/monitor-a-node' },
-          { title: 'Sandbox Mode', href: '/tezos-basics/get-started-with-octez/run-a-sandbox' },
-          { title: 'Best Practices', href: '/tezos-basics/get-started-with-octez/best-practices' },
-          { title: 'Deploy a Cluster of Nodes', href: '/tezos-basics/get-started-with-octez/node-cluster' }
-        ] 
+          {
+            title: 'The CLI and RPC',
+            href: '/tezos-basics/get-started-with-octez/cli-rpc',
+          },
+          {
+            title: 'Installation and Setup',
+            href: '/tezos-basics/get-started-with-octez/installation-and-setup',
+          },
+          {
+            title: 'Sandbox Mode',
+            href: '/tezos-basics/get-started-with-octez/run-a-sandbox',
+          },
+        ],
+      },
+      {
+        title: 'Deploy your first smart contract',
+        href: '/tezos-basics/deploy-your-first-smart-contract',
+      },
+      {
+        title: 'Tezos Protocol & Shell',
+        href: '/tezos-basics/tezos-protocol-and-shell',
       },
       { title: 'Test Networks', href: '/tezos-basics/test-networks' },
       { title: 'Block Explorers', href: '/tezos-basics/block-explorers' },
@@ -94,22 +107,8 @@ const navigation = [
   {
     title: 'DeFi, NFTs and Gaming',
     links: [
-      { 
-        title: 'DeFi', 
-        href: '/defi/defi-tokens',
-        children: [
-          { title: 'DeFi Tokens', href: '/defi/defi-tokens' },
-          { title: 'Token Standards', href: '/defi/token-standards' },
-          { title: 'Decentralized Exchanges', href: '/defi/dex' },
-          { title: 'Wrapped Assets', href: '/defi/wrapped-assets' },
-          { title: 'Cross-chain Swaps', href: '/defi/cross-chain-swaps' },
-          { title: 'Stablecoins', href: '/defi/stablecoins' },
-          { title: 'Synthetics', href: '/defi/synthetics' },
-          { title: 'Decentralized Autonomous Organization', href: '/defi/dao' },
-          { title: 'Lending and Flash Loans', href: '/defi/lending' },
-          { title: 'Decentralized Fundraising', href: '/defi/decentralized-fundraising' }
-        ] 
-      },
+      { title: 'DeFi Tokens', href: '/defi/defi-tokens' },
+      { title: 'Decentralized Exchanges', href: '/defi/defi-tokens/dex' },
       { title: 'Create an NFT', href: '/nft/create-an-nft' },
       {
         title: 'Mint NFT using Taquito and Pinata',
@@ -197,22 +196,6 @@ const navigation = [
       { title: 'Oracles', href: '/smart-contract-topics/oracles' },
     ],
   },
-  {
-    title: 'Baking',
-    links: [
-      { title: 'Introduction', href: '/baking/introduction' },
-      { title: 'How Baking Works', href: '/baking/baking-explained' },
-      { title: 'Rewards', href: '/baking/rewards' },
-      { title: 'Risks', href: '/baking/risks' },
-      { title: 'Delegating', href: '/baking/delegating' },
-      { title: 'List of Bakers', href: '/baking/bakers-list' },
-      { title: 'Become a Baker', href: '/baking/become-a-baker' },
-      { title: 'Baker Consensus Key', href: '/baking/consensus-key' },
-      { title: 'Run a Persistent Baking Node', href: '/baking/persistent-baker' },
-      { title: 'Submit Transaction to Specific Baker', href: '/baking/baker-selection' }
-    ],
-  },
-
 ]
 
 function GitHubIcon(props) {
@@ -512,7 +495,7 @@ export function Layout({ children, title, tableOfContents }) {
       </div>
       <footer class="bg-slate-900 dark:border-t-2">
         <div class="mx-auto max-w-7xl px-6 py-12 md:flex md:items-center md:justify-between lg:px-8">
-          <div class="w-30 flex flex-wrap gap-y-2 md:mb-2 md:flex md:w-1/2 lg:flex-wrap 2xl:flex-nowrap">
+          <div class="w-30 flex flex-wrap gap-y-2 md:mb-2 md:flex md:inline-flex md:w-1/2 lg:flex-wrap 2xl:flex-nowrap">
             <a
               href="https://twitter.com/tezos"
               target="_blank"
