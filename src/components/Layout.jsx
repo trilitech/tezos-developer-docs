@@ -27,6 +27,7 @@ const navigation = [
             href: '/tezos-blockchain-overview/governance/intro',
             children: [
               { title: 'Governance Overview', href: '/tezos-blockchain-overview/governance/governance-overview' },
+              { title: 'History of Amendments', href: '/tezos-blockchain-overview/governance/history-of-amendments' },
               { title: 'Tezos Improvement Process', href: '/tezos-blockchain-overview/governance/improvement-process-tzip' }
             ] 
           },
