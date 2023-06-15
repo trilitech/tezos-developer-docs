@@ -143,7 +143,23 @@ const navigation = [
       { title: 'Submit Transaction to Specific Baker', href: '/baking/baker-selection' }
     ],
   },
-
+  {
+    title: 'Advanced Topics',
+    links: [
+      { title: 'Smart Rollups', href: '/advanced-topics/smart-rollups' },
+      { 
+        title: 'Formal Verification', 
+        href: '/advanced-topics/formal-verification/introduction',
+        children: [
+          { title: 'Introduction', href: '/advanced-topics/formal-verification/introduction' },
+          { title: 'Generalities', href: '/advanced-topics/formal-verification/generalities' },
+          { title: 'Coq', href: '/advanced-topics/formal-verification/coq' },
+          { title: 'Mi-Cho-Coq', href: '/advanced-topics/formal-verification/michocoq' },
+          { title: 'Formal Verification on Smart Contract', href: '/advanced-topics/formal-verification/modeling-theorem' },
+        ] 
+      },
+    ],
+  },
 ]
 
 function GitHubIcon(props) {
