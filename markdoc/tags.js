@@ -2,6 +2,12 @@ import { Callout } from '@/components/Callout'
 import { LgLink, LgLinks } from '@/components/LgLinks'
 import { QuickLink, QuickLinks } from '@/components/QuickLinks'
 
+import Math from '@/components/Math'
+import Code from '@/components/Code'
+
+// Import the built-in Next.js tags
+import { comment } from '@markdoc/next.js/tags';
+
 const tags = {
   callout: {
     attributes: {
@@ -38,7 +44,7 @@ const tags = {
     render: QuickLink,
     attributes: {
       title: { type: String },
-      description: { type: String },
+      // description: { type: String },
       icon: { type: String },
       href: { type: String },
     },
@@ -56,6 +62,29 @@ const tags = {
       href: { type: String },
     },
   },
+  math: {
+    render: Math,
+    children: ['text'],
+    attributes: {
+      inline: {
+        type: Boolean,
+        default: false,
+      },
+    },
+  },
+  code: {
+    render: 'Code',
+    children: ['text'],
+    attributes: {
+      language: {
+        type: String,
+        default: 'javascript',
+        errorLevel: 'critical',
+      },
+    },
+    render: Code,
+  },
+  comment,
 }
 
 export default tags
