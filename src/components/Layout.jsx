@@ -124,6 +124,8 @@ const navigation = [
     links: [
       { title: 'Smart Contract Concepts', href: '/smart-contract-topics/smart-contracts-concepts' },
       { title: 'Simplified Contracts', href: '/smart-contract-topics/simplified-contracts' },
+      { title: 'FA1.2 Token Contract', href: '/smart-contract-topics/fa12' },
+      { title: 'FA2 Token Contract', href: '/smart-contract-topics/fa2' },
       { title: 'Avoiding Flaws', href: '/smart-contract-topics/avoiding-flaws' },
       { title: 'Oracles', href: '/smart-contract-topics/oracles' }
     ],
