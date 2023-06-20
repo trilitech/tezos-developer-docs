@@ -6,7 +6,7 @@ authors: Thomas Zoughebi, Aymeric Bethencourt, and Maxime Fernandez
 
 ## Octez - The Tezos Client 
 
-_Octez_ is the official client to interact with a Tezos node via RPC (remote procedural calls). In theory there can be multiple implementations of the Tezos protocol, but currently there is only Octez. Octez consists of several binaries (i.e., executable files), including: a client, a node, and a baker.
+_Octez_ is the official client to interact with a Tezos node via RPC (remote procedural calls). In theory, there can be multiple implementations of the Tezos protocol, but currently, there is only Octez. Octez consists of several binaries (i.e., executable files), including a client, a node, and a baker.
 
 ### How to install the *octez-client*
 
@@ -50,7 +50,7 @@ Warning:
            Do NOT use your fundraiser keys on this network.
 ```
 
-On Ubuntu, the config file should be written in "/.octez-client/config" under your "home" folder. For example after the last command, the all new "config" file look like this (with Nano):
+On Ubuntu, the config file should be written in "/.octez-client/config" under your "home" folder. For example, after the last command, the new "config" file looks like this (with Nano):
 
 ```bash
 { "base_dir": "/home/userName/.octez-client",
@@ -60,7 +60,7 @@ On Ubuntu, the config file should be written in "/.octez-client/config" under yo
 
 ### Account funding
 
-To get free tez on testnet, you must first have generated a tezos account. If not, you can generate one with the following command:
+To get free tez on testnet, you must first generate a Tezos account. If you don't already have one, you can generate one with the following command:
 
 `octez-client gen keys my_account`
 
@@ -68,7 +68,7 @@ You can now retrieve the generated address (the hash of the public key, it start
 
 `octez-client show address my_account`
 
-The result should look like:
+The result should look like this:
 
 ```bash
 Warning:
@@ -183,7 +183,7 @@ Everything is correct: We don't have any *originated* account and only one *impl
 
 ### Transfers and receipts
 
-The command below transfers 42 ꜩ from the account *user1* to *user2* (you can use a Tezos addresses directly):
+The command below transfers 42 ꜩ from the account *user1* to *user2* (you can use Tezos addresses directly):
 
 ```bash
 octez-client transfer 42 from user1 to user2
@@ -296,7 +296,7 @@ You can observe your actions on explorers like *tzkt* or *tzstats*:
 OpenTezos has a guide on [how to use an explorer](https://opentezos.com/explorer).
 
 {% callout type="note" %}
-For a more compresensive guide on how to install Octez, including via docker images, see the [docs](https://tezos.gitlab.io/introduction/howtoget.html) by Nomadic Labs. 
+For a more comprehensive guide on how to install Octez, including via Docker images, see the [docs](https://tezos.gitlab.io/introduction/howtoget.html) by Nomadic Labs. 
 
 The above is an abridged version of the [Octez guide](https://opentezos.france-ioi.org/en/a/1332828229711949831;p=1,3556096645042535892;pa=0) found on OpenTezos.
 {% /callout %}

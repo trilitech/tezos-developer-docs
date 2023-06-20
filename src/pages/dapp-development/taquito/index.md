@@ -153,7 +153,7 @@ const tokenMetadata = await contract.tzip12().getTokenMetadata(TOKEN_ID)
 
 ## Interacting with the Tezos blockchain
 
-Taquito lets you interact with the Tezos blockchain in multiple ways, for example, by sending tez, originating new contracts, interacting with existing contracts or reading events emitted by a contract. Most of these interactions start with an instance of the `TezosToolkit`:
+Taquito lets you interact with the Tezos blockchain in multiple ways, for example, by sending tez, originating new contracts, interacting with existing contracts or reading events emitted by a contract. Most of these interactions start with an instance of the `TezosToolkit`.
 
 ### Sending tez
 
