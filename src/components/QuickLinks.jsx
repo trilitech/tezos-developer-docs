@@ -1,42 +1,76 @@
 import Link from 'next/link'
 import { Icon } from '@/components/Icon'
+import clsx from 'clsx'
 
 export function QuickLinks({ children }) {
   return (
-    <div className="not-prose grid grid-cols-1 gap-1 lg:grid-rows-[65px_repeat(5,_1fr)] lg:grid-flow-col lg:grid-cols-3 lg:gap-1">
-        <div className="relative flex items-center h-fit max-h-10 pr-4">
-          <h2 className="mt-4 font-semibold text-lg text-slate-800 uppercase dark:text-white">Tezos Basics</h2>
-        </div>
-        {children.slice(0, Math.ceil(children.length / 3))}
+    <div className="not-prose grid grid-cols-1 gap-1 lg:grid-flow-col lg:grid-cols-3 lg:grid-rows-[65px_repeat(5,_1fr)] lg:gap-1">
+      <div className="relative flex h-fit max-h-10 items-center pr-4">
+        <h2 className="mt-4 text-lg font-semibold uppercase text-slate-800 dark:text-white">
+          Tezos Basics
+        </h2>
+      </div>
+      {children.slice(0, Math.ceil(children.length / 3))}
 
-        <div className="mt-4 relative flex items-center h-fit max-h-10 pr-4">
-          <h2 className="font-semibold text-lg text-slate-800 uppercase dark:text-white">DeFi, NFTs and Gaming</h2>
-        </div>
-        {children.slice(Math.ceil(children.length / 3), Math.ceil(children.length / 3) * 2)}
+      <div className="relative mt-4 flex h-fit max-h-10 items-center pr-4">
+        <h2 className="text-lg font-semibold uppercase text-slate-800 dark:text-white">
+          DeFi, NFTs and Gaming
+        </h2>
+      </div>
+      {children.slice(
+        Math.ceil(children.length / 3),
+        Math.ceil(children.length / 3) * 2
+      )}
 
-        <div className="mt-4 relative flex items-center h-fit max-h-10 pr-4">
-          <h2 className="font-semibold text-lg text-slate-800 uppercase dark:text-white">DApp Development</h2>
-        </div>
-        {children.slice(Math.ceil(children.length / 3) * 2)}
-
+      <div className="relative mt-4 flex h-fit max-h-10 items-center pr-4">
+        <h2 className="text-lg font-semibold uppercase text-slate-800 dark:text-white">
+          DApp Development
+        </h2>
+      </div>
+      {children.slice(Math.ceil(children.length / 3) * 2)}
     </div>
   )
 }
 
-export function QuickLink({ title, description, href, icon }) {
+
+export function QuickLink({ title, description, href, icon, comingSoon }) {
+  const pathsToHideDescription = ['/tutorials', '/tooling', '/resources']
+
+
+  // if (comingSoon === "true") {
+  //   console.log('comingSoon', comingSoon);
+  // }
+  
+  const shouldHideDescription = pathsToHideDescription.some((path) =>
+    href.startsWith(path)
+  )
+
   return (
-    <div className="relative flex items-center h-fit max-h-[4.75rem] pr-4 my-2">
+    <div className="relative my-2 flex h-fit max-h-[4.75rem] items-center pr-4">
       <div className="absolute -inset-px rounded-xl border-2 border-transparent opacity-0" />
-      <div className="relative overflow-hidden rounded-xl p-2 flex justify-center h-full items-center">
-        <div className="flex-shrink-0 mr-2">
-          <Icon icon={icon} className="h-10 w-10 transition duration-250 ease-in-out transform-gpu group-hover:scale-110" />
+      <div className="relative flex h-full items-center justify-center overflow-hidden rounded-xl p-2">
+        <div className="mr-2 flex-shrink-0">
+          <Icon
+            icon={icon}
+            className="duration-250 h-10 w-10 transform-gpu transition ease-in-out group-hover:scale-110"
+          />
         </div>
         <div className="flex-grow">
-          <h2 className="mt-1 mb-1 font-display font-bold text-base text-slate-700 dark:text-white hover:text-blue-800 hover:dark:hover:text-gray-400" style={{ lineHeight: '1rem' }}>
-            {href === '' ? (
+          <h2
+            className={clsx(
+              'font-display text-base font-bold text-slate-700 hover:text-blue-800 dark:text-white hover:dark:hover:text-gray-400',
+              !shouldHideDescription ? 'mt-4' : 'mt-1 mb-3'
+            )}
+            style={{
+              lineHeight: !shouldHideDescription ? '1.5rem' : '1rem',
+            }}
+          >
+            {comingSoon === "true" ? (
               <>
-                {title}  
-                <div className="flow-root w-fit mt-0.5 items-center rounded-full bg-purple-50 px-1 py-0.5 text-xxs font-medium text-purple-700 ring-1 ring-inset ring-purple-600/10 dark:ring-white dark:bg-transparent dark:text-white">Coming Soon</div>
+                <div className="mb-0.5 flow-root w-fit items-center rounded-full bg-purple-50 px-1 py-0.5 text-xxs font-medium text-purple-700 ring-1 ring-inset ring-purple-600/10 dark:bg-transparent dark:text-white dark:ring-white">
+                  Coming Soon
+                </div>
+                {title}
               </>
             ) : (
               <Link href={href}>
@@ -45,12 +79,16 @@ export function QuickLink({ title, description, href, icon }) {
               </Link>
             )}
           </h2>
-          {/* <p className="mt-1 text-sm text-slate-700 dark:text-slate-400" style={{ height: '3rem', overflow: 'hidden' }}>
-            {description}
-          </p> */}
+          {!shouldHideDescription && (
+            <p
+              className="mt-1 text-sm text-slate-700 dark:text-slate-400"
+              style={{ height: '3rem', overflow: 'hidden' }}
+            >
+              {description}
+            </p>
+          )}
         </div>
       </div>
     </div>
   )
 }
-
