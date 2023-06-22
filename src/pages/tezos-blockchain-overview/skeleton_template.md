@@ -7,6 +7,8 @@ authors: Author One, Author Two
 
 Intro text here. This appears after the doc title (which is the "H1 heading"" for the doc). What follows is a series of "## Sections". Note that only ## and ### sections will appear on the right nav. Headings with #### or ##### are just a way to make a bold heading to distinguash a particular point, they don't appear as if they are heading a new subtopic. 
 
+**The page title will only be visible if it's included in the navigation in the Layout.jsx file.**
+
 {% callout type="note" title="Note" %}
 Optional callout here at end of the intro text. All callouts should have the "title" attribute completed. 
 {% /callout %}
@@ -98,16 +100,8 @@ Addition resources can either be with a callout if it's just one or two links. O
 
 
 {% callout type="note" title="Addtional Resources" %}
-On SmartPy's website you can find the [manual](https://smartpy.dev/docs/manual/introduction/overview) and [guides](https://smartpy.dev/docs/guides/) and explore contract examples on SmartPy's [online IDE](https://smartpy.dev/ide). In addition, see the [SmartPy material](https://opentezos.com/smartpy) on OpenTezos. 
+On SmartPy's website you can find the:
+- [manual](https://smartpy.dev/docs/manual/introduction/overview)
+- [guides](https://smartpy.dev/docs/guides/) 
+- [online IDE](https://smartpy.dev/ide). 
 {% /callout %}
-
-
-{% table %}
-* Reading
----
-* [Decentralized oracles, a comprehensive overview](https://medium.com/fabric-ventures/decentralised-oracles-a-comprehensive-overview-d3168b9a8841)
----
-* [Verifiable Oracles for Tezos by ubinetic](https://ubinetic.medium.com/oracles-by-ubinetic-1f358779425)
----
-* [DOS Network white paper](https://s3.amazonaws.com/whitepaper.dos/DOS+Network+Technical+Whitepaper.pdf)
-{% /table %}
