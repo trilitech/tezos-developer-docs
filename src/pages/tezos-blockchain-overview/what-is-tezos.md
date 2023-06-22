@@ -1,4 +1,4 @@
-# What is Tezos ?
+# What is Tezos?
 
 Tezos is a self-amending blockchain that aims to provide a more secure, efficient, and sustainable platform for decentralized applications. Tezos is built on a liquid proof-of-stake consensus mechanism, which requires users to stake their tokens through a validator (called a baker) in order to participate in the network's governance. This allows Tezos to achieve greater energy efficiency and scalability than proof-of-work blockchains like Bitcoin and Ethereum.
 
