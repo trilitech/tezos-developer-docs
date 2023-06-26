@@ -1,31 +1,20 @@
 ---
 id: smart-contracts-concepts
-title: Smart contract concepts
+title: Smart Contract Concepts
 authors: Mathias Hiron, Nomadic Labs
 ---
 
 ## Introduction
 
-The goal of this chapter is to give an overview of all the features available for Tezos Smart Contracts, independently of any specific language. It is not meant as a course to teach you how to program smart contracts. For this, we invite you to use the other content in the [Smart contracts module](/smart-contracts/simple-nft-contract-1), and the modules corresponding to each language.
+The goal of this page is to give you an overview of all the features available for Tezos Smart Contracts, independently of any specific language. We will cover the differences between smart contracts and standard programs, including what they do and don't support. By the end of this page, you should have a general understanding of what smart contracts are and how they can be used.
 
-The idea of this chapter is to make it easy for you to be aware about what is or isn't available when writing smart contracts. It doesn't intend to be a full reference and doesn't try to be exhaustive about every detail of each feature. Instead, it focuses on giving you a general understanding of what they are and how they can be used, and on making you aware of all the important aspects.
+If you'd like to learn more about each individual smart contract language, you can read the [Smart Contract Languages](/developers/docs/tezos-basics/smart-contract-languages/) section or if you are eager to get started you can [deploy your first smart contract](/developers/docs/tezos-basics/deploy-your-first-smart-contract/). 
 
-### Features in each language
+## Prerequisites
 
-Almost all of the features listed are available in each of the smart contract programming languages on Tezos. Some high-level languages provide a few additional features, to make writing contracts easier. All these extra features are however built on top of the ones listed below, as these are the only ones provided by Michelson, the low-level language that all high-level languages compile to.
+* A general understanding of programming and blockchain fundamentals, data types, storage, testing etc. 
 
-For details about the specific syntax of each language, feel free to check the corresponding reference documentations:
-
-- [Michelson](https://tezos.gitlab.io/active/michelson.html), the low-level stack-based language that all other languages compile to.
-- [Archetype](https://archetype-lang.org/docs/introduction), a high-level language specifically designed to write consise and elegant Tezos smart contracts.
-- [SmartPy](https://smartpy.io/reference.html), a python-based framework that uses meta-programming to build smart contracts.
-- [LIGO](https://ligolang.org/docs/intro/introduction), four different syntaxes that let you write smart contracts in a style you may already be familiar with.
-
-For each concept, we will provide links to the corresponding reference pages for each language.
-
-**Visualtez**: it is also possible to practice writing your smart contract without learning any specific syntax, using [VisualTez](https://visualtez.com/editor), a visual programming language dedicated to creating Tezos Smart contracts. You may check VisualTez's [documentation](https://visualtez.com/docs) to understand the basics of manipulating the user interface. As there isn't really any syntax to learn with visualtez, you can start using it as long as you have a good understanding of the main Tezos smart contract features, which the present chapter tries to help you with.
-
-### Quick access and description of each feature:
+## Smart Contract Features:
 
 - [Basic data types](#basic-data-types): to manipulate numbers (int, nat), amounts of tez, strings, booleans, addresses, timestamps and bytes.
 - [Storage](#storage): space allocated to each smart contract, to store data between different calls.
@@ -33,9 +22,9 @@ For each concept, we will provide links to the corresponding reference pages for
 - [Comparing values](#comparing-values): how values of most types can be compared for equality, or &lt;, &gt;, &le;, &ge; operators.
 - [Special values](#special-values): access to context information like the balance, the address of the caller or the current date/time.
 - [Verifications / failures](#verifications--failures): ways to check that a given contract call is valid, and what happens when it's not.
-- [Testing](#testing): tools and principles to test smart contracts thouroughly before deploying them, and reduce the risk of bugs.
+- [Testing](#testing): tools and principles to test smart contracts thoroughly before deploying them, and reduce the risk of bugs.
 - [Operations](#operations): code to transfer tez, call other contracts, or even generate new contracts.
-- [Pairs](#pairs): the main internal way to combine multiple types into a new composed type. 
+- [Pairs](#pairs): the main internal way to combine multiple types into a new composed type.
 - [Records](#records): a high-level language construct built on top of pairs, to create structured types that give names to each element.
 - [Options](#options): a way to handle values that may sometimes be undefined.
 - [Big-maps (and maps)](#big-maps-and-maps): a key-value store, to create mini-databases within your smart contracts.
@@ -54,9 +43,27 @@ For each concept, we will provide links to the corresponding reference pages for
 - [Timelocks](#timelocks): using cryptography to enable commit & reveal schemes, where the reveal part always happens.
 - [Delegation](#delegation): the ability for a contract to delegate its own balance and benefit from baking rewards.
 
+
+### Features in each language
+
+Almost all of the features listed are available in each of the smart contract programming languages on Tezos. Some high-level languages provide a few additional features which make smart contract development easier. It should be noted that any additional high-level features are in fact built on top of everything provided by Michelson. Every high-level smart contract compiles down to Michelson before deployment on-chain.
+
+For details about the specific syntax of each language, feel free to check the corresponding reference documentations:
+
+- [Michelson](/developers/docs/tezos-basics/smart-contract-languages/michelson), the low-level stack-based language that all other languages compile to.
+- [Archetype](/developers/docs/tezos-basics/smart-contract-languages/archetype), a high-level language specifically designed to write consise and elegant Tezos smart contracts.
+- [SmartPy](/developers/docs/tezos-basics/smart-contract-languages/michelson), a python-based framework that uses meta-programming to build smart contracts.
+- [LIGO](/developers/docs/tezos-basics/smart-contract-languages/michelson), with two different flavours, [JsLIGO](developers/docs/tezos-basics/smart-contract-languages/ligo/#js-ligo) and [CameLIGO](developers/docs/tezos-basics/smart-contract-languages/ligo/#came-ligo).
+
+
+{% callout type="note" title="VisualTez" %}
+[VisualTez](https://visualtez.com/editor) allows you to visualise the fundamental logic of a smart contract without relying on any specific syntax. You can use VisualTez to help you get a visual understanding of the topics covered on this page.
+{% /callout %}
+
+
 ## Basic data types
 
-Tezos supports a small number of primitive data types :
+Tezos supports a small number of primitive data types:
 
 ### int and nat
 
@@ -64,23 +71,23 @@ Integers (`int`) are whole numbers that can be positive or negative.
 
 Naturals (`nat`) are whole numbers that can only be positive or zero.
 
-Tezos differentiates the two types to help you avoid some flaws. It is often very clear whether a given value should always be positive and therefore have a nat type. Using a specific type for these situations prevents you from unknowingly performing operations that may not always return a positive number, and would potentially cause bugs.
+Tezos differentiates these two types to help you avoid some problems. In most cases, a `nat` should suffice, however having a differentiation between `int` and `nat` prevents problems arising from unknowingly performing operations that may not always return a positive number, causing bugs.
 
-On Tezos, there is no hard limit to how large nat and int values can be (positively, as well as negatively in the case of ints). The only limits are those associated with the storage and gas costs. This means you never need to worry about overflow issues.
+On Tezos, there is no hard limit to how large `nat` and `int` values can be. The only limits are those associated with the storage and gas costs. This means you never need to worry about overflow issues.
 
-You can perform the usual arithmetic operations on ints and nats:
+You can perform the usual arithmetic operations on `int` and `nat`:
 
 - getting the opposite of a number (`NEG`)
-- adding (ADD), substracting(`SUB`) or multiplying (`MUL`) two values
+- adding (`ADD`), subtracting(`SUB`) or multiplying (`MUL`) two values
 - performing an integer division between two values (`EDIV`). It returns a pair with the result and the remainder.
 
-All these can apply to both `int` and `nat`, or a mix of the two. The type of the output may not be the same as the types of the inputs, and really depends on whether the output can be negative. For example, a substraction always returns an `int`, while an addition only returns an `int` if at least one of the two operands is an `int`.
+**All** of these can apply to both `int` and `nat`, or a mix of the two. The type of the output may not be the same as the types of the inputs, and really depends on whether the output can be negative. For example, a subtraction always returns an `int`, while an addition only returns an `int` if at least one of the two operands is an `int`.
 
 You can perform bitwise logical operations: the usual `OR`, `AND`, `XOR`, `NOT`.
 
 You can also perform bitwise left and right shifts (`LSL` and `LSR`), with a parameter that indicates by how many bits you shift the value.
 
-You can also compare them, as we will see in the [Comparing values](#comparing-values) section
+You can also compare them, see [Comparing values](#comparing-values).
 
 Finally, you can convert an `int` to a `nat` or vice versa:
 
@@ -88,17 +95,11 @@ Finally, you can convert an `int` to a `nat` or vice versa:
 - you may simply convert a nat into an `int` (`INT`)
 - you can convert an `int` to an `option` on a `nat` (ISNAT), see [options](#options) for details
 
-### No decimal numbers
+### Why are decimal numbers not supported?
 
-There is no floating point type (decimal numbers) on Tezos.
+There is no floating point type (decimal numbers) on Tezos. Floating point numbers and the associated rounding errors can cause a lot of issues. Especially with Tezos protocol upgrades, floating points could be different between protocol implementations or their compiled versions on different architectures. Any difference between implementations mean that different nodes may end up with a different result for the execution of the same transactions. This would lead to inconsistencies within the blockchain, which should be avoided at all costs.
 
-This is on purpose, as floating point numbers and the associated rounding errors can be the source of many issues.
-
-First, using floating points in smart contracts makes it easy to create bugs.
-
-Differences between protocol implementations or their compiled versions on different architectures, would be much more likely with floating point numbers. Any difference between implementations mean that different nodes may end up with a different result for the execution of the same transactions. This would lead to inconsistencies within the blockchain, which would be a huge problem.
-
-Finally, code that uses floating point values is much harder to formally verify. The availability of formal verification of the protocol, its implementation and of smart contracts, is a high priority for Tezos, and supporting decimal numbers would go against this.
+Finally, code that uses floating point values is much harder to carry out formal verification. The availability of formal verification of the protocol, its implementation and of smart contracts, is a high priority for Tezos, and supporting decimal numbers would conflict with this goal.
 
 ### mutez / tez
 
@@ -108,18 +109,19 @@ Some languages also support the `tez` type, but the internal type is always the 
 
 `mutez` values, like `nat`, are whole non-negative numbers. However, contrary to `nat`, they can't hold arbitrary large values.
 
-More precisely, `mutez` are stored as signed 64 bit values. This means their value can only be between 0 and $2^{63} - 1$, which is approximately #9.223*10^18# `mutez`, and correspponds to 9 trillion tez.
+More precisely, `mutez` are stored as signed 64 bit values. This means their value can only be between {% math inline=true %} 0 {% /math %} and {% math inline=true %} 2^{63} - 1 {% /math %}, which is approximately {% math inline=true %} 9.223 \cdot 10^{18} {% /math %} `mutez`, and corresponds to 9 trillion tez.
 
-Although the actual amounts of mutez you will manipulate during transactions will be far from reaching these limits, there is still a risk of overflow, if you perform intermediate computations, such as computing the square of an amount, which would cause an overflow if the amount is a bit more than 3000 tez. If you contract ends up computing $(3100 tez)^2$ and store the result as `tez` (or `mutez`), it will simply fail.
+
+Although the actual amounts of mutez you will manipulate during transactions will be far from reaching these limits, there is still a risk of overflow, if you perform intermediate computations, such as computing the square of an amount, be careful as you might end up reaching storage limits.
 
 You can do arithmetic operations on `mutez`:
 
 - adding two mutez values (`ADD`)
-- substracting two `mutez` values (`SUB_MUTEZ`), which returns an `option`, as the result could be negative (which is not valid for `mutez`)
+- subtracting two `mutez` values (`SUB_MUTEZ`), which returns an `option`, as the result could be negative (which is not valid for `mutez`)
 - multiplying a `mutez` value with a `nat`, to get a result in `mutez` (`MUL`)
 - doing an integer division (`EDIV`)
 
-You can also compare mutez `values`. See the [Comparing values](#comparing-values) section.
+You can also compare mutez `values` - see [Comparing values](#comparing-values).
 
 ### string
 
@@ -127,16 +129,16 @@ On Tezos, a `string` is a sequence of standard non-extended [ASCII](https://en.w
 
 This means there are only 128 possible values for each character, which excludes any accented letters.
 
-Again, this is on purpose, as there is no real need for manipulating unicode characters in a smart contract, and unicode or other encoding options beyond standard ASCII cause all kinds of compatibility issues. If you really need to store unicode text, store it as bytes.
+Again, this is on purpose, as there is no real need for manipulating unicode characters in a smart contract, and unicode or other encoding options beyond standard ASCII cause all kinds of compatibility issues. If you need to store unicode text, store it as [bytes](#bytes).
 
-Like `int` and `nat`, there is no limit on the size of a `string`, other than the indirect limits caused by the associated costs.
+Like `int` and `nat`, there is no limit on the size of a `string`, other than the indirect limits caused by the associated costs of storage.
 
 There are only a few things you can do with `strings`:
 
 - concatenate two `strings` (`CONCAT`)
 - obtain the size of a `string`, as a `nat` (`SIZE`)
 - extract a substring of a `string` (`SLICE`)
-- compare two `strings` based on their lexicographical order (COMPARE). See [Comparing values](#comparing-values) section.
+- compare two `strings` based on their lexicographical order ([Comparing values](#comparing-values))
 
 ### bytes
 
@@ -156,72 +158,74 @@ Two operations are indeed possible:
 - converting any value (of supported type) into a `bytes` value (`PACK`)
 - converting a `bytes` value that encodes another type, into its original value (`UNPACK`)
 
-Doing this can be particularly useful, if you want to apply cryptographic functions to this data:
+This can be useful if you want to apply cryptographic functions to this data, say:
 
 - Computing a cryptographic hash of some data, using one of several hash functions, for example `Blake2b-256`.
 - Checking that a sequence of `bytes` has been signed with a given key
 - Applying elliptic-curve cryptographic primitives (`BLS12-381`)
 
-`bytes` are also used in [Sapling operations](#sapling)
+`bytes` are also used in [Sapling operations](#sapling).
 
 ### Boolean
 
 Booleans or `bool` on Tezos work the same way as in most programming languages.
 
-A boolean value can be `True` or `False`.
-
-Comparison operators produce boolean values.
-
-Boolean values can be used in conditional statements or `while` loops
-
-The usual logic operators are supported: `AND`, `OR`, `XOR`, `NOT`.
+* A boolean value can be `True` or `False`. 
+* Comparison operators produce boolean values. 
+* Boolean values can be used in conditional statements or `while` loops
+* The usual logic operators are supported: `AND`, `OR`, `XOR`, `NOT`.
 
 ### timestamp
 
-Dates are very important in Smart Contracts, as you often need to verify that some call is made before or after a given deadline.
+Dates are very important in smart contracts, as you often need to verify that some call is made before or after a given deadline.
 
-The `timestamp` type represents a number of seconds since January 1st 1970. Internally, it's stored as an `int`, which means a `timestamp` can have a value before January 1st 1970, arbitrary far in the past, or arbitrary far in the future.
+The `timestamp` type represents a number of seconds since January 1st 1970 i.e UNIX time. Internally, it's stored as an `int`, which means a `timestamp` can have a value before January 1st 1970, arbitrary far in the past, or arbitrary far in the future.
 
 The special instruction `NOW`, can be used to obtain the timestamp of the current block.
 
 The following operations are supported:
 
 - adding a number of seconds to a `timestamp` (`ADD`)
-- substracting a number of seconds to a `timestamp` (`SUB`)
+- subtracting a number of seconds to a `timestamp` (`SUB`)
 - computing the difference in seconds between the `timestamp` (`SUB`)
 - comparing two `timestamps` (`COMPARE`). See [Comparing values](#comparing-values) section.
 
 ### address
 
-On Tezos, each account, whether it is a user account (implicit account) or a contract (originated account), is identified uniquely by its `address`.
+On Tezos, each account, whether it is a user account (implicit account) or a contract (originated account), is uniquely identified by its `address`.
 
 It takes the form of a `string`.
 
 - for implicit accounts, the string starts with "tz1", "tz2", "tz3" or "tz4"
 - for contracts, the string starts with "KT1"
 
-The next part of the string is a Base58 encoded hash, followed by a 4-byte checksum.
+{% table %}
+* Type of Account
+* Example
+---
+* Implicit Account
+* `tz1YWK1gDPQx9N1Jh4JnmVre7xN6xhGGM4uC`
+---
+* Originated Account
+* `KT1S5hgipNSTFehZo7v81gq6fcLChbRwptqy`
+{% /table %}
 
-Example of implicit account `address`: "tz1YWK1gDPQx9N1Jh4JnmVre7xN6xhGGM4uC"
-
-Example of originated account `address`: "KT1S5hgipNSTFehZo7v81gq6fcLChbRwptqy"
+The next part of the string is a `Base58` encoded hash, followed by a 4-byte checksum.
 
 ### Other types
 
-There are a number of other types available of Tezos, that we cover in later sections, from primitive types that are quite specific to cryptography or the blockchain, to complex types and data structures.
+There are a number of other types available of Tezos, that we cover in later sections, from primitive types that are specific to cryptography, to complex types and data structures.
 
-## Links
+### External Links
 
 - Michelson: [int and nat](https://tezos.gitlab.io/active/michelson.html#operations-on-integers-and-natural-numbers), [booleans](https://tezos.gitlab.io/active/michelson.html#operations-on-booleans), [strings](https://tezos.gitlab.io/active/michelson.html#operations-on-strings), [timestamps](https://tezos.gitlab.io/active/michelson.html#operations-on-timestamps), [mutez](https://tezos.gitlab.io/active/michelson.html#operations-on-mutez).
-- Archetype: [Types basics](https://archetype-lang.org/docs/language-basics/types), [Types](https://archetype-lang.org/docs/reference/types), [Arithmetic operators](https://archetype-lang.org/docs/reference/expressions/operators/arithmetic), 
+- Archetype: [Types basics](https://archetype-lang.org/docs/language-basics/types), [Types](https://archetype-lang.org/docs/reference/types), [Arithmetic operators](https://archetype-lang.org/docs/reference/expressions/operators/arithmetic),
 - SmartPy: [integers](https://smartpy.io/docs/types/integers/), [Mutez](https://smartpy.io/docs/types/mutez/), [Booleans](https://smartpy.io/docs/types/booleans/), [Bytes](https://smartpy.io/docs/types/bytes/), [Timestamps](https://smartpy.io/docs/types/timestamps/), [Addresses](https://smartpy.io/docs/types/contracts_addresses/)
-- Ligo: [numbers and tez](https://ligolang.org/docs/language-basics/math-numbers-tez), [strings & bytes](https://ligolang.org/docs/language-basics/strings-bytes), [booleans](https://ligolang.org/docs/language-basics/boolean-if-else), 
+- LIGO: [numbers and tez](https://ligolang.org/docs/language-basics/math-numbers-tez), [strings & bytes](https://ligolang.org/docs/language-basics/strings-bytes), [booleans](https://ligolang.org/docs/language-basics/boolean-if-else)
 
 ## Storage
 
-Each contract has an associated storage: some internal data that it can read and write to.
-
-Contracts can only access to their own storage. They can't access to the storage of other contracts.
+Each contract has an associated storage: some internal data that it can read and write to. Contracts can only access to their own storage. They can't access to the storage of other contracts.
 
 On the other hand, the content of the storage of a contract, as everything on the blockchain, is public. For example, you can look at the current value of the storage of any contract, using an explorer, such as [Better Call Dev](https://better-call.dev/).
 
@@ -231,208 +235,174 @@ The only effects of calling a contract are that it may update the value of this 
 
 Here is one of the simplest possible smart contracts. It stores an `int`, and its code does only one thing: replace the storage with the new value, passed as a parameter.
 
-<table>
-<tr><td><strong>Storage</strong></td><td><strong>Code</strong></td></tr>
-<tr><td>
-	<ul>
-		<li>value: int</li>
-	</ul>
-</td>
-<td>
-	<ul>
-		<li>default(newValue: int)
-			<ul>
-				<li>Replace the storage with newValue.</li>
-			</ul>
-		</li>
-	</ul>
-</td>
-</tr>
-</table>
+Check some [examples of contracts](/developers/docs/smart-contract-topics/simplified-contracts/) to get a good idea of how storage can be used. 
 
-Check some of our [examples of contracts](/smart-contracts/simplified-contracts) to get a good idea of how the storage of contracts is used.
-
-### Links
+###  External Links
 
 - Michelson: [Semantic of contracts and transactions](https://ligolang.org/docs/advanced/entrypoints-contracts)
 - Archetype: [Storage](https://archetype-lang.org/docs/reference/declarations/storage)
-- SmartPy: [Contracts and storage](https://smartpy.io/docs/introduction/contracts/)
-- Ligo: [Main function](https://ligolang.org/docs/advanced/entrypoints-contracts)
+- SmartPy: [Contracts](https://smartpy.io/manual/syntax/overview#contracts)
+- LIGO: [Main function](https://ligolang.org/docs/advanced/entrypoints-contracts)
 
 ## Entry points
 
-The entry points of a contract represent the different ways that it can be called, a bit like different public functions of an API.
+The entry points of a contract represent the different ways that it can be called, you can think of this as a method, or as an endpoint of an API.
 
-Each entry point has a name, and a parameter that can be of almost any type supported by Tezos.
+### Specifications
 
-A contract always has at least one entry point.
+* Each entry point has a name, and a parameter that can be of almost any type supported by Tezos.
+* A contract always has at least one entry point.
+* One special entry point is the `default` entry point. 
+	* `default` doesn't take any parameter (or more specifically, its parameter is of type `Unit`). If this entry point exists, it will be executed any time the contract is called without specifying any entry point or parameter. This is in particular the case when a user or a contract simply sends some tez to the contract, as you do when sending tez to a user.
+* The code of an entry point may perform all kinds of computations, based on the value of the parameter, the value of the [storage](#storage), of a few [special values](#special-values), and the content of the [table of constants](#table-of-constants). 
+	* As described earlier, its only effects are that it may update the value of the storage of the contract, and may generate new transactions that are executed after the execution of the entry point. These transactions may include calls to other contracts, or to the contract itself (for example another entry point).
 
-One special entry point is the `default` entry point. An entry point that doesn't take any parameter (or more specifically, its parameter is of type `Unit`). If this entry point exists, it will be executed any time the contract is called without specifying any entry point or parameter. This is in particular the case when a user or a contract simply sends some tez to the contract, as you do when sending tez to a user.
-
-The code of an entry point may perform all kinds of computations, based on the value of the parameter, the value of the [storage](#storage), of a few [special values](#special-values), and the content of the [table of constants](#table-of-constants). As described earlier, its only effects are that it may update the value of the storage of the contract, and may generate new transactions that are executed after the execution of the entry point. These transactions may include calls to other contracts, or to the contract itself (for example another entry point).
-
-Internally, entry points are implemented using a variant (see [variant section](#variants--unions)), and the contract contains only one piece of code, that starts with some code that selects which part of the code to run, depending on the value of the variant. In Michelson, the different values of the variant are annotated with the name of the corresponding entry point.
+Internally, entry points are implemented using a variant, and the contract contains only one piece of code, that starts with some code that selects which part of the code to run, depending on the value of the variant. In Michelson, the different values of the variant are annotated with the name of the corresponding entry point.
 
 When calling a smart contract, for example through the `octez-client` tool, you may either provide the full parameter as a variant, or specify the name of the entry point, and the corresponding parameter value.
 
 Here is a very basic example of contract with two entry points:
-- add takes an `int` as a parameter, and adds it to the previous value of the storage
-- reset takes no parameter, and replaces the storage with 0.
 
-<table>
-<tr><td><strong>Storage</strong></td><td><strong>Code</strong></td></tr>
-<tr><td>
-	<ul>
-		<li>value: int</li>
-	</ul>
-</td>
-<td>
-	<ul>
-		<li>add(addedValue: int)
-			<ul>
-				<li>Replace the storage with value + addedValue.</li>
-			</ul>
-		</li>
-		<li>reset()
-			<ul>
-				<li>Replace the storage with 0.</li>
-			</ul>
-		</li>
-	</ul>
-</td>
-</tr>
-</table>
+{% table %}
+* Entry Point
+* Example
+---
+* `add`
+* `add` takes an `int` as a parameter, and adds it to the previous value of the storage
+---
+* `reset`
+*  `reset` takes no parameter, and replaces the storage with 0.
+{% /table %}
 
-Check some of our [examples of contracts](/smart-contracts/simplified-contracts) to get a good idea of how entry points are used.
+Check some [examples of contracts](/developers/docs/smart-contract-topics/simplified-contracts/) to get a good idea of how entry points are used.
 
 ### Links
 
-- Michelson: [Entrypoints](https://tezos.gitlab.io/active/michelson.html#entrypoints)
+- Michelson: [Entrypoint](https://tezos.gitlab.io/active/michelson.html#entrypoints)
 - Archetype: [Entrypoint](https://archetype-lang.org/docs/reference/declarations/entrypoint)
 - SmartPy: [entry_points](https://smartpy.io/docs/introduction/entry_points/)
 - Ligo: [Main function and Entrypoints](https://ligolang.org/docs/advanced/entrypoints-contracts)
 
 ## Comparing values
 
-Two values of the same type can be compared, for a number of supported types (listed below).
+Two values of the same type can be compared, for a number of supported types.
 
-The usual comparison operators apply: `=`, `!=` (different), `<`, `>`, `≤` and `≥`. The syntax depends on the language used.
+* The usual comparison operators apply: `=`, `!=` (different), `<`, `>`, `≤` and `≥`.
+* The syntax depends on the language used.
+* Comparing two values produces a `bool`, that can then be used in many ways, including conditional instructions or as a criteria for terminating loops.
 
-Comparing two values produces a `bool`, that can then be used in many ways, including conditional instructions or as a criteria for terminating loops.
-
-The result depends on the type. Here is the list of types that can be compared, and how their comparison behaves. Note that this includes types that are presented later in this document.
+The result depends on the type. Here is the list of types that can be compared, and how their comparison behaves. Note that this includes types that are discussed later.
 
 - `nat`, `int`, `mutez` and `timestamp` values are compared numerically.
 - `strings`, `bytes`, `key_hash`, `key`, `signature` and `chain_id` values are compared lexicographically.
 - `bool` values are compared so that `False` is strictly less than `True`.
 - `address` values are compared as follows:
-	- addresses of implicit accounts are strictly less than addresses of originated accounts.
-	- addresses of the same type are compared lexicographically.
+  - addresses of implicit accounts are strictly less than addresses of originated accounts.
+  - addresses of the same type are compared lexicographically.
 - `pair` values (and therefore `records`) are compared component by component, starting with the first component.
 - `optional values` are compared as follows:
-	- `None` is strictly less than any `Some x`.
-	- `Some x` and `Some y` are compared as `x` and `y`.
+  - `None` is strictly less than any `Some x`.
+  - `Some x` and `Some y` are compared as `x` and `y`.
 - Values of `union` types built with `or` are compared as follows:
-	- any `Left x` is smaller than any `Right y`,
-	- `Left x` and `Left y` are compared as `x` and `y`,
-	- `Right x` and `Right y` are compared as `x` and `y`.
+  - any `Left x` is smaller than any `Right y`,
+  - `Left x` and `Left y` are compared as `x` and `y`,
+  - `Right x` and `Right y` are compared as `x` and `y`.
 - Values of type `Unit` are all equal.
 
-In high level languages, we simply do comparisons using the different operators. In the lower-level Michelson language, comparisons are done using two steps: a `COMPARE` instruction that consumes two values and produces a value that is 0 if the two elements are equal, negative if the first element in the stack is less than the second, and positive otherwise. Then instructions `EQ` (equal), `NEQ` (not equal), `LT` (lower than), `GT` (greater than), `LE` (lower or equal) and `GE` (greater or equal) that consume this value, and return the corresponding `bool`.
+In high level languages, we simply do comparisons using the different operators. In Michelson, comparisons are done using two steps: a `COMPARE` instruction that consumes two values and produces a value that is 0 if the two elements are equal, negative if the first element in the stack is less than the second, and positive otherwise. Then instructions `EQ` (equal), `NEQ` (not equal), `LT` (lower than), `GT` (greater than), `LE` (lower or equal) and `GE` (greater or equal) that consume this value, and return the corresponding `bool`.
 
 ### Links
 
 - Michelson: [Generic comparison](https://tezos.gitlab.io/active/michelson.html#generic-comparison)
 - Archetype: [Comparison operators](https://archetype-lang.org/docs/reference/expressions/operators/arithmetic#a--b-7)
-- SmartPy: [Comparison operators](https://smartpy.io/docs/types/comparison_operators/)
+- SmartPy: [Comparing sp.int and sp.nat](https://smartpy.io/manual/syntax/integers-and-mutez#comparison)
 - Ligo: [Comparing values](https://ligolang.org/docs/language-basics/boolean-if-else#comparing-values)
-
 
 ## Special values
 
-The code of a contract can use a small number of special values, relative to the execution context:
+The code of a contract can access some special values:
 
 - `caller`: the address of the direct caller of the current entry point.
 
-	This value is very often used, for two main reasons:
-	- to check if whoever is calling this entry point is allowed to do so. For example, only a member of a DAO may call its vote entry point. Only the owner of an NFT may call an addToMarket entry point of a marketplace, to put that NFT on sale.
-	- to assign or transfer resources to the `caller`, or store information about them. For example, a user may call a buy entry point of an NFT market place, and assuming they sent the right amount of tez, they will be assigned ownership of the NFT they try to buy. This is done by storing the `caller` address in the `record` associated with the NFT.
+  This value is very often used, for two main reasons:
 
-- `source`: the address of the initiator of the sequenece of calls that lead to this entry point. For example if we have a user A, that calls a contract B, that calls a contract C, that calls a contract D:
+  - to check if whoever is calling this entry point is allowed to do so. For example, only a member of a DAO may call its vote entry point. Only the owner of an NFT may call an `addToMarket` entry point of a marketplace, to put that NFT on sale.
+  - to assign or transfer resources to the `caller`, or store information about them. For example, a user may call a `buy` entry point of an NFT marketplace, and subsequently they will be assigned ownership of the NFT. This is done by storing the `caller` address in the `record` associated with the NFT.
 
-	A -> B -> C -> D
-	
-	Then during the execution of D, `source` is the address of A, while `caller` is the address of C.
-	
-	Note that it is usually a bad idea to use `source` in a contract, as a way to check if the call is allowed. Using `caller` is much safer.
+- `source`: the address of the initiator of the sequence of calls that lead to this entry point. For example if we have user A, which calls a contract B, which in turn calls contract C.
+
+  A -> B -> C
+
+  Then during the execution of C, `source` is the address of A, while `caller` is the address of B.
+  
+{% callout type="warning" title="Access Permissions" %}
+It is best practice to implement permissioning based on `caller` as opposed to `source`. This is because any implicit account can call any entry point on Tezos, so you would need to apply security at the `caller` level.
+{% /callout %}
 
 - `self`: the address of the contract itself. This can be useful for example, when an entry point should only be called by the contract itself. The check is then that `caller` = `self`.
 
+- `balance`: this is simply the balance of the contract: the amount of `tez` (in `mutez`) including the `tez` that have been transferred to the contract by the current transaction.
 
-- `balance`: this is simply the balance of the contract: the number of `tez` (technically, `mutez`) that are currently owned by the contract, including the `tez` that have been transferred to the contract by the current transaction.
+- `amount`: this is the number of `tez` that has been transferred to the contract during the current transaction.
 
-	Note that the `balance` never changes during the execution of the entry point, as any transactions generated by the entry point are executed after the execution of the code of the entry point is over.
+  * These `tez` are added to the `balance`, *except* if the execution ends in a failure.
+  * The name `transferred` may also be used, to identify this value, in some languages.
 
-- `amount`: this is the number of `tez` that have been transferred to the contract as part of the current transaction.
-
-	The name `transferred` may also be used, to identify this value, in some languages.
-
-	Note that by default, an entry point automatically accepts any `tez` that is sent to it. It can be a good idea for some contracts to reject any transfer of `tez`, by verifying that this value is 0, if the purpose of the entry point is not to receive `tez`.
-
-	On Tezos (see transactions), these `tez` are added to the `balance`, except if the execution ends in a failure (see [section on failures](#verifications--failures))
+{% callout type="note" title="Rejecting Tez" %}
+By default, an entry point automatically accepts any `tez` that is sent to it. It can be a good idea for some contracts to reject any transfer of `tez`, by verifying that this value is 0.
+{% /callout %}
 
 - `now`: the `timestamp` of the current block. This value is the same during the execution of all of the contracts calls from the same block.
 
-	Techincally, this value is equal to the "actual" `timestamp` of the previous block, plus <:MINIMAL_BLOCK_DELAY:> seconds (the expected duration between two blocks). This prevents the baker of the current block from manipulating this value, while making it as predictable by everyone.
+   * Technically, this value is equal to the "actual" `timestamp` of the previous block, plus the minimum block delay (the expected duration between two blocks). This prevents the baker of the current block from manipulating this value, while keeping it predictable to everyone.
 
-	This value is often used to check deadlines, for exemple if someone has to vote before a certain date.
-	
+  This value is often used to check deadlines, for example, if someone has to vote before a certain date.
+
 - `level`: the level of a block corresponds to the number of blocks in the chain since the beginning of the chain (genesis block) until that block. It increments by one for each new block.
 
 ### Links
 
 - Michelson: [Special operations](https://tezos.gitlab.io/active/michelson.html#special-operations), [Operations on contracts](https://tezos.gitlab.io/active/michelson.html#operations-on-contracts).
-- Archetype: [Constants](https://archetype-lang.org/docs/reference/expressions/constants/#now), [Sections](https://tezos.gitlab.io/active/michelson.html#operations-on-contracts).
-- SmartPy: [Global properties](https://smartpy.io/docs/general/block_properties/)
+- Archetype: [Constants](https://archetype-lang.org/docs/reference/expressions/constants/#now)
+- SmartPy: [Timestamps](https://smartpy.io/manual/syntax/timestamps)
 - Ligo: [Tezos](https://ligolang.org/docs/reference/current-reference), [Tezos specific built-ins](https://ligolang.org/docs/advanced/entrypoints-contracts#tezos-specific-built-ins), [Tezos.now](https://ligolang.org/docs/advanced/timestamps-addresses#starting-time-of-the-current-block).
 
 ## Verifications / failures
 
-Most smart contract entry points start with instructions such as:
+Most smart contract entry points start with a check on a specific condition being met. For example:
 
-- check that this condition is met
-
-For example:
 - check that the `caller` is the owner of the NFT whose ID is passed as a parameter
 - check that the curent time, `now`, is before the deadline set in the storage
 - check that the `amount` transferred is equal to the price of the NFT with that ID
 
 Technically, each of these can be expressed as:
+
 - if comparison is `False`, then `fail`
 
-The way to write this differs from language to language, and can be done in one or more instructions.
-
-In all cases, it ends with a `failure` if the expected condition is not met.
+The way to write this differs from language to language, and can be done in one or more instructions and in all cases, it ends with a `failure` if the expected condition is not met.
 
 On Tezos, a failure means that the execution of the contract is immediately stopped, and all its potential effects are cancelled. If you are familiar with databases, we can say that the effects are rolled back. It is as if they had never happened, so the storage of the contract is not changed, and neither is its `balance`.
 
-Not only that, but if the contract was called by another contract, or if it generated a call to another contract, all these are cancelled as well. The entire execution of everything from the initial contract call by a user, to the failure of this contract, is undone.
+Furthermore, if the contract was called by another contract, or if it generated a call to another contract, all these are cancelled as well. The entire execution of everything, from the initial contract call by a user to the failure, is undone.
 
-This is a double edged sword with positive and negative impacts that you need to keep in mind when designing a contract:
+This is a double edged sword that you need to keep in mind when designing a contract:
+
 - **positive impact**: if something doesn't happen as intented and a single failure happens somewhere during a contract call or subsequent calls it produces, nothing at all happens, and you don't end up in an inconsistent state corresponding to a partial execution.
-- **negative impact**: it only takes one small issue in one of the contracts called as a consequence of your initial call, for everything you wanted to happen to be undone. In some cases, this could mean your contract becomes completely unusable.
+- **negative impact**: it only takes one small issue in one of the contracts called as a consequence of your initial call, for everything you wanted to happen to be undone. In some cases, this could mean your contract becomes unusable.
 
 ### Error values
 
 To help users of a contract, or tools that use that contract, understand what went wrong when a failure happens, an error value can be attached to each failure.
 
-The typical error value is simply a string, that contains an error message, for example, "The deadline expired".
-
-Internally, all kinds of error values can be produced, including an integer, a record, etc. This may or may not be supported by the language you are using.
-
+{% callout type="note" title="Using Error Values" %}
 The error value is only meant to be used off-chain, as information to identify the cause of the error. Nothing can be done with it on-chain, as nothing at all ends up happening on-chain, if an error is ever produced.
+{% /callout %}
 
-In particular, the error value is often used when testing your contracts, where the test verifies that a specific invalid call produces a specific error.
+ * The typical error value is simply a string, that contains an error message, for example, `Error: deadline has expired`.
+
+ * Internally, all kinds of error values can be produced, including an integer, a record, etc. This exact types supported depend on the language you are using.
+
+In particular, the error value is often used when [testing](#testing) your contracts, where the test verifies that a specific invalid call produces a specific error.
 
 ### No exceptions
 
@@ -451,187 +421,169 @@ Here are a few examples:
 - Generating a transaction, where the `amount` of `tez` transferred is greater than the `balance` of the contract that creates the transaction.
 - Generating a transaction, for an address that doesn't exist.
 
-There aren't too many of these, as most instructions that could cause an error use options as their return values, which allows (and also forces) you to explicitly handle the error case.
+There aren't too many of these cases, as most instructions that could cause an error use options as their return values, which allows (and also forces) you to explicitly handle the error case.
 
 This is for example the case for `ediv`, the instruction for integer division, which returns an option, with the value `None`, if you attempt to perform a division by zero.
 
 ### Links
 
-- Michelson: [Failures](https://tezos.gitlab.io/active/michelson.html#failures), [Control structures](https://tezos.gitlab.io/active/michelson.html#control-structures), [FAIL](https://tezos.gitlab.io/active/michelson.html#fail), [Assertion macros](https://tezos.gitlab.io/active/michelson.html#assertion-macros), 
-- Archetype: [require](https://archetype-lang.org/docs/reference/declarations/entrypoint/#require), [fail if](https://archetype-lang.org/docs/reference/declarations/entrypoint/#fail-if).
-- SmartPy: [Checking conditions](https://smartpy.io/docs/general/checking_condition/).
-- Ligo: [Exceptions](https://ligolang.org/docs/language-basics/exceptions).
+* Michelson: 
+	* [Failures](https://tezos.gitlab.io/active/michelson.html#failures)
+	* [Control structures](https://tezos.gitlab.io/active/michelson.html#control-structures)
+	* [FAIL](https://tezos.gitlab.io/active/michelson.html#fail)
+	* [Assertion macros](https://tezos.gitlab.io/active/michelson.html#assertion-macros),
+* Archetype: [require](https://archetype-lang.org/docs/reference/declarations/entrypoint/#require), [fail if](https://archetype-lang.org/docs/reference/declarations/entrypoint/#fail-if).
+* SmartPy: [Exceptions](https://smartpy.io/manual/scenarios/testing_contracts#exceptions).
+* Ligo: [Exceptions](https://ligolang.org/docs/language-basics/exceptions).
 
 ## Testing
 
-The hardest part, by far, of writing smart contracts, is to avoid any bugs or flaws, that can either lead to funds or other assets getting lost or stuck in a contract, or that malicious users can exploit for their own profit, at the expense of legitimate users.
+The hardest part, by far, of writing smart contracts, is avoiding bugs, that can either lead to assets being lost or stuck. Even though most contracts are relatively small, compared to regular software applications, but as they are executed in an adversarial environment, with high financial stakes, the potential for bugs with dramatic consequences is high. 
 
-Most contracts are relatively small, compared to regular software applications, but as they are executed in an adversarial environment, with very high financial (or other) stakes, the potential for bugs with dramatic consequences is high. Many entities, including bots, try to find ways go make a profit, using flaws in the smart contracts. As contracts can't easily be fixed when a bug is found, these bugs absolutely need to be detected before the contract is deployed.
+ * Due to the public nature of the blockchain, malicious users can exploit for these bugs for their own profit, at the expense of legitimate users. 
+ * Due to the immutable nature of contracts (even with upgradeability), it is best to test your smart contracts *extensively* before production deployment.
 
-For this reason, a lot of the time spend working on smart contract, is spent on testing that the contract works well in all situations.
-
-High-level languages come with tools to help write tests, and some testing tools can be used independently of the language used to write the smart contract.
+High-level languages come with tools to help write tests, and some testing tools can be used independently of the language used to write the smart contract. You can see for example, in [SmartPy](https://smartpy.io/manual/scenarios/overview), there is a whole syntax dedicated to testing. 
 
 ### Structure of a test scenario
 
 A test scenario usually consists of the following:
+
 - Instructions to deploy the contract with a given initial storage and balance.
 - Valid calls to entry points, with different parameters and context information such as:
-	- the address of the `caller`
-	- the amount of `tez` sent
-	- the `timestamp` of the block (value of `now` during the call)
-	- the `level` of the block
+  - the address of the `caller`
+  - the amount of `tez` sent
+  - the `timestamp` of the block (value of `now` during the call)
+  - the `level` of the block
 - Verification of the value of the storage or `balance`, after each execution of an entry point.
 - Invalid calls to entry points, with the indication that they are expected to fail.
 - Verification of the error caused by these invalid calls.
 
 When executed, the test scenario is successful if all verifications are correct, and all invalid calls fail with the expected errors.
 
-More advanced scenarios may involve the deployment and calls to multiple contracts.
+More advanced scenarios may involve a local sandbox deployment and calls to multiple contracts to test interactions.
 
 ### Programming languages for testing
 
-The test scenarios are usually written using a full classical programming language, such as javascript or python, with a library that gives you access to special features to:
+The test scenarios are usually written using a full classical programming language, such as JavaScript or Python, with a library that gives you access to special features to:
+
 - deploy contracts
 - make calls to entry points
 - manipulate all the types/values supported by Tezos
 - generate testing accounts, to simulate calls from multiple accounts
 - perform cryptographic computations similar to the ones available in the contract
 
-Often, the program written to test a smart contract, is much longer than the contract itself.
-
 ### Rules when testing
 
-Testing a contract thouroughly is not easy and requires experience, but we can list a few key rules you should follow:
+Testing a contract thoroughly is not easy and requires experience, here are some tips to follow when getting started:
 
-- Make sure the person(s) writing the test to be different from the person(s) writing the contract, and as much as possible. Otherwise, they may simply make the same mistakes both in the contract an in the test.
-- Write the test, first without looking at the implementation of the contract, again, to avoid copying mistakes.
+- Write the test, first without looking at the implementation of the contract, again, to avoid copying mistakes
+- If possible, have another developer write the test to avoid testing semantic errors incorrectly
 - Make sure to cover every possible execution path, whether it's valid or invalid
-- Create many small tests, each checking something very specific, rather than a long test that tries to do many things at once, a bit randomly.
+- Create many small tests, each checking something very specific, rather than a long test that tries to do many things at once
 - Test around the limits. If a value should be strictly above 10, include a call with the value 10 that should fail, and a call with the value 11 that should succeed.
-- Test the extremes. 
-- Check our [Avoiding flaws](/smart-contracts/avoiding-flaws) chapter, and make sure you follow all the best practice listed there.
+- Test the extremes
+- See [Avoiding flaws](developers/docs/smart-contract-topics/avoiding-flaws/), and make sure to follow the best practices listed there
 
 ### Links
 
 - Michelson: [Mockup mode](https://tezos.gitlab.io/user/mockup.html).
 - Archetype: [Completium test scenario](https://completium.com/docs/contract/test-scenario).
-- SmartPy: [Tests and scenarios](https://smartpy.io/docs/scenarios/framework/).
+- SmartPy: [Tests and scenarios](https://smartpy.io/manual/scenarios/overview).
 - Ligo: [Testing Ligo](https://ligolang.org/docs/advanced/testing).
 
 ## Operations
 
 Remember that the execution of the code of an entry point can have only two effects:
+
 - Changing the value of the storage of the contract.
-- Generating new operations that will be executed after the contract.
+- Generating new operations that will be executed after the entry point execution is over.
 
 There are a number of types of operations that can be generated by a smart contract:
-- Transfering `tez` to an account, or to a smart contract entry point to be called (`TRANSFER_TOKENS`).
+
+- Transferring `tez` to an account, or to a smart contract entry point to be called (`TRANSFER_TOKENS`).
 - Originating a new smart contract (`CREATE_CONTRACT`).
 - Setting the delegate of the current smart contract (`SET_DELEGATE`)
 
-Only the first type is technically a `transaction`, but the terms `operation` and `transaction` are often used interchangably in courses, documentations or tools. Don't worry too much about the difference.
+Only the first type is technically a `transaction`, but the terms `operation` and `transaction` are often used interchangeably in courses, documentations or tools. Don't worry too much about the difference.
 
-Note that sending `tez` to an address is only a special case of calling a smart contract. However, some languages have a specific syntax for simply sending `tez`, different from the syntax to call a smart contract entry point. One thing to remember is that a call to a smart contract always includes a transfer of a certain amount of `tez`, even if that amount may be zero.
+
+{% callout type="note" title="Sending Tez" %}
+Sending `tez` to an address is just a special case of calling a smart contract (via the `default` entry point). However, some languages have a specific syntax for simply sending `tez`, different from the syntax to call a smart contract entry point. One thing to remember is that a call to a smart contract always includes a transfer of a certain amount of `tez`, even if that amount is zero.
+{% /callout %}
+
 
 ### Order of execution
 
-The code of a contract never directly executes an `operation`, or even a transfer of tez. These operations are simply added to a list, and the content of this list is then puhsed to a stack of operations to be performed after the execution of the code of the entry point is over.
+The code of a contract never directly executes an `operation`, or even a transfer of `tez`. These operations are simply added to a list, and the content of this list is then pushed to a stack of operations to be performed after the execution of the code of the entry point is over.
 
 The operations generated by a contract are executed in the order they have been added to the list. All the operations generated by a contract, and the operations these end up generating, are executed before any other operations previously added to the stack.
 
-Let's take an example with three simple contracts A, B and C:
+### Example Operations
 
-<table>
-<tr><td colspan="2"><strong>Contract A</strong></td></tr>
-<tr><td><strong>Storage</strong></td><td><strong>Code</strong></td></tr>
-<tr><td>
-	<ul>
-		<li>text: string</li>
-	</ul>
-</td>
-<td>
-	<ul>
-		<li>start()
-			<ul>
-				<li>Replace text with "Start A,".</li>
-				<li>Generate call to B.start()</li>
-				<li>Generate call to C.start()</li>
-				<li>Add "End A" to text</li>
-			</ul>
-		</li><br/>
-	</ul>
-</td>
-</tr>
-</table>
+Let's take an example with three simple contracts **A**, **B** and **C**:
 
-<table>
-<tr><td colspan="2"><strong>Contract B</strong></td></tr>
-<tr><td><strong>Storage</strong></td><td><strong>Code</strong></td></tr>
-<tr><td>
-	<ul>
-	</ul>
-</td>
-<td>
-	<ul>
-		<li>start()
-			<ul>
-				<li>Generate call to A.add("Start B,")</li>
-				<li>Generate call to A.add("End B,")</li>
-			</ul>
-		</li>
-	</ul>
-</td>
-</tr>
-</table>
+Contract A's storage consists of `text: string`, and each contract has an entrypoint called `start()`.
 
-<table>
-<tr><td colspan="2"><strong>Contract C</strong></td></tr>
-<tr><td><strong>Storage</strong></td><td><strong>Code</strong></td></tr>
-<tr><td>
-	<ul>
-	</ul>
-</td>
-<td>
-	<ul>
-		<li>start()
-			<ul>
-				<li>Generate call to A.add("Start C,")</li>
-				<li>Generate call to A.add("End C,")</li>
-			</ul>
-		</li>
-	</ul>
-</td>
-</tr>
-</table>
+{% table %}
+
+* **Entrypoint Logic** {% colspan=3 %}
+---
+* **Entrypoint A**
+* **Entrypoint B**
+* **Entrypoint C**
+---
+* {% list type="checkmark" %}
+  * `start()`:
+	  * Replace text with "Start A,"
+	  * Call **B**.start()
+	  * Call **C**.start()
+	  * Append "End A" to text
+  {% /list %}
+* {% list type="checkmark" %}
+  * `start()`:
+      * Call **A**.add("Start B,")
+	  * Call **A**.add("End B,")
+  {% /list %}
+* {% list type="checkmark" %}
+  * `start()`:
+	  * Call **A**.add("Start C,")
+	  * Call **A**.add("End C,")
+  {% /list %}
+{% /table %}
 
 
-If a user calls A.start(), the following will happen:
-- A.start() will execute and :
-	- replace its storage with "Start A,"
-	- add operation B.start() to its list of operations
-	- add operation C.start() to its list of operations
-	- add "End A," to its storage, which becomes "Start A,End A"
-	- push the operations from the list [B.start(), C.start()] to the stack. B.start() ends up on top.
-- B.start() will execute and:
-	- add operation A.add("Start B,") to its list of operations
-	- add operation A.add("End B,") to its list of operations
-	- push the operations from the list [A.add("Start B,"), A.add("End B,")] to the stack.
-- A.add("Start B") will execute and:
-	- replace its storage with "Start A,End A,Start B,"
-- A.add("End B") will execute and:
-	- replace its storage with "Start A,End A,Start B,End B,"
-- C.start() will execute and:
-	- add operation A.add("Start C,") to its list of operations
-	- add operation A.add("End C,") to its list of operations
-	- push the operations from the list [A.add("Start C,"), A.add("End C,")] to the stack.
-- A.add("Start C") will execute and:
-	- replace its storage with "Start A,End A,Start B,End B,Start C,"
-- A.add("End C") will execute and:
-	- replace its storage with "Start A,End A,Start B,End B,Start C, End C,"
+### Operation Walkthrough
+
+If a user calls `A.start()`, the following will happen:
+
+* `A.start()` will execute:
+  * replace its storage with `"Start A,"`
+  * add operation `B.start()` to list of operations
+  * add operation `C.start()` to list of operations
+  * add `"End A,"` to its storage, which becomes `"Start A, End A"`
+  * push the operations from the list `[B.start(), C.start()]` to the stack
+	  * `B.start()` ends up on top
+* `B.start()` will execute and:
+  * add operation `A.add("Start B,")` to list of operations
+  * add operation `A.add("End B,")` to list of operations
+  * push the operations from the list `[A.add("Start B,"), A.add("End B,")]` to the stack
+* `A.add("Start B")` will execute:
+  * replace its storage with `"Start A,End A,Start B,"`
+* `A.add("End B")` will execute and:
+  * replace its storage with `"Start A,End A,Start B,End B,"`
+* `C.start()` will execute and:
+  * add operation `A.add("Start C,")` to its list of operations
+  * add operation `A.add("End C,")` to its list of operations
+  * push the operations from the list `[A.add("Start C,"), A.add("End C,")]` to the stack
+* `A.add("Start C")` will execute and:
+  * replace its storage with `"Start A,End A,Start B,End B,Start C,"`
+* `A.add("End C")` will execute and:
+  * replace its storage with `"Start A,End A,Start B,End B,Start C, End C,"`
 
 To summarize:
-- All of the instructions from an entry point will be executed before the operations it generates get executed
+
+- All of the instructions from an entry point will be executed first before the operations it itself generates are executed
 - If a contract A generates a call to a contract B then a call to a contract C, all the operations generated by B will be executed before contract C is executed.
 - If any of these calls cause a failure, everything is cancelled.
 
@@ -640,7 +592,7 @@ To summarize:
 - Michelson: [Operations on contracts](https://tezos.gitlab.io/active/michelson.html#operations-on-contracts).
 - Archetype: [Operation](https://archetype-lang.org/docs/reference/instructions/operation)
 - Ligo: [Inter-contract invocations](https://ligolang.org/docs/advanced/entrypoints-contracts#inter-contract-invocations)
-- SmartPy: [Contracts and addresses](https://smartpy.io/docs/types/contracts_addresses/), [Operations and transactions](https://smartpy.io/docs/types/operations/).
+- SmartPy: [Operations](https://smartpy.io/manual/syntax/operations)
 
 ## Pairs
 
@@ -660,25 +612,24 @@ The most common way to nest pairs on Tezos is to create a right comb: a pair, wh
 
 For example, if we want to store an int, a string, and bool using pairs, we can create this right comb:
 
-	(int, (string, bool)
+    (int, (string, bool)
 
 And for example have this value:
 
-	{-42; {"Hello"; True}}
+    {-42; {"Hello"; True}}
 
 If we also want to add another int, we could use this right comb:
 
-	(int, (string, (bool, int))
+    (int, (string, (bool, int))
 
 And have this value:
-	
-	{-42; {"Hello"; {True; 21}}}
+{-42; {"Hello"; {True; 21}}}
 
 This is basically a way to create a Tuple (a sequence of elements of different types), using only pairs.
 
 As right combs are used very often in Michelson, there are shorter ways to express this, such as this notation:
 
-	{42; "Hello"; True; 21}
+    {42; "Hello"; True; 21}
 
 ### Binary trees
 
@@ -686,7 +637,7 @@ Another way to use pairs to combine multiple values, is to use a binary tree lay
 
 For example, for our four elements, we can use this binary tree:
 
-	{{-42; "Hello"}; {True; 21}}
+    {{-42; "Hello"}; {True; 21}}
 
 The binary tree layout has the advantage that it makes it faster to access an arbitrary element. For example if we want to access the last element, we can get the second element of the main pair, {True; 21}, then the second element of that pair, 21. If the tree is balanced, the number of operations to get to any element is O(log<sub>2</sub>(size)), whereas for a right comb, it's O(size).
 
@@ -697,42 +648,40 @@ The binary tree layout has the advantage that it makes it faster to access an ar
 - SmartPy: [Pairs](https://smartpy.io/docs/types/pairs/)
 - Archetype: [Composite types](https://archetype-lang.org/docs/language-basics/composite#tuple), [Tuple](https://archetype-lang.org/docs/reference/types#tuple)
 
-
-
 ## Records
 
-High level languages offer a way to create types that combine multiple elements, that is much more convenient than using pairs: `records`. 
+High level languages offer a way to create types that combine multiple elements, that is much more convenient than using pairs: `records`.
 
 With `records`, each element gets a name, which makes it much easier to use, as you don't need to remember which element means what, or even make mistakes, as you can simply identify them by their name.
 
 The way to express a `record` will depend on the language. Here, we will simply represent the type like this:
 
-	type person: record
-	- age: nat
-	- name: string
-	- registered: bool
+    type person: record
+    - age: nat
+    - name: string
+    - registered: bool
 
 And a value of this type like this:
 
-	person: record
-	- age: 21
-	- name: "Laura"
-	- registered: True
+    person: record
+    - age: 21
+    - name: "Laura"
+    - registered: True
 
-When compiled to Michelson, `records` will be represented using nested `pairs` and `annotations` (see [annotations section](#annotations)) to assign a name to them. 
+When compiled to Michelson, `records` will be represented using nested `pairs` and `annotations` (see [annotations section](#annotations)) to assign a name to them.
 
 Records can usally be nested. For example we could add an `address` as a `record`, to our Person `record`:
 
-	type person: record
-	- age: nat
-	- name: string
-	- registered: bool
-	- homeAddress: record
-		- number: nat
-		- street: string
-		- city: string
-		- zipcode: nat
-		- country: string
+    type person: record
+    - age: nat
+    - name: string
+    - registered: bool
+    - homeAddress: record
+    	- number: nat
+    	- street: string
+    	- city: string
+    	- zipcode: nat
+    	- country: string
 
 ### Links
 
@@ -749,12 +698,14 @@ Regular types don't provide this possibility, and for example, an `int` will alw
 An `option` is a special type dedicated precisely to this possibility. It is like a container, that may or may not contain a value of a given type. It is possible to create an `option` type, that is associated to almost any other type.
 
 For example, an `option` on an `int`, which type can be noted `option<int>` could either contain:
+
 - some `int` value, for example 42. We can express this as `Some(42)`
 - no value at all. We can express this as `None`
 
 Every time you manipulate the value within an `option`, you need to check if it contains some value, or none.
 
 The features available for options are:
+
 - Creating an option that contains a given value (`SOME`).
 - Creating an option that contains nothing (`NONE`).
 - Testing if an option contains something or none (`IF_NONE`).
@@ -765,6 +716,7 @@ The features available for options are:
 Options are used a lot for operations that can't always provide a result. This is much better than causing a `failure`, as this offers an opporunity for the author of the smart contract to handle the situation where no result is available. Even better, it forces them to do so, which helps avoid some issues.
 
 Here are a few examples where an `option` is used:
+
 - Converting an `int` to a `nat` returns an `option`, which is `None` if the `int` is negative.
 - Dividing (`EDIV`), returns `None` when trying to divide by zero.
 - Extracting a portion of a `string` or a `bytes` value returns `None` if the extract is beyond the bounds of the `string` or `bytes`.
@@ -779,6 +731,7 @@ Using an `option` is convenient when you really need it, but it makes the corres
 When all you need is to store an initial value, before you get some data, it may be much more convenient to initialize your storage with an arbitrary value that always works.
 
 Here are a couple of examples:
+
 - For a `timestamp`, consider initializing it with epoch: January 1st, 1970
 - For an `address`, consider initializing it with the owner of the contract. Alternatively (but harder to undestand without comments), you could use the special null address, `"KT18amZmM5W7qDWVt2pH6uj7sCEd3kbzLrHT"`, that will never correspond to an actual account.
 
@@ -797,14 +750,15 @@ For example, an NFT contract may store a database of NFTs, each identified by a 
 
 A `big-map` is simply a key value store, that can associate values to different keys. For example, we could associate `strings` to `ints`. Here is an example of a big-map that for each number among 1, 3, 12 and 24, associates a `string` that contains its english name.
 
-	{
-		Elt 1 "One";
-		Elt 3 "Three";
-		Elt 12 "Twelve";
-		Elt 24 "Twenty four"
-	}
+    {
+    	Elt 1 "One";
+    	Elt 3 "Three";
+    	Elt 12 "Twelve";
+    	Elt 24 "Twenty four"
+    }
 
 The main operations available for `big-maps` are:
+
 - Creating an empty `big-map` (`EMPTY_BIG_MAP`)
 - Checking if there is an entry for a given key (`MEM`)
 - Accessing the entry associated with a given key (`GET`)
@@ -818,6 +772,7 @@ The main operations available for `big-maps` are:
 This makes `big-maps` much more useful in practice than `maps`, as using `maps` can quickly cause gas consumption issues if the number of entries is getting large.
 
 `maps` support all the features of `big-maps`, and a couple more:
+
 - Iterating through each element of the `map`, and applying some code to it (`ITER`)
 - Getting the `size` (number of elements) of the `map` (`SIZE`)
 
@@ -900,6 +855,7 @@ Contracts can read and write to their own storage, but can't access to the stora
 `views` are a way for contracts to expose information of their choosing, to other contracts.
 
 A view is very similar to an entry point, with a few differences:
+
 - They return a value.
 - Contracts can call them immediately to obtain this value. Calling a `view` doesn't produce a new `operation`. It is executed immediately, and the value can be used in the next instruction.
 - The execution of a `view` doesn't have any effect other than returning that value. In particular, it doesn't modify the storage of its contract, and doesn't generate any `operation`.
@@ -981,12 +937,12 @@ This second contract takes advantage of the `getBalance(user)` view of the first
 - SmartPy: [Views](https://smartpy.io/docs/general/views/).
 - Ligo: [On-chain views](https://ligolang.org/docs/protocol/hangzhou#on-chain-views).
 
-
 ## Lists
 
 `lists` can be used to store, then iterate through a number of values of the same type.
 
 The main operations available on `lists` are:
+
 - Creating an empty `list` (`NIL`)
 - Inserting an element at the beginning of the `list` (`CONS`)
 - Getting the first element and the rest of the `list` (`IF_CONS`)
@@ -1011,6 +967,7 @@ Be very careful when using `lists`, that its number of elements can't be increas
 A `set` is ordered, and the order is the natural order of the values in the `set` (see the [Comparing values](#comparing-values) section).
 
 The main operations available on `sets` are:
+
 - Creating an empty `set` (`EMPTY_SET`).
 - Adding an element to the `set` (`UPDATE`).
 - Removing an element from the `set` (`UPDATE`).
@@ -1028,6 +985,7 @@ The main operations available on `sets` are:
 ## Loops, iterations
 
 A smart contract may contain `loops`. They take mostly two forms:
+
 - conditional `loops`, that keep iterating as long as a given condition is `True` (while `loops`).
 - `loops` that iterate through every element of a data structure such as a `list`, a `map`, or a `set`.
 
@@ -1041,7 +999,6 @@ In many cases, it is possible to avoid performing `loops` in the contract itself
 - Archetype: [Asset - iteration](https://archetype-lang.org/docs/asset#iteration), [for](https://archetype-lang.org/docs/reference/instructions/control#for), [while](https://archetype-lang.org/docs/reference/instructions/control#while), [iter](https://archetype-lang.org/docs/reference/instructions/control#iter).
 - Ligo: [Iteration](https://ligolang.org/docs/language-basics/loops).
 - SmartPy: [For statement](https://smartpy.io/docs/general/control_statements/#for-statement), [While statement](https://smartpy.io/docs/general/control_statements/#while-statement).
-
 
 ## Variants / unions
 
@@ -1069,6 +1026,7 @@ A `lambda` is a piece of code that is also a value, that can be stored or passed
 The code of a `lambda` takes some parameters and returns a value, but doesn't have any side effects. It doesn't have access to the storage of the contract that calls it, and can't modify it. It does however have access to the [special values](#special-values) of the contract (its `balance`, the current `timestamp`, etc.)
 
 `lambdas` are mostly used for the following reasons:
+
 - As a way to reuse code in multiple places of the contract. If you use a high level language, this is done automatically by the compiler, and the program simply may contain different functions. If you use Michelson, you may need to use `lambdas` for this purpose.
 - As a way to make parts of a contract upgradable. A `lambda` that contains some of the behaviour of a contract may be put in the storage, and an entry point may be called by an admin of the contract to replace it with a new `lambda`, and therefore change the behaviour of that part of the contract. Note that the ability to upgrade the contract causes potential trust issues.
 - As a way to implement a generic multi-sig or DAO contract, where a proposal takes the form of a `lambda` that performs some action, and people vote on whether to execute this action or not. Check our [simplified DAO example](/smart-contracts/simplified-contracts#dao).
@@ -1080,7 +1038,6 @@ The code of a `lambda` takes some parameters and returns a value, but doesn't ha
 - SmartPy: [Lambdas](https://smartpy.io/docs/types/lambdas/).
 - Ligo: [Anonymous functions](https://ligolang.org/docs/language-basics/functions#anonymous-functions-aka-lambdas).
 
-
 ## Annotations
 
 In the Michelson language, some values or types can be annotated with a name.
@@ -1088,6 +1045,7 @@ In the Michelson language, some values or types can be annotated with a name.
 This doesn't have any effect on the code itself, but makes it possible for tools that call or analyze the code, to associate a name to different values.
 
 In particular, `annotations` are used:
+
 - to give names to entry points
 - to give names to the parameters
 - to give names to the different members of records (stored as `pairs` with `annotations`)
@@ -1096,12 +1054,11 @@ If you use a high level language, you are unlikely to need to manipulate `annota
 
 Here is an example of Michelson code that uses `annotations`, to name the elements of its parameters:
 
-	parameter (pair (int:age) (int:height)) ;
+    parameter (pair (int:age) (int:height)) ;
 
 ### Links
 
 - Michelson: [Annotations](https://tezos.gitlab.io/active/michelson.html#annotations)
-
 
 ## Global table of constants
 
@@ -1119,7 +1076,6 @@ The data can then be referenced anywhere in your code. It can be used to store c
 - Ligo: [Global constant](https://ligolang.org/docs/protocol/hangzhou#global-constant).
 - SmartPy: [Global constants](https://smartpy.io/docs/experimental/global_constants/).
 
-
 ## Serialization / deserialization
 
 Between contract calls, the code of a contract, as well as its storage, are stored as a serialized sequence of `bytes`, for efficiency purposes.
@@ -1133,6 +1089,7 @@ Remember that unlike the rest of the storage, `big-maps` are not entirely serial
 ### PACK and UNPACK
 
 Tezos provides the possibility to serialize and deserialize data or code yourself:
+
 - The `PACK` instruction takes a value of (almost) any type, and serializes it into a `bytes` value.
 - The `UNPACK` instruction takes a `bytes` value, and deserializes it into its original value. As the deserialization may be impossible if the sequence of `bytes` doesn't represent valid serialized data, it returns an `option`.
 
@@ -1158,6 +1115,7 @@ There are a number of hash functions available on Tezos.
 We recommend using `BLAKE2B` by default, which computes a cryptographic hash of the value contents using the Blake2b-256 cryptographic hash function.
 
 Other hash functions are available:
+
 - `KECCAK`: Compute a cryptographic hash of the value contents using the Keccak-256 cryptographic hash function.
 - `SHA256`: Compute a cryptographic hash of the value contents using the Sha256 cryptographic hash function.
 - `SHA512`: Compute a cryptographic hash of the value contents using the Sha512 cryptographic hash function.
@@ -1168,7 +1126,6 @@ Other hash functions are available:
 Tezos offers the possibility to check that a given piece of data, a sequence of `bytes`, has been signed by the holder of the private key corresponding to a given public key.
 
 The primitive `CHECK_SIGNATURE` takes as parameters the sequence of `bytes`, the `signature` and the `public key`, and returns a `boolean `that indicates if the `signature` is indeed a `signature` of that sequence of `bytes`, by the holder of ths key.
-
 
 ### BLS12-381 primitives
 
@@ -1196,6 +1153,7 @@ More information can be found [here](https://hackmd.io/@benjaminion/bls12-381).
 A `ticket` is a special type of data type that includes security mechanisms that make it very suitable for issuing new tokens or grant portable permissions.
 
 A `ticket` contains three pieces of information:
+
 - The **address** of the contract that created it, the **ticketer**.
 - Some **data**, with a type and value assigned by the contract. We call it the **wrapped value**, or the **payload** of the `ticket`.
 - An **amount**, in the form of a natural number.
@@ -1225,6 +1183,7 @@ The data stored in a `ticket`, the **wrapped value**, can't be changed after the
 This feature is about the amount attached to a `ticket`.
 
 The contract that creates the `ticket` sets the initial amount to any natural number it chooses. From then on, this amount may only be changed by performing the two folloging instructions:
+
 - `SPLIT_TICKET`: taking a `ticke`t, and splitting it in two `tickets`. Both new `tickets` share the same ticketer address and payload, but the amount of the initial `ticket` is split between the two: the sum of the amounts of the two new `tickets` is equal to the amount of the initial `ticket`. The initial `ticket` is destroyed.
 - `JOIN_TICKETS`: taking two `tickets` that have the exact same ticketer address and payload, and combining them into a single `ticket`, still with the same ticketer address and payload, byt whose amount is the sum of the amounts of the two initial `tickets`. The two initial `tickets` are destroyed. This is the inverse of `SPLIT_TICKET`.
 
@@ -1247,6 +1206,7 @@ This helps bring extra trust in the value of the tokens represented by the `tick
 ### Operations on tickets
 
 The operations available on a `ticket` are limited to the following:
+
 - Creating a new `ticket`, with a given content and amount, and the current contract as the ticketer (`TICKET`).
 - Reading a `ticket`, which returns the three values contained in the ticket, plus the ticket itself (`READ_TICKET`).
 - Splitting a `ticket` into two tickets with the same content and ticketer, but splitting the amount (`SPLIT_TiCKET`).
@@ -1268,6 +1228,7 @@ A `timelock` is a cryptographic primitive that can be used as part of a **commit
 ### Classical commit & reveal scheem
 
 Commit & reveal is a scheme that consists in two steps, involving one or more participants:
+
 - Before a set deadline, each participant takes some decision, then publishes a **commitment**, a proof that they have taken a decision, that they won't be able to change. The proof often takes the form of a hash of the data that corresponds to this decision.
 - After the deadline, each participant reveals the data corresponding to their commitment. Other participants can check that the hash of this data indeed corresponds to their previous commitment.
 
@@ -1316,7 +1277,6 @@ Some use cases involve collectively generating a random value, or preventing [BP
 - Ligo: [Chest](https://ligolang.org/docs/reference/current-reference#chest).
 - Archetype: [Timelock](https://archetype-lang.org/docs/language-basics/crypto#timelock).
 
-
 ## Sapling
 
 Sapling is a protocol that enables performing transactions of fungible tokens, in a way that increases privacy, by hiding from the public, the exact transactions that have been performed, while making it possible to make them available to specific entities, in particular to comply with regulations.
@@ -1331,6 +1291,7 @@ The key steps are as follows:
 If a regulator needs access to the transactions of a user, this user may share a **viewing key**, that gives access to all the transactions made by this user.
 
 Note that using the sapling protocol in a **shielded pool** and expecting a high degree of privacy requires taking a number of precautions, including:
+
 - Making sure there are enough members in the pool. For example, if there are only two members, it becomes very easy to identify the source and destinations of transactions.
 - Adding dummy transactions, or dummy inputs and ouptuts of transactions, to hide the actual number of parties involved in each transaction.
 - Making sure to use shielded tokens in multiple transactions. Indead, if alice shields 16.32 tokens and bob later unshields 16.32 tokens, it's easy to guess what happened.
@@ -1345,7 +1306,6 @@ The internals of `sapling` are a bit techincal. The system is based on an UTXO (
 - Archetype: [Sapling](https://archetype-lang.org/docs/language-basics/crypto#sapling).
 - Ligo: [Sapling](https://ligolang.org/docs/reference/current-reference#sapling).
 
-
 ## Delegation
 
 Placing your tez in a smart contract means you can't stake them for baking, or even delegate them to get rewards.
@@ -1353,12 +1313,12 @@ Placing your tez in a smart contract means you can't stake them for baking, or e
 However, the smart contract itself has the possibility of delegating the tez it holds, and either distributing the rewards to the original owners of the tez, or simply keeping them in its own balance for other purposes.
 
 To manage this, there are a couple of features you can implement in a smart contract:
+
 - Setting the delegate: simply set, update or remove the address of the baker you want the contract to delegate its tez to (`SET_DELEGATE`).
 - Obtaining the voting power of a contract (a delegate), which is based on its total staking balance as computed at the beginning of the voting period (`VOTING_POWER`).
 - Obtaining the total voting power of all contracts (`TOTAL_VOTING_POWER`).
 
 In practice, both the voting power of a contract and the total voting power of all contracts are expressed as a number of `mutez`, but this may change with time as the protocol evolves.
-
 
 ### Links
 
