@@ -6,7 +6,9 @@ import { ChatBob} from '@/components/ChatBob'
 
 import 'focus-visible'
 import '@/styles/tailwind.css'
-import 'katex/dist/katex.min.css';
+import 'katex/dist/katex.min.css'
+import '../styles/prism/prism_imports'
+
 
 function getNodeText(node) {
   let text = ''

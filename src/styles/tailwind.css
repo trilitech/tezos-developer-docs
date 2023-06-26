@@ -1,7 +1,8 @@
 @import 'tailwindcss/base';
 @import './fonts.css';
 @import './docsearch.css';
-@import './prism.css';
+@import './prism/prism.css';
+@import './global.css';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 

@@ -1,6 +1,6 @@
 import { nodes as defaultNodes } from '@markdoc/markdoc'
 
-import { Fence } from '@/components/Fence'
+import { CodeBlock } from '@/components/Fence'
 
 const nodes = {
   document: {
@@ -17,13 +17,18 @@ const nodes = {
     },
   },
   fence: {
-    render: Fence,
+    render: CodeBlock,
     attributes: {
+      content: {type: String},
       language: {
         type: String,
+        default: 'javascript',
+        description:
+          'The programming language of the code block. Place it after the backticks.',
       },
     },
-  },
+  }
+
 }
 
 export default nodes
