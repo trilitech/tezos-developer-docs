@@ -5,7 +5,7 @@ slug: /skeleton-template
 authors: Author One, Author Two
 ---
 
-Intro text here. This appears after the doc title (which is the "H1 heading"" for the doc). What follows is a series of "## Sections". Note that only ## and ### sections will appear on the right nav. Headings with #### or ##### are just a way to make a bold heading to distinguash a particular point, they don't appear as if they are heading a new subtopic. 
+Intro text here. This appears after the doc title (which is the "H1 heading"" for the doc). What follows is a series of "## Sections". Note that only ## and ### sections will appear on the right nav. Headings with #### or ##### are just a way to make a bold heading to distinguish a particular point, they don't appear as if they are heading a new subtopic. 
 
 **The page title will only be visible if it's included in the navigation in the Layout.jsx file.**
 
@@ -37,7 +37,7 @@ Optional callout here. A callout can go anywhere. It needs to appear adjacent to
 
 ## First Main Section - Topic 1
 
-The first main section. It's heading has two ##
+The first main section. Its heading has two ##
 
 Some dummy text and code block: Now we can go ahead and create a folder somewhere on our local drive with the name of the project. Let's call it `example-smart-contract`.
 
