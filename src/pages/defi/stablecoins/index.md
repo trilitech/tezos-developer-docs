@@ -4,20 +4,17 @@ title: Stablecoins
 author: Aymeric Bethencourt
 ---
 
-A **stablecoin** is a cryptocurrency whose price is fixed to another asset. Most stablecoins are pegged (fixed) to fiat currencies (currencies issued by the central bank of a sovereign state) like the US Dollar.
+A stablecoin is a cryptocurrency whose price is fixed to another asset. Most stablecoins are pegged (fixed) to fiat currencies (currencies issued by the central bank of a sovereign state) like the US Dollar.
 
-<p align="center">
 
 ![stablecoin](/developers/docs/images/stablecoins/stablecoin.svg)
-<small className="figure">FIGURE 1: Illustration of a stablecoin volatility compared to his pegged asset (e.g. USD).</small>
+FIGURE 1: Illustration of a stablecoin volatility compared to his pegged asset (e.g. USD)
 
-</p>
-
-Stablecoins have gained traction as they attempt to offer the best of both worlds: the instant processing, security, and privacy of cryptocurrencies, and the **volatile free** stable valuations of fiat currencies.
+Stablecoins have gained traction as they attempt to offer the best of both worlds: the instant processing, security, and privacy of cryptocurrencies, and the volatile free stable valuations of fiat currencies.
 
 ## How it works
 
-Stablecoins achieve their price stability via **collateralization** (backing) or through **algorithmic mechanisms** of buying and selling the reference asset or its derivatives. There are three types of stablecoins:
+Stablecoins achieve their price stability via collateralization (backing) or through algorithmic mechanisms of buying and selling the reference asset or its derivatives. There are three types of stablecoins:
 
 ### Fiat-Collateralized Stablecoins
 
@@ -31,14 +28,10 @@ If Alice wants 100 stable-USD, she needs to send 100 USD to the entity's bank ac
 
 #### Risks
 
-As shown above, these entities must keep as much USD in their bank account as they have minted stable-USD. A malicious company could spend or invest the USD from their bank account and therefor not be able to pay back users in case of a massive exchange of stable-USD to USD. (Note that this problem is similar to the practice of _fractional reserve banking_ as presented [in the first module](/blockchain-basics))
-
-<p align="center">
+As shown above, these entities must keep as much USD in their bank account as they have minted stable-USD. A malicious company could spend or invest the USD from their bank account and therefor not be able to pay back users in case of a massive exchange of stable-USD to USD. (Note that this problem is similar to the practice of _fractional reserve banking_).
 
 ![stablecoin-kyc](/developers/docs/images/stablecoins/stablecoin-kyc.svg)
-<small className="figure">FIGURE 2: Exchanging stable coins against fiat currencies (or the other way around) is secured by a KYC. Exchanging stable coins between users do not require a KYC (i.e. as long as it stays inside the world of crypto)</small>
-
-</p>
+FIGURE 2: Exchanging stable coins against fiat currencies (or the other way around) is secured by a KYC. Exchanging stable coins between users do not require a KYC (i.e. as long as it stays inside the world of crypto)
 
 ### Crypto-Collateralized Stablecoins
 
@@ -56,7 +49,7 @@ If XTZ go below $150 / 40 = 3.75$ USD, her collateral would go below 150%. If Al
 
 #### Risks
 
-The greatest threat to a crypto-collateralized stablecoin is a massive crash of the collateral cryptocurrency [[4]](/defi/stablecoins#references). When a CDP gets liquidated, other traders must buy the collateral to make up for the debt in stable-USD. They make a nice profit as they usually buy it just below 150% of valuation. Now, if a crypto crashes significantly and so fast that liquidated CDPs' collateral drops below 100% of their debt, then nobody will want to buy them. This would ultimately make CDPs worthless and derail the stable-USD off its peg.
+The greatest threat to a crypto-collateralized stablecoin is a massive crash of the collateral cryptocurrency. When a CDP gets liquidated, other traders must buy the collateral to make up for the debt in stable-USD. They make a nice profit as they usually buy it just below 150% of valuation. Now, if a crypto crashes significantly and so fast that liquidated CDPs' collateral drops below 100% of their debt, then nobody will want to buy them. This would ultimately make CDPs worthless and derail the stable-USD off its peg.
 
 The most popular crypto-collateralized stablecoin is [DAI from MakerDAO](https://makerdao.com/) on Ethereum. Their white paper can be found [here](https://makerdao.com/whitepaper/DaiDec17WP.pdf).
 
@@ -78,41 +71,30 @@ The issue here is that buyers need to be confident that the bonds will payout. B
 
 This happened with [the crash of the UST](https://blog.chainalysis.com/reports/how-terrausd-collapsed/#:~:text=Summary,of%20both%20LUNA%20and%20UST.) in May 2022, an algorithm stablecoin.
 
-<p align="center">
 
 ![stablecoin-type](/developers/docs/images/stablecoins/stablecoin-types.svg)
-<small className="figure">FIGURE 3: Recapitulation of the 3 types of stablecoins.</small>
-
-</p>
+FIGURE 3: Recapitulation of the 3 types of stablecoins.
 
 ## Stablecoins on Tezos
 
 ### Kolibri (kUSD)
 
-The Kolibri kUSD, created by over Hover Labs[[2]](/defi/stablecoins#references), is a USD-pegged stablecoin and the ﬁrst crypto-backed stablecoin issued on the Tezos blockchain. It is implemented following the FA1.2 token standard.
+The Kolibri kUSD, created by over [Hover Labs](https://hover.engineering/), is a USD-pegged stablecoin and the ﬁrst crypto-backed stablecoin issued on the Tezos blockchain. It is implemented following the FA1.2 token standard.
 
 It uses CDPs (referred to as an `Oven`) backed by XTZ to collateralize a soft pegged USD-stable value asset, **kUSD** and is available on the mainnet with more than 6.5m **kUSD** in existence (at the time of writing).
 
-You can learn more about Kolibri on the official website[[3]](/defi/stablecoins#references).
-
-### Stably (USDS)
-
-The Stably USDS, created by Stably[[4]](/defi/stablecoins#references), is a USD-pegged stablecoin. It is implemented following the FA2 token standard.
-
-It is fully backed by fiat reserves and regulated by Prime Trust[[5]](/defi/stablecoins#references), a Nevada-chartered trust company that also acts as the regulated administrator of USDS.
-
-One of the particularities of USDS is that it allows fee-less transfers thanks to TZIP-17 implementation. Thus, the token transfer fee can be taken over by another account.
+You can learn more about Kolibri on the [official website](https://kolibri.finance)).
 
 ### USDtez
 
-The USDtez, created and issued by Stabletez[[6]](/defi/stablecoins#references), is a USD-pegged stablecoin.
+The USDtez, created and issued by [Stabletez](https://stabletez.com/), is a USD-pegged stablecoin.
 It is implemented following the FA1.2 token standard.
 
-USDtz is backed with full FIAT-based solvency and the reserve is audited monthly by Armanino LLP[[7]](/defi/stablecoins#references). FIAT collateral deposits may include certain other stablecoins.
+USDtz is backed with full FIAT-based solvency and the reserve is audited monthly by [Armanino](https://www.armaninollp.com/). FIAT collateral deposits may include certain other stablecoins.
 
 Anyone can audit USDtz's reserves in real-time, by comparing the minted supply with the collateral wallet.
 
-You can learn more about USDtez on the official website[[8]](/defi/stablecoins#references).
+You can learn more about USDtez on the [official website](https://usdtz.com/index.html).
 
 ### Others
 
@@ -123,20 +105,6 @@ You can learn more about USDtez on the official website[[8]](/defi/stablecoins#r
 
 ## References
 
-[1] <https://www.investopedia.com/terms/s/stablecoin.asp>
-
-[2]. [Hover Labs](https://hover.engineering/).
-
-[3]. [Kolibri Finance](https://kolibri.finance).
-
-[4]. [Stably](https://www.stably.io).
-
-[5]. [Prime Trust](https://www.primetrust.com/).
-
-[6]. [Stabletez](https://stabletez.com/).
-
-[7]. [ArmaninoLLP](https://www.armaninollp.com/).
-
-[8]. [USDtez](https://usdtz.com/index.html).
-
-[7] <https://medium.com/@MakerDAO/single-collateral-dai-source-code-and-security-reviews-523e1a01a3c8>
+{% callout type="note" title="References" %}
+A general [introduction on stablecoins](<https://www.investopedia.com/terms/s/stablecoin.asp>)
+{% /callout %}

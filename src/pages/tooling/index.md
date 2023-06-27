@@ -26,7 +26,7 @@ Welcome to the Tezos Documentation Tooling Portal. We're currently in _beta_. Pl
 
 {% quick-link title="Smart Contract Languages" icon="contract" href="/tooling/tezos-basics/smart-contract-languages" description="Overview of Smart Contract languages" /%}
 
-{% quick-link title="DeFi Tokens" icon="token" href="/tooling/defi/defi-tokens" description="Learn about ctez and wrapped tokens. Two building blocks for DeFi on Tezos. " /%}
+{% quick-link title="DeFi Tokens" icon="token" href="/tooling/defi/wrapped-assets" description="Learn about ctez and wrapped tokens. Two building blocks for DeFi on Tezos. " /%}
 
 {% quick-link title="Create an NFT" icon="nft" href="/tooling/nft/create-an-nft" description="Create your own NFT" /%}
 

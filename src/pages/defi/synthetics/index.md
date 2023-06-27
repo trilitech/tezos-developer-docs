@@ -10,20 +10,14 @@ Example: Alice and Bob both send \$100 in value to a contract, making the total 
 
 If the value of BTC goes up 20% in the set period of the bet, Alice's \$100 should now be worth \$120. As agreed on, Alice and Bob split the difference. Alice gets \$100 + (\$20/2) = \$110 and Bob gets \$100 - (\$20/2) = \$90. (In this example, if the value of BTC goes up more than 100%, Alice would get \$200 and Bob \$0.)
 
-Simple as that. **This is how you speculate on the price of BTC without buying any BTC.**
+Simple as that--this is how you speculate on the price of BTC without buying any BTC.
 
 Conversely, if the value of BTC goes down 20% in the set period of the bet, Alice's \$100 should now be worth \$80. As agreed on, Alice and Bob would split the difference. Alice gets \$100 - (\$20/2) = \$90 and Bob gets \$100 + (\$20/2) = \$110.
 
 As you don't actually purchase the asset, synthetics are particularly interesting for assets that have very low liquidity, are hard to transact, or are simply not available to trade.
 
-<p align="center">
-
 ![synthetic](/developers/docs/images/synthetics/synthetic.svg)
-<small className="figure">
 FIGURE 1: Illustration of the synthethic contract between Alice and Bob
-</small>
-
-</p>
 
 ## Synthetics & Blockchain
 
@@ -33,13 +27,13 @@ Of course, it would be pretty tricky for you to find another person on your own,
 
 ## Synthetics Vs. Wrapped Asset
 
-_Synthetics_ are not to be confused with _Wrapped Assets_. As seen in the [previous chapter](/defi/wrapped-assets), a wrapped asset represents the actual asset and can be exchanged 1:1 against that asset. A synthetic represents your share of a bet against the other players. Anything can be bet upon, as long as you have an oracle that updates prices to the synthetic smart contract. For example, we could just as easily imagine synthetics been used on stocks like Apple, Tesla, etc.
+_Synthetics_ are not to be confused with _Wrapped Assets_. A wrapped asset represents the actual asset and can be exchanged 1:1 against that asset. A synthetic represents your share of a bet against the other players. Anything can be bet upon, as long as you have an oracle that updates prices to the synthetic smart contract. For example, we could just as easily imagine synthetics been used on stocks like Apple, Tesla, etc.
 
 ## Risks
 
 As with any trading, synthetics are risky in their nature. You can lose your investment if the assets you bet on go the opposite way of your bet.
 
-Note that to settle the bet, synthetics contracts use [oracles](/defi/oracles) to fetch the underlying asset's price. There have been [countless oracle incidents](https://blog.synthetix.io/response-to-oracle-incident/) where the asset price in the smart contract loses its peg to the actual asset.
+Note that to settle the bet, synthetics contracts use [oracles](../../smart-contract-topics/oracles/index.md) to fetch the underlying asset's price. There have been [countless oracle incidents](https://blog.synthetix.io/response-to-oracle-incident/) where the asset price in the smart contract loses its peg to the actual asset.
 
 ## Synthetics on Tezos
 
@@ -49,4 +43,6 @@ Note that to settle the bet, synthetics contracts use [oracles](/defi/oracles) t
 
 ## References
 
-[1] <https://www.publish0x.com/publish0x-posts/sexp-a-tezos-based-synthetic-exchange-xmkjjzq>
+{% callout type="note" title="Reference" %}
+[SEXP synthetics exchange](<https://www.publish0x.com/publish0x-posts/sexp-a-tezos-based-synthetic-exchange-xmkjjzq>)
+{% /callout %}
