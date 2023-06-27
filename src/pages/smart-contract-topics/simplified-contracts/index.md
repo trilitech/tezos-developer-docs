@@ -26,121 +26,128 @@ If you haven't already, please go ahead and read [Smart Contract Concepts](/deve
 
 ## FA1.2 Fungible token
 
-{% callout type="note" title="" %}
-The contracts on this page are simplified contracts, provided for educational purposes only. They are not meant to be implemented and used as is, as some of them may contain potential flaws.
-{% /callout %}
+The goal of this contract is to create and manage a single [fungible](https://en.wikipedia.org/wiki/Fungibility) token. It implements the FA1.2 standard, which makes it compatible with wallets, decentralized exchanges and other tools.
 
-The goal of this contract is to create and manage a single fungible token.
+### Features
 
-It implements the FA1.2 standard, which makes it compatible with wallets, decentralized exchanges and other tools.
-
-It only supports a small number of features:
 - Each user can own a certain number of tokens
 - Users can transfer tokens to other users
 - Users can allow another contract, for example a decentralized exchange, to transfer some amount of their tokens for them.
 
+### Entrypoints
+
 The contract contains two main entrypoints:
-- <code>transfer</code>, to transfer a number of token from one address to another
-- <code>approve</code>, for a caller to indicate that they allow another address to transfer a number of their tokens
+- `transfer` - to transfer a number of token from one address to another
+- `approve` - to allow another address, on behalf of the caller, to transfer a number of their tokens
 
-To be compatible with FA1.2, and so that other contacts can access to information, it also contains three entrypoints that have no effect other than sending information back to the caller:
-- <code>getBalance</code> sends the number of tokens owned by a given address
-- <code>getAllowance</code> sends the amount of tokens belonging to a certain address that another address is allowed to transfer for them
-- <code>getTotalSupply</code> sends the total amount of tokens managed by this contract
+To be compatible with FA1.2, and so that other contacts can access to information, it also contains three entrypoints that have no effect other than reading storage:
 
-<table>
-<tr><td><strong>Storage</strong></td><td><strong>Entry points effects</strong></td></tr>
-<tr><td>
-	<ul>
-		<li>totalsupply: nat</li>
-		<br/>
-		<li>ledger: big-map<br/>
-			Key:
-			<ul>
-				<li>holder: address</li>
-			</ul>
-			Value:
-			<ul>
-				<li>tokens: nat</li>
-			</ul>
-		</li><br/>
-		<li>allowance: big-map<br/>
-			Key:
-			<ul>
-				<li>owner: address</li>
-				<li>spender: address</li>
-			</ul>
-			Value:
-			<ul>
-				<li>amount: nat</li>
-			</ul>
-		</li><br/>
-	</ul>
-</td>
-<td>
-	<ul>
-		<li>transfer(from: address, to: address, value:nat)
-			<ul>
-				<li>Check that <code>ledger[from].tokens</code> &ge; <code>value</code></li>
-				<li>If the caller address is not <code>from</code>
-					<ul>
-						<li>Check that <code>allowance[from, caller]</code> exists, with <code>amount</code> &ge; <code>value</code></li>
-						<li>Substract <code>value</code> from <code>allowance[from, caller].amount</code></li>
-						<li>If <code>allowance[from, caller].amount</code> = 0, delete <code>allowance[from, caller]</code></li>
-					</ul>
-				</li>
-				<li>Create entry <code>ledger[to]</code> with 0 tokens, if it doesn't exist.</li>
-				<li>Substract <code>value</code> from <code>ledger[from].tokens</code></li>
-				<li>Add <code>value</code> to <code>ledger[to].tokens</code></li>
-			</ul>
-		</li><br/>
-		<li>approve(sender: address, value: nat)
-			<ul>
-				<li>Create entry <code>allowance[caller, sender]</code> with <code>amount</code> 0, if it doesn't exist.</li>
-				<li>Add <code>value</code> to <code>allowance[caller, sender].amount</code></li>
-			</ul>
-		</li><br/>
-		<li>getBalance(owner: address, callback: contract)
-			<ul>
-				<li>If <code>ledger[owner]</code> exists, set <code>ownerBalance</code> to <code>ledger[owner].tokens</code></li>
-				<li>Otherwise, set <code>ownerBalance</code> to 0</li>
-				<li>Call <code>callback(ownerBalance)</code></li>
-			</ul>
-		</li><br/>
-		<li>getAllowance(owner: address, spender: address, callback: contract)
-			<ul>
-				<li>If <code>allowance[owner, spender]</code> exists, set <code>amount</code> to <code>allowance[owner, spender]</code></li>
-				<li>Otherwise, set <code>amount</code> to 0</li>
-				<li>Call <code>callback(amount)</code></li>
-			</ul>
-		</li><br/>
-		<li>getTotalSupply(callback: contract)
-			<ul>
-				<li>Call <code>callback(totasupply)</code></li>
-			</ul>
-		</li>
-	</ul>
-</td>
-</tr>
-</table>
+- `getBalance` - returns the current token balance.
+- `getAllowance` - returns the current token allowance amount for an approved address (via `approve`)
+- `getTotalSupply` - returns the total number of tokens managed by this contract
+
+{% table %}
+* **FA 1.2** {% colspan=2 %}
+---
+* **Storage**
+* **Entrypoint Effects**
+---
+* {% list type="checkmark" %}
+  * `ledger`: `big-map`
+	* Key:
+      * `holder`: `address`
+	* Value:
+	  * `tokens`: `nat`
+  * `allowance`: `big-map`
+	* Key:
+      * `owner`: `address`
+	  * `spender`: `address`
+	* Value:
+	  * `amount`: `nat`	
+  {% /list %}
+* {% list type="checkmark" %}
+  * `transfer(from: address, to: address, value:nat)`
+      * Check the `ledger[from].tokens` value
+	  * If the caller address is not `from`:
+	     * Check that `allowance[from, caller]` exists, with `amount` value
+		 * Subtract `value` from `allowance[from, caller].amount`
+		 * If `allowance[from, caller].amount = 0`, delete `allowance[from, caller]`
+      * Create entry `ledger[to]` with 0 tokens, if it doesn't exist.
+	  * Add `value` to `ledger[to].tokens`
+  * `approve(sender: address, value: nat)`
+      * Check that `tokens[caller].tokens >= nbTokens`
+	  * Create entry `allowance[caller, sender]` with `amount = 0`, if it doesn't exist.
+  * `getBalance(owner: address, callback: contract)`
+      * If `ledger[owner]` exists, set `ownerBalance` to `ledger[owner].tokens`
+	  * Otherwise, set `ownerBalance` to 0
+	  * Call `callback(ownerBalance)`
+  * `getAllowance(owner: address, spender: address, callback: contract)`
+      * If `allowance[owner, spender]` exists, set amount to `allowance[owner, spender]`
+	  * Otherwise, set `amount` to 0
+	  * Call `callback(amount)`
+
+  {% /list %}
+{% /table %}
 
 ## FA2 - NFTs: Non Fungible Tokens
 
-The FA2 standard specifies contracts that can be of different types:
+### Features
+
+The FA2 standard specifies contracts that can describe:
 - Single fungible token
 - Multiple fungible tokens
-- Non fungible tokens (NFTs)
+- Non-fungible tokens (NFTs)
 
-Implementing the FA2 standard allows the contract to be compatible with wallets, explorers, marketplaces, etc.
+Implementing the FA2 standard allows the contract to be compatible with wallets, explorers, marketplaces, etc. Here, we will present an implementation for NFTs. The entrypoints for the other types are the same, but the implementation differs.
 
-Here, we will present an implementation for NFTs. The entrypoints for the other types are the same, but the implementation differs.
-
+### Entrypoints
 FA2 contracts must have the following entrypoints:
-- <code>transfer</code> can be called either by the owner of tokens to be transferred, or by an operator allowed to do so on their behalf.<br/>It takes a list of transfers of different tokens from the owner, to different addresses.
-- <code>update_operator</code> can be called by the owner of tokens to add or remove operators allowed to perform transfers for them.<br/>It takes a list of variants, each consisting in either addding or removing an operator for a given token.
-- <code>balance_of</code> is used to access the balance of a user for a given token.
+- `transfer` - can be called either by the owner of tokens, or by a third party allowed to do so on their behalf. It accepts a list of transfers of different tokens from the token owner with recipient addresses.
+- `update_operator` - can be called by the owner of tokens to add or remove operators allowed to perform transfers for them. It takes a list of variants, each consisting in either adding or removing an operator for a given token.
+- `balance_of` - used to access the balance of a user for a given token.
 
-FA2 supports a number of optional entrypoints to access information, but we won't provide them here.
+{% table %}
+* **FA 1.2** {% colspan=2 %}
+---
+* **Storage**
+* **Entrypoint Effects**
+---
+* {% list type="checkmark" %}
+  * `ledger`: `big-map`
+	* Key:
+      * `holder`: `address`
+	* Value:
+	  * `tokens`: `nat`
+  * `allowance`: `big-map`
+	* Key:
+      * `owner`: `address`
+	  * `spender`: `address`
+	* Value:
+	  * `amount`: `nat`	
+  {% /list %}
+* {% list type="checkmark" %}
+  * `transfer(from: address, to: address, value:nat)`
+      * Check the `ledger[from].tokens` value
+	  * If the caller address is not `from`:
+	     * Check that `allowance[from, caller]` exists, with `amount` value
+		 * Subtract `value` from `allowance[from, caller].amount`
+		 * If `allowance[from, caller].amount = 0`, delete `allowance[from, caller]`
+      * Create entry `ledger[to]` with 0 tokens, if it doesn't exist.
+	  * Add `value` to `ledger[to].tokens`
+  * `approve(sender: address, value: nat)`
+      * Check that `tokens[caller].tokens >= nbTokens`
+	  * Create entry `allowance[caller, sender]` with `amount = 0`, if it doesn't exist.
+  * `getBalance(owner: address, callback: contract)`
+      * If `ledger[owner]` exists, set `ownerBalance` to `ledger[owner].tokens`
+	  * Otherwise, set `ownerBalance` to 0
+	  * Call `callback(ownerBalance)`
+  * `getAllowance(owner: address, spender: address, callback: contract)`
+      * If `allowance[owner, spender]` exists, set amount to `allowance[owner, spender]`
+	  * Otherwise, set `amount` to 0
+	  * Call `callback(amount)`
+
+  {% /list %}
+{% /table %}
 
 <table>
 <tr><td><strong>Storage</strong></td><td><strong>Entry points effects</strong></td></tr>
