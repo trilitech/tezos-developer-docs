@@ -129,12 +129,12 @@ const documentationNavigation = [
     links: [
       {
         title: 'DeFi',
-        href: '/defi/defi-tokens',
+        href: '/defi/wrapped-assets',
         children: [
-          { title: 'DeFi Tokens', href: '/defi/defi-tokens' },
+          { title: 'DeFi Tokens', href: '/defi/wrapped-assets' },
           { title: 'Token Standards', href: '/defi/token-standards' },
           { title: 'Decentralized Exchanges', href: '/defi/dex' },
-          { title: 'Wrapped Assets', href: '/defi/wrapped-assets' },
+          { title: 'Wrapped Assets', href: '/defi/ctez' },
           { title: 'Cross-chain Swaps', href: '/defi/cross-chain-swaps' },
           { title: 'Stablecoins', href: '/defi/stablecoins' },
           { title: 'Synthetics', href: '/defi/synthetics' },
@@ -393,12 +393,12 @@ const tutorialNavigation = [
     links: [
       {
         title: 'DeFi',
-        href: '/defi/defi-tokens',
+        href: '/defi/wrapped-assets',
         children: [
-          { title: 'DeFi Tokens', href: '/defi/defi-tokens' },
+          { title: 'DeFi Tokens', href: '/defi/wrapped-assets' },
           { title: 'Token Standards', href: '/defi/token-standards' },
           { title: 'Decentralized Exchanges', href: '/defi/dex' },
-          { title: 'Wrapped Assets', href: '/defi/wrapped-assets' },
+          { title: 'Wrapped Assets', href: '/defi/ctez' },
           { title: 'Cross-chain Swaps', href: '/defi/cross-chain-swaps' },
           { title: 'Stablecoins', href: '/defi/stablecoins' },
           { title: 'Synthetics', href: '/defi/synthetics' },
@@ -626,12 +626,12 @@ const toolingNavigation = [
     links: [
       {
         title: 'DeFi',
-        href: '/defi/defi-tokens',
+        href: '/defi/wrapped-assets',
         children: [
-          { title: 'DeFi Tokens', href: '/defi/defi-tokens' },
+          { title: 'DeFi Tokens', href: '/defi/wrapped-assets' },
           { title: 'Token Standards', href: '/defi/token-standards' },
           { title: 'Decentralized Exchanges', href: '/defi/dex' },
-          { title: 'Wrapped Assets', href: '/defi/wrapped-assets' },
+          { title: 'Wrapped Assets', href: '/defi/ctez' },
           { title: 'Cross-chain Swaps', href: '/defi/cross-chain-swaps' },
           { title: 'Stablecoins', href: '/defi/stablecoins' },
           { title: 'Synthetics', href: '/defi/synthetics' },
@@ -859,12 +859,12 @@ const resourcesNavigation = [
     links: [
       {
         title: 'DeFi',
-        href: '/defi/defi-tokens',
+        href: '/defi/wrapped-assets',
         children: [
-          { title: 'DeFi Tokens', href: '/defi/defi-tokens' },
+          { title: 'DeFi Tokens', href: '/defi/wrapped-assets' },
           { title: 'Token Standards', href: '/defi/token-standards' },
           { title: 'Decentralized Exchanges', href: '/defi/dex' },
-          { title: 'Wrapped Assets', href: '/defi/wrapped-assets' },
+          { title: 'Wrapped Assets', href: '/defi/ctez' },
           { title: 'Cross-chain Swaps', href: '/defi/cross-chain-swaps' },
           { title: 'Stablecoins', href: '/defi/stablecoins' },
           { title: 'Synthetics', href: '/defi/synthetics' },

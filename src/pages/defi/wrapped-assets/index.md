@@ -4,41 +4,46 @@ title: Wrapped Assets
 author: Aymeric Bethencourt
 ---
 
-## Wrapped XTZ
+Wrapped assets are assets that are represented in one way or another by another token. That is, each token has a 1-to-1 relationship to some other coin, token, or asset, and can be converted from one to the other.
+
+## Why is wrapped Tez needed
+
 Let's consider the following facts:
 
 - Tez (XTZ) is the native currency built on the Tezos blockchain.
 
-- When a dApp (decentralized application) is built from the Tezos Blockchain, it usually either implements its own form of token or needs to work with existing tokens, both are based on [FA standards](/defi/token-standards).
+- When a dApp (decentralized application) is built on the Tezos Blockchain, it usually either implements its own form of token or needs to work with existing tokens, both are based on the FA standards.
 
-- The _FA1.2_ and _FA2_ standards define how tokens are transferred and how to keep a consistent record of those token transfers in the Tezos network. FA standards were developed after the release of the XTZ.
+- The _FA1.2_ and _FA2_ standards define how tokens are transferred and how to keep a consistent record of those token transfers in the Tezos network.
 
-Now here is the issue: **XTZ doesn't conform to its own FA standards**.
+Now here is the issue: XTZ doesn't conform to its own FA standards.
 
 Indeed, XTZ is the proto-token of the Tezos Blockchain, i.e., it was built before the FA standards existed. This makes XTZ not compliant with the FA standards used by most Dapps, e.g., DEXs, NFT marketplaces, etc.
 
-![](/developers/docs/images/wrapped-assets/non-compliant.svg)
-<small className="figure">FIGURE 1: XTZ can't interact with FA tokens</small>
+{% figure src="/developers/docs/images/non-compliant.svg" alt="" caption="FIGURE: XTZ can't interact with FA tokens" %}
+{% /figure %}
 
 One solution consists in _wrapping_ XTZ into an FA-compliant token called _wXTZ_. Wrapping XTZ allows you to trade them directly with alt tokens. You need wXTZ to trade XTZ for other FA tokens on decentralized platforms like _Dexter_ and _Quipuswap_. Because decentralized platforms running on Tezos use smart contracts to facilitate trades, directly between users, every user needs to have the same standardized format for the tokens they trade. This ensures tokens don't get lost.
 
-![](developers/docs/images/wrapped-assets/wrap.svg)
-<small className="figure">FIGURE 2: Wrapping XTZ and unwrapping wXTZ</small>
+{% figure src="/developers/docs/images/wrap.svg" alt="" caption="FIGURE: Wrapping XTZ and unwrapping wXTZ" %}
+{% /figure %}
 
 When you "wrap" XTZ, you aren't really wrapping so much as trading XTZ for an equal token called wXTZ via a smart contract. If you want to get plain XTZ back you need to "unwrap" it, i.e., trade it back for XTZ.
 
-In practice, when wrapping, your XTZ are stored in a smart contract, and an equal amount of wXTZ is minted by the contract and transferred to you. When unwrapping, your wXTZ are burned (a.k.a. destroyed), and some XTZ are released and sent back to you.  
+In practice, during the wrapping step, your XTZ are stored in a smart contract, and an equal amount of wXTZ is minted by the contract and transferred to you. When unwrapping, your wXTZ are burned (a.k.a. destroyed), and some XTZ are released and sent back to you.  
 
-![](developers/docs/images/wrapped-assets/compliant.svg)
-<small className="figure">FIGURE 3: wXTZ can interact with other FA tokens</small>
+{% figure src="/developers/docs/images/compliant.svg" alt="" caption="FIGURE: wXTZ can interact with other FA tokens" %}
+{% /figure %}
 
 ## Properties of wXTZ
 
-wXTZ has been developed by [Stove Labs](https://github.com/stove-labs) with the following properties [[1]](/defi/wrapped-assets#references):
+{% callout %}
+wXTZ has been developed by [Stove Labs](https://github.com/stove-labs)
+{% /callout %}
 
 - **Liquid**: wXTZ are liquid and may be used as a standard developer building block (FA1.2) for Tezos DeFi and to participate in DeFi systems on Tezos.
 
-- **Collaterized**: Each wXTZ token is collateralized with 1 Tez (XTZ).
+- **Collaterized**: Each wXTZ token is collateralized with 1 tez (XTZ).
 
 - **Rewards**: Locked XTZ generates staking rewards from baking.
 
@@ -48,7 +53,7 @@ wXTZ has been developed by [Stove Labs](https://github.com/stove-labs) with the 
 
 - **Non-custodial**: XTZ locked in the smart contract to mint wXTZ are only redeemable by the user himself. No one can move or touch these tokens until the user burns its wXTZ and gets his or her XTZ back.
 
-Please refer to their [medium article](https://medium.com/stakerdao/the-wrapped-tezos-wxtz-beta-guide-6917fa70116e) to learn more about wXTZ and get started.
+Please refer to the [Medium article](https://medium.com/stakerdao/the-wrapped-tezos-wxtz-beta-guide-6917fa70116e) to learn more about wXTZ and get started.
 
 ## Other wrapped assets
 
@@ -62,12 +67,12 @@ This way, one can use the consensus mechanism and the specific infrastructure of
 
 ## Conclusion
 
-Wrapped assets not only improve the functionality and usability of the asset it wraps, it also opens up a wide array of higher-level financial services that wouldn't be available otherwise.
+Wrapped assets not only improve the functionality and usability of the asset they wrap, but they also open up a wide array of higher-level financial services that wouldn't be available otherwise.
 
-On Tezos, we've seen the addition of [Wrapped XTZ (wXTZ)](https://medium.com/stakerdao/the-wrapped-tezos-wxtz-beta-guide-6917fa70116e), [Wrapped Bitcoin (tzBTC)](https://tzbtc.io/), [Wrapped ETH (ETHtz)](https://decrypt.co/51860/wrapped-eth-comes-to-tezos-as-it-takes-on-ethereum-defi-market) and the addition of ERC-20 from [Plenty Defi](https://analytics.plentydefi.com/) wrapped assets (among which, **WBTC**, **USDC**, **WETH**, **BUSD**, **DAI**, **USDT**, **LINK**, **MATIC**, **agEUR**).
+On Tezos, we've seen the addition of [Wrapped XTZ (wXTZ)](https://medium.com/stakerdao/the-wrapped-tezos-wxtz-beta-guide-6917fa70116e), [Wrapped Bitcoin (tzBTC)](https://tzbtc.io/), [Wrapped ETH (ETHtz)](https://decrypt.co/51860/wrapped-eth-comes-to-tezos-as-it-takes-on-ethereum-defi-market) and the addition of ERC-20 from [Plenty Defi](https://analytics.plentydefi.com/) wrapped assets (among which, WBTC, USDC, WETH, BUSD, DAI, USDT, LINK, MATIC, agEUR).
 
-## References
-
-[1] <https://medium.com/stakerdao/the-wrapped-tezos-wxtz-beta-guide-6917fa70116e>
-
-[2] <https://tzbtc.io/>
+{% callout type="note" %}
+Learn more:
+- [Wrapped XTZ Guide](https://medium.com/stakerdao/the-wrapped-tezos-wxtz-beta-guide-6917fa70116e)
+- [tzBTC](https://tzbtc.io/)
+{% /callout %}
