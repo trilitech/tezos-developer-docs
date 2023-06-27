@@ -1,28 +1,34 @@
 ---
 id: simplified-contracts
-title: Examples of contracts
+title: Simplified examples of common contracts
 authors: Mathias Hiron, Nomadic Labs
 ---
 
-## Contents
+This page covers some common smart contract use cases. The goal is for you to get a good understanding of how these common smart contracts work. For example, what storage is used and how, how the entrypoints are used and how contracts interact with each other. This will bring you up to speed on a lot of the smart contracts you will run into on a daily basis, helping you understand the broader smart contract development landscape.
 
-In this page, we will present the structure of simplified versions of a number of classical smart contracts:
-- [FA1.2 - Fungible token](#fa1.2)
-- [FA2 - NFTs: Non Fungible Tokens](#fa2)
+{% callout type="warning" title="" %}
+The contracts on this page are simplified contracts, provided for educational purposes only. They are not meant to be implemented and used as is, as some of them may contain potential flaws.
+{% /callout %}
+
+## Prerequisites
+
+If you haven't already, please go ahead and read [Smart Contract Concepts](/developers/docs/smart-contract-topics/smart-contracts-concepts/). It also might be worth having a read through the [Smart Contract Languages](/developers/docs/tezos-basics/smart-contract-languages/) section to get an understanding of the options available to you - this way you can start thinking about how the implementations below might look in another of the supported smart contract languages on *Tezos*.
+
+## Common Contracts
+
+- [FA1.2 Fungible token](#fa-1-2-fungible-token)
+- [FA2 - NFTs: Non Fungible Tokens](#fa-2-nf-ts-non-fungible-tokens)
 - [NFT Marketplace](#nft-marketplace)
 - [Escrow](#escrow)
-- [DAO: Decentralized Autonomous Organization](#dao)
-- [DeFi: Flash loan](#flash-loan)
+- [DAO: Decentralized Autonomous Organization](#dao-decentralized-autonomous-organization)
+- [DeFi: Flash loan](#de-fi-flash-loan)
 
-The goal is for you to get a good understanding of what a smart contract is, how the storage and entry points are used. We will also introduce how and why contracts interact with each other.
 
-Finally, this will give you an overview of what some of the most common smart contract may look like.
+## FA1.2 Fungible token
 
-:::warning
-The contracts below are simplified contracts, provided for educational purposes only. They are not meant to be implemented and used as is, as some of them may contain potential flaws.
-:::
-
-## <a name="fa1.2">FA1.2 - Fungible token</a>
+{% callout type="note" title="" %}
+The contracts on this page are simplified contracts, provided for educational purposes only. They are not meant to be implemented and used as is, as some of them may contain potential flaws.
+{% /callout %}
 
 The goal of this contract is to create and manage a single fungible token.
 
@@ -33,11 +39,11 @@ It only supports a small number of features:
 - Users can transfer tokens to other users
 - Users can allow another contract, for example a decentralized exchange, to transfer some amount of their tokens for them.
 
-The contract contains two main entry points:
+The contract contains two main entrypoints:
 - <code>transfer</code>, to transfer a number of token from one address to another
 - <code>approve</code>, for a caller to indicate that they allow another address to transfer a number of their tokens
 
-To be compatible with FA1.2, and so that other contacts can access to information, it also contains three entry points that have no effect other than sending information back to the caller:
+To be compatible with FA1.2, and so that other contacts can access to information, it also contains three entrypoints that have no effect other than sending information back to the caller:
 - <code>getBalance</code> sends the number of tokens owned by a given address
 - <code>getAllowance</code> sends the amount of tokens belonging to a certain address that another address is allowed to transfer for them
 - <code>getTotalSupply</code> sends the total amount of tokens managed by this contract
@@ -118,7 +124,7 @@ To be compatible with FA1.2, and so that other contacts can access to informatio
 </tr>
 </table>
 
-## <a name="fa2">FA2 - NFTs: Non Fungible Tokens</a>
+## FA2 - NFTs: Non Fungible Tokens
 
 The FA2 standard specifies contracts that can be of different types:
 - Single fungible token
@@ -127,14 +133,14 @@ The FA2 standard specifies contracts that can be of different types:
 
 Implementing the FA2 standard allows the contract to be compatible with wallets, explorers, marketplaces, etc.
 
-Here, we will present an implementation for NFTs. The entry points for the other types are the same, but the implementation differs.
+Here, we will present an implementation for NFTs. The entrypoints for the other types are the same, but the implementation differs.
 
-FA2 contracts must have the following entry points:
+FA2 contracts must have the following entrypoints:
 - <code>transfer</code> can be called either by the owner of tokens to be transferred, or by an operator allowed to do so on their behalf.<br/>It takes a list of transfers of different tokens from the owner, to different addresses.
 - <code>update_operator</code> can be called by the owner of tokens to add or remove operators allowed to perform transfers for them.<br/>It takes a list of variants, each consisting in either addding or removing an operator for a given token.
 - <code>balance_of</code> is used to access the balance of a user for a given token.
 
-FA2 supports a number of optional entry points to access information, but we won't provide them here.
+FA2 supports a number of optional entrypoints to access information, but we won't provide them here.
 
 <table>
 <tr><td><strong>Storage</strong></td><td><strong>Entry points effects</strong></td></tr>
@@ -213,11 +219,11 @@ FA2 supports a number of optional entry points to access information, but we won
 </tr>
 </table>
 
-## <a name="nft-marketplace">NFT Marketplace</a>
+## NFT Marketplace
 
 The goal of this contract is to manage sales of NFTs from one address to another. It pays a share of the selling price to the admin of the marketplace, in exchange for providing a dApp that facilitates finding and purchasing NFTs.
 
-It provides the following entry points:
+It provides the following entrypoints:
 - <code>add</code> is called by a seller who puts their one of their NFTs on sale for a given price.<br/>The seller must indicate which FA2 contract holds the NFT, and what the id of the NFT is within that contract.<br/>It requires for the marketplace to have been set as an operator in the FA2 contract, for this token.
 - <code>remove</code> can be called by a seller to remove their NFT from the marketplace, if it hasn't been sold.
 - <code>buy</code> is to be called by a buyer who pays the set price to buy a given NFT.<br/>The admin account of the marketplace receives a share of the selling price.
@@ -277,7 +283,7 @@ It provides the following entry points:
 </tr>
 </table>
 
-## <a name="escrow">Escrow</a>
+## Escrow
 
 An escrow is a contract that temporarily holds funds in reserve, for example tokens paid by a buyer of a service, while their request is being processed.
 
@@ -289,7 +295,7 @@ There are a number of different types of escrow contracts. In our contract, the 
 
 For example, the request could consist in the service sending the decrypted version of some encrypted data.
 
-Our contract has three entry points:
+Our contract has three entrypoints:
 - <code>send_request</code> creates a new request with a deadline and collects the payment, that will be held in the escrow.<br/>Along with the data, the request contains the code that will verify the validity of the answer (a lambda)
 - <code>fulfill_request</code> is to be called later by the service.<br/>It verifies that the request has been performed and transfers the funds to the service.
 - <code>cancel_request</code> can be called buy the buyer if the request had not been fulfilled after the deadline.<br/>It transfers the funds back to them.
@@ -347,7 +353,7 @@ Our contract has three entry points:
 </tr>
 </table>
 
-## <a name="dao">DAO: Decentralized Autonomous Organization</a>
+## DAO: Decentralized Autonomous Organization
 
 A DAO is a contract that represents an entity composed of a number of participants. It provides a way for these participants to collectively take decisions, for example on how to use tokens held in the balance of the DAO contract.
 
@@ -355,7 +361,7 @@ There can be all kinds of DAOs, and we will present a simple but powerful versio
 
 Our DAO stores the addresses of all its members, a list of all the proposals, and keeps track of who voted for them.
 
-It has the following entry points :
+It has the following entrypoints :
 - <code>propose</code> can be called by any member to make a new proposal, in the form of a piece of code to execute (a lambda).
 - <code>vote</code> can be called by any member to vote in favor of the request.<br/>When the majority of members voted in favour, the proposal is executed.
 - <code>add_member</code> adds a new member to the DAO.<br/>It may only be called by the DAO itself, which means the call has to go through a proposal and be voted on.
@@ -446,7 +452,7 @@ When deployed, an initial list of members needs to be put in the storage, and ty
 </tr>
 </table>
 
-## <a name="flash-loan">DeFi: Flash loan</a>
+## DeFi: Flash loan
 
 A Flash loan is one of the many tools of decentralized Finance (deFi).
 
@@ -463,10 +469,10 @@ This contract can even lend the same tez to multiple different people within the
 
 One may use a flash loan to take advantage of an arbitrage situation, for example if two different exchanges offer to buy/sell the same type of tokens, at a different price from eachother. The user can buy tokens from one exchange at a low price, then sell it to the other exchange at a higher price, making a profit.
 
-Our contract has three entry points:
-- <code>borrow</code> is called by the borrower, indicating how many tez they need.<br/>The amount is transferred to the caller, then a callback he provided is executed. At the end of this entry point, we verify that this callback has repaid the loan.
+Our contract has three entrypoints:
+- <code>borrow</code> is called by the borrower, indicating how many tez they need.<br/>The amount is transferred to the caller, then a callback he provided is executed. At the end of this entrypoint, we verify that this callback has repaid the loan.
 - <code>repay</code> is to be called by this callback, once the actions that generate a profit are done. The call should come with payment of the borrowed amount, plus interest.
-- <code>check_repaid</code> is called by the <code>borrow</code> entry point after the call to the callback. Indeed, <code>borrow</code> can't do the verification itself, since the execution of the callback is done after all the code of the entry point is executed.
+- <code>check_repaid</code> is called by the <code>borrow</code> entrypoint after the call to the callback. Indeed, <code>borrow</code> can't do the verification itself, since the execution of the callback is done after all the code of the entrypoint is executed.
 
 <table>
 <tr><td><strong>Storage</strong></td><td><strong>Entry points effects</strong></td></tr>
