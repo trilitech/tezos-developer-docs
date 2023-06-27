@@ -6,7 +6,7 @@ authors: Daniel Nomadic
 
 Want to make your baking infrastructure more resilient to electricity and internet cut-offs? Let's use Linux service files to keep those Tezos binaries running.
 
-The following tutorial deep dives into the subjesct and shows how to create persistent Tezos services.
+The following tutorial deep dives into the subject and shows how to create persistent Tezos services.
 
 {% callout type="note" title="Prerequisites" %}
 Install and compile the Tezos Octez suite from scratch (the same approach works with Ubuntu PPA installation, but the .service files need to be adapted). It is also possible to use service files otherwise, but we will only cover the *from scratch* approach in this tutorial.
