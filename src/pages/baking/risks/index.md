@@ -6,9 +6,9 @@ authors: Nomadic Labs
 
 In this section, we will discuss how bakers may be subject to certain penalties, or risks incurred due to their activity.
 
-:::caution
+{% callout type="note" title="Caveat" %}
 This section is not intended to be exhaustive.
-:::
+{% /callout %}
 
 ## Actions prejudicial to the network
 
@@ -27,27 +27,26 @@ not earn a reward but may still get back the associated deposit.
 
 The protocol allows a window of five cycles during which an **accuser** may demonstrate evidence of double
 baking or double endorsement (several times if necessary). The dishonest baker will then lose the security
-deposit(s) placed for the fake operation up to the latest point in the cycle (which may be costly, especially if
-the baker has done a lot of baking/endorsing over the relevant period).
+deposit(s) placed for the fake operation up to the latest point in the cycle (which may be costly, especially if the baker has done a lot of baking/endorsing over the relevant period).
 
 ## Security deposits and penalties
 
-To discourage double **baking** / **endorsement** a security deposit is required.
+To discourage double baking/endorsing a security deposit is required.
 
-**The security deposit remains in the account but is locked up for a period of five cycles**
+The security deposit remains in the account but is locked up for a period of five cycles
 (around two weeks). The corresponding Tez are always taken into account when calculating slots, but they
 cannot be spent or used as a new security deposit until they have been released again.
 
 All security deposits are frozen when rights for a cycle are being drawn. On mainnet, rights for a cycle are
 determined 5 cycles in advance, and a delegate has a specific deposit associated to each cycle. **We only
 retain one deposit:** the highest deposit of all cycles in a timeframe of 7 cycles, so that we are always able
-to punish proportionally to the capacity to harm in this timeframe. If a validator double signs, that is, double bakes or double (pre)endorses (the latter implies voting for two different proposals at the same round), the frozen deposit is slashed. The slashed amount for double baking is `DOUBLE_BAKING_PUNISHMENT = 640`
-Tez. The slashed amount for double (pre)endorsing is a fixed percentage
+to punish proportionally to the capacity to harm in this timeframe. If a validator double signs, that is, double bakes or double (pre)endorses (the latter implies voting for two different proposals at the same round), the frozen deposit is slashed. The slashed amount for double baking is `DOUBLE_BAKING_PUNISHMENT = 640` Tez. The slashed amount for double (pre)endorsing is a fixed percentage
 `RATIO_OF_FROZEN_DEPOSITS_SLASHED_PER_DOUBLE_ENDORSEMENT = 1/2` of the frozen
 deposit.
 
-**Bakers are advised to hold at least 10% of the total number of Tez used for baking purposes.** By
-default, the required deposits are automatically determined to maximize the active stake. **However, no extra
+##### Bakers are advised to hold at least 10% of the total number of Tez used for baking purposes 
+
+By default, the required deposits are automatically determined to maximize the active stake. **However, no extra
 baking/endorsements slots will be assigned to a delegator who has not enough security deposit.**
 
 When a double baking/endorsement is observed, an accusing baker may provide evidence in a block for a
@@ -74,8 +73,7 @@ timeframe of seven cycles. In addition, a baker cannot spend Tez that have been 
 them as security deposits.
 
 A baker is said to be over-delegated when they do not have sufficient funds themselves relative to their
-stake. However, they do not miss the acquired slots because of a lack of security deposit and thus will not slow down the
-chain anymore¹.
+stake. However, they do not miss the acquired slots because of a lack of security deposit and thus will not slow down the chain anymore.
 
 The over-delegated baker will not maximize its staking power, since more Tez are delegated compared to
 what it should own (at least 10% of the total staking balance).
@@ -92,10 +90,6 @@ And unset this limit with the command:
 octez-client unset deposit limit for <delegate>
 ```
 
-**[1]:** _Before Ithaca amendment, over-delegated bakers could end up losing slots (thus not gaining the
-associated rewards) because they hadn't sufficient funds to cover the security deposits for all their attributed
-slots._
-
 ## Inactivity
 
 A baker who refuses or is unable to bake or endorse for five cycles will be treated as inactive by the chain,
@@ -104,3 +98,8 @@ and can no longer be picked as a baker/endorser.
 The inactive baker must wait for seven cycles after reactivating their account, before they can bake again.
 
 This mechanism is designed to ensure that a baker who is no longer active, does not slow down the chain.
+
+
+## Conclusion
+
+Being a baker doesn't come without risks but by following the proper precedures one can be confident in baking properly and reaping the rewards of doing so, in addition to being a valuable actor in the Tezos network.

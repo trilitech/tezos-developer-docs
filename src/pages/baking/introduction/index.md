@@ -53,7 +53,6 @@ delegated balance of these bakers and so their staking balance, i.e. their chanc
 delegating their associated (voting, baking) rights to a baker. This principle differs from the delegated Proof-
 of-Stake (DPoS) of other blockchains, in which participants vote for a restricted number of block validators.
 
-## References
 
 {% callout type="note" title="Additional Reference" %}
 [Tezos Agora on Baking](https://wiki.tezosagora.org/learn/baking)

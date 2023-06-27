@@ -188,7 +188,6 @@ To secure their baking infrastructure, some bakers use a remote signer. This set
 First make sure you have setup a remote machine on which your node will be running, and a "home" machine on which your baking keys will be stored (or that is connected to a *Ledger/HSM*).
 {% /callout %}
 
-
 Setup the remote signer following the procedure [here](https://tezos.gitlab.io/user/key-management.html#signer).
 
 On the home machine, create and launch the following service:
