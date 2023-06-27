@@ -20,7 +20,7 @@ If you haven't already, please go ahead and read [Smart Contract Concepts](/deve
 - [FA2 - NFTs: Non Fungible Tokens](#fa-2-nf-ts-non-fungible-tokens)
 - [NFT Marketplace](#nft-marketplace)
 - [Escrow](#escrow)
-- [DAO: Decentralized Autonomous Organization](#dao-decentralized-autonomous-organization)
+- [DAO: Decentralized Autonomous Organisation](#dao-decentralized-autonomous-organisation)
 - [DeFi: Flash loan](#de-fi-flash-loan)
 
 
@@ -91,8 +91,6 @@ To be compatible with FA1.2, and so that other contacts can access to informatio
 
 ## FA2 - NFTs: Non Fungible Tokens
 
-### Features
-
 The FA2 standard specifies contracts that can describe:
 - Single fungible token
 - Multiple fungible tokens
@@ -107,7 +105,7 @@ FA2 contracts must have the following entrypoints:
 - `balance_of` - used to access the balance of a user for a given token.
 
 {% table %}
-* **FA 1.2** {% colspan=2 %}
+* **FA 2** {% colspan=2 %}
 ---
 * **Storage**
 * **Entrypoint Effects**
@@ -115,415 +113,290 @@ FA2 contracts must have the following entrypoints:
 * {% list type="checkmark" %}
   * `ledger`: `big-map`
 	* Key:
-      * `holder`: `address`
+      * `token_id`: `nat`
 	* Value:
-	  * `tokens`: `nat`
-  * `allowance`: `big-map`
+	  * `owner`: `address`
+	  * `metadata`: `string`
+  * `operators`: `big-map`
 	* Key:
       * `owner`: `address`
-	  * `spender`: `address`
+	  * `operator`: `address`
+	  * `token_id`: `nat`
 	* Value:
-	  * `amount`: `nat`	
+	  * N/A
   {% /list %}
 * {% list type="checkmark" %}
-  * `transfer(from: address, to: address, value:nat)`
-      * Check the `ledger[from].tokens` value
-	  * If the caller address is not `from`:
-	     * Check that `allowance[from, caller]` exists, with `amount` value
-		 * Subtract `value` from `allowance[from, caller].amount`
-		 * If `allowance[from, caller].amount = 0`, delete `allowance[from, caller]`
-      * Create entry `ledger[to]` with 0 tokens, if it doesn't exist.
-	  * Add `value` to `ledger[to].tokens`
-  * `approve(sender: address, value: nat)`
-      * Check that `tokens[caller].tokens >= nbTokens`
-	  * Create entry `allowance[caller, sender]` with `amount = 0`, if it doesn't exist.
-  * `getBalance(owner: address, callback: contract)`
-      * If `ledger[owner]` exists, set `ownerBalance` to `ledger[owner].tokens`
-	  * Otherwise, set `ownerBalance` to 0
-	  * Call `callback(ownerBalance)`
-  * `getAllowance(owner: address, spender: address, callback: contract)`
-      * If `allowance[owner, spender]` exists, set amount to `allowance[owner, spender]`
-	  * Otherwise, set `amount` to 0
-	  * Call `callback(amount)`
-
+  * `transfer`:
+	  * Arguments:
+  	     * `from: address`
+	     * `transfers: [to: address, token_id: nat, amount: nat])`
+      * For each item `[to, token_id, amount]` in `transfers`
+	     * Check that the `amount` is 1
+		 * Check that the `caller` is `from`
+		 * Or that `operators[from, caller, token_id]` exists
+  * `update_operator`:
+      * Arguments:
+	     * `updates[]` 
+		    * `variant, owner: address`
+			* `operator: address, token_id: nat`
+      * For each item in updates of type `add_operator`:
+	     * Check that `owner` is the caller
+		 * Create entry `operators[owner, operator, token_id]` if it doesn't exist.
+	  * For each item in updates of type `remove_operator`
+	     * Check that `owner` is the caller
+		 * Delete entry `operators[owner, operator, token_id]` if it doesn't exist.
+  * `balance_of`
+      * Arguments:
+	     * `requests: [owner: address, token_id: nat]`
+		 * `callback: address`
+	  * Create list `results` of `[owner: address, token_id: nat, balance: nat]`
+	  * For each request in requests:
+	    * If `ledger[token_id].owner` is `owner`, set `balance` to 1
+		* Otherwise, set `balance` to 0
+		* Add [`owner`, `token_id`, `balance`] to results
+	  * Call `callback(results)`
   {% /list %}
 {% /table %}
 
-<table>
-<tr><td><strong>Storage</strong></td><td><strong>Entry points effects</strong></td></tr>
-<tr><td>
-	<ul>
-		<li>ledger: big-map<br/>
-			Key:
-			<ul>
-				<li>token_id: nat</li>
-			</ul>
-			Value:
-			<ul>
-				<li>owner: address</li>
-				<li>metadata: string</li>
-			</ul>
-		</li><br/>
-		<li>operators: big-map<br/>
-			Key:
-			<ul>
-				<li>owner: address</li>
-				<li>operator: address</li>
-				<li>token_id: nat</li>
-			</ul>
-			Value:
-			<ul>
-				<li>nothing</li>
-			</ul>
-		</li><br/>
-	</ul>
-</td>
-<td>
-	<ul>
-		<li>transfer(from: address, transfers: list of [to: address, token_id: nat, amount: nat])
-			<ul>
-				<li>For each item <code>[to, token_id, amount]</code> in <code>transfers</code>
-					<ul>
-						<li>Check that <code>amount</code> is 1</li>
-						<li>Check that <code>caller</code> is <code>from</code>, or that <code>operators[from, caller, token_id]</code> exists</li>
-						<li>Check that <code>ledger[token_id].owner</code> is <code>from</code></li>
-						<li>Set <code>ledger[token_id].owner</code> to <code>to</code></li>
-					</ul>
-				</li>
-			</ul>
-		</li><br/>
-		<li>update_operator(updates: list of [type: variant, owner: address, operator: address, token_id: nat])
-			<ul>
-				<li>For each item in updates of type <code>add_operator</code>:
-					<ul>
-						<li>Check that <code>owner</code> is the caller</li>
-						<li>Create entry <code>operators[owner, operator, token_id]</code> if it doesn't exist.</li>
-					</ul>
-				</li>
-				<li>For each item in updates of type <code>remove_operator</code>:
-					<ul>
-						<li>Check that <code>owner</code> is the caller</li>
-						<li>Delete entry <code>operators[owner, operator, token_id]</code> if it exists.</li>
-					</ul>
-				</li>
-			</ul>
-		</li><br/>
-		<li>balance_of(requests: list of [owner: address, token_id: nat], callback: address)
-			<ul>
-				<li>Create list <code>results</code> of [owner: address, token_id: nat, balance: nat]</li>
-				<li>For each request in requests:
-					<ul>
-						<li>If <code>ledger[token_id].owner</code> is <code>owner</code>, set <code>balance</code> to 1</li>
-						<li>Otherwise, set <code>balance</code> to 0</li>
-						<li>Add [<code>owner</code>, <code>token_id</code>, <code>balance</code>] to results</li>
-					</ul>
-				</li>
-				<li>Call callback(results)</li>
-			</ul>
-		</li>				
-	</ul>
-</td>
-</tr>
-</table>
-
 ## NFT Marketplace
 
-The goal of this contract is to manage sales of NFTs from one address to another. It pays a share of the selling price to the admin of the marketplace, in exchange for providing a dApp that facilitates finding and purchasing NFTs.
+The goal of this example contract is to manage sales of NFTs. It pays a share of the selling price to the admin of the marketplace, in exchange for providing an application that facilitates finding and purchasing NFTs.
 
-It provides the following entrypoints:
-- <code>add</code> is called by a seller who puts their one of their NFTs on sale for a given price.<br/>The seller must indicate which FA2 contract holds the NFT, and what the id of the NFT is within that contract.<br/>It requires for the marketplace to have been set as an operator in the FA2 contract, for this token.
-- <code>remove</code> can be called by a seller to remove their NFT from the marketplace, if it hasn't been sold.
-- <code>buy</code> is to be called by a buyer who pays the set price to buy a given NFT.<br/>The admin account of the marketplace receives a share of the selling price.
 
-<table>
-<tr><td><strong>Storage</strong></td><td><strong>Entry points effects</strong></td></tr>
-<tr><td>
-	<ul>
-		<li>admin: address</li><br/>
-		<li>fee_rate: nat</li><br/>
-		<li>tokens: big-map<br/>
-			Key:
-			<ul>
-				<li>contract:&nbsp;address</li>
-				<li>token_id: nat</li>
-			</ul>
-			Value:
-			<ul>
-				<li>seller: address</li>
-				<li>price: tez</li>
-			</ul>
-		</li><br/>
-	</ul>
-</td>
-<td>
-	<ul>
-		<li>add(token_contract: address, token_id: nat, price: tez)
-			<ul>
-				<li>Transfer token ownership to the marketplace:<br/>
-					call token_contract.transfer(caller, [self, token_id, 1])</li>
-				<li>Add entry [token_contract, token_id] to tokens with values [caller, price]</li>
-			</ul>
-		</li><br/>
-		<li>remove(token_contract: address, token_id: nat)
-			<ul>
-				<li>Check that caller is the seller of the token:<br/>
-					check that <code>tokens[token_contract, token_id].seller</code> is <code>caller</code></li>
-				<li>Transfer token ownership back to seller:<br/>
-					call token_contract.transfer(self, [caller, token_id, 1])</li>
-				<li>Delete entry [token_contract, toen_id] from tokens</li>
-			</ul>
-		</li><br/>
-		<li>buy(token_contract: address, token_id: nat)
-			<ul>
-				<li>Check that the token is on sale for the amount paid by the caller:<br/>
-					check that <code>tokens[token_contract, token_id].amount</code> = amount_paid</li>
-				<li>Transfer token ownership to the caller:<br/>
-					call token_contract.transfer(self, [caller, token_id, 1])</li>
-				<li>Set admin_fee = fee_rate * amount_paid / 100</li>
-				<li>Create transaction to send admin_fee to admin</li>
-				<li>Create transaction to send amount_paid - admin_fee to <code>[token_contract, token_id].seller</code></li>
-				<li>Delete entry [token_contract, toen_id] from tokens</li>
-			</ul>
-		</li><br/>
-	</ul>
-</td>
-</tr>
-</table>
+### Entrypoints
+- `add` - called by a seller who lists an NFT for sale for a given price. The seller must indicate which FA2 contract holds the NFT, and the ID of the NFT within that contract. This requires the marketplace to have `operator` status within the FA2 contract.
+- `remove` - called by a seller to remove their NFT from the marketplace.
+- `buy` - called by a buyer who pays the required price to buy a given NFT. The admin account of the marketplace receives a share of the selling price.
+
+
+{% table %}
+* **NFT Marketplace** {% colspan=2 %}
+---
+* **Storage**
+* **Entrypoint Effects**
+---
+* {% list type="checkmark" %}
+  * `admin`: `address`
+  * `fee_rate`: `nat`
+  * `tokens`: `big-map`
+	* Key:
+      * `contract`: `address`
+      * `token_id`: `nat`
+	* Value:
+	  * `seller`: `address`
+	  * `price`: `tez`
+  {% /list %}
+* {% list type="checkmark" %}
+  * `add(token_contract: address, token_id: nat, price: tez)`
+      * Transfer token ownership to the marketplace
+	     * Call `token_contract.transfer(caller, [self, token_id, 1])`
+      * Add entry `[token_contract, token_id]` to tokens with values `[caller, price]`
+  * `remove(token_contract: address, token_id: nat)`
+      * Check that caller is the seller of the token:
+	     * Check that `tokens[token_contract, token_id].seller` is `caller`
+      * Transfer token ownership back to seller:
+	     * Call `token_contract.transfer(self, [caller, token_id, 1])`
+	  * Delete entry `[token_contract, token_id]` from tokens
+  * `buy(token_contract: address, token_id: nat)`
+      * Check that the token is on sale for the amount paid by the caller:
+	     * `tokens[token_contract, token_id].amount = amount_paid`
+      * Transfer token ownership to the caller:
+	     * Call `token_contract.transfer(self, [caller, token_id, 1])`
+      * Set `admin_fee = fee_rate * amount_paid / 100`
+	  * Create transaction to send `admin_fee` to admin
+	  * Create transaction to send `amount_paid - admin_fee` to `[token_contract, token_id].seller`
+	  * Delete entry `[token_contract, token_id]` from tokens
+  {% /list %}
+{% /table %}
 
 ## Escrow
 
-An escrow is a contract that temporarily holds funds in reserve, for example tokens paid by a buyer of a service, while their request is being processed.
+An escrow smart contract temporarily holds funds and only unlocks them based on certain conditions, time, or an agreement from both sides. For example, tokens paid by a buyer can be locked in a smart contract, until they confirmed they received what they paid for. 
 
-Its goal is to provide trust between the parties of a transaction that can't be atomic:
-- the buyer can't send the payment to the service until the request has been fulfilled.
-- the service can't start working on the request without a guarantee that it will get paid.
+An escrow provides some trust between parties of a transaction:
+- when the buyer does not want to send the payment until the request has been fulfilled.
+- when the seller does not want to provide the product/service without some guarantee that they will be paid.
 
-There are a number of different types of escrow contracts. In our contract, the service to be provided is some data that needs to be sent by the service, where the escrow contract has the ability to verify the validity of the data.
+There are a number of different types of escrow contracts. In our contract, the service to provided by the seller is data which can be verified to be valid by the escrow smart contract. For example, the request could consist in the service sending the decrypted version of some encrypted data.
 
-For example, the request could consist in the service sending the decrypted version of some encrypted data.
-
-Our contract has three entrypoints:
-- <code>send_request</code> creates a new request with a deadline and collects the payment, that will be held in the escrow.<br/>Along with the data, the request contains the code that will verify the validity of the answer (a lambda)
-- <code>fulfill_request</code> is to be called later by the service.<br/>It verifies that the request has been performed and transfers the funds to the service.
-- <code>cancel_request</code> can be called buy the buyer if the request had not been fulfilled after the deadline.<br/>It transfers the funds back to them.
-
-<table>
-<tr><td><strong>Storage</strong></td><td><strong>Entry points effects</strong></td></tr>
-<tr><td>
-	<ul>
-		<li>requests: big-map<br/>
-		Key:
-		<ul>
-			<li>owner: address</li>
-			<li>id: nat</li>
-		</ul>
-		Value:
-		<ul>
-			<li>amount: tez</li>
-			<li>service: contract</li>
-			<li>data: bytes</li>
-			<li>verification: lambda</li>
-			<li>deadline: datetime</li>
-			<li>answer: option&lt;bytes&gt;</li>
-		</ul>
-		</li>
-	</ul>
-</td>
-<td>
-	<ul>
-		<li>send_request(id, service, data, verification, deadline)
-			<ul>
-				<li>Check that <code>requests[caller, id]</code> doesn't exist</li>
-				<li>Create <code>requests[caller,id]</code> entry with amount_paid and all the parameters</li>
-				<li>Create a call to <code>service(data, self, amount, deadline)</code></li>
-			</ul>
-		</li><br/>
-		<li>fulfill_request(id, answer)
-			<ul>
-				<li>Set <code>request = requests[caller, id]</code>, checking that it exists</li>
-				<li>Check that <code>verification(request.data, answer)</code> returns <code>true</code></li>
-				<li>Set <code>requests[caller, id].answer</code> to <code>answer</code></li>
-				<li>Create transaction to send <code>request.amount</code> to <code>caller</code></li>				
-			</ul>
-		</li><br/>
-		<li>cancel_request(id)
-			<ul>
-				<li>Set <code>request = requests[caller,id]</code>, checking that it exists</li>
-				<li>Check that <code>request.answer</code> is <code>none</code>, meaning the request hasn't been processed</li>
-				<li>Check that the deadline has expired: <code>now > request.deadline</code></li>
-				<li>Create transaction to send <code>request.amount</code> to <code>caller</code></li>
-				<li>Delete <code>requests[caller,id]</code> entry</li>
-			</ul>
-		</li>
-	</ul>
-</td>
-</tr>
-</table>
-
-## DAO: Decentralized Autonomous Organization
-
-A DAO is a contract that represents an entity composed of a number of participants. It provides a way for these participants to collectively take decisions, for example on how to use tokens held in the balance of the DAO contract.
-
-There can be all kinds of DAOs, and we will present a simple but powerful version.
-
-Our DAO stores the addresses of all its members, a list of all the proposals, and keeps track of who voted for them.
-
-It has the following entrypoints :
-- <code>propose</code> can be called by any member to make a new proposal, in the form of a piece of code to execute (a lambda).
-- <code>vote</code> can be called by any member to vote in favor of the request.<br/>When the majority of members voted in favour, the proposal is executed.
-- <code>add_member</code> adds a new member to the DAO.<br/>It may only be called by the DAO itself, which means the call has to go through a proposal and be voted on.
-- <code>remove_member</code> removes a member from the DAO.<br/>It may only be called by the DAO itself.
-
-When deployed, an initial list of members needs to be put in the storage, and typically some tez put in the balance.
-
-<table>
-<tr><td><strong>Storage</strong></td><td><strong>Entry points effects</strong></td></tr>
-<tr><td>
-	<ul>
-		<li>nb_members: nat</li><br/>
-		<li>members: big-map<br/>
-			Key:
-			<ul>
-				<li>user: address</li>
-			</ul>
-			Value:
-			<ul>
-				<li>nothing</li>
-			</ul>
-		</li><br/>
-		<li>requests: big-map<br/>
-			Key:
-			<ul>
-				<li>id: nat</li>
-			</ul>
-			Value:
-			<ul>
-				<li>action: lambda</li>
-				<li>deadline: datetime</li>
-				<li>nb_votes: nat</li>
-			</ul>
-		</li><br/>
-		<li>votes: big-map<br/>
-			Key:
-			<ul>
-				<li>request_id: nat</li>
-				<li>user: address</li>
-			</ul>
-			Value:
-			<ul>
-				<li>nothing</li>
-			</ul>
-		</li>
-	</ul>
-</td>
-<td>
-	<ul>
-		<li>propose(id, action, deadline)
-			<ul>
-				<li>Check that <code>requests[id]</code> doesn't exist</li>
-				<li>Check that the caller is a member: <code>members[caller]</code> exists</li>
-				<li>Create requests[id] entry with values of action and deadline, and with nb_votes set to 0</li>
-			</ul>
-		</li><br/>
-		<li>vote(id)
-			<ul>
-				<li>Check that the caller is a member: <code>members[caller]</code> exists</li>
-				<li>Check that the deadline is not passed: <code>now > requests[id].deadline</code></li>
-				<li>Check that the caller has not voted: <code>votes[id, caller]</code> doensn't exist</li>
-				<li>Record vote: create <code>votes[id, caller]</code> entry</li>
-				<li>Increment <code>requests[id].nb_votes</code></li>
-				<li>If we have a majority of votes: <code>requests[id].nb_votes * 2 > nb_members</code>
-				<ul>
-					<li>Excecute <code>requests[id].lambda</code>, and the transactions it returns.</li>
-					<li>Delete entry <code>requests[id]</code></li>
-				</ul>
-				</li>
-			</ul>
-		</li><br/>
-		<li>add_member(user)
-			<ul>
-				<li>Check that the caller is the DAO itself: <code>caller == self</code></li>
-				<li>Create entry <code>members[user]</code>, checking that it doesn't already exist.</li>
-				<li>Increment <code>nb_members</code></li>
-			</ul>
-		</li><br/>
-		<li>remove_member(user)
-			<ul>
-				<li>Check that caller is the DAO itself: <code>caller == self</code></li>
-				<li>Delete entry <code>members[user]</code>, checking that it exists.</li>
-				<li>Decrement <code>nb_members</code></li>
-			</ul>
-		</li>
-	</ul>
-</td>
-</tr>
-</table>
-
-## DeFi: Flash loan
-
-A Flash loan is one of the many tools of decentralized Finance (deFi).
-
-It provides a way for a user to temporarily get access to large amounts of tez, without any collateral. This allows them to take advantage of opportunities and make a profit, without the need to have their own funds.
-
-The idea is that the following steps can will be done in an atomic way:
-- the borrower receives the requested amount from the contract
-- the borrower uses the amount in a series of calls to other contracts, that allow him to make some instant profit
-- the borrower then pays the requested amount plus some interest to the contract, and gets the rest of the profit.
-
-The key aspect to understand is that all this is done atomically, which means that if any of these step fails, and if for example the borrower is not able to pay back the borrowed amount plus interest, then the whole sequence is canceled, as if it never happens. There is no risk at all for the lender contract.
-
-This contract can even lend the same tez to multiple different people within the same block, as each loan is paid back immediately, so the tokens can be used again for another loan.
-
-One may use a flash loan to take advantage of an arbitrage situation, for example if two different exchanges offer to buy/sell the same type of tokens, at a different price from eachother. The user can buy tokens from one exchange at a low price, then sell it to the other exchange at a higher price, making a profit.
+### Entrypoints
 
 Our contract has three entrypoints:
-- <code>borrow</code> is called by the borrower, indicating how many tez they need.<br/>The amount is transferred to the caller, then a callback he provided is executed. At the end of this entrypoint, we verify that this callback has repaid the loan.
-- <code>repay</code> is to be called by this callback, once the actions that generate a profit are done. The call should come with payment of the borrowed amount, plus interest.
-- <code>check_repaid</code> is called by the <code>borrow</code> entrypoint after the call to the callback. Indeed, <code>borrow</code> can't do the verification itself, since the execution of the callback is done after all the code of the entrypoint is executed.
+- `send_request` - creates a new request with a deadline and also sends the payment to the escrow contract. The request contains the code that will verify the validity of the answer.
+- `fulfill_request` - called by the seller. It verifies that the request has been performed and transfers the funds to the seller.
+- `cancel_request` - called by the buyer if the request has not been fulfilled after deadline expiration. The funds are transferred back to them.
 
-<table>
-<tr><td><strong>Storage</strong></td><td><strong>Entry points effects</strong></td></tr>
-<tr><td>
-	<ul>
-		<li>admin: address</li><br/>
-		<li>interest_rate: nat</li><br/>
-		<li>in_progress: boolean</li><br/>
-		<li>loan_amount: tez</li><br/>
-		<li>repaid: booean</li>
-	</ul>
-</td>
-<td>
-	<ul>
-		<li>borrow(loan_amount: tez, callback: address)
-			<ul>
-				<li>Check that in_progress is false</li>
-				<li>Set in_progress to true</li>
-				<li>Transfer loan_amount to caller</li>
-				<li>Set storage loan_amount to loan_amount</li>
-				<li>Set repaid to false</li>
-				<li>Create call to callback</li>
-				<li>Create call to check_repaid</li>
-			</ul>
-		</li><br/>
-		<li>repay()
-			<ul>
-				<li>Check that in_progress is true</li>
-				<li>Check that paid_amount is more than loan_amount + interest</li>
-				<li>Set repaid to true</li>
-			</ul>
-		</li><br/>
-		<li>check_repaid()
-			<ul>
-				<li>Check that repaid is true</li>
-			</ul>
-		</li><br/>
-		<li>collect(nbTez)
-			<ul>
-				<li>Check that caller is admin</li>
-				<li>Transfer nbTez to admin</li>
-			</ul>
-		</li>
-	</ul>
-</td>
-</tr>
-</table>
+{% table %}
+* **Escrow** {% colspan=2 %}
+---
+* **Storage**
+* **Entrypoint Effects**
+---
+* {% list type="checkmark" %}
+  * `requests`: `big-map`
+	* Key:
+      * `owner`: `address`
+      * `id`: `nat`
+	* Value:
+	  * `amount`: `tez`
+	  * `service`: `contract`
+	  * `data`: `bytes`
+	  * `verification`: `lambda`
+	  * `deadline`: `datetime`
+	  * `answer`: `option: bytes`
+  {% /list %}
+* {% list type="checkmark" %}
+  * `send_request(id, service, data, verification, deadline)`
+      * Check that `requests[caller, id]` doesn't exist
+	  * Create `requests[caller,id]` entry with `amount_paid` and all parameters
+      * Create a call to `service(data, self, amount, deadline)`
+  * `fulfill_request(id, answer)`
+      * Set `request = requests[caller, id]`, checking that it exists
+	  * Check that `verification(request.data, answer)` returns `true`
+	  * Set `requests[caller, id].answer` to `answer`
+	  * Create transaction to send `request.amount` to `caller`
+      * Transfer token ownership back to seller:
+	     * Call `token_contract.transfer(self, [caller, token_id, 1])`
+	  * Delete entry `[token_contract, token_id]` from tokens
+  * `cancel_request(id)`
+      * Set `request = requests[caller,id]`
+	  * Check that `request.answer` is `none` i.e. request hasn't been processed
+      * Transfer token ownership to the caller:
+	     * Call `token_contract.transfer(self, [caller, token_id, 1])`
+      * Check that the deadline has expired: 
+	     * `now > request.deadline`
+	  * Create transaction to send `request.amount` to caller
+	  * Delete `requests[caller,id]` entry
+  {% /list %}
+{% /table %}
+
+## DAO: Decentralized Autonomous Organisation
+
+A DAO is a smart contract that represents an organisation with members. It provides a way for these members to collectively take decisions. A common DAO decision is how to use tokens held in the DAO's treasury i.e. tokens held in the balance of the DAO contract. 
+
+DAO contracts can be very flexible and wide-ranging, but here we will present a simple but powerful version. Our DAO stores the addresses of all its members, a list of all the current proposals, and keeps track of who voted for them.
+
+
+### Entrypoints
+
+- `propose` - called by any member to make a new proposal, in the form of a piece of code to execute (a lambda).
+- `vote` - called by any member to vote in favour of the request. When the majority of members have voted in favour, the proposal is executed.
+- `add_member` - adds a new member to the DAO. It can only be called by the DAO itself, which means the call has to go through a proposal and be voted on.
+- `remove_member` - removes a member from the DAO. It can only be called by the DAO itself.
+
+When deployed, an initial list of members needs to be provided, as well as some initial tez balance.
+
+{% table %}
+* **DAO** {% colspan=2 %}
+---
+* **Storage**
+* **Entrypoint Effects**
+---
+* {% list type="checkmark" %}
+  * `nb_members`: `nat`
+  * `members`: `big-map`
+	* Key:
+      * `user`: `address`
+	* Value:
+	  * N/A
+  * `requests`: `big-map`
+	* Key:
+      * `id`: `nat`
+	* Value:
+	  * `action`: `lambda`
+	  * `deadline`: `datetime`
+	  * `nb_votes`: `nat`
+  * `votes`: `big-map`
+	* Key:
+      * `request_id`: `nat`
+      * `user`: `address`
+	* Value:
+	  * N/A
+  {% /list %}
+* {% list type="checkmark" %}
+  * `propose(id, action, deadline)`
+      * Check that `requests[id]` doesn't exist
+	  * Check that the caller is a member:
+	     * i.e. `members[caller]` exists
+	  * Create `requests[id]` entry with:
+	     * values of `action` and `deadline`
+		 * `nb_votes` set to 0
+  * `vote(id))`
+      * Check that the caller is a member:
+	     * i.e. `members[caller]` exists
+      * Check deadline: `now > requests[id].deadline`
+	  * Check caller has not voted already:
+	     * `votes[id, caller]` does not exist
+      * Record vote:
+	     * Create `votes[id, caller]` entry
+	  * Increment `requests[id].nb_votes`
+	  * If we have a majority of votes: 
+	     * `requests[id].nb_votes * 2 > nb_members`
+	     * Execute `requests[id].lambda` and the transactions it returns
+		 * Delete entry `requests[id]`
+  * `add_member(user)`
+      * Check caller is DAO: `caller == self`
+	  * Create entry `members[user]`, checking that it doesn't already exist
+	  * Increment `nb_members`
+  * `remove_member(user)`
+      * Check caller is DAO: `caller == self`
+	  * Delete entry `members[user]`, checking that it exists
+	  * Decrement `nb_members`
+  {% /list %}
+{% /table %}
+
+## DeFi: Flash Loan
+
+A flash loan is one of the many tools of decentralized finance (deFi). In essence, it provides a way for a user to temporarily get access to large amounts of tez, without any collateral. This allows them to take advantage of opportunities and make a profit, without the need to have their own funds.
+
+### Principle
+
+The idea is that the following steps can will be done in an atomic way (all within the same transaction):
+- the borrower receives the requested flash loan amount from the contract
+- the borrower uses the amount in a series of calls to other contracts, that allow them to make some instant profit
+- the borrower then pays the requested amount plus some interest to the contract pocketing any profit made
+
+The key aspect to understand is that all this is done atomically, which means that if any of these step fails, and if for example the borrower is not able to pay back the borrowed amount plus interest, then the whole sequence is canceled, as if it never happened. There is no risk at all for the lender contract.This contract can even lend the same tez to multiple different people within the same block, as each loan is paid back immediately, so the tokens can be used again for another loan.
+
+One simple example of a flash loan is arbitrage; if two different exchanges offer to buy/sell the same token but at a different price, the user can buy tokens from one exchange at the lower price, then sell it to the other exchange at a higher price, making a profit.
+
+### Entrypoints
+
+- `borrow` - called by the borrower, indicating how many tez they need. The amount is transferred to the caller, then a callback they provided is executed. At the end of this entrypoint, we verify that this callback has repaid the loan.
+- `repay` - called by the callback once it times to repay the loan. The call should come with payment of the borrowed amount, plus some interest.
+- `check_repaid` - called by the `borrow` entrypoint after the call to the callback. `borrow` can't do the verification itself, since the execution of the callback is done after all the code of the entrypoint is executed.
+
+
+{% table %}
+* **Flash Loan** {% colspan=2 %}
+---
+* **Storage**
+* **Entrypoint Effects**
+---
+* {% list type="checkmark" %}
+  * `admin`: `address`
+  * `interest_rate`: `nat`
+  * `in_progress`: `boolean`
+  * `loan_amount`: `tez`
+  * `repaid`: `boolean`
+  {% /list %}
+* {% list type="checkmark" %}
+  * `borrow(loan_amount: tez, callback: address)`
+      * Check `in_progress` is `False`
+	  * Set `in_progress` to `True`
+	  * Transfer `loan_amount` to `caller`
+	  * Set storage `loan_amount` to `loan_amount`
+	  * Set `repaid` to `False`
+	  * Create call to callback
+	  * Create call to `check_repaid`
+  * `repay()`
+      * Check `in_progress` is `True`
+	  * Check `paid_amount > loan_amount + interest`
+	  * Set `repaid` to `True`
+  * `check_repaid())`
+      * Check `repaid` is `True`
+  * `collect(nbTez)`
+      * Check `caller` is `admin`
+	  * Transfer `nbTez` to `admin`
+  {% /list %}
+{% /table %}
