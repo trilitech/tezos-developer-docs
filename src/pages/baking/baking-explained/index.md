@@ -1,13 +1,13 @@
 ---
 id: baking_explained
-title: How baking works?
+title: How Baking Works?
 authors: Maxime Sallerin
 ---
 
 In this section we discuss how baking works. The different actors of the mechanism and the technological solutions will be presented.
 
-
 ![baking-explained](/developers/docs/images/baking-explained/baking_explained.svg)
+
 FIGURE 1: How Baking Works?
 
 ## Actors
@@ -174,7 +174,7 @@ For example: Ledger Nano S together with Kiln meets these two conditions.
 - The accusers monitor the process and punish the cheaters.
 
 ![summary-diagram](/developers/docs/images/baking-explained/summary_diagram.png)
-FIGURE 3: Summary Diagram
+FIGURE 3: Overview
 
 
 ## Conclusion
