@@ -1,7 +1,7 @@
 ---
 id: dao
-disable_pagination: true
 title: Decentralized Autonomous Organization
+slug: /decentralized-autonomous-organization
 author: Daniel Nomadic
 ---
 
@@ -14,3 +14,5 @@ Using a DAO is not risk-free: Recall [the DAO project where coding errors led to
 - [Plenty Governance](https://www.plentydefi.com/vote) to propose, discuss, vote and upgrade.
 
 - [Kolibri DAO](https://governance.kolibri.finance/)
+
+- [Ecosystem DAO](https://tezoscommons.org/ecosystem-dao/) 
