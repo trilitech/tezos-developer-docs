@@ -2,12 +2,13 @@
 id: michocoq
 title: Mi-Cho-Coq
 authors: Frank Hillard
+slug: "/michocoq"
 ---
 
 
 ## Introduction
 
-The _Mi-Cho-Coq_ library represents the bridge between Tezos smart contract and formal proof in Coq.
+The _Mi-Cho-Coq_ library represents the bridge between Tezos smart contracts and formal proof in Coq.
 
 The _Mi-Cho-Coq_ library [2] is a formalization of the Michelson language [9] using the Coq interactive theorem prover [1].
 
@@ -21,9 +22,9 @@ The _Mi-Cho-Coq_ library provides a formal definition (in Gallina) of the **type
 
 
 #### Type system
-The **type system** consists in the definition of types (comparable types and non-comparable ones).
+The **type system** consists of the definition of types (comparable types and non-comparable ones).
 
-```
+```ocaml
 Inductive simple_comparable_type : Set :=
 | string
 | nat
@@ -56,7 +57,7 @@ Inductive type : Set :=
 #### Syntax
 The ****syntax** and typing of Michelson instructions are formalized as a dependent inductive type to rule out ill-typed instructions.
 
-```
+```ocaml
 Inductive instruction :
   forall (self_type : Datatypes.option type) (tail_fail_flag : Datatypes.bool) (A B : Datatypes.list type), Set :=
 | NOOP {A} : instruction A A
@@ -67,12 +68,12 @@ Inductive instruction :
 ...
 ```
 
-Notice that the inductive type `instruction`  defines typing rules for each instruction (`SEQ`, `IF`, `LOOP`, ...).
+Notice that the inductive type `instruction` defines typing rules for each instruction (`SEQ`, `IF`, `LOOP`, ...).
 
 #### Semantics
 The **semantics** of types is defined by interpreting them with predefined _Coq_ types (e.g. int -> Z, nat -> N, mutez -> int63). The semantics of Michelson is defined by an evaluator `eval` formalized as a _Fixpoint_. 
 
-```
+```ocaml
 Fixpoint eval {self_type} {tff} {env} {A : stack_type} {B : stack_type}
          (i : instruction self_type tff A B) (fuel : Datatypes.nat) {struct fuel} :
   stack A -> M (stack B) :=
