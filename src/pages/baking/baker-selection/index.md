@@ -4,7 +4,7 @@ title: Submit transactions to a specific baker
 authors: Daniel Nomadic
 ---
 
-This document aims at explaining how operations issuers can filtrate access to their mempool of operations, using a dedicated server. This feature is scheduled for the Octez v11 release.
+Here we explain how operation issuers can filtrate access to their mempool of operations, using a dedicated server.
 
 ## Bakers selection and authentication
 
@@ -18,7 +18,7 @@ Once bakers have been validated, the server must be able to authenticate them. T
 
 Possibilities :
 
-- with the URL directly: ​<http://username:password@example.com>
+- with the URL directly: ​`http://username:password@example.com`
 
 - with the credentials in the HTTP headers.
 
@@ -30,13 +30,15 @@ Besides authentication, the server needs to perform multiple checks on the opera
 
 - It may only accept manager operations (i.e. transactions, revelation, origination, delegations)
 
-- The server must perform a `dry-run`¹ of the operation on its own node (public nodes could be malicious) to verify the validity of the operation and estimate its gas consumption
+- The server must perform a `dry-run` of the operation on its own node (public nodes could be malicious) to verify the validity of the operation and estimate its gas consumption
+
+{% callout type="note" title="Dry run" %}
+ A dry-run is a simulation performed with the octez-client
+{% /callout %}
+
 
 If one of these checks fails, the server responds back with an appropriate error message. If all is correct, the transaction is added to the pending queue of the server and the server sends back a confirmation that the transaction is waiting to be included in the estimated amount of time.
 
-<small>
-1: A dry-run is a simulation performed with the octez-client.
-</small>
 
 ## Open questions users may address to use this tool
 

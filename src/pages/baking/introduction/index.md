@@ -9,7 +9,7 @@ In this module, we will see how baking works for the Tezos blockchain. More prec
 
 ## What is baking?
 
-To achieve its consensus, Tezos uses [Liquid Proof of Stake (LPoS)](/tezos-basics/liquid-proof-of-stake). That is to say that the validators/bakers of the network temporarily lock a part of their tokens (which they cannot use anymore) to obtain the right to create a block. The **creator** of the next block is called the **baker** and is chosen randomly among all the candidates, based on the number of tokens locked. In exchange for his work, the baker receives a **reward** in Tez.
+To achieve its consensus, Tezos uses Proof of Stake. That is to say that the validators/bakers of the network temporarily lock a part of their tokens (which they cannot use anymore) to obtain the right to create a block. The **creator** of the next block is called the **baker** and is chosen randomly among all the candidates, based on the number of tokens locked. In exchange for his work, the baker receives a **reward** in Tez.
 
 ### What is delegating?
 
@@ -53,6 +53,8 @@ delegated balance of these bakers and so their staking balance, i.e. their chanc
 delegating their associated (voting, baking) rights to a baker. This principle differs from the delegated Proof-
 of-Stake (DPoS) of other blockchains, in which participants vote for a restricted number of block validators.
 
-## References
 
-[1] <https://wiki.tezosagora.org/learn/baking>
+{% callout type="note" title="Additional Reference" %}
+[Tezos Agora on Baking](https://wiki.tezosagora.org/learn/baking)
+{% /callout %}
+
