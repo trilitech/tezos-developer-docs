@@ -1,12 +1,7 @@
 ---
 id: nft-pinata
 title: Mint an NFT using Taquito and Pinata
-description: >-
-  Learn more about NFTs and how to create them using the Tezos blockchain and
-  the IPFS
 ---
-
-## Overview
 
 In this guide, you will get an overview of the mechanics of NFTs, in general, and on Tezos. If you want to get your hands dirty, you will get an explanation of how the code of an NFT platform works, on the contract level but also on the dapp level. This article is mainly designed for beginner programmers who want to get a better idea of the code involved in the creation and use of NFTs, but non-technical readers will also find important information to deepen their understanding of both NFTs and the Tezos blockchain.
 
@@ -18,15 +13,8 @@ Now, let’s start by understanding better what NFTs are and how they work!
 
 > Note: the first part of the article doesn’t require any knowledge in programming but to follow the second part, you need to have a basic knowledge of JavaScript.
 
-### Useful lexicon
 
-* To mint an NFT: to create an NFT and record its data into a smart contract
-* To burn an NFT: to delete the data associated with an NFT from a smart contract
-* A smart contract: a piece of autonomous code that lives on a blockchain
-* The [IPFS](https://ipfs.io/#how): a network of computers providing decentralized storage
-* To pin on the IPFS: storing data on the IPFS
-
-### What is an NFT?
+## What is an NFT?
 
 “NFT” is an acronym that stands for “non-fungible token”. A token is called “fungible” when you can exchange it for another identical token without losing any value. For example, the coins in your wallet are fungible. If we both have 1 euro and we exchange our coins, we both still have 1 euro. An NFT is non-fungible due to its unique nature: there is no other token 100% identical with the same value.
 
@@ -38,6 +26,14 @@ On a technical level, NFTs are stored in smart contracts, little programs that l
 
 On Tezos, NFTs are stored in contracts that follow the [TZIP-12 standard](https://gitlab.com/tzip/tzip/-/blob/master/proposals/tzip-12/tzip-12.md) that you will often see labeled as “**FA2 contracts**”. The NFT is made of 2 main parts: an id to identify it in the contract and metadata to describe what the NFT is. The contract holds a _ledger_, a table where the ids of every NFT are matched with the address of their owner. Another table in the contract matches the ids of every NFT with their metadata, so knowing the id of an NFT, you can easily find out who owns it and what it represents. The metadata is just text and can be stored directly in the contract or somewhere else on the Internet, in which case the address of the metadata is stored in the contract.  
 The contract that holds the NFTs can implement different features according to the platform, it can allow its users to transfer their NFTs to other users of the contract, sell them, burn them, track royalties for every purchase, etc. As the smart contract is just a piece of code, the possibilities are virtually limitless!
+
+### Useful lexicon
+
+* To mint an NFT: to create an NFT and record its data into a smart contract
+* To burn an NFT: to delete the data associated with an NFT from a smart contract
+* A smart contract: a piece of autonomous code that lives on a blockchain
+* The [IPFS](https://ipfs.io/#how): a network of computers providing decentralized storage
+* To pin on the IPFS: storing data on the IPFS
 
 ### Creating an NFT platform on Tezos 
 

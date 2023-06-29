@@ -1,13 +1,10 @@
 ---
-sidebar_position: 2
-hide_table_of_contents: true
 title: "Installation and Setup"
-hide_title: true
 ---
 
 To start, we'll download and install tezos-client and create a couple of test wallets. We'll use [tezos-client](https://tezos.gitlab.io/api/cli-commands.html) - a command line interface to Tezos.
 
-## Install
+## Installation
 
 ### Linux \(64-bit\)
 
@@ -178,11 +175,11 @@ sudo apt-get install -y tezos-endorser-010-ptgranad
 sudo apt-get install -y tezos-accuser-010-ptgranad
 ```
 
-#### Windows
+### Windows
 
 Install one of Linux distributions using [Windows Subsystem for Linux \(WSL\)](https://docs.microsoft.com/en-us/windows/wsl/about) \(e.g. Ubuntu 18.04 LTS\) and follow instructions for Linux.
 
-#### Mac OS
+### Mac OS
 
 With [Homebrew](https://brew.sh/):
 
@@ -193,7 +190,7 @@ $ brew install tezos-client
 
 `tezos-packaging` also provides prebuilt brew bottles for some macOS versions.
 
-### Configure
+## Configure
 
 We'll configure `tezos-client` to use a public test network Tezos node:
 
@@ -205,7 +202,7 @@ $ tezos-client --endpoint https://rpcalpha.tzbeta.net config update
 
 Alternatively, one can use an isolated sandboxed network instead of using a public test-network, which we'll do in the [“Sandbox”](run-a-sandbox.md) section.
 
-#### Try it out
+### Try it out
 
 Verify that you can run tezos-client and that it points to test network:
 
@@ -250,7 +247,7 @@ Now that we know we are on a test network we can temporarily disable this warnin
 $ export TEZOS_CLIENT_UNSAFE_DISABLE_DISCLAIMER=yes
 ```
 
-### Create Test Wallets
+## Create Test Wallets
 
 > With tezos-client installed we can now make a couple of test wallets.
 
