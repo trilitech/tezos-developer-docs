@@ -1,7 +1,7 @@
 ---
-id: modeling-theorem
+id: modelling-theorem
 title: Formal verification on smart contracts
-authors: Frank Hillard
+authors: Frank Hillard (Cardashift)
 ---
 
 This section describes how to bridge the Tezos world (and the Michelson language) with the formal world of _Coq_. For this, we are going to model a theorem representing a smart contract and its purpose (i.e. the goal of the smart contract).

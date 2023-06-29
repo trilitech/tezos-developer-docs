@@ -6,11 +6,11 @@ authors: Frank Hillard
 ---
 
 
-The Tezos blockchain has several advantages over its concurrents. One of them is the **formal verification of smart contract**. This module shows a brief overview of how Tezos smart contracts can be formally verified. 
+The Tezos blockchain has several advantages over its concurrents. One of them is the **formal verification of smart contract**. This module shows a brief overview of how Tezos smart contracts can be formally verified.
 
-We will first define in the [Generalities](/formal-verification/general) section what is the formal verification of a Tezos smart contract, and its benefits and how proof assistants (and tools) can make this task possible.
+We will first define in the [Generalities](developers/docs/advanced-topics/formal-verification/generalities/) section what is the formal verification of a Tezos smart contract, and its benefits and how proof assistants (and tools) can make this task possible.
 
-An explained [example](/formal-verification/modeling-theorem) (_Vote_ smart contract) will be used to illustrate the formal specification of a Tezos smart contract, and its proof.
+An explained [example](developers/docs/advanced-topics/formal-verification/modeling-theorem) (_Vote_ smart contract) will be used to illustrate the formal specification of a Tezos smart contract, and its proof.
 
 The schema below describes the process for performing formal verification on Tezos smart contract.
 

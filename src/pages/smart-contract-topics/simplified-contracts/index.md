@@ -1,7 +1,7 @@
 ---
 id: simplified-contracts
 title: Simplified examples of common contracts
-authors: Mathias Hiron, Nomadic Labs
+authors: Mathias Hiron (Nomadic Labs)
 ---
 
 This page covers some common smart contract use cases. The goal is for you to get a good understanding of how these common smart contracts work. For example, what storage is used and how, how the entrypoints are used and how contracts interact with each other. This will bring you up to speed on a lot of the smart contracts you will run into on a daily basis, helping you understand the broader smart contract development landscape.

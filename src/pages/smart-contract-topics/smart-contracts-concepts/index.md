@@ -1,7 +1,7 @@
 ---
 id: smart-contracts-concepts
 title: Smart Contract Concepts
-authors: Mathias Hiron, Nomadic Labs
+authors: Mathias Hiron (Nomadic Labs), Sasha Aldrick (TriliTech)
 ---
 
 ## Introduction

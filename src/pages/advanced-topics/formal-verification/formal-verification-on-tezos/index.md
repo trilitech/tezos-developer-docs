@@ -1,71 +1,60 @@
 ---
 id: general
-title: Generalities
-authors: Frank Hillard
+title: Formal Verification on Tezos
+authors: Frank Hillard (Cardashift), Sasha Aldrick (TriliTech)
 ---
 
-Formal verification is a complex task but made possible and easier on Tezos smart contracts with proof assistant tools (such as _Coq_) and Michelson conception choices.
+Smart contracts, though most are relatively simple, are prone to bugs like any program. However, within the context of a blockchain, it can be hard for a developer to predict and test for all the interactions and externalities possible. As a consequence, this can lead to critical bugs which can and has led to the loss of funds.
 
-## All about trust
+One of the great benefits of Tezos is the ability to formally verify smart contracts. Tezos makes this formal verification possible for smart contracts with the design of Michelson and with tools such as [Coq](/developers/docs/advanced-topics/formal-verification/coq/) and the [Mi-Cho-Coq library](/developers/docs/advanced-topics/formal-verification/michocoq).
 
-The main trait of the blockchain is that it ensures the execution of transactions without a trusted third-party. The deployment of smart contracts re-introduces a trusted party (the one who wrote the smart contracts). Tests can be done but nothing ensures the completeness (all situations of execution) of these tests.
+## Trust & Formal Verification
 
-A bug in a smart contract would destroy the trust.
+A blockchain ensures the execution of transactions without a trusted third-party. The deployment of smart contracts re-introduces a trusted third-party (the smart contract developer). Testing is possible but ensuring the quality and completeness of these tests is difficult. As such, smart contracts can be hard to trust, especially with the amount of critical bugs that have occurred. 
 
-The formal verification consists in proving mathematically that a smart contract possesses properties described in its formal specification.
-The mathematical proof is formal so its correctness can be verified automatically.
+Formal verification consists of proving mathematically that a smart contract possesses the properties described in its formal specification. This mathematical proof is formal so its correctness can be verified automatically. In this case, trust is based on the **existence of a proof** for a smart contract and the **understanding of the formal specification** of the smart contract - this describes, without ambiguity, the properties of the program.
 
-The trust is based on the **existence of a proof** for a smart contract and the **understanding of the formal specifications** of the smart contracts. The formal specification of a smart contract describes without ambiguity the properties of the program.
+### The Formal Verification Process on Tezos
 
-## What is the formal verification on Tezos smart contract
+The formal verification process on Tezos for smart contracts consists of:
 
-The formal verification on Tezos smart contracts consist on:
-- describing formal specifications of the expected behavior of the smart contract
-- translating the smart contract, its formal specifications and specification of the language itself into a proof assistant language.
-- writing a proof. In the proof assistant, one can manually (or assisted by solvers tools) produce a formal proof that the smart contract comply to the given specifications.
-- publishing this proof in order to allow anyone to verify automatically that the smart contract comply to its specifications.
+- **describing** the formal specification of expected behaviour
+- **translating** the smart contract, its formal specification and the specification of the language itself into a proof assistant language.
+- **writing** a proof using a proof assistant. This can be done manually (or assisted by solvers tools) to produce a formal proof that smart contract complies with the given specification.
+- **publishing** this proof to allow anyone to verify automatically that the smart contract does indeed comply with its specification.
 
+### How does Tezos make Formal Verification possible?
 
-## Formal verification made possible
+The [Michelson](/developers/docs/tezos-basics/smart-contract-languages/michelson/) language has been designed to take formal verification into account:
 
-Formal verification is a complex task but made possible on Tezos smart contracts with Michelson conception choices.
+- introducing a typing system on a stack-based language
+- preventing JUMP instructions which would make the formal verification more complex
+- not supporting floating-point numbers (because of overflow and rounding)
+- avoiding execution errors with obvious failures (e.g. division by 0)
 
-Indeed the Michelson language has been designed in order to take the formal verification into account. It is done by:
-- introducing typing system on a stack-based language for facilitating formal verification.
-- preventing JUMP instructions which make the formal verification more complex
-- prevent floating-point number (because of overflow and rounding)
-- less execution error with explicit failure (e.g. division by 0)
+Generally speaking, smart contracts also have specific characteristics making them more suited to being verified than other common programs:
 
-## Formal verification benefits
+- most smart contracts are not intended to be modified, therefore only requiring one proof for its lifetime.
+- proofs can be verified automatically by anyone, without a trusted third-party, which aligns well with the ethos of decentralisation
+- smart contracts are relatively short, making proof writing easier
+- smart contracts are executed in the well-defined context of the Tezos protocol
+- formal verification is particularly relevant when financial value is at stake.
 
-There is a real benefit to be able to prove the behavior of a smart contract, (i.e. to verify that a smart contract complies to some specifications).
+## Proof Tooling
 
-Generally speaking, smart contracts have specific characteristics making them more bound to be verified than other common programs:
-- Due to the blockchain context, a smart contract is not intended to be modified (hard to modify once deployed), and thus can be proven once and for all.
-- particularly relevant when financial transfers are at stake (bug causing the loss of a token).
-- Proofs can be verified automatically without a trusted third-party. The proof process is aligned with the decentralization concept.
-- smart contracts are short , thus it is not too hard to write a proof
-- smart contracts are executed in a well-defined context (protocol Tezos) which relatively separated, thus facilitating the formal verification.
+There are many proof assistants available to translate a smart contract into a formal definition, formalize its specifications and ensure its compliance with these specifications:
 
-> This compliance can be verified by anyone for a given smart contract and proof.
+- [Mi-Cho-Coq](/developers/docs/advanced-topics/formal-verification/michocoq), a library for the [Coq](/developers/docs/advanced-topics/formal-verification/coq/) proof assistant.
 
-## Which tools
+- The [Archetype](/developers/docs/tezos-basics/smart-contract-languages/archetype/) language has some native support formal verification (based on [Why3](**ADD LINK**)). The specification can be written directly within the smart contract.
 
-Many proof assistants can be used to translate a smart contract into a formal definition and formalize its specifications and its compliance to these specifications.
-
-- Nomadic Labs provides Mi-Cho-Coq, a library for the _Coq_ proof assistant.
-
-- Archetype language integrates directly information concerning formal verification (based on Why3, may automatically produce the proof). specifications are written in the smart contract.
-
-- K-Michelson is based on K-framework which is a generic tool for specifications and proofs languages.
-
-
+- [K-Michelson](**ADD LINK**) is based on K-framework which is a generic tool for specifications and proof languages.
 
 ### Coq and Mi-Cho-Coq
 
 #### Coq
 
-Initially developed by Thierry Coquand, _Coq_ [[1]](/formal-verification/modeling-theorem#references) is a proof assistant designed to develop mathematical proofs, and especially to write formal specifications, programs, and proofs that programs comply to their specifications.
+[Coq]() is a proof assistant designed to develop mathematical proofs, and especially to write formal specifications, programs, and proofs that programs comply to their specifications.
 
 Specifications, programs, and proofs are formalized in the _Coq_ language called _Gallina_, which follows the _Calculus of Inductive Constructions_ (CIC).
 
@@ -110,8 +99,6 @@ Juvix official documentation is available at https://juvix.org/docs/proof-system
 ### Lorentz (Haskell)
 
 Lorentz official documentation is available at https://serokell.io/blog/lorentz
-
-
 
 ## Modeling specifications
 
