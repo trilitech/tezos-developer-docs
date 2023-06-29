@@ -1,12 +1,10 @@
 ---
 id: monitor-a-node
-title: Monitor a node
+title: Monitor a Node
 authors: Jean-Baptiste Col
 ---
 
-This module will guide you through the steps to set up a monitoring tool that will allow you to track various metrics of an Octez node.
-
-## Introduction
+This section will guide you through the steps to set up a monitoring tool that will allow you to track various metrics of an Octez node.
 
 Until now, the only tool developers had to monitor the behavior of their Tezos node was to look at the logs, [adjust the log verbosity](https://tezos.gitlab.io/user/logging.html?highlight=log#node-specific-configuration), and reconstruct all relevant information from this stream. But getting more insight into a node's performance was tedious and difficult. For instance, the number of connected peers, the number of pending operations, or the number of times the validator switched branches, were not easy to observe continuously.
 
@@ -23,22 +21,22 @@ There are two types of metrics on an Octez node that can be monitored:
 
 ## Overview of monitoring tools
 
-### What is [Netdata](https://www.netdata.cloud/) ?
+### [Netdata](https://www.netdata.cloud/)
 
-Netdata is a light and open-source software that collects and exposes hardware metrics of a physical machine, and is capable of collecting fresh data every second. Netdata is a complete tool that provides various graphics visualization (histogram, tables, gauge, points...), alerting + triggering tools, and many other features...
+Netdata is a light and open-source software that collects and exposes hardware metrics of a physical machine, and is capable of collecting fresh data every second. Netdata is a complete tool that provides various graphics visualization (histogram, tables, gauge, points), alerting + triggering tools, and many other features.
 
-### What is [Grafana](https://grafana.com/) ? ![](developers/docs/images/monitor-a-node/grafana-logo.png)
+### [Grafana](https://grafana.com/)
 
-Basically, Grafana is a software that takes JSON in input and makes dashboards that you can display using your browser (the high-level web interface that displays all the metrics). In our case, JSONs are provided by Grafazos.
+Grafana is software that takes JSON in input and makes dashboards that you can display using your browser (the high-level web interface that displays all the metrics). In our case, JSONs are provided by Grafazos.
 
-### What is [Grafazos](https://gitlab.com/nomadic-labs/grafazos) ?
+### [Grafazos](https://gitlab.com/nomadic-labs/grafazos) 
 Grafazos is a jsonnet library written by Nomadic Labs, which uses itself [grafonet-lib](https://github.com/grafana/grafonnet-lib), which is a jsonnet library to write Grafana dashboards as code.
 
-### What is [jsonnet](https://jsonnet.org/) ?  ![](developers/docs/images/monitor-a-node/jsonnet-logo.png)
+### [jsonnet](https://jsonnet.org/)
 
 Jsonnet is a programming language that allows to create JSONs easily.
 
-### What is [Prometheus](https://prometheus.io/docs/introduction/overview/#what-is-prometheus) ? ![](developers/docs/images/monitor-a-node/prometheus-logo.png)
+### [Prometheus](https://prometheus.io/docs/introduction/overview/#what-is-prometheus) 
 
 Prometheus server is a toolkit that scrapes and stores time series data by making requests to the nodes. Basically, prometheus is fed by both netdata and tezos-metrics (which is deprecated and not used), and then, grafana displays the data gathered by prometheus.
 
@@ -47,19 +45,16 @@ Prometheus server is a toolkit that scrapes and stores time series data by makin
 
 ### Set up the monitoring
 
-<details>
-<summary>Step 1: Install Netdata on your node host</summary>
+#### Step 1: Install Netdata on your node host
 
-We recommend to look at "[Install on Linux with one-line installer](https://learn.netdata.cloud/docs/get-started#install-on-linux-with-one-line-installer)" to make a personnalised installation. Else, copy the following command:
+We recommend to look at [Install on Linux with one-line installer](https://learn.netdata.cloud/docs/get-started#install-on-linux-with-one-line-installer) to make a personalised installation. Else, copy the following command:
 
 ```bash
 wget -O /tmp/netdata-kickstart.sh https://my-netdata.io/kickstart.sh && sh /tmp/netdata-kickstart.sh
 ```
 
-</details>
+#### Step 2: Add the collector plugin for Octez metrics
 
-<details>
-<summary>Step 2: Add the collector plugin for Octez metrics</summary>
 This plugin scrapes the metrics of your octez node to display the metrics with Netdata. You have the choice between bash, python or go plugins. The best performing plugin is the plugin coded in go. However, if you want to modify a plugin to your liking, choose the language that suits you best. The plugin must be placed in a specific directory as described below:
 
 **Bash plugin:**
@@ -142,12 +137,9 @@ return 0
 }
 ```
 
-</details>
+#### Step 3: Open the metrics port of your node
 
-<details>
-<summary>Step 3: Open the metrics port of your node</summary>
-
-When starting your node, add the  --metrics-addr=:9091 option to open a port for the Octez metrics. (By default the port is 9091, but you can arbitrarily choose any other one, at your convenience. Just make sure to change the port in the plugin code accordingly.).
+When starting your node, add the  `--metrics-addr=:9091` option to open a port for the Octez metrics. (By default the port is 9091, but you can arbitrarily choose any other one, at your convenience. Just make sure to change the port in the plugin code accordingly.).
 
 Here is an example, when launching your Tezos node:
 
@@ -155,10 +147,7 @@ Here is an example, when launching your Tezos node:
 octez-node run --rpc-addr 127.0.0.1:8732 --log-output tezos.log --metrics-addr=:9091
 ```
 
-</details>
-
-<details>
-<summary>Step 4: Restart the Netdata server</summary>
+#### Step 4: Restart the Netdata server
 
 Once you've gotten the plugin on your machine, restart the Netdata server using:
 
@@ -166,10 +155,7 @@ Once you've gotten the plugin on your machine, restart the Netdata server using:
 sudo systemctl restart netdata
 ```
 
-</details>
-
-<details>
-<summary>Step 5: Open the dashboard</summary>
+#### Step 5: Open the dashboard
 
 You have in fact two ways to [open your dashboard](https://learn.netdata.cloud/docs/dashboard/how-dashboard-works#open-the-dashboard):
 
@@ -178,10 +164,8 @@ You have in fact two ways to [open your dashboard](https://learn.netdata.cloud/d
 - You can also use [Netdata Cloud](https://app.netdata.cloud/) to create custom dashboards, monitor several nodes, and invite users to watch your dashboard... It's free of charges and your data are never stored in a remote cloud server, but rather in the local disk of your machines.
 
 We recommend to use Netdata Cloud for a more user-friendly usage. The rest of this tutorial is based on Netdata Cloud.
-</details>
 
-<details>
-<summary>Step 6: Create a custom dashboard with Netdata Cloud!</summary>
+#### Step 6: Create a custom dashboard with Netdata Cloud!
 
 Netdata provides a really intuitive tool to create custom dashboards. If you wants more details, read [Netdata documentation](https://learn.netdata.cloud/docs/cloud/visualize/dashboards).
 
@@ -206,7 +190,6 @@ You can also monitor relevant hardware data (metrics names may differ depending 
 - `system.ram` to get the remaining free RAM and it's overall usage.
 
 Plenty of others metrics  are available, depending on your machine and needs.
-</details>
 
 This is an example of a Demo Dashboard with the following metrics:
 - `octez_version` 
@@ -218,21 +201,19 @@ This is an example of a Demo Dashboard with the following metrics:
 - `octez_p2p_peers_running`
 - `octez_store_last_written_block_size`
 
-![Example of a light monitoring dashboard](developers/docs/images/monitor-a-node/netdata_dashboard.png)
-
+![Example of a light monitoring dashboard](/developers/docs/images/monitor-a-node/netdata_dashboard.png)
 
 ### Monitoring several nodes
 
-**Step 1.** Install Netdata on each of the machines hosting your nodes as described in step 1 of "Set up the monitoring" part.
+#### Step1. Install Netdata on each of the machines hosting your nodes as described in #### Step1 of "Set up the monitoring" part.
 
-**Step 2.** On Netdata Cloud click on the button `Connect Nodes`, and follow the instructions.
+#### Step2. On Netdata Cloud click on the button `Connect Nodes`, and follow the instructions.
 
 ### Managing alerts
 
 Netdata sets up alerts by default for some predefined metrics which may not fit your needs. You can set up personalized ones to be received automatically by email, Slack, or SMS.
 
-<details>
-<summary>How to reach config files?</summary>
+#### How to reach config files?
 
 Go to `/etc/netdata` and use the command `edit-config` to edit config files.
 
@@ -247,10 +228,7 @@ To list config files available just use ./edit-config command. Alert file names 
 
 (Configuration files are stored in `/usr/lib/netdata/conf.d` and alerts in `health.d` folder)
 
-</details>
-
-<details>
-<summary>Manage existing alerts: Edit health configuration files</summary>
+#### Manage existing alerts: Edit health configuration files
 
 You can manage existing alerts by [editing health configuration file](https://learn.netdata.cloud/docs/monitor/configure-alarms#edit-health-configuration-files).
 
@@ -274,10 +252,7 @@ template: 10min_cpu_usage #Name of the alarm/template.(required)
 
 [Here](https://learn.netdata.cloud/docs/agent/health/reference#entity-format) is an exhaustive liste of alerts parameters.
 
-</details>
-
-<details>
-<summary>Create personnalised alerts: Write a new health entity</summary>
+#### Create personnalised alerts: Write a new health entity
 
 To create personalised alerts, create a `.conf` file in `/usr/lib/netdata/conf.d/health.d` and edit this new file using the template shown previously:
 
@@ -295,28 +270,20 @@ alarm: tezos_node_p2p_connections_active (cannot be chart name, dimension name, 
 ```
 
 (You can access official Netdata documentation [here](https://learn.netdata.cloud/docs/monitor/configure-alarms#write-a-new-health-entity))
-</details>
 
-<details>
-<summary>Documentation about Alerts managing</summary>
 
-Basic documentation for configuring health alarms:  
-<https://learn.netdata.cloud/docs/monitor/configure-alarms>
+### Documentation on managing alerts
 
-Health configuration reference (detailed documentation):  
-<https://learn.netdata.cloud/docs/agent/health/reference>
+- [Basic documentation for configuring health alarms](https://learn.netdata.cloud/docs/monitor/configure-alarms)
+- [Health configuration reference (detailed documentation)](https://learn.netdata.cloud/docs/agent/health/reference)
+- [Supported notification endpoints](https://learn.netdata.cloud/docs/monitor/enable-notifications#supported-notification-endpoints)
 
-Supported notification endpoints:  
-<https://learn.netdata.cloud/docs/monitor/enable-notifications#supported-notification-endpoints>
-
-</details>
 
 ### Manage data retention
 
 The metrics collected every second by Netdata can be stored in the local memory of your machine for a variable duration of time, depending on the desired history. This allows you to keep track of the activity of your node and to watch its evolution over time.
 
-<details>
-<summary>Get netdata.conf file</summary>
+#### Get netdata.conf file
 
 You can choose how long data will be stored on your local machine. To do so, you will need the `netdata.conf` file in the `/etc/netdata/` repository. If you haven't this file yet, you can download it using the following command:
 
@@ -326,10 +293,7 @@ wget -O /etc/netdata/netdata.conf http://localhost:19999/netdata.conf
 
 You can view your current configuration at: `http://localhost:19999/netdata.conf`
 
-</details>
-
-<details>
-<summary>Calculate the data base space needed</summary>
+#### Calculate the data base space needed
 
 To calculate the space needed to store your metrics you will need:
 
@@ -339,12 +303,9 @@ To calculate the space needed to store your metrics you will need:
 
 For 2000 metrics, collected every second and retained for a month, Tier 0 needs: 1 byte x 2,000 metrics x 3,600 secs per hour x 24 hours per day x 30 days per month = 5,184MB.
 
-![Number of metrics location in the dashboard](number-of-metrics.jpeg)
+![Number of metrics location in the dashboard](/developers/docs/images/monitor-a-node/number-of-metrics.jpeg)
 
-</details>
-
-<details>
-<summary>Modify netdata.conf file</summary>
+#### Modify netdata.conf file
 
 Now you just have to change the value of "dbengine multihost disk space" in [db] section in netdata.conf file by the value calculated before (in MB).
 
@@ -370,56 +331,34 @@ Now you just have to change the value of "dbengine multihost disk space" in [db]
  # dbengine pages per extent = 64
 ```
 
-</details>
+#### Documentation about data retention
 
-<details>
-<summary>Documentation about data retention</summary>
+- [Netdata parameters of metrics retention / Tiering](https://learn.netdata.cloud/guides/longer-metrics-storage/)
+- [Database overview](https://learn.netdata.cloud/docs/agent/database)
+- [The database engine / Tiering](https://learn.netdata.cloud/docs/agent/database/engine)
+- [Change how long Netdata stores metrics](https://learn.netdata.cloud/docs/store/change-metrics-storage)
+- [Daemon configuration](https://learn.netdata.cloud/docs/agent/daemon/config#global-section-options)
 
-Netdata parameters of metrics retention / Tiering:  
-<https://learn.netdata.cloud/guides/longer-metrics-storage/>
-
-Database overview:  
-<https://learn.netdata.cloud/docs/agent/database>
-
-The database engine / Tiering:  
-<https://learn.netdata.cloud/docs/agent/database/engine>
-
-Change how long Netdata stores metrics:  
-<https://learn.netdata.cloud/docs/store/change-metrics-storage>
-
-Daemon configuration:  
-<https://learn.netdata.cloud/docs/agent/daemon/config#global-section-options>
-
-</details>  
-  
-
-## Full monitoring of an Octez node with octez metrics
+## Full monitoring with Octez Metrics
 
 Here is the global picture of a monitoring system, connecting all these tools together:
 
-![](developers/docs/images/monitor-a-node/all-in-all.png)
+![](/developers/docs/images/monitor-a-node/all-in-all.png)
 
 A Grafazos dashboard looks like this:
-<figure align="center">
 
-![](octez-metrics-dashboard.gif)
+![](/developers/docs/images/monitor-a-node/octez-metrics-dashboard.gif)
 
-<figcaption align="center"> <b>Table 1:</b> Grafana dashboard of a Tezos node
-</figcaption>
-</figure>
+Table 1: Grafana dashboard of a Tezos node
 
 As you can immediately see at the top, the dashboard will tell you your node's bootstrap status and whether it's synchronized, followed by tables and graphs of other data points.
 
-### Node metrics
-
-In previous versions of Octez, a separate tool was needed for this task. [tezos-metrics](https://gitlab.com/nomadic-labs/tezos-metrics) exported the metrics which were computed from the result of RPC calls to a running node. However, since the node API changed with each version, it required `tezos-metrics` to update alongside it, resulting in as many versions of tezos-metrics as Octez itself. Starting with [Octez v14](https://tezos.gitlab.io/releases/version-14.html), metrics were integrated into the node and can be exported directly, making it simple to set up.
-Moreover, as the metrics are now generated by the node itself, no additional RPC calls are needed anymore. This is why the monitoring is now considerably more efficient!
 
 ### Setting up Octez Metrics
 
 To use Octez Metrics, you just start your node with the metrics server enabled. The node integrates a server that registers the implemented metrics and outputs them for each ``/metrics`` HTTP request.
 
-When you start your node you add the ``--metrics-addr`` option which takes as a parameter ``<ADDR:PORT>`` or ``<ADDR>`` or ``:<PORT>``. This option can be used either when starting your node, or in the configuration file (see <https://tezos.gitlab.io/user/node-configuration.html>).
+When you start your node you add the ``--metrics-addr`` option which takes as a parameter ``<ADDR:PORT>`` or ``<ADDR>`` or ``:<PORT>``. This option can be used either when starting your node, or in the [configuration file](https://tezos.gitlab.io/user/node-configuration.html).
 
 Your node is now ready to have metrics scraped with requests to the metrics server. For instance, if the node server is configured to expose metrics on port 9932 (the default), then you can scrape the metrics with the request ``http://localhost:9932/metrics``.
 The result of the request is the list the node metrics described as:
@@ -451,11 +390,13 @@ The [store](https://tezos.gitlab.io/shell/storage.html) can also be monitored wi
 Finally, if you use the RPC server of your node, it is likely decisive in the operation of your node.
 For each RPC called, two metrics are associated: `octez_rpc_calls_sum{endpoint="...";method="..."}` and `octez_rpc_calls_count{endpoint="...";method="..."}` (with appropriate label values). *call_sum* is the sum of the execution times, and *call_count* is the number of executions.
 
-[^1]: The chain validator is responsible for handling valid blocks and selecting the best head for its chain.
-[^2]: The block validator validates blocks and notifies the corresponding chain validator.
-[^3]: Each peer validator treats new head proposals from its associated peer, retrieving all the operations, and if valid, triggers a validation of the new head.
+1. The chain validator is responsible for handling valid blocks and selecting the best head for its chain.
+2. The block validator validates blocks and notifies the corresponding chain validator.
+3. Each peer validator treats new head proposals from its associated peer, retrieving all the operations, and if valid, triggers a validation of the new head.
 
-*Note that the metrics described here are those available with Octez v14--it is likely to evolve with future Octez versions.*
+{% callout title="Octez version" %}
+Note that the metrics described here are those available with Octez v14--it is likely to evolve with future Octez versions.
+{% /callout %}
 
 ### Dashboards
 
@@ -491,24 +432,18 @@ Some metrics are self-explanatory, such as *P2P total connections*, which shows 
 
 Another useful metric is the *Block validation time*, which measures the time between when a request is registered in the worker till the worker pops the request and marks it complete. This should generally be under 1 second. If it's persistently longer, that could indicate trouble too.
 
-<figure align="center">
+![](/developers/docs/images/monitor-a-node/metrics-block-validation-time.png)
 
-![](developers/docs/images/monitor-a-node/metrics-block-validation-time.png)
+Graph 2: Block validation time
 
-<figcaption align="center"> <b>Graph 2:</b> Block validation time
-</figcaption>
-</figure>
 
 The *P2P connections* graph will show you immediately if your node is having trouble connecting to peers, or if there's a drop-off in the number of connections.
 A healthy node should typically have a few dozen peer connections (depending on how it was configured).
 
-<figure align="center">
 
-![](developers/docs/images/monitor-a-node/metrics-p2p-connections.png)
+![](/developers/docs/images/monitor-a-node/metrics-p2p-connections.png)
 
-<figcaption align="center"> <b>Graph 3:</b> P2P connections
-</figcaption>
-</figure>
+Graph 3: P2P connections
 
 The *Peer validator* graph shows a number of different metrics including *unavailable protocols*. An up-to-date, healthy node should see this as a low number. If not it can indicate that your node is running an old version of Octez, or that your node is being fed bad data from peers.
 
@@ -523,7 +458,7 @@ Or you can also use Grafazos to import ready-to-use dashboards for your node mon
 
 Grafana is a relatively user-friendly tool, so play with creating a custom one as you like. You may also want to use the "explore" section of Grafana. Grafazos is also particularly useful in automatic deployment of Tezos nodes via provisioning tools such as Puppet or Ansible.
 
-### Conclusion
+## Conclusion
 
-We developed Octez Metrics to give Tezos users a better insight into how their node is performing, and to observe the overall network health. This is a product that will continuously improve, and we encourage node operators and bakers to suggest new features and additional metrics that they would like to see. We recognize that the best way to keep your node healthy -- and in turn, to keep the entire Tezos network healthy -- is to provide everyone the tools needed to monitor their setup.
+Octez Metrics gives Tezos users insight into how their node is performing, and ability to observe the overall network health. The best way to keep your node healthy and keep the entire Tezos network healthy is with monitoring tools to gain insite into network health. 
 

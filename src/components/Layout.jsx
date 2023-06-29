@@ -84,10 +84,6 @@ const documentationNavigation = [
             title: 'Best Practices',
             href: '/tezos-basics/get-started-with-octez/best-practices',
           },
-          {
-            title: 'Deploy a Cluster of Nodes',
-            href: '/tezos-basics/get-started-with-octez/node-cluster',
-          },
         ],
       },
       {
@@ -364,10 +360,6 @@ const tutorialNavigation = [
             title: 'Best Practices',
             href: '/tezos-basics/get-started-with-octez/best-practices',
           },
-          {
-            title: 'Deploy a Cluster of Nodes',
-            href: '/tezos-basics/get-started-with-octez/node-cluster',
-          },
         ],
       },
       { title: 'Test Networks', href: '/tezos-basics/test-networks' },
@@ -597,10 +589,6 @@ const toolingNavigation = [
             title: 'Best Practices',
             href: '/tezos-basics/get-started-with-octez/best-practices',
           },
-          {
-            title: 'Deploy a Cluster of Nodes',
-            href: '/tezos-basics/get-started-with-octez/node-cluster',
-          },
         ],
       },
       { title: 'Test Networks', href: '/tezos-basics/test-networks' },
@@ -829,10 +817,6 @@ const resourcesNavigation = [
           {
             title: 'Best Practices',
             href: '/tezos-basics/get-started-with-octez/best-practices',
-          },
-          {
-            title: 'Deploy a Cluster of Nodes',
-            href: '/tezos-basics/get-started-with-octez/node-cluster',
           },
         ],
       },
