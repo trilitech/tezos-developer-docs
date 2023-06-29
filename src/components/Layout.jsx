@@ -106,6 +106,48 @@ const documentationNavigation = [
     ],
   },
   {
+    title: 'Smart Contracts',
+    links: [
+      { 
+        title: 'Smart Contract Languages', 
+        href: '/smart-contracts/smart-contract-languages',
+        children: [
+          {
+            title: 'LIGO',
+            href: '/smart-contracts/smart-contract-languages/ligo',
+          },
+          {
+            title: 'SmartPy',
+            href: '/smart-contracts/smart-contract-languages/smartpy',
+          },
+          {
+            title: 'Archetype',
+            href: '/smart-contracts/smart-contract-languages/archetype',
+          },
+          {
+            title: 'Michelson',
+            href: '/smart-contracts/smart-contract-languages/michelson',
+          },
+        ],
+      },
+      {
+        title: 'Smart Contract Concepts',
+        href: '/smart-contracts/smart-contracts-concepts',
+      },
+      {
+        title: 'Simplified Contracts',
+        href: '/smart-contracts/simplified-contracts',
+      },
+      { title: 'FA1.2 Token Contract', href: '/smart-contracts/fa12' },
+      { title: 'FA2 Token Contract', href: '/smart-contracts/fa2' },
+      {
+        title: 'Avoiding Flaws',
+        href: '/smart-contracts/avoiding-flaws',
+      },
+      { title: 'Oracles', href: '/smart-contracts/oracles' },
+    ],
+  },
+  {
     title: 'DeFi, NFTs and Gaming',
     links: [
       {
@@ -193,49 +235,6 @@ const documentationNavigation = [
         title: 'Framework Best Practices',
         href: '/dapp-development/framework-best-practices',
       },
-    ],
-  },
-
-  {
-    title: 'Smart Contracts',
-    links: [
-      { 
-        title: 'Smart Contract Languages', 
-        href: '/smart-contracts/smart-contract-languages',
-        children: [
-          {
-            title: 'LIGO',
-            href: '/smart-contracts/smart-contract-languages/ligo',
-          },
-          {
-            title: 'SmartPy',
-            href: '/smart-contracts/smart-contract-languages/smartpy',
-          },
-          {
-            title: 'Archetype',
-            href: '/smart-contracts/smart-contract-languages/archetype',
-          },
-          {
-            title: 'Michelson',
-            href: '/smart-contracts/smart-contract-languages/michelson',
-          },
-        ],
-      },
-      {
-        title: 'Smart Contract Concepts',
-        href: '/smart-contracts/smart-contracts-concepts',
-      },
-      {
-        title: 'Simplified Contracts',
-        href: '/smart-contracts/simplified-contracts',
-      },
-      { title: 'FA1.2 Token Contract', href: '/smart-contracts/fa12' },
-      { title: 'FA2 Token Contract', href: '/smart-contracts/fa2' },
-      {
-        title: 'Avoiding Flaws',
-        href: '/smart-contracts/avoiding-flaws',
-      },
-      { title: 'Oracles', href: '/smart-contracts/oracles' },
     ],
   },
   {
@@ -366,6 +365,48 @@ const tutorialNavigation = [
     ],
   },
   {
+    title: 'Smart Contracts',
+    links: [
+      { 
+        title: 'Smart Contract Languages', 
+        href: '/smart-contracts/smart-contract-languages',
+        children: [
+          {
+            title: 'LIGO',
+            href: '/smart-contracts/smart-contract-languages/ligo',
+          },
+          {
+            title: 'SmartPy',
+            href: '/smart-contracts/smart-contract-languages/smartpy',
+          },
+          {
+            title: 'Archetype',
+            href: '/smart-contracts/smart-contract-languages/archetype',
+          },
+          {
+            title: 'Michelson',
+            href: '/smart-contracts/smart-contract-languages/michelson',
+          },
+        ],
+      },
+      {
+        title: 'Smart Contract Concepts',
+        href: '/smart-contracts/smart-contracts-concepts',
+      },
+      {
+        title: 'Simplified Contracts',
+        href: '/smart-contracts/simplified-contracts',
+      },
+      { title: 'FA1.2 Token Contract', href: '/smart-contracts/fa12' },
+      { title: 'FA2 Token Contract', href: '/smart-contracts/fa2' },
+      {
+        title: 'Avoiding Flaws',
+        href: '/smart-contracts/avoiding-flaws',
+      },
+      { title: 'Oracles', href: '/smart-contracts/oracles' },
+    ],
+  },
+  {
     title: 'DeFi, NFTs and Gaming',
     links: [
       {
@@ -453,48 +494,6 @@ const tutorialNavigation = [
         title: 'Framework Best Practices',
         href: '/dapp-development/framework-best-practices',
       },
-    ],
-  },
-  {
-    title: 'Smart Contracts',
-    links: [
-      { 
-        title: 'Smart Contract Languages', 
-        href: '/smart-contracts/smart-contract-languages',
-        children: [
-          {
-            title: 'LIGO',
-            href: '/smart-contracts/smart-contract-languages/ligo',
-          },
-          {
-            title: 'SmartPy',
-            href: '/smart-contracts/smart-contract-languages/smartpy',
-          },
-          {
-            title: 'Archetype',
-            href: '/smart-contracts/smart-contract-languages/archetype',
-          },
-          {
-            title: 'Michelson',
-            href: '/smart-contracts/smart-contract-languages/michelson',
-          },
-        ],
-      },
-      {
-        title: 'Smart Contract Concepts',
-        href: '/smart-contracts/smart-contracts-concepts',
-      },
-      {
-        title: 'Simplified Contracts',
-        href: '/smart-contracts/simplified-contracts',
-      },
-      { title: 'FA1.2 Token Contract', href: '/smart-contracts/fa12' },
-      { title: 'FA2 Token Contract', href: '/smart-contracts/fa2' },
-      {
-        title: 'Avoiding Flaws',
-        href: '/smart-contracts/avoiding-flaws',
-      },
-      { title: 'Oracles', href: '/smart-contracts/oracles' },
     ],
   },
   {
@@ -596,6 +595,48 @@ const toolingNavigation = [
     ],
   },
   {
+    title: 'Smart Contracts',
+    links: [
+      { 
+        title: 'Smart Contract Languages', 
+        href: '/smart-contracts/smart-contract-languages',
+        children: [
+          {
+            title: 'LIGO',
+            href: '/smart-contracts/smart-contract-languages/ligo',
+          },
+          {
+            title: 'SmartPy',
+            href: '/smart-contracts/smart-contract-languages/smartpy',
+          },
+          {
+            title: 'Archetype',
+            href: '/smart-contracts/smart-contract-languages/archetype',
+          },
+          {
+            title: 'Michelson',
+            href: '/smart-contracts/smart-contract-languages/michelson',
+          },
+        ],
+      },
+      {
+        title: 'Smart Contract Concepts',
+        href: '/smart-contracts/smart-contracts-concepts',
+      },
+      {
+        title: 'Simplified Contracts',
+        href: '/smart-contracts/simplified-contracts',
+      },
+      { title: 'FA1.2 Token Contract', href: '/smart-contracts/fa12' },
+      { title: 'FA2 Token Contract', href: '/smart-contracts/fa2' },
+      {
+        title: 'Avoiding Flaws',
+        href: '/smart-contracts/avoiding-flaws',
+      },
+      { title: 'Oracles', href: '/smart-contracts/oracles' },
+    ],
+  },
+  {
     title: 'DeFi, NFTs and Gaming',
     links: [
       {
@@ -683,48 +724,6 @@ const toolingNavigation = [
         title: 'Framework Best Practices',
         href: '/dapp-development/framework-best-practices',
       },
-    ],
-  },
-  {
-    title: 'Smart Contracts',
-    links: [
-      { 
-        title: 'Smart Contract Languages', 
-        href: '/smart-contracts/smart-contract-languages',
-        children: [
-          {
-            title: 'LIGO',
-            href: '/smart-contracts/smart-contract-languages/ligo',
-          },
-          {
-            title: 'SmartPy',
-            href: '/smart-contracts/smart-contract-languages/smartpy',
-          },
-          {
-            title: 'Archetype',
-            href: '/smart-contracts/smart-contract-languages/archetype',
-          },
-          {
-            title: 'Michelson',
-            href: '/smart-contracts/smart-contract-languages/michelson',
-          },
-        ],
-      },
-      {
-        title: 'Smart Contract Concepts',
-        href: '/smart-contracts/smart-contracts-concepts',
-      },
-      {
-        title: 'Simplified Contracts',
-        href: '/smart-contracts/simplified-contracts',
-      },
-      { title: 'FA1.2 Token Contract', href: '/smart-contracts/fa12' },
-      { title: 'FA2 Token Contract', href: '/smart-contracts/fa2' },
-      {
-        title: 'Avoiding Flaws',
-        href: '/smart-contracts/avoiding-flaws',
-      },
-      { title: 'Oracles', href: '/smart-contracts/oracles' },
     ],
   },
   {
@@ -823,28 +822,48 @@ const resourcesNavigation = [
       },
       { title: 'Test Networks', href: '/tezos-basics/test-networks' },
       { title: 'Block Explorers', href: '/tezos-basics/block-explorers' },
-      {
-        title: 'Smart Contract Languages',
-        href: '/tezos-basics/smart-contract-languages',
+    ],
+  },
+  {
+    title: 'Smart Contracts',
+    links: [
+      { 
+        title: 'Smart Contract Languages', 
+        href: '/smart-contracts/smart-contract-languages',
         children: [
           {
             title: 'LIGO',
-            href: '/tezos-basics/smart-contract-languages/ligo',
+            href: '/smart-contracts/smart-contract-languages/ligo',
           },
           {
             title: 'SmartPy',
-            href: '/tezos-basics/smart-contract-languages/smartpy',
+            href: '/smart-contracts/smart-contract-languages/smartpy',
           },
           {
             title: 'Archetype',
-            href: '/tezos-basics/smart-contract-languages/archetype',
+            href: '/smart-contracts/smart-contract-languages/archetype',
           },
           {
             title: 'Michelson',
-            href: '/tezos-basics/smart-contract-languages/michelson',
+            href: '/smart-contracts/smart-contract-languages/michelson',
           },
         ],
       },
+      {
+        title: 'Smart Contract Concepts',
+        href: '/smart-contracts/smart-contracts-concepts',
+      },
+      {
+        title: 'Simplified Contracts',
+        href: '/smart-contracts/simplified-contracts',
+      },
+      { title: 'FA1.2 Token Contract', href: '/smart-contracts/fa12' },
+      { title: 'FA2 Token Contract', href: '/smart-contracts/fa2' },
+      {
+        title: 'Avoiding Flaws',
+        href: '/smart-contracts/avoiding-flaws',
+      },
+      { title: 'Oracles', href: '/smart-contracts/oracles' },
     ],
   },
   {
@@ -935,48 +954,6 @@ const resourcesNavigation = [
         title: 'Framework Best Practices',
         href: '/dapp-development/framework-best-practices',
       },
-    ],
-  },
-  {
-    title: 'Smart Contracts',
-    links: [
-      { 
-        title: 'Smart Contract Languages', 
-        href: '/smart-contracts/smart-contract-languages',
-        children: [
-          {
-            title: 'LIGO',
-            href: '/smart-contracts/smart-contract-languages/ligo',
-          },
-          {
-            title: 'SmartPy',
-            href: '/smart-contracts/smart-contract-languages/smartpy',
-          },
-          {
-            title: 'Archetype',
-            href: '/smart-contracts/smart-contract-languages/archetype',
-          },
-          {
-            title: 'Michelson',
-            href: '/smart-contracts/smart-contract-languages/michelson',
-          },
-        ],
-      },
-      {
-        title: 'Smart Contract Concepts',
-        href: '/smart-contracts/smart-contracts-concepts',
-      },
-      {
-        title: 'Simplified Contracts',
-        href: '/smart-contracts/simplified-contracts',
-      },
-      { title: 'FA1.2 Token Contract', href: '/smart-contracts/fa12' },
-      { title: 'FA2 Token Contract', href: '/smart-contracts/fa2' },
-      {
-        title: 'Avoiding Flaws',
-        href: '/smart-contracts/avoiding-flaws',
-      },
-      { title: 'Oracles', href: '/smart-contracts/oracles' },
     ],
   },
   {
