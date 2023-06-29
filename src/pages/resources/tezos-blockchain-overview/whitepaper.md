@@ -38,19 +38,19 @@ A blockchain protocol is fundamentally a monadic implementation of concurrent mu
 
 This suggests the following abstract representation:
 
-* Let $\(\mathbf{S},\leq\)$ be a totally ordered, countable, set of possible states.
-* Let $\oslash \notin \mathbf{S}$ represent a special, invalid, state.
-* Let $\mathbf{B} \subset \mathbf{S}^{\mathbf{S} \cup {\oslash}}$ be the set of blocks. The set of _valid_ blocks is $\mathbf{B} \cap \mathbf{S}^{\mathbf{S}}$.
+* Let {% math inline=true %} \(\mathbf{S},\leq\) {% /math %} be a totally ordered, countable, set of possible states.
+* Let {% math inline=true %} \oslash \notin \mathbf{S} {% /math %} represent a special, invalid, state.
+* Let {% math inline=true %} \mathbf{B} \subset \mathbf{S}^{\mathbf{S} \cup {\oslash}} {% /math %} be the set of blocks. The set of _valid_ blocks is {% math inline=true %} \mathbf{B} \cap \mathbf{S}^{\mathbf{S}}  {% /math %}.
 
-The total order on $\mathbf{S}$ is extended so that $\forall s \in \mathbf{S}, \oslash &lt; s$. This order determines which leaf in the block tree is considered to be the canonical one. Blocks in $\mathbf{B}$ are seen as operators acting on the state.
+The total order on {% math inline=true %} \mathbf{S} {% /math %} is extended so that {% math inline=true %} \forall s \in \mathbf{S}, \oslash &lt; s {% /math %}. This order determines which leaf in the block tree is considered to be the canonical one. Blocks in {% math inline=true %} \mathbf{B} {% /math %} are seen as operators acting on the state.
 
 All in all, any blockchain protocol \(be it Bitcoin, Litecoin, Peercoin, Ethereum, Cryptonote, etc\) can be fully determined by the tuple:
 
-$$\left(\mathbf{S},\leq,\oslash, \mathbf{B} \subset \mathbf{S}^{\mathbf{S} \cup \{\oslash\}}\right)$$
+ {% math %} \left(\mathbf{S},\leq,\oslash, \mathbf{B} \subset \mathbf{S}^{\mathbf{S} \cup \{\oslash\}}\right) {% /math %} 
 
 The networking protocol is fundamentally identical for these blockchains. "Mining" algorithms are but an emergent property of the network, given the incentives for block creation.
 
-In Tezos, we make a blockchain protocol introspective by letting blocks act on the protocol itself. We can then express the set of protocols recursively as $$\mathcal{P} = \left\{\left(\mathbf{S},\leq,\oslash,\mathbf{B} \subset \mathbf{S}^{(\mathbf{S} \times \mathcal{P})\cup \{\oslash\}} \right)\right\}$$
+In Tezos, we make a blockchain protocol introspective by letting blocks act on the protocol itself. We can then express the set of protocols recursively as  {% math %} \mathcal{P} = \left\{\left(\mathbf{S},\leq,\oslash,\mathbf{B} \subset \mathbf{S}^{(\mathbf{S} \times \mathcal{P})\cup \{\oslash\}} \right)\right\} {% /math %} 
 
 ### The network shell
 
@@ -227,7 +227,7 @@ If an address is inactive, it will not be selected to create blocks \(which woul
 
 ##### Amendment rules
 
-Amendments are adopted over election cycles lasting $N = 2^{17} = 131072$ blocks each. Given the a one minute block interval, this is about three calendar months. The election cycle is itself divided in four quarters of $2^{15} = 32768$ blocks. This cycle is relatively short to encourage early improvements, but it is expected that further amendments will increase the length of the cycle. Protocol upgrade votes will be much more frequent in the first year in order to allow for rapid iteration. As a security measure, the Tezos foundation will have a veto power expiring after twelve months, until we rule out any kinks in the voting procedure. Adoption requires a certain quorum to be met. This quorum starts at $Q = 80\%$ but dynamically adapts to reflect the average participation. This is necessary if only to deal with lost coins.
+Amendments are adopted over election cycles lasting  {% math inline="true" %} N = 2^{17} = 131072 {% /math %} blocks each. Given the a one minute block interval, this is about three calendar months. The election cycle is itself divided in four quarters of  {% math inline="true" %} 2^{15} = 32768 {% /math %} blocks. This cycle is relatively short to encourage early improvements, but it is expected that further amendments will increase the length of the cycle. Protocol upgrade votes will be much more frequent in the first year in order to allow for rapid iteration. As a security measure, the Tezos foundation will have a veto power expiring after twelve months, until we rule out any kinks in the voting procedure. Adoption requires a certain quorum to be met. This quorum starts at  {% math inline="true" %} Q = 80\% {% /math %} but dynamically adapts to reflect the average participation. This is necessary if only to deal with lost coins.
 
 **First quarter**
 
@@ -239,13 +239,13 @@ The amendment receiving the most approval in the first quarter is now subject to
 
 **Third quarter**
 
-If the quorum is met \(including explicit abstentions\), and the amendment received $80\%$ of yays, the amendment is approved and replaces the test protocol. Otherwise, it is rejected. Assuming the quorum reached was $q$, the minimum quorum $Q$ is updated as such: $$Q \leftarrow 0.8 Q + 0.2 q.$$
+If the quorum is met \(including explicit abstentions\), and the amendment received  {% math inline="true" %} 80\% {% /math %} of yays, the amendment is approved and replaces the test protocol. Otherwise, it is rejected. Assuming the quorum reached was  {% math inline="true" %} q {% /math %} , the minimum quorum  {% math inline="true" %} Q {% /math %} is updated as such:  {% math %} Q \leftarrow 0.8 Q + 0.2 q. {% /math %} 
 
 The goal of this update is to avoid lost coins causing the voting procedure to become stuck over time. The minimum quorum is an exponential moving average of the quorum reached over each previous election.
 
 **Fourth quarter**
 
-Assuming the amendment was approved, it will have been running in the testnet since the beginning of the third quarter. The stakeholders vote a second time to confirm they wish to promote the test protocol to the main protocol. This also requires the quorum to be met and an $80\%$ supermajority.
+Assuming the amendment was approved, it will have been running in the testnet since the beginning of the third quarter. The stakeholders vote a second time to confirm they wish to promote the test protocol to the main protocol. This also requires the quorum to be met and an  {% math inline="true" %} 80\% {% /math %} supermajority.
 
 We deliberately chose a conservative approach to amendments. However, stakeholders are free to adopt amendments loosening or tightening this policy should they deem it beneficial
 
@@ -305,11 +305,11 @@ This procedure is functionally different from merely drawing a random address we
 
 Indeed, in a secretive fork, a miner could attempt to control the generation of the random seed and to assign itself signing and minting rights by creating the appropriate addresses ahead of time. This is much harder to achieve if rolls are randomly selected, as the secretive fork cannot fake ownership of certain rolls and must thus try to preimage the hash function applied to the seed to assign itself signing and minting rights.
 
-Indeed, in a cycle of length $N=2048$, someone holding a fraction $f$ of the rolls will receive on average $f N$ mining rights, and the effective fraction received, $f\_0$ will have a standard deviation of $$\sqrt{\frac{1}{N}}\sqrt{\frac{1-f}{f}}.$$
+Indeed, in a cycle of length  {% math inline="true" %} N=2048 {% /math %} , someone holding a fraction  {% math inline="true" %} f {% /math %} of the rolls will receive on average  {% math inline="true" %} f N {% /math %} mining rights, and the effective fraction received,  {% math inline="true" %} f\_0 {% /math %} will have a standard deviation of  {% math %} \sqrt{\frac{1}{N}}\sqrt{\frac{1-f}{f}}. {% /math %} 
 
-If an attacker can perform a brute-force search through $W$ different seeds, then his expected advantage is at most $$\left(\sqrt{\frac{2\log(W)}{N}}\sqrt{\frac{1-f}{f}}\right)fN$$
+If an attacker can perform a brute-force search through  {% math inline="true" %} W {% /math %} different seeds, then his expected advantage is at most  {% math %} \left(\sqrt{\frac{2\log(W)}{N}}\sqrt{\frac{1-f}{f}}\right)fN {% /math %} 
 
-blocks. For instance, an attacker controlling $f = 10\%$ of the rolls should expect to mine about $205$ blocks per cycle. In a secret fork where he attempts to control the seed, assuming he computed over a trillion hashes, he could assign itself about $302$ blocks, or about $14.7\%$ of the blocks. Note that:
+blocks. For instance, an attacker controlling  {% math inline="true" %} f = 10\% {% /math %} of the rolls should expect to mine about  {% math inline="true" %} 205 {% /math %} blocks per cycle. In a secret fork where he attempts to control the seed, assuming he computed over a trillion hashes, he could assign itself about  {% math inline="true" %} 302 {% /math %} blocks, or about  {% math inline="true" %} 14.7\% {% /math %} of the blocks. Note that:
 
 * The hash from which the seed is derived is an expensive key derivation function, rendering brute-force search impractical.
 * To make linear gains in blocks mined, the attacked needs to expend a quadratically exponential effort.
