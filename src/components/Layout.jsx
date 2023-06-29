@@ -100,8 +100,16 @@ const documentationNavigation = [
       },
       { title: 'Test Networks', href: '/tezos-basics/test-networks' },
       { title: 'Block Explorers', href: '/tezos-basics/block-explorers' },
-      {
-        title: 'Smart Contract Languages',
+      { 
+        title: 'Block Explorers', 
+        href: '/tezos-basics/block-explorers',
+        children: [
+          { title: 'TzStats', href: '/tezos-basics/block-explorers/tzstats-main-features' },
+          { title: 'Inspect a Contract with TzStats', href: '/tezos-basics/block-explorers/tzstats-smart-contract' }
+        ] 
+      },
+      { 
+        title: 'Smart Contract Languages', 
         href: '/tezos-basics/smart-contract-languages',
         children: [
           {
