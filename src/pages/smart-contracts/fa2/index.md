@@ -5,10 +5,7 @@ sidebar_label: FA2-SmartPy
 ---
 
 This tutorial shows how to interact with the “FA2-SmartPy” implementation
-of the FA2 standard on some common use-cases. The first part uses
-`tezos-client` commands to operate basic transfers and queries. The second
-part goes further: it uses the `fatoo` command line interface to do
-batched-transfers and use the “operator” mechanism to delegate transfer
+of the FA2 standard on some common use-cases. The first part uses `tezos-client` commands to operate basic transfers and queries. The second part goes further: it uses the `fatoo` command line interface to do batched-transfers and use the “operator” mechanism to delegate transfer
 rights.
 
 ## Basic Usage With tezos-client

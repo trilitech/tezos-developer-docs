@@ -1,6 +1,6 @@
 ---
 id: first-smart-contract-ligo
-title: Deploy your First Smart Contract with LIGO
+title: Originate your First Smart Contract with LIGO
 authors: John Joubert, Sasha Aldrick, Claude Barde
 ---
 
@@ -54,7 +54,7 @@ or
 ligo version
 ```
 according to your setup to check if Ligo is properly installed. You should see something like:
-```
+``` sh
 Protocol built-in: lima
 0.60.0
 ```
@@ -63,13 +63,13 @@ Protocol built-in: lima
 
 We can check that it's correctly installed by running the following command:
 
-```
+``` sh
 octez-client
 ```
 
 And we should see something like this returned:
 
-```
+``` sh
 Usage:
   octez-client [global options] command [command options]
   octez-client --help (for global options)
@@ -108,7 +108,7 @@ Before going further let's make sure we're working on a [Testnet](https://teztne
 
 View the available Testnets:
 
-```
+``` sh
 https://teztnets.xyz
 ```
 
@@ -116,7 +116,7 @@ The [Ghostnet](https://teztnets.xyz/ghostnet-about) might be a good choice for t
 
 Copy the _Public RPC endpoint_ which looks something like this:
 
-```
+``` sh
 https://rpc.ghostnet.teztnets.xyz
 ```
 
@@ -128,7 +128,7 @@ octez-client --endpoint https://rpc.ghostnet.teztnets.xyz config update
 
 You should then see something like this returned:
 
-```
+``` sh
 Warning:
 
                  This is NOT the Tezos Mainnet.
@@ -154,7 +154,7 @@ octez-client show address local_wallet
 
 Which will return something like this:
 
-```
+``` sh
 Warning:
 
                  This is NOT the Tezos Mainnet.
@@ -167,7 +167,7 @@ Public Key: edp.............................bjbeDj
 
 We'll want to copy the Hash that starts with `tz` to your clipboard:
 
-```
+``` sh
 tz1dW9Mk...........H67L
 ```
 
@@ -181,13 +181,13 @@ Let's go ahead and fund our wallet through the [Ghostnet Faucet](https://faucet.
 
 Wait a minute or two and you can then run the following command to check that your wallet has funds in it:
 
-```
+``` sh
  octez-client get balance for local_wallet
 ```
 
 Which will return something like this:
 
-```
+``` sh
 100 ꜩ
 ```
 
@@ -204,13 +204,13 @@ The purpose of a smart contract is to write code that will use the values passed
 
 The contract will store an integer:
 
-```
+``` sh
 type storage = int
 ```
 
 The parameter to update the contract storage is a *variant*, similar to a TypeScript enum:
 
-```
+``` sh
 type parameter =
 | Increment of int
 | Decrement of int
@@ -221,12 +221,12 @@ You can use the different branches of the variant to simulate entrypoints for yo
 
 Next, you declare a function called `main` that will receive the parameter value and the storage when the contract is called. This function returns a tuple with a list of operations on the left and the new storage on the right:
 
-```
+``` sh
 let main (action, store : parameter * storage) : operation list * storage =
 ```
 
 You can return an empty list of operations from the beginning, then use pattern matching to match the targetted entrypoint:
-```
+``` sh
 ([] : operation list),
  (match action with
  | Increment (n) -> add (store, n)
@@ -240,19 +240,21 @@ The **Decrement** branch redirects to a `sub` function that takes a tuple as a p
 
 The **Reset** branch only returns `0`, the new storage.
 
-The `add` function
+The `add` function:
+
 ```bash
 let add (store, inc : storage * int) : storage = store + inc
 ```
 takes a tuple with the current storage on the left and the value to increment it on the right. These 2 values are added and returned as the new storage.
 
-The `sub`function
+The `sub` function:
+
 ```bash
 let sub (store, dec : storage * int) : storage = store - dec
 ```
 takes a tuple with the current storage on the left and the value to subtract from it on the right. The passed value is subtracted from the current storage and the new storage is returned.
 
-```
+``` sh
 type storage = int
 
 type parameter =
@@ -290,9 +292,9 @@ ligo run dry-run increment.mligo "Increment(32)" "10"
 
 This should return `(LIST_EMPTY(), 42)` if everything is correct.
 
-## Deploy to the Testnet
+## Originate to the Testnet
 
-Run the following command to deploy the smart contract:
+Run the following command to originate the smart contract:
 ```bash
 octez-client originate contract increment \
     transferring 0 from <my_tz_address...> \
@@ -324,7 +326,7 @@ Then navigate to the `Storage` tab to see your initial value of `10`.
 
 ## Calling the entrypoints
 
-Now that we've successfully deployed our smart contract, let's test out the three entrypoints that we created: `increment`, `decrement`, and `reset`.
+Now that we've successfully originated our smart contract, let's test out the three entrypoints that we created: `increment`, `decrement`, and `reset`.
 
 #### Increment
 

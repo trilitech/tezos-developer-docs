@@ -1,6 +1,6 @@
 ---
 id: first-smart-contract-smartpy
-title: Deploy your First Smart Contract with SmartPy
+title: Originate your First Smart Contract with SmartPy
 slug: /first-smart-contract
 authors: John Joubert, Sasha Aldrick
 ---
@@ -264,9 +264,9 @@ You should see this command output our test results and compiled contracts to th
 
 There are two types of output, JSON Michelson in `.json` files and [Micheline Micelson](https://tezos.gitlab.io/shell/micheline.html) in `.tz` files.
 
-The most important file is `step_002_cont_0_contract.tz`. This Michelson file we can use to deploy (originate in Tezos terms) the contract to the testnet.
+The most important file is `step_002_cont_0_contract.tz`. This Michelson file we can use to originate the contract to the testnet.
 
-## Deploy to the Testnet
+## Originate to the Testnet
 
 First you need to make sure that your current directory is `/store_greeting/StoreGreeting`.
 
@@ -276,7 +276,7 @@ From the project folder:
 cd output/storeGreeting
 ```
 
-Then run the following command to deploy the smart contract:
+Then run the following command to originate the smart contract:
 
 ```bash
 octez-client originate contract storeGreeting transferring 0 from local_wallet running step_002_cont_0_contract.tz --init '"Hello"' --burn-cap 0.1
@@ -308,7 +308,7 @@ Then navigate to the `Storage` tab to see your initial value of `Hello`.
 
 ## Calling the entrypoints
 
-Now that we've successfully deployed our smart contract, let's test out the two entrypoints that we created: `replace` and `append`
+Now that we've successfully originated our smart contract, let's test out the two entrypoints that we created: `replace` and `append`
 
 #### Replace
 

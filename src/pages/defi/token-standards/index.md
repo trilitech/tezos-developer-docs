@@ -16,7 +16,7 @@ Multiple implementations of a standard can co-exist, but they must all respect t
 <p align="center">
 
 ![standards](/developers/docs/images/token-standards/standards.svg)
-<small className="figure">FIGURE 1: Illustration of 2 implementations of the same token standard</small>
+
 
 </p>
 
@@ -49,12 +49,8 @@ As you can see, FA2 is a very powerful standard that allows for many forms of to
 
 Note that FA2 is the successor to [FA1.2](/defi/token-standards#fa12) that only supports fungible tokens, it is still widely used in the Tezos ecosystem.
 
-<p align="center">
-
 ![tokens](/developers/docs/images/token-standards/tokens.svg)
-<small className="figure">FIGURE 2: Illustration of the multi-purposes aspect of the <em>FA2</em> token standard.</small>
 
-</p>
 
 To learn more on how to implement FA2 tokens, please refer to the corresponding Tezos Improvments Proposal, the TZIP-12[[3]](/defi/token-standards#references).
 

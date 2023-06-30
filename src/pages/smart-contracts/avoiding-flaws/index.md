@@ -1,19 +1,21 @@
 ---
 id: avoiding-flaws
 title: Avoiding flaws
-authors: Mathias Hiron, Nomadic Labs
+authors: Mathias Hiron (Nomadic Labs)
 ---
 
-This chapter lists a number of common flaws in smart contracts.
+The goal of this page is to bring you up to speed with a number of common flaws in smart contracts and some best practices on how to avoid them. 
 
-With each type of flaw, it presents best practices that we invite you to apply when designing or reviewing contracts.
+{% callout type="warning" title="DYOR" %}
+This is **not** an exhaustive list, so please also do your own research for your specific smart contract use case.
+{% /callout %}
 
-- [1. Using <code>source</code> instead of <code>sender</code> for authentication](#source-instead-of-sender-for-authentication)
+- [1. Using source instead of sender for authentication](#1-using-source-instead-of-sender-for-authentication)
 - [2. Transferring tez in a call that should benefit others](#2-transferring-tez-in-a-call-that-should-benefits-others)
-- [3. Performing unlimited computations](#3-performing-unlimited-computations)
+- [3. Denying access by increasing computation](#3-denying-access-by-increasing-computation)
 - [4. Needlessly relying on one entity to perform a step](#4-needlessly-relying-on-one-entity-to-perform-a-step)
 - [5. Trusting signed data without preventing wrongful uses](#5-trusting-signed-data-without-preventing-wrongful-uses)
-- [6. Not protecting against bots (BPEV attacks)](#6-not-protecting-against-bots-bpev-attacks)
+- [6. Not protecting against bots (BPEV attacks)](#6-not-protecting-against-bots)
 - [7. Using unreliable sources of randomness](#7-using-unreliable-sources-of-randomness)
 - [8. Using computations that cause tez overflows](#8-using-computations-that-cause-tez-overflows)
 - [9. Contract failures due to rounding issues](#9-contract-failures-due-to-rounding-issues)
@@ -23,252 +25,192 @@ With each type of flaw, it presents best practices that we invite you to apply w
 - [13. Calling upgradable contracts](#13-calling-upgradable-contracts)
 - [14. Misunderstanding the API of a contract](#14-misunderstanding-the-api-of-a-contract)
 
-## 1. Using <code>source</code> instead of <code>sender</code> for authentication
+## 1. Using source instead of sender for authentication
 
-### Summary:
+### Summary
 
-> Using <code>source</code> to check who is allowed to call an entry point can be dangerous. Users may be tricked into indirectly calling this entry point and getting it to perform unintended transactions. It is safer to use <code>sender</code> for that purpose.
+Using `source` to check who is allowed to call an entry point can be dangerous. Users may be tricked into indirectly calling this entry point and getting it to perform unintended transactions. It is safer to use `sender` for that purpose.
 
-### Reminder: <code>source</code> vs <code>sender</code>
+### When to use source vs sender
 
 Smart contracts have two ways to get information about who made the call to a contract:
-- <code>source</code> represents the address of the user who made the original call
-- <code>sender</code> (or <code>caller</code> in some languages) represents the address of the direct caller.
+- `source` represents the address of the user who made the original call
+- `sender` (or `caller` in some languages) represents the address of the direct caller.
 
-For example, consider the chain of contract calls A → B → C, where a user A calls a contract B, that then calls a contract C. Within contract C, <code>source</code> will be the address of A, whereas <code>sender</code> will be the address of B.
+For example, consider the chain of contract calls A → B → C, where a user A calls a contract B, that then calls a contract C. Within contract C, `source` will be the address of A, whereas `sender` will be the address of B.
 
-### Example of vulnerable contract:
+### Example of a vulnerable contract
 
-The <code>CharityFund</code> contract below has a <code>donate</code> entry point that sends some tez to a <code>charity</code>. To make sure only <code>admin</code> can initiate donations, this entry point checks that <code>admin</code> is equal to <code>source</code>.
+The `CharityFund` contract below has a entry point which can be used to `donate` some tez to `charity`. To make sure only an `admin` can initiate donations, this entry point checks that `admin` is equal to `source`.
 
-<table>
-<tr><td colspan="2"><strong>CharityFund</strong></td></tr>
-<tr><td><strong>Storage</strong></td><td><strong>Entry points effects</strong></td></tr>
-<tr><td>
-	<ul>
-		<li>admin: address</li>
-	</ul>
-</td>
-<td>
-	<ul>
-		<li>deposit()
-			<ul>
-				<li>nothing (therefore accepting transfers of tez)</li>
-			</ul>
-		</li><br/>
-		<li>donate(donation: tez, charity: address)
-			<ul>
-				<li><strong>Check that <code>source</code> == <code>admin</code></strong></li>
-				<li>Create transaction to transfer <code>dontation</code> to <code>charity</code></li>
-			</ul>
-		</li>
-	</ul>
-</td>
-</tr>
-</table>
+{% table %}
+* **Charity Fund Contract** {% colspan=2 %}
+---
+* **Storage**
+* **Entrypoint Effects**
+---
+* {% list type="checkmark" %}
+  * `admin`: `address`
+  {% /list %}
+* {% list type="checkmark" %}
+  * `deposit()`
+      * Accepts transfers of tez
+  * `donate(donation: tez, charity: address)`
+      * Check that `source` == `admin`
+	  * Create transaction to transfer `donation` to `charity`
 
-### Example of attack:
+  {% /list %}
+{% /table %}
 
-The contract <code>FakeCharity</code> below, can pass itself as a charity to receive a small donation from <code>CharityFund</code>. It can then take control of the <code>CharityFund</code> and transfer a large donation to the account of the attacker.
+### Example of an attack
 
-To do so, it contains a <code>default</code> entry point, that will be called when <code>CharityFund</code> makes its donation. Instead of simply accepting the transfer, it initiates a new large donation of 1000 tez to the attacker. When <code>CharityFund</code> then checks if the call is allowed, it checks the value of <code>source</code>, which is indeed the admin, since it was the admin who initiated the first call of this whole chain of transactions.
+A contract `FakeCharity`  could pose as a reasonable charity willing to accept donations from `CharityFund`. This might not be immediately worrisome as only an admin can initiate donations. However, because the admin is checked against `source` and not `sender`, it is possible to transfer a large donation to the account of the attacker.
 
-<table>
-<tr><td colspan="2"><strong>FakeCharity</strong></td></tr>
-<tr><td><strong>Storage</strong></td><td><strong>Entry points effects</strong></td></tr>
-<tr><td>
-	<ul>
-		<li>attackedContract: CharityFund contract</li>
-		<li>attacker: address</li>
-	</ul>
-</td>
-<td>
-	<ul>
-		<li>default()
-			<ul>
-				<li>Create call to attackedContract.donate(1000tez, attacker)</li>
-			</ul>
-		</li>
-	</ul>
-</td>
-</tr>
-</table>
+The `FakeCharity` contract contains a `default` entry point, that will be called when `CharityFund` makes its donation. Instead of simply accepting the transfer, it initiates a new donation of 1000 tez to the attacker. When `CharityFund` then checks if the call is allowed, it checks the value of `source`, which is indeed the admin, as it was the admin who initiated the first call of in this chain of transactions.
 
-### Best practice
+{% table %}
+* **FakeCharity Attack Contract** {% colspan=2 %}
+---
+* **Storage**
+* **Entrypoint Effects**
+---
+* {% list type="checkmark" %}
+  * `attackTarget`: `CharityFund` attack address
+  * `attacker`: `address`
+  {% /list %}
+* {% list type="checkmark" %}
+  * `default()`
+      * Create call to `attackedContract.donate(1000tez, attacker)`
+  {% /list %}
+{% /table %}
 
-The best way to prevent this type of attacks is simply to use <code>sender</code> (or <code>caller</code> in some languages), to check the identity of the user who called the contract. 
+### Best Practices
+
+The best way to prevent this type of attack is simply to, depending on your use case, use `sender` (or `caller` in some languages) where possible instead of `source`.
 
 ## 2. Transferring tez in a call that should benefits others
 
 ### Summary
 
-> Sending tez to an address may fail if the address is that of a contract that doesn't accept transfers. This can cause the entire call to fail, which is very problematic if that call is important for other users.
+Sending tez to a contract address may fail if the contract doesn't accept transfers. This will cause the entire call to fail, which can be problematic if that call includes other important transactions.
 
-### Example of attack
+### Example of issue
 
 Take the following (partial) contract, that allows users to purchase NFTs, and sends 5% of royalties on each transaction:
 
-<table>
-<tr><td colspan="2"><strong>NFTSale</strong></td></tr>
-<tr><td><strong>Storage</strong></td><td><strong>Entry points effects</strong></td></tr>
-<tr><td>
-	<ul>
-		<li>tokens: big-map<br/>
-			Key:
-			<ul>
-				<li>tokenID: int</li>
-			</ul>
-			Value:
-			<ul>
-				<li>owner: address</li>
-				<li>author: address</li>
-				<li>price: tez</li>
-			</ul>
-		</li>
-	</ul>
-</td>
-<td>
-	<ul>
-		<li>buy(tokenID)
-			<ul>
-				<li>check that transferred amount = tokens[tokenID].price</li>
-				<li>send 5% of transferred amount to tokens[tokenID].author</li>
-				<li>send remaining tez to tokens[tokenID].owner</li>
-				<li>set tokens[tokenID].owner to caller</li>
-			</ul>
-		</li>
-	</ul>
-</td>
-</tr>
-</table>
+{% table %}
+* **NFTSale Contract** {% colspan=2 %}
+---
+* **Storage**
+* **Entrypoint Effects**
+---
+* {% list type="checkmark" %}
+  * `tokens`: `big-map`
+	* Key:
+      * `tokenID`: `int`
+	* Value:
+	  * `owner`: `address`
+	  * `author`: `address`
+	  * `price`: `tez`
+  {% /list %}
+* {% list type="checkmark" %}
+  * `buy(tokenID)`
+      * Check that the amount transferred satisfies `tokens[tokenID].price`
+	  * Send 5% of amount to `tokens[tokenID].author`
+	  * Send remaining tez to `tokens[tokenID].owner`
+	  * Set `tokens[tokenID].owner` to `caller`
 
-The author could be a contract, that may fail if the user that controls it decides to prevent future sale of their NFTs.
+  {% /list %}
+{% /table %}
 
-### Best practice
+The holder of the NFT could be a contract in which case, `buy(tokenID)` may fail if the contract decides to prevent future sales of NFTs
 
-One idea could be to only allow implicit accounts as the destination of transfers of tez, as implicit accounts may never reject a transfer of tez.
-
-This is possible but not recommended, as it limits the usage of the contract, and for example prevents the use of multi-sigs or DAOs as the authors of NFTs.
-
-A better solution is to avoid directly transferring tez from an entry point that does other operations, and instead, let the destination of that transfer fetch the funds themselves. One generic apprach is to include an internal ledger in the contract:
-
-<table>
-<tr><td colspan="2"><strong>NFTSale (fixed)</strong></td></tr>
-<tr><td><strong>Storage</strong></td><td><strong>Entry points effects</strong></td></tr>
-<tr><td>
-	<ul>
-		<li>tokens: big-map<br/>
-			Key:
-			<ul>
-				<li>tokenID: int</li>
-			</ul>
-			Value:
-			<ul>
-				<li>owner: address</li>
-				<li>author: address</li>
-				<li>price: tez</li>
-			</ul>
-		</li>
-		<li>ledger: big-map<br/>
-			Key:
-			<ul>
-				<li>user: address</li>
-			</ul>
-			Value:
-			<ul>
-				<li>amount: tez</li>
-			</ul>
-		</li>
-	</ul>
-</td>
-<td>
-	<ul>
-		<li>buy(tokenID)
-			<ul>
-				<li>check that transferred amount = tokens[tokenID].price</li>
-				<li>add 5% of transferred amount to ledger[tokens[tokenID].author]</li>
-				<li>add remaining tez to ledger[tokens[tokenID].owner]</li>
-				<li>set tokens[tokenID].owner to caller</li>
-			</ul>
-		</li><br/>
-		<li>claim()
-			<ul>
-				<li>Send ledger[caller].amount to caller</li>
-				<li>Set ledger[caller].amount to 0 tez</li>
-			</ul>
-		</li>
-	</ul>
-</td>
-</tr>
-</table>
+### Best Practices
 
 
-## 3. Performing unlimited computations
+A possibility would be to only allow to transfer tez to implicit accounts (disallow smart contract addresses) as implicit accounts never reject transfers of tez. This is possible but limits the usage of the contract and prevents the use of multi-sigs or DAOs purchasing NFTs.
+
+A better solution would be to separate the transfer of tez from the purchase of the NFT. One approach would be to include an internal ledger in the contract and by adding a `claim` entrypoint:
+
+{% table %}
+* **NFTSale Contract with internal ledger** {% colspan=2 %}
+---
+* **Storage**
+* **Entrypoint Effects**
+---
+* {% list type="checkmark" %}
+  * `tokens`: `big-map`
+	* Key:
+      * `tokenID`: `int`
+	* Value:
+	  * `owner`: `address`
+	  * `author`: `address`
+	  * `price`: `tez`
+  * `ledger`: `big-map`
+	* Key:
+      * `user`: `address`
+	* Value:
+	  * `amount`: `tez`
+  {% /list %}
+* {% list type="checkmark" %}
+  * `buy(tokenID)`
+      * Check that the amount transferred satisfies `tokens[tokenID].price`
+	  * Add 5% of amount to `ledger[tokens[tokenID].author]`
+	  * Add remaining tez to `ledger[tokens[tokenID].owner]`
+	  * Set `tokens[tokenID].owner` to `caller`
+  * `claim()`
+      * Send `ledger[caller].amount` to `caller`
+	  * Set `ledger[caller].amount` to 0 tez
+  {% /list %}
+{% /table %}
+
+
+## 3. Denying access by increasing computation
 
 ### Summary
 
-> There is a limit to how much computation a call to a smart contract may perform, expressed in terms of a gas consumption limit per operation. Any call to a contract that exceeds this limit will simply fail. If an attacker has a way to increase this amount of computation, for example by adding data to a list that the contract will iterate through, they could prevent future calls to this contract, and in doing so, locking all funds in the contract.
+There is a limit to how much computation a call to a smart contract may perform, expressed in terms of a gas consumption limit per operation. Any call to a contract that exceeds this limit will simply fail. If an attacker has a way to increase this amount of computation arbitrarily, for example by adding data to a list that the contract iterates through, this could prevent any future calls to this contract. This could lock funds within the contract permanently. 
 
 ### Example of attack
 
-Take for example this smart contract, that allows donors to lock some funds, with an associated deadline. The owner may claim any funds that have an expired deadline:
+Take for example this `TimeLock` smart contract. It allows donors to lock some funds with an associated deadline. The owner may claim any funds that have an expired deadline:
 
-<table>
-<tr><td colspan="2"><strong>TimeLock</strong></td></tr>
-<tr><td><strong>Storage</strong></td><td><strong>Entry points effects</strong></td></tr>
-<tr><td>
-	<ul>
-		<li>owner: address</li>
-		<li>lockedAmounts: list of records<br/>
-			<ul>
-				<li>deadline: address</li>
-				<li>amount: tez</li>
-			</ul>
-		</li>
-	</ul>
-</td>
-<td>
-	<ul>
-		<li>lockAmount(deadline)
-			<ul>
-				<li>add record with (deadline, transferred amount) to lockedAmounts</li>
-			</ul>
-		</li><br/>
-		<li>claimExpiredFunds()<br/>
-			<ul>
-			<li>for each item in lockedAmounts<br/>
-				<ul>
-					<li>if item.deadline &lt; now<br/>
-					<ul>
-						<li>send item.amount to owner</li>
-						<li>delete item from lockedAmounts</li>
-					</ul>
-					</li>
-				</ul>
-			</li>
-			</ul>
-		</li>
-	</ul>
-</td>
-</tr>
-</table>
+{% table %}
+* **TimeLock** {% colspan=2 %}
+---
+* **Storage**
+* **Entrypoint Effects**
+---
+* {% list type="checkmark" %}
+  * `owner`: `address`
+  * `lockedAmount`: list of records
+	  * `deadline`: `address`
+	  * `amount`: `tez`
+  {% /list %}
+* {% list type="checkmark" %}
+  * `lockAmount(deadline)`
+	  * Add record with `deadline, amount` to `lockedAmounts`
+  * `claimExpiredFunds()`
+	  * For each item in `lockedAmounts`:
+	      * if `item.deadline < now`:
+		     * send `item.amount` to `owner`
+			 * delete `item` from `lockedAmounts`
 
-Anyone could attack this contract by calling the <code>lockAmount</code> entry point with 0 tez many times, to add so many entries into the <code>lockedAmount</code> list, that simply looping through the entries would consume too much gas.
+  {% /list %}
+{% /table %}
 
-From then on, all the funds would be forever locked into the contract.
-
-Even simply loading the list into memory and deserializing the data at the beginning of the call, could use so much gas that any call to the contract would fail.
+A possible attack would be to call the `lockAmount` entry point with 0 tez many times, adding a large number of entries to the `lockedAmount` list. When the contract tries to iterate through the entries, this would consume too much gas causing the transaction to fail. Effectively, all funds would now be locked into the contract. Even simply loading the list into memory and deserializing the data, at the beginning of the call, could use so much gas that any call to the contract would fail.
 
 The same attack could happen with any kind of data that can grow indefinitely, including:
-- integers and nats, as they can be increased to an arbitrary large value
-- strings, as there is no limit on their lengths
-- lists, sets, maps, that can contain an arbitrary number of items
+- `int` and `nat` as they can be increased to an arbitrary large value
+- `string` as there is no limit on string length
+- `list`, `set`, `map` which all can contain an arbitrary number of items
 
-### Best practice
+### Best Practices
 
-There are three different ways to avoid this type of issue:
+Here are three possible ways to avoid this issue:
 
-#### 1. Prevent data from growing too much:
+1. Prevent data from growing too much:
 - make it expensive, by requesting a minimum deposit for each call that increases the size of the stored data.
 - set a hard limit, by rejecting any call that increases the size of the stored data beyond a given limit.
 
@@ -319,7 +261,7 @@ Here is a version of the contract with these two fixes:
 </tr>
 </table>
 
-#### 2. Store data in a big-map
+2. Store data in a big-map
 
 Unless it's already in the cache, all data in the storage of a contract needs to be loaded and deserialized when the contract is called, and reserialized afterwards. Long lists, sets or maps therefore can increase gas consumption very significantly, to the point that it exceeds the limit per operation.
 
@@ -329,7 +271,7 @@ Using big-map allows contracts to store unlimited data. The only practical limit
 
 This is of course only useful if the contract only loads a small subset of entries during a call.
 
-#### 3. Do computations off-chain
+3. Do computations off-chain
 
 The following is an approach you should always try to apply when designing your contracts:
 
@@ -469,9 +411,9 @@ With this approach, the caller has full control on the list of entries sent to c
 </tr>
 </table>
 
-**Answer:** the issue with this contract is that the <code>claimNFT</code> entry point only allows the topBidder to call it. If this user never calls the entry point, not only the amount they paid stays stuck in the contract and the seller never receives the funds, but the NFT also stays stuck in the contract. This is a pure loss for the seller.
+**Answer:** the issue with this contract is that the `claimNFT` entry point only allows the topBidder to call it. If this user never calls the entry point, not only the amount they paid stays stuck in the contract and the seller never receives the funds, but the NFT also stays stuck in the contract. This is a pure loss for the seller.
 
-The top bidder has a strong incentive to call <code>claimNFT</code>, as they have already paid for the NFT and benefit from the call by getting the NFT they paid for. However, they may simply have disappeard somehow, lost access to their private keys, or simply forgot about the auction. Worse, as they have full control on whether the seller gets the funds or not, they could use this as leverage on the seller, to try to extort some extra funds from them.
+The top bidder has a strong incentive to call `claimNFT`, as they have already paid for the NFT and benefit from the call by getting the NFT they paid for. However, they may simply have disappeard somehow, lost access to their private keys, or simply forgot about the auction. Worse, as they have full control on whether the seller gets the funds or not, they could use this as leverage on the seller, to try to extort some extra funds from them.
 
 Requiring for the seller themselves to call the entry point instead of the topBidder would lead to a similar issue.
 
@@ -641,7 +583,7 @@ This is the approach used in the Tezos protocol itself, for preventing replays o
 </tr>
 </table>
 
-## 6. Not protecting against bots (BPEV attacks)
+## 6. Not protecting against bots
 
 ### Summary
 
@@ -1322,11 +1264,6 @@ If the contract you want to use is upgradable, make sure the upgrade system foll
 
 > There are many contracts that provide a similar, common service: DEXes, Oracles, Escrows, Marketplaces, Tokens, Auctions, DAOs, etc. As you get familiar with these different types of contracts, you start automatically making assumptions about how they behave. This may lead you to take shortcuts when interacting with a new contract, read the documentation and the contract a bit too fast, and miss a key difference between this contract and the similar ones you have used in the past. This can have very unfortunate consequences.
 
-### Best practice
+### Best Practices
 
 Never make any assumptions about a contract you need to use, based on your previous experience with similar contracts. Always check their documentation and code very carefully, before you use it.
-
-<!--
-## Unpausable contracts
-## Be careful about race conditions (TODO)
--->
