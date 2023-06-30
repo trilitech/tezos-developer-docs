@@ -88,15 +88,15 @@ const documentationNavigation = [
       },
       {
         title: 'Originating a contract',
-        href: '/tezos-basics/deploy-your-first-smart-contract/smartpy',
+        href: '/tezos-basics/originate-your-first-smart-contract/smartpy',
         children: [
           {
             title: 'SmartPy',
-            href: '/tezos-basics/deploy-your-first-smart-contract/smartpy',
+            href: '/tezos-basics/originate-your-first-smart-contract/smartpy',
           },
           {
             title: 'LIGO',
-            href: '/tezos-basics/deploy-your-first-smart-contract/ligo',
+            href: '/tezos-basics/originate-your-first-smart-contract/ligo',
           },
         ],
       },
@@ -170,10 +170,10 @@ const documentationNavigation = [
         title: 'DeFi',
         href: '/defi/wrapped-assets',
         children: [
-          { title: 'DeFi Tokens', href: '/defi/wrapped-assets' },
+          { title: 'Wrapped Assets', href: '/defi/wrapped-assets' },
+          { title: 'Ctez', href: '/defi/ctez' },
           { title: 'Token Standards', href: '/defi/token-standards' },
           { title: 'Decentralized Exchanges', href: '/defi/dex' },
-          { title: 'Wrapped Assets', href: '/defi/ctez' },
           { title: 'Cross-chain Swaps', href: '/defi/cross-chain-swaps' },
           { title: 'Stablecoins', href: '/defi/stablecoins' },
           { title: 'Synthetics', href: '/defi/synthetics' },
@@ -433,10 +433,10 @@ const tutorialNavigation = [
         title: 'DeFi',
         href: '/defi/wrapped-assets',
         children: [
-          { title: 'DeFi Tokens', href: '/defi/wrapped-assets' },
+          { title: 'Wrapped Assets', href: '/defi/wrapped-assets' },
+          { title: 'Ctez', href: '/defi/ctez' },
           { title: 'Token Standards', href: '/defi/token-standards' },
           { title: 'Decentralized Exchanges', href: '/defi/dex' },
-          { title: 'Wrapped Assets', href: '/defi/ctez' },
           { title: 'Cross-chain Swaps', href: '/defi/cross-chain-swaps' },
           { title: 'Stablecoins', href: '/defi/stablecoins' },
           { title: 'Synthetics', href: '/defi/synthetics' },
