@@ -1031,10 +1031,10 @@ function Header({ navigation }) {
             </h1>
           </Link>
           <div className="ml-6 flex">
-            <Link href="/" className="px-4 py-2 text-white hover:text-gray-300">
-              Docs
+            <Link href="/tezos-blockchain-overview/" className="px-4 py-2 text-white hover:text-gray-300">
+              Documentation
             </Link>
-            <Link
+            {/* <Link
               href="/tutorials"
               className="px-4 py-2 text-white hover:text-gray-300"
             >
@@ -1051,7 +1051,7 @@ function Header({ navigation }) {
               className="px-4 py-2 text-white hover:text-gray-300"
             >
               Resources
-            </Link>
+            </Link> */}
           </div>
         </div>
         <div className="-my-5 ">
