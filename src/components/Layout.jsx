@@ -88,15 +88,15 @@ const documentationNavigation = [
       },
       {
         title: 'Originating a contract',
-        href: '/tezos-basics/deploy-your-first-smart-contract/smartpy',
+        href: '/tezos-basics/originate-your-first-smart-contract/smartpy',
         children: [
           {
             title: 'SmartPy',
-            href: '/tezos-basics/deploy-your-first-smart-contract/smartpy',
+            href: '/tezos-basics/originate-your-first-smart-contract/smartpy',
           },
           {
             title: 'LIGO',
-            href: '/tezos-basics/deploy-your-first-smart-contract/ligo',
+            href: '/tezos-basics/originate-your-first-smart-contract/ligo',
           },
         ],
       },
