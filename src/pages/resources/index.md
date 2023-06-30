@@ -24,7 +24,7 @@ Welcome to the Tezos Documentation Tooling Portal. We're currently in _beta_. Pl
 
 {% quick-link title="Test Networks" icon="test" href="/resources/tezos-basics/test-networks" description="Start with the test networks" /%}
 
-{% quick-link title="Smart Contract Languages" icon="contract" href="/resources/tezos-basics/smart-contract-languages" description="Overview of Smart Contract languages" /%}
+{% quick-link title="Smart Contract Languages" icon="contract" href="/resources/smart-contracts/smart-contract-languages" description="Overview of Smart Contract languages" /%}
 
 {% quick-link title="DeFi Tokens" icon="token" href="/resources/defi/wrapped-assets" description="Learn about ctez and wrapped tokens. Two building blocks for DeFi on Tezos. " /%}
 
