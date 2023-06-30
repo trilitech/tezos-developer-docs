@@ -4,12 +4,11 @@ title: Token Standards
 author: Aymeric Bethencourt
 ---
 
-
-In the blockchain ecosystem, any digitally transferable asset between two people is called a **token**. Tokens can be native to a blockchain, e.g., BTC is the native token of Bitcoin or tokens can also be created and hosted on an existing blockchain via a smart contract. Some tokens, called [stablecoins](/defi/stablecoins), follow the price of fiat currencies (e.g., USD, EUR). Others, called [_NFT_](/defi/token-standards#fungible--non-fungible-tokens), can represent collectibles or art pieces. Finally, tokens can represent rights of ownership of real-world estates or companies (i.e., stock tokens[[1]](/defi/token-standards#references)). In this chapter, we will see the main types of tokens and the token standards on Tezos.
+In the blockchain ecosystem, any digitally transferable asset between two people is called a **token**. Tokens can be native to a blockchain, e.g., BTC is the native token of Bitcoin or tokens can also be created and hosted on an existing blockchain via a smart contract. Some tokens, called [stablecoins](/defi/stablecoins), follow the price of fiat currencies (e.g., USD, EUR). Others, called [_NFT_](/defi/token-standards#fungible--non-fungible-tokens), can represent collectibles or art pieces. Finally, tokens can represent rights of ownership of real-world estates or companies (i.e., [stock tokens](https://www.investopedia.com/terms/t/tokenized-equity.asp)). In this chapter, we will see the main types of tokens and the token standards on Tezos.
 
 ## Token standard
 
-A token standard is an interface, and a set of rules, that a smart contract must respect to be compatible with the common standards. Typically, token standards define how tokens can be transferred and how to keep a consistent record of those transfers.
+A token standard is an interface, and a set of rules, that a smart contract must follow to be compatible with the common standards. Typically, token standards define how tokens can be transferred and how to keep a consistent record of those transfers.
 
 Multiple implementations of a standard can co-exist, but they must all respect the interface and rules of the standard. Standards ensure that smart contracts remain compatible, so for instance, when a new project issues a token, it remains compatible with the existing decentralized exchanges, wallets, etc.
 
@@ -33,7 +32,7 @@ The FA1.2 standard (standing for _Financial Application 1.2_) refers to the fung
 
 At its core, FA1.2 implements a ledger that maps identities to balances. This ledger implements token transfer operations, as well as approvals for spending tokens from other accounts.
 
-The FA1.2 specification is described in detail in TZIP-7[[2]](/defi/token-standards#references).
+The FA1.2 specification is described in detail in [TZIP-7](https://tzip.tezosagora.org/proposal/tzip-7/).
 
 ### FA2
 
@@ -54,7 +53,7 @@ Note that FA2 is the successor to [FA1.2](/defi/token-standards#fa12) that only 
     caption="FIGURE 2: Illustration of the multi-purposes aspect of the FA2 token standard" 
 %}  {% /figure %}
 
-To learn more on how to implement FA2 tokens, please refer to the corresponding Tezos Improvments Proposal, the TZIP-12[[3]](/defi/token-standards#references).
+To learn more on how to implement FA2 tokens, please refer to the corresponding Tezos Improvements Proposal, the [TZIP-12](https://tzip.tezosagora.org/proposal/tzip-12/).
 
 ## Regulations
 
@@ -76,23 +75,9 @@ Always be cautious as anyone can create tokens on Tezos. Before purchasing a tok
 - **[FA2](https://tzip.tezosagora.org/proposal/tzip-12/)**: Specification of the FA2 standard for a unified token contract interface.
 - **[tzNFT](https://github.com/tqtezos/nft-tutorial)**: A tutorial showing users how to originate and interact with the FA2 NFT contract implementation.
 - **[OpenMinter](https://github.com/tqtezos/minter)**: A reusable Dapp that allows anyone to create and collect NFTs on Tezos.
-- **[Peppermint](https://github.com/tzConnectBerlin/peppermint)**: A tool for batch minting/transfering tokens.
+- **[Peppermint](https://github.com/tzConnectBerlin/peppermint)**: A tool for batch minting/transferring tokens.
 - **[Claimz](https://gitlab.com/nomadic-labs-free-resources/claimz)**: A tool to create NFT giveaways.
 
 ## To go further
 
 Check out the article on [NFTs on Tezos Agora](https://wiki.tezosagora.org/learn/uses-of-tezos/nft) and about [Tokenization](https://wiki.tezosagora.org/learn/uses-of-tezos/tokenization) to learn more.
-
-## References
-
-[1]. [Tokenized Equity definition](https://www.investopedia.com/terms/t/tokenized-equity.asp).
-
-[2]. [TZIP-7](https://tzip.tezosagora.org/proposal/tzip-7/).
-
-[3]. [TZIP-12](https://tzip.tezosagora.org/proposal/tzip-12/).
-
-[What are nfts and how can they be used in defi](https://finematics.com/what-are-nfts-and-how-can-they-be-used-in-defi/).
-
-[Uses of Tezos - NFT](https://wiki.tezosagora.org/learn/uses-of-tezos/nft).
-
-[Uses of Tezos - Tokenization](https://wiki.tezosagora.org/learn/uses-of-tezos/tokenization).
