@@ -6,19 +6,19 @@ author: Aymeric Bethencourt
 
 In the blockchain ecosystem, any digitally transferable asset between two people is called a **token**. Tokens can be native to a blockchain, e.g., BTC is the native token of Bitcoin or tokens can also be created and hosted on an existing blockchain via a smart contract. Some tokens, called [stablecoins](/defi/stablecoins), follow the price of fiat currencies (e.g., USD, EUR). Others, called [_NFT_](/defi/token-standards#fungible--non-fungible-tokens), can represent collectibles or art pieces. Finally, tokens can represent rights of ownership of real-world estates or companies (i.e., [stock tokens](https://www.investopedia.com/terms/t/tokenized-equity.asp)). In this chapter, we will see the main types of tokens and the token standards on Tezos.
 
-## Token standards
+## Token standard
 
-A token standard is a set of rules that a smart contract must follow. Typically, token standards define how tokens can be transferred and how to keep a consistent record of those transfers.
+A token standard is an interface, and a set of rules, that a smart contract must follow to be compatible with the common standards. Typically, token standards define how tokens can be transferred and how to keep a consistent record of those transfers.
 
 Multiple implementations of a standard can co-exist, but they must all respect the interface and rules of the standard. Standards ensure that smart contracts remain compatible, so for instance, when a new project issues a token, it remains compatible with the existing decentralized exchanges, wallets, etc.
 
-{% figure src="/developers/docs/images/token-standards/standards.svg" alt="token-standard-implementations" caption="FIGURE 1: Illustration of 2 implementations of the same token standard" %}  {% /figure %}
+{% figure src="/developers/docs/images/token-standards/standards.svg" alt="token-standard-implementation" caption="FIGURE 1: Illustration of 2 implementations of the same token standard" %} {% /figure %}
 
 ## Fungible & Non-Fungible Tokens
 
-The most basic token is the _Fungible Token_, i.e. a class of identical, interchangeable tokens. For instance, two _Ctez_ tokens are identical and interchangeable, just like a US dollar is identical and interchangeable with another US dollar. Both are exactly the same as the other.
+The most basic token is the _Fungible Token_, i.e., a class of identical, interchangeable tokens. For instance, two _Ctez_ tokens are identical and interchangeable, just like a US dollar is identical and interchangeable with another US dollar. Both are exactly the same as the other.
 
-However, a token can represent much more than a fungible asset. For instance, a concert ticket in the front row is obviously not equivalent to a concert ticket in the last row. These tickets are part of the same class (i.e., concert tickets), but they are not interchangeable: they are non-fungible. Two pieces of art are also non-fungible. The ownership of these assets can be coded with a _Non-Fungible Token_ (or _NFT_ for short) and then bought, sold, exchanged, etc., just like any other token. NFTs are particularly interesting as collectibles as their scarcity can be demonstrated and proven by the blockchain (i.e. an owner can prove that he has the only copy in the whole world).
+However, a token can represent much more than a fungible asset. For instance, a concert ticket in the front row is obviously not equivalent to a concert ticket in the last row. These tickets are part of the same class (i.e., concert tickets), but they are not interchangeable: they are non-fungible. Two pieces of art are also non-fungible. The ownership of these assets can be coded with a _Non-Fungible Token_ (or _NFT_ for short) and then bought, sold, exchanged, etc., just like any other token. NFTs are particularly interesting as collectibles because their scarcity can be demonstrated and proven by the blockchain (i.e. an owner can prove that he has the only copy in the whole world).
 
 ## Token standards on Tezos
 
@@ -27,6 +27,7 @@ However, a token can represent much more than a fungible asset. For instance, a 
 The FA1.2 standard (standing for _Financial Application 1.2_) refers to a fungible token standard for Tezos.
 
 At its core, FA1.2 implements a ledger that maps identities to balances. This ledger implements token transfer operations, as well as approvals for spending tokens from other accounts.
+
 
 The FA1.2 specification is described in detail in the [TZIP-7 proposal](https://tzip.tezosagora.org/proposal/tzip-7/).
 
@@ -45,14 +46,14 @@ Note that FA2 is the successor to [FA1.2](/defi/token-standards#fa12) that only 
 
 
 To learn more on how to implement FA2 tokens, please refer to the corresponding Tezos Improvments Proposal, the TZIP-12[[3]](/defi/token-standards#references).
-=======
+
 {% figure src="/developers/docs/images/token-standards/tokens.svg" alt="fa2-token-standard" caption="FIGURE 2: Illustration of the multi-purpose aspect of the FA2 token standard." %} {% /figure %}
 
 To learn more on how to implement FA2 tokens, please refer to the corresponding Tezos Improvements Proposal, the [TZIP-12](https://tzip.tezosagora.org/proposal/tzip-12/).
 
 ## Regulations
 
-If you plan to create a token, make sure to check the regulations in your country. There are rules to respect depending on the type of token you are creating, its representation, and the taxes to be paid. [In Europe, the law text MICA will soon be effective.](https://data.consilium.europa.eu/doc/document/ST-13198-2022-INIT/en/pdf)
+If you plan to create a token, make sure to check the regulations in your country. There are rules to follow depending on the type of token you are creating, its representation, and the taxes to be paid. [In Europe, the law text MICA will soon be effective.](https://data.consilium.europa.eu/doc/document/ST-13198-2022-INIT/en/pdf)
 
 ## Risks
 
@@ -70,7 +71,7 @@ Always be cautious as anyone can create tokens on Tezos. Before purchasing a tok
 - **[FA2](https://tzip.tezosagora.org/proposal/tzip-12/)**: Specification of the FA2 standard for a unified token contract interface.
 - **[tzNFT](https://github.com/tqtezos/nft-tutorial)**: A tutorial showing users how to originate and interact with the FA2 NFT contract implementation.
 - **[OpenMinter](https://github.com/tqtezos/minter)**: A reusable Dapp that allows anyone to create and collect NFTs on Tezos.
-- **[Peppermint](https://github.com/tzConnectBerlin/peppermint)**: A tool for batch minting/transfering tokens.
+- **[Peppermint](https://github.com/tzConnectBerlin/peppermint)**: A tool for batch minting/transferring tokens.
 - **[Claimz](https://gitlab.com/nomadic-labs-free-resources/claimz)**: A tool to create NFT giveaways.
 
 ## To go further

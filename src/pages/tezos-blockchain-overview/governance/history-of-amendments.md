@@ -61,9 +61,9 @@ For a full list of changes, be sure to read the corresponding [changelog](https:
 
 Edo added two major features to Tezos smart contracts:
 
-* *Sapling*[[1]](/tezos-basics/history-of-amendments#references) and *BLS12-381*[[2]](/tezos-basics/history-of-amendments#references) to enable privacy-preserving smart contracts
+* [*Sapling*](https://z.cash/upgrade/sapling/) and [*BLS12-381*](https://electriccoin.co/blog/new-snark-curve/) to enable privacy-preserving smart contracts
 
-* *Tickets*[[3]](/tezos-basics/history-of-amendments#references) for native on-chain permissions and assets issuance.
+* [*Tickets*](https://medium.com/tqtezos/tickets-on-tezos-part-1-a7cad8cc71cd) for native on-chain permissions and assets issuance.
 
 Among other features, Edo also updated the Tezos amendment process by lowering the period length to 5 cycles and by adding a 5th *Adoption Period*.
 
@@ -79,11 +79,11 @@ Florence's notable bug fixes and improvements are the:
 
 * Improved gas consumption for the execution of more complex smart contracts
 
-* Changing inter-contract calls to a depth-first search[[4]](/tezos-basics/history-of-amendments#references) ordering, as opposed to breadth-first search[[5]](/tezos-basics/history-of-amendments#references) ordering
+* Changing inter-contract calls to a [depth-first search](https://en.wikipedia.org/wiki/Depth-first_search) ordering, as opposed to [breadth-first search](https://en.wikipedia.org/wiki/Breadth-first_search) ordering
 
 * The elimination of the test chain activation
   
-*Bakings Accounts*[[6]](/tezos-basics/history-of-amendments#references) was also included in the feature set. However, ongoing testing uncovered some important and previously undocumented breaking changes in the proposal with *Baking Accounts*. Hence, the feature was postponed until a thorough audit of the functionality was completed or an alternative implementation was produced. The version of *Florence* without *Baking Accounts* was considered a safer choice [[7]](/tezos-basics/history-of-amendments#references).
+[*Bakings Accounts*](https://midl-dev.medium.com/tezos-in-favor-of-baking-accounts-3886effa370c) was also included in the feature set. However, ongoing testing uncovered some important and previously undocumented breaking changes in the proposal with *Baking Accounts*. Hence, the feature was postponed until a thorough audit of the functionality was completed or an alternative implementation was produced. The version of *Florence* without *Baking Accounts* was considered a [safer choice](https://research-development.nomadic-labs.com/baking-accounts-proposal-contains-unexpected-breaking-changes.html).
 
 For more information, see the blog post from [Nomadic Labs](https://research-development.nomadic-labs.com/florence-our-next-protocol-upgrade-proposal.html) and [Tarides](https://tarides.com/blog/2021-03-04-florence-and-beyond-the-future-of-tezos-storage), as well as the [reference documentation](https://tezos.gitlab.io/protocols/009_florence.html).
 
@@ -107,7 +107,7 @@ For more information, see the blog post from [Nomadic Labs](https://research-dev
 
 Hangzhou's main changes are:
 
-* Timelock[[8]](/tezos-basics/history-of-amendments#references) encryption, a feature that helps smart contracts protect against Block Producer Extractable Value
+* [Timelock](https://research-development.nomadic-labs.com/timelock-a-solution-to-minerblock-producer-extractable-value.html) encryption, a feature that helps smart contracts protect against Block Producer Extractable Value
 
 * Views, a new kind of entrypoints that gives easy access to some internal data to other smart contracts.
 
@@ -201,23 +201,3 @@ For more information, see the blog post from [Nomadic Labs](https://research-dev
 In this chapter, we went through the past proposals' history and how and why they were approved or rejected.
 
 In the next chapter, we will see the details of operations costs and various rewards calculations.
-
-## References
-
-[1] https://z.cash/upgrade/sapling/
-
-[2] https://electriccoin.co/blog/new-snark-curve/
-
-[3] https://medium.com/tqtezos/tickets-on-tezos-part-1-a7cad8cc71cd
-
-[4] https://en.wikipedia.org/wiki/Depth-first_search
-
-[5] https://en.wikipedia.org/wiki/Breadth-first_search
-
-[6] https://midl-dev.medium.com/tezos-in-favor-of-baking-accounts-3886effa370c
-
-[7] https://research-development.nomadic-labs.com/baking-accounts-proposal-contains-unexpected-breaking-changes.html
-
-[8] https://research-development.nomadic-labs.com/timelock-a-solution-to-minerblock-producer-extractable-value.html
-
-https://wiki.tezosagora.org/learn/governance/past-tezos-amendments
