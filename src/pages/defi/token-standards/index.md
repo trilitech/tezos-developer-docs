@@ -12,11 +12,7 @@ A token standard is an interface, and a set of rules, that a smart contract must
 
 Multiple implementations of a standard can co-exist, but they must all respect the interface and rules of the standard. Standards ensure that smart contracts remain compatible, so for instance, when a new project issues a token, it remains compatible with the existing decentralized exchanges, wallets, etc.
 
-{% figure 
-    src="/developers/docs/images/token-standards/standards.svg" 
-    alt="token-standard-implementation" 
-    caption="FIGURE 1: Illustration of 2 implementations of the same token standard" 
-%}  {% /figure %}
+{% figure src="/developers/docs/images/token-standards/standards.svg" alt="token-standard-implementation" caption="FIGURE 1: Illustration of 2 implementations of the same token standard" %} {% /figure %}
 
 ## Fungible & Non-Fungible Tokens
 
@@ -47,11 +43,7 @@ As you can see, FA2 is a very powerful standard that allows for many forms of to
 
 Note that FA2 is the successor to [FA1.2](/defi/token-standards#fa12) that only supports fungible tokens, it is still widely used in the Tezos ecosystem.
 
-{% figure 
-    src="/developers/docs/images/token-standards/tokens.svg" 
-    alt="fa2-token-standard" 
-    caption="FIGURE 2: Illustration of the multi-purposes aspect of the FA2 token standard" 
-%}  {% /figure %}
+{% figure src="/developers/docs/images/token-standards/tokens.svg" alt="fa2-token-standard" caption="FIGURE 2: Illustration of the multi-purpose aspect of the FA2 token standard" %}  {% /figure %}
 
 To learn more on how to implement FA2 tokens, please refer to the corresponding Tezos Improvements Proposal, the [TZIP-12](https://tzip.tezosagora.org/proposal/tzip-12/).
 
