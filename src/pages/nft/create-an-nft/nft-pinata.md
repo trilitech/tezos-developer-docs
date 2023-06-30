@@ -168,7 +168,7 @@ The metadata must follow a certain structure to help the dapps in the Tezos ecos
 
 Once we created the object that will become the metadata of the NFT, we can pin it to the IPFS. The Pinata SDK offers a `pinJSONToIPFS` method to do what it says, pin JSON to the IPFS 😅 You can pass to it your JavaScript object directly \(I assume the SDK converts it into JSON because passing a JSON string throws an error\) and just like with the picture, you can set some metadata for the metadata! Once the promise resolves, we check if we got the IPFS hash back and that the data size is over 0. Now everything is pinned! We can send a simple response and attach the CID for the metadata and for the picture:
 
-```text
+``` sh
 res.status(200).json({
     status: true,
     msg: {

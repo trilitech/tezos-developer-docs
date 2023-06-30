@@ -106,19 +106,19 @@ In other words, the quorum tries to match the exponential moving average of the 
 
 #### Voting During a Proposal Period 
 
-```text
+``` sh
 $ tezos-client submit proposals for <delegate> <proposal1> <proposal2> ...
 ```
 
 #### Voting During an Exploration or Promotion Period 
 
-```text
+``` sh
 $ tezos-client submit ballot for <delegate> <proposal> <yay|nay|pass>
 ```
 
 #### Checking the Status of a Voting Period
 
-```text
+``` sh
 $ tezos-client show voting period
 ```
 

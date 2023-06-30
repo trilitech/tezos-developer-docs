@@ -17,7 +17,6 @@ Conversely, if the value of BTC goes down 20% in the set period of the bet, Alic
 As you don't actually purchase the asset, synthetics are particularly interesting for assets that have very low liquidity, are hard to transact, or are simply not available to trade.
 
 ![synthetic](/developers/docs/images/synthetics/synthetic.svg)
-FIGURE 1: Illustration of the synthethic contract between Alice and Bob
 
 ## Synthetics & Blockchain
 
@@ -33,13 +32,13 @@ _Synthetics_ are not to be confused with _Wrapped Assets_. A wrapped asset repre
 
 As with any trading, synthetics are risky in their nature. You can lose your investment if the assets you bet on go the opposite way of your bet.
 
-Note that to settle the bet, synthetics contracts use [oracles](../../smart-contract-topics/oracles/index.md) to fetch the underlying asset's price. There have been [countless oracle incidents](https://blog.synthetix.io/response-to-oracle-incident/) where the asset price in the smart contract loses its peg to the actual asset.
+Note that to settle the bet, synthetics contracts use [oracles](/developers/docs/smart-contracts/oracles/) to fetch the underlying asset's price. Please note that there have been countless oracle incidents where the asset price in the smart contract loses its peg to the actual asset.
 
 ## Synthetics on Tezos
 
 - [Youves](https://app.youves.com/) is a decentralized, self-governing, non-custodial platform for issuing synthetic assets on the Tezos blockchain. youves is one of the main providers of stablecoins to the Tezos DeFi ecosystem.
 
-- [Ctez](https://ctez.app/): a synthetic representation of the Tez.
+- [Ctez](https://ctez.app/): a synthetic representation of Tez
 
 ## References
 

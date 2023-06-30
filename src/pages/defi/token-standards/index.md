@@ -43,6 +43,9 @@ As you can see, FA2 is a very powerful standard that allows many forms of tokens
 
 Note that FA2 is the successor to [FA1.2](/defi/token-standards#fa12) that only supports fungible tokens, it is still widely used in the Tezos ecosystem.
 
+
+To learn more on how to implement FA2 tokens, please refer to the corresponding Tezos Improvments Proposal, the TZIP-12[[3]](/defi/token-standards#references).
+=======
 {% figure src="/developers/docs/images/token-standards/tokens.svg" alt="fa2-token-standard" caption="FIGURE 2: Illustration of the multi-purpose aspect of the FA2 token standard." %} {% /figure %}
 
 To learn more on how to implement FA2 tokens, please refer to the corresponding Tezos Improvements Proposal, the [TZIP-12](https://tzip.tezosagora.org/proposal/tzip-12/).

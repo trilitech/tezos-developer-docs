@@ -87,29 +87,45 @@ const documentationNavigation = [
         ],
       },
       {
-        title: 'Deploy your first smart contract',
-        href: '/tezos-basics/deploy-your-first-smart-contract',
+        title: 'Originating a contract',
+        href: '/tezos-basics/deploy-your-first-smart-contract/smartpy',
+        children: [
+          {
+            title: 'SmartPy',
+            href: '/tezos-basics/deploy-your-first-smart-contract/smartpy',
+          },
+          {
+            title: 'LIGO',
+            href: '/tezos-basics/deploy-your-first-smart-contract/ligo',
+          },
+        ],
       },
       {
         title: 'Tezos Protocol & Shell',
         href: '/tezos-basics/tezos-protocol-and-shell',
       },
       { title: 'Test Networks', href: '/tezos-basics/test-networks' },
-      { 
-        title: 'Block Explorers', 
+      {
+        title: 'Block Explorers',
         href: '/tezos-basics/block-explorers',
         children: [
-          { title: 'TzStats', href: '/tezos-basics/block-explorers/tzstats-main-features' },
-          { title: 'Inspect a Contract with TzStats', href: '/tezos-basics/block-explorers/tzstats-smart-contract' }
-        ] 
+          {
+            title: 'TzStats',
+            href: '/tezos-basics/block-explorers/tzstats-main-features',
+          },
+          {
+            title: 'Inspect a Contract with TzStats',
+            href: '/tezos-basics/block-explorers/tzstats-smart-contract',
+          },
+        ],
       },
     ],
   },
   {
     title: 'Smart Contracts',
     links: [
-      { 
-        title: 'Smart Contract Languages', 
+      {
+        title: 'Smart Contract Languages',
         href: '/smart-contracts/smart-contract-languages',
         children: [
           {
@@ -138,8 +154,8 @@ const documentationNavigation = [
         title: 'Simplified Contracts',
         href: '/smart-contracts/simplified-contracts',
       },
-      { title: 'FA1.2 Token Contract', href: '/smart-contracts/fa12' },
-      { title: 'FA2 Token Contract', href: '/smart-contracts/fa2' },
+      // { title: 'FA1.2 Token Contract', href: '/smart-contracts/fa12' },
+      // { title: 'FA2 Token Contract', href: '/smart-contracts/fa2' },
       {
         title: 'Avoiding Flaws',
         href: '/smart-contracts/avoiding-flaws',
@@ -283,6 +299,10 @@ const documentationNavigation = [
             title: 'Mi-Cho-Coq',
             href: '/advanced-topics/formal-verification/michocoq',
           },
+          {
+            title: 'GADT Coq',
+            href: '/advanced-topics/formal-verification/gadt-coq',
+          },
         ],
       },
     ],
@@ -367,8 +387,8 @@ const tutorialNavigation = [
   {
     title: 'Smart Contracts',
     links: [
-      { 
-        title: 'Smart Contract Languages', 
+      {
+        title: 'Smart Contract Languages',
         href: '/smart-contracts/smart-contract-languages',
         children: [
           {
@@ -597,8 +617,8 @@ const toolingNavigation = [
   {
     title: 'Smart Contracts',
     links: [
-      { 
-        title: 'Smart Contract Languages', 
+      {
+        title: 'Smart Contract Languages',
         href: '/smart-contracts/smart-contract-languages',
         children: [
           {
@@ -827,8 +847,8 @@ const resourcesNavigation = [
   {
     title: 'Smart Contracts',
     links: [
-      { 
-        title: 'Smart Contract Languages', 
+      {
+        title: 'Smart Contract Languages',
         href: '/smart-contracts/smart-contract-languages',
         children: [
           {
@@ -1031,7 +1051,10 @@ function Header({ navigation }) {
             </h1>
           </Link>
           <div className="ml-6 flex">
-            <Link href="/tezos-blockchain-overview/" className="px-4 py-2 text-white hover:text-gray-300">
+            <Link
+              href="/tezos-blockchain-overview/"
+              className="px-4 py-2 text-white hover:text-gray-300"
+            >
               Documentation
             </Link>
             {/* <Link
@@ -1061,7 +1084,7 @@ function Header({ navigation }) {
       <div className="relative flex justify-end gap-6 sm:gap-8">
         <ThemeSelector className="relative z-10 ml-4" />
         <Link
-          href="https://github.com/trilitech/docs-staging"
+          href="https://github.com/trilitech/tezos-developer-docs"
           target="_blank"
           rel="noopener noreferrer"
           className="group"
@@ -1146,11 +1169,31 @@ export function Layout({ children, title, tableOfContents }) {
     ? navigationMap[pathFound]
     : documentationNavigation
 
-  // let isHomePage = router.pathname === '/'
-  let allLinks = navigation.flatMap((section) => section.links)
-  let linkIndex = allLinks.findIndex((link) => link.href === router.pathname)
-  let previousPage = allLinks[linkIndex - 1]
-  let nextPage = allLinks[linkIndex + 1]
+  function flattenLinks(links) {
+    return links.reduce((acc, link) => {
+      const isDuplicate = acc.some(
+        (existingLink) => existingLink.href === link.href
+      )
+      const childrenLinks = link.children ? flattenLinks(link.children) : []
+      if (!isDuplicate) {
+        return [...acc, link, ...childrenLinks]
+      } else {
+        return [...acc, ...childrenLinks]
+      }
+    }, [])
+  }
+  
+  let allLinks = flattenLinks(navigation.flatMap((section) => section.links))
+  let lastLinkIndex = allLinks
+    .slice()
+    .reverse()
+    .findIndex((link) => link.href === router.pathname)
+  lastLinkIndex = allLinks.length - 1 - lastLinkIndex // adjust the index because of reverse()
+  let firstLinkIndex = allLinks.findIndex(
+    (link) => link.href === router.pathname
+  )
+  let previousPage = allLinks[firstLinkIndex - 1]
+  let nextPage = allLinks[lastLinkIndex + 1]
   let selectedLink, selectedParent
   let section = navigation.find((section) => {
     return section.links.find((link) => {
@@ -1209,7 +1252,6 @@ export function Layout({ children, title, tableOfContents }) {
 
         <div className="min-w-0 max-w-2xl flex-auto px-4 py-16 lg:max-w-none lg:pr-0 lg:pl-8 xl:px-16">
           <article>
-
             {(selectedParent || section || isTabHomePage) && (
               <header className="mb-6 space-y-1">
                 {section && !isHomePage && (

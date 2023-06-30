@@ -19,27 +19,27 @@ This example requires Docker, available for Linux, Mac, or Windows at [https://w
 
 Start the sandbox _in the background_ \(will run with baking enabled\):
 
-```text
+``` sh
 docker run --rm --name my-sandbox --detach -p 20000:20000 \
        oxheadalpha/flextesa:20230502 mumbaibox start
 ```
 
 After a few seconds, this should succeed:
 
-```text
+``` sh
 tezos-client config reset        # Cleans-up left-over configuration.
 tezos-client --endpoint http://localhost:20000 bootstrapped
 ```
 
 Configure the client to communicate with the sandbox:
 
-```text
+``` sh
 tezos-client --endpoint http://localhost:20000 config update
 ```
 
 Then, instead of using a public faucet, you can just use tez by importing accounts already existing in the sandbox. They are visible with:
 
-```text
+``` sh
  $ docker run --rm oxheadalpha/flextesa:20230502 mumbaibox info
 
 Usable accounts:
@@ -58,14 +58,14 @@ Root path (logs, chain data, etc.): /tmp/mini-box (inside container).
 
 You may then just import them:
 
-```text
+``` sh
 tezos-client import secret key alice unencrypted:edsk3QoqBuvdamxouPhin7swCvkQNgq4jP5KZPbwWNnwdZpSpJiEbq --force
 tezos-client import secret key bob unencrypted:edsk3RFfvaFaxbHx8BMtEW1rKQcPtDML3LXjNqMNLCzC3wLC1bWbAt --force
 ```
 
 Check their balances:
 
-```text
+``` sh
 tezos-client get balance for alice
 ```
 
@@ -75,7 +75,7 @@ See also the [Tezos Client](https://assets.tqtezos.com/docs/setup/1-tezos-client
 
 For instance, you can originate the most minimalistic [contract](https://gitlab.com/tezos/tezos/blob/mainnet/src/bin_client/test/contracts/attic/id.tz):
 
-```text
+``` sh
 # Download the contract:
 wget https://gitlab.com/tezos/tezos/raw/mainnet/src/bin_client/test/contracts/attic/id.tz
 # Run origination:
@@ -86,7 +86,7 @@ tezos-client originate contract hello-id transferring 0 from bob running id.tz -
 
 When you're done playing, just destroy the container:
 
-```text
+``` sh
 docker kill my-sandbox
 ```
 
@@ -96,7 +96,7 @@ docker kill my-sandbox
 
 One can see the configuration of the protocol running in the sandbox with:
 
-```text
+``` sh
 tezos-client rpc get /chains/main/blocks/head/context/constants
 ```
 
@@ -104,7 +104,7 @@ One important field is `"time_between_blocks": [ "5" ],` which means that blocks
 
 This constant can be configured with the `block_time` environment variable, see the example below:
 
-```text
+``` sh
 docker run --rm --name my-sandbox -e block_time=2 --detach -p 20000:20000 \
        oxheadalpha/flextesa:20230502 mumbaibox start
 ```
@@ -113,7 +113,7 @@ The above command runs a full sandbox with the Florence protocol and a faster ti
 
 Many other parameters are set by the `mumbaibox` [script](https://gitlab.com/tezos/flextesa/-/blob/master/src/scripts/tutorial-box.sh). All the configuration options available can be seen with the command:
 
-```text
+``` sh
 docker run --rm -it oxheadalpha/flextesa:20230502 flextesarl mini-net --help
 ```
 
@@ -121,14 +121,14 @@ docker run --rm -it oxheadalpha/flextesa:20230502 flextesarl mini-net --help
 
 The Docker image also contains a `nairobibox` script:
 
-```text
+``` sh
 docker run --rm --name my-sandbox --detach -p 20000:20000 \
        oxheadalpha/flextesa:20230502 nairobibox start
 ```
 
 You can then check that the protocol hash is `PtNairobiyssHuh87hEhfVBGCVrK3WnS8Z2FT4ymB5tAa4r1nQf`:
 
-```text
+``` sh
  $ tezos-client rpc get /chains/main/blocks/head/metadata | grep protocol
 
 { "protocol": "PtNairobiyssHuh87hEhfVBGCVrK3WnS8Z2FT4ymB5tAa4r1nQf",
@@ -137,7 +137,7 @@ You can then check that the protocol hash is `PtNairobiyssHuh87hEhfVBGCVrK3WnS8Z
 
 or that there are new constants like the one related to liquidity baking:
 
-```text
+``` sh
  $ tezos-client rpc get /chains/main/blocks/head/context/constants | grep liquidity
   "liquidity_baking_subsidy": "2500000",
   "liquidity_baking_sunset_level": 525600,

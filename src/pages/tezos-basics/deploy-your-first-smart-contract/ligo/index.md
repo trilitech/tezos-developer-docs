@@ -1,22 +1,26 @@
 ---
-id: first-smart-contract
-title: Deploy your First Smart Contract
-slug: /first-smart-contract
-authors: John Joubert, Sasha Aldrick
+id: first-smart-contract-ligo
+title: Originate your First Smart Contract with LIGO
+authors: John Joubert, Sasha Aldrick, Claude Barde
 ---
 
 ## Prerequisites
 
 | Dependency         | Installation instructions                                                                                                                                                                                                                                        |
 | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| SmartPy            | Follow the _Installation_ steps in this [guide](https://smartpy.dev/docs/manual/introduction/installation). SmartPy requires Docker to run. For MacOS and Linux, it is recommended to install [Docker Desktop](https://www.docker.com/products/docker-desktop/). |
-| _octez-client_ CLI | Follow the _How to install the octez-client_ steps [here](/developers/docs/tezos-basics/get-started-with-octez/).                                                                                                                                                |
+| Ligo            | Follow the _Installation_ steps in this [guide](https://ligolang.org/docs/tutorials/getting-started/?lang=cameligo#install-ligo)                                                                                                                                                |
 
 {% callout type="warning" title="Note" %}
 Make sure you have **installed** the above CLI tools before getting started.
 {% /callout %}
 
-Now that you have installed the [_octez-client_](https://opentezos.com/tezos-basics/cli-and-rpc/#how-to-install-the-octez-client) and [_Smartpy_](https://smartpy.io/docs/cli/#installation), we'll go ahead and dive right in.
+Now that you have installed the [_octez-client_](https://opentezos.com/tezos-basics/cli-and-rpc/#how-to-install-the-octez-client) and [_Ligo_](https://ligolang.org/docs/tutorials/getting-started/?lang=cameligo#install-ligo), we'll go ahead and dive right in.
+
+Ligo is a high-level programming language created by Marigold to write smart contracts for the Tezos blockchain.
+
+It abstracts away the complexity of using Michelson (the smart contract language directly available on-chain) and provides different syntaxes that make it easier to write smart contracts on Tezos.
+
+The 2 syntaxes that are available at the moment are *JsLigo*, a syntax similar to TypeScript, and *CameLigo*, a syntax similar to OCaml. The following article will introduce CameLigo.
 
 ## Create a project folder
 
@@ -32,63 +36,40 @@ cd example-smart-contract
 
 ## Create a project file
 
-Inside the `example-smart-contract` folder, let's create a file called `store_greeting.py` and save it. We'll need this file later.
+Inside the `example-smart-contract` folder, let's create a file called `increment.mligo` and save it. We'll need this file later.
 
 ```bash
-touch store_greeting.py
+touch increment.mligo
 ```
 
 ## Confirm your setup
+### Ligo
 
-### Smartpy
-
-The preferred way of running SmartPy is via the `smartPy` wrapper. To obtain the SmartPy executable within your local project folder:
-
+You can run
 ```bash
-wget smartpy.io/smartpy
-chmod a+x smartpy
+./ligo version
 ```
-
-If you are missing `wget` on MacOS, you can use `brew install wget` or the package manager of your choice.
-
-This creates a local executable file named `smartpy` which we will use to to compile our contract.
-
-We can check that it's correctly installed by running the following command:
-
+or
 ```bash
-./smartpy
+ligo version
 ```
-
-And we should see something like this returned:
-
-```
-./smartpy
-Usage:
-   ./smartpy test        <script> <output> <options>* (execute all test targets)
-   ./smartpy doc         <script> <output>            (document script)
-
-   Parameters:
-         <script>              : a script containing SmartPy code
-         <output>              : a directory for the results
-
-   Options:
-         --protocol <protocol> : optional, select target protocol - default is lima
-         --<flag> <arguments>  : optional, set some flag with arguments
-         --<flag>              : optional, activate some boolean flag
-         --no-<flag>           : optional, deactivate some boolean flag
+according to your setup to check if Ligo is properly installed. You should see something like:
+``` sh
+Protocol built-in: lima
+0.60.0
 ```
 
 ### Octez-client
 
 We can check that it's correctly installed by running the following command:
 
-```
+``` sh
 octez-client
 ```
 
 And we should see something like this returned:
 
-```
+``` sh
 Usage:
   octez-client [global options] command [command options]
   octez-client --help (for global options)
@@ -127,7 +108,7 @@ Before going further let's make sure we're working on a [Testnet](https://teztne
 
 View the available Testnets:
 
-```
+``` sh
 https://teztnets.xyz
 ```
 
@@ -135,7 +116,7 @@ The [Ghostnet](https://teztnets.xyz/ghostnet-about) might be a good choice for t
 
 Copy the _Public RPC endpoint_ which looks something like this:
 
-```
+``` sh
 https://rpc.ghostnet.teztnets.xyz
 ```
 
@@ -147,7 +128,7 @@ octez-client --endpoint https://rpc.ghostnet.teztnets.xyz config update
 
 You should then see something like this returned:
 
-```
+``` sh
 Warning:
 
                  This is NOT the Tezos Mainnet.
@@ -173,7 +154,7 @@ octez-client show address local_wallet
 
 Which will return something like this:
 
-```
+``` sh
 Warning:
 
                  This is NOT the Tezos Mainnet.
@@ -186,7 +167,7 @@ Public Key: edp.............................bjbeDj
 
 We'll want to copy the Hash that starts with `tz` to your clipboard:
 
-```
+``` sh
 tz1dW9Mk...........H67L
 ```
 
@@ -200,91 +181,130 @@ Let's go ahead and fund our wallet through the [Ghostnet Faucet](https://faucet.
 
 Wait a minute or two and you can then run the following command to check that your wallet has funds in it:
 
-```
+``` sh
  octez-client get balance for local_wallet
 ```
 
 Which will return something like this:
 
-```
+``` sh
 100 ꜩ
 ```
 
-## Use Smartpy to create the contract
+## Use Ligo to create the contract
 
-Open the file `store_greeting.py` in your favourite text editor and let's start writing our first smart contract!
+For this introduction to Ligo, you will write a very simple contract that increments, decrements, or resets a number in its storage.
 
-Copy and paste the following code block into your file and save it.
+A contract is made of 3 main parts:
+- a parameter type to update the storage
+- a storage type to describe how values are stored
+- a piece of code that controls the update of the storage
 
-```python
-import smartpy as sp
+The purpose of a smart contract is to write code that will use the values passed as a parameter to manipulate and update the storage in the intended way.
 
-@sp.module
-def main():
-    class StoreGreeting(sp.Contract):
-        def __init__(self, greeting):  # Note the indentation
-            self.data.greeting = greeting
+The contract will store an integer:
 
-        @sp.entrypoint   # Note the indentation
-        def replace(self, params):
-            self.data.greeting = params.text
-
-        @sp.entrypoint    # Note the indentation
-        def append(self, params):
-            self.data.greeting += params.text
-
-@sp.add_test(name = "StoreGreeting")
-def test():
-  scenario = sp.test_scenario(main)
-  scenario.h1("StoreGreeting")
-
-  contract = main.StoreGreeting("Hello")
-  scenario += contract
-
-  scenario.verify(contract.data.greeting == "Hello")
-
-  contract.replace(text = "Hi")
-  contract.append(text = ", there!")
-  scenario.verify(contract.data.greeting == "Hi, there!")
+``` sh
+type storage = int
 ```
 
-As you can see we're going to set the intial greeting to "Hello" and we'll have the ability later to either replace this greeting or add to it (append).
+The parameter to update the contract storage is a *variant*, similar to a TypeScript enum:
 
-We've also included some tests to make sure all is working as expected. You can read more about about SmartPy testing [here](https://smartpy.io/manual/scenarios/overview).
+``` sh
+type parameter =
+| Increment of int
+| Decrement of int
+| Reset
+```
 
-## Compile the smart contract to Michelson&#x20;
+You can use the different branches of the variant to simulate entrypoints for your contract. In this case, there is an **Increment** entrypoint, a **Decrement** entrypoint, and a **Reset** entrypoint.
 
-Now that we have our code setup, let's compile the smart contract and run the tests simultaneously.
+Next, you declare a function called `main` that will receive the parameter value and the storage when the contract is called. This function returns a tuple with a list of operations on the left and the new storage on the right:
+
+``` sh
+let main (action, store : parameter * storage) : operation list * storage =
+```
+
+You can return an empty list of operations from the beginning, then use pattern matching to match the targetted entrypoint:
+``` sh
+([] : operation list),
+ (match action with
+ | Increment (n) -> add (store, n)
+ | Decrement (n) -> sub (store, n)
+ | Reset         -> 0)
+```
+
+The **Increment** branch redirects to an `add` function that takes a tuple as a parameter made of the current storage and the value used to increment the storage.
+
+The **Decrement** branch redirects to a `sub` function that takes a tuple as a parameter made of the current storage and the value used to decrement the storage.
+
+The **Reset** branch only returns `0`, the new storage.
+
+The `add` function:
 
 ```bash
-./smartpy test store_greeting.py store_greeting/
+let add (store, inc : storage * int) : storage = store + inc
 ```
+takes a tuple with the current storage on the left and the value to increment it on the right. These 2 values are added and returned as the new storage.
 
-You should see this command output our test results and compiled contracts to the folder `/store_greeting/StoreGreeting`.
-
-There are two types of output, JSON Michelson in `.json` files and [Micheline Micelson](https://tezos.gitlab.io/shell/micheline.html) in `.tz` files.
-
-The most important file is `step_002_cont_0_contract.tz`. This Michelson file we can use to deploy (originate in Tezos terms) the contract to the testnet.
-
-## Deploy to the Testnet
-
-First you need to make sure that your current directory is `/store_greeting/StoreGreeting`.
-
-From the project folder:
+The `sub` function:
 
 ```bash
-cd output/storeGreeting
+let sub (store, dec : storage * int) : storage = store - dec
+```
+takes a tuple with the current storage on the left and the value to subtract from it on the right. The passed value is subtracted from the current storage and the new storage is returned.
+
+``` sh
+type storage = int
+
+type parameter =
+| Increment of int
+| Decrement of int
+| Reset
+
+// Increment entrypoint
+let add (store, inc : storage * int) : storage = store + inc
+// Decrement entrypoint
+let sub (store, dec : storage * int) : storage = store - dec
+
+let main (action, store : parameter * storage) : operation list * storage =
+ ([] : operation list),    // No operations
+ (match action with
+ | Increment (n) -> add (store, n)
+ | Decrement (n) -> sub (store, n)
+ | Reset         -> 0)
+
 ```
 
-Then run the following command to deploy the smart contract:
+## Compile the smart contract to Michelson
+
+You can now compile the contract to Michelson directly from the terminal with the following command:
 
 ```bash
-octez-client originate contract storeGreeting transferring 0 from local_wallet running step_002_cont_0_contract.tz --init '"Hello"' --burn-cap 0.1
+ligo compile contract increment.mligo -o increment.tz
 ```
 
-This will originate the contract with an initial greeting of "Hello".
+You can also test that the contract works by calling one of its entrypoints with this command:
 
-You should get a similar confirmation that your smart contract has been originated:
+```bash
+ligo run dry-run increment.mligo "Increment(32)" "10"
+```
+
+This should return `(LIST_EMPTY(), 42)` if everything is correct.
+
+## Originate to the Testnet
+
+Run the following command to originate the smart contract:
+```bash
+octez-client originate contract increment \
+    transferring 0 from <my_tz_address...> \
+    running increment.tz \
+    --init 10 --burn-cap 0.1 --force
+```
+
+This will originate the contract with an initial storage of `10`.
+
+You should get a confirmation that your smart contract has been originated:
 
 ```bash
 New contract KT1Nnk.................UFsJrq originated.
@@ -296,32 +316,38 @@ Make sure you copy the contract address for the next step!
 
 ## Confirm that all worked as expected
 
-To interact with the contract and confirm that all went as expected, you can use an Explorer such as:[TzKT ](https://tzkt.io) or [Better Call Dev](https://better-call.dev/).
+To interact with the contract and confirm that all went as expected, you can use an Explorer such as: [TzKT](https://tzkt.io) or [Better Call Dev](https://better-call.dev/).
 
 Make sure you have switched to [Ghostnet](https://ghostnet.tzkt.io) before you start looking.
 
 Then paste the contract address (starting with KT1) `KT1Nnk.................UFsJrq` into the search field and hit `enter` to find it.
 
-Then navigate to the `Storage` tab to see your initial value of `Hello`.
-
-![Confirmation that all worked correctly](/developers/docs/images/storage_success.png)
+Then navigate to the `Storage` tab to see your initial value of `10`.
 
 ## Calling the entrypoints
 
-Now that we've successfully deployed our smart contract, let's test out the two entrypoints that we created: `replace` and `append`
+Now that we've successfully originated our smart contract, let's test out the three entrypoints that we created: `increment`, `decrement`, and `reset`.
 
-#### Replace
+#### Increment
 
-To replace "Hello" with "Hi there!", we can run the command below:
+To increment the current storage by a certain value, you can call the `increment` entrypoint:
 
 ```bash
-octez-client --wait none transfer 0 from local_wallet to storeGreeting --entrypoint 'replace' --arg '"Hi there!"' --burn-cap 0.1
+octez-client --wait none transfer 0 from local_wallet to increment --entrypoint 'increment' --arg '5' --burn-cap 0.1
 ```
 
-#### &#x20;Append
+#### Decrement
 
-Finally, to append some text, you can run this command:
+To decrement the current storage by a certain value, you can call the `decrement` entrypoint:
 
 ```bash
-octez-client --wait none transfer 0 from local_wallet to storeGreeting --entrypoint 'append' --arg '" Appended Greeting"' --burn-cap 0.1
+octez-client --wait none transfer 0 from local_wallet to increment --entrypoint 'decrement' --arg '6' --burn-cap 0.1
+```
+
+#### Reset
+
+Finally, to reset the current storage to zero, you can call the `reset` entrypoint:
+
+```bash
+octez-client --wait none transfer 0 from local_wallet to increment --entrypoint 'reset' --arg 'Unit' --burn-cap 0.1
 ```

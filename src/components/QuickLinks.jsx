@@ -32,15 +32,13 @@ export function QuickLinks({ children }) {
   )
 }
 
-
 export function QuickLink({ title, description, href, icon, comingSoon }) {
   const pathsToHideDescription = ['/tutorials', '/tooling', '/resources']
-
 
   // if (comingSoon === "true") {
   //   console.log('comingSoon', comingSoon);
   // }
-  
+
   const shouldHideDescription = pathsToHideDescription.some((path) =>
     href.startsWith(path)
   )
@@ -58,14 +56,17 @@ export function QuickLink({ title, description, href, icon, comingSoon }) {
         <div className="flex-grow">
           <h2
             className={clsx(
-              'font-display text-base font-bold text-slate-700 hover:text-blue-800 dark:text-white hover:dark:hover:text-gray-400',
+              'font-display text-base font-bold',
+              comingSoon
+                ? 'text-slate-700 dark:text-white'
+                : 'hover:text-blue-800 dark:hover:text-gray-400',
               !shouldHideDescription ? 'mt-4' : 'mt-1 mb-3'
             )}
             style={{
               lineHeight: !shouldHideDescription ? '1.5rem' : '1rem',
             }}
           >
-            {comingSoon === "true" ? (
+            {comingSoon ? (
               <>
                 <div className="mb-0.5 flow-root w-fit items-center rounded-full bg-purple-50 px-1 py-0.5 text-xxs font-medium text-purple-700 ring-1 ring-inset ring-purple-600/10 dark:bg-transparent dark:text-white dark:ring-white">
                   Coming Soon
