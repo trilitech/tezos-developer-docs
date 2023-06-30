@@ -3,9 +3,9 @@ id: tezos-protocol-and-shell
 title: Tezos Protocol and Shell
 ---
 
-## Tezos' Self-Amending Protocol
-
 The primary characteristic that makes Tezos unique is its self-amending property. The part that amends itself is called the economic protocol. The rest of the Tezos node is what we call the shell.
+
+## Tezos' Self-Amending Protocol
 
 The protocol is responsible for interpreting the transactions and other administrative operations. It also has the responsibility to detect erroneous blocks.
 
