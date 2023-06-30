@@ -1,4 +1,7 @@
-# NFT Marketplace Part 2
+---
+id: nft-marketplace-part-2
+title: NFT Marketplace Part 2
+---
 
 This time we will add the ability to buy and sell an NFT!
 
@@ -13,7 +16,7 @@ yarn install
 cd ..
 ```
 
-# Smart contract
+## Smart contract
 
 Add the following code sections on your `nft.jsligo` smart contract
 
@@ -169,7 +172,7 @@ Finally, compile the contract
 TAQ_LIGO_IMAGE=ligolang/ligo:0.64.2 taq compile nft.jsligo
 ```
 
-## Sell at an offer price
+### Sell at an offer price
 
 Define the `sell` function as below:
 
@@ -292,7 +295,7 @@ Explanation:
 - we update the `storage` to publish the offer
 - finally, do the correct business by calling `sell` function inside the `sell` case on `main`
 
-## Buy a bottle on the marketplace
+### Buy a bottle on the marketplace
 
 Now that we have offers available on the marketplace, let's buy bottles!
 
@@ -426,7 +429,7 @@ Explanation:
 - remove the offer as it has been executed
 - finally, do the correct business by calling `sell` function inside the `sell` case on `main`
 
-## Compile and deploy
+### Compile and deploy
 
 We finished the smart contract implementation of this second training, let's deploy to ghostnet.
 
@@ -445,7 +448,7 @@ taq deploy nft.tz -e "testing"
 
 ** We have implemented and deployed the smart contract (backend)!**
 
-# NFT Marketplace front
+## NFT Marketplace front
 
 Generate Typescript classes and go to the frontend to run the server
 
@@ -1063,7 +1066,7 @@ As you are connected with the default administrator you can see your own unique 
 - Click on `bottle offers` sub menu
 - You are now the owner of this bottle, you can resell it at your own price, etc ...
 
-# Conclusion 
+## Conclusion 
 
 You created an NFT collection marketplace from the Ligo library, now you can buy and sell NFTs at your own price.
 

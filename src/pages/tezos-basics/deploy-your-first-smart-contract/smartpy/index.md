@@ -1,6 +1,6 @@
 ---
-id: first-smart-contract
-title: Deploy your First Smart Contract
+id: first-smart-contract-smartpy
+title: Deploy your First Smart Contract with SmartPy
 slug: /first-smart-contract
 authors: John Joubert, Sasha Aldrick
 ---

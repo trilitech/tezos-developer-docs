@@ -1,6 +1,7 @@
-# NFT Marketplace Part 4
-
-![https://france-vins.eu/wp-content/uploads/2018/10/les-meilleures-caves-%C3%A0-vin-image.jpg](https://france-vins.eu/wp-content/uploads/2018/10/les-meilleures-caves-%C3%A0-vin-image.jpg)
+---
+id: nft-marketplace-part-4
+title: NFT Marketplace Part 4
+---
 
 We finish by using multi asset template.
 
@@ -8,8 +9,6 @@ We finish by using multi asset template.
 - you have an unlimited quantity of items in each collection
 
 To resume, you are producing any quantity of wine bottles on `n` collections
-
-# Next step
 
 Keep your code from previous training or get the solution [here](https://github.com/marigold-dev/training-nft-3/tree/main/solution)
 
@@ -22,9 +21,7 @@ yarn install
 cd ..
 ```
 
-# Smart contract
-
-## Do breaking changes on the NFT template to work with the new library
+## Smart Contract
 
 Point to the new template changing the first import line of `nft.jsligo` file to
 
@@ -308,7 +305,7 @@ taq deploy nft.tz -e "testing"
 
 ** Hooray! We have finished the smart contract _(backend)_ **
 
-# NFT Marketplace front
+## NFT Marketplace front
 
 Generate Typescript classes and go to the frontend to run the server
 

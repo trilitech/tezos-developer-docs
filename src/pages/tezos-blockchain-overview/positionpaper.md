@@ -5,15 +5,7 @@ title: "Tezos Position Paper"
 hide_title: true
 ---
 
-## Tezos Position Paper
-
-### Tezos: A Self-Amending Crypto-Ledger Position Paper
-
-##### L.M Goodman • August 3, 2014
-
-\_\_[_Position Paper PDF_](https://tezos.com/position-paper.pdf)\_\_
-
-#### Table of Contents
+## Table of Contents
 
 * [Abstract](positionpaper.md#abstract)
 * [Motivation](positionpaper.md#motivation)
@@ -36,9 +28,13 @@ hide_title: true
 * [Conclusion](positionpaper.md#conclusion)
 * [References](positionpaper.md#references)
 
-> "Laissez faire les propriétaires." -- Pierre-Joseph Proudhon
+{% callout type="note" title="PDF" %}
+You can find the PDF for the position paper [here](https://tezos.com/position-paper.pdf)
+{% /callout %}
 
-### Abstract
+## Abstract
+
+> "Laissez faire les propriétaires." -- Pierre-Joseph Proudhon
 
 The popularization of Bitcoin, a decentralized crypto-currency has inspired the production of several alternative, or “alt”, currencies. Ethereum, CryptoNote, and Zerocash all represent unique contributions to the cryptocurrency space. Although most alt currencies harbor their own source of innovation, they have no means of adopting the innovations of other currencies which may succeed them. We aim to remedy the potential for atrophied evolution in the crypto-currency space by presenting Tezos, a generic and self-amending crypto-ledger.
 
@@ -46,7 +42,7 @@ Tezos can instantiate any blockchain based protocol. Its seed protocol specifies
 
 The philosophy of Tezos is inspired by Peter Suber’s Nomic, a game built around a fully introspective set of rules. In this paper, we hope to elucidate the potential benefits of Tezos, our choice to implement as a proof-of-stake system, and our choice to write it in OCaml.
 
-### Motivation
+## Motivation
 
 In our development of Tezos, we aspire to address four problems we perceive with Bitcoin:
 
@@ -57,9 +53,9 @@ In our development of Tezos, we aspire to address four problems we perceive with
 
 Tezos implements a generic network shell. This shell is agnostic to the transaction protocol and to the consensus protocol. We refer to the transaction protocol and the consensus protocol together as a "blockchain protocol". We will first give a mathematical representation of a blockchain protocol and then describe some of the implementation choices in Tezos.
 
-### The Protocol Fork Problem 
+## The Protocol Fork Problem 
 
-#### Keeping Up With Innovation
+### Keeping Up With Innovation
 
 In the wake of Bitcoin’s success, many developers and entrepreneurs have released alternative crypto-currencies \(“altcoins”\). While some of these altcoins did not diverge dramatically from Bitcoin’s original code, some presented interesting improvements. For example, Litecoin introduced a memory hard proof of work function and a shorter block confirmation time. Similarly, Ethereum has designed stateful contracts and a Turing-complete transaction language. More important contributions include privacy-preserving ring signatures \(CryptoNote\) and untraceable transactions using SNARK \(Zerocash\).
 
@@ -75,11 +71,7 @@ Crypto-currencies suffer from the same fate as smartphones which are incompatibl
 
 Side-chains are an attempt to allow innovations which will retain compatibility with Bitcoin by pegging the value of a new currency to Bitcoin and creating a two-way convertibility. Unfortunately, it’s unclear whether they will be flexible enough to accommodate protocols substantially different from Bitcoin. The only alternative so far is to fork the protocol.
 
-> wow, such unoriginal
->
->  scrypt mining ASICs are now available
-
-#### Economics of Forks
+### Economics of Forks
 
 To understand the economics of forks, one must first understand that monetary value is primarily a social consensus. It is tempting to equate a cryptocurrency with its rules and its ledger, but currencies are actually focal points: they draw their value from the common knowledge that they are accepted as money. While this may seem circular, there is nothing paradoxical about it. From a game theoretic perspective, the perception of a token as a store of value is stable so long as it is widespread. Note that, as a ledger, Bitcoin is a series of 1s and 0s. The choice to treat the amounts encoded within unspent outputs as balances is a purely _social_ consensus, not a property of the protocol itself.
 
@@ -101,15 +93,11 @@ Suppose for instance that a popular developer announces his intention to fork Te
 
 This signals to the stakeholders that their preferred consensus would be to reject this fork, and the Schelling point is thus to refuse it, no matter the clout of that developer.
 
-> not to be confused with blockchain forks which happen _within_ a protocol
->
->  The argument that there can never be more than 21 million bitcoin because "if a fork raised the cap, then it wouldn't be Bitcoin anymore" isn't very substantive, for Bitcoin is what the consensus says it is.
-
-### Shortcomings of Proof-of-Work 
+## Shortcomings of Proof-of-Work 
 
 The proof-of-work mechanism used by Bitcoin is a careful balance of incentives meant to prevent the double spending problem. While it has nice theoretical properties in the absence of miner collusion, it suffers in practice from severe shortcomings.
 
-#### Mining Power Concentration
+### Mining Power Concentration
 
 There are several problems with proof-of-work as a foundation for crypto-currencies. The most salient problem, which is all too relevant as of 2014, is the existence of centralized mining pools, which concentrate power in the hands of a few individuals.
 
@@ -133,7 +121,7 @@ Proof-of-stake, as used by Tezos, does not suffer from this problem: inasmuch as
 
 > It is possible that a new technology will supplant ASICs who themselves replaced FPGA boards. However, the pace of this type of innovation is nowhere fast enough to prevent miners from forming dominating positions for long period of times; and such innovation would benefit but a new \(or the same\) small clique of people who initially possess the new technology or eventually amass the capital to repeat the same pattern.
 
-#### Bad incentives
+### Bad incentives
 
 There is an even deeper problem with proof-of-work, one that is much harder to mitigate than the concentration of mining power: a misalignment of incentives between miners and stakeholders.
 
@@ -147,7 +135,7 @@ Attempting to impose minimum transaction fees may only exacerbate the problem an
 
 Proof-of-stake fixes these bad incentives by aligning the incentives of the miners and stakeholders: by very definition, the miners _are_ the stakeholders, and are thus interested in keeping the transaction costs low. At the same time, because proof-of-stake mining is not based on destruction of resources, the transaction cost \(whether direct fees or indirect inflation\) are entirely captured by miners, who can cover their operating costs without having to compete through wealth destruction.
 
-#### Cost
+### Cost
 
 An alternative is to keep permanent mining rewards, as Dogecoin has considered. Unfortunately, proof-of-work arbitrarily increases the costs to the users without increasing the profits of the miners, incurring a deadweight loss. Indeed, since miners compete to produce hashes, the amount of money they spend on mining will be slightly smaller than the revenues, and in the long run, the profits they make will be commensurate with the value of their transaction services, while the cost of mining is lost to everyone.
 
@@ -157,11 +145,11 @@ The very security of a proof-of-work scheme rests on this actual cost being high
 
 Proof-of-stake eliminates this source of waste without lowering the cost of attacks — indeed, it automatically scales up the cost of an attack as the currency appreciates. Because the thing you must prove to mine is not destruction of existing resources but provision of existing resources, a proof-of-stake currency does not rely on destroying massive resources as it gains in popularity.
 
-#### Control
+### Control
 
 Last but not least, the proof-of-work system puts the miners, not the stakeholders, in charge. Forks for instance require the consent of a majority of the miners. This poses a potential conflict of interest: a majority of miners could decide to hold the blockchain hostage until stakeholders consent to a protocol fork increasing the mining rewards; more generally, they will hold onto the hugely wasteful system that empowers them longer than is economically beneficial for users.
 
-### Smart Contracts 
+## Smart Contracts 
 
 Though Bitcoin does allow for smart contracts, most of its opcodes have been historically disabled and the possibilities are limited. Ethereum introduced a smart contract system with some critical differences: their scripting language is Turing complete and they substitute stateful accounts to Bitcoin’s unspent outputs.
 
@@ -173,9 +161,9 @@ To address this problem, Ethereum has devised a system by which the miner valida
 
 Yet, for the blockchain to be secure, _all_ the active nodes need to validate the transaction. A malicious miner could include in his block a transaction that he crafted specially to run into an infinite loop and pay himself an exorbitant fee for validating this transaction. Other miners could waste a very long time validating this transaction. Worse, they could just slack and fail to validate it. In practice though, most of the interesting smart contracts can be implemented with very simple business logic and do not need to perform complex calculations.
 
-Our solution is to cap the maximum number of steps that a program is allowed to run for in a single transaction. Since blocks have a size limit that caps the number of transactions per block, there is also a cap on the number of computation steps per block. This rate limitation foils CPU-usage denial-ofservice attacks. Meanwhile, legitimate users can issue multiple transactions to compute more steps than allowed in a single transaction, though at a limited rate. Miners may decide to exclude too long of an execution if they feel the included fee is too small. Since the Tezos protocol is amendable, the cap can be increased in future revisions and new cryptographic primitives included in the scripting language as the need develops.
+Our solution is to cap the maximum number of steps that a program is allowed to run for in a single transaction. Since blocks have a size limit that caps the number of transactions per block, there is also a cap on the number of computation steps per block. This rate limitation foils CPU-usage denial-of service attacks. Meanwhile, legitimate users can issue multiple transactions to compute more steps than allowed in a single transaction, though at a limited rate. Miners may decide to exclude too long of an execution if they feel the included fee is too small. Since the Tezos protocol is amendable, the cap can be increased in future revisions and new cryptographic primitives included in the scripting language as the need develops.
 
-### Correctness 
+## Correctness 
 
 Bitcoin underpins a $8B valuation with a modest code base. As security researcher Dan Kaminsky explains, Bitcoin looks like a security nightmare on paper. A C++ code base with a custom binary protocol powers nodes connected to the Internet while holding e-cash, sounds like a recipe for disaster. C++ programs are often riddled with memory corruption bugs. When they are connecting to the Internet, this creates vulnerabilities exploitable by remote attackers. E-cash gives an immediate payoff to any attacker clever enough to discover and exploit such a vulnerability.
 
@@ -191,17 +179,17 @@ Examples of spectacular software failure abound. The heartbleed bug caused milli
 
 All of these bugs could have been prevented with the use of formal verification. Formal verification has progressed by leaps and bounds in recent years, it is time to use it in real systems.
 
-### Abstract Blockchains 
+## Abstract Blockchains 
 
-Tezos attempts to represent a blockchain protocol in the most general way possible while attempting to remain as efficient as a native protocol. The goal of a blockchain is to represent a single state being concurrently edited. In order to avoid conflicts between concurrent edits, it represents the state as a ledger, that is as a series of transformations applied to an initial state. These transformations are the “blocks” of the blockchain, and — in the case of Bitcoin — the state is mostly the set of unspent outputs. Since the blocks are created asynchronously by many concurrent nodes, a block tree is formed. Each leaf of the tree represents a possible state and the end of a different blockchain. Bitcoin specifies that only one branch should be considered the valid branch: the one with the greatest total difficulty. Blocks, as their name suggests, actually bundle together multiple operations \(known as transactions in the case of Bitcoin\). These operations are sequentially applied to the state.
+Tezos attempts to represent a blockchain protocol in the most general way possible while attempting to remain as efficient as a native protocol. The goal of a blockchain is to represent a single state being concurrently edited. In order to avoid conflicts between concurrent edits, it represents the state as a ledger, that is as a series of transformations applied to an initial state. These transformations are the “blocks” of the blockchain, and — in the case of Bitcoin — the state is mostly the set of unspent outputs. Since the blocks are created asynchronously by many concurrent nodes, a block tree is formed. Each leaf of the tree represents a possible state and the end of a different blockchain. Bitcoin specifies that only one branch should be considered the valid branch: the one with the greatest total difficulty. Blocks, as their name suggests, actually bundle together multiple operations (known as transactions in the case of Bitcoin). These operations are sequentially applied to the state.
 
-### Three Protocols 
+## Three Protocols 
 
 It is important to distinguish three protocols in cryptoledgers: the network protocol, the transaction protocol, and the consensus protocol.
 
 The role of the meta shell is to handle the network protocol in as agnostic a way as possible while delegating the transaction and consensus protocol to an abstracted implementation.
 
-#### Network Protocol
+### Network Protocol
 
 The network protocol in Bitcoin is essentially the gossip network that allows the broadcasting of transactions, the downloading and publishing of blocks, the discovery of peers, etc. It is where most development occurs. For instance, bloom filters were introduced in 2012 through BIP0037 to speed up the simple payment verification for clients which do not download the whole blockchain.
 
@@ -211,7 +199,7 @@ These changes do not need to happen in concert either. One could devise a way to
 
 While a healthy network requires compatibility, competing innovation in the network protocol generally strengthens a cryptocurrency.
 
-#### Transaction Protocol
+### Transaction Protocol
 
 The transaction protocol describes what makes transactions valid. It is defined in Bitcoin, for instance, through a scripting language. First, coins are created by miners when they find a block. The miner then attaches a script to the coins that he mined.
 
@@ -223,13 +211,13 @@ Changes to the transaction protocol are more controversial than changes to the n
 
 Some relatively uncontroversial changes still stand a chance to be implemented there. For instance a fix to the transaction malleability issue would be a transaction protocol level change. The introduction of Zerocash, also a transaction protocol level change, risks being too controversial to be undertaken.
 
-#### Consensus Protocol
+### Consensus Protocol
 
 The consensus protocol of Bitcoin describes the way consensus is built around the most difficult chain and the miner reward schedules. It allows miners to draw transactions from the coin base, it dictates how difficulty changes over time, it indicates which blocks are valid and which are part of the “official” chain.
 
 This is by far the most central and most difficult to change protocol, often requiring a “hard-fork”, that is a fork invalidating old blocks. For instance, the proof of work system, as is the reliance on SHA256 as a proof-of-work system, etc.
 
-### Network Shell
+## Network Shell
 
 Tezos separates these three protocols. The transaction protocol and the consensus protocol are implemented in an isolated module plugged into a generic network shell responsible for maintaining the blockchain.
 
@@ -247,37 +235,37 @@ Strikingly, these two functions alone can implement _any_ blockchain based crypt
 
 These two procedures allow the protocol to validate its own replacement. While the seed protocol relies on a simple super-majority rule with a quorum, more complex rules can be adopted in the future. For instance, the stakeholders could vote to require certain properties to be respected by any future protocol. This could be achieved by integrating a proof checker within the protocol and requiring that every amendment include a proof of constitutionality.
 
-### Proof-of-Stake
+## Proof-of-Stake
 
 Tezos can implement any type of blockchain algorithm: proof-of-work, proof-of-stake, or even centralized. Due to the shortcomings of the proof-of-work mechanism, the Tezos seed protocol implements a proof-of-stake system. There are considerable theoretical hurdles to designing a working proof-of-stake systems, we will explain our way of dealing with them.
 
 > A full, technical, description of our proof-of-stake system is given in the Tezos white paper.
 
-### Is Proof-of-Stake Impossible?
+## Is Proof-of-Stake Impossible?
 
 There are very serious theoretical hurdles to any proof-of-stake system. The main argument against the very possibility of a proof-of-stake system is the following: a new user downloads a client and connects for the first time to the network. He receives a tree of blocks with two larges branches starting from the genesis hash. Both branches display a thriving economic activity, but they represent two fundamentally different histories. One has clearly been crafted by an attacker, but which one is the real chain?
 
 In the case of Bitcoin, the canonical blockchain is the one representing the largest amount of work. This does not mean that rewriting history is impossible, but it is costly to do so, especially as one’s hashing power could be used towards mining blocks on the real blockchain. In a proof-of-stake system where blocks are signed by stakeholders, a former stakeholder \(who has since cashed out\) could use his old signatures to costlessly fork the blockchain — this is known as the nothing-at-stake problem.
 
-### Mitigations 
+## Mitigations 
 
 While this theoretical objection seems ironclad, there are effective mitigations. An important insight is to consider that there are roughly two kind of forks: very deep ones that rewrite a substantial fraction of the history and short ones that attempt to double spend. On the surface there is only a quantitative difference between the two but in practice the incentives, motivations, and mitigation strategies are different.
 
 No system is unconditionally safe, not Bitcoin, not even public key cryptography. Systems are designed to be safe for a given _threat model_. How well that model captures reality is, _in fine_, an empirical question.
 
-#### Checkpoints
+### Checkpoints
 
 Occasional checkpoints can be an effective way to prevent very long blockchain reorganizations. Checkpoints are a hack. As Ben Laurie points out, Bitcoin’s use of checkpoints taints its status as a fully decentralized currency.
 
 Yet, in practice, annual or even semi-annual checkpoints hardly seem problematic. Forming a consensus over a single hash value over a period of months is something that human institutions are perfectly capable of safely accomplishing. This hash can be published in major newspapers around the world, carved on the tables of freshmen students, spray painted under bridges, included in songs, impressed on fresh concrete, tattooed on pet ferrets... there are countless ways to record occasional checkpoints in a way that makes forgery impossible. In contrast, the problem of forming a consensus over a period of minutes is more safely solved by a decentralized protocol.
 
-#### Statistical Detection
+### Statistical Detection
 
 Transactions can reference blocks belonging to the canonical blockchain, thus implicitly signing the chain. An attacker attempting to forge a long reorganization can only produce transactions involving coins he controlled as off the last checkpoint. A long, legitimate, chain would typically show activity in a larger fraction of the coins and can thus be distinguished, statistically, from the forgery.
 
 This family of techniques \(often called TAPOS, for “transactions as proof of stake”\) does not work well for short forks where the sample is too small to perform a reliable statistical test. However, they can be combined with a technique dealing with short term forks to form a composite selection algorithm robust to both type of forks.
 
-### The Nothing-At-Stake Problem 
+## The Nothing-At-Stake Problem 
 
 An interesting approach to solving the nothing-at-stake problem was outlined by Vitalik Buterin in the algorithm Slasher\[15\]. However, Slasher still relies on a proof of work mechanism to mine blocks and assumes a bound on the length of feasible forks.
 
@@ -287,7 +275,7 @@ In order to incentivize stakeholders to behave honestly, we introduce a ticker s
 
 In order to allow stakeholders not to be permanently connected to the Internet and not to expose private keys, a different, signature key is used.
 
-### Threat Models
+## Threat Models
 
 No system is unconditionally safe, not Bitcoin, not even public key cryptography. Systems are designed to be safe for a given _threat model_. How well that model captures reality is, _in fine_, an empirical question.
 
@@ -297,21 +285,21 @@ With checkpointing \(be it yearly\), the same properties can be achieved by a pr
 
 Without checkpointing proof-of-stake systems cannot make this claim. Indeed, it would be theoretically possible for an attacker to purchase old keys from a large number of former stakeholders, with no consequence to them. In this case, a stronger assumption is needed about participants, namely that a majority of current or former stakeholders cannot be cheaply corrupted into participating in an attack on the network. In this case, the role “stake” in the proof-of-stake is only to avoid adverse selection by malicious actors in the consensus group.
 
-### Potential Developments 
+## Potential Developments 
 
 In this section, we explore some ideas that we’re specifically interested in integrating to the Tezos protocol.
 
-### Privacy Preserving Transactions 
+## Privacy Preserving Transactions 
 
 One of the most pressing protocol updates will be the introduction of privacy preserving transactions. We know of two ways to achieve this: ring signatures and non-interactive zero-knowledge proofs of knowledge \(NIZKPK\).
 
-#### Ring Signatures
+### Ring Signatures
 
 CryptoNote has built a protocol using ring signatures to preserve privacy. Users are able to spend coins without revealing which of _N_ addresses spent the coins. Double spenders are revealed and the transaction deemed invalid. This works similarly to the coin-join protocol _without_ requiring the cooperation of the addresses involved in obfuscating the transaction.
 
 One of the main advantage of ring signatures is that they are comparatively simpler to implement than NIZKPK and rely on more mature cryptographic primitives which have stood the test of time.
 
-#### Non Interactive Zero-knowledge Proofs of Knowledge
+### Non Interactive Zero-knowledge Proofs of Knowledge
 
 Matthew Green et al. proposed the use of NIZKPK to achieve transaction untraceability in a blockchain based cryptocurrency. The latest proposition, Zerocash, maintains a set of coins with attached secrets in a Merkle tree. Committed coins are redeemed by providing a NIZKPK of the secret attached to a coin in the tree. It uses a relatively new primitive, SNARKs, to build very small proofs which can be efficiently checked.
 
@@ -319,70 +307,57 @@ This technique is attractive but suffers from drawbacks. The cryptographic primi
 
 Secondly, the construction of these proofs relies on the CRS model. This effectively means that a trusted setup is required, though the use of secure multi-party computation can reduce the risk that such a setup be compromised.
 
-### Amendment Rules 
+## Amendment Rules 
 
-#### Constitutionalism
+### Constitutionalism
 
 While this is more advanced, it is possible to integrate a proof checker within the protocol so that only amendments carrying a formal proof that they respect particular properties can be adopted. In effect this enforces a form of constitutionality.
 
-#### Futarchy
+### Futarchy
 
 Robin Hanson has proposed that we vote on values and bet on beliefs. He calls such a system “Futarchy”. The main idea is that values are best captured by a majoritarian consensus while the choice of policies conducive to realizing those values is best left to a prediction market.
 
 This system can quite literally be implemented in Tezos. Stakeholders would first vote on a trusted datafeed representing the satisfaction of a value. This might be, for example, the exchange rate of coins against a basket of international currencies. An internal prediction market would be formed to estimate the change in this indicator conditional on various code amendments being adopted. The market-making in those contracts can be subsidized by issuing coins to market makers in order to improve price discovery and liquidity. In the end, the amendment deemed most likely to improve the indicator would be automatically adopted.
 
-### Solving Collective Action Problems
+## Solving Collective Action Problems
 
 The collective action problem arises when multiple parties would benefit from taking an action but none benefit from individually undertaking the action. This is also known as the free-rider problem. There are several actions that the holders of a cryptocurrency could undertake to raise its profile or defend it against legal challenges.
 
-#### Raising Awareness
+### Raising Awareness
 
 As of July 2014, the market capitalization of Bitcoin was around $8B. By spending about 0.05% of the Bitcoin monetary mass every month, Bitcoin could make highly visible charitable donations of $1M _every single week_. Would, as of 2014, an entire year of weekly charitable donations raise the value of Bitcoin by more than 0.6%? We think the answer is clearly, and resoundingly “yes”. Bitcoin stakeholders would be doing well while doing good.
 
 However, Bitcoin stakeholders are unable to undertake such an operation because of the difficulty of forming large binding contracts. This type of collective action problem is solved in Tezos. A protocol amendment can set up a procedure by which stakeholders may vote every month on a few addresses where 0.05% of the monetary mass would be spent. The stakeholder’s consensus might be to avoid dilution by voting on an invalid address, but it could also be that the money would be better spent as a charitable gift.
 
-#### Funding Innovation
+### Funding Innovation
 
 Financing of innovation would also be facilitated by incorporating bounties directly within the protocol. A protocol could define unit tests and automatically reward any code proposal that passes these tests.
 
 Conversely, an innovator designing a new protocol could include a reward to himself within the protocol. While his protocol could be copied and the reward stripped, the stakeholder’s consensus would likely be to reward the original creator. Stakeholders are playing a repeated game and it would be foolish to defect by refusing a reasonable reward.
 
-### Conclusion
+## Conclusion
 
 We’ve presented issues with the existing cryptocurrencies and offered Tezos as a solution. While the irony of preventing the fragmentation of cryptocurrencies by releasing a new one does not escape us, Tezos truly aims to be the last cryptocurrency.
 
 No matter what innovations other protocols produce, it will be possible for Tezos stakeholders to adopt these innovations. Furthermore, the ability to solve collective action problems and easily implement protocols in OCaml will make Tezos one of the most reactive cryptocurrency.
 
-### References
+## References
 
- Peter Suber. Nomic: A game of self-amendment. [http://legacy.earlham.edu/~peters/writing/nomic.htm](http://legacy.earlham.edu/~peters/writing/nomic.htm), 1982.
-
- Satoshi Nakamoto. Bitcoin: A peer-to-peer electronic cash system. [https://bitcoin.org/bitcoin.pdf](https://bitcoin.org/bitcoin.pdf), 2008.
-
- Vitalik Buterin et al. A next-generation smart contract and decentralized application platform. [https://blockchainlab.com/pdf/Ethereum\_white\_paper-a\_next\_generation\_smart\_contract\_and\_decentralized\_application\_platform-vitalik-buterin.pdf](https://blockchainlab.com/pdf/Ethereum_white_paper-a_next_generation_smart_contract_and_decentralized_application_platform-vitalik-buterin.pdf), 2014.
-
- Nicolas van Saberhagen. Cryptonote v 2.0. [https://bytecoin.org/old/whitepaper.pdf](https://bytecoin.org/old/whitepaper.pdf), 2013.
-
- Matthew Green et al. Zerocash: Decentralized anonymous payments from bitcoin. [http://zerocash-project.org/media/pdf/zerocash-extended-20140518.pdf](http://zerocash-project.org/media/pdf/zerocash-extended-20140518.pdf), 2014.
-
- Thomas Schelling. _The Strategy of conflict_. Cambridge: Harvard University Press, 1960.
-
- Bitcoin Wiki. Weaknesses. [https://en.bitcoin.it/wiki/Attacks\#Attacker\_has\_a\_lot\_of\_computing\_power](https://en.bitcoin.it/wiki/Attacks#Attacker_has_a_lot_of_computing_power), 2014.
-
- Gavin Andresen. Centralized mining. [http://bitcoinfoundation.org/centralized-mining/](http://bitcoinfoundation.org/centralized-mining/), 2014.
-
- Bitcoin Wiki. Tragedy of the commons. [https://en.bitcoin.it/wiki/Tragedy\_of\_the\_Commons](https://en.bitcoin.it/wiki/Tragedy_of_the_Commons), 2014.
-
- Bitcoin Wiki. Dominant assurance contracts. [https://en.bitcoin.it/wiki/Dominant\_Assurance\_Contracts](https://en.bitcoin.it/wiki/Dominant_Assurance_Contracts), 2014.
-
- Simon de la Rouviere. Not actually capped at 100 billion? [https://github.com/dogecoin/dogecoin/issues/23](https://github.com/dogecoin/dogecoin/issues/23), 2013.
-
- Debian project. Computer language benchmarks game. [https://benchmarksgame-team.pages.debian.net/benchmarksgame/index.html](https://benchmarksgame-team.pages.debian.net/benchmarksgame/index.html), 2014.
-
- Scott Owens. A sound semantics for OCaml light. [http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.107.7364&rep=rep1&type=pdf](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.107.7364&rep=rep1&type=pdf), 2008.
-
- Ben Laurie. Decentralised currencies are probably impossible, but let’s at least make them efficient. [http://www.links.org/files/decentralised-currencies.pdf](http://www.links.org/files/decentralised-currencies.pdf), 2011.
-
- Vitalik Buterin. Slasher: A punitive proof-of-stake algorithm. [https://blog.ethereum.org/2014/01/15/slasher-a-punitive-proof-of-stake-algorithm/](https://blog.ethereum.org/2014/01/15/slasher-a-punitive-proof-of-stake-algorithm/), 2014.
-
- Robin Hanson. Shall we vote on values, but bet on beliefs? [http://mason.gmu.edu/~rhanson/futarchy2013.pdf](http://mason.gmu.edu/~rhanson/futarchy2013.pdf), 2013.
+{% callout type="note" title="References" %}
+ - [Peter Suber. Nomic: A game of self-amendment.](http://legacy.earlham.edu/~peters/writing/nomic.htm), 1982.
+ - [Satoshi Nakamoto. Bitcoin: A peer-to-peer electronic cash system](https://bitcoin.org/bitcoin.pdf), 2008.
+ - [Vitalik Buterin et al. A next-generation smart contract and decentralized application platform.](https://blockchainlab.com/pdf/Ethereum_white_paper-a_next_generation_smart_contract_and_decentralized_application_platform-vitalik-buterin.pdf), 2014.
+ - [Nicolas van Saberhagen. Cryptonote v 2.0.](https://bytecoin.org/old/whitepaper.pdf), 2013.
+ - [Matthew Green et al. Zerocash: Decentralized anonymous payments from bitcoin. ](http://zerocash-project.org/media/pdf/zerocash-extended-20140518.pdf), 2014.
+ - [Thomas Schelling. _The Strategy of conflict_. Cambridge: Harvard University Press](http://elcenia.com/iamapirate/schelling.pdf), 1960.
+ - [Bitcoin Wiki. Weaknesses.](https://en.bitcoin.it/wiki/Attacks#Attacker_has_a_lot_of_computing_power), 2014.
+ - [Gavin Andresen. Centralized mining.](http://bitcoinfoundation.org/centralized-mining/), 2014.
+ - [Bitcoin Wiki. Tragedy of the commons.](https://en.bitcoin.it/wiki/Tragedy_of_the_Commons), 2014.
+ - [Bitcoin Wiki. Dominant assurance contracts.](https://en.bitcoin.it/wiki/Dominant_Assurance_Contracts), 2014.
+ - [Simon de la Rouviere. Not actually capped at 100 billion?](https://github.com/dogecoin/dogecoin/issues/23), 2013.
+ - [Debian project. Computer language benchmarks game. ](https://benchmarksgame-team.pages.debian.net/benchmarksgame/index.html), 2014.
+ - [Scott Owens. A sound semantics for OCaml light. ](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.107.7364&rep=rep1&type=pdf), 2008.
+ - [Ben Laurie. Decentralised currencies are probably impossible, but let’s at least make them efficient.](http://www.links.org/files/decentralised-currencies.pdf), 2011.
+ - [Vitalik Buterin. Slasher: A punitive proof-of-stake algorithm.](https://blog.ethereum.org/2014/01/15/slasher-a-punitive-proof-of-stake-algorithm/), 2014.
+ - [Robin Hanson. Shall we vote on values, but bet on beliefs?](http://mason.gmu.edu/~rhanson/futarchy2013.pdf), 2013.
+{% /callout %}

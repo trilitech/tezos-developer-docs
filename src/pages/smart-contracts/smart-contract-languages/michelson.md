@@ -33,13 +33,13 @@ Source: Wikipedia.
 
 To see what mean it means to rewrite stacks, we will run through a transaction in Michelson. First, before a transaction runs, the blockchain state at a certain hash is deserialized and put onto the stack as the variable `storage`. We have a `from` function that receives the transaction data `amount`, the amount of attached tez, and the `parameter`, the function's parameters.
 
-```text
+``` sh
 from [ (Pair (Pair amount parameter) storage) ]
 ```
 
 After running the function, without any updates to the stack, the program will call a `to` function that has the parameters `result`, which is the result of the function, and the output `storage` that is serialized and stored on the blockchain.
 
-```text
+``` sh
 to [ (Pair result storage) ]
 ```
 

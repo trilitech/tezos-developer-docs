@@ -4,11 +4,8 @@ hide_table_of_contents: true
 title: "Tezos White Paper"
 hide_title: true
 ---
-## Tezos White Paper
 
-\_\_[_Whitepaper PDF_](https://tezos.com/whitepaper.pdf)\_\_
-
-##### Table of Contents
+## Table of Contents
 
 * [Self-Amending Cryptoledger](#self-amending)
 * [Mathematical Representation](#mathematical)
@@ -18,11 +15,15 @@ hide_title: true
 * [Smart Contracts](#smart)
 * [Conclusion](#conclusion)
 
-### Introduction
+{% callout type="note" title="PDF" %}
+You can find the PDF for the whitepaper [here](https://tezos.com/whitepaper.pdf)
+{% /callout %}
+
+## Introduction
 
 In the first part of this paper, we will discuss the concept of abstract blockchains and the implementation of a self-amending crypto-ledger. In the second part, we will describe our proposed seed protocol.
 
-### Self-amending Cryptoledger
+## Self-amending Cryptoledger
 
 A blockchain protocol can be decomposed into three distinct protocols:
 
@@ -32,7 +33,7 @@ A blockchain protocol can be decomposed into three distinct protocols:
 
 Tezos implements a generic network shell. This shell is agnostic to the transaction protocol and to the consensus protocol. We refer to the transaction protocol and the consensus protocol together as a "blockchain protocol". We will first give a mathematical representation of a blockchain protocol and then describe some of the implementation choices in Tezos.
 
-### Mathematical representation
+## Mathematical representation
 
 A blockchain protocol is fundamentally a monadic implementation of concurrent mutations of a global state. This is achieved by defining "blocks" as operators acting on this global state. The free monoid of blocks acting on the genesis state forms a tree structure. A global, canonical, state is defined as the minimal leaf for a specified ordering.
 
@@ -55,7 +56,7 @@ In Tezos, we make a blockchain protocol introspective by letting blocks act on t
 
 {% math %} \mathcal{P} = \{(\mathbf{S},\leq,\oslash,\mathbf{B} \subset \mathbf{S}^{(\mathbf{S} \times \mathcal{P})\cup \{\oslash\}})\} {% /math %}
 
-### The network shell
+## The network shell
 
 This formal mathematical description doesn't tell us _how_ to build the block tree. This is the role of the network shell, which acts as an interface between a gossip network and the protocol.
 
@@ -63,11 +64,11 @@ The network shell works by maintaining the best chain known to the client. It is
 
 The most arduous part of the network shell is to protect nodes against denial-of-service attacks.
 
-##### Clock
+### Clock
 
 Every block carries a timestamp visible to the network shell. Blocks that appear to come from the future are buffered if their timestamps are within a few minutes of the system time and rejected otherwise. The protocol design must tolerate reasonable clock drifts in the clients and must assume that timestamps can be falsified.
 
-##### Chain selection algorithm
+### Chain selection algorithm
 
 The shell maintains a single chain rather than a full tree of blocks. This chain is only overwritten if the client becomes aware of a strictly better chain.
 
@@ -77,19 +78,19 @@ Yet, it remains possible for a node to lie about the score of a given chain, a l
 
 Fortunately, a protocol can have the property that low scoring chains exhibit a low rate of block creation. Thus, the client would only consider a few blocks of a "weak" fork before concluding that the announced score was a lie.
 
-##### Network level defense
+### Network level defense
 
 In addition, the shell is "defensive". It attempts to connect to many peers across various IP ranges. It detects disconnected peers and bans malicious nodes.
 
 To protect against certain denial of service attacks, the protocol provides the shell with context dependent bounds on the size of blocks and transactions.
 
-#### Functional representation
+## Functional representation
 
-##### Validating the chain
+### Validating the chain
 
 We can efficiently capture almost all the genericity of our abstract blockchain structure with the following OCaml types. To begin with, a block header is defined as:
 
-```text
+``` sh
 type raw_block_header = {
   pred: Block_hash.t;
   header: Bytes.t;
@@ -100,13 +101,13 @@ type raw_block_header = {
 
 We are purposefully not typing the header field more strongly so it can represent arbitrary content. However, we do type the fields necessary for the operation of the shell. These include the hash of the preceding block, a list of operation hashes and a timestamp. In practice, the operations included in a block are transmitted along with the blocks at the network level. Operations themselves are represented as arbitrary blobs.
 
-```text
+``` sh
 type raw_operation = Bytes.t
 ```
 
 The state is represented with the help of a **Context** module which encapsulates a disk-based immutable key-value store. The structure of a key-value store is versatile and allows us to efficiently represent a wide variety of states.
 
-```text
+``` sh
 module Context = sig
    type t
    type key = string list
@@ -122,7 +123,7 @@ To avoid blocking on disk operations, the functions use the asynchronous monad L
 
 We can now define the module type of an arbitrary blockchain protocol:
 
-```text
+``` sh
 type score = Bytes.t list
 module type PROTOCOL = sig
    type operation
@@ -160,7 +161,7 @@ Tezos's most powerful feature is its ability to implement protocol capable of se
 
 These functions transform a Context by changing the associated protocol. The new protocol takes effect when the following block is applied to the chain.
 
-```text
+``` sh
 module Context = sig
    type t
    (*...*)
@@ -179,7 +180,7 @@ Many conditions can trigger a change of protocol. In its simplest version, a sta
 
 In order to make the GUI building job's easier, the protocol exposes a JSON-RPC API. The API itself is described by a json schema indicating the types of the various procedures. Typically, functions such as **get\_balance** can be implemented in the RPC.
 
-```text
+``` sh
 type service = {
   name : string list ;
   input : json_schema option ;
@@ -365,7 +366,7 @@ Each contract has a "manager\", which in the case of an account is simply the ow
 
 Formally, a contract is represented as:
 
-```text
+``` sh
 type contract = {
   counter: int; (* counter to prevent repeat attacks *)
   manager: id; (* hash of the contract's manager public key *)
@@ -382,7 +383,7 @@ The handle of a contract is the hash of its initial content. Attempting to creat
 
 Note that data is represented as the union type.
 
-```text
+``` sh
 type data =
   | STRING of string
   | INT of int
@@ -398,7 +399,7 @@ The origination operation may be used to create a new contract, it specifies the
 
 A transaction is a message sent from one contract to another contract, this messages is represented as:
 
-```text
+``` sh
 type transaction = {
   amount: amount; (* amount being sent *)
   parameters: data list; (* parameters passed to the script *)

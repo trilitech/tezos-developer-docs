@@ -87,8 +87,18 @@ const documentationNavigation = [
         ],
       },
       {
-        title: 'Deploy your first smart contract',
-        href: '/tezos-basics/deploy-your-first-smart-contract',
+        title: 'Originate a contract',
+        href: '/tezos-basics/deploy-your-first-smart-contract/smartpy',
+        children: [
+          {
+            title: 'SmartPy',
+            href: '/tezos-basics/deploy-your-first-smart-contract/smartpy',
+          },
+          {
+            title: 'LIGO',
+            href: '/tezos-basics/deploy-your-first-smart-contract/ligo',
+          },                   
+        ],
       },
       {
         title: 'Tezos Protocol & Shell',
@@ -1061,7 +1071,7 @@ function Header({ navigation }) {
       <div className="relative flex justify-end gap-6 sm:gap-8">
         <ThemeSelector className="relative z-10 ml-4" />
         <Link
-          href="https://github.com/trilitech/docs-staging"
+          href="https://github.com/trilitech/tezos-developer-docs"
           target="_blank"
           rel="noopener noreferrer"
           className="group"

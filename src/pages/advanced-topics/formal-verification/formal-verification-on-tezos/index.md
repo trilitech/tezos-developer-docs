@@ -25,7 +25,7 @@ The formal verification process on Tezos for smart contracts consists of:
 
 ### How does Tezos make Formal Verification possible?
 
-The [Michelson](/developers/docs/tezos-basics/smart-contract-languages/michelson/) language has been designed to take formal verification into account:
+The [Michelson](/developers/docs/smart-contracts/smart-contract-languages/michelson/) language has been designed to take formal verification into account:
 
 - introducing a typing system on a stack-based language
 - preventing JUMP instructions which would make the formal verification more complex

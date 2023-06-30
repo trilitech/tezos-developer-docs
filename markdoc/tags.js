@@ -3,6 +3,9 @@ import { LgLink, LgLinks } from '@/components/LgLinks'
 import { QuickLink, QuickLinks } from '@/components/QuickLinks'
 
 import Math from '@/components/Math'
+// import Tab from '@/components/Tab'
+// import Tabs from '@/components/Tabs'
+// import { Tag } from '@markdoc/markdoc';
 
 // Import the built-in Next.js tags
 import { comment } from '@markdoc/next.js/tags'
@@ -46,7 +49,7 @@ const tags = {
       description: { type: String },
       icon: { type: String },
       href: { type: String },
-      comingSoon: { type: String, default: 'false' },
+      comingSoon: { type: Boolean, default: false },
     },
   },
   'lg-links': {
@@ -73,6 +76,27 @@ const tags = {
     },
   },
   comment,
+  // tabs: {
+  //   render: Tabs,
+  //   attributes: {},
+  //   transform(node, config) {
+  //     const labels = node
+  //       .transformChildren(config)
+  //       .filter((child) => child && child.name === 'Tab')
+  //       .map((tab) => (typeof tab === 'object' ? tab.attributes.label : null))
+
+  //     return new Tag(this.render, { labels }, node.transformChildren(config))
+  //   },
+  // },
+  // tab: {
+  //   render: Tab,
+  //   attributes: {
+  //     label: {
+  //       type: String
+  //     }
+  //   }
+  // },
 }
 
 export default tags
+

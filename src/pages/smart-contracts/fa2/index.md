@@ -23,7 +23,7 @@ This part requires 4 accounts with a few ꜩ imported into `tezos-client`, as
 In the case of the sandbox tutorial we use `alice` also as `originator` and
 `administrator`:
 
-```sh
+``` sh
  $ tezos-client import secret key alice \
                 unencrypted:edsk3QoqBuvdamxouPhin7swCvkQNgq4jP5KZPbwWNnwdZpSpJiEbq \
                 --force
@@ -48,7 +48,7 @@ available at
 
 Let's download the “default” one:
 
-```sh
+``` sh
  $ wget -O fa2_default.tz \
         'https://gitlab.com/smondet/fa2-smartpy/-/raw/4acac092/michelson/20200910-203659+0000_5060996_contract.tz'
 
@@ -76,7 +76,7 @@ to fill the contract.
 Let's originate such an unpaused empty contract while setting the
 `administrator` address:
 
-```sh
+``` sh
  $ tezos-client originate contract myfa2 \
                 transferring 0 from originator \
                 running fa2_default.tz \
@@ -122,7 +122,7 @@ contract (see [documentation](https://gitlab.com/smondet/fa2-smartpy/)).
 
 For instance, let's, as `administrator`, mint 100 `TK0` tokens to `alice`:
 
-```sh
+``` sh
  $ tezos-client transfer 0 from administrator to myfa2 \
                 --entrypoint mint \
                 --arg '(Pair (Pair "tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb" 100) (Pair "TK0" 0))' \
@@ -163,7 +163,7 @@ a “from-address” and a list of outgoing transactions:
 
 Here we, as `alice`, transfer 5 of our 100 TK0 to `bob`:
 
-```sh
+``` sh
  $ tezos-client transfer 0 from alice to myfa2 \
                 --entrypoint transfer \
                 --arg '{ Pair "tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb" {Pair "tz1aSkwEot3L2kmUvcoxzjMomb9mvBNuzFK6" (Pair 0 5)} }' \
@@ -230,7 +230,7 @@ code
 In this case, we expect the `tezos-client` command to fail, since we want to
 read the error message:
 
-```sh
+``` sh
  $ tezos-client run script get-balance.tz on storage Unit \
                 and input \
                 "$(tezos-client get contract storage for myfa2)"
@@ -258,7 +258,7 @@ In this section we use the `fatoo` command line interface to some *builds* of
 FA2-SmartPy. You need `fatoo` installed in your `$PATH` or you may use
 Docker:
 
-```sh
+``` sh
  $ fatoo --version
    # or:
    docker run -it --rm --entrypoint fatoo registry.gitlab.com/smondet/fa2-smartpy:4acac092-run --version
@@ -303,7 +303,7 @@ Assuming we are using the
 [sandbox](https://assets.tqtezos.com/docs/setup/2-sandbox) setup, we can
 configure the client using `alice`'s private key as follows:
 
-```sh
+``` sh
 export fatoo_client='http://:20000/unencrypted:edsk3QoqBuvdamxouPhin7swCvkQNgq4jP5KZPbwWNnwdZpSpJiEbq?wait=0'
 
 # Or, for docker, use:
@@ -314,7 +314,7 @@ alias fatoo='docker run -it -u "$UID" --network host -v "$PWD:/work" -w /work --
 The application has a `client` subcommand which just calls `tezos-client`
 properly, one may test their setup with:
 
-```sh
+``` sh
  $ fatoo client bootstrapped
 ┃ Node is bootstrapped.
 ```
@@ -324,7 +324,7 @@ properly, one may test their setup with:
 Here we create four key-pairs from mnemonic seeds, to be used in the
 following sections:
 
-```sh
+``` sh
  $ fatoo account-of-seed \
          "the-only-administrator-of-the-contract" \
          --output admin.csv
@@ -344,7 +344,7 @@ The resulting CSVs are in the same format as with
 [flextesa](https://tezos.gitlab.io/flextesa/), they contain:
 `<phrase>,<pk>,<pkh>,<sk>` see for instance:
 
-```sh
+``` sh
  $ echo "Public key hash: $(cut -d, -f 3 admin.csv)"
    echo "Secret key: $(cut -d, -f 4 admin.csv)"
 ┃ Public key hash: tz1ZnxqPNMXyiZLTANYJLJ9ZTBpQ5Qu16BXe
@@ -353,7 +353,7 @@ The resulting CSVs are in the same format as with
 
 Let's name all of these:
 
-```sh
+``` sh
  $ export admin_pkh="$(cut -d, -f 3 admin.csv)"
    export admin_sk="$(cut -d, -f 4 admin.csv)"
    export owner0_pkh="$(cut -d, -f 3 owner0.csv)"
@@ -369,7 +369,7 @@ Let's name all of these:
 
 The application contains the code for a few variants of the contract:
 
-```sh
+``` sh
  $ fatoo list-contract-variants \
          --details description --format markdown
 ┃ * `contract`: The default.
@@ -395,7 +395,7 @@ application. Let's originate `mutran_contract`, the full blown FA2
 implementation with an extra entry-point which allows the administrator to
 transfer funds which may potentially end-up in the contract's balance.
 
-```sh
+``` sh
  $ fatoo originate mutran_contract \
          --administrator "${admin_pkh}" \
          --output-address kt1_mutran_contract.txt
@@ -408,14 +408,14 @@ transfer funds which may potentially end-up in the contract's balance.
 
 The command has saved the contract address in the file:
 
-```sh
+``` sh
  $ cat kt1_mutran_contract.txt
 ┃ KT1Qmqtc6pYnivEkR1Pedt684XSH4RjmoU6w
 ```
 
 And we can already display the state of the contract (storage):
 
-```sh
+``` sh
  $ fatoo show-storage "$(cat kt1_mutran_contract.txt)"
 ‖ [FA2->Info]:
 ‖   Contract: KT1Qmqtc6pYnivEkR1Pedt684XSH4RjmoU6w
@@ -436,7 +436,7 @@ contract on chain, for this we need to transfer at least a few μꜩ to that
 address. One can use `tezos-client` but `fatoo` has shortcut command to
 transfer from the configured “funding” account (amounts are in `mutez`):
 
-```sh
+``` sh
  $ fatoo fund-address \
          "${admin_pkh}" \
          10_000_000
@@ -447,7 +447,7 @@ transfer from the configured “funding” account (amounts are in `mutez`):
 Note that for now `owner0` does not exist on chain, we're still minting
 tokens to them:
 
-```sh
+``` sh
  $ fatoo call-mint --token-id 0 --token-symbol TQ0 \
          "${owner0_pkh}" 1_000_000 \
          --source "${admin_sk}" \
@@ -457,7 +457,7 @@ tokens to them:
 
 Let's add another token `TQ1` still minting some to `owner0`:
 
-```sh
+``` sh
  $ fatoo call-mint --token-id 1 --token-symbol TQ1 \
          "${owner0_pkh}" 2_000 \
          --source "${admin_sk}" \
@@ -469,7 +469,7 @@ Let's see the storage; we see the new tokens `TQ0` and `TQ1` and, since we
 provide a “known token owner” on the command-line, we can see their
 balances:
 
-```sh
+``` sh
  $ fatoo show-storage "$(cat kt1_mutran_contract.txt)" \
          --known-address "$(cut -d, -f 3 owner0.csv)"
 ‖ [FA2->Info]:
@@ -491,7 +491,7 @@ balances:
 Now let's get `owner0` to do a batch-transfer. First, we need to feed some
 gas to that address:
 
-```sh
+``` sh
  $ fatoo fund-address \
          "${owner0_pkh}" \
          1_000_000
@@ -502,7 +502,7 @@ gas to that address:
 Then, since the token-owner can do self-transfer we use `owner0`'s secret-key
 to transfer TQ0s and TQ1s to `owner1` and `owner2`:
 
-```sh
+``` sh
  $ fatoo call-transfer \
          "from:${owner0_pkh} to:${owner1_pkh} amount: 10 token: 0" \
          "from:${owner0_pkh} to:${owner1_pkh} amount: 100 token: 1" \
@@ -514,7 +514,7 @@ to transfer TQ0s and TQ1s to `owner1` and `owner2`:
 
 We can then observe the resulting state:
 
-```sh
+``` sh
  $ fatoo show-storage "$(cat kt1_mutran_contract.txt)" \
          --known-address "$(cut -d, -f 3 owner0.csv)" \
          --known-address "$(cut -d, -f 3 owner1.csv)" \
@@ -544,7 +544,7 @@ We can then observe the resulting state:
 
 Let's create an `operator` key-pair:
 
-```sh
+``` sh
  $ fatoo account-of-seed \
          "youve-been-operated-ill-be-back" \
          --output operator.csv
@@ -555,7 +555,7 @@ Let's create an `operator` key-pair:
 We will now get all the owners to delegate _all_ their tokens to
 “operator,” see also the command `fatoo call-update-operators --help`:
 
-```sh
+``` sh
  $ fatoo call-update-operators \
          "add@ operator: ${operator_pkh} owner: ${owner0_pkh} token: 0" \
          "add@ operator: ${operator_pkh} owner: ${owner0_pkh} token: 1" \
@@ -581,7 +581,7 @@ We will now get all the owners to delegate _all_ their tokens to
 
 We see that now, the same operator is present in every account:
 
-```sh
+``` sh
  $ fatoo show-storage "$(cat kt1_mutran_contract.txt)" \
          --known-address "$(cut -d, -f 3 owner0.csv)" \
          --known-address "$(cut -d, -f 3 owner1.csv)" \
@@ -615,7 +615,7 @@ We see that now, the same operator is present in every account:
 Finally, let's get `operator` to run a *batch-transfer-heist* of all the
 tokens:
 
-```sh
+``` sh
  $ fatoo fund-address \
          "${operator_pkh}" \
          2_000_000_000
@@ -624,7 +624,7 @@ tokens:
 ‖   5999358655 mutez.
 ```
 
-```sh
+``` sh
  $ fatoo call-transfer \
          "from:${owner0_pkh} to:${operator_pkh} amount: 999990 token: 0" \
          "from:${owner0_pkh} to:${operator_pkh} amount: 1890 token: 1" \
@@ -640,7 +640,7 @@ tokens:
 We can then observe the resulting state where all the balances are `0` except
 for `operator` who owns the total supply:
 
-```sh
+``` sh
  $ fatoo show-storage "$(cat kt1_mutran_contract.txt)" \
          --known-address "$(cut -d, -f 3 owner0.csv)" \
          --known-address "$(cut -d, -f 3 owner1.csv)" \
@@ -685,7 +685,7 @@ itself (this may be a convoluted excuse to put XTZ on the contract …). We
 call the `transfer` entry-point with an empty list of transfer-items but with
 a few XTZ as amount:
 
-```sh
+``` sh
  $ tezos-client import secret key operator \
                 "${operator_sk}" --force
    tezos-client transfer 1_000 from operator \
@@ -707,7 +707,7 @@ a few XTZ as amount:
 
 We see that `fatoo` shows a non-zero balance for the contract now:
 
-```sh
+``` sh
  $ fatoo show-storage "$(cat kt1_mutran_contract.txt)"
 ‖ [FA2->Info]:
 ‖   Contract: KT1Qmqtc6pYnivEkR1Pedt684XSH4RjmoU6w
@@ -725,7 +725,7 @@ We see that `fatoo` shows a non-zero balance for the contract now:
 Let's make `admin` retrieve that money for themselves; the entry-point is
 called `mutez_transfer` and takes a pair `mutez × address`:
 
-```sh
+``` sh
  $ tezos-client import secret key admin \
                 "${admin_sk}" --force
    tezos-client transfer 0 from admin \
@@ -748,7 +748,7 @@ called `mutez_transfer` and takes a pair `mutez × address`:
 
 We see that the balance is gone from the KT1:
 
-```sh
+``` sh
  $ fatoo show-storage "$(cat kt1_mutran_contract.txt)"
 ‖ [FA2->Info]:
 ‖   Contract: KT1Qmqtc6pYnivEkR1Pedt684XSH4RjmoU6w
@@ -765,7 +765,7 @@ We see that the balance is gone from the KT1:
 
 … and see that `admin` is wealthier:
 
-```sh
+``` sh
  $ tezos-client get balance for \
                 "${admin_pkh}"
 ┃ 5057.816076 ꜩ

@@ -8,7 +8,7 @@ authors: Tezos Ukraine
 If you're just looking for API docs for a hosted indexer, [here is the one from TzKT](https://api.tzkt.io/), and [here is the one from TzStats](https://tzstats.com/docs/api/index.html)
 {% /callout %}
 
-# What is an indexer ? 
+## What is an indexer ? 
 A block explorer, or an app that tracks activity on the blockchain, is typically made of:
 
 - an indexer that is a node operator that extracts the on-chain data and stores it in a database

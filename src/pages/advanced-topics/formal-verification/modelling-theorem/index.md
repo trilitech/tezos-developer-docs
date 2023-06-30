@@ -4,7 +4,7 @@ title: Modelling for smart contracts
 authors: Frank Hillard (Cardashift)
 ---
 
-This section describes how to bridge Tezos and the [Michelson](/developers/docs/tezos-basics/smart-contract-languages/michelson/) language with the formal world of [Coq](/developers/docs/advanced-topics/formal-verification/coq/). To achieve this, we are going to model a theorem representing a smart contract and the goal of the smart contract.
+This section describes how to bridge Tezos and the [Michelson](/developers/docs/smart-contracts/smart-contract-languages/michelson/) language with the formal world of [Coq](/developers/docs/advanced-topics/formal-verification/coq/). To achieve this, we are going to model a theorem representing a smart contract and the goal of the smart contract.
 
 ## Overview
 The Tezos blockchain can run smart contracts using the Michelson language. Michelson is a low-level stack-based Turing-complete language that is formally proven. The proof of Michelson language is compiled in a library called [Mi-Cho-Coq](/developers/docs/advanced-topics/formal-verification/michocoq/).
@@ -39,7 +39,7 @@ The schema above describes an equivalence between the execution of instructions 
 In the following sections, we will detail how the execution of a Michelson script can be formally written and how to define the post-conditions. We will then study the formal proof as a sequence of Coq tactics (i.e. the vernacular part of the Gallina language).
 
 ### Smart Contract Invocation
-Tezos smart contracts can be written in multiple high-level [languages](/developers/docs/tezos-basics/smart-contract-languages/) but these are all ultimately compiled in Michelson.
+Tezos smart contracts can be written in multiple high-level [languages](/developers/docs/smart-contracts/smart-contract-languages/) but these are all ultimately compiled in Michelson.
 
 A smart contract invocation requires the smart contract itself (through its address), the entrypoint that is being called (and its related arguments) and the storage state. If all these elements are provided, the execution of the smart contract code is triggered, which results in side-effects on storage and optionally on the Tezos network itself:
 

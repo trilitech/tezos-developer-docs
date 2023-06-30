@@ -1,6 +1,7 @@
-# NFT Marketplace Part 3
-
-![https://vinepair.com/wp-content/uploads/2016/06/Cellar-HEAD.jpg](https://vinepair.com/wp-content/uploads/2016/06/Cellar-HEAD.jpg)
+---
+id: nft-marketplace-part-3
+title: NFT Marketplace Part 3
+---
 
 This time we are going to use the single asset template. It is the opposite of the previous NFT template because:
 
@@ -8,8 +9,6 @@ This time we are going to use the single asset template. It is the opposite of t
 - you have a certain quantity of items in the same collection
 
 To sum up, you are producing wine bottles from the same collection with `n` quantity.
-
-# Next step
 
 Keep your code from previous training or get the solution [here](https://github.com/marigold-dev/training-nft-2/tree/main/solution)
 
@@ -22,9 +21,7 @@ yarn install
 cd ..
 ```
 
-# Smart contract
-
-## Do breaking changes on NFT template to fit with the new library
+## Smart Contract
 
 Point to the new template changing the first import line of your `nft.jsligo` file to
 
@@ -287,7 +284,7 @@ const refreshUserContextOnPageReload = async () => {
 };
 ```
 
-## Update in `MintPage.tsx`
+### Update in `MintPage.tsx`
 
 We introduce the quantity and remove the `token_id` variable. Replace the full file with the following content:
 
@@ -721,7 +718,7 @@ export default function MintPage() {
 }
 ```
 
-## Update in `OffersPage.tsx`
+### Update in `OffersPage.tsx`
 
 We introduce the quantity and remove the `token_id` variable. Replace the full file with the following content:
 
@@ -1043,7 +1040,7 @@ export default function OffersPage() {
 }
 ```
 
-## Update in `WineCataloguePage.tsx`
+### Update in `WineCataloguePage.tsx`
 
 We introduce the quantity and remove the `token_id` variable. Replace the full file with the following content:
 
@@ -1305,7 +1302,7 @@ export default function WineCataloguePage() {
 }
 ```
 
-## Let's play
+### Let's play
 
 1. Connect with your wallet and choose `alice` account (or one of the administrators you set on the smart contract earlier). You are redirected to the Administration/mint page as there is no minted NFT yet
 2. Create an asset, for example:
@@ -1351,7 +1348,7 @@ For buying,
 
 ![buy.png](/developers/docs/images/buy_part3.png)
 
-# Conclusion 
+## Conclusion 
 
 You are now able to play with a unique NFT collection from the Ligo library.
 

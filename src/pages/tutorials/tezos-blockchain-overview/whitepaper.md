@@ -89,7 +89,7 @@ To protect against certain denial of service attacks, the protocol provides the 
 
 We can efficiently capture almost all the genericity of our abstract blockchain structure with the following OCaml types. To begin with, a block header is defined as:
 
-```text
+``` sh
 type raw_block_header = {
   pred: Block_hash.t;
   header: Bytes.t;
@@ -100,13 +100,13 @@ type raw_block_header = {
 
 We are purposefully not typing the header field more strongly so it can represent arbitrary content. However, we do type the fields necessary for the operation of the shell. These include the hash of the preceding block, a list of operation hashes and a timestamp. In practice, the operations included in a block are transmitted along with the blocks at the network level. Operations themselves are represented as arbitrary blobs.
 
-```text
+``` sh
 type raw_operation = Bytes.t
 ```
 
 The state is represented with the help of a **Context** module which encapsulates a disk-based immutable key-value store. The structure of a key-value store is versatile and allows us to efficiently represent a wide variety of states.
 
-```text
+``` sh
 module Context = sig
    type t
    type key = string list
@@ -122,7 +122,7 @@ To avoid blocking on disk operations, the functions use the asynchronous monad L
 
 We can now define the module type of an arbitrary blockchain protocol:
 
-```text
+``` sh
 type score = Bytes.t list
 module type PROTOCOL = sig
    type operation
@@ -160,7 +160,7 @@ Tezos's most powerful feature is its ability to implement protocol capable of se
 
 These functions transform a Context by changing the associated protocol. The new protocol takes effect when the following block is applied to the chain.
 
-```text
+``` sh
 module Context = sig
    type t
    (*...*)
@@ -179,7 +179,7 @@ Many conditions can trigger a change of protocol. In its simplest version, a sta
 
 In order to make the GUI building job's easier, the protocol exposes a JSON-RPC API. The API itself is described by a json schema indicating the types of the various procedures. Typically, functions such as **get\_balance** can be implemented in the RPC.
 
-```text
+``` sh
 type service = {
   name : string list ;
   input : json_schema option ;
@@ -365,7 +365,7 @@ Each contract has a "manager\", which in the case of an account is simply the ow
 
 Formally, a contract is represented as:
 
-```text
+``` sh
 type contract = {
   counter: int; (* counter to prevent repeat attacks *)
   manager: id; (* hash of the contract's manager public key *)
@@ -382,7 +382,7 @@ The handle of a contract is the hash of its initial content. Attempting to creat
 
 Note that data is represented as the union type.
 
-```text
+``` sh
 type data =
   | STRING of string
   | INT of int
@@ -398,7 +398,7 @@ The origination operation may be used to create a new contract, it specifies the
 
 A transaction is a message sent from one contract to another contract, this messages is represented as:
 
-```text
+``` sh
 type transaction = {
   amount: amount; (* amount being sent *)
   parameters: data list; (* parameters passed to the script *)

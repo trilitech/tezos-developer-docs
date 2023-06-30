@@ -1,7 +1,6 @@
 ---
-id: first-smart-contract
-title: Deploy your First Smart Contract
-slug: /first-smart-contract
+id: first-smart-contract-ligo
+title: Deploy your First Smart Contract with LIGO
 authors: John Joubert, Sasha Aldrick, Claude Barde
 ---
 
