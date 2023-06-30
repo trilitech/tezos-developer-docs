@@ -1,3 +1,9 @@
+---
+id: wallets-tokens
+title: Wallets
+authors: Claude Barde
+---
+
 ## Wallets
 
 Now, let's talk about the wallet.
