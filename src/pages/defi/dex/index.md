@@ -50,13 +50,13 @@ Uniswap was the first to propose a new model of exchange based on Liquidity Pool
 
 The most important property of a liquidity pool is to respect the notion of **constant product**, ruled by the following equation:
 
-$R_x * R_y = k$
+{% math %} R_x * R_y = k {% /math %}
 
 where:
 
-- $R_x$ is the reserve quantity of the $x$ token in the pool (e.g., _USDtz_)
-- $R_y$ is the reserve quantity of the $y$ token in the pool (e.g., _XTZ_)
-- $k$ is a constant
+- {% math inline=true %} R_x {% /math %} is the reserve quantity of the {% math inline=true %} x {% /math %} token in the pool (e.g., _USDtz_)
+- {% math inline=true %} R_x {% /math %} is the reserve quantity of the {% math inline=true %} y {% /math %}token in the pool (e.g., _XTZ_)
+- {% math inline=true %} k {% /math %} is a constant
 
 For instance, if a pool hold 20 _XTZ_ and 100 _USDtz_, its constant product is $k=2,000$. If someone wants to swap some _XTZ_ against some _USDtz_, they have to provide tokens in a manner such that $k$ remains constant. For instance, Fig. 2 illustrates a swap where a trader provides 5 _XTZ_ to the pool. For $k$ to stay constant at 2000 considering the addition of 5 XTZ, the pool needs to keep $2000 / ( 20 + 5 ) = 80$ _USDtz_ in reserve, meaning the trader will receive 20 _USDtz_.
 
@@ -64,13 +64,14 @@ The trader just got 20 _USDtz_ for 5 _XTZ_, meaning an **effective swap price** 
 
 The effective swap price is not to be mistaken with the **marginal price**, i.e., the price of an infinitesimal small trade that doesn't effectively change the amount of tokens in the pool. The following equation defines the marginal price:
 
-$p = R_x / R_y$
+
+{% math inline=true %} p = R_x / R_y {% /math %}
 
 where:
 
-- $p$ is the marginal price of asset $y$ in the $x$ currency
-- $R_x$ is the reserve quantity of the $x$ token in the pool (e.g., _USDtz_)
-- $R_y$ is the reserve quantity of the $y$ token in the pool (e.g., _XTZ_)
+- {% math inline=true %} p {% /math %} is the marginal price of asset {% math inline=true %} y {% /math %} in the {% math inline=true %} x {% /math %} currency
+- {% math inline=true %} R_x {% /math %} is the reserve quantity of the {% math inline=true %} x {% /math %} token in the pool (e.g., _USDtz_)
+- {% math inline=true %} R_y {% /math %} is the reserve quantity of the {% math inline=true %} y {% /math %} token in the pool (e.g., _XTZ_)
   
 For instance, for a pool with 20 _XTZ_ and 100 _USDtz_, the marginal price of _XTZ_ would be $100 / 20 = 5$ _USDtz_.
 
@@ -78,7 +79,7 @@ The difference between the effective swap price and the marginal price is referr
 
 
 ![swap](/developers/docs/images/dex/swap.svg)
-FIGURE 2: Illustration of a token swap. The trader first sends his input tokens, then the pool computes the effective swap price by maintaining a constant product and finally sends the output of tokens.
+*FIGURE 2: Illustration of a token swap. The trader first sends his input tokens, then the pool computes the effective swap price by maintaining a constant product and finally sends the output of tokens.*
 
 From this, you can deduce two things:
 
@@ -121,15 +122,15 @@ While it is true that Uniswap is an AMM, we could refer to it more specifically 
 
 This type is the one used by Uniswap and the one we studied so far in this chapter. A constant product function will form a curve with the desirable property of always having liquidity as prices approach infinity on both sides of the spectrum.
 
-It is represented by $R_x * R_y = k$ for two assets, or more generally in tri-assets (or more) pools by:
+It is represented by  {% math inline=true %} R_x * R_y = k {% /math %} for two assets, or more generally in tri-assets (or more) pools by:
 
-$\prod_{i=1}^n R_i = k$
+{% math  %} \prod_{i=1}^n R_i = k {% /math %}
 
 ### Constant Sum Market Makers
 
-A constant sum market maker is a relatively straightforward implementation of a constant function market maker, satisfying the equation $R_x + R_y = k$  for 2 assets, or more, generally in tri-assets (or more) pools by:
+A constant sum market maker is a relatively straightforward implementation of a constant function market maker, satisfying the equation {% math inline=true %} R_x + R_y = k {% /math %} for 2 assets, or more, generally in tri-assets (or more) pools by:
 
-$\sum_{i=1}^{n} R_i = k$
+{% math  %} \sum_{i=1}^{n} R_i = k {% /math %}
 
 While this function produces "zero slippage", it does not provide infinite liquidity and thus is unlikely to be used as a standalone implementation for a decentralized exchange use case. In practice, what would happen is, any arbitrageur would always drain one of the reserves if the relative reference price of the reserve tokens was not one.
 
