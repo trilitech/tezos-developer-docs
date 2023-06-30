@@ -8,7 +8,7 @@ Rollups play a crucial part in providing next-generation scaling on Tezos. This 
 
 ## Prerequisites
 
-This page covers an advanced topic at the bleeding edge of Tezos core development. For more fundamental reading, please head over to [Tezos Protocol and Shell](developers/docs/tezos-basics/tezos-protocol-and-shell/) and [Smart Contract Topics](developers/docs/smart-contract-topics/smart-contracts-concepts/).
+This page covers an advanced topic at the bleeding edge of Tezos core development. If you are interested in more fundamental reading, a great place to start is [Tezos Protocol and Shell](/developers/docs/tezos-basics/tezos-protocol-and-shell/) and [Smart Contract Topics](/developers/docs/smart-contract-topics/smart-contracts-concepts/).
 
 ## What is a rollup?
 
@@ -740,13 +740,13 @@ wat2wasm hello.wat -o hello.wasm
 
 The contents of the resulting `hello.wasm` file is a valid WASM kernel. One of the benefits of choosing WASM as the programming language for smart rollups is that WASM has gradually become a ubiquitous compilation target over the years. Its popularity has grown to the point where mainstream, industrial languages like Go or Rust now natively compile to WASM. For example, `cargo`, the official Rust package manager, provides an official target to compile Rust to `.wasm` binary files, which are valid WASM kernels. This means that, for this particular example, one can build a WASM kernel while enjoying the strengths and convenience of the Rust language and the Rust ecosystem.
 
-For the rest of [Developing WASM Kernels](#developing-wasm-kernels):
-
-1.  We explain the execution environment of a WASM kernel i.e. when it is parsed, executed, etc.
-2.  We explain, in detail, the API at the disposal of WASM kernel developers.
-3.  We demonstrate how Rust can be used to implement a WASM kernel.
-
 In the context of smart rollups, Rust has become the primary language where the WASM backend has been tested extensively. However, the WASM VM has not been modified in any way to favor this language. We fully expect that other mainstream languages, such as Go, are also great candidates for implementing WASM kernels.
+
+Let's move on and continue by:
+
+1.  explaining the execution environment of a WASM kernel i.e. when it is parsed, executed, etc.
+2.  explaining, in detail, the API at the disposal of WASM kernel developers.
+3.  demonstrating how Rust can be used to implement a WASM kernel.
 
 ### Execution Environment
 

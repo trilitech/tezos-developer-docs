@@ -272,14 +272,14 @@ const documentationNavigation = [
             title: 'Formal Verification on Tezos',
             href: '/advanced-topics/formal-verification/formal-verification-on-tezos',
           },
+          {
+            title: 'Modelling for Smart Contracts',
+            href: '/advanced-topics/formal-verification/modelling-theorem',
+          },
           { title: 'Coq', href: '/advanced-topics/formal-verification/coq' },
           {
             title: 'Mi-Cho-Coq',
             href: '/advanced-topics/formal-verification/michocoq',
-          },
-          {
-            title: 'Formal Verification for Smart Contracts',
-            href: '/advanced-topics/formal-verification/modelling-theorem',
           },
         ],
       },

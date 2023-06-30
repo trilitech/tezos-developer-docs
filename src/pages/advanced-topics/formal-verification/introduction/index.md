@@ -5,21 +5,31 @@ slug: /formal-verification
 authors: Frank Hillard
 ---
 
+One of the great benefits of Tezos is the ability to formally verify smart contracts. Tezos makes this formal verification possible for smart contracts with the design of Michelson and with tools such as [Coq](/developers/docs/advanced-topics/formal-verification/coq/) and the [Mi-Cho-Coq library](/developers/docs/advanced-topics/formal-verification/michocoq).
 
-The Tezos blockchain has several advantages over its concurrents. One of them is the **formal verification of smart contract**. This module shows a brief overview of how Tezos smart contracts can be formally verified.
+This entire section walks through formal verification and how it relates to Tezos:
 
-We will first define in the [Generalities](developers/docs/advanced-topics/formal-verification/generalities/) section what is the formal verification of a Tezos smart contract, and its benefits and how proof assistants (and tools) can make this task possible.
+- [Formal Verification on Tezos](/developers/docs/advanced-topics/formal-verification/formal-verification-on-tezos/) discusses how smart contracts on Tezos can be formally verified, its benefits, and what tooling makes this possible.
 
-An explained [example](developers/docs/advanced-topics/formal-verification/modeling-theorem) (_Vote_ smart contract) will be used to illustrate the formal specification of a Tezos smart contract, and its proof.
+- [Modelling for Smart Contracts](/developers/docs/advanced-topics/formal-verification/modelling-theorem/) goes through an example smart contract, its formal specification and its proof.
 
-The schema below describes the process for performing formal verification on Tezos smart contract.
+- [Coq](/developers/docs/advanced-topics/formal-verification/coq/) gives a brief introduction to syntax and proof creating on Tezos using Mi-Cho-Coq.
+
+- [Mi-Cho-Coq](/developers/docs/advanced-topics/formal-verification/michocoq/) discusses what Mi-Cho-Coq is and how it bridges between Tezos smart contracts and formal proofs in Coq.
+
+
+## Visual Overview
+
+The image below helps visualise the process for performing formal verification for Tezos smart contracts:
 
 ![](/developers/docs/images/introduction/FormalVerification_overview_intro.svg)
-<small className="figure">FIGURE 5: Overview of the formal verification process on smart contract.</small>
- 
-For mathematicians and very curious developers, an extra [theoretical](/formal-verification/gadt-coq) section will introduce some basic concepts of the _Type theory_ such as _GADT_ which allows inductive types on the _Calculus of Inductive Construction_ (CiC). The proof assistant _Coq_, which is based on the CiC, can be used for proving theorems. 
 
-This extra [theoretical](/formal-verification/gadt-coq) section will also introduce _Coq_ and the _Mi-Cho-Coq_ library (used by _Coq_) to formalize a smart contract as a logical object (theorem). This theorem is formalized in _Gallina_ (Term) language, which follows the CiC principles. The script for proving the theorem is written in _Gallina_ (Vernacular), which provides _tactics_ and will be executed by the inference engine (Coq).
+{% callout type="note" title="Further Reading" %}
+For mathematicians and very curious developers, an extra [theoretical](/formal-verification/gadt-coq) section will introduce some basic concepts of **Type theory** such as *GADT* which allows inductive types on the Calculus of Inductive Construction (CiC). The proof assistant Coq, which is based on the CiC, can be used for proving theorems. 
+{% /callout %}
+
+
+
 
 
 
