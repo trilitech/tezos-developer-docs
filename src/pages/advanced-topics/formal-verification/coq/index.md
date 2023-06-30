@@ -74,22 +74,10 @@ For a more technical understanding of the operation of Mi-Cho-Coq, this tutorial
 
 We can execute the proof of 'Example test_orb2" (Example keyword below) using the Coq proof assistant.
 
-{% figure 
-     src="/developers/docs/images/coq/proof_1.jpeg" 
-     alt="coq-proof-execution-1" 
-     caption="Proof of execution with the Coq software, proving that `false or false => false`. 1/3" 
-%}  {% /figure %}
+{% figure src="/developers/docs/images/coq/proof_1.jpeg" alt="coq-proof-execution-1" caption="Proof of execution with the Coq software, proving that `false or false => false`. 1/3" %}  {% /figure %}
 
-{% figure 
-     src="/developers/docs/images/coq/proof_2.jpeg" 
-     alt="coq-proof-execution-2" 
-     caption="Proof of execution with the Coq software, simplification step using the definition of `orb`. 2/3" 
-%}  {% /figure %}
+{% figure src="/developers/docs/images/coq/proof_2.jpeg" alt="coq-proof-execution-2" caption="Proof of execution with the Coq software, simplification step using the definition of `orb`. 2/3" %} {% /figure %}
 
-{% figure 
-     src="/developers/docs/images/coq/proof_3.jpeg" 
-     alt="coq-proof-execution-3" 
-     caption="Proof of execution with the Coq software, reflexivity step compares both terms to end the proof. 3/3" 
-%}  {% /figure %}
+{% figure src="/developers/docs/images/coq/proof_3.jpeg" alt="coq-proof-execution-3" caption="Proof of execution with the Coq software, reflexivity step compares both terms to end the proof. 3/3" %} {% /figure %}
 
 End of proof.
