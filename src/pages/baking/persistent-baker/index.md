@@ -4,15 +4,13 @@ title: Run a persistent baking node
 authors: Daniel Nomadic
 ---
 
-<!-- # Run a persistent baking node -->
-
 Want to make your baking infrastructure more resilient to electricity and internet cut-offs? Let's use Linux service files to keep those Tezos binaries running.
 
 The following tutorial deep dives into the subject and shows how to create persistent Tezos services.
 
-:::caution
-The current Octez version is [`v<:CURRENT_OCTEZ_VERSION:>`](https://tezos.gitlab.io/releases/version-<:CURRENT_OCTEZ_VERSION_MAJOR:>.html) and the protocol version is [<:CURRENT_PROTOCOL@CAP:>](https://tezos.gitlab.io/protocols/_<:CURRENT_PROTOCOL:>.html).
-:::
+{% callout type="note" title="Prerequisites" %}
+Install and compile the Tezos Octez suite from scratch (the same approach works with Ubuntu PPA installation, but the .service files need to be adapted). It is also possible to use service files otherwise, but we will only cover the *from scratch* approach in this tutorial.
+{% /callout %}
 
 ## Running Tezos binaries as services
 
@@ -23,11 +21,9 @@ One advantage of setting up the node and baker daemons as services is that it ca
 Systemd is a set of system software components necessary for Linux operation. In particular, it exposes  a set of daemons: `systemd`, `journald`, `networkd`,  and `logind`. For each system, a set of utilities and commands are available to the user like `systemctl`, `journalctl`, `loginctl`, etc.
 In our case, we will take advantage of this powerful Linux tool to build Tezos binaries that keep running over time.
 
-**Pre-requisites**: Install and compile the [Tezos Octez suite from scratch](https://tezos.gitlab.io/introduction/howtoget.html#setting-up-the-development-environment-from-scratch) (the same approach works with Ubuntu PPA installation, but the .service files need to be adapted). It is also possible to use service files otherwise, but we will only cover the *From scratch approach* in this tutorial.
-
-:::caution
-The baking and accuser daemon versions are currently `<:CURRENT_PROTOCOL_SHORT_HASH:>` in the .service files, but you may need to change them with the right version.
-:::
+{% callout type="note" title="Protocol version" %}
+The baking and accuser daemon versions are currently PtNairob in the .service files, but you may need to change them with the right version.
+{% /callout %}
 
 ## Creation of the Octez Tezos node service
 
@@ -59,16 +55,14 @@ RequiredBy      = octez-baker.service octez-accuser.service
 
 Create the following file (named `octez-baker.service`) in `/etc/systemd/system/`.
 
-:::caution
-
+{% callout type="warning" title="Baking key" %}
 Don't forget to import your baking key on the octez-client with: `octez-client import secret key baker_alias <path_to_baker_secret_key>` (compatible with clear, encrypted and HSM key).
+{% /callout %}
 
-:::
-
-:::caution
-
+{% callout type="note" title="LIquidity baking toggle" %}
  Since the Jakarta amendment, the `--liquidity-baking-toggle-vote <vote>` command line switch becomes now mandatory. `<vote>` should be replaced by **on**,**off** or **pass**.
-:::
+{% /callout %}
+
 
 ```bash
 # The Tezos Baker service (part of systemd)
@@ -153,9 +147,10 @@ Moreover, `journalctl` support querying and exporting concrete snapshots of the 
 `journalctl --follow --unit=octez-baker.service`
 `journalctl --follow --unit=octez-accuser.service`
 
-:::tip
+{% callout type="note" title="Multiple windows"%}
 You might want to run each of them on separate terminal windows (and defining a handy `aliases` for them).
-:::
+{% /callout %}
+
 
 ### Export node logs since yesterday
 
@@ -177,9 +172,7 @@ You might want to run each of them on separate terminal windows (and defining a 
 
 `journalctl --follow --unit=octez-*.service --since "2 minutes ago" --until "60 seconds ago"`
 
-:::tip
-This command is good for debugging connection issues between node and baker.
-:::
+>This command is good for debugging connection issues between node and baker.
 
 ## Running a remote signer as a service
 
@@ -191,9 +184,9 @@ To secure their baking infrastructure, some bakers use a remote signer. This set
 
 ### Setup a remote signer using a .service file
 
-**Prerequisites**:
-
-First make sure you have setup a remote machine on which your node will be running, and a "home" machine on which your baking keys will be stored (or that is connected to a Ledger/HSM).
+{% callout type="note" title="Prerequisites" %}
+First make sure you have setup a remote machine on which your node will be running, and a "home" machine on which your baking keys will be stored (or that is connected to a *Ledger/HSM*).
+{% /callout %}
 
 Setup the remote signer following the procedure [here](https://tezos.gitlab.io/user/key-management.html#signer).
 

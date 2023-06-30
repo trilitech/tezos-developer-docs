@@ -4,31 +4,32 @@ title: Become a baker
 authors: Maxime Sallerin, Jean-Baptiste Col, Nomadic Labs
 ---
 
-In this chapter, we will see the CLI command lines for registering as a delegate. Then we will see how to exercise your rights as a baker, endorser, and accuser.
+Here we cover the CLI command lines for registering as a delegate. Then we will see how to exercise your rights as a baker, endorser, and accuser.
 
-This chapter requires the deployment of your own Tezos node, explained in the module [Deploy a node](/deploy-a-node).
+This chapter requires the deployment of your own Tezos node.
 
-:::caution
-The current Octez version is [`v<:CURRENT_OCTEZ_VERSION:>`](https://tezos.gitlab.io/releases/version-<:CURRENT_OCTEZ_VERSION_MAJOR:>.html) and the protocol version is [<:CURRENT_PROTOCOL@CAP:>](https://tezos.gitlab.io/protocols/<:CURRENT_PROTOCOL_TRIPLET:>_<:CURRENT_PROTOCOL:>.html).
-:::
+## Prerequisites 
+
+{% table %}
+* Node requirements
+---
+* A running node with a reliable internet connection
+---
+* At least 6,000ꜩ of staking balance
+{% /table %}
+
 
 ## Running a Delegate
 
 A delegate is responsible for baking blocks, endorsing blocks, and accusing other delegates if they try to double bake or double endorse.
 
-### What you need
-
-- A reliable internet connection
-- At least 6,000ꜩ of staking balance
-- A Tezos node configured and running (if not, please go [here](/deploy-a-node))
-
 ### Deposit
 
 When baking or endorsing a block, a security deposit (>6,000ꜩ) is frozen for 5 cycles from the account of the delegate. Hence a delegate must have enough funds to be able to pay security deposits for all the blocks it can potentially bake/endorse during 5 cyles.
 
-:::note
+{% callout title="Stake requirement" %}
 It is necessary to have at least 10% of your stake to follow the deposits.
-:::
+{% /callout %}
 
 ### Registration
 
@@ -46,9 +47,9 @@ octez-client gen keys bob
 
 Now that you have created an account, you need to supply it with real Tez.
 
-:::caution
+{% callout type="warning" title="Using real tez" %}
 Be sure you are on the **mainnet** if you send **real Tez**.
-:::
+{% /callout %}
 
 You can get the address of the previously created wallet with the following command:
 
@@ -58,9 +59,9 @@ octez-client list known addresses
 
 You can now send to *bob* any number of Tez from a wallet of your choice.
 
-:::caution
+{% callout type="warning" title="Small amount first" %}
 If you are not sure what you are doing, start by sending a small amount. Then send the whole amount. (6,000ꜩ is the minimum to register as a delegate).
-:::
+{% /callout %}
 
 Copy and paste the destination address into the search bar of an explorer (like [TzStats](https://tzstats.com/)) to see the transaction. The address should be visible in the explorer after the first transaction.
 
@@ -78,35 +79,34 @@ To run a delegate, you first need to register as one using the alias of your acc
 octez-client register key bob as delegate
 ```
 
-Once registered, you need to wait for **7** cycles ($\approx$ 20 days) for your rights to be considered.
+Once registered, you need to wait for **7** cycles (~20 days) for your rights to be considered.
 
 ### Baker
 
 The baker is a *daemon* that, once connected to an account, computes the baking rights for that account, collects transactions from the *mempool*, and bakes a block. Note that the baker is the only program that needs *direct access* to the node data directory for performance reasons.
 
-:::info
-A *daemon* is a computer program that runs as a background process.
+> A *daemon* is a computer program that runs as a background process.
 
-The *mempool* is made of all transactions that have been submitted for inclusion in the chain but have not yet been included in a block by a baker.
-:::
+>The *mempool* is made of all transactions that have been submitted for inclusion in the chain but have not yet been included in a block by a baker.
+
 
 Let’s launch the daemon pointing to the standard node directory and baking for the user *bob*.
 
 There are different command lines depending on the *network* on which your node is configured:
 
-- <:CURRENT_TESTNET@CAP:>, Ghostnet & Mainnet: `octez-baker-<:CURRENT_PROTOCOL_SHORT_HASH:>`
+- Nairobinet, Ghostnet & Mainnet: `octez-baker-PtNairob`
 
 So, for *bob* on the *Mainnet*, the command is as follow:
 
 ```shell
-octez-baker-<:CURRENT_PROTOCOL_SHORT_HASH:> run with local node ~/.octez-node bob
+octez-baker-PtNairob run with local node ~/.octez-node bob
 ```
 
-:::caution
-Remember that having **two bakers or endorsers** running connected to **the same account** could lead to [**double baking/endorsing**](/baking/risks#actions-prejudicial-to-the-network) and **the loss of all your bonds**. If you are worried about the availability of your node when it is its turn to bake/endorse, there are other ways than duplicating your credentials (see the discussion in section [Inactive delegates](https://tezos.gitlab.io/introduction/howtorun.html#inactive-delegates)).
+{% callout type="warning" title="Double baking" %}
+Remember that having **two bakers or endorsers** running connected to **the same account** could lead to **double baking/endorsing** and **the loss of all your bonds**. If you are worried about the availability of your node when it is its turn to bake/endorse, there are other ways than duplicating your credentials (see the discussion in section [Inactive delegates](https://tezos.gitlab.io/introduction/howtorun.html#inactive-delegates)).
 
 **Never use the same account on two daemons**.
-:::
+{% /callout %}
 
 ### Endorser
 
@@ -123,7 +123,7 @@ Upon finding such irregularity, it will respectively emit a *double-baking* or *
 
 There are different command lines depending on the *network* on which your node is configured:
 
-- <:CURRENT_TESTNET@CAP:>, , Ghostnet & Mainnet: `octez-accuser-<:CURRENT_PROTOCOL_SHORT_HASH:>`
+- PtNairob, Ghostnet & Mainnet: `octez-accuser-<:CURRENT_PROTOCOL_SHORT_HASH:>`
 
 So, on the *Mainnet*, the command is as follow:
 
@@ -152,8 +152,7 @@ and a dedicated machine online 24/7 with at least:
 
 If you’re using Ubuntu, you can install packages with Tezos binaries from a Launchpad PPA.
 
-<details>
-<summary>Step 1: Installation</summary>
+>##### Step1: Installation
 
 In order to add the stable release PPA repository to your machine, do:
 
@@ -161,10 +160,10 @@ In order to add the stable release PPA repository to your machine, do:
 REPO="ppa:serokell/tezos"
 ```
 
-Then choose the desired protocol for your baker/accuser (you probably want to replace `<:CURRENT_PROTOCOL_SHORT_HASH:>` by the latest protocol version):
+Then choose the desired protocol for your baker/accuser (you probably want to replace PtNairob by the latest protocol version):
 
 ```bash
-PROTOCOL="<:CURRENT_PROTOCOL_SHORT_HASH@LOW:>"
+PROTOCOL="ptnairob"
 ```
 
 Then, to install the binaries, run the following commands:
@@ -177,10 +176,8 @@ sudo apt-get install -y octez-baker-$PROTOCOL
 sudo apt-get install -y octez-accuser-$PROTOCOL
 ```
 
-</details>
 
-<details>
-<summary>Step 2: Let's config and run!</summary>
+##### Step2: Let's config and run!
 
 It is possible to define the directory where the data will be stored with `--data-dir` (by default, it is in `.octez-node`).
 
@@ -215,10 +212,8 @@ octez-node run --rpc-addr 127.0.0.1:8732 --log-output tezos.log
 The parameter `--rpc-addr url:port` activate the RPC interface that will allow
 communication with the node. By default, it runs on port `8732` so it is not mandatory to specify it.
 The file `tezos.log` will be saved in `/home/user/`.
-</details>
 
-<details>
-<summary>Step 3: Check synchronization ✅</summary>
+##### Step3: Check synchronization ✅
 
 The Octez client can be used to interact with the node. It can query its status or ask the node to
 perform some actions. For example, after starting your node, you can check if it has finished
@@ -232,10 +227,8 @@ octez-client -E http://127.0.0.1:8732/ bootstrapped
 (`-E` option is equal to `--endpoint` option)
 When you see the message " *Node is Bootstrapped* ", your Tezos node is synchronized with the
 blockchain and you may now perform operations on it!
-</details>
 
-<details>
-<summary>Step 4: Import your keys</summary>
+##### Step4: Import your keys
 
 ***Option 1: Import keys from a Ledger***
 **Prerequisites: The Ledger Nano should be configured with the Tezos wallet and Tezos
@@ -259,9 +252,9 @@ Validate the public key hash displayed on the ledger to validate the key import.
 
 ***Option 2: Import a secret key with the octez-client***
 
-:::caution
+{% callout type="warning" title="Unencrypted keys" %}
 This option isn't recommended. Be careful when using your private keys unencrypted
-:::
+{% /callout %}
 
 You have to replace `<key_alias>` by the alias of your choice and provide the clear private key
 to the octez-client, after the keyword `unencrypted`:
@@ -270,10 +263,7 @@ to the octez-client, after the keyword `unencrypted`:
 octez-client --endpoint http://127.0.0.1:8732 import secret key key_alias unencrypted:your_private_key
 ```
 
-</details>
-
-<details>
-<summary>Step 5: Let's register as delegate</summary>
+##### Step5: Let's register as delegate
 
 **Option 1 (next): Setup the Ledger to bake for your address**
 Access the "Tezos Baking" app on your ledger and then do execute the following command:
@@ -292,16 +282,14 @@ You will need to validate the request on your ledger.
 octez-client --endpoint http://127.0.0.1:8732 register key <key_alias> as delegate
 ```
 
-</details>
+##### Step6: Let's bake!
 
-<details>
-<summary>Step 6: Let's bake!</summary>
-
-:::info
+{% callout type="note" title="Liquidity baking toggle" %}
 Since the Jakarta amendment, the `--liquidity-baking-toggle-vote <vote>` command line toggle is mandatory.
 `<vote>` should be replaced by `on`, `off` or `pass`.
 Read more about liquidity baking in the technical documentation.
-:::
+{% /callout %}
+
 
 You can launch the baker with:
 
@@ -310,10 +298,8 @@ octez-baker-<:CURRENT_PROTOCOL_SHORT_HASH:> --endpoint http://127.0.0.1:8732 run
 ```
 
 🎉 **Congratulations on setting up a baker node!** 🎉
-</details>
 
-<details>
-<summary>Bonus: Quick synchronization from a snapshot</summary>
+Bonus: Quick synchronization from a snapshot
 
 If you want your node to be bootstrapped quickly, you can synchronize it with the blockchain using
 a snapshot.
@@ -348,16 +334,13 @@ directory`, by default, it is in `.octez-node`)
 octez-node snapshot info $path/<name_of_snapshot_file>
 ```
 
-</details>
-
 ### Set up using Docker images
 
 In this part, we will see how to install Tezos with Docker.
 
 #### Docker
 
-<details>
-<summary>Step 1: Installation</summary>
+##### Step1: Installation
 
 If you don't have Docker on your machine, you can install it with the following command:
 
@@ -366,10 +349,8 @@ sudo apt install docker.io
 ```
 
 and follow instructions on: <https://docs.docker.com/engine/install/linux-postinstall/>.
-</details>
 
-<details>
-<summary>Step 2: Let's config and run!</summary>
+##### Step2: Let's config and run!
 
 Run the node in detached mode (`-d`), as instance on the testnet <:CURRENT_TESTNET:> network with the
 history-mode "full" using the following command:
@@ -411,10 +392,8 @@ docker exec -it octez-public-node-full octez-client --endpoint http://127.0.0.1:
 ```
 
 (Use **Ctrl+C** to stop logs displaying)
-</details>
 
-<details>
-<summary>Step 3: Import your keys</summary>
+##### Step3: Import your keys
 
 ***Option 1: Import keys from a Ledger***
 
@@ -444,9 +423,10 @@ importation).
 
 ***Option 2: Import a secret key with the octez-client***
 
-:::caution
+{% callout type="warning" title="Unencrypted" %}
 This option isn't recommended. Be careful when using your private keys unencrypted.
-:::
+{% /callout %}
+
 
 You have to replace `<key_alias>` by the alias of your choice and provide the clear private key
 to the octez-client, after the keyword `unencrypted:`:
@@ -455,14 +435,11 @@ to the octez-client, after the keyword `unencrypted:`:
 docker exec octez-public-node-full octez-client --endpoint http://127.0.0.1:8732 import secret key <key_alias> unencrypted:<your_private_key>
 ```
 
-</details>
-
-<details>
-<summary>Step 4: Let's register as delegate</summary>
+##### Step4: Let's register as delegate
 
 **_Option 1 (next): Setup the Ledger to bake for your address**
 Access the "Tezos Baking" app on your ledger and then execute the following command:
-(replace `<key_alias>` by the alias chosen in Step 3)
+(replace `<key_alias>` by the alias chosen in ##### Step3)
 
 ```bash
 docker exec -it octez-public-node-full sudo octez-client -E http://127.0.0.1:8732 setup ledger to bake for <key_alias>
@@ -471,23 +448,22 @@ docker exec -it octez-public-node-full sudo octez-client -E http://127.0.0.1:873
 Validate the request on your ledger.
 
 **Register your key as a delegate on the network**
-(Replace `<key-alias>` with the alias chosen in Step 3)
+(Replace `<key-alias>` with the alias chosen in ##### Step3)
 
 ```bash
 docker exec octez-public-node-full octez-client --endpoint http://127.0.0.1:8732 register key <key_alias> as delegate
 ```
 
-</details>
+##### Step5: Let's bake!
 
-<details>
-<summary>Step 5: Let's bake!</summary>
+{% callout type="warning" title="Liquidity baking toggle" %}
 
-:::note
 Since the Jakarta amendment, the `--liquidity-baking-toggle-vote vote` command line toggle is mandatory.
 `vote` should be replaced by `on`, `off` or `pass`.
 
 Read more about Liquidity Baking in the [technical documentation](https://tezos.gitlab.io/alpha/liquidity_baking.html).
-:::
+{% /callout %}
+
 
 You can launch the baker with:
 
@@ -501,10 +477,8 @@ octez-baker-<:CURRENT_PROTOCOL_SHORT_HASH:> --endpoint http://127.0.0.1:8732 run
 Check baking has started by watching the logs.
 
 🎉 **Congratulations on setting up a baker node!** 🎉
-</details>
 
-<details>
-<summary>Some useful commands</summary>
+##### Some useful commands
 
 To see the manual of commands you can use:
 
@@ -524,14 +498,12 @@ To use the client:
 docker exec -it octez-public-node-full octez-client --help
 ```
 
-</details>
 
 #### **Docker-compose**
 
 One way to run those Docker images is with Docker Compose!
 
-<details>
-<summary>Step 1: Let's launch the node and the baker!</summary>
+##### Step1: Let's launch the node and the baker!
 
 The code below launches a `full node`, a `baker` and an `accuser` for the <:CURRENT_PROTOCOL@CAP:> protocol. You can adapt
 it to run a baker and accuser for another protocol by replacing the `PROTOCOL` environment variable, in our case `<:CURRENT_PROTOCOL_SHORT_HASH:>`, with the desired protocol.
@@ -635,10 +607,7 @@ To check if the node is bootstrapped:
 docker exec -it octez-public-node-full octez-client --endpoint http://127.0.0.1:8732 bootstrapped
 ```
 
-</details>
-
-<details>
-<summary>Step 2: Import your keys</summary>
+##### Step2: Import your keys
 
 ***Option 1: Import keys from a Ledger***
 **Prerequisites: The Ledger Nano should be configured with the Tezos wallet and Tezos
@@ -661,11 +630,6 @@ Validate the public key hash displayed on the ledger to validate the key import.
 
 ***Option 2: Import a secret key with the octez-client***
 
-:::caution
-This option isn't recommended. Be careful when using your private keys
-unencrypted
-:::
-
 You have to replace `<key_alias>` by the alias of your choice and provide the clear private key
 to the octez-client, after the keyword `unencrypted:`:
 
@@ -673,31 +637,26 @@ to the octez-client, after the keyword `unencrypted:`:
 docker exec octez-baker octez-client --endpoint http://127.0.0.1:8732 import secret key <key_alias> unencrypted:<your_private_key>
 ```
 
-</details>
-
-<details>
-<summary>Step 3: Let's register as delegate</summary>
+##### Step3: Let's register as delegate
 
 ***Option 1 (next): Setup the Ledger to bake for your address***
 Open the "Tezos Baking" app on your ledger. Then execute the following command:
-(Replace `<key_alias>` by the alias chosen earlier in Step 3)
+(Replace `<key_alias>` by the alias chosen earlier in ##### Step3)
 
 ```bash
 docker exec -it octez-baker sudo octez-client -E http://127.0.0.1:8732 setup ledger to bake for <key_alias>Validate the request on your ledger.
 ```
 
 ***Register your key as a delegate on the network***
-(Replace `<key-alias>` by the alias chosen earlier in Step 3)
+(Replace `<key-alias>` by the alias chosen earlier in ##### Step3)
 
 ```bash
 docker exec octez-baker octez-client --endpoint http://127.0.0.1:8732 register key <key_alias> as delegate
 ```
 
 🎉 **Congratulations on setting up a baker node!** 🎉
-</details>
 
-<details>
-<summary>Bonus: Quick synchronization from a snapshot</summary>
+Bonus: Quick synchronization from a snapshot
 
 If you want your node to be bootstrapped quickly, you can synchronize it with the blockchain using
 a snapshot.
@@ -735,8 +694,8 @@ rm -rf /var/lib/docker/volumes/mainnet-node/_data/data/lock
 
 (do **Ctrl+d** to quit su mode)
 
-**5.** In the .yml file presented in Step 1, replace `/absolute/path/to/your_snapshot.full:/snapshot` by the absolute path to the
-downloaded snapshot. You can use `pwd` command to know the absolute path of your current repository. ( **Read the comment in the .yml file in Step 1** )
+**5.** In the .yml file presented in ##### Step1, replace `/absolute/path/to/your_snapshot.full:/snapshot` by the absolute path to the
+downloaded snapshot. You can use `pwd` command to know the absolute path of your current repository. ( **Read the comment in the .yml file in ##### Step1** )
 
 **6.** Upload the snapshot into the `mainnet-node` volume:
 
@@ -753,13 +712,12 @@ docker-compose stop import
 docker-compose up -d node_full baker accuser
 ```
 
-</details>
 
 
 If you’re using Ubuntu, you can install packages with Tezos binaries from a Launchpad PPA.
 tezos
-<details>
-<summary>Step 1: Installation</summary>
+
+##### Step1: Installation
 
 In order to add the stable release PPA repository to your machine, do:
 
@@ -783,10 +741,7 @@ sudo apt-get install -y octez-baker-$PROTOCOL
 sudo apt-get install -y octez-accuser-$PROTOCOL
 ```
 
-</details>
-
-<details>
-<summary>Step 2: Let's config and run!</summary>
+##### Step2: Let's config and run!
 
 It is possible to define the directory where the data will be stored with `--data-dir` (by default, it is in `.octez-node`).
 
@@ -821,10 +776,9 @@ octez-node run --rpc-addr 127.0.0.1:8732 --log-output tezos.log
 The parameter `--rpc-addr url:port` activate the RPC interface that will allow
 communication with the node. By default, it runs on port `8732` so it is not mandatory to specify it.
 The file `tezos.log` will be saved in `/home/user/`.
-</details>
 
-<details>
-<summary>Step 3: Check synchronization ✅</summary>
+
+##### Step3: Check synchronization ✅
 
 The Octez client can be used to interact with the node. It can query its status or ask the node to
 perform some actions. For example, after starting your node, you can check if it has finished
@@ -838,10 +792,9 @@ octez-client -E http://127.0.0.1:8732/ bootstrapped
 (`-E` option is equal to `--endpoint` option)
 When you see the message " *Node is Bootstrapped* ", your Tezos node is synchronized with the
 blockchain and you may now perform operations on it!
-</details>
 
-<details>
-<summary>Step 4: Import your keys</summary>
+
+##### Step4: Import your keys
 
 ***Option 1: Import keys from a Ledger***
 **Prerequisites: The Ledger Nano should be configured with the Tezos wallet and Tezos
@@ -865,10 +818,6 @@ Validate the public key hash displayed on the ledger to validate the key import.
 
 ***Option 2: Import a secret key with the octez-client***
 
-:::caution
-This option isn't recommended. Be careful when using your private keys unencrypted
-:::
-
 You have to replace `<key_alias>` by the alias of your choice and provide the clear private key
 to the octez-client, after the keyword `unencrypted`:
 
@@ -876,10 +825,9 @@ to the octez-client, after the keyword `unencrypted`:
 octez-client --endpoint http://127.0.0.1:8732 import secret key key_alias unencrypted:your_private_key
 ```
 
-</details>
 
-<details>
-<summary>Step 5: Let's register as delegate</summary>
+
+##### Step5: Let's register as delegate
 
 **Option 1 (next): Setup the Ledger to bake for your address**
 Access the "Tezos Baking" app on your ledger and then do execute the following command:
@@ -898,16 +846,15 @@ You will need to validate the request on your ledger.
 octez-client --endpoint http://127.0.0.1:8732 register key <key_alias> as delegate
 ```
 
-</details>
 
-<details>
-<summary>Step 6: Let's bake!</summary>
 
-:::info
+##### Step6: Let's bake!
+
+{% callout type="note" title="Liquidity baking toggle" %}
 Since the Jakarta amendment, the `--liquidity-baking-toggle-vote <vote>` command line toggle is mandatory.
 `<vote>` should be replaced by `on`, `off` or `pass`.
 Read more about liquidity baking in the technical documentation.
-:::
+{% /callout %}
 
 You can launch the baker with:
 
@@ -916,10 +863,8 @@ octez-baker-<:CURRENT_PROTOCOL_SHORT_HASH:> --endpoint http://127.0.0.1:8732 run
 ```
 
 🎉 **Congratulations on setting up a baker node!** 🎉
-</details>
 
-<details>
-<summary>Bonus: Quick synchronization from a snapshot</summary>
+#####Bonus: Quick synchronization from a snapshot
 
 If you want your node to be bootstrapped quickly, you can synchronize it with the blockchain using
 a snapshot.
@@ -954,8 +899,6 @@ directory`, by default, it is in `.octez-node`)
 octez-node snapshot info $path/<name_of_snapshot_file>
 ```
 
-</details>
-
 ### Set up by building from source
 
 In this part, we will see how to install Tezos from source.
@@ -969,8 +912,7 @@ new dependencies.
 
 #### [From scratch](https://tezos.gitlab.io/introduction/howtoget.html#setting-up-the-development-environment-from-scratch) method
 
-<details>
-<summary>Step 1: Install OPAM</summary>
+##### Step1: Install OPAM
 
 First, you need to install the OPAM package manager, at least version 2.0, that you can get by
 following the install instructions.
@@ -988,10 +930,9 @@ your `sudo` password. You may encounter a "switch" error, but you can ignore it.
 opam init --bare
 ```
 
-</details>
 
-<details>
-<summary>Step 2: Install Rust</summary>
+
+##### Step2: Install Rust
 Compiling Tezos requires the Rust compiler, version 1.52.1, and the Cargo package manager for
 Rust to be installed. If you have [rustup](https://rustup.rs/) installed, you can use [rustup](https://rustup.rs/) to install both. If you do not
 have `rustup`, please avoid installing it from Snapcraft; you can rather follow the simple
@@ -1012,10 +953,9 @@ Alternatively, you can do it manually without restarting your session with the f
 $HOME/.cargo/env
 ```
 
-</details>
 
-<details>
-<summary>Step 3: Install Zcash Parameters</summary>
+
+##### Step3: Install Zcash Parameters
 
 Tezos binaries require the Zcash parameter files to run. This is for shielded/confidential
 transactions with [Sapling](https://docs.nomadic-labs.com/nomadic-labs-knowledge-center/sapling-making-con-dential-transactions-on-tezos), that were added in the **Edo** amendment. If you compile from source and
@@ -1028,10 +968,9 @@ chmod +x fetch-params.sh
 ./fetch-params.sh
 ```
 
-</details>
 
-<details>
-<summary>Step 4: Install Tezos dependencies</summary>
+
+##### Step4: Install Tezos dependencies
 
 Install the libraries that Tezos is dependent on:
 
@@ -1057,10 +996,9 @@ You may encounter a "switch" error, but you can ignore it.
 
 You may encounter failures in the processes of the `make build-deps` command. In that case,
 just re-type the command `opam init --bare` to re-initiate.
-</details>
 
-<details>
-<summary>Step 5: Compile sources</summary>
+
+##### Step5: Compile sources
 
 Compile sources:
 
@@ -1069,10 +1007,9 @@ eval $(opam env)
 make
 ```
 
-</details>
 
-<details>
-<summary>Step 6: Check installation</summary>
+
+##### Step6: Check installation
 
 To check the installation you can use the following commands:
 
@@ -1080,10 +1017,9 @@ To check the installation you can use the following commands:
 octez-node --version
 ```
 
-</details>
 
-<details>
-<summary>Step 7: Let's config and run!</summary>
+
+##### Step7: Let's config and run!
 
 It is possible to define the directory where the data will be stored with `--data-dir` (by default, it is in `.octez-node`).
 `--network= NETWORK`. Select which network to run. Possible values are: sandbox , mainnet ,
@@ -1118,10 +1054,9 @@ octez-node run --rpc-addr 127.0.0.1:8732 --log-output tezos.log
 The parameter `--rpc-addr url:port` activate the RPC interface that will allow
 communication with the node. By default, it runs on port `8732` so it is not mandatory to specify it.
 The file `tezos.log` will be saved in `/home/user/`.
-</details>
 
-<details>
-<summary>Step 8: Check synchronization ✅</summary>
+
+##### Step8: Check synchronization ✅
 
 The Octez client can be used to interact with the node. It can query its status or ask the node to
 perform some actions. For example, after starting your node, you can check if it has finished
@@ -1138,10 +1073,9 @@ Where:
 
 When you see the message " *Node is Bootstrapped* ", your Tezos node is synchronized with the
 blockchain, and you may now perform operations on it!
-</details>
 
-<details>
-<summary>Step 9: Import your keys</summary>
+
+##### Step9: Import your keys
 
 ***Option 1: Import keys from a Ledger***
 **Prerequisites: The Ledger Nano should be configured with the Tezos wallet and Tezos
@@ -1165,11 +1099,6 @@ Validate the public key hash displayed on the ledger to validate the key import.
 
 ***Option 2: Import a secret key with the octez-client***
 
-:::caution
-This option isn't recommended. Be careful when using your private keys
-unencrypted
-:::
-
 You have to replace `<key_alias>` by the alias of your choice and provide the clear private key
 to the octez-client, after the keyword `unencrypted` :
 
@@ -1177,10 +1106,9 @@ to the octez-client, after the keyword `unencrypted` :
 octez-client --endpoint http://127.0.0.1:8732 import secret key key_alias unencrypted:your_private_key
 ```
 
-</details>
 
-<details>
-<summary>Step 10: Let's register as delegate</summary>
+
+##### Step10: Let's register as delegate
 
 **Option 1 (next): Setup the Ledger to bake for your address**
 Access the "Tezos Baking" app on your ledger and then do execute the following command:
@@ -1199,16 +1127,15 @@ You will need to validate the request on your ledger.
 octez-client --endpoint http://127.0.0.1:8732 register key key_alias as delegate
 ```
 
-</details>
 
-<details>
-<summary>Step 11: Let's bake!</summary>
 
-:::caution
+##### Step11: Let's bake!
+
+{% callout type="note" title="Liquidity baking toggle" %}
 Since the Jakarta amendment, the `--liquidity-baking-toggle-vote <vote>`
 command line toggle is mandatory. `<vote>` should be replaced by `on`, `off` or `pass`. Read
 more about liquidity baking in the technical documentation.
-:::
+{% /callout %}
 
 You can launch the baker with:
 
@@ -1217,12 +1144,11 @@ octez-baker-<:CURRENT_PROTOCOL_SHORT_HASH:> --endpoint http://127.0.0.1:8732 run
 ```
 
 🎉 **Congratulations on setting up a baker node!** 🎉
-</details>
+
 
 #### [Tezos OPAM packages](https://tezos.gitlab.io/introduction/howtoget.html#install-octez-opam-packages) method
 
-<details>
-<summary>Step 1: Install OPAM</summary>
+##### Step1: Install OPAM
 
 First, you need to install the OPAM package manager, at least version 2.0, that you can get by
 following the install instructions.
@@ -1240,10 +1166,7 @@ your `sudo` password. You may encounter a "switch" error, but you can ignore it.
 opam init --bare
 ```
 
-</details>
-
-<details>
-<summary>Step 2: Get an environment</summary>
+##### Step2: Get an environment
 
 ```bash
 wget -O latest-release:version.sh https://gitlab.com/tezos/tezos/raw/latest-release/scripts/version.sh
@@ -1264,10 +1187,7 @@ If you get a "c compiler error", run this to install some necessary tools:
 sudo apt-get install build-essential
 ```
 
-</details>
-
-<details>
-<summary>Step 3: Get dependencies</summary>
+##### Step3: Get dependencies
 
 In order to get the system dependencies of the binaries, do:
 
@@ -1275,22 +1195,16 @@ In order to get the system dependencies of the binaries, do:
 opam depext tezos
 ```
 
-</details>
-
-<details>
-<summary>Step 4: Install binaries</summary>
+##### Step4: Install binaries
 
 ```bash
 opam install tezos
 ```
 
-</details>
-
 > Now follow Steps 6-7-8-9-10-11 of "[From scratch method](#from-scratch-method)"
 
-<details>
 
-<summary>Bonus: Quick synchronization from a snapshot</summary>
+Bonus: Quick synchronization from a snapshot
 
 If you want your node to be bootstrapped quickly, you can synchronize it with the blockchain using
 a snapshot.
@@ -1325,22 +1239,18 @@ directory`, by default, it is in `.octez-node`)
 octez-node snapshot info $path/name_of_snapshot_file
 ```
 
-</details>
-
-:::caution
+{% callout type="note" title="Use nohup" %}
 Be careful when closing terminal windows because this stops the node.
-:::
 
-:::tip
 Use [screen](https://doc.ubuntu-fr.org/screen), or [nohup](https://www.computerhope.com/unix/unohup.htm) to keep the node running in the background.
-:::
+{% /callout %}
+
 
 ## Upgrade a baking node
 
 ### Docker and docker-compose
 
-<details>
-<summary>Upgrade the docker image</summary>
+#### Upgrade the docker image
 
 To upgrade your node to the lastest Octez version, replace your previous image version (most likely v13.0) by the lastest: `v<:CURRENT_OCTEZ_VERSION:>`.
 Note that if you run the image named `latest`, a restart of your container is sufficient.
@@ -1357,12 +1267,10 @@ The binary versions of both the baker and accuser must be replaced by the latest
 PROTOCOL=<:CURRENT_PROTOCOL_SHORT_HASH:>
 ```
 
-</details>
 
 ### Serokell PPA with Tezos packages
 
-<details>
-<summary>Upgrade tezos packages</summary>
+#### Upgrade tezos packages
 
 To fetch the latest node, baker and accuser deamons, run the following command:
 
@@ -1373,22 +1281,18 @@ sudo apt install octez-baker-<:CURRENT_PROTOCOL_SHORT_HASH@LOW:>
 sudo apt install octez-accuser-<:CURRENT_PROTOCOL_SHORT_HASH@LOW:>
 ```
 
-</details>
-
 ### From source
 
 #### From scratch
 
-<details>
-<summary>Upgrade from scratch</summary>
+Upgrade from scratch
 
 Refer to the section [upgrade an octez node from source](https://opentezos.com/deploy-a-node/installation#from-source). The required daemons will be automatically downloaded. Finally, relaunch your node, and run the new daemons (suffixed by `<:CURRENT_PROTOCOL_SHORT_HASH:>`).
 
-:::caution
+{% callout type="note" title="Old daemons" %}
 If the protocol upgrade has not yet taken place, keep running the "old" daemons. Note that you can both run old and new daemons without any double baking/endorsment risks.
-:::
+{% /callout %}
 
-</details>
 
 ### Upgrade .service files
 
@@ -1415,7 +1319,7 @@ While your are still baking blocks, your future daemons will take over at the fi
 
 Tezos is a fast-evolving blockchain and testnets follow each other and replace each other. It will therefore be necessary from time to time to connect to a new network to prepare for a change.
 
-Let's say we already had a node configured on **<:CURRENT_TESTNET@CAP:>** and that the new tesnet has just been released, let's say its name is **Newtestnet** (for the example).
+Let's say we already had a node configured on **PtNairob** and that the new tesnet has just been released, let's say its name is **Newtestnet** (for the example).
 
 To switch to **Newtesnet**, we will have to initialize another Tezos node.
 
@@ -1443,7 +1347,7 @@ And finally, we can launch it, with a different RPC port than the one already ru
 octez-node run --rpc-addr 127.0.0.1:8733 --data-dir ~/tezos-newtestnet
 ```
 
-The day <:CURRENT_TESTNET@CAP:> is shut down, we can delete the contents of the `.tezos-<:CURRENT_TESTNET:>` directory, the data of our node.
+The day PtNairob is shut down, we can delete the contents of the `.tezos-PtNairob` directory, the data of our node.
 
 ## Other options for Baking
 
@@ -1459,6 +1363,3 @@ The following links also provide information on setting up a baker:
 - <https://github.com/tzConnectBerlin/baking-support>
 - [Tezos Node Setup & Maintenance by BakingBenjamins](https://docs.bakingbenjamins.com/baking/tezos-baking-node-setup)
 
-## References
-
-[1] <https://tezos.gitlab.io/introduction/howtorun.html#delegateregistration>

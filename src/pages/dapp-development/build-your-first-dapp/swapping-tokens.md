@@ -1,3 +1,9 @@
+---
+id: swapping-tokens
+title: Swapping XTZ and tzBTC
+authors: Claude Barde
+---
+
 ## Swapping XTZ and tzBTC
 
 Now, let's go down the rabbit hole and implement the most complex feature of the dapp: the swap of XTZ and tzBTC.

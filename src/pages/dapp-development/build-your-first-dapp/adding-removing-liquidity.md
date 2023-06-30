@@ -1,3 +1,9 @@
+---
+id: adding-removing-liquidity
+title: Adding Liquidity
+authors: Claude Barde
+---
+
 ## Adding Liquidity
 
 This one is going to be a big one, but a little less involved than swapping tokens!

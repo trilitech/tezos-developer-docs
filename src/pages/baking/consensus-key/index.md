@@ -6,9 +6,10 @@ authors: Ferdinand ATTIVI, Aurelien MONTEILLET, Nomadic Labs
 
 In this chapter, we present a core feature introduced by the Lima amendment: the consensus keys. We'll explain the core concepts behind it, the motivations and the CLI command lines to manipulate a consensus key.
 
-:::caution
-Executing the commands in this tutorial requires the deployment of your own [Tezos baking node](/baking/cli-baker).
-:::
+{% callout type="note" title="Node" %}
+Executing the commands in this tutorial requires the deployment of your own Tezos baking node.
+{% /callout %}
+
 
 ## Consensus key
 
@@ -60,9 +61,9 @@ After the creation command above, you will notice that the Octez client data dir
 
 Now that you have created an account, you need to supply it with real Tez.
 
-:::caution
+{% callout type="note" title="Mainnet" %}
 Be sure you are on the **mainnet** if you send **real Tez**.
-:::
+{% /callout %}
 
 You can get the address of the previously created wallet with the following command:
 
@@ -72,9 +73,9 @@ octez-client show address bob
 
 You can now send to *bob* any number of Tez from the wallet of your choice.
 
-:::caution
+{% callout type="note" title="Test amount" %}
 If you are not sure of what you are doing, start by sending a small amount. Then send the whole amount. (6,000ꜩ is the minimum to register as a delegate on the network).
-:::
+{% /callout %}
 
 Copy and paste the destination address into the search bar of an explorer (like [TzStats](https://tzstats.com/)) to see the transaction. The address should be visible on the explorer after the first transaction.
 Using the Octez client, you can check the amount that *bob* holds with:
@@ -99,9 +100,9 @@ octez-client register key <mgr> as delegate with consensus key <key>
 - key: the consensus key
 Once registered, you need to wait for **6** cycles ($\approx$ 17 days) for your rights to be considered.
 
-:::info
+{% callout type="note" title="Revoking key" %}
 **Revoking** one's consensus key is equivalent to setting the new consensus key to one's baking address itself.
-:::
+{% /callout %}
 
 #### Drain operation with the consensus key
 
@@ -109,7 +110,6 @@ To drain all funds from a delegate, run the following command:
 ```bash
 octez-client drain delegate <mgr> to <key> with <consensus_key>
 ```
-
 - mgr: the delegate key 
 - key: the destination key (any tz address)
 - consensus_key: the consensus key
@@ -122,9 +122,7 @@ The next three sections will guide you through the installation steps to launch 
 If you’re using Ubuntu, you can install packages with Tezos binaries from a Launchpad PPA.
 
 
-
-<details>
-<summary>Step 1: Installation</summary>
+##### Step 1: Installation
 
 In order to add the stable release PPA repository to your machine, run:
 
@@ -148,10 +146,9 @@ sudo apt-get install -y octez-baker-$PROTOCOL
 sudo apt-get install -y octez-accuser-$PROTOCOL
 ```
 
-</details>
+ 
 
-<details>
-<summary>Step 2: Let's config and run!</summary>
+##### Step 2: Let's config and run!
 
 It is possible to define the directory where the data will be stored with `--data-dir` (by default, it is in `.octez-node`).
 
@@ -186,10 +183,9 @@ octez-node run --rpc-addr 127.0.0.1:8732 --log-output tezos.log
 The parameter `--rpc-addr url:port` activates the RPC interface that will allow
 communication with the node. By default, it runs on the port `8732` so it is not mandatory to specify it.
 The file `tezos.log` will be saved in `/home/user/`.
-</details>
+ 
 
-<details>
-<summary>Step 3: Check synchronization ✅</summary>
+##### Step 3: Check synchronization ✅
 
 The Octez client can be used to interact with the node. It can query its status or ask the node to
 perform some actions. For example, after starting your node, you can check if it has finished
@@ -203,10 +199,9 @@ octez-client -E http://127.0.0.1:8732/ bootstrapped
 (`-E` option is equal to `--endpoint` option)
 When you see the message " *Node is Bootstrapped* ", your Tezos node is synchronized with the
 blockchain and you may now perform operations on it!
-</details>
+ 
 
-<details>
-<summary>Step 4: Import your keys</summary>
+##### Step 4: Import your keys
 
 ***Option 1: Import keys from a Ledger***
 **Prerequisites: The Ledger Nano should be configured with the Tezos wallet and Tezos
@@ -230,10 +225,6 @@ Validate the public key hash displayed on the ledger to validate the key import.
 
 ***Option 2: Import a secret key with the octez-client***
 
-:::caution
-This option isn't recommended. Be careful when using your private keys unencrypted
-:::
-
 You have to replace `<key_alias>` by the alias of your choice and provide the clear private key
 to the octez-client, after the keyword `unencrypted`:
 
@@ -241,10 +232,9 @@ to the octez-client, after the keyword `unencrypted`:
 octez-client --endpoint http://127.0.0.1:8732 import secret key key_alias unencrypted:your_private_key
 ```
 
-</details>
+ 
 
-<details>
-<summary>Step 5: Let's register as delegate</summary>
+##### Step 5: Let's register as delegate
 
 **Option 1 (next): Set up the Ledger to bake for your address**
 Access the "Tezos Baking" app on your ledger and then do execute the following command:
@@ -263,16 +253,16 @@ You will need to validate the request on your ledger.
 octez-client --endpoint http://127.0.0.1:8732 register key <key_alias> as delegate
 ```
 
-</details>
+ 
 
-<details>
-<summary>Step 6: Let's bake!</summary>
+##### Step 6: Let's bake!
 
-:::info
+{% callout type="note" title="Liquidity baking toggle" %}
 Since the Jakarta amendment, the `--liquidity-baking-toggle-vote <vote>` command line toggle is mandatory.
 `<vote>` should be replaced by `on`, `off` or `pass`.
 Read more about liquidity baking in the technical documentation.
-:::
+{% /callout %}
+
 
 You can launch the baker with:
 
@@ -281,14 +271,14 @@ octez-baker-<:CURRENT_PROTOCOL_SHORT_HASH:> --endpoint http://127.0.0.1:8732 run
 ```
 
 🎉 **Congratulations on setting up a baker node!** 🎉
-</details>
+ 
 
-<details>
-<summary>Step 7: Bake with a consensus key</summary>
+##### Step 7: Bake with a consensus key
 
-:::info
+{% callout type="note" title="No need to stop baker" %}
 You don't need to stop the previous baking process (launched in step 6.) before executing the following command, since the new consensus key will take over the baking process.
-:::
+{% /callout%}
+
 
 To bake with a consensus key, you can execute the following command:
 
@@ -300,10 +290,9 @@ octez-baker-<:CURRENT_PROTOCOL_SHORT_HASH:> --endpoint http://127.0.0.1:8732 run
 
 Check that the baking process has started by watching the logs.
 
-</details>
+ 
 
-<details>
-<summary>Step 8: Drain a baker's free balance with a consensus key</summary>
+##### Step 8: Drain a baker's free balance with a consensus key
 
 To drain all funds from a delegate, run the following command:
 
@@ -315,7 +304,7 @@ octez-client drain delegate <mgr> to <key> with <consensus_key>
 - key: the destination key
 - consensus_key: the consensus key
 
-</details>
+ 
 
 ### Set up using Docker images
 
@@ -323,8 +312,7 @@ In this part, we will see how to install Tezos with Docker.
 
 #### Docker
 
-<details>
-<summary>Step 1: Installation</summary>
+##### Step 1: Installation
 
 If you don't have Docker on your machine, you can install it with the following command:
 
@@ -333,10 +321,9 @@ sudo apt install docker.io
 ```
 
 and follow instructions on: <https://docs.docker.com/engine/install/linux-postinstall/>.
-</details>
+ 
 
-<details>
-<summary>Step 2: Let's config and run!</summary>
+##### Step 2: Let's config and run!
 
 Run the node in detached mode (`-d`), as instance on the testnet <:CURRENT_TESTNET:> network with the
 history-mode "full" using the following command:
@@ -378,10 +365,9 @@ docker exec -it octez-public-node-full octez-client --endpoint http://127.0.0.1:
 ```
 
 (Use **Ctrl+C** to stop logs displaying)
-</details>
+ 
 
-<details>
-<summary>Step 3: Import your keys</summary>
+##### Step 3: Import your keys
 
 ***Option 1: Import keys from a Ledger***
 
@@ -411,10 +397,6 @@ importation).
 
 ***Option 2: Import a secret key with the octez-client***
 
-:::caution
-This option isn't recommended. Be careful when using your private keys unencrypted.
-:::
-
 You have to replace `<key_alias>` by the alias of your choice and provide the clear private key
 to the octez-client, after the keyword `unencrypted:`:
 
@@ -422,10 +404,9 @@ to the octez-client, after the keyword `unencrypted:`:
 docker exec octez-public-node-full octez-client --endpoint http://127.0.0.1:8732 import secret key <key_alias> unencrypted:<your_private_key>
 ```
 
-</details>
+ 
 
-<details>
-<summary>Step 4: Let's register as delegate</summary>
+##### Step 4: Let's register as delegate
 
 **_Option 1 (next): Setup the Ledger to bake for your address**
 Access the "Tezos Baking" app on your ledger and then execute the following command:
@@ -444,17 +425,19 @@ Validate the request on your ledger.
 docker exec octez-public-node-full octez-client --endpoint http://127.0.0.1:8732 register key <key_alias> as delegate
 ```
 
-</details>
+ 
 
-<details>
-<summary>Step 5: Let's bake!</summary>
+##### Step 5: Let's bake!
 
-:::note
+{% callout type="note" title="Liquidity baking toggle" %}
 Since the Jakarta amendment, the `--liquidity-baking-toggle-vote vote` command line toggle is mandatory.
 `vote` should be replaced by `on`, `off` or `pass`.
+{% /callout %}
 
+{% callout type="note" title="Liquidity baking" %}
 Read more about Liquidity Baking in the [technical documentation](https://tezos.gitlab.io/alpha/liquidity_baking.html).
-:::
+{% /callout %}
+
 
 You can launch the baker with:
 
@@ -468,10 +451,9 @@ octez-baker-<:CURRENT_PROTOCOL_SHORT_HASH:> --endpoint http://127.0.0.1:8732 run
 Check that the baking process has started by watching the logs.
 
 🎉 **Congratulations on setting up a baker node!** 🎉
-</details>
+ 
 
-<details>
-<summary>Step 6: Register a consensus key</summary>
+##### Step 6: Register a consensus key
 
 You can register a consensus key with:
 
@@ -485,14 +467,14 @@ octez-client set consensus key for <mgr> to <key>
 
 Once registered, you need to wait for **6** cycles ($\approx$ 17 days) for your rights to be considered.
 
-</details>
+ 
 
-<details>
-<summary>Step 7: Bake with a consensus key</summary>
+##### Step 7: Bake with a consensus key
 
-:::info
+{% callout type="note" title="No need to stop baker" %}
 You don't need to stop the previous baking process (launched in step 6.) before executing the following command, since the new consensus key will take over the baking process.
-:::
+{% /callout %}
+
 
 To bake with a consensus key, run the following command:
 
@@ -506,10 +488,9 @@ Check that the baking process has started by watching the logs.
 
 
 
-</details>
+ 
 
-<details>
-<summary>Step 8: Drain a baker's free balance with a consensus key</summary>
+##### Step 8: Drain a baker's free balance with a consensus key
 
 
 To drain all funds from a delegate, run the following command: 
@@ -522,12 +503,11 @@ docker exec -it octez-public-node-full sh octez-client drain delegate <mgr> to <
 - key: the destination key
 - consensus_key: the consensus key
 
-</details>
+ 
 
 
 
-<details>
-<summary>Some useful commands</summary>
+##### Some useful commands
 
 To see the manual of commands you can use:
 
@@ -547,14 +527,13 @@ To use the client:
 docker exec -it octez-public-node-full octez-client --help
 ```
 
-</details>
+ 
 
 #### **Docker-compose**
 
 One way to run those Docker images is with Docker Compose!
 
-<details>
-<summary>Step 1: Let's launch the node and the baker!</summary>
+##### Step 1: Let's launch the node and the baker!
 
 The code below launches a `full node`, a `baker` and an `accuser` for the <:CURRENT_PROTOCOL@CAP:> protocol. You can adapt
 it to run a baker and accuser for another protocol by replacing the `PROTOCOL` environment variable, in our case `<:CURRENT_PROTOCOL_SHORT_HASH:>`, with the desired protocol.
@@ -658,10 +637,9 @@ To check if the node is bootstrapped:
 docker exec -it octez-public-node-full octez-client --endpoint http://127.0.0.1:8732 bootstrapped
 ```
 
-</details>
+ 
 
-<details>
-<summary>Step 2: Import your keys</summary>
+##### Step 2: Import your keys
 
 ***Option 1: Import keys from a Ledger***
 **Prerequisites: The Ledger Nano should be configured with the Tezos wallet and Tezos
@@ -684,10 +662,11 @@ Validate the public key hash displayed on the ledger to validate the key import.
 
 ***Option 2: Import a secret key with the octez-client***
 
-:::caution
+{% callout type="warning" title="Unencrypted keys" %}
 This option isn't recommended. Be careful when using your private keys
 unencrypted
-:::
+{% /callout %}
+
 
 You have to replace `<key_alias>` by the alias of your choice and provide the clear private key
 to the octez-client, after the keyword `unencrypted:`:
@@ -696,10 +675,9 @@ to the octez-client, after the keyword `unencrypted:`:
 docker exec octez-baker octez-client --endpoint http://127.0.0.1:8732 import secret key <key_alias> unencrypted:<your_private_key>
 ```
 
-</details>
+ 
 
-<details>
-<summary>Step 3: Let's register as delegate</summary>
+##### Step 3: Let's register as delegate
 
 ***Option 1 (next): Setup the Ledger to bake for your address***
 Open the "Tezos Baking" app on your ledger. Then execute the following command:
@@ -717,10 +695,9 @@ docker exec octez-baker octez-client --endpoint http://127.0.0.1:8732 register k
 ```
 
 🎉 **Congratulations on setting up a baker node!** 🎉
-</details>
+ 
 
-<details>
-<summary>Step 4: Register a consensus key</summary>
+##### Step 4: Register a consensus key
 
 You can register a consensus key with:
 
@@ -730,17 +707,14 @@ docker exec -it octez-baker sudo octez-client set consensus key for <mgr> to <ke
 - mgr: the delegate key
 - key: the consensus key
 
-
 Once registered, you need to wait for **6** cycles ($\approx$ 17 days) for your rights to be considered.
 
-</details>
+ 
+##### Step 5: Bake with a consensus key
 
-<details>
-<summary>Step 5: Bake with a consensus key</summary>
-
-:::info
+{% callout type="note" title="No need to stop baker" %}
 You don't need to stop the previous baking process (launched in step 6.) before executing the following command, since the new consensus key will take over the baking process.
-:::
+{% /callout %}
 
 To bake with a consensus key, run the following commands:
 
@@ -754,11 +728,7 @@ octez-baker-<:CURRENT_PROTOCOL_SHORT_HASH:> --endpoint http://127.0.0.1:8732 run
 Check that the baking process has started by watching the logs.
 
 
-</details>
-
-
-<details>
-<summary>Step 6: Drain a baker's free balance with a consensus key</summary>
+##### Step 6: Drain a baker's free balance with a consensus key
 
 To drain all funds from a delegate, run the following command:
 
@@ -769,16 +739,9 @@ docker exec -it octez-baker sudo octez-client drain delegate <mgr> to <key> with
 - key: the destination key
 - consensus_key: the consensus key
 
+{% callout type="note" title="Additional Resources" %}
+- <https://midl-dev.medium.com/a-consensus-key-for-tezos-bakers-16a3ac8178cf>
+- <https://gitlab.com/Ochem/tzip/-/blob/consensus_key/drafts/current/draft-consensus-key.md>
+- <https://tezos.gitlab.io/protocols/015_lima.html#consensus-key>
+{% /callout %}
 
-
-</details>
-
-
-
-## References
-
-[1] <https://midl-dev.medium.com/a-consensus-key-for-tezos-bakers-16a3ac8178cf>
-
-[2] <https://gitlab.com/Ochem/tzip/-/blob/consensus_key/drafts/current/draft-consensus-key.md>
-
-[3] <https://tezos.gitlab.io/protocols/015_lima.html#consensus-key>

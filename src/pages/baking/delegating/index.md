@@ -68,8 +68,8 @@ The main steps are as follows:
 5. Choose the amount to delegate
 6. Start earning interests
 
-![](delegate.gif)
-<small className="figure">FIGURE 1: Delegating your Tez on *Atomex*.</small>
+![](/developers/docs/images/delegating/delegate.gif)
+FIGURE 1: Delegating your Tez on *Atomex*.
 
 That's it. The only thing you should worry about is choosing an excellent and reliable Tezos baker or delegation service.
 
@@ -83,8 +83,7 @@ That's it. The only thing you should worry about is choosing an excellent and re
 
 - *Security*: Is this baker's staking setup secured? Does this baker have a track record? Has this baker double-baked in the past and lost coins?
 
-> For more details, check out the [List of Bakers](baking/bakers_list) chapter of the [Baking](/baking) module.
 
-## References
-
-- [1] <https://tezos.gitlab.io/introduction/howtorun.html#delegating-your-coins>
+{% callout type="note" title="Additional Reference" %}
+[Delegating your coins](https://tezos.gitlab.io/introduction/howtorun.html#delegating-your-coins)
+{% /callout %}

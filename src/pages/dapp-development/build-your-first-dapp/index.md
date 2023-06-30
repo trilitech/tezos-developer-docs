@@ -1,4 +1,8 @@
-# Build Your First Tezos Dapp
+---
+id: build-your-first-dapp
+title: Build your First DApp on Tezos
+authors: Claude Barde
+---
 
 In this tutorial, you will learn how to set up and create a decentralized web application on Tezos. We will build together an interface for the Liquidity Baking smart contract that will allow us to interact with this DEX and perform different operations, like swapping tokens or providing liquidity. At the same time, you will be introduced to core concepts of building a decentralized application in general, but also specifically on Tezos.
 

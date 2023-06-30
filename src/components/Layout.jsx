@@ -84,10 +84,6 @@ const documentationNavigation = [
             title: 'Best Practices',
             href: '/tezos-basics/get-started-with-octez/best-practices',
           },
-          {
-            title: 'Deploy a Cluster of Nodes',
-            href: '/tezos-basics/get-started-with-octez/node-cluster',
-          },
         ],
       },
       {
@@ -99,29 +95,56 @@ const documentationNavigation = [
         href: '/tezos-basics/tezos-protocol-and-shell',
       },
       { title: 'Test Networks', href: '/tezos-basics/test-networks' },
-      { title: 'Block Explorers', href: '/tezos-basics/block-explorers' },
-      {
-        title: 'Smart Contract Languages',
-        href: '/tezos-basics/smart-contract-languages',
+      { 
+        title: 'Block Explorers', 
+        href: '/tezos-basics/block-explorers',
+        children: [
+          { title: 'TzStats', href: '/tezos-basics/block-explorers/tzstats-main-features' },
+          { title: 'Inspect a Contract with TzStats', href: '/tezos-basics/block-explorers/tzstats-smart-contract' }
+        ] 
+      },
+    ],
+  },
+  {
+    title: 'Smart Contracts',
+    links: [
+      { 
+        title: 'Smart Contract Languages', 
+        href: '/smart-contracts/smart-contract-languages',
         children: [
           {
             title: 'LIGO',
-            href: '/tezos-basics/smart-contract-languages/ligo',
+            href: '/smart-contracts/smart-contract-languages/ligo',
           },
           {
             title: 'SmartPy',
-            href: '/tezos-basics/smart-contract-languages/smartpy',
+            href: '/smart-contracts/smart-contract-languages/smartpy',
           },
           {
             title: 'Archetype',
-            href: '/tezos-basics/smart-contract-languages/archetype',
+            href: '/smart-contracts/smart-contract-languages/archetype',
           },
           {
             title: 'Michelson',
-            href: '/tezos-basics/smart-contract-languages/michelson',
+            href: '/smart-contracts/smart-contract-languages/michelson',
           },
         ],
       },
+      {
+        title: 'Smart Contract Concepts',
+        href: '/smart-contracts/smart-contracts-concepts',
+      },
+      {
+        title: 'Simplified Contracts',
+        href: '/smart-contracts/simplified-contracts',
+      },
+      { title: 'FA1.2 Token Contract', href: '/smart-contracts/fa12' },
+      { title: 'FA2 Token Contract', href: '/smart-contracts/fa2' },
+      {
+        title: 'Avoiding Flaws',
+        href: '/smart-contracts/avoiding-flaws',
+      },
+      { title: 'Oracles', href: '/smart-contracts/oracles' },
     ],
   },
   {
@@ -214,27 +237,6 @@ const documentationNavigation = [
       },
     ],
   },
-
-  {
-    title: 'Smart Contract Topics',
-    links: [
-      {
-        title: 'Smart Contract Concepts',
-        href: '/smart-contract-topics/smart-contracts-concepts',
-      },
-      {
-        title: 'Simplified Contracts',
-        href: '/smart-contract-topics/simplified-contracts',
-      },
-      { title: 'FA1.2 Token Contract', href: '/smart-contract-topics/fa12' },
-      { title: 'FA2 Token Contract', href: '/smart-contract-topics/fa2' },
-      {
-        title: 'Avoiding Flaws',
-        href: '/smart-contract-topics/avoiding-flaws',
-      },
-      { title: 'Oracles', href: '/smart-contract-topics/oracles' },
-    ],
-  },
   {
     title: 'Baking',
     links: [
@@ -269,17 +271,17 @@ const documentationNavigation = [
             href: '/advanced-topics/formal-verification/introduction',
           },
           {
-            title: 'Generalities',
-            href: '/advanced-topics/formal-verification/generalities',
+            title: 'Formal Verification on Tezos',
+            href: '/advanced-topics/formal-verification/formal-verification-on-tezos',
+          },
+          {
+            title: 'Modelling for Smart Contracts',
+            href: '/advanced-topics/formal-verification/modelling-theorem',
           },
           { title: 'Coq', href: '/advanced-topics/formal-verification/coq' },
           {
             title: 'Mi-Cho-Coq',
             href: '/advanced-topics/formal-verification/michocoq',
-          },
-          {
-            title: 'Formal Verification on Smart Contract',
-            href: '/advanced-topics/formal-verification/modeling-theorem',
           },
         ],
       },
@@ -356,36 +358,52 @@ const tutorialNavigation = [
             title: 'Best Practices',
             href: '/tezos-basics/get-started-with-octez/best-practices',
           },
-          {
-            title: 'Deploy a Cluster of Nodes',
-            href: '/tezos-basics/get-started-with-octez/node-cluster',
-          },
         ],
       },
       { title: 'Test Networks', href: '/tezos-basics/test-networks' },
       { title: 'Block Explorers', href: '/tezos-basics/block-explorers' },
-      {
-        title: 'Smart Contract Languages',
-        href: '/tezos-basics/smart-contract-languages',
+    ],
+  },
+  {
+    title: 'Smart Contracts',
+    links: [
+      { 
+        title: 'Smart Contract Languages', 
+        href: '/smart-contracts/smart-contract-languages',
         children: [
           {
             title: 'LIGO',
-            href: '/tezos-basics/smart-contract-languages/ligo',
+            href: '/smart-contracts/smart-contract-languages/ligo',
           },
           {
             title: 'SmartPy',
-            href: '/tezos-basics/smart-contract-languages/smartpy',
+            href: '/smart-contracts/smart-contract-languages/smartpy',
           },
           {
             title: 'Archetype',
-            href: '/tezos-basics/smart-contract-languages/archetype',
+            href: '/smart-contracts/smart-contract-languages/archetype',
           },
           {
             title: 'Michelson',
-            href: '/tezos-basics/smart-contract-languages/michelson',
+            href: '/smart-contracts/smart-contract-languages/michelson',
           },
         ],
       },
+      {
+        title: 'Smart Contract Concepts',
+        href: '/smart-contracts/smart-contracts-concepts',
+      },
+      {
+        title: 'Simplified Contracts',
+        href: '/smart-contracts/simplified-contracts',
+      },
+      { title: 'FA1.2 Token Contract', href: '/smart-contracts/fa12' },
+      { title: 'FA2 Token Contract', href: '/smart-contracts/fa2' },
+      {
+        title: 'Avoiding Flaws',
+        href: '/smart-contracts/avoiding-flaws',
+      },
+      { title: 'Oracles', href: '/smart-contracts/oracles' },
     ],
   },
   {
@@ -476,25 +494,6 @@ const tutorialNavigation = [
         title: 'Framework Best Practices',
         href: '/dapp-development/framework-best-practices',
       },
-    ],
-  },
-
-  {
-    title: 'Smart Contract Topics',
-    links: [
-      {
-        title: 'Smart Contract Concepts',
-        href: '/smart-contract-topics/smart-contracts-concepts',
-      },
-      {
-        title: 'Simplified Contracts',
-        href: '/smart-contract-topics/simplified-contracts',
-      },
-      {
-        title: 'Avoiding Flaws',
-        href: '/smart-contract-topics/avoiding-flaws',
-      },
-      { title: 'Oracles', href: '/smart-contract-topics/oracles' },
     ],
   },
   {
@@ -589,36 +588,52 @@ const toolingNavigation = [
             title: 'Best Practices',
             href: '/tezos-basics/get-started-with-octez/best-practices',
           },
-          {
-            title: 'Deploy a Cluster of Nodes',
-            href: '/tezos-basics/get-started-with-octez/node-cluster',
-          },
         ],
       },
       { title: 'Test Networks', href: '/tezos-basics/test-networks' },
       { title: 'Block Explorers', href: '/tezos-basics/block-explorers' },
-      {
-        title: 'Smart Contract Languages',
-        href: '/tezos-basics/smart-contract-languages',
+    ],
+  },
+  {
+    title: 'Smart Contracts',
+    links: [
+      { 
+        title: 'Smart Contract Languages', 
+        href: '/smart-contracts/smart-contract-languages',
         children: [
           {
             title: 'LIGO',
-            href: '/tezos-basics/smart-contract-languages/ligo',
+            href: '/smart-contracts/smart-contract-languages/ligo',
           },
           {
             title: 'SmartPy',
-            href: '/tezos-basics/smart-contract-languages/smartpy',
+            href: '/smart-contracts/smart-contract-languages/smartpy',
           },
           {
             title: 'Archetype',
-            href: '/tezos-basics/smart-contract-languages/archetype',
+            href: '/smart-contracts/smart-contract-languages/archetype',
           },
           {
             title: 'Michelson',
-            href: '/tezos-basics/smart-contract-languages/michelson',
+            href: '/smart-contracts/smart-contract-languages/michelson',
           },
         ],
       },
+      {
+        title: 'Smart Contract Concepts',
+        href: '/smart-contracts/smart-contracts-concepts',
+      },
+      {
+        title: 'Simplified Contracts',
+        href: '/smart-contracts/simplified-contracts',
+      },
+      { title: 'FA1.2 Token Contract', href: '/smart-contracts/fa12' },
+      { title: 'FA2 Token Contract', href: '/smart-contracts/fa2' },
+      {
+        title: 'Avoiding Flaws',
+        href: '/smart-contracts/avoiding-flaws',
+      },
+      { title: 'Oracles', href: '/smart-contracts/oracles' },
     ],
   },
   {
@@ -709,25 +724,6 @@ const toolingNavigation = [
         title: 'Framework Best Practices',
         href: '/dapp-development/framework-best-practices',
       },
-    ],
-  },
-
-  {
-    title: 'Smart Contract Topics',
-    links: [
-      {
-        title: 'Smart Contract Concepts',
-        href: '/smart-contract-topics/smart-contracts-concepts',
-      },
-      {
-        title: 'Simplified Contracts',
-        href: '/smart-contract-topics/simplified-contracts',
-      },
-      {
-        title: 'Avoiding Flaws',
-        href: '/smart-contract-topics/avoiding-flaws',
-      },
-      { title: 'Oracles', href: '/smart-contract-topics/oracles' },
     ],
   },
   {
@@ -822,36 +818,52 @@ const resourcesNavigation = [
             title: 'Best Practices',
             href: '/tezos-basics/get-started-with-octez/best-practices',
           },
-          {
-            title: 'Deploy a Cluster of Nodes',
-            href: '/tezos-basics/get-started-with-octez/node-cluster',
-          },
         ],
       },
       { title: 'Test Networks', href: '/tezos-basics/test-networks' },
       { title: 'Block Explorers', href: '/tezos-basics/block-explorers' },
-      {
-        title: 'Smart Contract Languages',
-        href: '/tezos-basics/smart-contract-languages',
+    ],
+  },
+  {
+    title: 'Smart Contracts',
+    links: [
+      { 
+        title: 'Smart Contract Languages', 
+        href: '/smart-contracts/smart-contract-languages',
         children: [
           {
             title: 'LIGO',
-            href: '/tezos-basics/smart-contract-languages/ligo',
+            href: '/smart-contracts/smart-contract-languages/ligo',
           },
           {
             title: 'SmartPy',
-            href: '/tezos-basics/smart-contract-languages/smartpy',
+            href: '/smart-contracts/smart-contract-languages/smartpy',
           },
           {
             title: 'Archetype',
-            href: '/tezos-basics/smart-contract-languages/archetype',
+            href: '/smart-contracts/smart-contract-languages/archetype',
           },
           {
             title: 'Michelson',
-            href: '/tezos-basics/smart-contract-languages/michelson',
+            href: '/smart-contracts/smart-contract-languages/michelson',
           },
         ],
       },
+      {
+        title: 'Smart Contract Concepts',
+        href: '/smart-contracts/smart-contracts-concepts',
+      },
+      {
+        title: 'Simplified Contracts',
+        href: '/smart-contracts/simplified-contracts',
+      },
+      { title: 'FA1.2 Token Contract', href: '/smart-contracts/fa12' },
+      { title: 'FA2 Token Contract', href: '/smart-contracts/fa2' },
+      {
+        title: 'Avoiding Flaws',
+        href: '/smart-contracts/avoiding-flaws',
+      },
+      { title: 'Oracles', href: '/smart-contracts/oracles' },
     ],
   },
   {
@@ -944,25 +956,6 @@ const resourcesNavigation = [
       },
     ],
   },
-
-  {
-    title: 'Smart Contract Topics',
-    links: [
-      {
-        title: 'Smart Contract Concepts',
-        href: '/smart-contract-topics/smart-contracts-concepts',
-      },
-      {
-        title: 'Simplified Contracts',
-        href: '/smart-contract-topics/simplified-contracts',
-      },
-      {
-        title: 'Avoiding Flaws',
-        href: '/smart-contract-topics/avoiding-flaws',
-      },
-      { title: 'Oracles', href: '/smart-contract-topics/oracles' },
-    ],
-  },
   {
     title: 'Baking',
     links: [
@@ -1038,10 +1031,10 @@ function Header({ navigation }) {
             </h1>
           </Link>
           <div className="ml-6 flex">
-            <Link href="/" className="px-4 py-2 text-white hover:text-gray-300">
-              Docs
+            <Link href="/tezos-blockchain-overview/" className="px-4 py-2 text-white hover:text-gray-300">
+              Documentation
             </Link>
-            <Link
+            {/* <Link
               href="/tutorials"
               className="px-4 py-2 text-white hover:text-gray-300"
             >
@@ -1058,7 +1051,7 @@ function Header({ navigation }) {
               className="px-4 py-2 text-white hover:text-gray-300"
             >
               Resources
-            </Link>
+            </Link> */}
           </div>
         </div>
         <div className="-my-5 ">
