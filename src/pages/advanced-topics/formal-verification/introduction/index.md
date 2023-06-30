@@ -25,7 +25,7 @@ The image below helps visualise the process for performing formal verification f
 ![](/developers/docs/images/introduction/FormalVerification_overview_intro.svg)
 
 {% callout type="note" title="Further Reading" %}
-For mathematicians and very curious developers, an extra [theoretical](/formal-verification/gadt-coq) section will introduce some basic concepts of **Type theory** such as *GADT* which allows inductive types on the Calculus of Inductive Construction (CiC). The proof assistant Coq, which is based on the CiC, can be used for proving theorems. 
+For mathematicians and very curious developers, an extra [theoretical](/developers/docs/advanced-topics/formal-verification/gadt-coq) section will introduce some basic concepts of **Type theory** such as *GADT* which allows inductive types on the Calculus of Inductive Construction (CiC). The proof assistant Coq, which is based on the CiC, can be used for proving theorems. 
 {% /callout %}
 
 

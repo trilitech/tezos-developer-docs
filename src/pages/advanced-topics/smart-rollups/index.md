@@ -8,7 +8,7 @@ Rollups play a crucial part in providing next-generation scaling on Tezos. This 
 
 ## Prerequisites
 
-This page covers an advanced topic at the bleeding edge of Tezos core development. If you are interested in more fundamental reading, a great place to start is [Tezos Protocol and Shell](/developers/docs/tezos-basics/tezos-protocol-and-shell/) and [Smart Contract Topics](/developers/docs/smart-contract-topics/smart-contracts-concepts/).
+This page covers an advanced topic at the bleeding edge of Tezos core development. If you are interested in more fundamental reading, a great place to start is [Tezos Protocol and Shell](/developers/docs/tezos-basics/tezos-protocol-and-shell/) and [Smart Contracts](/developers/docs/smart-contracts/smart-contract-languages/).
 
 ## What is a rollup?
 

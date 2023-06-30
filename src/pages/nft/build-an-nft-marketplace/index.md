@@ -3,7 +3,7 @@ id: build-an-nft-marketplace
 title: Build an NFT Marketplace
 ---
 
-# Introduction
+## Introduction
 
 Business objects managed by a blockchain are called `assets`. On Tezos you will find the term `Financial Asset or FA` with different versions 1, 2, or 2.1.
 
@@ -11,7 +11,7 @@ Here are different categorizations of assets.
 
 ![](http://jingculturecommerce.com/wp-content/uploads/2021/03/nft-assets-1024x614.jpg)
 
-# Wine marketplace
+## Wine marketplace
 
 We are going to build a Wine marketplace extending the `@ligo/fa` package from the [Ligo repository](https://packages.ligolang.org/). The goal is to showcase how to extend an existing smart contract and build a frontend on top of it.
 
@@ -45,7 +45,7 @@ Here we present Part 1 of 4 of a training course by [Marigold](https://www.marig
 Because we are in web3, buy or sell features are a real payment system using on-chain XTZ tokens as money. This differs from traditional web2 applications where you have to integrate a payment system and so, pay extra fees
 {% /callout %}
 
-# Glossary
+## Glossary
 
 ## What is IPFS?
 
@@ -71,7 +71,7 @@ On a second time, we will import the token contract into the marketplace unique 
 - Buy
 - Sell
 
-# Prerequisites
+## Prerequisites
 
 #### Required
 
@@ -91,7 +91,7 @@ On a second time, we will import the token contract into the marketplace unique 
 - [taqueria VS Code extension](https://marketplace.visualstudio.com/items?itemName=ecadlabs.taqueria-vscode): visualize your project and execute tasks
 
 
-# Smart contract
+## Smart contract
 
 We will use `taqueria` to shape the project structure, then create the NFT marketplace smart contract thanks to the `ligo/fa` library.
 
@@ -103,7 +103,7 @@ You will require to copy some code from this git repository later, so you can cl
  ```
 {% /callout %}
 
-## Taq'ify your project
+### Taq'ify your project
 
 ```bash
 taq init training
@@ -121,7 +121,7 @@ echo "{}" > esy.json
 
 **Your project is ready!**
 
-## FA2 contract
+### FA2 contract
 
 We will rely on the Ligo FA library. To understand in detail how assets work on Tezos, please read below notes:
 
@@ -137,7 +137,7 @@ Install the `ligo/fa` library locally:
 TAQ_LIGO_IMAGE=ligolang/ligo:0.63.2 taq ligo --command "install @ligo/fa"
 ```
 
-## NFT marketplace contract
+### NFT marketplace contract
 
 Create the NFT marketplace contract with `taqueria`
 
@@ -367,7 +367,7 @@ taq deploy nft.tz -e "testing"
 
 ** We have finished the backend! **
 
-# NFT Marketplace frontend
+## NFT Marketplace frontend
 
 ## Get the react boilerplate
 
@@ -916,6 +916,6 @@ Now you can see all NFTs
 
 ![wine collection](/developers/docs/images/winecollection.png)
 
-# Conclusion
+##µ Conclusion
 
 You are able to create an NFT collection marketplace from the `ligo/fa` library.

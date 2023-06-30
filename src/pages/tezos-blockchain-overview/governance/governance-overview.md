@@ -90,13 +90,13 @@ A vote during a voting period (Exploration & Promotion) needs to reach both a su
 
 Unlike the supermajority requirement which is fixed at 80%, the quorum requirement is updated at the end of each voting period using the following formula, where Q is the quorum in the voting period and q is the participation rate in the voting period:
 
-![](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*2Rq9zD1ilut9qFz1mZMErg.png)
+{% math %} \Large Q_{t+2} \leftarrow (0.8)(Q_{t+1}) + (0.2)(q_{t+1}){% /math %}
 
 In other words, the quorum tries to match the exponential moving average of the past participation rate.
 
 #### Flowchart of the Tezos Amendment Process
 
-![](https://miro.medium.com/v2/resize:fit:1226/format:webp/1*NqxjgaoNvqTO_rOwf3Lwdw.png)
+![tezos_amendment_process](/developers/docs/images/governance-on-chain/tezos_amendment_process.png)
 
 ### Tezos Client Commands 
 

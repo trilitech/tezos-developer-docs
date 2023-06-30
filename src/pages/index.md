@@ -1,5 +1,5 @@
 ---
-title: Tezos Documentation
+title: Tezos Documentation Portal
 pageTitle: Tezos Developer Documentation and Reference
 description: Get started building on Tezos today. This collection of guides will take you through writing your first smart contract, using the Unity SDK, and building an NFT Marketplace.
 ---
@@ -34,7 +34,7 @@ Welcome to the Tezos Documentation Portal. We're currently in _beta_. Please sha
 
 {% quick-link title="Tezos SDK for Unity" icon="unity" href="/gaming/tezos-sdk-for-unity" description="Tezos SDK for Unity" /%}
 
-{% quick-link title="Build a Game on Tezos" icon="game" href="" description="Building a Game on Tezos" /%}
+{% quick-link title="Build a Game on Tezos" icon="game" href="" description="Building a Game on Tezos" comingSoon=true /%}
 
 {% quick-link title="Build your first DApp" icon="dapp" href="/dapp-development/build-your-first-dapp" description="Build your first DApp" /%}
 
