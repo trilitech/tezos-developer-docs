@@ -156,10 +156,10 @@ const documentationNavigation = [
       },
       // { title: 'FA1.2 Token Contract', href: '/smart-contracts/fa12' },
       // { title: 'FA2 Token Contract', href: '/smart-contracts/fa2' },
-      {
-        title: 'Avoiding Flaws',
-        href: '/smart-contracts/avoiding-flaws',
-      },
+      // {
+      //   title: 'Avoiding Flaws',
+      //   href: '/smart-contracts/avoiding-flaws',
+      // },
       { title: 'Oracles', href: '/smart-contracts/oracles' },
     ],
   },
