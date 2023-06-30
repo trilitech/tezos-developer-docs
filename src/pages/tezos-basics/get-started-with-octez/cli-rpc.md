@@ -28,21 +28,29 @@ A complete list of RPC calls is available [here](http://tezos.gitlab.io/shell/rp
 
 This call is used to find all the information about a block. The associated metadata may not be present depending on the history mode and block distance from the head.
 
-`GET NodeUrl/chains/[chain_id]/blocks/[blocks_id]`
+```bash
+GET NodeUrl/chains/[chain_id]/blocks/[blocks_id]
+```
 
 Example: To get the block number _1400114_ from the mainnet using the ECAD Labs node, do as follows:
 
-`GET https://mainnet.api.tez.ie/chains/main/blocks/1400114`
+```bash
+GET https://mainnet.api.tez.ie/chains/main/blocks/1400114
+```
 
 **Get contract storage**
 
 This call is used to access the storage of the contract.
 
-`GET NodeUrl/chains/[chain_id]/blocks/[blocks_id]/context/contracts/[contract_id]/storage`
+```bash
+GET NodeUrl/chains/[chain_id]/blocks/[blocks_id]/context/contracts/[contract_id]/storage
+```
 
 Example: To get the storage of contract _KT1Hkg5qeNhfwpKW4fXvq7HGZB9z2EnmCCA9_ from block number _1400114_ on the mainnet using the ECAD Labs node, do as follows:
 
-`GET https://mainnet.api.tez.ie/chains/main/blocks/1400114/context/contracts/KT1Hkg5qeNhfwpKW4fXvq7HGZB9z2EnmCCA9/storage`
+```bash
+GET https://mainnet.api.tez.ie/chains/main/blocks/1400114/context/contracts/KT1Hkg5qeNhfwpKW4fXvq7HGZB9z2EnmCCA9/storage
+```
 
 ### Tezos-client \(CLI\)
 
@@ -52,17 +60,23 @@ _Tezos-client_ is the official client when interacting with a Tezos node via RPC
 
 * On Mac OS with [Homebrew](https://brew.sh/):
 
-`$ brew install tezos-client`
+```bash
+$ brew install tezos-client
+```
 
 * On Ubuntu with binaries:
 
-`$ sudo add-apt-repository ppa:serokell/tezos && sudo apt-get update  
-$ sudo apt-get install -y tezos-client`
+```bash
+$ sudo add-apt-repository ppa:serokell/tezos && sudo apt-get update  
+$ sudo apt-get install -y tezos-client
+```
 
 * On Fedora with binaries:
 
-`$ dnf copr enable -y @Serokell/Tezos && dnf update -y  
-$ dnf install -y tezos-client`
+```bash
+$ dnf copr enable -y @Serokell/Tezos && dnf update -y  
+$ dnf install -y tezos-client
+```
 
 * [From sources with OPAM](https://tezos.gitlab.io/introduction/howtoget.html#building-from-sources-via-opam).
 
@@ -70,25 +84,35 @@ $ dnf install -y tezos-client`
 
 Activate your account by replacing `#accountName` and `#faucet` below with an account name and the path to your downloaded faucet file.
 
-`$ tezos-client activate account #accountName with ~/Downloads/#faucet.json`
+```bash
+$ tezos-client activate account #accountName with ~/Downloads/#faucet.json
+```
 
 Example :
 
-`$ tezos-client activate account user1 with ~/Downloads/tz1VH3sHQ5SNby95S9EtPQBqZrhgv2DqjPvy.json`
+```bash
+$ tezos-client activate account user1 with ~/Downloads/tz1VH3sHQ5SNby95S9EtPQBqZrhgv2DqjPvy.json
+```
 
 #### Client manual
 
 * For global options
 
-`$ tezos-client --help`
+```bash
+$ tezos-client --help
+```
 
 * For command options
 
-`$ tezos-client [global options] command --help`
+```bash
+$ tezos-client [global options] command --help
+```
 
 * For version information
 
-`$ tezos-client --version`
+```bash
+$ tezos-client --version
+```
 
 The full documentation on _Tezos-client_ can be found [here](https://tezos.gitlab.io/008/cli-commands.html#cli-commands).
 
@@ -100,31 +124,41 @@ This is a non-exhaustive list of possible commands with _tezos-client_. To disco
 
 To get the balance of your account you can execute the following command:
 
-`$ tezos-client get balance for #accountName`
+```bash
+$ tezos-client get balance for #accountName
+```
 
 **Get timestamp**
 
 This call is useful to check if the node is synchronized. It returns the UTC time of the latest downloaded block, timezones may differ from your local time.
 
-`$ tezos-client get timestamp`
+```bash
+$ tezos-client get timestamp
+```
 
 **List known addresses**
 
 This call lists implicit accounts registered in your _tezos-client_.
 
-`$ tezos-client list known addresses`
+```bash
+$ tezos-client list known addresses
+```
 
 **List known contracts**
 
 This call lists all accounts \(implicit and smart contract\) registered in your _tezos-client_.
 
-`$ tezos-client list known contracts`
+```bash
+$ tezos-client list known contracts
+```
 
 **Transfers and receipts**
 
 The command line below makes a transaction of 42ꜩ from the account _user1_ to _user2_ \(you can also just use the tezos addresses directly\):
 
-`$ tezos-client transfer 30 from user1 to user2 --burn-cap 0.5`
+```bash
+$ tezos-client transfer 30 from user1 to user2 --burn-cap 0.5
+```
 
 Notice that `--burn-cap` specifies the maximum fee the user is willing to pay for this operation. The actual fee is determined by the network.
 
@@ -148,15 +182,21 @@ The admin client allows you to interact with the peer-to-peer layer to:
 
 * On Mac OS with [Homebrew](https://brew.sh/):
 
-`$ brew install tezos-admin-client`
+```bash
+$ brew install tezos-admin-client
+```
 
 * On Ubuntu with binaries:
 
-`$ sudo add-apt-repository ppa:serokell/tezos && sudo apt-get update$ sudo apt-get install -y tezos-admin-client`
+```bash
+$ sudo add-apt-repository ppa:serokell/tezos && sudo apt-get update$ sudo apt-get install -y tezos-admin-client
+```
 
 * On Fedora with binaries:
 
-`$ dnf copr enable -y @Serokell/Tezos && dnf update -y$ dnf install -y tezos-admin-client`
+```bash
+$ dnf copr enable -y @Serokell/Tezos && dnf update -y$ dnf install -y tezos-admin-client
+```
 
 * [From sources with OPAM](https://tezos.gitlab.io/introduction/howtoget.html#building-from-sources-via-opam).
 
@@ -164,15 +204,21 @@ The admin client allows you to interact with the peer-to-peer layer to:
 
 * Global options:
 
-`$ tezos-admin-client --help`
+```bash
+$ tezos-admin-client --help
+```
 
 * Command options:
 
-`$ tezos-admin-client [global options] command --help`
+```bash
+$ tezos-admin-client [global options] command --help
+```
 
 * Version information:
 
-`$ tezos-admin-client --version`
+```bash
+$ tezos-admin-client --version
+```
 
 The full documentation on tezos-admin-client can be found [here](https://tezos.gitlab.io/shell/cli-commands.html).
 
@@ -184,49 +230,69 @@ This is a non-exhaustive list of possible commands with tezos-admin-client. To d
 
 * List RPCs under a given URL prefix:
 
-`$ tezos-admin-client rpc list [URL]`
+```bash
+$ tezos-admin-client rpc list [URL]
+```
 
 * Get the input and the output JSON schemas of an RPC:
 
-`$ tezos-admin-client rpc schema [HTTP method] [url]`
+```bash
+$ tezos-admin-client rpc schema [HTTP method] [url]
+```
 
 * Get the readable input and output formats of an RPC:
 
-`$ tezos-admin-client rpc get [url]`
+```bash
+$ tezos-admin-client rpc get [url]
+```
 
 * Call an RPC with the POST method and input params:
 
-`$ tezos-admin-client list protocols`
+```bash
+$ tezos-admin-client list protocols
+```
 
 **Commands for managing protocols**
 
 * List protocols known by the node:
 
-`$ tezos-admin-client rpc post [url] with [input]`
+```bash
+$ tezos-admin-client rpc post [url] with [input]
+```
 
 * Inject a new protocol into the node: \(_given\_dir_ is the directory containing the sources of a protocol\)
 
-`$ tezos-admin-client inject protocol [given_dir]`
+```bash
+$ tezos-admin-client inject protocol [given_dir]
+```
 
 **Commands to report the node's status:**
 
 * The last heads that have been considered by the node:
 
-`$ tezos-admin-client list heads [-o --output [path]]`
+```bash
+$ tezos-admin-client list heads [-o --output [path]]
+```
 
 **Commands for editing and viewing the client's config file:**
 
 * Show the current config file content and command line arguments:
 
-`$ tezos-admin-client config show`
+```bash
+$ tezos-admin-client config show
+```
 
 * Update the config based on the current CLI values:
 
-`$ tezos-admin-client config update`
+```bash
+$ tezos-admin-client config update
+```
 
 * A useful command to debug a node that is not syncing:
 
-`$ tezos-admin-client tezos-admin-client p2p stat`
+```bash
+$ tezos-admin-client tezos-admin-client p2p stat
+```
 
 ### 
 
