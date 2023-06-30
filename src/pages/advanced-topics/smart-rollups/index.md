@@ -1,12 +1,22 @@
 ---
+id: smart-rollups
 title: Smart Optimistic Rollups
+authors: Nomadic Labs, TriliTech
 ---
+
+Rollups play a crucial part in providing next-generation scaling on Tezos. This page gives a technical introduction to smart rollups, their optimistic nature, and an intro to developing your own WASM kernel.
+
+## Prerequisites
+
+This page covers an advanced topic at the bleeding edge of Tezos core development. If you are interested in more fundamental reading, a great place to start is [Tezos Protocol and Shell](/developers/docs/tezos-basics/tezos-protocol-and-shell/) and [Smart Contract Topics](/developers/docs/smart-contract-topics/smart-contracts-concepts/).
+
+## What is a rollup?
 
 A **rollup** is a processing unit that receives, retrieves, and
 interprets input messages to update its local state and to produce
-output messages targetting the Tezos blockchain. In this documentation,
+output messages targeting the Tezos blockchain. In this documentation,
 we will generally refer to the rollup under consideration as the Layer 2
-on top of the Tezos blockchain, considered as the Layer 1.
+on top of the Tezos blockchain, considered as layer 1.
 
 Rollups are a permissionless scaling solution for the Tezos blockchain.
 Indeed, anyone can originate and operate one or more rollups, allowing
@@ -26,7 +36,7 @@ respect to the syntax and the semantics of the input messages. More
 precisely, the originator of a smart rollup provides a program (in one
 of the languages supported by Tezos) responsible for interpreting input
 messages. During the refutation mechanism, the execution of this program
-is handled by a **Proof-generating Virtual Machine (PVM)** for this
+is handled by a **proof-generating virtual machine (PVM)** for this
 language, provided by the Tezos protocol, which allows to prove that the
 result of applying an input message to the rollup context is correct.
 The rest of the time, any VM implementation of the chosen language can
@@ -34,9 +44,8 @@ be used to run the smart rollup program, provided that it is compliant
 with the PVM.
 
 The smart rollup infrastructure currently supports the WebAssembly
-language. A WASM rollup runs a WASM program named a **kernel**. The role
-of the kernel is to process input messages, to update a state, and to
-output messages targeting the Layer 1 following a user-defined logic.
+language. A WASM rollup runs a WASM program named a **kernel**. The role of the kernel is to process input messages, to update a state, and to output messages targeting layer 1 following a user-defined logic.
+
 Anyone can develop a kernel or reuse existing kernels. A typical use
 case of WASM rollups is to deploy a kernel that implements the Ethereum
 Virtual Machine (EVM) and to get as a result an EVM-compatible Layer 2
@@ -47,10 +56,9 @@ terms of expressiveness.
 
 The purpose of this documentation is to give:
 
-1.  an overview of the terminology and basic principles of smart
-    rollups;
-2.  a complete tour of smart rollups related workflows;
-3.  a reference documentation for the development of a WASM kernel.
+- an overview of the terminology and basic principles of smart rollups
+- a complete tour of smart rollups related workflows
+- a reference documentation for the development of a WASM kernel.
 
 # Overview
 
@@ -64,27 +72,25 @@ sake of clarity, we will distinguish three kinds of users in this
 documentation: operators, kernel developers, and end-users. An operator
 deploys the rollup node to make the rollup progress. A kernel developer
 writes a kernel to be executed within a rollup. An end-user interacts
-with the rollup through Layer 1 operations or Layer 2 input messages.
+with the rollup through layer 1 operations or Layer 2 input messages.
 
 ## Address
 
-When a smart rollup is originated on the Layer 1, a unique address is
+When a smart rollup is originated on layer 1, a unique address is
 generated to uniquely identify it. A smart rollup address starts with
-the prefix `sr1` (see also the
-`kinds of address prefixes in Tezos <address_prefixes_mumbai>`{.interpreted-text
-role="ref"}).
+the prefix `sr1`.
 
 ## Inputs
 
 There are two channels of communication to interact with smart rollups:
 
-1.  a global **rollups inbox** allows the Layer 1 to transmit
+1.  a global **rollups inbox** allows layer 1 to transmit
     information to all the rollups. This unique inbox contains two kinds
-    of messages: *external* messages are pushed through a Layer 1
-    manager operation while *internal* messages are pushed by Layer 1
+    of messages: *external* messages are pushed through a layer 1
+    manager operation while *internal* messages are pushed by layer 1
     smart contracts or the protocol itself.
 2.  a **reveal data channel** allows the rollup to retrieve data coming
-    from data sources external to the Layer 1.
+    from data sources external to layer 1.
 
 ### External messages
 
@@ -94,62 +100,58 @@ interpretation of this sequence of bytes is the responsibility of each
 kernel.
 
 There are two ways for end-users to push an external message to the
-rollups inbox: first, they can inject the dedicated Layer 1 operation
-using the Octez client (see command
-`send smart rollup message <messages> from <src>`); second, they can use
-the batcher of a smart rollup node. More details can be found in
-`sending_external_inbox_message_mumbai`{.interpreted-text role="ref"}.
+rollups inbox: first, they can inject the dedicated layer 1 operation
+using the Octez client second, they can use
+the batcher of a smart rollup node (see [Sending an External Inbox Message](#sending-an-external-inbox-message)).
 
 ### Internal messages
 
 Contrary to external messages, which are submitted by the end users,
-internal messages are constructed by the Layer 1.
+internal messages are constructed by layer 1.
 
-At the beginning of every Tezos block, the Layer 1 pushes two internal
-messages: "Start of level", and "Info per level". "Start of level" does
-not have any payload associated to it, while "Info per level" provides
+At the beginning of every Tezos block, layer 1 pushes two internal
+messages: 
+
+- `"Start of level"` - no associated payload
+- `"Info per level"` - provides
 to the kernel the timestamp and block hash of the predecessor of the
 current Tezos block.
 
 A rollup is identified by an address and has an associated Michelson
-type (defined at origination time). Any Layer 1 smart contract can
+type (defined at origination time). Any layer 1 smart contract can
 perform a transfer to this address with a payload of this type. This
 transfer is realized as an internal message pushed to the rollups inbox.
 
-Finally, after the application of the operations of the Tezos block, the
-Layer 1 pushes one final internal message "End of level". Similarly to
-"Start of level", this internal messages does not come with any payload.
+Finally, after the application of the operations of the Tezos block, the layer 1 pushes one final internal message `"End of level"`. Similarly to `"Start of level"`, this internal messages does not come with any payload.
 
 ### Reveal data channel
 
 The reveal data channel is a communication interface that allows the
 rollup to request data from sources that are external to the inbox and
-can be unknown to the Layer 1. The rollup node has the responsibility to
+can be unknown to layer 1. The rollup node has the responsibility to
 answer the rollup requests.
 
 A rollup can do the following requests through the reveal data channel:
 
 1.  **preimage requests**: The rollup can request arbitrary data of at
     most 4kBytes, provided that it knows its (blake2b) hash. The request
-    is fulfilled by the rollup node
-    `populating_the_reveal_channel_mumbai`{.interpreted-text
-    role="ref"}.
-2.  **metadata requests** The rollup can request information from the
+    is fulfilled by the rollup node (see [Populating the Reveal Channel](#populating-the-reveal-channel)).
+2.  **metadata requests**: The rollup can request information from the
     protocol, namely the address and the origination level of the rollup
     node itself. The rollup node retrieves this information through RPCs
     to answer the rollup.
 
 Information passing through the reveal data channel does not have to be
-considered by the Layer 1: for this reason, the volume of information is
-not limited by the bandwidth of the Layer 1. Thus, the reveal data
+considered by layer 1: for this reason, the volume of information is
+not limited by the bandwidth of layer 1. Thus, the reveal data
 channel can be used to upload large volumes of data to the rollup.
 
 ## Origination
 
 When originated, a rollup is characterized by the name of the device it
-runs -- the so-called Proof-generating Virtual Machine (PVM) -- by the
+runs, the proof-generating virtual machine (PVM), by the
 source code of the rollup running under this device, and by the
-Michelson type of the entrypoint used by Layer 1 smart contracts to
+Michelson type of the entrypoint used by layer 1 smart contracts to
 communicate with the rollup through internal messages.
 
 ## Processing
@@ -161,7 +163,7 @@ reactive process: it downloads the Tezos block and interprets it
 according to the semantics of the PVM. This interpretation can require
 updating a state, downloading data from other sources, or performing
 some cryptographic verifications. The state of the rollup contains an
-**outbox**, that is a sequence of latent calls to Layer 1 contracts.
+**outbox**, a sequence of latent calls to layer 1 contracts.
 
 The behavior of the rollup node is deterministic and fully specified by
 a reference implementation of the PVM embedded in the protocol. Notice
@@ -178,22 +180,22 @@ Starting from the rollup origination level, levels are partitioned into
 
 A **commitment** claims that the interpretation of all inbox messages
 published during a given commitment period and applied on the state of a
-parent commitment led to a given new state by performing a given number
+parent commitment leads to a given new state by performing a given number
 of execution steps of the PVM. Execution steps are called **ticks** in
 the smart rollups terminology. A commitment must be published on the
-Layer 1 after each commitment period to have the rollup progress. A
+layer 1 after each commitment period to have the rollup progress. A
 commitment is always based on a parent commitment (except for the
 genesis commitment that is automatically published at origination time).
 
 Since the PVM is deterministic and the inputs are completely determined
-by the Layer 1 rollups inbox and the reveal channel, there is only one
+by layer 1 rollups inbox and the reveal channel, there is only one
 honest commitment. In other words, if two distinct commitments are
 published for the same commitment period, one of them must be wrong.
 
 Notice that, to publish a commitment, an operator must provide a deposit
 of 10,000 tez. For this reason, the operator is said to be a **staker**.
-Several users can stake on the same commitment. When a staker *S
-publishes a new commitment based on a commitment*S\* is staking on, *S*
+Several users can stake on the same commitment. When a staker *S*
+publishes a new commitment based on a commitment *S* is staking on, *S*
 does not have to provide a new deposit: the deposit also applies to this
 new commitment.
 
@@ -209,11 +211,8 @@ commitment period is invalid can post a concurrent commitment for the
 same commitment period to force the removal of the invalid commitment.
 If no one posts such a concurrent commitment during the refutation
 period, the commitment can be cemented with a dedicated operation
-injected in Layer 1, and the outbox messages can be executed by the
-Layer 1 by an explicit Layer 1 operation (see
-`triggering_execution_outbox_message_mumbai`{.interpreted-text
-role="ref"}), typically to transfer assets from the rollup to the Layer
-1.
+injected in layer 1, and the outbox messages can be executed by the
+layer 1 by an explicit layer 1 operation typically to transfer assets from the rollup to layer 1 (see [Triggering Execution of an Outbox Message](#triggering-execution-of-an-outbox-message)).
 
 ## Refutation
 
@@ -240,20 +239,20 @@ they disagree. The exact number of hashes exchanged at a given step is
 PVM-dependent. During the final phase, the stakers must provide a proof
 that they correctly interpreted this conflicting tick.
 
-The Layer 1 PVM then determines whether these proofs are valid. There
+The layer 1 PVM then determines whether these proofs are valid. There
 are only two possible outcomes: either one of the staker has provided a
 valid proof, then that staker wins the game, and is rewarded with half
-of the opponent\'s deposit (the other half being burnt); or, both
+of the opponent's deposit (the other half being burnt); or, both
 stakers have provided an invalid proof and they both lose their deposit.
 In the end, at most one stake will be kept in the commitment tree. When
 a commitment has no more stake on it (because all stakers have lost the
 related refutation games), it is removed from the tree. An honest player
 *H* must therefore play as many refutation games as there are stakes on
-the commitments in conflict with *H*\'s own commitment.
+the commitments in conflict with *H*'s own commitment.
 
 Finally, notice that each player is subject to a timer similar to a
 chess clock, allowing each player to play only up to one week: after
-this time is elapsed, a player can be dismissed by any Layer 1 user
+this time is elapsed, a player can be dismissed by any layer 1 user
 playing a timeout operation. Thus, the refutation game played by the two
 players can last at most 2 weeks.
 
@@ -274,36 +273,22 @@ The rollup node is responsible for making the rollup progress by
 publishing commitments and by playing refutation games.
 
 Just like the Octez node, the Octez rollup node provides an RPC
-interface `RPC <../api/openapi>`{.interpreted-text role="doc"}. The
+interface `RPC <../api/openapi>`. The
 services of this interface can be called directly with HTTP requests or
 indirectly using the Octez rollup client.
 
 ## Prerequisites
 
-An Octez rollup node needs an Octez node to run. We assume that an Octez
-node has been launched locally, typically by issuing:
+An Octez rollup node needs an Octez node to run. We assume that an Octez node has been launched locally:
 
 ``` sh
 octez-node config init --data-dir "${ONODE_DIR}" --network "${NETWORK}"
 octez-node run --data-dir "${ONODE_DIR}" --network "${NETWORK}" --rpc-addr 127.0.0.1
 ```
 
-The commands will only work when `Mumbai` is activated. This can be
-checked by:
-
-``` sh
-octez-client rpc get /chains/main/blocks/head/protocols
-```
-
-that must return:
-
-    { "protocol": "PtMumbai2TmsJHNGRkD8v8YDbtao7BLUC3wjASn1inAKLFCjaH1",
-      "next_protocol": "PtMumbai2TmsJHNGRkD8v8YDbtao7BLUC3wjASn1inAKLFCjaH1" }
-
 Finally, you need to check that your balance is greater than 10,000 tez
-to make sure that staking is possible. In case your balance is not
-sufficient, you can get test tokens from
-`a faucet <faucet>`{.interpreted-text role="ref"}.
+to make sure that staking is possible. If your balance is not
+sufficient, you can get test tokens from a faucet.
 
 ``` sh
 octez-client get balance for "${OPERATOR_ADDR}"
@@ -311,8 +296,7 @@ octez-client get balance for "${OPERATOR_ADDR}"
 
 ## Origination
 
-Anyone can originate a smart rollup with the following invocation of the
-Octez client:
+Anyone can originate a smart rollup with the following invocation of the Octez client:
 
 ``` sh
 octez-client originate smart rollup "${SOR_ALIAS}" \
@@ -323,26 +307,23 @@ octez-client originate smart rollup "${SOR_ALIAS}" \
   --burn-cap 999
 ```
 
-where `${SOR_ALIAS}` is an alias to memorize the smart rollup address in
-the client. This alias can be used in any command where a smart rollup
-address is expected. `${KERNEL}` is a hex representation of a
-WebAssembly bytecode serving as an initial program to boot on. From a
-WASM bytecode file named `kernel.wasm`, such representation can be
-obtained through
+where `${SOR_ALIAS}` is an alias to memorize the smart rollup address in the client. This alias can be used in any command where a smart rollup address is expected. `${KERNEL}` is a hex representation of a WebAssembly bytecode serving as an initial program to boot on. 
+
+You can obtain this representation through the WASM bytecode file named `kernel.wasm`:
 
 ``` sh
 xxd -ps -c 0 <kernel.wasm> | tr -d '\n'
 ```
 
-To experiment, we propose that you use the value `${KERNEL}` defined in
-the `given file <sr_boot_kernel.sh>`{.interpreted-text role="download"}.
+To experiment, we propose that you use the value `${KERNEL}` defined in the file `sr_boot_kernel.sh`.
 
 ``` sh
-source sr_boot_kernel.sh # defines shell variable KERNEL
+source sr_boot_kernel.sh 
 ```
 
 If everything went well, the origination command results in:
 
+``` sh
     This sequence of operations was run:
       Manager signed operations:
         From: tz1fp5ncDmqYwYC568fREYz9iwQTgGQuKZqX
@@ -380,18 +361,18 @@ If everything went well, the origination command results in:
             tz1fp5ncDmqYwYC568fREYz9iwQTgGQuKZqX ... -ꜩ1.638
             storage fees ........................... +ꜩ1.638
 
+```
+
 The address `sr1RYurGZtN8KNSpkMcCt9CgWeUaNkzsAfXf` is the smart rollup
-address. Let\'s write it `${SOR_ADDR}` from now on.
+address. Let's refer to it as `${SOR_ADDR}` from now on.
 
 ## Deploying a rollup node
 
-Now that the rollup is originated, anyone can make it progress by
-deploying a rollup node.
+Now that the rollup is originated, anyone can deploy a rollup node to advance the rollup.
 
-First, we need to decide on a directory where the rollup node stores its
-data. Let us assign `${ROLLUP_NODE_DIR}` with this path.
+First, we need to decide on a directory where the rollup node stores its data. Let us assign this path to `${ROLLUP_NODE_DIR}`.
 
-The rollup node can then be run with:
+The rollup node can be run with:
 
 ``` sh
 octez-smart-rollup-node-alpha --base-dir "${OCLIENT_DIR}" \
@@ -400,54 +381,84 @@ octez-smart-rollup-node-alpha --base-dir "${OCLIENT_DIR}" \
                  --data-dir "${ROLLUP_NODE_DIR}"
 ```
 
-The log should show that the rollup node follows the Layer 1 chain and
-processes the inbox of each level.
+The log should show that the rollup node follows layer 1 chain and is processing the inbox of each level.
 
-Notice that distinct Layer 1 adresses could be used for the Layer 1
-operations issued by the rollup node simply by editing the configuration
-file to set different addresses for `publish`, `add_messages`, `cement`,
-and `refute`.
+{% callout type="note" title="Distinct layer 1 Addresses" %}
+Distinct layer 1 addresses could be used for layer 1
+operations issued by the rollup node simply by editing the configuration file to set different addresses for `publish` `add_messages` `cement` `refute`.
+{% /callout %}
+
 
 In addition, a rollup node can run under different modes:
 
 1.  `operator` activates a full-fledged rollup node. This means that the
     rollup node will do everything needed to make the rollup progress.
-    This includes following the Layer 1 chain, reconstructing inboxes,
+    This includes following layer 1 chain, reconstructing inboxes,
     updating the states, publishing and cementing commitments regularly,
     and playing the refutation games. In this mode, the rollup node will
-    accept transactions in its queue and batch them on the Layer 1.
+    accept transactions in its queue and batch them on layer 1.
 2.  `batcher` means that the rollup node will accept transactions in its
-    queue and batch them on the Layer 1. In this mode, the rollup node
-    follows the Layer 1 chain, but it does not update its state and does
+    queue and batch them on layer 1. In this mode, the rollup node
+    follows layer 1 chain, but it does not update its state and does
     not reconstruct inboxes. Consequently, it does not publish
     commitments nor play refutation games.
-3.  `observer` means that the rollup node follows the Layer 1 chain to
+3.  `observer` means that the rollup node follows layer 1 chain to
     reconstruct inboxes, to update its state. However, it will neither
     publish commitments, nor play a refutation game. It does not include
     the message batching service either.
 4.  `maintenance` is the same as the operator mode except that it does
     not include the message batching service.
-5.  `accuser` follows the layer1-chain and computes commitments but does
+5.  `accuser` follows the `layer1-chain` and computes commitments but does
     not publish them. Only when a conflicting commitment (published by
-    another staker) is detected will the \"accuser node\" publish a
+    another staker) is detected will the **"accuser node"** publish a
     commitment and participate in the subsequent refutation game.
 
 The following table summarizes the operation modes, focusing on the L1
 operations which are injected by the rollup node in each mode.
 
-  ---------------------------------------------------------
-                Add messages   Publish    Cement   Refute
-  ------------- -------------- ---------- -------- --------
-  Operator      Yes            Yes        Yes      Yes
 
-  Batcher       Yes            No         No       No
+{% table %}
+* 
+* Add Messages
+* Publish
+* Cement
+* Refute
+---
+* Operator
+* Yes
+* Yes
+* Yes
+* Yes
+---
+* Batcher
+* Yes
+* No
+* No
+* No
+---
+* Observer
+* No
+* No
+* No
+* No
+---
+* Maintenance
+* No
+* Yes
+* Yes
+* Yes
+---
+* Accuser
+* No
+* Yes* 
+* No
+* Yes
 
-  Observer      No             No         No       No
+{% /table %}
 
-  Maintenance   No             Yes        Yes      Yes
-
-  Accuser       No             Yes[^1]    No       Yes
-  ---------------------------------------------------------
+{% callout type="note" title="When does an accuser publish commitments?" %}
+An accuser node will publish commitments only when it detects conflicts. In this case, it must deposit 10,000 tez.
+{% /callout %}
 
 ### Configuration file
 
@@ -461,26 +472,24 @@ octez-smart-rollup-node-alpha --base-dir "${OCLIENT_DIR}" \
                  --data-dir "${ROLLUP_NODE_DIR}"
 ```
 
-This creates a configuration file:
+This creates a configuration file at `${ROLLUP_NODE_DIR}/config.json`:
 
-    Smart rollup node configuration written in ${ROLLUP_NODE_DIR}/config.json
+``` sh
+{
+	"data-dir": "${ROLLUP_NODE_DIR}",
+	"smart-rollup-address": "${SOR_ADDR}",
+	"smart-rollup-node-operator": {
+	"publish": "${OPERATOR_ADDR}",
+	"add_messages": "${OPERATOR_ADDR}",
+	"cement": "${OPERATOR_ADDR}",
+	"refute": "${OPERATOR_ADDR}"
+	},
+	"fee-parameters": {},
+	"mode": "operator"
+}
+```
 
-Here is the content of the file:
-
-    {
-      "data-dir": "${ROLLUP_NODE_DIR}",
-      "smart-rollup-address": "${SOR_ADDR}",
-      "smart-rollup-node-operator": {
-        "publish": "${OPERATOR_ADDR}",
-        "add_messages": "${OPERATOR_ADDR}",
-        "cement": "${OPERATOR_ADDR}",
-        "refute": "${OPERATOR_ADDR}"
-      },
-      "fee-parameters": {},
-      "mode": "operator"
-    }
-
-The rollup node can now be run with just:
+The rollup node can now be run with:
 
 ``` sh
 octez-smart-rollup-node-alpha -d "${OCLIENT_DIR}" run --data-dir ${ROLLUP_NODE_DIR}
@@ -490,41 +499,41 @@ The configuration will be read from `${ROLLUP_NODE_DIR}/config.json`.
 
 ### Rollup node in a sandbox
 
-The node can also be tested locally with a sandbox environment. (See
-`sandbox documentation <../user/sandbox>`{.interpreted-text
-role="doc"}.)
+The node can also be tested locally with a sandbox environment.
 
-Once you initialized the \"sandboxed\" client data with
-`./src/bin_client/octez-init-sandboxed-client.sh`, you can run a
-sandboxed rollup node with `octez-smart-rollup-node-PtMumbai run`.
-
-A temporary directory `/tmp/tezos-smart-rollup-node.xxxxxxxx` will be
-used. However, a specific data directory can be set with the environment
-variable `SCORU_DATA_DIR`.
-
-## Sending an external inbox message[]{#sending_external_inbox_message} {#sending_external_inbox_message_mumbai}
-
-The Octez client can be used to send an external message into the rollup
-inbox. Assuming that `${EMESSAGE}` is the hexadecimal representation of
-the message payload, one can do:
+Once you initialized the **sandboxed** client data with:
 
 ``` sh
-octez-client" -d "${OCLIENT_DIR}" -p PtMumbai \
+./src/bin_client/octez-init-sandboxed-client.sh
+``` 
+
+You can run a sandboxed rollup node with:
+
+``` sh
+`octez-smart-rollup-node-Pt${CURRENT_PROTOCOL} run`.
+```
+
+where `${CURRENT_PROTOCOL}` represents the current latest protocol i.e. `PtMumbai`, `PtNairob` etc.
+
+A temporary directory `/tmp/tezos-smart-rollup-node.xxxxxxxx` will be
+used. However, a specific data directory can be set with the environment variable `SCORU_DATA_DIR`.
+
+## Sending an External Inbox Message
+
+The Octez client can be used to send an external message into the rollup inbox. Assuming that `${EMESSAGE}` is the hexadecimal representation of the message payload, to inject an external message, run: 
+
+``` sh
+octez-client" -d "${OCLIENT_DIR}" -p Pt${CURRENT_PROTOCOL} \
  send smart rollup message "hex:[ \"${EMESSAGE}\" ]" \
  from "${OPERATOR_ADDR}"
 ```
 
-to inject such an external message. So let us focus now on producing a
-viable contents for `${EMESSAGE}`.
+Let's now produce some viable contents for `${EMESSAGE}`. The kernel used previously in our running example is a simple "echo" kernel that copies its input as a new message to its outbox. Therefore, the input must be a valid binary encoding of an outbox message to make this work. 
 
-The kernel used previously in our running example is a simple \"echo\"
-kernel that copies its input as a new message to its outbox. Therefore,
-the input must be a valid binary encoding of an outbox message to make
-this work. Specifically, assuming that we have originated a Layer 1
-smart contract as follows:
+Specifically, assuming that we have originated a layer 1 smart contract as follows:
 
 ``` sh
-octez-client -d "${OCLIENT_DIR}" -p PtMumbai \
+octez-client -d "${OCLIENT_DIR}" -p Pt${CURRENT_PROTOCOL} \
   originate contract go transferring 1 from "${OPERATOR_ADDR}" \
   running 'parameter string; storage string; code {CAR; NIL operation; PAIR};' \
   --init '""' --burn-cap 0.4
@@ -540,15 +549,13 @@ MESSAGE='[ { \
   "parameters" : "\"Hello world\"", \
   "entrypoint" : "%default" } ]'
 
-
-EMESSAGE=$(octez-smart-rollup-client-PtMumbai encode outbox message "${MESSAGE}")
+EMESSAGE=$(octez-smart-rollup-client-Pt${CURRENT_PROTOCOL} encode outbox message "${MESSAGE}")
 ```
 
-## Triggering the execution of an outbox message[]{#triggering_execution_outbox_message} {#triggering_execution_outbox_message_mumbai}
+## Triggering Execution of an Outbox Message
 
 Once an outbox message has been pushed to the outbox by the kernel at
-some level `${L}`, the user needs to wait for the commitment that
-includes this level to be cemented. On Dailynet, the cementation process
+some level `${L}`, the user needs to wait for the commitment that includes this level to be cemented. On dailynet, the cementation process
 of a non-disputed commitment is 40 blocks long while on Mainnet, it is 2
 weeks long.
 
@@ -556,7 +563,7 @@ When the commitment is cemented, one can observe that the outbox is
 populated as follows:
 
 ``` sh
-octez-smart-rollup-client-PtMumbai rpc get \
+octez-smart-rollup-client-Pt${CURRENT_PROTOCOL} rpc get \
   /global/block/cemented/outbox/${L}/messages
 ```
 
@@ -577,7 +584,7 @@ is indeed in the outbox. In the case of our running example, this proof
 is retrieved as follows:
 
 ``` sh
-PROOF=$(octez-smart-rollup-client-PtMumbai get proof for message 0 \
+PROOF=$(octez-smart-rollup-client-Pt${CURRENT_PROTOCOL} get proof for message 0 \
   of outbox at level "${L}" \
   transferring "${MESSAGE}")
 ```
@@ -585,28 +592,28 @@ PROOF=$(octez-smart-rollup-client-PtMumbai get proof for message 0 \
 Finally, the execution of the outbox message is done as follows:
 
 ``` sh
-"${TEZOS_PATH}/octez-client" -d "${OCLIENT_DIR}" -p PtMumbai \
+"${TEZOS_PATH}/octez-client" -d "${OCLIENT_DIR}" -p Pt${CURRENT_PROTOCOL} \
         execute outbox message of smart rollup "${SOR_ALIAS_OR_ADDR}" \
         from "${OPERATOR_ADDR}" for commitment hash "${LCC}" \
         and output proof "${PROOF}"
 ```
 
-where `${LCC}` is the hash of the latest cemented commitment. Notice
-that anyone can trigger the execution of an outbox message (not only an
-operator as in this example).
+where `${LCC}` is the hash of the latest cemented commitment. 
 
-One can check in the receipt that the contract has indeed been called
-with the parameter `"Hello world"` through an internal operation. More
-complex parameters, typically containing assets represented as tickets,
+{% callout type="note" title="Who can trigger the execution of an outbox message?" %}
+Anyone can trigger the execution of an outbox message (not only an
+operator).
+{% /callout %}
+
+To check the contract has indeed been called with the parameter `Hello World` through an internal operation, we can check the receipt. More complex parameters, typically assets represented as tickets,
 can be used as long as they match the type of the entrypoint of the
 destination smart contract.
 
-## Sending an internal inbox message[]{#sending_internal_inbox_message} {#sending_internal_inbox_message_mumbai}
+## Sending An Internal Inbox Message
 
 A smart contract can push an internal message in the rollup inbox using
-the Michelson `TRANSFER_TOKENS` instruction targetting a specific rollup
-address. The parameter of this transfer must be a value of the Michelson
-type declared at the origination of this rollup.
+the Michelson `TRANSFER_TOKENS` instruction targeting a specific rollup
+address. The parameter of this transfer must be a value of the Michelson type declared at the origination of this rollup.
 
 Remember that our running example rollup has been originated with:
 
@@ -619,36 +626,35 @@ octez-client originate smart rollup "${SOR_ALIAS}" \
   -burn-cap 999
 ```
 
-The fragment `of type bytes` of this command declares that the rollup is
-expecting values of type `bytes`. (Notice any Michelson type could have
-been used instead. To transfer tickets to a rollup, this type must
-mention tickets.)
+The fragment `of type bytes` declares that the rollup is expecting values of type `bytes`. Any Michelson type could have been used. To transfer tickets to a rollup, this type must
+mention tickets.
 
 Here is an example of a Michelson script that sends an internal message
 to the rollup of our running example. The payload of the internal
 message is the value passed as parameter of type `bytes` to the rollup.
 
-    parameter bytes;
-    storage unit;
-    code
-      {
-        UNPAIR;
-        PUSH address "${SOR_ADDR}";
-        CONTRACT bytes;
-        IF_NONE { PUSH string "Invalid address"; FAILWITH } {};
-        PUSH mutez 0;
-        DIG 2;
-        TRANSFER_TOKENS;
-        NIL operation;
-        SWAP;
-        CONS;
-        PAIR;
-      }
+``` sh
+parameter bytes;
+storage unit;
+code
+	{
+		UNPAIR;
+		PUSH address "${SOR_ADDR}";
+		CONTRACT bytes;
+		IF_NONE { PUSH string "Invalid address"; FAILWITH } {};
+		PUSH mutez 0;
+		DIG 2;
+		TRANSFER_TOKENS;
+		NIL operation;
+		SWAP;
+		CONS;
+		PAIR;
+	}
+```
 
-## Populating the reveal channel[]{#populating_the_reveal_channel} {#populating_the_reveal_channel_mumbai}
+## Populating the Reveal Channel
 
-It is the responsibility of rollup node operators to get the data passed
-through the reveal data channel when the rollup requested it.
+It is the responsibility of rollup node operators to provide the data passed through the reveal data channel when the rollup requests it.
 
 To answer a request for a page of hash `H`, the rollup node tries to
 read the content of a file `H` named `${ROLLUP_NODE_DIR}/wasm_2_0_0`.
@@ -659,46 +665,38 @@ hashes. It is up to the kernel to decide how to implement this. For
 instance, one can classify pages into two categories: index pages that
 are hashes for other pages and leaf pages that contain actual payloads.
 
-## Configure WebAssembly fast execution[]{#configure_fast_exec} {#configure_fast_exec_mumbai}
+## Configure WebAssembly Fast Execution
 
 When the rollup node advances its internal rollup state under normal
-operation, it does so in a mode called \"Fast Execution\".
+operation, it does so in a mode called `Fast Execution`.
 
-This mode uses Wasmer when running WebAssembly code at the moment which
-allows you to configure the compiler it will use to deal with the
-WebAssembly code. It can be done using the `OCTEZ_WASMER_COMPILER`
-environment variable which will be picked up by the smart rollup node.
+This mode uses [Wasmer](https://wasmer.io) when running WebAssembly code which allows you to configure the compiler it will use to deal with the WebAssembly code. It can be done using the `OCTEZ_WASMER_COMPILER` environment variable which will be picked up by the smart rollup node.
 
-The choice of compiler primarily affects the performance of the
-WebAssembly execution. Some compilers offer additional security
-guarantees which might be attractive to you.
+The performance of the WebAssembly execution is affected primarily by the choice of compiler. Some compilers offer additional security guarantees which might be attractive to you.
 
-There are these options:
+Here are some compiler options:
 
-  --------------------------------------------------------------------------------------------------------------------------------------------------------
-  Compiler          `OCTEZ_WASMER_COMPILER`   Description
-                    value                     
-  ----------------- ------------------------- ------------------------------------------------------------------------------------------------------------
-  Singlepass        `singlepass`              [When to use
-                                              Singlepass](https://github.com/wasmerio/wasmer/tree/master/lib/compiler-singlepass#when-to-use-singlepass)
+{% table %}
+* Compiler
+* `OCTEZ_WASMER_COMPILER` 
+* Description
+---
+* Singlepass
+* `singlepass` 
+* [When to use Singlepass](https://github.com/wasmerio/wasmer/tree/master/lib/compiler-singlepass#when-to-use-singlepass)
+---
+* Cranelift
+* `cranelift` 
+* [When to use Cranelift](https://github.com/wasmerio/wasmer/tree/master/lib/compiler-cranelift#when-to-use-cranelift)
+{% /table %}
 
-  Cranelift         `cranelift`               [When to use
-                                              Cranelift](https://github.com/wasmerio/wasmer/tree/master/lib/compiler-cranelift#when-to-use-cranelift)
-  --------------------------------------------------------------------------------------------------------------------------------------------------------
+## Developing WASM Kernels
 
-  : Wasmer compiler options
+A rollup is primarily characterized by the semantics given to the
+input messages it processes. These semantics are provided at origination time as a WASM program (i.e. `wasm_2_0_0`) called a
+**kernel**. The kernel is a WASM module encoded in the binary format as defined by the WASM standard.
 
-# Developing WASM Kernels
-
-A rollup is primarily characterized by the semantics it gives to the
-input messages it processes. This semantics is provided at origination
-time as a WASM program (in the case of the `wasm_2_0_0` kind) called a
-*kernel*. More concretely, the kernel is a WASM module encoded in the
-binary format defined by the WASM standard.
-
-Except for necessary restrictions to ensure determinism (a key
-requirement for any web3 technology), we support the full WASM language.
-More precisely, determinism is ensured by the following restrictions:
+A key requirement for any web3 technology is determinism. To ensure determinism, the following restrictions are in place: 
 
 1.  Instructions and types related to floating-point arithmetic are not
     supported. This is because IEEE floats are not deterministic, as the
@@ -706,8 +704,7 @@ More precisely, determinism is ensured by the following restrictions:
 2.  The length of the call stack of the WASM kernel is restricted to
     300.
 
-Modulo the limitations above, a valid kernel is a WASM module that
-satisfies the following constraints:
+Otherwise, we support the full WASM language. A valid kernel is a WASM module that satisfies the following constraints:
 
 1.  It exports a function `kernel_run` that takes no argument and
     returns nothing.
@@ -715,10 +712,10 @@ satisfies the following constraints:
 3.  It only imports the host functions exported by the (virtual) module
     `smart_rollup_core`.
 
-For instance, the mandatory example of a `hello, world!` kernel is the
+For instance, an example of a simple `Hello World` kernel is the
 following WASM program in text format.
 
-``` 
+``` sh
 (module
   (import "smart_rollup_core" "write_debug"
      (func $write_debug (param i32 i32) (result i32)))
@@ -737,246 +734,180 @@ following WASM program in text format.
 This program can be compiled to the WASM binary format with
 general-purpose tool like [WABT](https://github.com/WebAssembly/wabt).
 
-    wat2wasm hello.wat -o hello.wasm
+``` sh
+wat2wasm hello.wat -o hello.wasm
+```
 
-The contents of the resulting `hello.wasm` file is a valid WASM kernel,
-though its relevance as a decentralized application is debatable.
+The contents of the resulting `hello.wasm` file is a valid WASM kernel. One of the benefits of choosing WASM as the programming language for smart rollups is that WASM has gradually become a ubiquitous compilation target over the years. Its popularity has grown to the point where mainstream, industrial languages like Go or Rust now natively compile to WASM. For example, `cargo`, the official Rust package manager, provides an official target to compile Rust to `.wasm` binary files, which are valid WASM kernels. This means that, for this particular example, one can build a WASM kernel while enjoying the strengths and convenience of the Rust language and the Rust ecosystem.
 
-One of the benefits of choosing WASM as the programming language for
-smart rollups is that WASM has gradually become a ubiquitous compilation
-target over the years. Its popularity has grown to the point where
-mainstream, industrial languages like Go or Rust now natively compile to
-WASM. Thus, `cargo` ---the official Rust package manager--- provides an
-official target to compile Rust to `.wasm` binary files, which are valid
-WASM kernels. This means that, for this particular example, one can
-build a WASM kernel while enjoying the strengths and convenience of the
-Rust language and the Rust ecosystem.
+In the context of smart rollups, Rust has become the primary language where the WASM backend has been tested extensively. However, the WASM VM has not been modified in any way to favor this language. We fully expect that other mainstream languages, such as Go, are also great candidates for implementing WASM kernels.
 
-The rest of the section proceeds as follows.
+Let's move on and continue by:
 
-1.  First, we explain the execution environment of a WASM kernel: when
-    it is parsed, executed, etc.
-2.  Then, we explain in more details the API at the disposal of WASM
-    kernel developers.
-3.  Finally, we demonstrate how Rust in particular can be used to
-    implement a WASM kernel.
+1.  explaining the execution environment of a WASM kernel i.e. when it is parsed, executed, etc.
+2.  explaining, in detail, the API at the disposal of WASM kernel developers.
+3.  demonstrating how Rust can be used to implement a WASM kernel.
 
-Though Rust has become the primary language whose WASM backend has been
-tested in the context of smart rollups, the WASM VM has not been
-modified in any way to favor this language. We fully expect that other
-mainstream languages such as Go are also good candidates for
-implementing WASM kernels.
+### Execution Environment
 
-## Execution Environment
-
-In a nutshell, the life cycle of a smart rollup is a never-ending loop
-of fetching inputs from the Layer 1, and executing the `kernel_run`
-function exposed by the WASM kernel.
+Fundamentally, the life cycle of a smart rollup is a never-ending loop
+of fetching inputs from layer 1, and executing the `kernel_run` function exposed by the WASM kernel.
 
 ### State
 
 The smart rollup carries two states:
 
-1.  A transient state, that is reset after each call to the `kernel_run`
-    function and is akin to RAM.
-2.  A persistent state, that is preserved across `kernel_run` calls. The
-    persistent state consists in an *inbox* that is regularly populated
-    with the inputs coming from the Layer 1, the *outbox* which the
-    kernel can populate with contract calls targeting smart contracts in
-    the Layer 1, and a durable storage which is akin to a file system.
+1.  A transient state, that is reset after each call to the `kernel_run` function, similar to RAM.
+2.  A persistent state, that is preserved across `kernel_run` calls. 
+       - The **inbox** possesses this persistent state which is regularly populated with the inputs coming from layer 1.
+       -  The **outbox** which the kernel can populate with contract calls targeting smart contracts in layer 1. This can be thought of as durable storage similar to a file system.
 
-The durable storage is a persistent tree, whose contents is addressed by
-path-like keys. A path in the storage may contain: a value (also called
-file) consisting of a sequence of raw bytes, and/or any number of
-subtrees (also called directories), that is, the paths in the storage
-prefixed by the current path. Thus, unlike most file systems, a path in
-the durable storage may be at the same time a file and a directory (a
-set of sub-paths).
+
+The durable storage is a persistent tree, whose contents is addressed by path-like keys. 
+
+A path in the storage may contain: 
+- a value (also called file) consisting of a sequence of raw bytes
+- and/or any number of subtrees (also called directories) i.e. the paths in the storage prefixed by the current path. 
+
+Thus, unlike most file systems, a path in the durable storage may be at the same time a file and a directory (a set of sub-paths).
 
 The WASM kernel can write and read the raw bytes stored under a given
 path (the file), but can also interact (delete, copy, move, etc.) with
-subtrees (directories).
+subtrees (directories). 
 
+{% callout type="note" title="Read-only values and subtrees" %}
 The values and subtrees under the key `/readonly` are not writable by a
 kernel, but can be used by the PVM to give information to the kernel.
+{% /callout %}
 
 ### Control Flow
 
 When a new block is published on Tezos, the inbox exposed to the smart
 rollup is populated with all the inputs published on Tezos in this
-block. It is important to keep in mind that all the smart rollups which
-are originated on Tezos share the same inbox. As a consequence, a WASM
-kernel has to filter the inputs that are relevant for its purpose from
-the ones it does not need to process.
+block. Keep in mind that all smart rollups which are originated on Tezos share the same inbox. As a consequence, a WASM kernel has to filter the inputs that are relevant for its purpose from the ones it does not need to process.
 
 Once the inbox has been populated with the inputs of the Tezos block,
-the `kernel_run` function is called, from a clean "transient" state.
+the `kernel_run` function is called, from a clean `transient` state.
 More precisely, the WASM kernel is re-initialized, then `kernel_run` is
 called.
 
-By default, the WASM kernel yields when `kernel_run` returns. In this
-case, the WASM kernel execution is put on hold while the inputs of the
-next inbox are being loaded. The inputs that were not consumed by
-`kernel_run` are dropped. `kernel_run` can prevent the WASM kernel from
-yielding by writing arbitrary data under the path `/kernel/env/reboot`
-in its durable storage. In such a case (known as reboot), `kernel_run`
-is called again, without dropping unread inputs. The value at
-`/kernel/env/reboot` is removed between each call of `kernel_run`, and
-the `kernel_run` function can postpone yielding at most 1,000 reboots
-for each Tezos level.
+By default, the WASM kernel yields when `kernel_run` returns. In this case: 
+
+- The WASM kernel execution is put on hold while the inputs of the next inbox are loaded. 
+- The inputs that were not consumed by `kernel_run` are dropped
+- `kernel_run` can prevent the WASM kernel from yielding by writing arbitrary data under the path `/kernel/env/reboot`
+in its durable storage.
+-  In such a case (known as `reboot`), `kernel_run` is called again, without dropping unread inputs. 
+- The value at `/kernel/env/reboot` is removed between each call of `kernel_run`, and the `kernel_run` function can maximally postpone yielding 1,000 reboots for each Tezos level.
 
 A call to `kernel_run` cannot take an arbitrary amount of time to
 complete, because diverging computations are not compatible with the
-optimistic rollup infrastructure of Tezos. To dodge the halting problem,
-the reference interpreter of WASM (used during the refutation game)
-enforces a bound on the number of ticks used in a call to `kernel_run`.
-Once the maximum number of ticks is reached, the execution of
-`kernel_run` is trapped (*i.e.*, interrupted with an error). In turn,
-the fast execution engine does not enforce this time limit. Hence, it is
-the responsibility of the kernel developer to implement a `kernel_run`
-which does not exceed its tick budget.
+optimistic rollup infrastructure of Tezos. To dodge the halting problem, the reference interpreter of WASM (used during the refutation game) enforces a bound on the number of ticks used in a call to `kernel_run`. Once the maximum number of ticks is reached, the execution of `kernel_run` is trapped (*i.e.*, interrupted with an error). In turn, the fast execution engine does not enforce this time limit. Hence, it is the responsibility of the kernel developer to implement a `kernel_run` which does not exceed its tick budget.
 
 The current bound is set to 11,000,000,000 ticks.
-`octez-smart-rollup-wasm-debugger` is probably the best tool available
-to verify the `kernel_run` function does not take more ticks than
-authorized.
+`octez-smart-rollup-wasm-debugger` is the best tool available
+to verify the `kernel_run` function does not go over this tick limit. 
 
-The direct consequence of this setup is that it might be necessary for a
-WASM kernel to span a long computation across several calls to
-`kernel_run`, and therefore to serialize any data it needs in the
-durable storage to avoid loosing them.
+The direct consequence of this setup is that it might be necessary for a WASM kernel to span a long computation across several calls to
+`kernel_run`, requiring serialization of any data it needs in the
+durable storage to avoid loss.
 
 Finally, the kernel can verify if the previous `kernel_run` invocation
-was trapped by verifying if some data are stored under the path
-`/kernel/env/stuck`.
+was trapped by verifying if some data are stored under the path `kernel/env/stuck`.
 
-## Host Functions
+### Host Functions
 
-At its core, the WASM machine defined in the WASM standard is just a
-very evolved arithmetic machine. It needs to be enriched with so-called
-host functions in order to be used for greater purposes. The host
-functions provide an API to the WASM program to interact with an "outer
-world".
+At its core, the WASM machine defined in the WASM standard is an
+evolved arithmetic machine. It needs to be enriched with so-called
+"host" functions to be used for greater purposes. The host
+functions provide an API to the WASM program to interact externally.
 
-As for smart rollups, the host functions exposed to a WASM kernel allow
+For smart rollups, the host functions exposed to a WASM kernel allow
 it to interact with the components of persistent state:
 
-`read_input`
+ - `read_input` - loads the oldest input still present in the inbox of the smart rollup in the transient memory of the WASM kernel. This means that the input is lost at the next invocation of `kernel_run` if it is not written in the durable storage
 
-:   Loads the oldest input still present in the inbox of the smart
-    rollup in the transient memory of the WASM kernel. This means that
-    the input is lost at the next invocation of `kernel_run` if it is
-    not written in the durable storage.
+- `write_output` - writes an in-memory buffer to the outbox of the smart rollup. If the content of the buffer follows the expected encoding, it can be interpreted within layer 1 as a smart contract call, once a commitment acknowledging the call to this host function is cemented
 
-`write_output`
+- `write_debug` - can be used by the WASM kernel to log events which can potentially be interpreted by an instrumented rollup node
 
-:   Writes an in-memory buffer to the outbox of the smart rollup. If the
-    content of the buffer follows the expected encoding, it can be
-    interpreted in the Layer 1 as a smart contract call, once a
-    commitment acknowledging the call to this host function is cemented.
+- `store_has` - returns the kind of data (if any) stored in the durable storage under a given path: a directory, a file, neither or both
 
-`write_debug`
+- `store_delete` - cuts the subtree out (via a given path) from the durable storage
 
-:   Can be used by the WASM kernel to log events which can potentially
-    be interpreted by an instrumented rollup node.
+- `store_copy` - copies the subtree (via a given path) to another key.
 
-`store_has`
+- `store_move` - behaves as `store_copy`, but also cuts the original subtree out of the tree.
 
-:   Returns the kind of data (if any) stored in the durable storage
-    under a given path: a directory, a file, neither or both.
+- `store_read` - loads at most 2048 bytes from a file in the durable storage to a buffer in the memory of the WASM kernel.
 
-`store_delete`
+- `store_write` - writes at most 2048 bytes from a buffer in the memory of the WASM kernel to a file of the durable storage, increasing its size if necessary. Note that files in the durable storage cannot exceed {% math inline=true %} 2^{31} - 1 {% /math %} bytes, (i.e. 2GB - 1).
 
-:   Cuts the subtree under a given path out of the durable storage.
+- `store_value_size` - returns the size (in bytes) of a file under a given key in the durable storage.
 
-`store_copy`
+- `store_list_size` - returns the number of child objects (either directories or files) under a given key. 
 
-:   Copies the subtree under a given path to another key.
+`reveal_preimage` - loads in memory the preimage of a hash. The size of the hash in bytes must be specified as an input to the function.
 
-`store_move`
+`reveal_metadata` - loads in memory the address of the smart rollup (20 bytes), and the Tezos level of its origination (4 bytes).
 
-:   Behaves as `store_copy`, but also cuts the original subtree out of
-    the tree.
-
-`store_read`
-
-:   Loads at most 2048 bytes from a file of the durable storage to a
-    buffer in the memory of the WASM kernel.
-
-`store_write`
-
-:   Writes at most 2048 bytes from a buffer in the memory of the WASM
-    kernel to a file of the durable storage, increasing its size if
-    necessary. Note that files in the durable storage cannot exceed
-    $2^{31} - 1$ bytes (i.e. 2GB - 1).
-
-`store_value_size`
-
-:   Returns the size (in bytes) of a file under a given key in the
-    durable storage.
-
-`store_list_size`
-
-:   Returns the number of child objects (either directories or files)
-    under a given key.
-
-`reveal_preimage`
-
-:   Loads in memory the preimage of a hash. The size of the hash in
-    bytes must be specified as an input to the function.
-
-`reveal_metadata`
-
-:   Loads in memory the address of the smart rollup (20 bytes), and the
-    Tezos level of its origination (4 bytes).
-
-These host functions use a \"C-like\" API. In particular, most of them
+These host functions use a "C-like" API. In particular, most of them
 return a signed 32bit integer, where negative values are reserved for
 conveying errors, as shown in the next table.
 
-+-------+-------------------------------------------------------------+
-| Code  | Description                                                 |
-+=======+=============================================================+
-| > -1  | > Input is too large to be a valid key of the durable       |
-|       | > storage                                                   |
-+-------+-------------------------------------------------------------+
-| > -2  | > Input cannot be parsed as a valid key of the durable      |
-|       | > storage                                                   |
-+-------+-------------------------------------------------------------+
-| > -3  | > There is no file under the requested key                  |
-+-------+-------------------------------------------------------------+
-| > -4  | > The host functions tried to read or write an invalid      |
-|       | > section (determined by an offset and a length) of the     |
-|       | > value stored under a given key                            |
-+-------+-------------------------------------------------------------+
-| > -5  | > Cannot write a value beyond the 2GB size limit            |
-+-------+-------------------------------------------------------------+
-| > -6  | > Invalid memory access (segmentation fault)                |
-+-------+-------------------------------------------------------------+
-| > -7  | > Tried to read from the inbox or write to the outbox more  |
-|       | > than 4,096 bytes                                          |
-+-------+-------------------------------------------------------------+
-| > -8  | > Unknown error due to an invalid access                    |
-+-------+-------------------------------------------------------------+
-| > -9  | > Attempt to modify a readonly value                        |
-+-------+-------------------------------------------------------------+
-| > -10 | > Key has no tree in the storage                            |
-+-------+-------------------------------------------------------------+
-| > -11 | > Outbox is full, no new message can be appended            |
-+-------+-------------------------------------------------------------+
+{% table %}
+* Code 
+* Description
+---
+* ` > -1`
+* Input is too large to be a valid key of the durable storage 
+---
+* ` > -2`
+* Input cannot be parsed as a valid key of the durable storage 
+---
+* ` > -3`
+* There is no file under the requested key  
+---
+* ` > -4`
+* The host functions tried to read or write an invalid section (determined by an offset and a length) of the value stored under a given key 
+---
+* ` > -5`
+* Cannot write a value beyond the 2GB size limit  
+---
+* ` > -6`
+* Invalid memory access (segmentation fault)
+---
+* ` > -7`
+* Tried to read from the inbox or write to the outbox more than 4,096 bytes
+---
+* ` > -8`
+* Unknown error due to an invalid access 
+---
+* ` > -9`
+* Attempt to modify a readonly value  
+---
+* ` > -10`
+* Key has no tree in the storage 
+---
+* ` > -11`
+* Outbox is full, no new message can be appended 
+---
+{% /table %}
 
 ## Implementing a WASM Kernel in Rust
 
-Though WASM is a good fit for efficiently executing
-computation-intensive, arbitrary programs, it is a low-level,
+{% callout type="note" title="Rust Familiarity" %}
+This document is not a tutorial about Rust. Familiarity with the
+language and its ecosystem (in particular, how Rust crates are structured) is assumed.
+{% /callout %}
+
+Though WASM is a good fit for efficiently executing computation-intensive, arbitrary programs, it is a low-level,
 stack-based, memory unsafe language. Fortunately, it was designed to be
 a compilation target, not a language in which developers would directly
 write their programs.
 
 Rust has several advantages that makes it a good candidate for writing
-the kernel of a smart rollup. Not only does the Rust compiler treat WASM
-as a first class citizen when it comes to compilation targets, but its
-approach to memory safety eliminates large classes of bugs and
+the kernel of a smart rollup. Not only does the Rust compiler treat WASM as a first class citizen when it comes to compilation targets, but its approach to memory safety eliminates large classes of bugs and
 vulnerabilities that arbitrary WASM programs may suffer from.
 
 ### Setting-up Rust
@@ -985,25 +916,14 @@ vulnerabilities that arbitrary WASM programs may suffer from.
 `rustup` is installed, enabling WASM as a compilation target is as
 simple as running the following command.
 
-    rustup target add wasm32-unknown-unknown
+``` sh
+rustup target add wasm32-unknown-unknown
+```
 
-Rust also proposes the `wasm64-unknown-unknown` compilation target. This
-target is **not** compatible with Tezos smart rollups, which only
+Rust also proposes the `wasm64-unknown-unknown` compilation target. This target is **not** compatible with Tezos smart rollups, which only
 provides a 32bit address space.
 
-::: note
-::: title
-Note
-:::
-
-This document is not a tutorial about Rust, and familiarity with the
-language and its ecosystem (*e.g.*, how Rust crates are structured in
-particular) is assumed.
-:::
-
-The simplest kernel one can implement in Rust (the one that returns
-directly after being called, without doing anything particular) is the
-following Rust file (by convention named `lib.rs` in Rust).
+The simplest kernel one can implement in Rust (the one that returns directly after being called, without specification) is the following Rust file (by convention named `lib.rs` in Rust).
 
 ``` rust
 #[no_mangle]
@@ -1014,61 +934,62 @@ pub extern "C" fn kernel_run() {
 This code can be easily computed with `cargo` with the following
 `Cargo.toml`.
 
-    [package]
-    name = 'noop'
-    version = '0.1.0'
-    edition = '2021'
+``` toml
+[package]
+name = 'noop'
+version = '0.1.0'
+edition = '2021'
 
-    [lib]
-    crate-type = ["cdylib"]
+[lib]
+crate-type = ["cdylib"]
+```
 
-The key line to spot is the `crate-type` definition to `cdylib`. As a
-side note, when writing a library that will eventually be consumed by a
-Kernel WASM crate, this line must be modified to
+The key line to spot is the `crate-type` definition to `cdylib`. When writing a library that will eventually be consumed by a Kernel WASM crate, this line must be modified to:
 
 ``` toml
 crate-type = ["cdylib", "rlib"]
 ```
 
 Compiling our "noop" kernel is done by calling `cargo` with the correct
-argument.
+argument:
 
-    cargo build --target wasm32-unknown-unknown
+``` sh
+cargo build --target wasm32-unknown-unknown
+```
 
 It is also possible to use the `--release` CLI flag to tell `cargo` to
-optimize the kernel.
+optimize the kernel. To make the use of the `target` optional, it is possible to create a `.cargo/config.toml` file, containing the following line.
 
-To make the use of the `target` optional, it is possible to create a
-`.cargo/config.toml` file, containing the following line.
+``` toml
+[build]
+target = "wasm32-unknown-unknown"
 
-    [build]
-    target = "wasm32-unknown-unknown"
-
-    [rust]
-    lld = true%
+[rust]
+lld = true%
+```
 
 The resulting project looks as follows.
 
-    .
-    ├── .cargo
-    │   └── config.toml
-    ├── Cargo.toml
-    └── src
-        └── lib.rs
+``` sh
+.
+├── .cargo
+│   └── config.toml
+├── Cargo.toml
+└── src
+└── lib.rs
+```
 
-and the kernel can be found in the `target/` directory, *e.g.*,
-`./target/wasm32-unknown-unknown/release/noop.wasm`.
+and the kernel can be found in the `target/` directory `./target/wasm32-unknown-unknown/release/noop.wasm`.
 
 By default, Rust binaries (including WASM binaries) contain a lot of
 debugging information and possibly unused code that we do not want to
-deploy in our rollup. For instance, our "noop" kernel weighs 1.7MBytes.
-We can use [wasm-strip](https://github.com/WebAssembly/wabt) to reduce
-the size of the kernel (down to 115 bytes in our case).
+deploy in our rollup. For instance, our `noop` kernel is 1.7MBytes. We can use [wasm-strip](https://github.com/WebAssembly/wabt) to reduce
+the size of the kernel down to 115 bytes in this case.
 
 ### Host Functions in Rust
 
 The host functions exported by the WASM runtime to Rust programs are
-exposed by the following API. The `link` pragma is used to specify the
+exposed by the API below. The `link` pragma is used to specify the
 module that exports them (in our case, `smart_rollup_core`).
 
 ``` rust
@@ -1204,41 +1125,29 @@ pub fn next_input() -> Option<Input> {
 ```
 
 Coupling `Vec::with_capacity` along with the `set_len` unsafe function
-is a good approach to avoid initializing the 4,096 bytes of memory every
-time you want to load data of arbitrary size into the WASM memory.
+is a good approach to avoid initializing the 4,096 bytes of memory every time you want to load data of arbitrary size into the WASM memory.
 
 ### Testing your Kernel
 
-::: note
-::: title
-Note
-:::
-
+{% callout type="note" title="Smart Rollup WASM Debugger" %}
 `octez-smart-rollup-wasm-debugger` is available in the Octez
-distribution starting with `/releases/version-16`{.interpreted-text
-role="doc"}.
-:::
+distribution starting with `/releases/version-16`.
+{% /callout %}
 
-Testing a kernel without having to start a rollup node on a test network
-is very convenient. We provide a debugger as a means to evaluate the
-WASM PVM without relying on any node and network:
-`octez-smart-rollup-wasm-debugger`.
+
+Testing a kernel without having to start a rollup node on a test network is very convenient. We provide a debugger as a means to evaluate the WASM PVM without relying on any node and network:
 
 ``` sh
 octez-smart-rollup-wasm-debugger "${WASM_FILE}" --inputs "${JSON_INPUTS}" --rollup "${SOR_ADDR}"
 ```
 
-`octez-smart-rollup-wasm-debugger` takes as its argument the WASM kernel
-to be debugged, either a `.wasm` file (the binary representation of
-WebAssembly modules) or as a `.wast` file (its textual representation),
-and actually parses and typechecks the kernel before giving it to the
-PVM.
+`octez-smart-rollup-wasm-debugger` takes as its argument the WASM kernel to be debugged, either a `.wasm` file (the binary representation of WebAssembly modules) or as a `.wast` file (its textual representation) and actually parses and typechecks the kernel before giving it to the PVM.
 
 Beside the kernel file, the debugger can optionally take an input file
 containing inboxes and a rollup address. The expected contents of the
 inboxes is a JSON value, with the following schema:
 
-``` javascript
+``` json
 [
   [ { "payload" : <Michelson data>,
       "sender" : <Contract hash of the originated contract for the rollup, optional>,
@@ -1254,13 +1163,11 @@ inboxes is a JSON value, with the following schema:
 
 The contents of the input file is a JSON array of arrays of inputs,
 which encodes a sequence of inboxes, where an inbox is a set of
-messages. These inboxes are read in the same order as they appear in the
-JSON file. For example, here is a valid input file that defines two
-inboxes: the first array encodes an inbox containing only an external
-message, while the second array encodes an inbox containing two
-messages:
+messages. These inboxes are read in the same order as they appear in the JSON file. 
 
-``` javascript
+For example, here is a valid input file that defines two inboxes: the first array encodes an inbox containing only an external message, while the second array encodes an inbox containing two messages:
+
+``` json
 [
   [
     {
@@ -1281,19 +1188,20 @@ messages:
 ```
 
 Note that the `sender`, `source` and `destination` fields are optional
-and will be given default values by the debugger, respectively
-`KT18amZmM5W7qDWVt2pH6uj7sCEd3kbzLrHT`,
-`tz1Ke2h7sDdakHJQh8WX4Z372du1KChsksyU` and
-`sr163Lv22CdE8QagCwf48PWDTquk6isQwv57`. If no input file is given, the
-inbox will be assumed empty. If the option `--rollup` is given, it
-replaces the default value for the rollup address.
+and will be given default values by the debugger, respectively:
+
+- `KT18amZmM5W7qDWVt2pH6uj7sCEd3kbzLrHT` 
+- `tz1Ke2h7sDdakHJQh8WX4Z372du1KChsksyU` 
+- `sr163Lv22CdE8QagCwf48PWDTquk6isQwv57`
+
+If no input file is given, the inbox will be assumed empty. If the option `--rollup` is given, it replaces the default value for the rollup address.
 
 `octez-smart-rollup-wasm-debugger` is a debugger, as such it waits for
 user inputs to continue its execution. Its initial state is exactly the
 same as right after its origination. Its current state can be inspected
 with the command `show status`:
 
-``` 
+```  sh
 > show status
 Status: Waiting for inputs
 Internal state: Collect
@@ -1302,11 +1210,9 @@ Internal state: Collect
 When started, the kernel is in collection mode internally. This means
 that it is not executing any WASM code, and is waiting for inputs in
 order to proceed. The command `load inputs` will load the first inbox
-from the file given with the option `--inputs`, putting `Start_of_level`
-and `Info_per_level` before these inputs and `End_of_level` after the
-inputs.
+from the file given with the option `--inputs`, putting `Start_of_level` and `Info_per_level` before these inputs and `End_of_level` after the inputs.
 
-``` 
+``` sh 
 > load inputs
 Loaded 3 inputs at level 0
 
@@ -1315,10 +1221,9 @@ Status: Evaluating
 Internal state: Snapshot
 ```
 
-At this point, the internal input buffer can be inspected with the
-command `show inbox`.
+The internal input buffer can be inspected with `show inbox`:
 
-``` 
+``` sh
 > show inbox
 Inbox has 3 messages:
 { raw_level: 0;
@@ -1336,7 +1241,7 @@ The first input of an inbox at the beginning of a level is
 `Start_of_level`, and is represented by the message `\000\001` on the
 kernel side. We can now start a `kernel_run` evaluation:
 
-``` 
+``` sh
 > step kernel_run
 Evaluation took 11000000000 ticks so far
 Status: Waiting for inputs
@@ -1345,32 +1250,29 @@ Internal state: Collect
 
 The memory of the interpreter is flushed between two `kernel_run` calls
 (at the `Snapshot` and `Collect` internal states), however the durable
-storage can be used as a persistent memory. Let\'s assume this kernel
+storage can be used as a persistent memory. Let's assume this kernel
 wrote data at key `/store/key`:
 
-``` 
+``` sh
 > show key /store/key
 `<hexadecimal value of the key>`
 ```
 
 Since the representation of values is decided by the kernel, the
 debugger can only return its raw value. Please note that the command
-`show keys <path>` will return the keys under the given path. This can
-help navigate in the durable storage.
+`show keys <path>` will return the keys for the given path. This can
+help you navigate in the durable storage.
 
-``` 
+``` sh
 > show keys /store
 /key
 /another_key
 ...
 ```
 
-It is also possible to inspect the memory by stopping the PVM before its
-snapshot internal state, with `step result`, and inspect the memory at
-pointer `n` and length `l`, and finally evaluate until the next
-`kernel_run`:
+It is also possible to inspect the memory by stopping the PVM before its snapshot internal state, with `step result`, and inspect the memory at pointer `n` and length `l`, and finally evaluate until the next `kernel_run`:
 
-``` 
+``` sh
 > step result
 Evaluation took 2500 ticks so far
 Status: Evaluating
@@ -1385,25 +1287,23 @@ Status: Evaluating
 Internal state: Snapshot
 ```
 
-Once again, note that values from the memory are output as is, since the
-representation is internal to WASM.
+Once again, note that values from the memory are output as is, since the representation is internal to WASM.
 
 Finally, it is possible to evaluate the whole inbox with `step inbox`.
 It will take care of the possible reboots asked by the kernel (through
 the usage of the `/kernel/env/reboot_flag` flag) and stop at the next
-collection phase.
+collection phase:
 
-``` 
+``` sh
 > step inbox
 Evaluation took 44000000000 ticks
 Status: Waiting for inputs
 Internal state: Collect
 ```
 
-It is also possible to show the outbox for any given level
-(`show outbox at level 0`)
+It is also possible to show the outbox for any given level:
 
-``` 
+``` sh
 > show outbox at level 0
 Outbox has N messages:
 { unparsed_parameters: ..;
@@ -1413,14 +1313,11 @@ Outbox has N messages:
 ```
 
 The reveal channel described previously is available in the debugger,
-either automatically or through specific commands. The debugger can fill
-automatically preimages from files in a specific directory on the disk,
-by default in the `preimage` subdirectory of the working directory. It
-can be configured with the option `--preimage-dir <directory>`. In case
-there is no corresponding file found for the requested preimage, the
-debugger will ask for the hexadecimal value of the preimage:
+either automatically or through specific commands. The debugger can automatically fill preimages from files in a specific directory on the disk, by default in the `preimage` subdirectory of the working directory. It can be configured with the option `--preimage-dir <directory>`. 
 
-``` 
+In case there is no corresponding file found for the requested preimage, the debugger will ask for the hexadecimal value of the preimage:
+
+``` sh
 > step inbox
 Preimage for hash 0000[..] not found.
 > 48656c6c6f207468657265210a
@@ -1428,49 +1325,45 @@ Hello there!
 ...
 ```
 
-Metadata are automatically filled with level `0` as origination level
+Metadata is automatically filled with level `0` as origination level
 and the configured smart rollup address (or the default one).
 
-Note that when stepping tick by tick (using the `step tick` command), it
-is possible to end up in a situation were the evaluation stops on
+Note that when stepping tick by tick (using the `step tick` command), it is possible to end up in a situation were the evaluation stops on
 `Waiting for reveal`. If the expected value is a metadata, the command
 `reveal metadata` will give the default metadata to the kernel. If the
 value expected is the preimage of a given hash, there are two possible
 solutions:
 
--   `reveal preimage` to read the value from the disk. In that case, the
+-   `reveal preimage` - read the value from the disk. In that case, the
     debugger will look for a file of the same name as the expected hash
     in the `preimage` subdirectory.
--   `reveal preimage of <hex encoded value>` can be used to feed a
+-   `reveal preimage of <hex encoded value>` - used to feed a
     custom preimage hash.
 
-# Glossary
+## Glossary
 
-1.  **PVM**: A Proof-generating Virtual Machine is a reference
+-  **PVM**: A Proof-generating Virtual Machine is a reference
     implementation for a device on top of which a smart rollup can be
     executed. This reference implementation is part of the Tezos
     protocol and is the unique source of truth regarding the semantics
     of rollups. The PVM is able to produce proofs enforcing this truth.
     This ability is used during the final step of refutation games.
-2.  **Inbox**: A sequence of messages from the Layer 1 to smart rollups.
+-  **Inbox**: A sequence of messages from layer 1 to smart rollups.
     The contents of the inbox is determined by the consensus of the
     Tezos protocol.
-3.  **Outbox**: A sequence of messages from a smart rollup to the
-    Layer 1. Messages are smart contract calls, potentially containing
+-  **Outbox**: A sequence of messages from a smart rollup to
+    layer 1. Messages are smart contract calls, potentially containing
     tickets. These calls can be triggered only when the related
     commitment is cemented (hence, at least two weeks after the actual
     execution of the operation).
-4.  **Commitment period**: A period of 60 blocks during which all inbox
+-  **Commitment period**: A period of 60 blocks during which all inbox
     messages must be processed by the rollup node state to compute a
     commitment. A commitment must be published for each commitment
     period.
-5.  **Refutation period**: At the end of each commitment period, a
+-  **Refutation period**: At the end of each commitment period, a
     period of two weeks starts to allow any commitment related to this
     commitment period to be challenged.
-6.  **Staker**: An implicit account that has made a deposit on a
+-  **Staker**: An implicit account that has made a deposit on a
     commitment.
-7.  **Refutation game**: A process by which the Tezos protocol solves a
+-  **Refutation game**: A process by which the Tezos protocol solves a
     conflict between two stakers.
-
-[^1]: An accuser node will publish commitments only when it detects
-    conflicts; for such cases it must make a deposit of 10,000 tez.
