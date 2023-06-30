@@ -2,7 +2,7 @@
 id: michocoq
 title: Mi-Cho-Coq
 authors: Frank Hillard
-slug: "/michocoq"
+slug: /michocoq
 ---
 
 
@@ -102,7 +102,6 @@ Fixpoint eval {self_type} {tff} {env} {A : stack_type} {B : stack_type}
 ```
 
 Notice that the evaluator defines actions that must be performed for each type of instruction.
-
 
 > Since evaluating a Michelson instruction might fail (whereas _Coq_ functions cannot), the return type of this evaluator is wrapped in an exception monad (handling errors such as overflow, lexing, parsing, fuel).
 

@@ -1,7 +1,7 @@
 ---
 id: coq
 title: Coq
-slug: "/coq-language"
+slug: /coq-language
 ---
 # The Coq language
 As mentioned on the [Inria website](http://coq.inria.fr), **Coq** is a formal proof management system. It provides a formal language to write mathematical definitions, executable algorithms and theorems together with an environment for semi-interactive development of machine-checked proofs. Typical applications include the certification of properties of programming languages (e.g. the CompCert compiler certification project, the Verified Software Toolchain for verification of C programs, or the Iris framework for concurrent separation logic), the formalization of mathematics (e.g. the full formalization of the Feit-Thompson theorem, or homotopy type theory), and teaching. 
@@ -20,7 +20,7 @@ As mentioned on the [Inria website](http://coq.inria.fr), **Coq** is a formal pr
      | false.
 ```
 
-* Definition of a function that returns the denial of a Boolean[^1]:
+* Definition of a function that returns the denial of a Boolean:
 
 ```coq
 Definition negb (b:bool) : bool :=
@@ -49,9 +49,12 @@ The example above shows that true or false equals true. The first line matches t
 All words between Proof and Qed[^2] are called tactics. These are functions that allow us to make our demonstration step by step.
 All tactics are referenced in the list of [Coq tactics](https://coq.inria.fr/refman/proof-engine/tactics.html#coq%3Atacv.destruct-eqn).
 ​
-
-[^1]: Please note that for some typing reasons, `orb`, `andb` and `negb` do respectively refer to the functions `or`, `and` and `neg` defined on booleans.
-[^2]: QED = quod erat demonstrandum; what was to be shown (in Latin).
+{% callout type="note" title="Note 1" %}
+     Please note that for some typing reasons, `orb`, `andb` and `negb` do respectively refer to the functions `or`, `and` and `neg` defined on booleans.
+{% /callout %}
+{% callout type="note" title="Note 2" %}
+     QED = quod erat demonstrandum; what was to be shown (in Latin).
+{% /callout %}
 
 ## Proof creation using Mi-Cho-Coq
 As **Coq** is a proof software that has its own syntax, the difficulty has been in finding a way to translate the **Michelson** code into **Coq**. 
