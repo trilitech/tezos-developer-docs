@@ -5,16 +5,6 @@ title: "Tezos White Paper"
 hide_title: true
 ---
 
-## Table of Contents
-
-* [Self-Amending Cryptoledger](#self-amending)
-* [Mathematical Representation](#mathematical)
-* [The Network Shell](#network)
-* [Economy](#economy)
-* [Proof-of-Stake Algorithm](#pos)
-* [Smart Contracts](#smart)
-* [Conclusion](#conclusion)
-
 {% callout type="note" title="PDF" %}
 You can find the PDF for the whitepaper [here](https://tezos.com/whitepaper.pdf)
 {% /callout %}

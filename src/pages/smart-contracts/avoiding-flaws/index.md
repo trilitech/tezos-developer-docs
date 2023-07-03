@@ -15,9 +15,9 @@ The goal of this page is to bring you up to speed with a number of common flaws 
 - [7. Using unreliable sources of randomness](#7-using-unreliable-sources-of-randomness)
 - [8. Using computations that cause tez overflows](#8-using-computations-that-cause-tez-overflows)
 - [9. Contract failures due to rounding issues](#9-contract-failures-due-to-rounding-issues)
-- [10. Re-entrancy flaws](#10-re-entrancy-flaws)
+- [10. Reentrancy flaws](#10-reentrancy-flaws)
 - [11. Unsafe use of Oracles](#11-unsafe-use-of-oracles)
-- [12. Forgetting to add an entry point to extract funds](#12-forgetting-to-add-an-entry-point-to-extract-funds)
+- [12. Forgetting to add an entrypoint to extract funds](#12-forgetting-to-add-an-entrypoint-to-extract-funds)
 - [13. Calling upgradable contracts](#13-calling-upgradable-contracts)
 - [14. Misunderstanding the API of a contract](#14-misunderstanding-the-api-of-a-contract)
 
@@ -29,7 +29,7 @@ This is **not** an exhaustive list, so please also **d**o **y**our **o**wn **r**
 
 ### Summary
 
-Using `source` to check who is allowed to call an entry point can be dangerous. Users may be tricked into indirectly calling this entry point and getting it to perform unintended transactions. It is safer to use `sender` for that purpose.
+Using `source` to check who is allowed to call an entrypoint can be dangerous. Users may be tricked into indirectly calling this entrypoint and getting it to perform unintended transactions. It is safer to use `sender` for that purpose.
 
 ### When to use source vs sender
 
@@ -41,7 +41,7 @@ For example, consider the chain of contract calls A → B → C, where a user A 
 
 ### Example of a vulnerable contract
 
-The `CharityFund` contract below has a entry point which can be used to `donate` some tez to `charity`. To make sure only an `admin` can initiate donations, this entry point checks that `admin` is equal to `source`.
+The `CharityFund` contract below has a entrypoint which can be used to `donate` some tez to `charity`. To make sure only an `admin` can initiate donations, this entrypoint checks that `admin` is equal to `source`.
 
 {% table %}
 * **Charity Fund Contract** {% colspan=2 %}
@@ -66,7 +66,7 @@ The `CharityFund` contract below has a entry point which can be used to `donate`
 
 A contract `FakeCharity`  could pose as a reasonable charity willing to accept donations from `CharityFund`. This might not be immediately worrisome as only an admin can initiate donations. However, because the admin is checked against `source` and not `sender`, it is possible to transfer a large donation to the account of the attacker.
 
-The `FakeCharity` contract contains a `default` entry point, that will be called when `CharityFund` makes its donation. Instead of simply accepting the transfer, it initiates a new donation of 1000 tez to the attacker. When `CharityFund` then checks if the call is allowed, it checks the value of `source`, which is indeed the admin, as it was the admin who initiated the first call of in this chain of transactions.
+The `FakeCharity` contract contains a `default` entrypoint, that will be called when `CharityFund` makes its donation. Instead of simply accepting the transfer, it initiates a new donation of 1000 tez to the attacker. When `CharityFund` then checks if the call is allowed, it checks the value of `source`, which is indeed the admin, as it was the admin who initiated the first call of in this chain of transactions.
 
 {% table %}
 * **FakeCharity Attack Contract** {% colspan=2 %}
@@ -84,7 +84,7 @@ The `FakeCharity` contract contains a `default` entry point, that will be called
   {% /list %}
 {% /table %}
 
-### Best Practices
+### Best practices
 
 The best way to prevent this type of attack is simply to, depending on your use case, use `sender` (or `caller` in some languages) where possible instead of `source`.
 
@@ -125,7 +125,7 @@ Take the following (partial) contract, that allows users to purchase NFTs, and s
 
 The holder of the NFT could be a contract in which case, `buy(tokenID)` may fail if the contract decides to prevent future sales of NFTs
 
-### Best Practices
+### Best practices
 
 
 A possibility would be to only allow to transfer tez to implicit accounts (disallow smart contract addresses) as implicit accounts never reject transfers of tez. This is possible but limits the usage of the contract and prevents the use of multi-sigs or DAOs purchasing NFTs.
@@ -199,14 +199,14 @@ Take for example this `TimeLock` smart contract. It allows donors to lock some f
   {% /list %}
 {% /table %}
 
-A possible attack would be to call the `lockAmount` entry point with 0 tez many times, adding a large number of entries to the `lockedAmount` list. When the contract tries to iterate through the entries, this would consume too much gas causing the transaction to fail. Effectively, all funds would now be locked into the contract. Even simply loading the list into memory and deserializing the data, at the beginning of the call, could use so much gas that any call to the contract would fail.
+A possible attack would be to call the `lockAmount` entrypoint with 0 tez many times, adding a large number of entries to the `lockedAmount` list. When the contract tries to iterate through the entries, this would consume too much gas causing the transaction to fail. Effectively, all funds would now be locked into the contract. Even simply loading the list into memory and deserializing the data, at the beginning of the call, could use so much gas that any call to the contract would fail.
 
 The same attack could happen with any kind of data that can grow indefinitely, including:
 - `int` and `nat` as they can be increased to an arbitrary large value
 - `string` as there is no limit on string length
 - `list`, `set`, `map` which all can contain an arbitrary number of items
 
-### Best Practices
+### Best practices
 
 Here are some possible ways to avoid this issue:
 
@@ -343,23 +343,23 @@ See if can you spot the flaw in this version of an NFT Auction contract:
 
 Did you spot the issue? 
 
-The `claimNFT` entry point only allows the `topBidder` to call it. If this user never calls the entry point, the amount they paid is stuck and therefore the seller never receives the funds. As such, the NFT also stays stuck in the contract. This is a pure loss for the seller.
+The `claimNFT` entrypoint only allows the `topBidder` to call it. If this user never calls the entrypoint, the amount they paid is stuck and therefore the seller never receives the funds. As such, the NFT also stays stuck in the contract. This is a pure loss for the seller.
 
 The top bidder has a strong incentive to call `claimNFT`, as they have already paid for the NFT and benefit from the call by getting the NFT they paid for. However, they may have lost access to their private keys, or simply forgot about the auction. Worse, as they have full control on whether the seller gets the funds or not, they could use this as leverage on the seller, to try to extort some extra funds from them.
 
-Furthermore, requiring for the seller themselves to call the entry point instead of the `topBidder` would lead to a similar issue.
+Furthermore, requiring for the seller themselves to call the entrypoint instead of the `topBidder` would lead to a similar issue.
 
-In this case, the solution is simply to allow anyone to call the entry point, and make sure the token is transferred to `topBidder`, no matter who the caller is. There is no need to have any restriction on who may call this entry point.
+In this case, the solution is simply to allow anyone to call the entrypoint, and make sure the token is transferred to `topBidder`, no matter who the caller is. There is no need to have any restriction on who may call this entrypoint.
 
-### Best Practices
+### Best practices
 
-When reviewing a contract, go through every entry point and ask: **"What if someone doesn't call it?"**
+When reviewing a contract, go through every entrypoint and ask: **"What if someone doesn't call it?"**
 
 If something unintended could happen, consider these approaches to reduce the risk:
 
-- Make it so that other people can call the entry point, either by letting anyone call it, if this is safe, or by having the caller be a multi-sig contract, where only a subset of the people behind that multi-sig need to be available for the call to be made.
+- Make it so that other people can call the entrypoint, either by letting anyone call it, if this is safe, or by having the caller be a multi-sig contract, where only a subset of the people behind that multi-sig need to be available for the call to be made.
 
-- Add financial incentives, with a deposit from the entity supposed to call the entry point, that they get back when they make the call. This reduces the risk that they simply decide not to call it, or forget to do so.
+- Add financial incentives, with a deposit from the entity supposed to call the entrypoint, that they get back when they make the call. This reduces the risk that they simply decide not to call it, or forget to do so.
 
 - Add a deadline that allows the other parties to get out of the deal, if one party doesn't do their part in time. Be careful, as in some cases, giving people a way to get out of the deal may make the situation more complex.
 
@@ -400,7 +400,7 @@ Bob could steal tokens from Alice in two different ways:
 - Bob could call the contract several times with the same message, causing multiple transfers of 100 tokens from Alice to him.
 - Bob may send the same message to another similar contract, and steal 100 of Alice's tokens from that contract.
 
-### Best Practices
+### Best practices
 
 To make sure the message is meant for this contract, simply include the address of the contract in the signed message.
 
@@ -536,7 +536,7 @@ A lot of these attacks take place in the field of DeFi (Decentralized Finance), 
 
 More complex schemes that manipulate the order of transactions to maximize profits can be designed, all at cos to legitimate uses.
 
-### Best Practices
+### Best practices
 
 Preventing this type of attack is not easy, but part of the solution, is to use a **commit and reveal** scheme.
 
@@ -619,7 +619,7 @@ Generating a random value during a contract call, for example for selecting the 
 
 Remember that an attacker only needs the ability to pick between two possible outcomes, or to predict which one is more likely, to significantly increase their chance of getting an outcome that benefits them.
 
-### Best Practices
+### Best practices
 
 The best practice is to avoid having to rely on a source of randomness if you can. This avoids issues of reliability of the randomness source (which may stop working in the future), predictability of the outcome, or even control of the outcome by one party, such as a block producer.
 
@@ -631,342 +631,266 @@ If you really need a source of randomness, the two following approaches may be u
 
 ## 8. Using computations that cause tez overflows
 
-### Summary
+At the time of writing, tez values are stored as signed 64 bits. Overflows or underflows are not possible on Tezos, as all basic operations will generate an error if the result exceeds the range of acceptable values. Nevertheless, you still need to be aware of causing these errors as these failures may prevent your contract from working as intended, or even locking funds in your contract.
 
-> At the time of writing, tez values are stored as signed 64 bits. Overflows or underflows are not possible on Tezos, as all the basic operations will generate an error (failure) if the result would exceed the range of acceptable values. However, this doesn't mean you never need to worry about them, as these failures may prevent your contract from working and funds may end up being locked in the contract.
-
-### Example of failure
+### Example of failure mode
 
 Let's say you use this formula as part of some computation:
 
-$tzRes = \sqrt{\dfrac{tzA^2 + tzB^2}{2}}$
+{% math %}
+tzRes = \sqrt{\dfrac{tzA^2 + tzB^2}{2}}
+{% /math %}
 
-Now suppose that $tzA$ and $tzB$ are both 5000 tez. More precisely, 5,000,000,000 Mutez.
+Now suppose that {% math inline=true %} tzA {% /math %} and {% math inline=true %} tzB {% /math %} are both 5000 tez. More precisely, 5,000,000,000 mutez.
 
-$tzA^2$ is worth $25*10^{18}$ Mutez, which is more than the largest value that can be stored in a 64 bits signed value, about $9.223*10^{18}$ Mutez (precisely $2^{63} - 1$).
+{% math inline=true %} tzA^2 {% /math %} is worth {% math inline=true %} 25 \cdot {10^{18}} {% /math %} mutez which larger than the maximum amount that can be stored in a 64 bits signed value, about {% math inline=true %} 9.223 \cdot {10^{18}} {% /math %} mutez (precisely {% math inline=true %} 2^{63} - 1 {% /math %}).
 
 This computation, if done using the tez type, will therefore fail, even though the final result, 5000 tez, easily fits within a 64 bit signed integer.
 
-The protection against overflows will prevent the transfer of an incorrect value, but will do so by preventing the call from being done entirely, which in itself could cause a major issue, such as locking the contract, with large sums of tez stuck forever.
+Overflow protection will prevent the transfer of an incorrect value by entirely preventing the call. This could be a major issue as this could effectively lock the contract with its tez balance stuck forever.
 
-### Best practice
+### Best practices
 
-The main recommendation is to be very careful when doing computations with the Tez type, and double check that any intermediate  values may never cause an overflow or underflow.
+The main recommendation is to be very careful when doing computations with the Tez type, and double check that any intermediate values can never cause an overflow or underflow.
 
-A good way to avoid such issues is to use int or nat as the type for storing these intermediate computations, as these types can hold arbitrary large values.
-
+A good way to avoid such issues is to use the `int` or `nat` types for storing these intermediate computations since these types can hold arbitrarily large values.
 
 ## 9. Contract failures due to rounding issues
 
-### Summary
-
-> As a contract call will simply fail if it tries to transfer even slightly more than its own balance, it is very important to make sure that when splitting the balance into multiple amounts sent to several people, the total can never exceed the balance, even by a single microtez, due to a rounding issue. More generally, the rounding caused by performing integer divisions can be dangerous if not done carefully.
+A contract call will fail if it tries to transfer more than its own balance. Therefore, it is very important to make sure that when splitting the balance into multiple amounts sent to several people, the total can never exceed the balance, even by a single microtez. More generally, the rounding caused by performing integer divisions can be dangerous if not done carefully.
 
 ### Example of flaw
 
-The following contract will fail whenever the balance is not a multiple of 4 Mutez:
+The following contract will fail whenever the balance is not a multiple of 4 mutez:
 
-<table>
-<tr><td colspan="2"><strong>Distribution</strong></td></tr>
-<tr><td><strong>Storage</strong></td><td><strong>Entry points effects</strong></td></tr>
-<tr><td>
-	<ul>
-		<li>userA: address</li>
-		<li>userB: address</li>
-	</ul>
-</td>
-<td>
-	<ul>
-		<li>distribute()
-			<ul>
-				<li>quarter, remainder = ediv(balance , 4)</li>
-				<li>transfer balance - quarter to userA</li>
-				<li>transfer balance - 3*quarter to userB</li>
-			</ul>
-		</li>
-	</ul>
-</td>
-</tr>
-</table>
+{% table %}
+* **Distribution** {% colspan=2 %}
+---
+* **Storage**
+* **Entrypoint Effects**
+---
+* {% list type="checkmark" %}
+  * `userA`: `address`
+  * `userB`: `address`
+  {% /list %}
+* {% list type="checkmark" %}
+  * `distribute()`
+	  * `quarter, remainder = ediv(balance, 4)`
+	  * Transfer `balance - quarter` to `userA`
+	  * Transfer `balance - 3*quarter` to `userB`
+  {% /list %}
+{% /table %}
 
-Indeed, let's say the current balance is 101 mutez.
+Let's walk through this contract when it has a balance of 101 mutez: `ediv(balance, 4)` returns a pair with the result of the integer division of balance by 4, and the remainder of this division. With a balance of 101 mutez, quarter will be 25 mutez
 
-ediv(balance, 4) returns a pair with the result of the integer division of balance by 4, and the remainder of this division.
+- The amount transferred to `userA` will be `101 - 25 = 76` mutez
+- The amount transferred to `userB` will be `101 - 3*25 = 26` mutez
 
-With a balance of 101 mutez, quarter will be 25 mutez
+Therefore, the total amount is `76 + 26 = 102` which is more than the current balance of the contract; the call will fail.
 
-The amount transferred to userA will be 101 - 25 = 76 mutez
-The amount transferred to userB will be 101 - 3*25 = 26 mutez
-
-The total amount the contract attempts to transfer is 102 mutez, which is more than the balance. The call will fail.
-
-### Best practice
+### Best practices
 
 When transferring a portion of the balance of a contract, try to do your computations based on what remains in the balance after the previous transfers:
 
-Here is one way to write the contract in a safer way:
+{% table %}
+* **Distribution (fixed)** {% colspan=2 %}
+---
+* **Storage**
+* **Entrypoint Effects**
+---
+* {% list type="checkmark" %}
+  * `userA`: `address`
+  * `userB`: `address`
+  {% /list %}
+* {% list type="checkmark" %}
+  * `distribute()`
+	  * `quarter, remainder = ediv(balance, 4)`
+	  * `amountUserA = balance - quarter`
+	  * Transfer `amountUserA` to `userA`
+	  * `remainder = balance - amountUserA`
+	  * Transfer `remainder` to `userB`
+  {% /list %}
+{% /table %}
 
-<table>
-<tr><td colspan="2"><strong>Distribution (fixed)</strong></td></tr>
-<tr><td><strong>Storage</strong></td><td><strong>Entry points effects</strong></td></tr>
-<tr><td>
-	<ul>
-		<li>userA: address</li>
-		<li>userB: address</li>
-	</ul>
-</td>
-<td>
-	<ul>
-		<li>distribute()
-			<ul>
-				<li>quarter, remainder = ediv(balance , 4)</li>
-				<li>amountUserA = balance - quarter to userA</li>
-				<li>transfer amountUserA to userA</li>
-				<li>remainder = balance - amountUserA</li>
-				<li>transfer remainder to userB</li>
-			</ul>
-		</li>
-	</ul>
-</td>
-</tr>
-</table>
+Whenever you carry out division, be very careful to think about about any impact that the incurred rounding may have.
 
-Whenever you perform divisions, be very careful about the impact that the incurred rounding may cause.
+## 10. Reentrancy flaws
 
-## 10. Re-entrancy flaws
-
-### Summary
-
-> A re-entrancy attack was the cause of the infamous DAO hack that took place on Ehtereum in June 2016, and eventually lead to the fork of Ethereum into Ethereum and Ethereum Classic. Tezos has been designed in a way that makes re-entrancy bugs less likely, but they are still possible. They happen when the attacked contract calls another contract, that may in turn call the attacked contract in a way that breaks assumptions made by its internal logic.
+A reentrancy attack was the cause of the infamous DAO hack that took place on Ethereum in June 2016 eventually leading to the fork of Ethereum into Ethereum and Ethereum Classic. Tezos has been designed in a way that makes reentrancy bugs less likely, but they are still possible. They can happen when the attacked contract calls another contract, that may in turn call the attacked contract itself in a way that breaks some assumptions made by its internal logic.
 
 ### Example of flawed contracts
 
-The two contracts below manage unique tokens identified by IDs. The first contract is a simple ledger that keeps track of who owns each token. The second contract is in charge of purchasing tokens at predifined prices.
+The two contracts below manage unique tokens identified by IDs. The first contract is a simple ledger that keeps track of who owns each token. The second contract is in charge of purchasing tokens at predefined prices. See if you can spot how to steal funds from them:
 
-**Question:** can you figure out how to steal funds from them?
+{% table %}
+* **Ledger** {% colspan=2 %}
+---
+* **Storage**
+* **Entrypoint Effects**
+---
+* {% list type="checkmark" %}
+  * `adminContract`: `contract`
+  * `tokens`: `big-map`
+	* Key:
+		* `tokenID`: `int`
+	* Value:
+		* `owner`: `address`
+  {% /list %}
+* {% list type="checkmark" %}
+  * `view getTokenOwner(tokenID)`
+	  * Return `tokens[tokenID].owner`
+  * `changeOwner(tokenID, newOwner)`
+	  * Check that `caller` = `adminContract`
+	  * Set `tokens[tokenID].owner` to `newOwner`
+  {% /list %}
+{% /table %}
 
-<table>
-<tr><td colspan="2"><strong>Ledger</strong></td></tr>
-<tr><td><strong>Storage</strong></td><td><strong>Entry points effects</strong></td></tr>
-<tr><td>
-	<ul>
-		<li>adminContract: contract</li>
-		<li>tokens: big-map<br/>
-		Key:
-			<ul>
-			<li>tokenID: int</li>
-			</ul>
-		Value:
-			<ul>
-			<li>owner: address</li>
-			</ul>
-		</li>
-	</ul>
-</td>
-<td>
-	<ul>
-		<li>view getTokenOwner(tokenID)
-			<ul>
-				<li>return tokens[tokenID].owner</li>
-			</ul>
-		</li><br/>
-		<li>changeOwner(tokenID, newOwner)
-			<ul>
-				<li>check that caller = adminContract</li>
-				<li>set tokens[tokenID].owner to newOwner</li>
-			</ul>
-		</li>
-	</ul>
-</td>
-</tr>
-</table>
-
-<table>
-<tr><td colspan="2"><strong>Purchaser</strong></td></tr>
-<tr><td><strong>Storage</strong></td><td><strong>Entry points effects</strong></td></tr>
-<tr><td>
-	<ul>
-		<li>ledgerContract: contract</li>
-		<li>purchasePrices: big-map<br/>
-		Key:
-			<ul>
-			<li>tokenID: int</li>
-			</ul>
-		Value:
-			<ul>
-			<li>price: tez</li>
-			</ul>
-		</li>
-	</ul>
-</td>
-<td>
-	<ul>
-		<li>offerToken(tokenID)
-			<ul>
-				<li>Check that caller = ledgerContract.getTokenOwner(tokenID)</li>
-				<li>Create transfer of purchasePrices[tokenID].price tez to caller</li>
-				<li>Create call to tokenContract.changeOwner(tokenID, self)</li>
-			</ul>
-		</li>
-	</ul>
-</td>
-</tr>
-</table>
+{% table %}
+* **Purchaser** {% colspan=2 %}
+---
+* **Storage**
+* **Entrypoint Effects**
+---
+* {% list type="checkmark" %}
+  * `ledgerContract`: `contract`
+  * `purchasePrices`: `big-map`
+	* Key:
+		* `tokenID`: `int`
+	* Value:
+		* `price`: `tez`
+  {% /list %}
+* {% list type="checkmark" %}
+  * `offerToken(tokenID)`
+	  * Check that `caller` = `ledgerContract.getTokenOwner(tokenID)`
+	  * Create transfer of `purchasePrices[tokenID].price` to `caller`
+	  * Create call to `tokenContract.changeOwner(tokenID, self)`
+  {% /list %}
+{% /table %}
 
 ### Example of attack
 
-Here is how a contract could use re-entrancy to steal some funds from the purchaser contract.
+Here is how a contract could use reentrancy to steal some funds from the purchaser contract:
 
-<table>
-<tr><td colspan="2"><strong>Attack</strong></td></tr>
-<tr><td><strong>Storage</strong></td><td><strong>Entry points effects</strong></td></tr>
-<tr><td>
-	<ul>
-		<li>nbCalls: nat</li>
-		<li>tokenID: nat</li>
-		
-	</ul>
-</td>
-<td>
-	<ul>
-		<li>attack(purchaserContract, tokenID)
-			<ul>
-				<li>set nbCalls = 2</li>
-				<li>set storage.tokenID = tokenID</li>
-				<li>Create call to purchaserContract.offerToken(tokenID)</li>
-			</ul>
-		</li><br/>
-		<li>default()
-			<ul>
-				<li>decrement nbCalls</li>
-				<li>if nbCalls &gt; 0
-				<ul>
-					<li>Create call to caller.offerToken(tokenID)</li>
-				</ul>
-				</li>
-			</ul>
-		</li>
-	</ul>
-</td>
-</tr>
-</table>
+{% table %}
+* **Reentrancy Attack Contract** {% colspan=2 %}
+---
+* **Storage**
+* **Entrypoint Effects**
+---
+* {% list type="checkmark" %}
+  * `nbCalls`: `nat`
+  * `tokenID`: `nat`
+  {% /list %}
+* {% list type="checkmark" %}
+  * `attack(purchaserContract, tokenID)`
+	* Set `nbCalls = 2`
+	* Set `storage.tokenID = tokenID`
+	* Create call to `purchaserContract.offerToken(tokenID)`
+  * `default()`
+	* Decrement `nbCalls`
+	* If `nbCalls > 0`:
+		* Create call to `caller.offerToken(tokenID)`
+  {% /list %}
+{% /table %}
 
 Let's assume that:
 - the attacker contract owns the token with ID 42
-- the purchaser contract lists a price of 100 tez for it
-- someone calls attackContract.attack(purchaserContract, 42)
+- the purchaser contract lists a price of 100 tez for token 42
+- someone calls `attackContract.attack(purchaserContract, 42)`
 
 Here is the succession of steps that will take place:
 
-- attackContract.attack(purchaserContract, 42)
-	- it creates a call to purchaserContract.offerToken(tokenID)
-- purchaserContract.offerToken(42) is executed
-	- it checks that the caller is the owner
-	- it creates a transfer of purchasePrices[42].price to attackContract (the caller)
-	- it creates a call to ledgerContract.changeOwner(42, self)
-- attackContract.default() is executed
-	- it decrements nbCalls to 1
-	- it creates a call to purchaserContract.offerToken(42)
-- **100 tez are transferred from purchaserContract to attackContract**
-- purchaserContract.offerToken(42) is executed
-	- it checks that the caller is the owner (it still is)
-	- it creates a transfer of purchasePrices[42].price to attackContract (the caller)
-	- it creates a call to ledgerContract.changeOwner(42, self)
-- attackContract.default() is executed
-	- it decrements nbCalls to 0
+- `attackContract.attack(purchaserContract, 42)`
+	- it creates a call to `purchaserContract.offerToken(tokenID)`
+- `purchaserContract.offerToken(42)` is executed
+	- it checks that the `caller` is the owner
+	- it creates a transfer of `purchasePrices[42].price` to `attackContract` (the `caller`)
+	- it creates a call to `ledgerContract.changeOwner(42, self)`
+- `attackContract.default()` is executed
+	- it decrements `nbCalls` to 1
+	- it creates a call to `purchaserContract.offerToken(42)`
+- 100 tez is transferred from `purchaserContract` to `attackContract`
+- `purchaserContract.offerToken(42)` is executed
+	- it checks that `caller` is the owner
+	- it creates a transfer of `purchasePrices[42].price` to `attackContract` (`caller`)
+	- it creates a call to `ledgerContract.changeOwner(42, self)`
+- `attackContract.default()` is executed
+	- it decrements `nbCalls` to 0
 	- it doesn't do anything else
-- **100 tez are transferred from purchaserContract to attackContract**
-- ledgerContract.changeOwner(42, purchaserContract) is executed
-	- it sets tokens[42].owner to purchaserContract
-- ledgerContract.changeOwner(42, purchaserContract) is executed
-	- it sets tokens[42].owner to purchaserContract
+- 100 tez are transferred from `purchaserContract` to `attackContract`
+- `ledgerContract.changeOwner(42, purchaserContract)` is executed
+	- it sets `tokens[42].owner` to `purchaserContract`
+- `ledgerContract.changeOwner(42, purchaserContract)` is executed
+	- it sets `tokens[42].owner` to `purchaserContract`
 	
-In the end, the attacker contract received 200 tez for a token that was priced at 100 tez, so it stole 100 tez from the purchaser contract. If we had initially set nbCalls to 10, and assuming there were enough funds in the balance of the purchaserContract, 10 calls would have been made, and it would have received 1000 tez for its token, stealing 900 tez.
+In the end, the attacker contract has received 200 tez for a token that was priced at 100 tez, so it stole 100 tez from the purchaser contract. If we had initially set `nbCalls` to 10, and assuming there were enough funds in the balance of the `purchaserContract`, 10 calls would have been made, and it would have received 1000 tez for its token, stealing 900 tez.
 
-What makes this flaw possible and hard to detect is that a new call to the purchase contract can be initiated in the middle of the execution of its different steps, interferring with the business logic that otherwise seems very sound:
+What makes this flaw possible and hard to detect is that a new call to the purchase contract can be initiated in the middle of execution interfering with the business logic that otherwise seems sound:
 - send tez to the seller
 - take ownership of the token
 
-What really happens is:
+In practice, this happens:
 - send tez to the seller
 - seller does all kinds of things, including trying to sell its token a second time
 - take ownership of the token
 
+### Best practices
 
+There are two methods to avoid reentrancy flaws.
 
-### Best practice
+#### 1. Order the steps in a safe way
 
-There are two methods to avoid re-entrancy flaws.
+The idea is to start with steps that prevents future similar calls. In our example, reentrancy is avoided if we simply changed the order of these two instructions:
 
-#### 1. Order the steps in a safe way.
+- create transfer of `purchasePrices[tokenID].price` to `caller`
+- create call to `tokenContract.changeOwner(tokenID, self)`
 
-The idea is to start with the steps that prevents future similar calls.
+to:
 
-In our example, the flaw would have been avoided, if we simply changed the order of these two instructions:
+- create call to `tokenContract.changeOwner(tokenID, self)`
+- create transfer of `purchasePrices[tokenID].price` to `caller`
 
-- create transfer of purchasePrices[tokenID].price to caller
-- create call to tokenContract.changeOwner(tokenID, self)
+This approach can work, however please note that as contracts become more complex, it can become very difficult to make sure all possible cases are covered.
 
-Into:
+#### 2. Use a flag to prevent any reentrancy
 
-- create call to tokenContract.changeOwner(tokenID, self)
-- create transfer of purchasePrices[tokenID].price to caller
+This approach is more to the point and very safe: put a `Boolean` flag `isRunning` in the storage, that will be set to true while the contract is being used.
 
-This approach can work, but as contracts become more complex, it can become **really hard** to make sure all cases are covered.
-
-#### 2. Use a flag to prevent any re-entrancy
-
-This approach is more radical and very safe: put a boolean flag "isRunning" in the storage, that will be set to true while the contract is being used.
-
-The code of the entry point should have this structure:
-- check that isRunning is false
-- set isRunning to true
-- perform all the logic, including creating calls to other contracts
-- create a call to an entry point that sets isRunning to false
+The code of the entrypoint should have this structure:
+- check that `isRunning` is `False`
+- set `isRunning` to `True`
+- carry out required logic, including creating calls to other contracts
+- create a call to an entrypoint that sets `isRunning` to `False`
 
 Here is the new version of the contract, using both fixes:
 
-<table>
-<tr><td colspan="2"><strong>Purchaser contract</strong></td></tr>
-<tr><td><strong>Storage</strong></td><td><strong>Entry points effects</strong></td></tr>
-<tr><td>
-	<ul>
-		<li>isRunning: bookean</li>
-		<li>ledgerContract: contract</li>
-		<li>purchasePrices: big-map<br/>
-		Key:
-			<ul>
-			<li>tokenID: int</li>
-			</ul>
-		Value:
-			<ul>
-			<li>price: tez</li>
-			</ul>
-		</li>
-	</ul>
-</td>
-<td>
-	<ul>
-		<li>offerToken(tokenID)
-			<ul>
-				<li>check that isRunning is false</li>
-				<li>set isRunning to true</li>
-				<li>check that caller = ledgerContract.getTokenOwner(tokenID)</li>
-				<li>create call to tokenContract.changeOwner(tokenID, self)</li>
-				<li>create transfer of purchasePrices[tokenID].price to caller</li>
-				<li>create call to self.stopRunning()</li>
-			</ul>
-		</li><br/>
-		<li>stopRunning()
-			<ul>
-				<li>check that caller is self</li>
-				<li>set isRunning to false</li>
-			</ul>
-		</li>
-	</ul>
-</td>
-</tr>
-</table>
+{% table %}
+* **Purchaser Contract (fixed)** {% colspan=2 %}
+---
+* **Storage**
+* **Entrypoint Effects**
+---
+* {% list type="checkmark" %}
+  * `ledgerContract`: `contract`
+  * `purchasePrices`: `big-map`
+	* Key:
+		* `tokenID`: `int`
+	* Value:
+		* `price`: `tez`
+  {% /list %}
+* {% list type="checkmark" %}
+  * `offerToken(tokenID)`
+	  * Check that `isRunning` is `False`
+	  * Set `isRunning` is `True`
+	  * Check that `caller` = `ledgerContract.getTokenOwner(tokenID)`
+	  * Create call to `tokenContract.changeOwner(tokenID, self)`
+	  * Create transfer of `purchasePrices[tokenID].price` to `caller`
+	  * Create call to `self.stopRunning()`
+  * `stopRunning()`
+	  * Check that `caller` is `self`
+	  * Set `isRunning` is `False`
+  {% /list %}
+{% /table %}
 
 
 ## 11. Unsafe use of oracles
@@ -992,7 +916,7 @@ If the off-chain service is controlled by a single entity that just sends the re
 
 Good decentralized oracles include systems that prevent single entities from stopping the oracle or manipulating the information it sends.
 
-**Best pracice**: only use oracles that are decentralized, in such a way that no single entity, or even no small group of colluding entities, may stop the oracle from working, or provide manipulated information.
+**Best practice**: only use oracles that are decentralized, in such a way that no single entity, or even no small group of colluding entities, may stop the oracle from working, or provide manipulated information.
 
 ### Danger 2: not checking the freshness of information
 
@@ -1021,7 +945,7 @@ Good online oracles never simply return the current value obtained from a single
 **Best practice**: if you need to make decisions based on the price of tokens from a DEX, make sure you always get the prices through a good online oracle that uses this type of measures.
 
 
-## 12. Forgetting to add an entry point to extract funds
+## 12. Forgetting to add an entrypoint to extract funds
 
 ### Summary
 
@@ -1074,7 +998,7 @@ Here is a flash loan contract. Can you find the flaw?
 
 This flash loan contract may accumulate interests for years, with the owner happily watching the balance increase on a regular basis... One day, as this owner decides to retire, they will realize that they have no way to withdraw not only the profits, but also the initial funds.
 
-### Best practice
+### Best practices
 
 Always verify that you have some way to extract the benefits earned by your smart contract. Ideally, make sure you do so using a multi-sig contract, so that you have a backup system in case you lose access to your private keys.
 
@@ -1095,7 +1019,7 @@ There are two main ways to make a contract upgradable:
 - put part of the logic in a piece of code (a lambda), in the storage of the contract
 - put part of the logic in a separate contract, whose address is in the storage of the main contract
 
-In either case, provide an entry point that the admin may call, to change these values, and therefore change the behavior of the contract.
+In either case, provide an entrypoint that the admin may call, to change these values, and therefore change the behavior of the contract.
 
 ### Example of attack
 
@@ -1105,7 +1029,7 @@ Then one day, all the funds disappear from your contract. As often, your contrac
 
 You then realize that the owner of the DEX has gone rogue, and decided to upgrade its contract, in a way that the DEX collects tokens but never sends any back in exchange.
 
-### Best practice
+### Best practices
 
 Before you use a contract, directly or as part of your own contract, make sure this contract can't be upgraded in a way that breaks the key aspects that you rely on.
 
@@ -1117,6 +1041,6 @@ If the contract you want to use is upgradable, make sure the upgrade system foll
 
 > There are many contracts that provide a similar, common service: DEXes, Oracles, Escrows, Marketplaces, Tokens, Auctions, DAOs, etc. As you get familiar with these different types of contracts, you start automatically making assumptions about how they behave. This may lead you to take shortcuts when interacting with a new contract, read the documentation and the contract a bit too fast, and miss a key difference between this contract and the similar ones you have used in the past. This can have very unfortunate consequences.
 
-### Best Practices
+### Best practices
 
 Never make any assumptions about a contract you need to use, based on your previous experience with similar contracts. Always check their documentation and code very carefully, before you use it.
