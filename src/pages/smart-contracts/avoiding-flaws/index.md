@@ -895,152 +895,132 @@ Here is the new version of the contract, using both fixes:
 
 ## 11. Unsafe use of oracles
 
-### Summary
+Oracles provide a way for smart contracts to obtain information about the rest of the world, such as exchange rates, or outcomes of sports events or elections. They rely on services that are hosted off-chain, and so they don't benefit from the same safety and trust measures provided by the blockchain. When using oracles, you should be aware that they with their own risks: some oracles can be manipulated by single entities or a small number of colluding entities, or they can simply stop working and/or provide obsolete information. Some types of oracles, such as online price oracles, may be manipulated by contracts to provide incorrect information. Every time an oracle returns inaccurate information, it creates an opportunity for attackers to take advantage of the situation and steal funds.
 
-> Oracles provide a way for smart contracts to obtain information about the rest of the world, such as exchange rates, outcomes of games or elections. As they usually rely on services that are hosted off-chain, they don't benefit from the same safety measures and trustless features provided by the blockchain. Using them comes with its own flaws, from using oracles that provide information that can be manipulated by single entities or a small number of colluding entities, to oracles that simply stop working and provide obsolete information. Some types of oracles, such as online price oracles, may be manipulated by contracts to provide incorrect information. Every time an oracle returns inaccurate information, it creates an opportunity for attackers to take advantage of the situtation and steal funds.
-
-### Reminder about oracles
+### How oracles work
 
 A typical oracle is composed of two parts:
-- an off-chain service that collects information from one or more sources
+- an off-chain service which collects information from one or more sources
 - an oracle smart contract, that receives this information, as well as requests from other contracts (in the case of on-demand oracles)
 
 The off-chain service tracks the requests made to the smart contract, fetches the information, and calls the oracle contract with this information, so that it can store it and provide it to other contracts, usually for a fee.
 
-### Danger 1: using a centralized oracle
+### Using a centralised oracle
 
-If the off-chain service is controlled by a single entity that just sends the requested information without any way to verify its origin and validity, anyone who uses this oracle is at risk for multiple reasons:
+If the off-chain service is controlled by a single entity which sends the requested information without any way to verify its origin and validity, anyone who uses this oracle is at risk for multiple reasons:
 
-- **reliability issue**: if that single entity simply stops providing that service, every contract that relies on it simply stops working.
-- **accuracy issue**: the single entity may suddently decide to provide false information, causing all contracts that rely on this information to make bad decisions. The entity may then take advantage of these bad decisions.
+- **reliability**: if the single entity stops providing that service, every contract, which relies on it, stops working.
+- **accuracy**: the single entity may suddenly decide to provide false information, causing downstream contracts to make decisions based on false information. The entity can therefore take advantage of these bad decisions.
 
-Good decentralized oracles include systems that prevent single entities from stopping the oracle or manipulating the information it sends.
+Good decentralized oracles include systems that prevent single entities from stopping the oracle or manipulating the information it sends. 
 
-**Best practice**: only use oracles that are decentralized, in such a way that no single entity, or even no small group of colluding entities, may stop the oracle from working, or provide manipulated information.
+### Not checking information recency
 
-### Danger 2: not checking the freshness of information
-
-Oracles often provide information that may change over time, such as the exchange rate between two currencies. Information that is perfectly valid at one point, become obsolete and incorrect just a few minutes later.
+Oracles often provide information that may change over time, such as the exchange rate between two currencies. Information that is perfectly valid at one point, can become obsolete and incorrect a few minutes later.
 
 Good oracles always attach a timestamp to the information they provide. If for some technical reason, the off-chain part of the oracle is unable to send updated information to the oracle smart contract, then the stored information may get old. This could be caused by network congestion, or blocks getting full and bakers not including the oracle's transactions.
 
-**Best practice**: make sure your contract always checks that the timestamp attached to information provided by oracles is recent.
+### Using on-chain oracles that can be manipulated
 
-### Danger 3: using on-chain oracles that can be manipulated
+On-chain oracles don't provide data from off-chain sources. Instead, they provide access to data collected from other smart contracts. For example, an on-chain oracle could collect and provide data about the exchange rate between two tokens from one or more [DEXes](/developers/docs/defi/dex/) running on the same blockchain. Doing this in a safe manner is not straightforward.
 
-On-chain oracles don't provide data from off-chain sources. Instead, they provide access to data collected from other smart contracts. For example, an on-chain oracle could collect and provide data about the exchange rate between two tokens from one or more DEXes (Decentralized EXchanges) running on the same blockchain. Doing this safely is not as simple as it may seem.
-
-**Example of attack**: an attacking contract could perform the following steps:
+An attacking contract could perform the following steps:
 - use a flash-loan to borrow a lot of tez
 - buy a large number of tokens from one DEX, which temporarily increases the price of this token in this DEX
-- call a contract that makes bad decisions based on this manipulated price, obtained though an unprotected Oracle
+- call a contract that makes bad decisions based on this manipulated price, obtained though an unprotected oracle
 - profit from these bad decisions
 - sell the tokens back to the DEX
 - pay the flash-loan back, with interest
 
-In some cases,the current price could simply be a fluke, not caused by a malicious intent, but simply a legitimate large transaction. The price may not be representing the current real value.
+In some cases,the current price could simply be a fluke, not caused by a malicious intent, but simply a legitimate large transaction. The price may not be representing the current value.
 
-Good online oracles never simply return the current value obtained from a single DEX. Instead, they use recent but past historical values, get rid of outliers and use the median of the remaining values. When possible, they combine data from multiple DEXes.
+Good oracles never simply return the current value obtained from a single DEX. Instead, they use recent but past historical values, get rid of outliers and use the median of the remaining values. When possible, they should combine data from multiple DEXes.
 
-**Best practice**: if you need to make decisions based on the price of tokens from a DEX, make sure you always get the prices through a good online oracle that uses this type of measures.
+#### Best practices
 
+- Only use oracles that are decentralized, in such a way that no single entity, or even no small group of colluding entities, may stop the oracle from working, or provide manipulated information.
+- Make sure your contract always checks that the timestamp attached to information provided by oracles is recent.
+- If you need to make decisions based on the price of tokens from a DEX, make sure you always get the prices through a good online oracle that uses this type of measures.
 
 ## 12. Forgetting to add an entrypoint to extract funds
 
-### Summary
-
-> Being the author of a contract, and having deployed the contract yourself, doesn't automatically give you any specific rights about that contract. In particular, it doesn't give you any rights to extract funds from the balance of your own contract. All the profits earned by your contract may be locked forever, if you don't plan for any way to collect them.
+You may think that being the author of a contract, and having deployed the contract yourself, will automatically give you specific rights about that contract, but this is not the case. In particular, it doesn't give you any rights to extract funds from the balance of your own contract. All the profits earned by your contract may be locked forever, if you don't plan for any way to collect them.
 
 ### Example of flawed contract
 
-Here is a flash loan contract. Can you find the flaw?
+Below is a schema for a flash loan contract. Have a think and see if you can spot the flaw.
 
-<table>
-<tr><td colspan="2"><strong>Flash loan contract</strong></td></tr>
-<tr><td><strong>Storage</strong></td><td><strong>Entry points effects</strong></td></tr>
-<tr><td>
-	<ul>
-		<li>interest_rate: nat</li><br/>
-		<li>in_progress: boolean</li><br/>
-		<li>loan_amount: tez</li><br/>
-		<li>repaid: booean</li>
-	</ul>
-</td>
-<td>
-	<ul>
-		<li>borrow(loan_amount: tez, callback: address)
-			<ul>
-				<li>Check that in_progress is false</li>
-				<li>Set in_progress to true</li>
-				<li>Transfer loan_amount to caller</li>
-				<li>Set storage loan_amount to loan_amount</li>
-				<li>Set repaid to false</li>
-				<li>Create call to callback</li>
-				<li>Create call to check_repaid</li>
-			</ul>
-		</li><br/>
-		<li>repay()
-			<ul>
-				<li>Check that in_progress is true</li>
-				<li>Check that paid_amount is more than loan_amount + interest</li>
-				<li>Set repaid to true</li>
-			</ul>
-		</li><br/>
-		<li>check_repaid()
-			<ul>
-				<li>Check that repaid is true</li>
-			</ul>
-		</li>
-	</ul>
-</td>
-</tr>
-</table>
+{% table %}
+* **Flash Loan Contract (fixed)** {% colspan=2 %}
+---
+* **Storage**
+* **Entrypoint Effects**
+---
+* {% list type="checkmark" %}
+  * `interest_rate`: `nat`
+  * `in_progress`: `boolean`
+  * `loan_amount`: `tez`
+  * `repaid`: `boolean`
+  {% /list %}
+* {% list type="checkmark" %}
+  * `borrow(loan_amount: tez, callback: address)`
+	  * Check that `in_progress` is `False`
+	  * Set `in_progress` to `True`
+	  * Transfer `loan_amount` to `caller`
+	  * Set storage `loan_amount` to `loan_amount`
+	  * Set `repaid` to `False`
+	  * Create `call` to callback
+	  * Create `call` to `check_repaid`
+  * `repay()`
+	  * Check that `in_progress` is `True`
+	  * Check that `paid_amount > loan_amount + interest`
+	  * Set `repaid` is `True`
+  * `check_repaid()`
+	  * Check that `repaid` is `True`
+  {% /list %}
+{% /table %}
 
-This flash loan contract may accumulate interests for years, with the owner happily watching the balance increase on a regular basis... One day, as this owner decides to retire, they will realize that they have no way to withdraw not only the profits, but also the initial funds.
+This flash loan contract may accumulate interests for years, with the owner happily watching the balance increase on a regular basis. When the owner decides to retire the contract, they will realise that they have no way to withdraw any funds, neither the profits nor the initial funds.
 
 ### Best practices
 
 Always verify that you have some way to extract the benefits earned by your smart contract. Ideally, make sure you do so using a multi-sig contract, so that you have a backup system in case you lose access to your private keys.
 
-**Warning:** this may seem very obvious, but note that this very unfortunate situation happens more often that you may think.
+{% callout type="warning" title="Keep your private keys safe" %}
+This may seem obvious, but losing private keys happens all too often, even amongst those that are experienced. Make sure to have a backup system. 
+{% /callout %}
 
 More generally, when you test your contract, make sure you test the whole life cycle of the contract, including what should happen at the end of its life.
 
-## 13. Calling upgradable contracts
+## 13. Calling upgradeable contracts
 
 ### Summary
 
-> On Tezos, contracts are not upgradable by default: once a contract has been deployed, there is no way to modify its code, for example to fix a bug. There are however several ways to make them upgradable. Doing so provides extra security for the author of the contract who has a chance to fix any mistakes, but may cause very significant risks for any user who relies on the contract.
+On Tezos, contracts are not upgradable by default: once a contract has been deployed, there is no way to modify its code, for example to fix a bug. There are however several ways to make them upgradable. This can provide extra security for the author of the contract who has a chance to fix any mistakes or pause the contract in case of a critical bug, but this can cause significant risks for any user who relies on the contract.
 
-### Reminder: ways to upgrade a contract
+### Upgrading a contract
 
 There are two main ways to make a contract upgradable:
 
 - put part of the logic in a piece of code (a lambda), in the storage of the contract
-- put part of the logic in a separate contract, whose address is in the storage of the main contract
+- put part of the logic in a separate proxy contract, whose address is in the storage of the main contract
 
-In either case, provide an entrypoint that the admin may call, to change these values, and therefore change the behavior of the contract.
+In either case, to upgrade the contract, you must provide an entrypoint that an admin may call to change these values, and therefore upgrade the behaviour of the contract.
 
 ### Example of attack
 
-Imagine that you write a contract, that relies on an upgradable DEX contract. You have carefully checked the code of that contract, that many other users have used before. The contract is upgradable, and you feel safe because that means the author may be able to fix any bugs they may notice.
-
-Then one day, all the funds disappear from your contract. As often, your contract used the DEX to exchange your tokens for a different type of tokens, but somehow, you never received the new tokens.
-
-You then realize that the owner of the DEX has gone rogue, and decided to upgrade its contract, in a way that the DEX collects tokens but never sends any back in exchange.
+Imagine that you write a contract, that relies on an upgradable DEX contract. You have carefully checked the code of that contract and many other users have used it before. The contract is upgradable, and you feel safe because that means the author may be able to fix any bugs. You might use your contract regularly to exchange tokens using the upgradeable DEX contract, and you initiate such a token exchange. For some reason, this time you notice you never receive the intended target tokens. You then realize that the owner of the DEX has gone rogue, and decided to upgrade their contract, in such a way that the DEX contract collects tokens but never sends any back in exchange.
 
 ### Best practices
 
-Before you use a contract, directly or as part of your own contract, make sure this contract can't be upgraded in a way that breaks the key aspects that you rely on.
+Before you use any contract, directly or as part of your own contract, make sure this contract can't be upgraded in a way that breaks the key aspects that you rely on for the safe operation of your contract.
 
-If the contract you want to use is upgradable, make sure the upgrade system follows a very safe process, where the new version is known well in advance, and the decision to to activate the upgrade is done by a large enough set of independent users.
+If a potential contract you want to use is upgradable, make sure the upgrade system follows a very safe process, where the new version is known well in advance, and the decision to to activate the upgrade is done by a large enough set of independent users.
 
 ## 14. Misunderstanding the API of a contract
 
-### Summary
-
-> There are many contracts that provide a similar, common service: DEXes, Oracles, Escrows, Marketplaces, Tokens, Auctions, DAOs, etc. As you get familiar with these different types of contracts, you start automatically making assumptions about how they behave. This may lead you to take shortcuts when interacting with a new contract, read the documentation and the contract a bit too fast, and miss a key difference between this contract and the similar ones you have used in the past. This can have very unfortunate consequences.
+There are many contracts that provide a similar, common service: DEXes, Oracles, Escrows, Marketplaces, Tokens, Auctions, DAOs, etc. As you get familiar with these different types of contracts, you start automatically making assumptions about how they behave. This may lead you to take shortcuts when interacting with a new contract i.e. reading the documentation and the contract a bit too fast and implementing these new features in your contract quickly. This enthusiasm is great but be wary, as it could cause you to miss some key differences between this new contract and the similar ones you have used in the past leading to some unintended consequences. 
 
 ### Best practices
 
-Never make any assumptions about a contract you need to use, based on your previous experience with similar contracts. Always check their documentation and code very carefully, before you use it.
+Never make any assumptions about a contract you want to use based on previous experience with similar contracts. Always check their documentation and code very carefully, before you use it.
