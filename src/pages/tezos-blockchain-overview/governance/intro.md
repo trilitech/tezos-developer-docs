@@ -2,13 +2,11 @@
 title: "Tezos Governance"
 slug: "/governance"
 ---
-## Tezos Governance
-
-### What is Self Amendment?
+## What is Self Amendment?
 
 Tezos is a self-amending blockchain network that incorporates an on-chain mechanism for proposing, selecting, testing, and activating protocol upgrades without the need to hard fork.
 
-### How Does It Work? 
+## How Does It Work? 
 
 The self-amendment process is split into 5 periods: Proposal Period, Exploration Vote Period, Cooldown Period, Promotion Vote Period, and Adoption Period. Each of these periods lasts five baking cycles (i.e. 40,960 blocks at 30-second intervals or roughly 14 days, 5 hours), comprising roughly 2 months and 10 days.
 
