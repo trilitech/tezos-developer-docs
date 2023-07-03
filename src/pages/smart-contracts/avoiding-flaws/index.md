@@ -6,10 +6,6 @@ authors: Mathias Hiron (Nomadic Labs)
 
 The goal of this page is to bring you up to speed with a number of common flaws in smart contracts and some best practices on how to avoid them. 
 
-{% callout type="warning" title="DYOR" %}
-This is **not** an exhaustive list, so please also do your own research for your specific smart contract use case.
-{% /callout %}
-
 - [1. Using source instead of sender for authentication](#1-using-source-instead-of-sender-for-authentication)
 - [2. Transferring tez in a call that should benefit others](#2-transferring-tez-in-a-call-that-should-benefits-others)
 - [3. Denying access by increasing computation](#3-denying-access-by-increasing-computation)
@@ -24,6 +20,10 @@ This is **not** an exhaustive list, so please also do your own research for your
 - [12. Forgetting to add an entry point to extract funds](#12-forgetting-to-add-an-entry-point-to-extract-funds)
 - [13. Calling upgradable contracts](#13-calling-upgradable-contracts)
 - [14. Misunderstanding the API of a contract](#14-misunderstanding-the-api-of-a-contract)
+
+{% callout type="warning" title="DYOR" %}
+This is **not** an exhaustive list, so please also **d**o **y**our **o**wn **r**esearch for your specific smart contract use case.
+{% /callout %}
 
 ## 1. Using source instead of sender for authentication
 
@@ -192,9 +192,9 @@ Take for example this `TimeLock` smart contract. It allows donors to lock some f
 	  * Add record with `deadline, amount` to `lockedAmounts`
   * `claimExpiredFunds()`
 	  * For each item in `lockedAmounts`:
-	      * if `item.deadline < now`:
-		     * send `item.amount` to `owner`
-			 * delete `item` from `lockedAmounts`
+	      * If `item.deadline < now`:
+		     * Send `item.amount` to `owner`
+			 * Delete `item` from `lockedAmounts`
 
   {% /list %}
 {% /table %}
@@ -208,424 +208,309 @@ The same attack could happen with any kind of data that can grow indefinitely, i
 
 ### Best Practices
 
-Here are three possible ways to avoid this issue:
+Here are some possible ways to avoid this issue:
 
-1. Prevent data from growing too much:
-- make it expensive, by requesting a minimum deposit for each call that increases the size of the stored data.
-- set a hard limit, by rejecting any call that increases the size of the stored data beyond a given limit.
+#### Prevent Data from Increasing Arbitrarily
+
+* This can be done:
+	- by making it expensive, for example requesting a minimum deposit for each call that increases the size of the stored data.
+	- by setting a hard limit, for example rejecting any call that increases the size of the stored data beyond a given limit.
 
 Here is a version of the contract with these two fixes:
-	
-<table>
-<tr><td colspan="2"><strong>TimeLock (fixed)</strong></td></tr>
-<tr><td><strong>Storage</strong></td><td><strong>Entry points effects</strong></td></tr>
-<tr><td>
-	<ul>
-		<li>owner: address</li>
-		<li>lockedAmounts: list of records<br/>
-			<ul>
-				<li>deadline: address</li>
-				<li>amount: tez</li>
-			</ul>
-		</li>
-		<li>nbEntries: int</li>
-	</ul>
-</td>
-<td>
-	<ul>
-		<li>lockAmount(deadline)
-			<ul>
-				<li>check that transferred amount &ge; 10 tez</li>
-				<li>check that nbEntries &le; 100</li>
-				<li>add record with (deadline, transferred amount) to lockedAmounts</li>
-				<li>increment nbEntries</li>
-			</ul>
-		</li><br/>
-		<li>claimExpiredFunds()<br/>
-			<ul>
-			<li>for each item in lockedAmounts<br/>
-				<ul>
-					<li>if item.deadline &lt; now<br/>
-					<ul>
-						<li>send item.amount to owner</li>
-						<li>delete item from lockedAmounts</li>
-						<li>decrement nbEntries</li>
-					</ul>
-					</li>
-				</ul>
-			</li>
-			</ul>
-		</li>
-	</ul>
-</td>
-</tr>
-</table>
 
-2. Store data in a big-map
+{% table %}
+* **TimeLock (with data fixes)** {% colspan=2 %}
+---
+* **Storage**
+* **Entrypoint Effects**
+---
+* {% list type="checkmark" %}
+  * `owner`: `address`
+  * `lockedAmount`: list of records
+	  * `deadline`: `address`
+	  * `amount`: `tez`
+  * `nbEntries`: `int`
+  {% /list %}
+* {% list type="checkmark" %}
+  * `lockAmount(deadline)`
+	  * Check that transferred `amount >= 10 tez`
+	  * Check that `nbEntries <= 100`
+	  * Add record with `deadline, amount` to `lockedAmounts`
+	  * Increment `nbEntries` 
+  * `claimExpiredFunds()`
+	  * For each item in `lockedAmounts`:
+	      * If `item.deadline < now`:
+		     * Send `item.amount` to `owner`
+			 * Delete `item` from `lockedAmounts`
+			 * Decrement `nbEntries`
+
+  {% /list %}
+{% /table %}
+
+#### Store data in a `big-map`
 
 Unless it's already in the cache, all data in the storage of a contract needs to be loaded and deserialized when the contract is called, and reserialized afterwards. Long lists, sets or maps therefore can increase gas consumption very significantly, to the point that it exceeds the limit per operation.
 
 Big-maps are the exception: instead of being deserialized/reserialized entirely for every call, only the entries that are read or written are deserialized, on demand, during the execution of the contract.
 
-Using big-map allows contracts to store unlimited data. The only practical limit is the time and costs of adding new entries.
+Using `big-map` allows contracts to store unlimited data. The only practical limit is the time and costs of adding new entries. This is useful if the contract only loads a small subset of entries during a call.
 
-This is of course only useful if the contract only loads a small subset of entries during a call.
+#### Push computation off-chain where possible
 
-3. Do computations off-chain
-
-The following is an approach you should always try to apply when designing your contracts:
-
-> Avoid doing computations on-chain, if they can be done off-chain. Pass the results as parameters of the contract, and have the contract check the validity of the computation.
-
-In our example, we could store all the data about locked funds in a big-map. The key could simply be an integer that increments every time we add an entry.
-
-Whenever the user wants to claim funds with expired deadlines, do the computation off-chain, and send a list of keys for entries that have an expired deadline and significant funds.
+Avoid doing computations on-chain, if they can be done off-chain. Pass the results as parameters of the contract, and have the contract check the validity of the computation. In our example, we could store all the data about locked funds in a big-map. The key could simply be an integer that increments every time we add an entry. Whenever the user wants to claim funds with expired deadlines, do the computation off-chain, and send a list of keys for entries that have an expired deadline and significant funds.
 
 Here is our example contract fixed using this and the previous approach:
 
-<table>
-<tr><td colspan="2"><strong>Timelock (fixed)</strong></td></tr>
-<tr><td><strong>Storage</strong></td><td><strong>Entry points effects</strong></td></tr>
-<tr><td>
-	<ul>
-		<li>owner: address</li>
-		<li>lockedAmounts: big-map<br/>
-			Key:
-			<ul>
-				<li>ID: nat</li>
-			</ul>
-			Value:
-			<ul>
-				<li>deadline: address</li>
-				<li>amount: tez</li>
-			</ul>
-		</li>
-		<li>currentID: int</li>
-	</ul>
-</td>
-<td>
-	<ul>
-		<li>lockAmount(deadline)
-			<ul>
-				<li>check that transferred amount &ge; 10 tez</li>
-				<li>add entry lockedAmounts[currentID] with value (deadline, transferred amount)</li>
-				<li>increment currentID</li>
-			</ul>
-		</li><br/>
-		<li>claimExpiredFunds(entries: list of nat)<br/>
-			<ul>
-			<li>
-				for each itemID in entries<br/>
-				<ul>
-					<li>check that lockedAmounts[itemID].deadline &lt; now</li>
-					<li>send lockedAmounts[itemID].amount to owner</li>
-					<li>delete lockedAmounts[itemID]</li>
-				</ul>
-			</li>
-			</ul>
-		</li>
-	</ul>
-</td>
-</tr>
-</table>
+{% table %}
+* **TimeLock (with data validation)** {% colspan=2 %}
+---
+* **Storage**
+* **Entrypoint Effects**
+---
+* {% list type="checkmark" %}
+  * `owner`: `address`
+  * `lockedAmount`: `big-map`
+	  * Key:
+	  	* `ID`:`nat`
+	  * Value:
+	  	* `deadline`: `address`
+	  	* `amount`: `tez`
+  * `currentID`: `int`
+  {% /list %}
+* {% list type="checkmark" %}
+  * `lockAmount(deadline)`
+	  * Check that transferred `amount >= 10 tez`
+	  * Add entry `lockedAmounts[currentID]` with value `deadline, amount`
+	  * Add record with `deadline, amount` to `lockedAmounts`
+	  * Increment `currentID` 
+  * `claimExpiredFunds(entries: list of nat)`
+	  * For each `itemID` in `entries`:
+	      * Check that `lockedAmount[itemID].deadline < now`
+		  * Send `lockedAmounts[itemID].amount` to `owner`
+		  * Delete `lockedAmounts[itemID]`
+  {% /list %}
+{% /table %}
 
-With this approach, the caller has full control on the list of entries sent to claimExpired and on its size, so there is no risk of getting the contract locked.
+With this approach, the caller has full control on the list of entries sent to `claimExpiredFunds` and its size, so there is no risk of getting the contract locked.
 
 ## 4. Needlessly relying on one entity to perform a step
 
-### Summary
+You should avoid relying on one entity involved in a contract to perform a step that shouldn't require that entity's approval, breaks the trustless benefits that a smart contract is intended to provide. In some cases, it may cause funds to get locked in the contract if this entity becomes permanently unavailable.
 
-> Relying on one entity involved in a contract to perform a step that shouldn't require that entity's approval, breaks the trustless benefits that a smart contract is intended to provide. In some cases, it may cause funds to get locked in the contract, for example if this entity becomes permanently unavailable.
+See if can you spot the flaw in this version of an NFT Auction contract:
 
-**Question:** can you find the flaw in this version of an NFT Auction contract?
+{% table %}
+* **Flawed NFTAuction** {% colspan=2 %}
+---
+* **Storage**
+* **Entrypoint Effects**
+---
+* {% list type="checkmark" %}
+  * `tokens`: `big-map`
+	  * Key:
+	  	* `contract`:`address`
+	  	* `tokenID`:`int`
+	  * Value:
+	  	* `seller`: `address`
+	  	* `topBidder`: `address`
+	  	* `topBid`: `tez`
+	  	* `deadline`: `datetime`
+  * `ledger`: `big-map`
+	  * `key`: `address`
+	  * `value`: `tez`
+  {% /list %}
+* {% list type="checkmark" %}
+  * `addToMarket(contract, tokenID, deadline)`
+	  * Check that caller owns the NFT
+	  * Transfer ownership of the NFT to marketplace 
+	  * Create an entry in `tokens`:
+	  	* `contract` and `tokenID` as the key
+		* `caller` as `seller`
+		* `caller` as the initial value of `topBidder`
+		* 0 tez as the initial value of `topBid`
+		* Set parameter `deadline` as `deadline` in `tokens`.
+  * `bid(contract, tokenID)`
+	  * Check that `now` is before the deadline.
+	  * Check transferred `amount > topBid`
+	  * Add previous `topBid` to `ledger` to be claimed by previous `topBidder`
+	  * Store `caller` as `topBidder`, and transferred `amount` as `topBid`
+  * `claim()`
+	  * Verify that `ledger[caller] exists`
+	  * Create a transaction to send `ledger[caller].value` to `caller`
+	  * Delete `ledger[caller]`
+  {% /list %}
+{% /table %}
 
-<table>
-<tr><td colspan="2"><strong>Auction</strong></td></tr>
-<tr><td width="225px"><strong>Storage</strong></td><td><strong>Entry points effects</strong></td></tr>
-<tr><td>
-	<ul>
-		<li>tokens: big-map<br/>
-			Key:
-			<ul>
-				<li>contract: address</li>
-				<li>tokenID: int</li>
-			</ul>
-			Value:
-			<ul>
-				<li>seller: address</li>
-				<li>topBidder: address</li>
-				<li>topBid: tez</li>
-				<li>deadline: datetime</li>
-			</ul>
-		</li><br/>
-		<li>ledger: big-map
-			<ul>
-				<li>key: address</li>
-				<li>value: tez</li>
-			</ul>
-		</li>
-	</ul>
-</td>
-<td>
-	<ul>
-		<li>addToMarket(contract, tokenID, deadline)
-			<ul>
-				<li>Check that caller owns the NFT</li>
-				<li>Transfer ownership of the NFT to the marketplace</li>
-				<li>Create an entry in tokens, with:
-				<ul>
-					<li>contract and tokenID as the key</li>
-					<li>caller as the seller</li>
-					<li>caller as the initial value of topBidder</li>
-					<li>0 tez as the initial value of topBid</li>
-					<li>the last parameter as the deadline</li>
-				</ul>
-				</li>
-			</ul>
-		</li><br/>
-		<li>bid(contract, tokenID)
-			<ul>
-				<li>Check that now is before the deadline</li>
-				<li>Check that the amount transferred is higher than the current topBid</li>
-				<li>Add the previous topBid to the ledger, to be claimed by the previous topBidder</li>
-				<li>Store the caller as topBidder, and the amount transferred as topBid</li>
-			</ul>
-		</li><br/>
-		<li>claimNFT(contract, tokenID)
-			<ul>
-				<li>Check that now is after the deadline</li>
-				<li>Check that the caller is the topBidder for this token</li>
-				<li>Transfer token ownership to the caller</li>
-				<li>Add the value of topBid to the ledger, to be claimed by the seller</li>
-			</ul>
-		</li><br/>
-		<li>claim()
-			<ul>
-				<li>Verify that ledger[caller] exists</li>
-				<li>Create a transaction to send ledger[caller].value to caller</li>
-				<li>Delete ledger[caller]</li>
-			</ul>
-		</li>
-	</ul>
-</td>
-</tr>
-</table>
+Did you spot the issue? 
 
-**Answer:** the issue with this contract is that the `claimNFT` entry point only allows the topBidder to call it. If this user never calls the entry point, not only the amount they paid stays stuck in the contract and the seller never receives the funds, but the NFT also stays stuck in the contract. This is a pure loss for the seller.
+The `claimNFT` entry point only allows the `topBidder` to call it. If this user never calls the entry point, the amount they paid is stuck and therefore the seller never receives the funds. As such, the NFT also stays stuck in the contract. This is a pure loss for the seller.
 
-The top bidder has a strong incentive to call `claimNFT`, as they have already paid for the NFT and benefit from the call by getting the NFT they paid for. However, they may simply have disappeard somehow, lost access to their private keys, or simply forgot about the auction. Worse, as they have full control on whether the seller gets the funds or not, they could use this as leverage on the seller, to try to extort some extra funds from them.
+The top bidder has a strong incentive to call `claimNFT`, as they have already paid for the NFT and benefit from the call by getting the NFT they paid for. However, they may have lost access to their private keys, or simply forgot about the auction. Worse, as they have full control on whether the seller gets the funds or not, they could use this as leverage on the seller, to try to extort some extra funds from them.
 
-Requiring for the seller themselves to call the entry point instead of the topBidder would lead to a similar issue.
+Furthermore, requiring for the seller themselves to call the entry point instead of the `topBidder` would lead to a similar issue.
 
-In this case, the solution is simply to allow anyone to call the entry point, and make sure the token is transferred to topBidder, no matter who the caller is. There is no need to have any restriction on who may call this entry point.
+In this case, the solution is simply to allow anyone to call the entry point, and make sure the token is transferred to `topBidder`, no matter who the caller is. There is no need to have any restriction on who may call this entry point.
 
-### Best practice
+### Best Practices
 
-When reviewing a contract, go through every entry point and ask: "What if someone doesn't call it?"
+When reviewing a contract, go through every entry point and ask: **"What if someone doesn't call it?"**
 
-If something bad would happen, consider these approaches to reduce the risk:
-- Make it so that other people can call the entry point, either by letting anyone call it, if it is safe, or by having the caller be a multi-sig contract, where only a subset of the people behind that multi-sig need to be available for the call to be made.
+If something unintended could happen, consider these approaches to reduce the risk:
+
+- Make it so that other people can call the entry point, either by letting anyone call it, if this is safe, or by having the caller be a multi-sig contract, where only a subset of the people behind that multi-sig need to be available for the call to be made.
 
 - Add financial incentives, with a deposit from the entity supposed to call the entry point, that they get back when they make the call. This reduces the risk that they simply decide not to call it, or forget to do so.
 
-
-- Add a deadline that allows the other parties to get out of the deal, if one party doesn't do their part in time. Be careful, as in some cases, giving people a way to get out of the deal may make the situation worse.
-
+- Add a deadline that allows the other parties to get out of the deal, if one party doesn't do their part in time. Be careful, as in some cases, giving people a way to get out of the deal may make the situation more complex.
 
 ## 5. Trusting signed data without preventing wrongful uses
 
-### Summary
-
-> Using a signed message from an off-chain entity as a way to ensure that this entity agrees to a certain operation, or certifies the validity of some data, can be dangerous. Make sure you prevent this signed message from being used in a different context than the one intended by the signer.
+Using a signed message from an off-chain entity as a way to ensure that this entity agrees to a certain operation, or certifies the validity of some data, can be dangerous. Make sure you prevent this signed message from being used in a different context than the one intended by the signer.
 
 ### Example of attack
 
 Let's say that off-chain, Alice cryptographically signs a message that says "I, Alice, agree to transfer 100 tokens to Bob", and that Bob can then call a contract that accepts such a message, and does transfer tokens from Alice to him.
 
-<table>
-<tr><td colspan="2"><strong>Ledger</strong></td></tr>
-<tr><td><strong>Storage</strong></td><td><strong>Entry points effects</strong></td></tr>
-<tr><td>
-	<ul>
-		<li>ledger: big-map<br/>
-			Key:
-			<ul>
-				<li>user: address</li>
-			</ul>
-			Value:
-			<ul>
-				<li>tokens: int</li>
-			</ul>
-		</li>
-	</ul>
-</td>
-<td>
-	<ul>
-		<li>handleMessage(message: record(signer, nbTokens, destination), signature)
-			<ul>
-				<li>check that signature is a valid signature of the message by message.signer</li>
-				<li>check that ledger[signer].tokens &ge; message.nbTokens</li>
-				<li>substract message.nbTokens from ledger[signer].tokens</li>
-				<li>add message.nbTokens to ledger[destination].tokens</li>
-			</ul>
-		</li>
-	</ul>
-</td>
-</tr>
-</table>
+{% table %}
+* **Ledger** {% colspan=2 %}
+---
+* **Storage**
+* **Entrypoint Effects**
+---
+* {% list type="checkmark" %}
+  * `ledger`: `big-map`
+	  * Key:
+	  	* `user`:`address`
+	  * Value:
+	  	* `tokens`: `int`
+  {% /list %}
+* {% list type="checkmark" %}
+  * `handleAmount(parameters)`
+      * parameters: 
+	  	* `message: record(signer, nbTokens, destination)`
+		* `signature`
+	  * Check that signature is a valid signature by `message.signer`
+	  * Subtract `message.nbTokens` from `ledger[signer].tokens`
+	  * Add `message.nbTokens` to `ledger[destination].tokens`
+  {% /list %}
+{% /table %}
 
 
 Bob could steal tokens from Alice in two different ways:
 - Bob could call the contract several times with the same message, causing multiple transfers of 100 tokens from Alice to him.
-- Bob may send the same message to another similar contract, and steal 100 of Alice's tokens from that other contract.
+- Bob may send the same message to another similar contract, and steal 100 of Alice's tokens from that contract.
 
-### Best practice
+### Best Practices
 
 To make sure the message is meant for this contract, simply include the address of the contract in the signed message.
 
 Preventing replays is a bit more complex, and the solution may depend on the specific situation:
 
-- Maintain a counter for each potential signer in the contract, and include the current value of that counter in the next message. Increment the counter when the message is received.
+- Maintain a counter (nonce) for each potential signer in the contract, and include the current value of that counter in the next message. Increment this counter when the message is received.
 
-<table>
-<tr><td colspan="2"><strong>Ledger (fixed)</strong></td></tr>
-<tr><td><strong>Storage</strong></td><td><strong>Entry points effects</strong></td></tr>
-<tr><td>
-	<ul>
-		<li>counters: big-map<br/>
-			Key:
-			<ul>
-				<li>signer: address</li>
-			</ul>
-			Value:
-			<ul>
-				<li>counter: int</li>
-			</ul>
-		</li>
-		<li>ledger: big-map<br/>
-			Key:
-			<ul>
-				<li>user: address</li>
-			</ul>
-			Value:
-			<ul>
-				<li>tokens: int</li>
-			</ul>
-		</li>
-	</ul>
-</td>
-<td>
-	<ul>
-		<li>handleMessage(message: record(contract, signer, nbTokens, destination, counter), signature)
-			<ul>
-				<li>check that signature is a valid signature of the message by message.signer</li>
-				<li>check that message.contract = self (address of this contract itself)</li>
-				<li>check that message.counter = counters[signer].counter</li>
-				<li>increment counters[signer].counter</li>
-				<li>check that ledger[signer].tokens &ge; message.nbTokens</li>
-				<li>substract message.nbTokens from ledger[signer].tokens</li>
-				<li>add message.nbTokens to ledger[destination].tokens</li>
-			</ul>
-		</li>
-	</ul>
-</td>
-</tr>
-</table>
+{% table %}
+* **Ledger (fixed)** {% colspan=2 %}
+---
+* **Storage**
+* **Entrypoint Effects**
+---
+* {% list type="checkmark" %}
+  * `counters`: `big-map`
+	  * Key:
+	  	* `signer`:`address`
+	  * Value:
+	  	* `counter`: `int`
+  * `ledger`: `big-map`
+	  * Key:
+	  	* `user`:`address`
+	  * Value:
+	  	* `tokens`: `int`
+  {% /list %}
+* {% list type="checkmark" %}
+  * `handleMessage(parameters)`
+      * parameters: 
+	  	* `message`: `record`
+			* `contract, signer, nbTokens, destination, counter`
+		* `signature`
+	  * Check that signature is a valid signature by `message.signer`
+	  * Check that `message.contract = self` 
+	  * Check that `message.counter = counters[signer].counter`
+	  * Subtract `message.nbTokens` from `ledger[signer].tokens`
+	  * Add `message.nbTokens` to `ledger[destination].tokens`
+  {% /list %}
+{% /table %}
 
-This is the approach used in the Tezos protocol itself, for preventing replays of native transactions. However, it prevents sending multiple messages from the same signer within a short period. This could be quite inconvenient for the present use case, as the whole point of signed messages, is that they can be prepared off-chain, and used much later.
+This is the approach used in the Tezos protocol itself, for preventing replays of native transactions. However, it prevents sending multiple messages from the same signer within a short period. 
 
-- Including a unique arbitrary value in the message: the contract could then keep track of which unique values have already been used. The only downside is the cost of the extra storage required.
+This could be quite inconvenient for the present use case, as the whole point of signed messages, is that they can be prepared off-chain, and used much later.
 
-<table>
-<tr><td colspan="2"><strong>Ledger (fixed)</strong></td></tr>
-<tr><td><strong>Storage</strong></td><td><strong>Entry points effects</strong></td></tr>
-<tr><td>
-	<ul>
-		<li>ledger: big-map<br/>
-			Key:
-			<ul>
-				<li>user: address</li>
-			</ul>
-			Value:
-			<ul>
-				<li>tokens: int</li>
-			</ul>
-		</li>
-	</ul>
-	<ul>
-		<li>usedUniqueIDs: big-map<br/>
-			Key:
-			<ul>
-				<li>uniqueID: bytes</li>
-			</ul>
-			Value:
-			<ul>
-				<li>nothing</li>
-			</ul>
-		</li>
-	</ul>
-</td>
-<td>
-	<ul>
-		<li>handleMessage(message: record(contract, signer, nbTokens, destination, uniqueID), signature)
-			<ul>
-				<li>check that message.contract = self (address of this contract)</li>
-				<li>check that signature is a valid signature of the message from message.signer</li>
-				<li>check that usedUniqueIDs[uniqueID] doesn't exist</li>
-				<li>check that ledger[signer].tokens &ge; message.nbTokens</li>
-				<li>substract message.nbTokens from ledger[signer].tokens</li>
-				<li>add message.nbTokens to ledger[destination].tokens</li>
-				<li>add entry usedUniqueIDs[uniqueID]</li>
-			</ul>
-		</li>
-	</ul>
-</td>
-</tr>
-</table>
+- To remedy this, consider including a unique arbitrary value in the message: the contract could then keep track of which unique values have already been used. The only downside is the cost of the extra storage required.
+
+{% table %}
+* **Ledger (fixed with arbitrary values)** {% colspan=2 %}
+---
+* **Storage**
+* **Entrypoint Effects**
+---
+* {% list type="checkmark" %}
+  * `ledger`: `big-map`
+	  * Key:
+	  	* `user`:`address`
+	  * Value:
+	  	* `tokens`: `int`
+  * `usedUniqueIDs`: `big-map`
+	  * Key:
+	  	* `uniqueID`:`bytes`
+	  * Value:
+	  	* N/A
+  {% /list %}
+* {% list type="checkmark" %}
+  * `handleMessage(parameters)`
+      * parameters: 
+	  	* `message: record`
+		* `contract, signer, nbTokens, destination, uniqueID`
+		* `signature`
+	  * Check that signature is a valid signature by `message.signer`
+	  * Check that `message.contract = self` 
+	  * Check that `message.counter = counters[signer].counter`
+	  * Check `usedUniqueIDs[uniqueID]` doesn't exist
+	  * Subtract `message.nbTokens` from `ledger[signer].tokens`
+	  * Add `message.nbTokens` to `ledger[destination].tokens`
+	  * Add `uniqueID` to `usedUniqueIDs`
+  {% /list %}
+{% /table %}
 
 ## 6. Not protecting against bots
 
-### Summary
-
-> On a blockchain, all transactions, including calls to smart contracts, transit publicly on the P2P gossip network, before a block producer includes some of them in a new block, in the order of their choosing. In the absence of protection measures such as commit and reveal schemes and time locks, some of these contract calls may contain information that can be intercepted and used by bots, to the disadvantage of the original caller, and often, of the health of the blockchain itself.
+On a blockchain, all transactions, including calls to smart contracts, travel publicly on the P2P network, before a block producer includes them in a new block. In the absence of protection measures such as commit and reveal schemes and time locks, some of these contract calls may contain information that can be intercepted and used by bots, to the disadvantage of the original caller.
 
 ### Example of attack
 
-Let's consider a smart contract for a geocaching game, where users get rewarded with some tez if they are the first to find hidden capsules placed in a number of physical locations. The contract contains the hash of each of these passwords. When a user calls the contract with a password that has never been found before, they receive a reward.
+Let's consider a smart contract for a geocaching game, where users get rewarded with some tez if they are the first to find hidden capsules placed in a number of physical locations. The contract contains the hash of each of these passwords. When a user calls the contract with a password that has never been found before, they receive a reward:
 
-<table>
-<tr><td colspan="2"><strong>Geocaching</strong></td></tr>
-<tr><td><strong>Storage</strong></td><td><strong>Entry points effects</strong></td></tr>
-<tr><td>
-	<ul>
-		<li>capsules: big-map<br/>
-			Key:
-			<ul>
-				<li>passwordHash: bytes</li>
-			</ul>
-			Value:
-			<ul>
-				<li>reward: tez</li>
-			</ul>
-		</li>
-	</ul>
-</td>
-<td>
-	<ul>
-		<li>claimReward(password)
-			<ul>
-			    <li>compute hashedPassword = hash(password)</li>
-				<li>check that capsules[hashedPassword] exists</li>
-				<li>transfer capsules[hashedPassword].reward tez to caller</li>
-				<li>delete capsules[hashedPassword]</li>
-			</ul>
-		</li>
-	</ul>
-</td>
-</tr>
-</table>
+{% table %}
+* **Geocaching** {% colspan=2 %}
+---
+* **Storage**
+* **Entrypoint Effects**
+---
+* {% list type="checkmark" %}
+  * `capsules`: `big-map`
+	  * Key:
+	  	* `passwordHash`:`bytes`
+	  * Value:
+	  	* `reward`: `tez`
+  {% /list %}
+* {% list type="checkmark" %}
+  * `claimReward(password)`
+	  * Compute `hashedPassword = hash(password)`
+	  * Check that `capsules[hashedPassword]` exists
+	  * Transfer `capsules[hashedPassword].reward` tez to caller
+	  * Delete `capsules[hashedPassword]`
+  {% /list %}
+{% /table %}
 
-A bot may listen to the gossip network and notice the call to claimReward, along with the password, before it is included in the next block.
+A bot may listen to the gossip network and notice the call to `claimReward`, along with the password, before it is included in the next block.
 
 This bot may simulate performing the same transaction with itself as the caller, and find out that this results in it receiving a reward. It can do so automatically, without knowing anything about the contract.
 
@@ -637,28 +522,26 @@ Overall, the existence of such attacks has a negative impact on the health of th
 
 ### Other types of bots attacks and BPEV
 
-There are a number of different ways bots can take advantage of the fact that calls to smart contracts are publicly visible on the gossip network before they are included in a block.
+There are a number of different ways bots can take advantage of the fact that calls to smart contracts are publicly visible on the gossip network before they are included in a block. Block producers can also take advantage of the fact that they have significant control on the content of the block: which transactions get included and in which order, as well as what will be the precise value for the timestamp of the next block.
 
-Furthermore, block producers can take advantage of the fact that they have significant control on the content of the block: which transactions get included and in which order, as well as what will be the precise value for the timestamp of the next block.
+A lot of these attacks take place in the field of DeFi (Decentralized Finance), where the value of assets change all the time, including directly within a single block.
 
-A lot of these attacks take place in the field of DeFi (Decentralized Finance), where the value of assets change all the time, including within a single block.
-
-- **Copying a transaction** is the easiest attack, as is done in our example. The most common such situation is the case of **arbitrage opportunities**. Consider, for example, two separate DEXes (Decentralized EXchanges), that temporarily offer a different price for a given token. An arbitrage opportunity exists as one may simply buy tokens on the DEX with the cheaper price, and resell them for more on the other DEX. A user who carefully analyzes the blockchain and detects such an opportunity, may get this opportunity (and all their work to detect it) snatched from them by a bot that simply copies their transaction.
+- **Copying a transaction** is the easiest attack, this happens in our example. The most common such situation is the case of **arbitrage opportunities**. Consider, for example, two separate DEXes (Decentralized EXchanges), that temporarily offer a different price for a given token. An arbitrage opportunity exists as one may simply buy tokens on the DEX with the cheaper price, and resell them for more on the other DEX. A user who carefully analyzes the blockchain and detects such an opportunity, may get this opportunity (and all their work to detect it) snatched from them by a bot that simply copies their transaction.
 
 - **Injecting an earlier transaction** before the attacked transaction. For example, if a user injects a transaction to purchase an asset at any price within a certain range, a bot could insert another transaction before it, that purchases the asset at the low end of that range, then sells it to this user at the high end of that range, pocketing the difference.
 
-- **Injecting a later transaction** right after the target transaction. For example, as soon as an arbitrage oppourtunity is created by another transaction. This isn't an attack against the target transaction, but the potentially numerous generated transactions produced by bots to try to fight for the right spot in the sequence of transactions, may cause delays in the network, or unfairly benefit the block producer, who gets to decide in which order transactions are performed within the block.
+- **Injecting a later transaction** right after the target transaction. For example, right after an arbitrage opportunity is created by another transaction. This isn't an attack against the target transaction, but the potentially numerous generated transactions produced by bots to try to fight for the right spot in the sequence of transactions, may cause delays in the network, or unfairly benefit the block producer, who gets to decide in which order transactions are performed within the block.
 
-- **Sandwich attacks**, where a purchase transaction is injected to manipulate the price of an asset before the target transaction occurs, and a later sale transaction is injected to sell the asset with a profit, at the expense of the target transaction.
+- **Sandwich attacks** where a purchase transaction is injected to manipulate the price of an asset before the target transaction occurs, and a later sale transaction is injected to sell the asset with a profit, at the expense of the target transaction.
 
-More complex schemes that manipulate the order of transactions to maximize profits can be designed, all at the cost of healthier and legitimate uses.
+More complex schemes that manipulate the order of transactions to maximize profits can be designed, all at cos to legitimate uses.
 
-### Best practice
+### Best Practices
 
 Preventing this type of attack is not easy, but part of the solution, is to use a **commit and reveal** scheme.
 
 This scheme involves two steps:
-- **Commit**: the user sends a hash of the information they intend to send in the next step, without revealing that information yet. The information hahsed should include the user's address, to prevent another user (or bot) from simply sending the same commit message.
+- **Commit**: the user sends a hash of the information they intend to send in the next step, without revealing that information yet. The information hashed should include the user's address, to prevent another user (or bot) from simply sending the same commit message.
 
 - **Reveal**: once the commit call has been included in a block, the user then sends the actual message. The contract can then verify that this message corresponds to the commit sent in the previous step, and that the caller is the one announced in that message.
 
@@ -668,55 +551,37 @@ Using this approach is sufficient to fix our example:
 
 Here is the fixed contract:
 
-<table>
-<tr><td colspan="2"><strong>Geocaching (fixed)</strong></td></tr>
-<tr><td><strong>Storage</strong></td><td><strong>Entry points effects</strong></td></tr>
-<tr><td>
-	<ul>
-		<li>capsules: big-map<br/>
-			Key:
-			<ul>
-				<li>passwordHash: bytes</li>
-			</ul>
-			Value:
-			<ul>
-				<li>reward: tez</li>
-			</ul>
-		</li>
-		<li>commits: big-map<br/>
-			Key:
-			<ul>
-				<li>commitedData: bytes</li>
-			</ul>
-			Value:
-			<ul>
-				<li>Nothing</li>
-			</ul>
-		</li>
-	</ul>
-</td>
-<td>
-	<ul>
-		<li>commit(commitedData)
-			<ul>
-				<li>create entry commits[commitedData]</li>
-			</ul>
-		</li><br/>
-		<li>claimReward(password)
-			<ul>
-				<li>compute commitData = hash((password, caller))</li>
-				<li>check that commits[commitData] exists</li>
-				<li>delete commits[commitData]</li>
-			    <li>compute hashedPassword = hash(password)</li>
-				<li>check that capsules[hashedPassword] exists</li>
-				<li>transfer capsules[hashedPassword].reward tez to caller</li>
-				<li>delete capsules[hashedPassword]</li>
-			</ul>
-		</li>
-	</ul>
-</td>
-</tr>
-</table>
+{% table %}
+* **Geocaching (fixed)** {% colspan=2 %}
+---
+* **Storage**
+* **Entrypoint Effects**
+---
+* {% list type="checkmark" %}
+  * `capsules`: `big-map`
+	  * Key:
+	  	* `passwordHash`:`bytes`
+	  * Value:
+	  	* `reward`: `tez`
+  * `commits`: `big-map`
+	  * Key:
+	  	* `committedData`:`bytes`
+	  * Value:
+	  	* N/A
+  {% /list %}
+* {% list type="checkmark" %}
+  * `commit(committedData)`
+	  * Create entry `commits[committedData]`
+  * `claimReward(password)`
+	  * Compute `commitData = hash(password, caller)`
+	  * Check that `commits[commitData]` exists
+	  * Delete `commits[commitData]`
+	  * Compute `hashedPassword = hash(password)`
+	  * Check that `capsules[hashedPassword]` exists
+	  * Transfer `capsules[hashedPassword].reward` tez to caller
+	  * Delete `capsules[hashedPassword]`
+  {% /list %}
+{% /table %}
 
 ### Using financial incentives and Timelock for extra protection
 
@@ -726,55 +591,43 @@ Other situations may be more complex, and attackers may generate a number of com
 
 This could be as simple as one commitment that bets that the value of an asset will increase, and another that bets that the value will decrease. Depending on what happens when other users reveal their own messages that may affect the price of this asset, the attacker may decide to reveal one or the other message.
 
-To protect against such attack, financial incentives can be used, where users have to send a deposit along with each commitment. Users who never reveal the message corresponding to their previous commit lose their deposit.
-
-Furthermore, the TimeLock cryptographic primitive may be used instead of a hash for the commit phase. This approach allows anyone to decrypt the content of the commit, given enough time, therefore forcing the reveal of the commited value.
-
-For more information, check Nomadic Lab's [Blog Post on this topic](https://research-development.nomadic-labs.com/timelock-a-solution-to-minerblock-producer-extractable-value.html).
-
+To protect against such attack, financial incentives can be used, where users have to send a deposit along with each commitment. Users who never reveal the message corresponding to their previous commit lose their deposit. Furthermore, the [TimeLock](https://research-development.nomadic-labs.com/timelock-a-solution-to-minerblock-producer-extractable-value.html) cryptographic primitive may be used instead of a hash for the commit phase. This approach allows anyone to decrypt the content of the commit, given enough time, therefore forcing the reveal of the commited value.
 
 ## 7. Using unreliable sources of randomness
 
-### Summary
-
-> Picking a random value during a contract call, for example for selecting the winner of a lottery, or fairly assigning newly minted NFTs to participants of a pre-sale, is far from being easy. Indeed, as any contract call must run on hundreds of nodes and produce the exact same result on each node, everything needs to be predictable. Most ways to generate randomness have flaws and can be taken advantage of.
+Generating a random value during a contract call, for example for selecting the winner of a lottery or fairly assigning newly minted NFTs to participants of a pre-sale, on the blockchain is difficult. As all contract call must run on hundreds of nodes and produce the exact same result on each node, everything needs to be predictable. Most ways to generate randomness have flaws and can be taken advantage of.
 
 ### Examples of bad sources of randomness
 
-- **The timestamp of a block**. Using the current timestamp of the local computer is a commonly used source of randomness on non-blockchain software, as the value is never the same. However, its use is not recommended at all in security sensitive situations, as it only offers a few digits of hard to predict randomness, with a precision in microseconds or even milliseconds.
-
-	On the blokchain, it's a very bad idea, for multiple reasons:
+- **The timestamp of a block**. Using the current timestamp of the local computer is a commonly used source of randomness on non-blockchain software, as the value is never the same. However, its use is not recommended at all in security sensitive situations, as it only offers a few digits to predict randomness, with a precision in microseconds or even milliseconds. 
 	- the precision of the timestamp of a block is only in seconds
 	- the value can be reasonably well predicted, as bakers often take a similar time to produce their block
 	- the baker of the previous block can manipulate the timestamp it sends, therefore controlling the exact outcome.
 	
 - **The value of a new contract's address**. A contract may deploy a new contract and obtain its address. Unfortunately, a contract address is far from being as random as it looks. It is simply computed based on the operation group hash and an origination index (starting from 0 which is increased for every origination operation in the group). It can therefore be easily manipulated by the creator of the operation which is no better than trusting them.
 
-- **The exchange rate between currencies**. One may consider using an off-chain Oracle to obtain the exchange rate between two common currencies, such as between the USD and Euro, and use it to get a few bits of entropy. After all, anyone would only dream of predicting the value of such exchange rates, so it might as well be considered random. There are however a number of issues with this approach:
-
+- **The exchange rate between currencies**. One may consider using an off-chain [oracle](/developers/docs/smart-contracts/oracles/) to obtain the exchange rate between two common currencies, such USD and Euro, and use this to get a few bits of entropy for randomness. This can be considered difficult to predict and therefore "random". There are however a number of issues with this approach:
 	- We can only get a few bits of entropy (randomness), which is usually insufficient.
-	- One of the entities behind the off-chain Oracle could influence the exact value. The exact way to do this depends on the specifics of the Oracle, but it's  likely that there is a way to do so.
-	- A baker could also censor some of the transactions involved in the off-chain Oracle, and by doing so, influence the exact value as well.
+	- One of the entities behind the off-chain oracle could influence the exact value. The exact way to do this depends on the specifics of the oracle, but it's likely that there is a way to do so.
+	- A baker could also censor some of the transactions involved in the off-chain oracle, and by doing so, influence the exact value as well.
 
-- **A bad off-chain randomness Oracle**. Anyone can create an off-chain Oracle, and claim that this Oracle provides secure random values. Unfortunately, generating a random value off-chain in a reliable way, so that no single entity may influence or predict the outcome, is extremely hard. Don't blindly trust an Oracle, even if you find that many contracts use it already. A bad random Oracle may be the worst choice, as it could simply stop working and make your contract fail, or be under the control of a single person who then gains full control over all the outcomes of your contract that rely on it.
+- **A bad off-chain randomness Oracle**. Anyone can create an off-chain oracle, and claim that this oracle provides secure random values. Unfortunately, generating a random value off-chain in a reliable way, so that no single entity may influence or predict the outcome, is extremely hard. Don't blindly trust an oracle, even if you find that many contracts use it already. A bad random oracle may be the worst choice, as it could simply stop working and make your contract fail, or be under the control of a single entity.
 
 - **The hash of another source of randomness**. Hashing some input may seem like it produces some random output, spread rather evenly over a wide range of values. However, it is entirely predictable, and doesn't add any randomness to the value taken as input.
 
 - **A combination of multiple bad sources of randomness**. It may seem like combining two sources of not so good randomness may be a good way to increase the quality of the randomness. However, although combining multiple sources of randomness increases the amount of entropy and makes it harder to predetermine the outcome, it also increases the risk for one entity to control this outcome. This entity only needs to have some control over the value of one of the sources of randomness, to gain the capacity to have some control over the final result.
 
-**Remember** that an attacker only needs the ability to pick between two possible outcomes, or to predict which one is more likely, to significanly increase their chance of getting an outcome that benefits them.
+Remember that an attacker only needs the ability to pick between two possible outcomes, or to predict which one is more likely, to significantly increase their chance of getting an outcome that benefits them.
 
+### Best Practices
 
-### Best practice
-
-The best practice is to avoid having to rely on a source of randomness, if you can. This avoids issues of reliability of the randomness source (which may stop working in the future), predictability of the outcome, or even control of the outcome by one party, such as a block producer.
+The best practice is to avoid having to rely on a source of randomness if you can. This avoids issues of reliability of the randomness source (which may stop working in the future), predictability of the outcome, or even control of the outcome by one party, such as a block producer.
 
 If you really need a source of randomness, the two following approaches may be used:
 
-- **Combine random values provided by every participant**. Each potential beneficiary of a random selection could contribute to the randomness: get each participant to pick a random value within a wide range, add all the received values, and use the result as a source of randomness. For this to work, a **commit and reveal** schemed needs to be used, combined with **financial incentives** and the use of a **timelock** cryptographic primitive, to make sure none of the participants may pick between different outcomes, simply by not revealing their value. This is a bit tricky to do well, and for it to be practical, it requires participants to be able to react fast, as the window for each participant to commit their random value has to be very short (a small number of blocks).
+- **Combine random values provided by every participant**. Each potential beneficiary of a random selection could contribute to the randomness: get each participant to pick a random value within a wide range, add all the received values, and use the result as a source of randomness. For this to work, a **commit and reveal** scheme needs to be used, combined with **financial incentives** and the use of a **timelock** cryptographic primitive, to make sure none of the participants may pick between different outcomes, simply by not revealing their value. This is a bit tricky to do well, and for it to be practical, it requires participants to be able to react fast, as the window for each participant to commit their random value has to be very short (a small number of blocks).
 
-- **Use a good randomness Oracle**. It is, in theory, possible to create a good off-chain random Oracle. Chainlink offers a [randomness Oracle](https://docs.chain.link/docs/chainlink-vrf/) based on a [verifiable random function](https://en.wikipedia.org/wiki/Verifiable_random_function) (VRF), and may be one of the few, if not the only reasonably good available randomness Oracle. However, even assuming it's as good as it advertises, it is not ideal, as it is based on the assumption that there is no collusion between the owner of the smart contract that uses it, and some of the nodes that provide random values. Finally, Chainlink VRF currently is only available on a small number of blockchains, which don't include Tezos. At the time of writing, there is no good randomness Oracle on Tezos that we would recommend.
-
+- **Use a good randomness oracle**. It is, in theory, possible to create a good off-chain random Oracle. Chainlink offers a [randomness oracle](https://docs.chain.link/docs/chainlink-vrf/) based on a [verifiable random function](https://en.wikipedia.org/wiki/Verifiable_random_function) (VRF), and may be one of the few, if not the only reasonably good available randomness oracle. However, it is based on the assumption that there is no collusion between the owner of the smart contract that uses it, and some of the nodes that provide random values. Finally, Chainlink VRF currently is only available on a small number of blockchains, which don't include Tezos. At the time of writing, there is no good randomness oracle on Tezos that we would recommend.
 
 ## 8. Using computations that cause tez overflows
 
