@@ -2,25 +2,23 @@
 title: "Tezos Governance Overview"
 slug: "/tezos-governance-overview"
 ---
-## Tezos Governance Overview
-
-### An Introduction to Tezos Governance
+## An Introduction to Tezos Governance
 
 Tezos is a self-amending blockchain software that uses an on-chain process to propose, select, test, and activate protocol upgrades [without the need to hard fork](https://medium.com/tezos/there-is-no-need-for-hard-forks-86b68165e67d). In practice, this enables Tezos to improve itself over time via a structured, yet decentralized process while preserving a high level of consensus.
 
 Tezos also allows stakeholders to upgrade the amendment process itself. As a result, details of the mechanism described below represent the current mechanism and are subject to change. This page will evolve as the network evolves.
 
-#### Voters / Bakers
+### Voters / Bakers
 
 Baking is how blocks are produced and validated on a Tezos blockchain using Liquid Proof-of-Stake. Bakers (also known as "delegates") obtain the right to create (i.e. bake) a block when a roll of tokens (1 roll = 6,000 ꜩ) they own (or that is delegated to them) is randomly selected to produce or validate a block.
 
 As the maintainers of the Tezos network, **bakers are also the voters in a Tezos formal upgrade process**, with their votes proportional to the size of their stake (including delegations).
 
-#### Votes / Rolls 
+### Votes / Rolls 
 
 To speed up computations for deciding which delegates are selected to bake, the Tezos ledger tracks tokens for staking and governance purposes as "rolls". Rolls are aggregated at the delegate level, which means a baker’s baking power is proportional to the amount of tokens delegated to them, rounded down to the nearest roll. A roll is currently set to 6,000 ꜩ.
 
-#### Delegators 
+### Delegators 
 
 If someone does not have 6,000 ꜩ or does not want to set up computing infrastructure to bake blocks, they may delegate their tokens to a baker. The baker does not own or control the delegated tokens in any way. In particular, the baker cannot spend them. However, if and when one of these tokens is randomly selected to bake a block, that right will belong to the baker. In practice, bakers usually share the additional revenue generated from the delegated tokens with the coin holder.
 
@@ -98,27 +96,27 @@ In other words, the quorum tries to match the exponential moving average of the 
 
 ![tezos_amendment_process](/developers/docs/images/governance-on-chain/tezos_amendment_process.png)
 
-### Tezos Client Commands 
+## Tezos Client Commands 
 
-#### Voting During a Proposal Period 
+### Voting During a Proposal Period 
 
 ```bash
 $ tezos-client submit proposals for <delegate> <proposal1> <proposal2> ...
 ```
 
-#### Voting During an Exploration or Promotion Period 
+### Voting During an Exploration or Promotion Period 
 
 ```bash
 $ tezos-client submit ballot for <delegate> <proposal> <yea|nay|pass>
 ```
 
-#### Checking the Status of a Voting Period
+### Checking the Status of a Voting Period
 
 ```bash
 $ tezos-client show voting period
 ```
 
-### Additional Resources 
+## Additional Resources 
 
 * [The Voting Process](https://tezos.gitlab.io/whitedoc/voting.html) from Nomadic Labs
 * [Amending Tezos](https://medium.com/tezos/amending-tezos-b77949d97e1e) from Jacob Arluck
