@@ -5,29 +5,6 @@ title: "Tezos Position Paper"
 hide_title: true
 ---
 
-## Table of Contents
-
-* [Abstract](positionpaper.md#abstract)
-* [Motivation](positionpaper.md#motivation)
-* [The Protocol Fork Problem](positionpaper.md#protocol)
-* [Shortcomings of Proof-of-Work](positionpaper.md#shortcomings)
-* [Smart Contracts](positionpaper.md#smartcontracts)
-* [Correctness](positionpaper.md#correctness)
-* [Abstract Blockchains](positionpaper.md#abstractblockchains)
-* [Three Protocols](positionpaper.md#threeprotocols)
-* [Network Shell](positionpaper.md#networkshell)
-* [Proof-of-Stake](positionpaper.md#pos)
-* [Is Proof-of-Stake Impossible?](positionpaper.md#posimpossible)
-* [Mitigations](positionpaper.md#mitigations)
-* [The Nothing-at-Stake Problem](positionpaper.md#nothingatstake)
-* [Threat Models](positionpaper.md#threatmodels)
-* [Potential Developments](positionpaper.md#developments)
-* [Privacy Preserving Transactions](positionpaper.md#privacypreservingtransactions)
-* [Amendment Rules](positionpaper.md#amendmentrules)
-* [Solving Collective Action Problems](positionpaper.md#collectiveaction)
-* [Conclusion](positionpaper.md#conclusion)
-* [References](positionpaper.md#references)
-
 {% callout type="note" title="PDF" %}
 You can find the PDF for the position paper [here](https://tezos.com/position-paper.pdf)
 {% /callout %}
