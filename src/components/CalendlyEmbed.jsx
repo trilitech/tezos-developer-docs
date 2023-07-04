@@ -2,7 +2,7 @@ import React from 'react';
 import { InlineWidget } from 'react-calendly';
 
 export default function CalendlyEmbed() {
-  const url = 'https://calendly.com/developer-success-on-tezos';
+  const url = 'https://calendly.com/developer-success-on-tezos/15min';
 
   return (
     <div>

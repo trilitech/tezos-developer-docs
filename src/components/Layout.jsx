@@ -863,12 +863,12 @@ function Header({ navigation }) {
             >
               Office Hours
             </Link>
-            <Link
+            {/* <Link
               href="/tutorials"
               className="px-4 py-2 text-white hover:text-gray-300"
             >
               Tutorials
-            </Link>
+            </Link> */}
             {/* <Link
               href="/tooling"
               className="px-4 py-2 text-white hover:text-gray-300"
