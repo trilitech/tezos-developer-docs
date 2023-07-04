@@ -3,6 +3,7 @@ import { LgLink, LgLinks } from '@/components/LgLinks'
 import { QuickLink, QuickLinks } from '@/components/QuickLinks'
 
 import Math from '@/components/Math'
+import CalendlyEmbed from '@/components/CalendlyEmbed';
 // import Tab from '@/components/Tab'
 // import Tabs from '@/components/Tabs'
 // import { Tag } from '@markdoc/markdoc';
@@ -76,6 +77,9 @@ const tags = {
     },
   },
   comment,
+  calendlyEmbed: {
+    render: CalendlyEmbed,
+  },
   // tabs: {
   //   render: Tabs,
   //   attributes: {},
