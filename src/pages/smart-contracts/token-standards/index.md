@@ -73,7 +73,3 @@ Always be cautious as anyone can create tokens on Tezos. Before purchasing a tok
 - **[OpenMinter](https://github.com/tqtezos/minter)**: A reusable Dapp that allows anyone to create and collect NFTs on Tezos.
 - **[Peppermint](https://github.com/tzConnectBerlin/peppermint)**: A tool for batch minting/transferring tokens.
 - **[Claimz](https://gitlab.com/nomadic-labs-free-resources/claimz)**: A tool to create NFT giveaways.
-
-## To go further
-
-Check out the article on [NFTs on Tezos Agora](https://wiki.tezosagora.org/learn/uses-of-tezos/nft) and about [Tokenization](https://wiki.tezosagora.org/learn/uses-of-tezos/tokenization) to learn more.
