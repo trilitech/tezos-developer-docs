@@ -164,59 +164,6 @@ const documentationNavigation = [
     ],
   },
   {
-    title: 'DeFi, NFTs and Gaming',
-    links: [
-      {
-        title: 'DeFi',
-        href: '/defi/wrapped-assets',
-        children: [
-          { title: 'Wrapped Assets', href: '/defi/wrapped-assets' },
-          { title: 'Ctez', href: '/defi/ctez' },
-          { title: 'Token Standards', href: '/defi/token-standards' },
-          { title: 'Decentralized Exchanges', href: '/defi/dex' },
-          { title: 'Cross-chain Swaps', href: '/defi/cross-chain-swaps' },
-          { title: 'Stablecoins', href: '/defi/stablecoins' },
-          { title: 'Synthetics', href: '/defi/synthetics' },
-          { title: 'Decentralized Autonomous Organization', href: '/defi/dao' },
-          { title: 'Lending and Flash Loans', href: '/defi/lending' },
-          {
-            title: 'Decentralized Fundraising',
-            href: '/defi/decentralized-fundraising',
-          },
-        ],
-      },
-      { title: 'Create an NFT', href: '/nft/create-an-nft' },
-      {
-        title: 'Mint NFT using Taquito and Pinata',
-        href: '/nft/create-an-nft/nft-pinata',
-      },
-      {
-        title: 'Build an NFT Marketplace',
-        href: '/nft/build-an-nft-marketplace',
-        children: [
-          {
-            title: 'NFT Marketplace - Part 1',
-            href: '/nft/build-an-nft-marketplace',
-          },
-          {
-            title: 'NFT Marketplace - Part 2',
-            href: '/nft/build-an-nft-marketplace/part-2',
-          },
-          {
-            title: 'NFT Marketplace - Part 3',
-            href: '/nft/build-an-nft-marketplace/part-3',
-          },
-          {
-            title: 'NFT Marketplace - Part 4',
-            href: '/nft/build-an-nft-marketplace/part-4',
-          },
-        ],
-      },
-      { title: 'Tezos SDK for Unity', href: '/gaming/tezos-sdk-for-unity' },
-      // { title: 'Build a Game on Tezos', href: '/gaming/build-a-game-on-tezos' },
-    ],
-  },
-  {
     title: 'Dapp Development',
     links: [
       {
@@ -251,6 +198,45 @@ const documentationNavigation = [
         title: 'Framework Best Practices',
         href: '/dapp-development/framework-best-practices',
       },
+    ],
+  },
+  {
+    title: 'DeFi',
+    links: [
+      { title: 'Wrapped Assets', href: '/defi/wrapped-assets' },
+      { title: 'Ctez', href: '/defi/ctez' },
+      { title: 'Token Standards', href: '/defi/token-standards' },
+      { title: 'Decentralized Exchanges', href: '/defi/dex' },
+      { title: 'Cross-chain Swaps', href: '/defi/cross-chain-swaps' },
+      { title: 'Stablecoins', href: '/defi/stablecoins' },
+      { title: 'Synthetics', href: '/defi/synthetics' },
+      { title: 'Decentralized Autonomous Organization', href: '/defi/dao' },
+      { title: 'Lending and Flash Loans', href: '/defi/lending' },
+      { title: 'Decentralized Fundraising', href: '/defi/decentralized-fundraising' },
+    ],
+  },
+  {
+    title: 'NFTs',
+    links: [
+      { title: 'Create an NFT', href: '/nft/create-an-nft' },
+      { title: 'Mint NFT using Taquito and Pinata', href: '/nft/create-an-nft/nft-pinata' },
+      {
+        title: 'Build an NFT Marketplace',
+        href: '/nft/build-an-nft-marketplace',
+        children: [
+          { title: 'NFT Marketplace - Part 1', href: '/nft/build-an-nft-marketplace' },
+          { title: 'NFT Marketplace - Part 2', href: '/nft/build-an-nft-marketplace/part-2' },
+          { title: 'NFT Marketplace - Part 3', href: '/nft/build-an-nft-marketplace/part-3' },
+          { title: 'NFT Marketplace - Part 4', href: '/nft/build-an-nft-marketplace/part-4' },
+        ],
+      },
+    ],
+  },
+  {
+    title: 'Gaming',
+    links: [
+      { title: 'Tezos SDK for Unity', href: '/gaming/tezos-sdk-for-unity' },
+      // { title: 'Build a Game on Tezos', href: '/gaming/build-a-game-on-tezos' },
     ],
   },
   {
@@ -349,195 +335,9 @@ const tutorialNavigation = [
           },
         ],
       },
-
-      {
-        title: 'Get Started with Octez',
-        href: '/tezos-basics/get-started-with-octez',
-        children: [
-          {
-            title: 'The CLI and RPC',
-            href: '/tezos-basics/get-started-with-octez/cli-rpc',
-          },
-          {
-            title: 'Installation and Setup',
-            href: '/tezos-basics/get-started-with-octez/installation-and-setup',
-          },
-          {
-            title: 'Node Upgrade',
-            href: '/tezos-basics/get-started-with-octez/upgrade',
-          },
-          {
-            title: 'Monitor a Node',
-            href: '/tezos-basics/get-started-with-octez/monitor-a-node',
-          },
-          {
-            title: 'Sandbox Mode',
-            href: '/tezos-basics/get-started-with-octez/run-a-sandbox',
-          },
-          {
-            title: 'Best Practices',
-            href: '/tezos-basics/get-started-with-octez/best-practices',
-          },
-        ],
-      },
-      { title: 'Test Networks', href: '/tezos-basics/test-networks' },
-      { title: 'Block Explorers', href: '/tezos-basics/block-explorers' },
     ],
   },
-  {
-    title: 'Smart Contracts',
-    links: [
-      {
-        title: 'Smart Contract Languages',
-        href: '/smart-contracts/smart-contract-languages',
-        children: [
-          {
-            title: 'LIGO',
-            href: '/smart-contracts/smart-contract-languages/ligo',
-          },
-          {
-            title: 'SmartPy',
-            href: '/smart-contracts/smart-contract-languages/smartpy',
-          },
-          {
-            title: 'Archetype',
-            href: '/smart-contracts/smart-contract-languages/archetype',
-          },
-          {
-            title: 'Michelson',
-            href: '/smart-contracts/smart-contract-languages/michelson',
-          },
-        ],
-      },
-      {
-        title: 'Smart Contract Concepts',
-        href: '/smart-contracts/smart-contracts-concepts',
-      },
-      {
-        title: 'Simplified Contracts',
-        href: '/smart-contracts/simplified-contracts',
-      },
-      { title: 'FA1.2 Token Contract', href: '/smart-contracts/fa12' },
-      { title: 'FA2 Token Contract', href: '/smart-contracts/fa2' },
-      {
-        title: 'Avoiding Flaws',
-        href: '/smart-contracts/avoiding-flaws',
-      },
-      { title: 'Oracles', href: '/smart-contracts/oracles' },
-    ],
-  },
-  {
-    title: 'DeFi, NFTs and Gaming',
-    links: [
-      {
-        title: 'DeFi',
-        href: '/defi/wrapped-assets',
-        children: [
-          { title: 'Wrapped Assets', href: '/defi/wrapped-assets' },
-          { title: 'Ctez', href: '/defi/ctez' },
-          { title: 'Token Standards', href: '/defi/token-standards' },
-          { title: 'Decentralized Exchanges', href: '/defi/dex' },
-          { title: 'Cross-chain Swaps', href: '/defi/cross-chain-swaps' },
-          { title: 'Stablecoins', href: '/defi/stablecoins' },
-          { title: 'Synthetics', href: '/defi/synthetics' },
-          { title: 'Decentralized Autonomous Organization', href: '/defi/dao' },
-          { title: 'Lending and Flash Loans', href: '/defi/lending' },
-          {
-            title: 'Decentralized Fundraising',
-            href: '/defi/decentralized-fundraising',
-          },
-        ],
-      },
-      { title: 'Create an NFT', href: '/nft/create-an-nft' },
-      {
-        title: 'Mint NFT using Taquito and Pinata',
-        href: '/nft/create-an-nft/nft-pinata',
-      },
-      {
-        title: 'Build an NFT Marketplace',
-        href: '/nft/build-an-nft-marketplace',
-        children: [
-          {
-            title: 'NFT Marketplace - Part 1',
-            href: '/nft/build-an-nft-marketplace',
-          },
-          {
-            title: 'NFT Marketplace - Part 2',
-            href: '/nft/build-an-nft-marketplace/part-2',
-          },
-          {
-            title: 'NFT Marketplace - Part 3',
-            href: '/nft/build-an-nft-marketplace/part-3',
-          },
-          {
-            title: 'NFT Marketplace - Part 4',
-            href: '/nft/build-an-nft-marketplace/part-4',
-          },
-        ],
-      },
-      { title: 'Tezos SDK for Unity', href: '/gaming/tezos-sdk-for-unity' },
-      // { title: 'Build a Game on Tezos', href: '/gaming/build-a-game-on-tezos' },
-    ],
-  },
-  {
-    title: 'Dapp Development',
-    links: [
-      {
-        title: 'Build your first DApp',
-        href: '/dapp-development/build-your-first-dapp',
-        children: [
-          {
-            title: 'Wallets and user tokens',
-            href: '/dapp-development/build-your-first-dapp/wallets-tokens',
-          },
-          {
-            title: 'Swapping tokens',
-            href: '/dapp-development/build-your-first-dapp/swapping-tokens',
-          },
-          {
-            title: 'Adding and removing liquidity',
-            href: '/dapp-development/build-your-first-dapp/adding-removing-liquidity',
-          },
-        ],
-      },
-      { title: 'Taquito', href: '/dapp-development/taquito' },
-      { title: 'Indexers', href: '/dapp-development/indexers' },
-      {
-        title: 'DipDup and Dappetizer',
-        href: '/dapp-development/indexers/dipdup',
-      },
-      {
-        title: 'Wallets and Beacon SDK',
-        href: '/dapp-development/wallets-and-beacon-sdk',
-      },
-      {
-        title: 'Framework Best Practices',
-        href: '/dapp-development/framework-best-practices',
-      },
-    ],
-  },
-  {
-    title: 'Baking',
-    links: [
-      { title: 'Introduction', href: '/baking/introduction' },
-      { title: 'How Baking Works', href: '/baking/baking-explained' },
-      { title: 'Rewards', href: '/baking/rewards' },
-      { title: 'Risks', href: '/baking/risks' },
-      { title: 'Delegating', href: '/baking/delegating' },
-      { title: 'List of Bakers', href: '/baking/bakers-list' },
-      { title: 'Become a Baker', href: '/baking/become-a-baker' },
-      { title: 'Baker Consensus Key', href: '/baking/consensus-key' },
-      {
-        title: 'Run a Persistent Baking Node',
-        href: '/baking/persistent-baker',
-      },
-      {
-        title: 'Submit Transaction to Specific Baker',
-        href: '/baking/baker-selection',
-      },
-    ],
-  },
-]
+];
 
 const toolingNavigation = [
   {
@@ -1057,13 +857,19 @@ function Header({ navigation }) {
             >
               Documentation
             </Link>
+            <Link
+              href="/office-hours"
+              className="px-4 py-2 text-white hover:text-gray-300"
+            >
+              Office Hours
+            </Link>
             {/* <Link
               href="/tutorials"
               className="px-4 py-2 text-white hover:text-gray-300"
             >
               Tutorials
-            </Link>
-            <Link
+            </Link> */}
+            {/* <Link
               href="/tooling"
               className="px-4 py-2 text-white hover:text-gray-300"
             >
@@ -1233,8 +1039,8 @@ export function Layout({ children, title, tableOfContents }) {
       {isHomePage}
 
       <div className="relative mx-auto flex max-w-8xl justify-center sm:px-2 lg:px-8 xl:px-12">
-        {!isHomePage && (
-          // Don't show the left sidebar on the homepage(
+        {!isHomePage && !router.pathname.includes('office-hours') && (
+          // Don't show the left sidebar on the homepage or on office-hours page
           <div className="hidden lg:relative lg:block lg:flex-none">
             <div className="absolute inset-y-0 right-0 w-[50vw] bg-slate-50 dark:hidden" />
             <div className="absolute top-16 bottom-0 right-0 hidden h-12 w-px bg-gradient-to-t from-slate-800 dark:block" />
@@ -1309,7 +1115,7 @@ export function Layout({ children, title, tableOfContents }) {
           )}
         </div>
 
-        {!isHomePage && (
+        {!isHomePage && !router.pathname.includes('office-hours') && (
           // Don't show the right sidebar on the homepage
 
           <div className="hidden xl:sticky xl:top-[4.5rem] xl:-mr-6 xl:block xl:h-[calc(100vh-4.5rem)] xl:flex-none xl:overflow-y-auto xl:py-16 xl:pr-6">
