@@ -130,11 +130,11 @@ The generated list of priorities identifies which delegate has the responsibilit
 The minimum time delay between two blocks is <:MINIMAL_BLOCK_DELAY:> seconds, reached if the baker is of priority 0 and has gathered at least 66.7% of the endorsements. If the priority 0 baker fails to bake, the priority 1 baker may then bake after a certain time, defined by a so-called round duration function.
 To be able to bake as rapidly as possible, the baker must gain enough endorsements (66.7%, that is, endrosements with endrosing power of at least 4,667 out of 7,000). Rounds follow the structure below:
 
-{% math %} \bm{round\\_duration(0) = minimal\\_block\\_delay} {% /math %}
+{% math inline="true" %} round\\_duration(0) = minimal\\_block\\_delay {% /math %}
 
-{% math %} \bm{round\\_duration(r+1) = round\\_duration(r) + delay\\_increment\\_per\\_round } {% /math %} 
+{% math inline="true" %} round\\_duration(r+1) = round\\_duration(r) + delay\\_increment\\_per\\_round {% /math %} 
 
-{% math %} \bm{round\\_duration(r+1) = minimal\\_block\\_delay+(r+1) ∗ delay\\_increment\\_per\\_round} {% /math %}
+{% math inline="true" %} round\\_duration(r+1) = minimal\\_block\\_delay+(r+1) ∗ delay\\_increment\\_per\\_round {% /math %}
 
 Round duration thus increases linearly with `DELAY_INCREMENT_PER_ROUND = 8s`, `MINIMAL_BLOCK_DELAY = 15s`,`r = round`.
 
