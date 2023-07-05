@@ -161,6 +161,7 @@ const documentationNavigation = [
         href: '/smart-contracts/avoiding-flaws',
       },
       { title: 'Oracles', href: '/smart-contracts/oracles' },
+      { title: 'Token Standards', href: '/smart-contracts/token-standards' },
     ],
   },
   {
@@ -203,12 +204,11 @@ const documentationNavigation = [
   {
     title: 'DeFi',
     links: [
-      { title: 'Wrapped Assets', href: '/defi/wrapped-assets' },
-      { title: 'Ctez', href: '/defi/ctez' },
-      { title: 'Token Standards', href: '/defi/token-standards' },
+      // { title: 'Wrapped Assets', href: '/defi/wrapped-assets' },
       { title: 'Decentralized Exchanges', href: '/defi/dex' },
+      { title: 'Ctez', href: '/defi/ctez' },
       { title: 'Cross-chain Swaps', href: '/defi/cross-chain-swaps' },
-      { title: 'Stablecoins', href: '/defi/stablecoins' },
+      // { title: 'Stablecoins', href: '/defi/stablecoins' },
       { title: 'Synthetics', href: '/defi/synthetics' },
       { title: 'Decentralized Autonomous Organization', href: '/defi/dao' },
       { title: 'Lending and Flash Loans', href: '/defi/lending' },
