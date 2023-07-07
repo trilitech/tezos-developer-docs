@@ -10,7 +10,7 @@ Welcome to the Tezos Documentation Portal. We're currently in _beta_. Please sha
 
 {% lg-link title="Tezos Blockchain Overview" icon="overview" href="/tezos-blockchain-overview" description="Understanding what makes Tezos different and what you need to start building" /%}
 
-{% lg-link title="Quickstart guide" icon="quickstart" href="/dapp-development/build-your-first-dapp" description="Learn how to write a smart contract and get it deployed quickly" /%}
+{% lg-link title="Smart Rollups" icon="quickstart" href="/tutorials/smart-rollups/" description="Get started by deploying your own smart rollup with our onboarding tutorial" /%}
 
 {% /lg-links %}
 
@@ -18,7 +18,7 @@ Welcome to the Tezos Documentation Portal. We're currently in _beta_. Please sha
 
 {% quick-link title="Get and Install Tezos" icon="installation" href="/tezos-basics/get-started-with-octez" description="Step-by-step guide to install and use the Tezos client Octez" /%}
 
-{% quick-link title="Originate your First Smart Contract" icon="deploy" href="/tezos-basics/originate-your-first-smart-contract/smartpy" description="How to originate your first smart contract" /%}
+{% quick-link title="Originate your First Smart Contract" icon="deploy" href="/tutorials/originate-your-first-smart-contract/smartpy" description="How to originate your first smart contract" /%}
 
 {% quick-link title="Tezos Protocol & Shell" icon="protocol" href="/tezos-basics/tezos-protocol-and-shell" description="Understanding the Tezos Protocol & Shell" /%}
 
@@ -26,17 +26,17 @@ Welcome to the Tezos Documentation Portal. We're currently in _beta_. Please sha
 
 {% quick-link title="Smart Contract Languages" icon="contract" href="/smart-contracts/smart-contract-languages" description="Overview of Smart Contract languages" /%}
 
-{% quick-link title="Wrapped Assets" icon="token" href="/defi/wrapped-assets" description="Learn about ctez and wrapped tokens. Two building blocks for DeFi on Tezos. " /%}
+{% quick-link title="Decentralised Exchanges" icon="token" href="/defi/dex" description="Learn about decentralised exchanges, one of the core applications in DeFi" /%}
 
 {% quick-link title="Create an NFT" icon="nft" href="/nft/create-an-nft" description="Create your own NFT" /%}
 
-{% quick-link title="Build an NFT Marketplace" icon="marketplace" href="/nft/build-an-nft-marketplace" description="Build a full marketplace for NFTs" /%}
+{% quick-link title="Build an NFT Marketplace" icon="marketplace" href="/tutorials/build-an-nft-marketplace" description="Build a full marketplace for NFTs" /%}
 
 {% quick-link title="Tezos SDK for Unity" icon="unity" href="/gaming/tezos-sdk-for-unity" description="Tezos SDK for Unity" /%}
 
 {% quick-link title="Build a Game on Tezos" icon="game" href="" description="Building a Game on Tezos" comingSoon=true /%}
 
-{% quick-link title="Build your first DApp" icon="dapp" href="/dapp-development/build-your-first-dapp" description="Build your first DApp" /%}
+{% quick-link title="Build your first app" icon="dapp" href="/tutorials/build-your-first-app" description="Build your first app on Tezos" /%}
 
 {% quick-link title="Taquito" icon="taquito" href="/dapp-development/taquito" description="How is Taquito instrumental for dapp development" /%}
 

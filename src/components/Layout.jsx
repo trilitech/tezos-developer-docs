@@ -86,20 +86,20 @@ const documentationNavigation = [
           },
         ],
       },
-      {
-        title: 'Originating a contract',
-        href: '/tezos-basics/originate-your-first-smart-contract/smartpy',
-        children: [
-          {
-            title: 'SmartPy',
-            href: '/tezos-basics/originate-your-first-smart-contract/smartpy',
-          },
-          {
-            title: 'LIGO',
-            href: '/tezos-basics/originate-your-first-smart-contract/ligo',
-          },
-        ],
-      },
+      // {
+      //   title: 'Originating a contract',
+      //   href: '/tezos-basics/originate-your-first-smart-contract/smartpy',
+      //   children: [
+      //     {
+      //       title: 'SmartPy',
+      //       href: '/tezos-basics/originate-your-first-smart-contract/smartpy',
+      //     },
+      //     {
+      //       title: 'LIGO',
+      //       href: '/tezos-basics/originate-your-first-smart-contract/ligo',
+      //     },
+      //   ],
+      // },
       {
         title: 'Tezos Protocol & Shell',
         href: '/tezos-basics/tezos-protocol-and-shell',
@@ -167,24 +167,24 @@ const documentationNavigation = [
   {
     title: 'Dapp Development',
     links: [
-      {
-        title: 'Build your first DApp',
-        href: '/dapp-development/build-your-first-dapp',
-        children: [
-          {
-            title: 'Wallets and user tokens',
-            href: '/dapp-development/build-your-first-dapp/wallets-tokens',
-          },
-          {
-            title: 'Swapping tokens',
-            href: '/dapp-development/build-your-first-dapp/swapping-tokens',
-          },
-          {
-            title: 'Adding and removing liquidity',
-            href: '/dapp-development/build-your-first-dapp/adding-removing-liquidity',
-          },
-        ],
-      },
+      // {
+      //   title: 'Build your first DApp',
+      //   href: '/dapp-development/build-your-first-dapp',
+      //   children: [
+      //     {
+      //       title: 'Wallets and user tokens',
+      //       href: '/dapp-development/build-your-first-dapp/wallets-tokens',
+      //     },
+      //     {
+      //       title: 'Swapping tokens',
+      //       href: '/dapp-development/build-your-first-dapp/swapping-tokens',
+      //     },
+      //     {
+      //       title: 'Adding and removing liquidity',
+      //       href: '/dapp-development/build-your-first-dapp/adding-removing-liquidity',
+      //     },
+      //   ],
+      // },
       { title: 'Taquito', href: '/dapp-development/taquito' },
       { title: 'Indexers', href: '/dapp-development/indexers' },
       {
@@ -212,24 +212,42 @@ const documentationNavigation = [
       { title: 'Synthetics', href: '/defi/synthetics' },
       { title: 'Decentralized Autonomous Organization', href: '/defi/dao' },
       { title: 'Lending and Flash Loans', href: '/defi/lending' },
-      { title: 'Decentralized Fundraising', href: '/defi/decentralized-fundraising' },
+      {
+        title: 'Decentralized Fundraising',
+        href: '/defi/decentralized-fundraising',
+      },
     ],
   },
   {
     title: 'NFTs',
     links: [
       { title: 'Create an NFT', href: '/nft/create-an-nft' },
-      { title: 'Mint NFT using Taquito and Pinata', href: '/nft/create-an-nft/nft-pinata' },
       {
-        title: 'Build an NFT Marketplace',
-        href: '/nft/build-an-nft-marketplace',
-        children: [
-          { title: 'NFT Marketplace - Part 1', href: '/nft/build-an-nft-marketplace' },
-          { title: 'NFT Marketplace - Part 2', href: '/nft/build-an-nft-marketplace/part-2' },
-          { title: 'NFT Marketplace - Part 3', href: '/nft/build-an-nft-marketplace/part-3' },
-          { title: 'NFT Marketplace - Part 4', href: '/nft/build-an-nft-marketplace/part-4' },
-        ],
+        title: 'Mint NFT using Taquito and Pinata',
+        href: '/nft/create-an-nft/nft-pinata',
       },
+      // {
+      //   title: 'Build an NFT Marketplace',
+      //   href: '/nft/build-an-nft-marketplace',
+      //   children: [
+      //     {
+      //       title: 'NFT Marketplace - Part 1',
+      //       href: '/nft/build-an-nft-marketplace',
+      //     },
+      //     {
+      //       title: 'NFT Marketplace - Part 2',
+      //       href: '/nft/build-an-nft-marketplace/part-2',
+      //     },
+      //     {
+      //       title: 'NFT Marketplace - Part 3',
+      //       href: '/nft/build-an-nft-marketplace/part-3',
+      //     },
+      //     {
+      //       title: 'NFT Marketplace - Part 4',
+      //       href: '/nft/build-an-nft-marketplace/part-4',
+      //     },
+      //   ],
+      // },
     ],
   },
   {
@@ -297,41 +315,63 @@ const documentationNavigation = [
 
 const tutorialNavigation = [
   {
-    title: 'Tezos Basics',
+    title: 'Tutorials',
     links: [
       {
-        title: 'Tezos Blockchain Tutorials',
-        href: 'tutorials/tezos-blockchain-overview',
+        title: 'Originating a contract',
+        href: '/tutorials/originate-your-first-smart-contract/smartpy',
         children: [
           {
-            title: 'Whitepaper',
-            href: 'tutorials/tezos-blockchain-overview/whitepaper',
+            title: 'SmartPy',
+            href: '/tutorials/originate-your-first-smart-contract/smartpy',
           },
           {
-            title: 'Position Paper',
-            href: 'tutorials/tezos-blockchain-overview/positionpaper',
+            title: 'LIGO',
+            href: '/tutorials/originate-your-first-smart-contract/ligo',
+          },
+        ],
+      },
+      {
+        title: 'Deploy your own smart rollup',
+        href: '/tutorials/smart-rollups',
+      },
+      {
+        title: 'Build an NFT Marketplace',
+        href: '/tutorials/build-an-nft-marketplace',
+        children: [
+          {
+            title: 'NFT Marketplace - Part 1',
+            href: '/tutorials/build-an-nft-marketplace',
           },
           {
-            title: 'Nomenclature',
-            href: 'tutorials/tezos-blockchain-overview/nomenclature',
+            title: 'NFT Marketplace - Part 2',
+            href: '/tutorials/build-an-nft-marketplace/part-2',
           },
           {
-            title: 'Governance',
-            href: 'tutorials/tezos-blockchain-overview/governance/intro',
-            children: [
-              {
-                title: 'Governance Overview',
-                href: 'tutorials/tezos-blockchain-overview/governance/governance-overview',
-              },
-              {
-                title: 'Tezos Improvement Process',
-                href: 'tutorials/tezos-blockchain-overview/governance/improvement-process-tzip',
-              },
-            ],
+            title: 'NFT Marketplace - Part 3',
+            href: '/tutorials/build-an-nft-marketplace/part-3',
           },
           {
-            title: 'Functional Programming',
-            href: 'tutorials/tezos-blockchain-overview/governance/functional-programming',
+            title: 'NFT Marketplace - Part 4',
+            href: '/tutorials/build-an-nft-marketplace/part-4',
+          },
+        ],
+      },
+      {
+        title: 'Build your first app',
+        href: '/tutorials/build-your-first-app',
+        children: [
+          {
+            title: 'Wallets and user tokens',
+            href: '/tutorials/build-your-first-app/wallets-tokens',
+          },
+          {
+            title: 'Swapping tokens',
+            href: '/tutorials/build-your-first-app/swapping-tokens',
+          },
+          {
+            title: 'Adding and removing liquidity',
+            href: '/tutorials/build-your-first-app/adding-removing-liquidity',
           },
         ],
       },
@@ -858,17 +898,18 @@ function Header({ navigation }) {
               Documentation
             </Link>
             <Link
+              href="/tutorials"
+              className="px-4 py-2 text-white hover:text-gray-300"
+            >
+              Tutorials
+            </Link>
+            <Link
               href="/office-hours"
               className="px-4 py-2 text-white hover:text-gray-300"
             >
               Office Hours
             </Link>
-            {/* <Link
-              href="/tutorials"
-              className="px-4 py-2 text-white hover:text-gray-300"
-            >
-              Tutorials
-            </Link> */}
+
             {/* <Link
               href="/tooling"
               className="px-4 py-2 text-white hover:text-gray-300"
@@ -1077,7 +1118,7 @@ export function Layout({ children, title, tableOfContents }) {
             <Prose>{children}</Prose>
           </article>
 
-          {!isHomePage && (
+          {!isHomePage && !router.pathname.endsWith('tutorials') && (
             // Don't show the previous and next links on the homepage
             <dl className="mt-12 flex border-t border-slate-200 pt-6 dark:border-slate-800">
               {previousPage && (

@@ -33,7 +33,7 @@ export function QuickLinks({ children }) {
 }
 
 export function QuickLink({ title, description, href, icon, comingSoon }) {
-  const pathsToHideDescription = ['/tutorials', '/tooling', '/resources']
+  const pathsToHideDescription = ['/tooling', '/resources']
 
   // if (comingSoon === "true") {
   //   console.log('comingSoon', comingSoon);
