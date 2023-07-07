@@ -8,8 +8,13 @@ Welcome to the Tezos Documentation Tutorials Portal. We're currently in _beta_. 
 
 {% lg-links %}
 
-{% lg-link title="Originating your first smart contract" icon="quickstart" href="/tezos-basics/originate-your-first-smart-contract/smartpy/" description="In 15 minutes, go from zero to hero and originate your first smart contract with SmartPy/LIGO" /%}
+{% lg-link title="Originating your first smart contract" icon="deploy" href="/tutorials/originate-your-first-smart-contract/smartpy/" description="In 15 minutes, go from zero to hero and originate your first smart contract with SmartPy/LIGO" /%}
 
-{% lg-link title="Get started with Octez, the Tezos Client" icon="overview" href="/tezos-basics/get-started-with-octez/" description="Octez is the official client to interact with a Tezos node via RPC. Learn how to do the basics and more." /%}
+{% lg-link title="Smart Rollups" icon="quickstart" href="/tutorials/smart-rollups" description="Get started by deploying your own smart rollup with our onboarding tutorial" /%}
+
+{% lg-link title="Build an NFT marketplace" icon="marketplace" href="/tutorials/build-an-nft-marketplace" description="Learn how to build your own NFT marketplace, with LIGO smart contracts and frontend, in 4 parts" /%}
+
+{% lg-link title="Build your First App on Tezos" icon="dapp" href="/tutorials/build-your-first-dapp/" description="Learn how to set up and create a decentralized web application on Tezos using TypeScript, Taquito and Svelte" /%}
+
 
 {% /lg-links %}

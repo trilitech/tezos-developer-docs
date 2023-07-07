@@ -212,22 +212,40 @@ const documentationNavigation = [
       { title: 'Synthetics', href: '/defi/synthetics' },
       { title: 'Decentralized Autonomous Organization', href: '/defi/dao' },
       { title: 'Lending and Flash Loans', href: '/defi/lending' },
-      { title: 'Decentralized Fundraising', href: '/defi/decentralized-fundraising' },
+      {
+        title: 'Decentralized Fundraising',
+        href: '/defi/decentralized-fundraising',
+      },
     ],
   },
   {
     title: 'NFTs',
     links: [
       { title: 'Create an NFT', href: '/nft/create-an-nft' },
-      { title: 'Mint NFT using Taquito and Pinata', href: '/nft/create-an-nft/nft-pinata' },
+      {
+        title: 'Mint NFT using Taquito and Pinata',
+        href: '/nft/create-an-nft/nft-pinata',
+      },
       {
         title: 'Build an NFT Marketplace',
         href: '/nft/build-an-nft-marketplace',
         children: [
-          { title: 'NFT Marketplace - Part 1', href: '/nft/build-an-nft-marketplace' },
-          { title: 'NFT Marketplace - Part 2', href: '/nft/build-an-nft-marketplace/part-2' },
-          { title: 'NFT Marketplace - Part 3', href: '/nft/build-an-nft-marketplace/part-3' },
-          { title: 'NFT Marketplace - Part 4', href: '/nft/build-an-nft-marketplace/part-4' },
+          {
+            title: 'NFT Marketplace - Part 1',
+            href: '/nft/build-an-nft-marketplace',
+          },
+          {
+            title: 'NFT Marketplace - Part 2',
+            href: '/nft/build-an-nft-marketplace/part-2',
+          },
+          {
+            title: 'NFT Marketplace - Part 3',
+            href: '/nft/build-an-nft-marketplace/part-3',
+          },
+          {
+            title: 'NFT Marketplace - Part 4',
+            href: '/nft/build-an-nft-marketplace/part-4',
+          },
         ],
       },
     ],
@@ -858,17 +876,18 @@ function Header({ navigation }) {
               Documentation
             </Link>
             <Link
+              href="/tutorials"
+              className="px-4 py-2 text-white hover:text-gray-300"
+            >
+              Tutorials
+            </Link>
+            <Link
               href="/office-hours"
               className="px-4 py-2 text-white hover:text-gray-300"
             >
               Office Hours
             </Link>
-            {/* <Link
-              href="/tutorials"
-              className="px-4 py-2 text-white hover:text-gray-300"
-            >
-              Tutorials
-            </Link> */}
+
             {/* <Link
               href="/tooling"
               className="px-4 py-2 text-white hover:text-gray-300"
@@ -1039,7 +1058,7 @@ export function Layout({ children, title, tableOfContents }) {
       {isHomePage}
 
       <div className="relative mx-auto flex max-w-8xl justify-center sm:px-2 lg:px-8 xl:px-12">
-        {!isHomePage && !router.pathname.includes('office-hours') && (
+        {!isHomePage && !router.pathname.includes('office-hours') && !router.pathname.includes('tutorials') && (
           // Don't show the left sidebar on the homepage or on office-hours page
           <div className="hidden lg:relative lg:block lg:flex-none">
             <div className="absolute inset-y-0 right-0 w-[50vw] bg-slate-50 dark:hidden" />
@@ -1077,7 +1096,7 @@ export function Layout({ children, title, tableOfContents }) {
             <Prose>{children}</Prose>
           </article>
 
-          {!isHomePage && (
+          {!isHomePage && !router.pathname.endsWith('tutorials') && (
             // Don't show the previous and next links on the homepage
             <dl className="mt-12 flex border-t border-slate-200 pt-6 dark:border-slate-800">
               {previousPage && (

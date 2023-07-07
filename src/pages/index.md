@@ -10,7 +10,7 @@ Welcome to the Tezos Documentation Portal. We're currently in _beta_. Please sha
 
 {% lg-link title="Tezos Blockchain Overview" icon="overview" href="/tezos-blockchain-overview" description="Understanding what makes Tezos different and what you need to start building" /%}
 
-{% lg-link title="Quickstart guide" icon="quickstart" href="/dapp-development/build-your-first-dapp" description="Learn how to write a smart contract and get it deployed quickly" /%}
+{% lg-link title="Smart Rollups" icon="quickstart" href="/advanced-topics/smart-rollups/tutorial" description="Get started by deploying your own smart rollup with our onboarding tutorial" /%}
 
 {% /lg-links %}
 
@@ -26,7 +26,7 @@ Welcome to the Tezos Documentation Portal. We're currently in _beta_. Please sha
 
 {% quick-link title="Smart Contract Languages" icon="contract" href="/smart-contracts/smart-contract-languages" description="Overview of Smart Contract languages" /%}
 
-{% quick-link title="Wrapped Assets" icon="token" href="/defi/wrapped-assets" description="Learn about ctez and wrapped tokens. Two building blocks for DeFi on Tezos. " /%}
+{% quick-link title="Decentralised Exchanges" icon="token" href="/defi/dex" description="Learn about decentralised exchanges, one of the core applications in DeFi" /%}
 
 {% quick-link title="Create an NFT" icon="nft" href="/nft/create-an-nft" description="Create your own NFT" /%}
 

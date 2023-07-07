@@ -919,3 +919,5 @@ Now you can see all NFTs
 ## Conclusion
 
 You are able to create an NFT collection marketplace from the `ligo/fa` library.
+
+To continue, let's go to [Part 2](/developers/docs/tutorials/build-an-nft-marketplace/part-2).
