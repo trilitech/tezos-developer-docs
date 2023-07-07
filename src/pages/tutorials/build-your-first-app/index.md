@@ -1,6 +1,6 @@
 ---
-id: build-your-first-dapp
-title: Build your First DApp on Tezos
+id: build-your-first-app
+title: Build your first app on Tezos
 authors: Claude Barde
 ---
 
