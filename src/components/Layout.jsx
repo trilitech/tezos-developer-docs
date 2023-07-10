@@ -854,6 +854,8 @@ function GitHubIcon(props) {
 }
 
 function Header({ navigation }) {
+  let router = useRouter()
+  let isHomePage = router.pathname === '/'
   let [isScrolled, setIsScrolled] = useState(false)
 
   useEffect(() => {
@@ -893,19 +895,30 @@ function Header({ navigation }) {
           <div className="ml-6 flex">
             <Link
               href="/tezos-blockchain-overview/"
-              className="px-4 py-2 text-white hover:text-gray-300"
+              // className="px-4 py-2 text-white hover:text-gray-300"
+              className={`px-4 py-2 ${
+                (!router.pathname.includes('tutorials') && 
+                !router.pathname.includes('office-hours') && 
+                !isHomePage) ? 'text-blue-400' : 'text-white'
+              } hover:text-gray-300`}
             >
               Documentation
             </Link>
             <Link
               href="/tutorials"
-              className="px-4 py-2 text-white hover:text-gray-300"
+              // className="px-4 py-2 text-white hover:text-gray-300"
+              className={`px-4 py-2 ${
+                router.pathname.includes('/tutorials') ? 'text-blue-400' : 'text-white'
+              } hover:text-gray-300`}
             >
               Tutorials
             </Link>
             <Link
               href="/office-hours"
-              className="px-4 py-2 text-white hover:text-gray-300"
+              // className="px-4 py-2 text-white hover:text-gray-300"
+              className={`px-4 py-2 ${
+                router.pathname.endsWith('office-hours') ? 'text-blue-400' : 'text-white'
+              } hover:text-gray-300`}
             >
               Office Hours
             </Link>
@@ -1077,8 +1090,6 @@ export function Layout({ children, title, tableOfContents }) {
     <>
       <Header navigation={navigation} />
 
-      {isHomePage}
-
       <div className="relative mx-auto flex max-w-8xl justify-center sm:px-2 lg:px-8 xl:px-12">
         {!isHomePage && !router.pathname.includes('office-hours') && (
           // Don't show the left sidebar on the homepage or on office-hours page
@@ -1119,7 +1130,7 @@ export function Layout({ children, title, tableOfContents }) {
           </article>
 
           {!isHomePage && !router.pathname.endsWith('tutorials') && (
-            // Don't show the previous and next links on the homepage
+            // Don't show the previous and next links on the homepage or on the tutorials page
             <dl className="mt-12 flex border-t border-slate-200 pt-6 dark:border-slate-800">
               {previousPage && (
                 <div>
@@ -1157,7 +1168,7 @@ export function Layout({ children, title, tableOfContents }) {
         </div>
 
         {!isHomePage && !router.pathname.includes('office-hours') && (
-          // Don't show the right sidebar on the homepage
+          // Don't show the right sidebar on the homepage or on the office-hours page
 
           <div className="hidden xl:sticky xl:top-[4.5rem] xl:-mr-6 xl:block xl:h-[calc(100vh-4.5rem)] xl:flex-none xl:overflow-y-auto xl:py-16 xl:pr-6">
             <nav aria-labelledby="on-this-page-title" className="w-56">
