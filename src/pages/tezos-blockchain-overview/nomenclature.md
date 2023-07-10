@@ -10,11 +10,11 @@ The following is adapted from this [Agora post](https://forum.tezosagora.org/t/n
 
 **Tezos**
 
-Used somewhat interchangeably, either as a noun or an adjective to designate:
+Used to designate:
 
 * An open-source project and software \(as in, “contributing to the Tezos codebase”\)
 * A peer-to-peer network of nodes maintaining a blockchain \(as in “a Tezos node”\)
-* The specific Tezos chain with the most economic relevance \(as in “the Tezos chain”\). Typically, this would be today the chain whose [millionth block](https://tzkt.io/BKtC4QCWoF73kxLj773vFpQuuwrnye6PS7T1aM3XEPvFXiQbNu7/endorsements) had hash BKtC4QCWoF73kxLj773vFpQuuwrnye6PS7T1aM3XEPvFXiQbNu7.
+* The specific Tezos chain with the most economic relevance \(as in “the Tezos chain”\). Typically, this would be today the chain whose [millionth block](https://tzkt.io/BKtC4QCWoF73kxLj773vFpQuuwrnye6PS7T1aM3XEPvFXiQbNu7/endorsements) had hash `BKtC4QCWoF73kxLj773vFpQuuwrnye6PS7T1aM3XEPvFXiQbNu7`.
 
 **Tez**
 
