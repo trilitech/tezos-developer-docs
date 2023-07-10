@@ -6,9 +6,9 @@ authors: Claude Barde
 
 In this tutorial, you will learn how to set up and create a decentralized web application on Tezos. We will build together an interface for the Liquidity Baking smart contract that will allow us to interact with this DEX and perform different operations, like swapping tokens or providing liquidity. At the same time, you will be introduced to core concepts of building a decentralized application in general, but also specifically on Tezos.
 
-As the dapp will be built with [TypeScript](https://www.typescriptlang.org/), a good knowledge of this programming language is required. We will use the [Svelte](https://svelte.dev/) framework to develop the application, no prior knowledge of it is required as it is pretty intuitive to use and I will explain how it works along the way.
+As the app will be built with [TypeScript](https://www.typescriptlang.org/), a good knowledge of this programming language is required. We will use the [Svelte](https://svelte.dev/) framework to develop the application, no prior knowledge of it is required as it is pretty intuitive to use and I will explain how it works along the way.
 
-As 99% of the dapps in the ecosystem, this dapp will use [Taquito](https://tezostaquito.io/), a TypeScript library that will provide a much better developer experience to use the Tezos blockchain.
+As 99% of the dapps in the ecosystem, this app will use [Taquito](https://tezostaquito.io/), a TypeScript library that will provide a much better developer experience to use the Tezos blockchain.
 
 ## Overview of this tutorial
 ### Setting up the project
@@ -17,7 +17,7 @@ As 99% of the dapps in the ecosystem, this dapp will use [Taquito](https://tezos
 - Configuring ViteJS
 - Checking that everything works
 
-### Setting up the dapp
+### Setting up the app
 - File structure
 - Configuration
 - The `TezosToolkit` instance
@@ -59,7 +59,7 @@ The contract is also fully public, which means that anybody with a Tezos wallet 
 
 ## What are we going to build?
 
-In this tutorial, we will build a dapp interface that interacts with the LB contract to swap tokens, add liquidity and remove it. The dapp will handle different actions:
+In this tutorial, we will build a app interface that interacts with the LB contract to swap tokens, add liquidity and remove it. The app will handle different actions:
 
 - Displaying users' information like their XTZ, tzBTC, and SIRS balance and update them after each transaction
 - Connecting and disconnecting the users' wallet
@@ -88,7 +88,7 @@ As the decentralized application is ultimately a web app, we will use the follow
 - Vite => https://vitejs.dev/
 - Taquito => https://tezostaquito.io/
 - Beacon => https://docs.walletbeacon.io/
-- GitHub repo with the dapp => https://github.com/claudebarde/tezos-dev-portal-tutorial
+- GitHub repo with the app => https://github.com/claudebarde/tezos-dev-portal-tutorial
 
 
 As we are building a web app with the Svelte framework, the steps to set up the project will be very similar to the ones you would follow to set up any other web app.
@@ -103,7 +103,7 @@ cd lb-dex
 npm install
 ```
 
-Next, we will install all the dependencies we need for the dapp:
+Next, we will install all the dependencies we need for the app:
 
 ```
 npm install --save-dev sass
@@ -198,9 +198,9 @@ In the first `script` tag, we set the `global` variable to `globalThis`. Then, i
 
 > *Note: this configuration is required to run the Beacon SDK with a Vite app. Taquito works completely out of the box and doesn't require any settings.*
 
-Once we updated the configuration in the `vite.config.js` file and in the `index.html` file, our project is successfully set up! You can run `npm run dev` in your terminal at the root of the project to check that everything works properly, the dapp should be running on `http://localhost:4000`
+Once we updated the configuration in the `vite.config.js` file and in the `index.html` file, our project is successfully set up! You can run `npm run dev` in your terminal at the root of the project to check that everything works properly, the app should be running on `http://localhost:4000`
 
-Now, let's start writing some code and setting up the dapp!
+Now, let's start writing some code and setting up the app!
 
 As we are building a web app with the Svelte framework, the steps to set up the project will be very similar to the ones you would follow to set up any other web app.
 
@@ -214,7 +214,7 @@ cd lb-dex
 npm install
 ```
 
-Next, we will install all the dependencies we need for the dapp:
+Next, we will install all the dependencies we need for the app:
 
 ```
 npm install --save-dev sass
@@ -309,13 +309,13 @@ In the first `script` tag, we set the `global` variable to `globalThis`. Then, i
 
 > *Note: this configuration is required to run the Beacon SDK with a Vite app. Taquito works completely out of the box and doesn't require any settings.*
 
-Once we updated the configuration in the `vite.config.js` file and in the `index.html` file, our project is successfully set up! You can run `npm run dev` in your terminal at the root of the project to check that everything works properly, the dapp should be running on `http://localhost:4000`
+Once we updated the configuration in the `vite.config.js` file and in the `index.html` file, our project is successfully set up! You can run `npm run dev` in your terminal at the root of the project to check that everything works properly, the app should be running on `http://localhost:4000`
 
-Now, let's start writing some code and setting up the dapp!
+Now, let's start writing some code and setting up the app!
 
 If you've made it so far and your app is running on `http://localhost:4000`, congratulations!
 
-Now, we have to set up the dapp in order to use Taquito and Beacon.
+Now, we have to set up the app in order to use Taquito and Beacon.
 
 ### File structure
 
@@ -371,7 +371,7 @@ Let's see what each of these elements does:
 - **config.ts** -> different immutable values needed for the application and saved in a separate file for convenience
 - **lbUtils.ts** -> different methods to calculate values needed to interact with the Liquidity Baking contract
 - **main.ts** -> this is where the JavaScript for the app is bundled before being injected into the HTML file
-- **store.ts** -> a file with a [Svelte store](https://svelte.dev/tutorial/writable-stores) to handle the dapp state
+- **store.ts** -> a file with a [Svelte store](https://svelte.dev/tutorial/writable-stores) to handle the app state
 - **types.ts** -> custom TypeScript types
 - **utils.ts** -> different utility methods
 
@@ -410,7 +410,7 @@ Svelte components are fully contained, which means that the style that you apply
 
 There is a `script` tag with a `lang` attribute set to `ts` for TypeScript, a `style` tag with a `lang` attribute set to `scss` for SASS, and the rest of the code in the file will be interpreted as HTML.
 
-### Configuring the dapp
+### Configuring the app
 
 Now, let's set up different things in our `App.svelte` file.
 
@@ -428,7 +428,7 @@ The HTML part is just going to put all the higher-order components together:
 </main>
 ```
 
-The interface will change after different elements are available to the dapp, mostly, the data about the liquidity pools from the liquidity baking contract.
+The interface will change after different elements are available to the app, mostly, the data about the liquidity pools from the liquidity baking contract.
 
 The SASS part will import different settings and apply styling to the `main` tag:
 
@@ -467,12 +467,12 @@ import { fetchExchangeRates } from "./utils";
 
 - `onMount` is a method exported by Svelte that will run some code when the component mounts (more on that below)
 - `TezosToolkit` is the class that gives you access to all the features of Taquito
-- `store` is a Svelte feature to manage the state of the dapp
+- `store` is a Svelte feature to manage the state of the app
 - From the `config.ts` file, we import `rpcUrl` (the URL of the Tezos RPC node) and `dexAddress`, the address of the Liquidity Baking contract
 - `Storage` is a custom type that represents the signature type of the LB DEX storage
 - `fetchExchangeRates` is a function to fetch the exchange rates of XTZ and tzBTC (more on that below)
 
-Next, we use `onMount` to set up the state of the dapp:
+Next, we use `onMount` to set up the state of the app:
 
 ```typescript=
 onMount(async () => {

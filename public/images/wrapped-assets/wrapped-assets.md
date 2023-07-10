@@ -9,7 +9,7 @@ Let's consider the following facts:
 
 - Tez (XTZ) is the native currency built on the Tezos blockchain.
 
-- When a dApp (decentralized application) is built from the Tezos Blockchain, it usually either implements its own form of token or needs to work with existing tokens, both are based on [FA standards](/defi/token-standards).
+- When an app is built on the Tezos Blockchain, it usually either implements its own form of token or needs to work with existing tokens, both are based on [FA standards](/defi/token-standards).
 
 - The _FA1.2_ and _FA2_ standards define how tokens are transferred and how to keep a consistent record of those token transfers in the Tezos network. FA standards were developed after the release of the XTZ.
 

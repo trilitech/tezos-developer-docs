@@ -76,7 +76,7 @@ On a second time, we will import the token contract into the marketplace unique 
 #### Required
 
 - [npm](https://nodejs.org/en/download/): front-end is a TypeScript React client app
-- [taqueria >= v0.28.5-rc](https://github.com/ecadlabs/taqueria) : Tezos Dapp project tooling
+- [taqueria >= v0.28.5-rc](https://github.com/ecadlabs/taqueria) : Tezos app project tooling
 - [Docker](https://docs.docker.com/engine/install/): needed for `taqueria`
 - [jq](https://stedolan.github.io/jq/download/): extract `taqueria` JSON data
 

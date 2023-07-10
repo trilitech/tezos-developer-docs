@@ -29,9 +29,9 @@ The FA1.2 specification is described in detail in [TZIP-7](https://gitlab.com/tz
 
 #### [**TZIP-10**](https://tzip.tezosagora.org/proposal/tzip-10/): Wallet Interaction
 
-To enable the adoption of dApps in the Tezos ecosystem, a standard for the communication between these applications and wallets is needed. Tezos dApp developers shouldn't need to implement yet another wallet just for their use case, and users shouldn't need a multitude of wallets just so they can use a certain service.
+To enable the adoption of dApps in the Tezos ecosystem, a standard for the communication between these applications and wallets is needed. Tezos app developers shouldn't need to implement yet another wallet just for their use case, and users shouldn't need a multitude of wallets just so they can use a certain service.
 
-TZIP-10 is a Tezos Improvement Proposal that specifies a standard way for dApps to interact with wallets. This standard then enables Tezos users to use their wallet of choice with Tezos dApps. For dApp developers, by using the TZIP-10 provider, they maximize the reach of their product to all users of TZIP-10 wallets.  
+TZIP-10 is a Tezos Improvement Proposal that specifies a standard way for dApps to interact with wallets. This standard then enables Tezos users to use their wallet of choice with Tezos dApps. For app developers, by using the TZIP-10 provider, they maximize the reach of their product to all users of TZIP-10 wallets.  
 ****
 
 #### [**TZIP-12**](https://tzip.tezosagora.org/proposal/tzip-12/): Multi-Asset / NFT \(FA2\)

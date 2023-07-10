@@ -36,14 +36,14 @@ Welcome to the Tezos Documentation Portal. We're currently in _beta_. Please sha
 
 {% quick-link title="Build a Game on Tezos" icon="game" href="" description="Building a Game on Tezos" comingSoon=true /%}
 
-{% quick-link title="Build your first app" icon="dapp" href="/tutorials/build-your-first-app" description="Build your first app on Tezos" /%}
+{% quick-link title="Build your first app" icon="app" href="/tutorials/build-your-first-app" description="Build your first app on Tezos" /%}
 
-{% quick-link title="Taquito" icon="taquito" href="/dapp-development/taquito" description="How is Taquito instrumental for dapp development" /%}
+{% quick-link title="Taquito" icon="taquito" href="/app-development/taquito" description="How is Taquito instrumental for app development" /%}
 
-{% quick-link title="Indexers" icon="indexer" href="/dapp-development/indexers" description="The importance of indexers" /%}
+{% quick-link title="Indexers" icon="indexer" href="/app-development/indexers" description="The importance of indexers" /%}
 
-{% quick-link title="Wallets and Beacon SDK" icon="wallet" href="/dapp-development/wallets-and-beacon-sdk" description="Wallets and Beacon SDK" /%}
+{% quick-link title="Wallets and Beacon SDK" icon="wallet" href="/app-development/wallets-and-beacon-sdk" description="Wallets and Beacon SDK" /%}
 
-{% quick-link title="Framework Best Practices" icon="framework" href="/dapp-development/framework-best-practices/" description="Best practices for your dapp framework" /%}
+{% quick-link title="Framework Best Practices" icon="framework" href="/app-development/framework-best-practices/" description="Best practices for your app framework" /%}
 
 {% /quick-links %}

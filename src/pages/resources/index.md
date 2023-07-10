@@ -10,7 +10,7 @@ Welcome to the Tezos Documentation Tooling Portal. We're currently in _beta_. Pl
 
 {% lg-link title="Tezos Blockchain Overview" icon="overview" href="/resources/tezos-blockchain-overview" description="Understanding what makes Tezos different and what you need to start building" /%}
 
-{% lg-link title="Quickstart guide" icon="quickstart" href="/resources/dapp-development/build-your-first-dapp" description="Learn how to write a smart contract and get it deployed quickly" /%}
+{% lg-link title="Quickstart guide" icon="quickstart" href="/resources/app-development/build-your-first-app" description="Learn how to write a smart contract and get it deployed quickly" /%}
 
 {% /lg-links %}
 
@@ -36,14 +36,14 @@ Welcome to the Tezos Documentation Tooling Portal. We're currently in _beta_. Pl
 
 {% quick-link title="Build a Game on Tezos" icon="game" href="" description="Building a Game on Tezos" /%}
 
-{% quick-link title="Build your first DApp" icon="dapp" href="/resources/dapp-development/build-your-first-dapp" description="Build your first DApp" /%}
+{% quick-link title="Build your first app" icon="app" href="/resources/app-development/build-your-first-app" description="Build your first app" /%}
 
-{% quick-link title="Taquito" icon="taquito" href="/resources/dapp-development/taquito" description="How is Taquito instrumental for dapp development" /%}
+{% quick-link title="Taquito" icon="taquito" href="/resources/app-development/taquito" description="How is Taquito instrumental for app development" /%}
 
-{% quick-link title="Indexers" icon="indexer" href="/resources/dapp-development/indexers" description="The importance of indexers" /%}
+{% quick-link title="Indexers" icon="indexer" href="/resources/app-development/indexers" description="The importance of indexers" /%}
 
-{% quick-link title="Wallets and Beacon SDK" icon="wallet" href="/resources/dapp-development/wallets-and-beacon-sdk" description="Wallets and Beacon SDK" /%}
+{% quick-link title="Wallets and Beacon SDK" icon="wallet" href="/resources/app-development/wallets-and-beacon-sdk" description="Wallets and Beacon SDK" /%}
 
-{% quick-link title="Framework Best Practices" icon="framework" href="/resources/dapp-development/framework-best-practices/" description="Best practices for your dapp framework" /%}
+{% quick-link title="Framework Best Practices" icon="framework" href="/resources/app-development/framework-best-practices/" description="Best practices for your app framework" /%}
 
 {% /quick-links %}

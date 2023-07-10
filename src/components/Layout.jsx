@@ -165,39 +165,39 @@ const documentationNavigation = [
     ],
   },
   {
-    title: 'Dapp Development',
+    title: 'App Development',
     links: [
       // {
-      //   title: 'Build your first DApp',
-      //   href: '/dapp-development/build-your-first-dapp',
+      //   title: 'Build your first app',
+      //   href: '/app-development/build-your-first-app',
       //   children: [
       //     {
       //       title: 'Wallets and user tokens',
-      //       href: '/dapp-development/build-your-first-dapp/wallets-tokens',
+      //       href: '/app-development/build-your-first-app/wallets-tokens',
       //     },
       //     {
       //       title: 'Swapping tokens',
-      //       href: '/dapp-development/build-your-first-dapp/swapping-tokens',
+      //       href: '/app-development/build-your-first-app/swapping-tokens',
       //     },
       //     {
       //       title: 'Adding and removing liquidity',
-      //       href: '/dapp-development/build-your-first-dapp/adding-removing-liquidity',
+      //       href: '/app-development/build-your-first-app/adding-removing-liquidity',
       //     },
       //   ],
       // },
-      { title: 'Taquito', href: '/dapp-development/taquito' },
-      { title: 'Indexers', href: '/dapp-development/indexers' },
+      { title: 'Taquito', href: '/app-development/taquito' },
+      { title: 'Indexers', href: '/app-development/indexers' },
       {
         title: 'DipDup and Dappetizer',
-        href: '/dapp-development/indexers/dipdup',
+        href: '/app-development/indexers/dipdup',
       },
       {
         title: 'Wallets and Beacon SDK',
-        href: '/dapp-development/wallets-and-beacon-sdk',
+        href: '/app-development/wallets-and-beacon-sdk',
       },
       {
         title: 'Framework Best Practices',
-        href: '/dapp-development/framework-best-practices',
+        href: '/app-development/framework-best-practices',
       },
     ],
   },
@@ -550,39 +550,39 @@ const toolingNavigation = [
     ],
   },
   {
-    title: 'Dapp Development',
+    title: 'App Development',
     links: [
       {
-        title: 'Build your first DApp',
-        href: '/dapp-development/build-your-first-dapp',
+        title: 'Build your first App',
+        href: '/app-development/build-your-first-app',
         children: [
           {
             title: 'Wallets and user tokens',
-            href: '/dapp-development/build-your-first-dapp/wallets-tokens',
+            href: '/app-development/build-your-first-app/wallets-tokens',
           },
           {
             title: 'Swapping tokens',
-            href: '/dapp-development/build-your-first-dapp/swapping-tokens',
+            href: '/app-development/build-your-first-app/swapping-tokens',
           },
           {
             title: 'Adding and removing liquidity',
-            href: '/dapp-development/build-your-first-dapp/adding-removing-liquidity',
+            href: '/app-development/build-your-first-app/adding-removing-liquidity',
           },
         ],
       },
-      { title: 'Taquito', href: '/dapp-development/taquito' },
-      { title: 'Indexers', href: '/dapp-development/indexers' },
+      { title: 'Taquito', href: '/app-development/taquito' },
+      { title: 'Indexers', href: '/app-development/indexers' },
       {
         title: 'DipDup and Dappetizer',
-        href: '/dapp-development/indexers/dipdup',
+        href: '/app-development/indexers/dipdup',
       },
       {
         title: 'Wallets and Beacon SDK',
-        href: '/dapp-development/wallets-and-beacon-sdk',
+        href: '/app-development/wallets-and-beacon-sdk',
       },
       {
         title: 'Framework Best Practices',
-        href: '/dapp-development/framework-best-practices',
+        href: '/dpp-development/framework-best-practices',
       },
     ],
   },
@@ -780,39 +780,39 @@ const resourcesNavigation = [
     ],
   },
   {
-    title: 'Dapp Development',
+    title: 'App Development',
     links: [
       {
-        title: 'Build your first DApp',
-        href: '/dapp-development/build-your-first-dapp',
+        title: 'Build your first App',
+        href: '/app-development/build-your-first-app',
         children: [
           {
             title: 'Wallets and user tokens',
-            href: '/dapp-development/build-your-first-dapp/wallets-tokens',
+            href: '/app-development/build-your-first-app/wallets-tokens',
           },
           {
             title: 'Swapping tokens',
-            href: '/dapp-development/build-your-first-dapp/swapping-tokens',
+            href: '/app-development/build-your-first-app/swapping-tokens',
           },
           {
             title: 'Adding and removing liquidity',
-            href: '/dapp-development/build-your-first-dapp/adding-removing-liquidity',
+            href: '/app-development/build-your-first-app/adding-removing-liquidity',
           },
         ],
       },
-      { title: 'Taquito', href: '/dapp-development/taquito' },
-      { title: 'Indexers', href: '/dapp-development/indexers' },
+      { title: 'Taquito', href: '/app-development/taquito' },
+      { title: 'Indexers', href: '/app-development/indexers' },
       {
         title: 'DipDup and Dappetizer',
-        href: '/dapp-development/indexers/dipdup',
+        href: '/app-development/indexers/dipdup',
       },
       {
         title: 'Wallets and Beacon SDK',
-        href: '/dapp-development/wallets-and-beacon-sdk',
+        href: '/app-development/wallets-and-beacon-sdk',
       },
       {
         title: 'Framework Best Practices',
-        href: '/dapp-development/framework-best-practices',
+        href: '/app-development/framework-best-practices',
       },
     ],
   },

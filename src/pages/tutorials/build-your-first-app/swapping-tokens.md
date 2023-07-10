@@ -6,7 +6,7 @@ authors: Claude Barde
 
 ## Swapping XTZ and tzBTC
 
-Now, let's go down the rabbit hole and implement the most complex feature of the dapp: the swap of XTZ and tzBTC.
+Now, let's go down the rabbit hole and implement the most complex feature of the app: the swap of XTZ and tzBTC.
 
 ### Designing the UI
 
@@ -14,7 +14,7 @@ I say "the most complex" because the interface you are about to build includes a
 
 Here is a screenshot of the UI you are aiming for:
 
-![Swap UI](/developers/docs/images/build-your-first-dapp/swap-ui.png "Swap UI")
+![Swap UI](/developers/docs/images/build-your-first-app/swap-ui.png "Swap UI")
 
 There are 2 text inputs, the one on the left is editable and will let the user input the amount of XTZ or tzBTC they want to exchange and the one on the right will be disabled and will display the corresponding amount they'll get in the other token. The button in the middle with the 2 arrows will allow the user to switch the input between XTZ and tzBTC.
 

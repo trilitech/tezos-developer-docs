@@ -70,6 +70,6 @@ Always be cautious as anyone can create tokens on Tezos. Before purchasing a tok
 - **[FA1.2](https://tzip.tezosagora.org/proposal/tzip-7/)**: Specification of the FA1.2 standard for fungible tokens.
 - **[FA2](https://tzip.tezosagora.org/proposal/tzip-12/)**: Specification of the FA2 standard for a unified token contract interface.
 - **[tzNFT](https://github.com/tqtezos/nft-tutorial)**: A tutorial showing users how to originate and interact with the FA2 NFT contract implementation.
-- **[OpenMinter](https://github.com/tqtezos/minter)**: A reusable Dapp that allows anyone to create and collect NFTs on Tezos.
+- **[OpenMinter](https://github.com/tqtezos/minter)**: A reusable app that allows anyone to create and collect NFTs on Tezos.
 - **[Peppermint](https://github.com/tzConnectBerlin/peppermint)**: A tool for batch minting/transferring tokens.
 - **[Claimz](https://gitlab.com/nomadic-labs-free-resources/claimz)**: A tool to create NFT giveaways.

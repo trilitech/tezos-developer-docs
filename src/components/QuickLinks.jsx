@@ -24,7 +24,7 @@ export function QuickLinks({ children }) {
 
       <div className="relative mt-4 flex h-fit max-h-10 items-center pr-4">
         <h2 className="text-lg font-semibold uppercase text-slate-800 dark:text-white">
-          DApp Development
+          App Development
         </h2>
       </div>
       {children.slice(Math.ceil(children.length / 3) * 2)}
