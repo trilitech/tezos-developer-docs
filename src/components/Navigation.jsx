@@ -10,11 +10,16 @@ function NavigationItem({ link, selectedLink, selectedParent }) {
   const hasChildren = !!link.children
 
   // Update the isOpen state based on whether this link is the current link or a parent of the current link
+  // useEffect(() => {
+  //   if (link === selectedLink || link === selectedParent) {
+  //     setIsOpen(true)
+  //   }
+  // }, [link, selectedLink, selectedParent])
+
   useEffect(() => {
-    if (link === selectedLink || link === selectedParent) {
-      setIsOpen(true)
-    }
-  }, [link, selectedLink, selectedParent])
+    setIsOpen(link === selectedLink || link === selectedParent);
+  }, [link, selectedLink, selectedParent]);
+  
 
   // Handles the click on a chevron
   const handleChevronClick = (event) => {
@@ -95,7 +100,22 @@ function NavigationLinks({
 }
 
 export function Navigation({ navigation, className, selectedLink, selectedParent }) {
-  const [openSections, setOpenSections] = useState({ 'Tezos Basics': true })
+  let router = useRouter()
+  
+  const [openSections, setOpenSections] = useState(
+    navigation.reduce((acc, section) => {
+      const isTutorialsSection = router.pathname.includes('/tutorials')
+      return {
+        ...acc,
+        [section.title]: section.links.some(
+          (link) =>
+            link === selectedLink ||
+            link === selectedParent ||
+            (link.children && link.children.includes(selectedLink))
+        ) || (isTutorialsSection),
+      };
+    }, {})
+  );
 
   const toggleSection = (sectionTitle) => {
     setOpenSections((prev) => ({

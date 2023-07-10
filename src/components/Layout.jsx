@@ -7,6 +7,7 @@ import clsx from 'clsx'
 import { Logo, Logomark } from '@/components/Logo'
 import { MobileNavigation } from '@/components/MobileNavigation'
 import { Navigation } from '@/components/Navigation'
+import { TabLinks } from '@/components/TabLinks'
 import { Prose } from '@/components/Prose'
 import { Search } from '@/components/Search'
 import { ThemeSelector } from '@/components/ThemeSelector'
@@ -165,39 +166,39 @@ const documentationNavigation = [
     ],
   },
   {
-    title: 'Dapp Development',
+    title: 'App Development',
     links: [
       // {
-      //   title: 'Build your first DApp',
-      //   href: '/dapp-development/build-your-first-dapp',
+      //   title: 'Build your first app',
+      //   href: '/app-development/build-your-first-app',
       //   children: [
       //     {
       //       title: 'Wallets and user tokens',
-      //       href: '/dapp-development/build-your-first-dapp/wallets-tokens',
+      //       href: '/app-development/build-your-first-app/wallets-tokens',
       //     },
       //     {
       //       title: 'Swapping tokens',
-      //       href: '/dapp-development/build-your-first-dapp/swapping-tokens',
+      //       href: '/app-development/build-your-first-app/swapping-tokens',
       //     },
       //     {
       //       title: 'Adding and removing liquidity',
-      //       href: '/dapp-development/build-your-first-dapp/adding-removing-liquidity',
+      //       href: '/app-development/build-your-first-app/adding-removing-liquidity',
       //     },
       //   ],
       // },
-      { title: 'Taquito', href: '/dapp-development/taquito' },
-      { title: 'Indexers', href: '/dapp-development/indexers' },
+      { title: 'Taquito', href: '/app-development/taquito' },
+      { title: 'Indexers', href: '/app-development/indexers' },
       {
         title: 'DipDup and Dappetizer',
-        href: '/dapp-development/indexers/dipdup',
+        href: '/app-development/indexers/dipdup',
       },
       {
         title: 'Wallets and Beacon SDK',
-        href: '/dapp-development/wallets-and-beacon-sdk',
+        href: '/app-development/wallets-and-beacon-sdk',
       },
       {
         title: 'Framework Best Practices',
-        href: '/dapp-development/framework-best-practices',
+        href: '/app-development/framework-best-practices',
       },
     ],
   },
@@ -377,7 +378,7 @@ const tutorialNavigation = [
       },
     ],
   },
-];
+]
 
 const toolingNavigation = [
   {
@@ -550,39 +551,39 @@ const toolingNavigation = [
     ],
   },
   {
-    title: 'Dapp Development',
+    title: 'App Development',
     links: [
       {
-        title: 'Build your first DApp',
-        href: '/dapp-development/build-your-first-dapp',
+        title: 'Build your first App',
+        href: '/app-development/build-your-first-app',
         children: [
           {
             title: 'Wallets and user tokens',
-            href: '/dapp-development/build-your-first-dapp/wallets-tokens',
+            href: '/app-development/build-your-first-app/wallets-tokens',
           },
           {
             title: 'Swapping tokens',
-            href: '/dapp-development/build-your-first-dapp/swapping-tokens',
+            href: '/app-development/build-your-first-app/swapping-tokens',
           },
           {
             title: 'Adding and removing liquidity',
-            href: '/dapp-development/build-your-first-dapp/adding-removing-liquidity',
+            href: '/app-development/build-your-first-app/adding-removing-liquidity',
           },
         ],
       },
-      { title: 'Taquito', href: '/dapp-development/taquito' },
-      { title: 'Indexers', href: '/dapp-development/indexers' },
+      { title: 'Taquito', href: '/app-development/taquito' },
+      { title: 'Indexers', href: '/app-development/indexers' },
       {
         title: 'DipDup and Dappetizer',
-        href: '/dapp-development/indexers/dipdup',
+        href: '/app-development/indexers/dipdup',
       },
       {
         title: 'Wallets and Beacon SDK',
-        href: '/dapp-development/wallets-and-beacon-sdk',
+        href: '/app-development/wallets-and-beacon-sdk',
       },
       {
         title: 'Framework Best Practices',
-        href: '/dapp-development/framework-best-practices',
+        href: '/dpp-development/framework-best-practices',
       },
     ],
   },
@@ -780,39 +781,39 @@ const resourcesNavigation = [
     ],
   },
   {
-    title: 'Dapp Development',
+    title: 'App Development',
     links: [
       {
-        title: 'Build your first DApp',
-        href: '/dapp-development/build-your-first-dapp',
+        title: 'Build your first App',
+        href: '/app-development/build-your-first-app',
         children: [
           {
             title: 'Wallets and user tokens',
-            href: '/dapp-development/build-your-first-dapp/wallets-tokens',
+            href: '/app-development/build-your-first-app/wallets-tokens',
           },
           {
             title: 'Swapping tokens',
-            href: '/dapp-development/build-your-first-dapp/swapping-tokens',
+            href: '/app-development/build-your-first-app/swapping-tokens',
           },
           {
             title: 'Adding and removing liquidity',
-            href: '/dapp-development/build-your-first-dapp/adding-removing-liquidity',
+            href: '/app-development/build-your-first-app/adding-removing-liquidity',
           },
         ],
       },
-      { title: 'Taquito', href: '/dapp-development/taquito' },
-      { title: 'Indexers', href: '/dapp-development/indexers' },
+      { title: 'Taquito', href: '/app-development/taquito' },
+      { title: 'Indexers', href: '/app-development/indexers' },
       {
         title: 'DipDup and Dappetizer',
-        href: '/dapp-development/indexers/dipdup',
+        href: '/app-development/indexers/dipdup',
       },
       {
         title: 'Wallets and Beacon SDK',
-        href: '/dapp-development/wallets-and-beacon-sdk',
+        href: '/app-development/wallets-and-beacon-sdk',
       },
       {
         title: 'Framework Best Practices',
-        href: '/dapp-development/framework-best-practices',
+        href: '/app-development/framework-best-practices',
       },
     ],
   },
@@ -854,6 +855,8 @@ function GitHubIcon(props) {
 }
 
 function Header({ navigation }) {
+  let router = useRouter()
+  let isHomePage = router.pathname === '/'
   let [isScrolled, setIsScrolled] = useState(false)
 
   useEffect(() => {
@@ -870,75 +873,43 @@ function Header({ navigation }) {
   return (
     <header
       className={clsx(
-        'sticky top-0 z-50 flex flex-wrap items-center justify-between bg-slate-900 px-4 py-5 shadow-md shadow-slate-900/5 transition duration-500 dark:border-b-2 dark:shadow-none sm:px-6 lg:px-8',
+        'sticky top-0 z-50 flex flex-wrap items-center justify-between bg-slate-900 px-4 py-5 shadow-md shadow-slate-900/5 transition duration-500 dark:border-b-2 dark:shadow-none sm:px-6 custom:px-8',
         isScrolled
           ? 'dark:bg-slate-900/95 dark:backdrop-blur dark:[@supports(backdrop-filter:blur(0))]:bg-slate-900/75'
           : 'dark:bg-transparent'
       )}
     >
-      <div className="mr-6 flex lg:hidden">
+      <div className="mr-6 flex custom:hidden">
         <MobileNavigation navigation={navigation} />
       </div>
       <div className="flex flex-grow items-center justify-between">
         <div className="flex items-center">
           <Link href="/" aria-label="Home page">
             <Logomark className="inline-flex h-8 w-8" />
-            <h1 className="hidden h-8 w-auto fill-slate-700 text-xl text-white dark:fill-sky-100 dark:text-white lg:inline-flex">
+            <h1 className="hidden h-8 w-auto fill-slate-700 text-xl text-white dark:fill-sky-100 dark:text-white custom:inline-flex">
               Tezos Docs
               <span class="m-2 inline-flex items-center rounded-md bg-transparent px-1.5 py-0.5 text-xxs text-white ring-1 ring-inset ring-white dark:bg-transparent dark:text-white dark:ring-white">
                 Beta
               </span>
             </h1>
           </Link>
-          <div className="ml-6 flex">
-            <Link
-              href="/tezos-blockchain-overview/"
-              className="px-4 py-2 text-white hover:text-gray-300"
-            >
-              Documentation
-            </Link>
-            <Link
-              href="/tutorials"
-              className="px-4 py-2 text-white hover:text-gray-300"
-            >
-              Tutorials
-            </Link>
-            <Link
-              href="/office-hours"
-              className="px-4 py-2 text-white hover:text-gray-300"
-            >
-              Office Hours
-            </Link>
-
-            {/* <Link
-              href="/tooling"
-              className="px-4 py-2 text-white hover:text-gray-300"
-            >
-              Tooling
-            </Link>
-            <Link
-              href="/resources"
-              className="px-4 py-2 text-white hover:text-gray-300"
-            >
-              Resources
-            </Link> */}
+          <div className="hidden custom:flex">
+            <TabLinks isHomePage={isHomePage} />
           </div>
         </div>
-        <div className="-my-5 ">
+        <div className="relative flex items-center justify-end gap-6 sm:gap-8 custom:flex">
           <Search />
+          <ThemeSelector className="relative z-10" />
+          <Link
+            href="https://github.com/trilitech/tezos-developer-docs"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group"
+            aria-label="GitHub"
+          >
+            <GitHubIcon className="h-6 w-6 fill-slate-400 group-hover:fill-slate-300" />
+          </Link>
         </div>
-      </div>
-      <div className="relative flex justify-end gap-6 sm:gap-8">
-        <ThemeSelector className="relative z-10 ml-4" />
-        <Link
-          href="https://github.com/trilitech/tezos-developer-docs"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group"
-          aria-label="GitHub"
-        >
-          <GitHubIcon className="h-6 w-6 fill-slate-400 group-hover:fill-slate-300" />
-        </Link>
       </div>
     </header>
   )
@@ -1029,7 +1000,7 @@ export function Layout({ children, title, tableOfContents }) {
       }
     }, [])
   }
-  
+
   let allLinks = flattenLinks(navigation.flatMap((section) => section.links))
   let lastLinkIndex = allLinks
     .slice()
@@ -1077,12 +1048,10 @@ export function Layout({ children, title, tableOfContents }) {
     <>
       <Header navigation={navigation} />
 
-      {isHomePage}
-
       <div className="relative mx-auto flex max-w-8xl justify-center sm:px-2 lg:px-8 xl:px-12">
         {!isHomePage && !router.pathname.includes('office-hours') && (
           // Don't show the left sidebar on the homepage or on office-hours page
-          <div className="hidden lg:relative lg:block lg:flex-none">
+          <div className="hidden custom:relative custom:block custom:flex-none">
             <div className="absolute inset-y-0 right-0 w-[50vw] bg-slate-50 dark:hidden" />
             <div className="absolute top-16 bottom-0 right-0 hidden h-12 w-px bg-gradient-to-t from-slate-800 dark:block" />
             <div className="absolute top-28 bottom-0 right-0 hidden w-px bg-slate-800 dark:block" />
@@ -1119,7 +1088,7 @@ export function Layout({ children, title, tableOfContents }) {
           </article>
 
           {!isHomePage && !router.pathname.endsWith('tutorials') && (
-            // Don't show the previous and next links on the homepage
+            // Don't show the previous and next links on the homepage or on the tutorials page
             <dl className="mt-12 flex border-t border-slate-200 pt-6 dark:border-slate-800">
               {previousPage && (
                 <div>
@@ -1157,7 +1126,7 @@ export function Layout({ children, title, tableOfContents }) {
         </div>
 
         {!isHomePage && !router.pathname.includes('office-hours') && (
-          // Don't show the right sidebar on the homepage
+          // Don't show the right sidebar on the homepage or on the office-hours page
 
           <div className="hidden xl:sticky xl:top-[4.5rem] xl:-mr-6 xl:block xl:h-[calc(100vh-4.5rem)] xl:flex-none xl:overflow-y-auto xl:py-16 xl:pr-6">
             <nav aria-labelledby="on-this-page-title" className="w-56">

@@ -14,7 +14,7 @@ Welcome to the Tezos Documentation Tutorials Portal. We're currently in _beta_. 
 
 {% lg-link title="Build an NFT marketplace" icon="marketplace" href="/tutorials/build-an-nft-marketplace" description="Learn how to build your own NFT marketplace, with LIGO smart contracts and frontend, in 4 parts" /%}
 
-{% lg-link title="Build your First App on Tezos" icon="dapp" href="/tutorials/build-your-first-app/" description="Learn how to set up and create a decentralized web application on Tezos using TypeScript, Taquito and Svelte" /%}
+{% lg-link title="Build your First App on Tezos" icon="app" href="/tutorials/build-your-first-app/" description="Learn how to set up and create a decentralized web application on Tezos using TypeScript, Taquito and Svelte" /%}
 
 
 {% /lg-links %}

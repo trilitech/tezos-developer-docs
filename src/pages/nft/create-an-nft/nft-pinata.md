@@ -3,11 +3,11 @@ id: nft-pinata
 title: Mint an NFT using Taquito and Pinata
 ---
 
-In this guide, you will get an overview of the mechanics of NFTs, in general, and on Tezos. If you want to get your hands dirty, you will get an explanation of how the code of an NFT platform works, on the contract level but also on the dapp level. This article is mainly designed for beginner programmers who want to get a better idea of the code involved in the creation and use of NFTs, but non-technical readers will also find important information to deepen their understanding of both NFTs and the Tezos blockchain.
+In this guide, you will get an overview of the mechanics of NFTs, in general, and on Tezos. If you want to get your hands dirty, you will get an explanation of how the code of an NFT platform works, on the contract level but also on the app level. This article is mainly designed for beginner programmers who want to get a better idea of the code involved in the creation and use of NFTs, but non-technical readers will also find important information to deepen their understanding of both NFTs and the Tezos blockchain.
 
 You will learn how to build a simple NFT platform backed by a smart contract on the Tezos blockchain capable of minting, transferring, and burning NFTs while hosting their metadata on the IPFS. You need a basic knowledge of JavaScript to follow along in part 2. We will only have a high-level overview of the smart contract so no knowledge of Ligo is required, but a general knowledge of programming concepts would help.
 
-If you just want the code, you can find the complete source code in [this GitHub repository](https://github.com/claudebarde/taquito-pinata-tezos-nft). The **backend** folder holds the code that generates the metadata and pins the picture and the metadata to the IPFS. The **frontend** folder holds the code for the dapp that allows users to connect to their Tezos wallet and mint NFTs. The **contract** folder holds the FA2 contract written in CameLigo to mint, transfer, and burn NFTs.
+If you just want the code, you can find the complete source code in [this GitHub repository](https://github.com/claudebarde/taquito-pinata-tezos-nft). The **backend** folder holds the code that generates the metadata and pins the picture and the metadata to the IPFS. The **frontend** folder holds the code for the app that allows users to connect to their Tezos wallet and mint NFTs. The **contract** folder holds the FA2 contract written in CameLigo to mint, transfer, and burn NFTs.
 
 Now, let’s start by understanding better what NFTs are and how they work!
 
@@ -49,7 +49,7 @@ These three parts of the platform will communicate with each other at some point
 
 #### The contract 
 
-The goal of this tutorial is not to create an FA2 contract from scratch but rather to understand the principles of such a contract. You can find amazing templates of FA2 contracts in the [TQ Tezos repository on Github](https://github.com/tqtezos/smart-contracts). This dapp uses a modified version of their NFT contract.
+The goal of this tutorial is not to create an FA2 contract from scratch but rather to understand the principles of such a contract. You can find amazing templates of FA2 contracts in the [TQ Tezos repository on Github](https://github.com/tqtezos/smart-contracts). This app uses a modified version of their NFT contract.
 
 An FA2 contract generally consists of the following parts:
 
@@ -70,7 +70,7 @@ You can have a look at the contract [at this address](https://github.com/claudeb
 
 #### The backend 
 
-The backend of the dapp is a simple Express app written in TypeScript. The app only exposes a single route, “`/mint`”, that will be called to create the NFT metadata and pin it on the IPFS with the associated picture. Before continuing with the code, you must set up an account with [Pinata](https://pinata.cloud/) and get your API keys.
+The backend of the app is a simple Express app written in TypeScript. The app only exposes a single route, “`/mint`”, that will be called to create the NFT metadata and pin it on the IPFS with the associated picture. Before continuing with the code, you must set up an account with [Pinata](https://pinata.cloud/) and get your API keys.
 
 First step, sign up to create an account and follow the instructions:
 
@@ -110,7 +110,7 @@ Let’s finish setting up the server app:
 
 ![](/developers/docs/images/nft-pinata/image29.png)
 
-In the `corsOptions` variable, we indicate the URLs that are allowed to communicate with the server. During development, you should allow `localhost` with the port you are using, then you can use the URL of your dapp.
+In the `corsOptions` variable, we indicate the URLs that are allowed to communicate with the server. During development, you should allow `localhost` with the port you are using, then you can use the URL of your app.
 
 Now, we can set up the different middlewares:
 
@@ -182,7 +182,7 @@ The two hashes will confirm on the frontend side that the picture and the metada
 
 #### The frontend 
 
-The dapp we will build for the frontend has the typical structure of a Tezos dapp so we will only focus on the functions required to get the picture and the metadata from the user and send them to the backend before minting the NFT and to display the NFTs the user may own. If you are interested in learning how to build a Tezos dapp, you can follow [this tutorial](https://medium.com/ecad-labs-inc/how-to-build-your-first-tezos-dapp-2021-edition-b1263b4ba016) to learn everything you need to know!
+The app we will build for the frontend has the typical structure of a Tezos app so we will only focus on the functions required to get the picture and the metadata from the user and send them to the backend before minting the NFT and to display the NFTs the user may own. If you are interested in learning how to build a Tezos app, you can follow [this tutorial](https://medium.com/ecad-labs-inc/how-to-build-your-first-tezos-dapp-2021-edition-b1263b4ba016) to learn everything you need to know!
 
 _1- Displaying the NFTs_
 
@@ -240,7 +240,7 @@ Now, the NFT has been successfully minted, its metadata is pinned on the IPFS an
 
 ### Suggested improvements
 
-The purpose of this tutorial is to build a simple NFT platform and introduce some concepts related to creating and minting NFTs, in general, and specifically on the Tezos blockchain. Here are a few additional features and design considerations you would like to take into account for a fully-featured NFT dapp:
+The purpose of this tutorial is to build a simple NFT platform and introduce some concepts related to creating and minting NFTs, in general, and specifically on the Tezos blockchain. Here are a few additional features and design considerations you would like to take into account for a fully-featured NFT app:
 
 * Generate the IPFS hashes client-side first before pinning them: a failed transaction and other worst-case scenarios may leave unused content pinned into your Pinata account, to avoid this, you can spin up an IPFS node in the client browser, pin the data, mint the NFT and then pin it to your Pinata account
 * Add a `burn` endpoint: right now, your users can only create tokens, but you could also allow them to delete their NFTs

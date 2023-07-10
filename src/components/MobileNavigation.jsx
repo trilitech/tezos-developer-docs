@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { Dialog } from '@headlessui/react'
 
+import { TabLinks } from '@/components/TabLinks'
 import { Logomark } from '@/components/Logo'
 import { Navigation } from '@/components/Navigation'
 
@@ -38,6 +39,7 @@ function CloseIcon(props) {
 
 export function MobileNavigation({ navigation }) {
   let router = useRouter()
+  let isHomePage = router.pathname === '/'
   let [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
@@ -69,7 +71,7 @@ export function MobileNavigation({ navigation }) {
       <Dialog
         open={isOpen}
         onClose={setIsOpen}
-        className="fixed inset-0 z-50 flex items-start overflow-y-auto bg-slate-900/50 pr-10 backdrop-blur lg:hidden"
+        className="fixed inset-0 z-50 flex items-start overflow-y-auto bg-slate-900/50 pr-10 backdrop-blur custom:hidden"
         aria-label="Navigation"
       >
         <Dialog.Panel className="min-h-full w-full max-w-xs bg-white px-4 pt-5 pb-12 dark:bg-slate-900 sm:px-6">
@@ -85,6 +87,9 @@ export function MobileNavigation({ navigation }) {
               <Logomark className="h-9 w-9" />
             </Link>
           </div>
+          <div className="block custom:hidden border-b-2 border-gray-300 w-full my-4" /> {/* divider */}
+          <TabLinks isHomePage={isHomePage} />
+          <div className="block custom:hidden border-b-2 border-gray-300 w-full my-4" /> {/* divider */}
           <Navigation navigation={navigation} className="mt-5 px-1" />
         </Dialog.Panel>
       </Dialog>

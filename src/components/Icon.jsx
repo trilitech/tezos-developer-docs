@@ -43,7 +43,7 @@ const icons = {
   marketplace: MarketplaceIcon,
   unity: UnityIcon,
   game: GameIcon,
-  dapp: DappIcon,
+  app: DappIcon,
   taquito: TaquitoIcon,
   indexer: IndexerIcon,
   wallet: WalletIcon,
