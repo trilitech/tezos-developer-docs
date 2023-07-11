@@ -2,7 +2,7 @@
 id: first-smart-contract-ligo
 title: Originate your First Smart Contract with LIGO
 authors: 'John Joubert, Sasha Aldrick, Claude Barde'
-lastUpdated: 7th July 2023
+lastUpdated: July 2023
 ---
 
 ---

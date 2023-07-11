@@ -3,7 +3,7 @@ id: build-your-first-dapp
 title: Build your First DApp on Tezos
 slug: /build-your-first-dapp
 authors: Claude Barde
-lastUpdated: 10th July 2023
+lastUpdated: July 2023
 ---
 {% callout title="Smart Contracts" %}
 This guide assumes you are already familiar with smart contracts. See our guide [Deploy your First Smart Contract](../../tezos-basics/deploy-your-first-smart-contract) to get that background.

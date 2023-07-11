@@ -2,7 +2,7 @@
 id: bakers_list
 title: List of bakers
 authors: Maxime Sallerin
-lastUpdated: 27th June 2023
+lastUpdated: June 2023
 ---
 
 Here we demonstrate how to find lists of bakers. As a delegator, we will see how to choose a baker.

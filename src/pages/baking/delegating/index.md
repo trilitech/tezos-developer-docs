@@ -2,7 +2,7 @@
 id: delegating
 title: Delegating
 authors: Maxime Sallerin
-lastUpdated: 27th June 2023
+lastUpdated: June 2023
 ---
 
 In this chapter, we will see how to delegate your coins. We'll use command lines or simple wallets' built-in options.

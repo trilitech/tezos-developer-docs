@@ -3,7 +3,7 @@ id: best-practices
 title: Best practices
 slug: /best-practices
 authors: Nomadic Labs
-lastUpdated: 27th June 2023
+lastUpdated: June 2023
 ---
 
 An alternative to using the services of a public node is to run your own node.

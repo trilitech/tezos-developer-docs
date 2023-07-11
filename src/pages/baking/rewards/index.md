@@ -2,7 +2,7 @@
 id: reward
 title: Rewards
 authors: Maxime Sallerin
-lastUpdated: 27th June 2023
+lastUpdated: June 2023
 ---
 
 To maintain the network, Tezos needs bakers and endorsers. They stake their tokens and use their CPU, memory space and internet connection to create blocks, manage transactions, vote, and secure the network. In exchange for the completion of these tasks, bakers are rewarded with tokens from the transaction fees or tokens created by the network. 

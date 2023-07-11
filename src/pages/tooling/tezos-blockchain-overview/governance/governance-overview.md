@@ -3,7 +3,7 @@ sidebar_position: 2
 hide_table_of_contents: true
 title: Tezos Governance Overview
 hide_title: true
-lastUpdated: 30th June 2023
+lastUpdated: June 2023
 ---
 ## Tezos Governance Overview
 

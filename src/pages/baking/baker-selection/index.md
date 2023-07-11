@@ -2,7 +2,7 @@
 id: baker-selection
 title: Submit transactions to a specific baker
 authors: Daniel Nomadic
-lastUpdated: 27th June 2023
+lastUpdated: June 2023
 ---
 
 Here we explain how operation issuers can filtrate access to their mempool of operations, using a dedicated server.

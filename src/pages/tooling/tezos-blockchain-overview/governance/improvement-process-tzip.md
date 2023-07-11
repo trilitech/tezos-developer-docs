@@ -3,7 +3,7 @@ sidebar_position: 3
 hide_table_of_contents: true
 title: Tezos Improvement Process (TZIP)
 hide_title: true
-lastUpdated: 10th July 2023
+lastUpdated: July 2023
 ---
 ## Tezos Improvement Process (TZIP)
 

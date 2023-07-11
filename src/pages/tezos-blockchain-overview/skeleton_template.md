@@ -3,7 +3,7 @@ id: skeleton-template
 title: Skeleton Template
 slug: /skeleton-template
 authors: 'Author One, Author Two'
-lastUpdated: 26th June 2023
+lastUpdated: June 2023
 ---
 
 Intro text here. This appears after the doc title (which is the "H1 heading"" for the doc). What follows is a series of "## Sections". Note that only ## and ### sections will appear on the right nav. Headings with #### or ##### are just a way to make a bold heading to distinguish a particular point, they don't appear as if they are heading a new subtopic. 

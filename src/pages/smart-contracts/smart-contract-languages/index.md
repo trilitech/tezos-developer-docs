@@ -2,7 +2,7 @@
 id: smart-contracts
 title: An Introduction to Smart Contracts
 authors: 'Thomas Zoughebi, Aymeric Bethencourt, and Maxime Fernandez'
-lastUpdated: 29th June 2023
+lastUpdated: June 2023
 ---
 
 A smart contract is a piece of code stored on the *blockchain*. It contains a set of instructions and rules to trigger them. Once deployed, it becomes immutable, but a user can trigger the execution of the code without modifying it. 

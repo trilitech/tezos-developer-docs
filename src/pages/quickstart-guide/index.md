@@ -1,4 +1,4 @@
 ---
-lastUpdated: 28th April 2023
+lastUpdated: April 2023
 ---
 

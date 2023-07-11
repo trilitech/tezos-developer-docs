@@ -2,7 +2,7 @@
 id: build-your-first-app
 title: Build your first app on Tezos
 authors: Claude Barde
-lastUpdated: 10th July 2023
+lastUpdated: July 2023
 ---
 
 In this tutorial, you will learn how to set up and create a decentralized web application on Tezos. We will build together an interface for the Liquidity Baking smart contract that will allow us to interact with this DEX and perform different operations, like swapping tokens or providing liquidity. At the same time, you will be introduced to core concepts of building a decentralized application in general, but also specifically on Tezos.

@@ -1,7 +1,7 @@
 ---
 title: Tezos and Functional Programming
 id: tezos-and-functional-programming
-lastUpdated: 29th June 2023
+lastUpdated: June 2023
 ---
 
 The Tezos protocol is written in OCaml, a general-purpose industrial-strength programming language with an emphasis on expressiveness and safety. It is the technology of choice in companies where speed is crucial and a single mistake can cost millions. It has a large standard library, which makes it useful for many of the same applications as Python or Perl, and it has robust modular and object-oriented programming constructs that make it applicable to large-scale software engineering. Many top companies use OCaml, including Facebook, Bloomberg, Docker, and Jane Street.

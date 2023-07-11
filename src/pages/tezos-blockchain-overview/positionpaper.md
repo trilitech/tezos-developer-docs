@@ -3,7 +3,7 @@ sidebar_position: 2
 hide_table_of_contents: true
 title: Tezos Position Paper
 hide_title: true
-lastUpdated: 3rd July 2023
+lastUpdated: July 2023
 ---
 
 {% callout type="note" title="PDF" %}

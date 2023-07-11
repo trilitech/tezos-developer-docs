@@ -1,7 +1,7 @@
 ---
 id: 2-originate-and-use-multisig-contract
 title: Originate and Use
-lastUpdated: 29th June 2023
+lastUpdated: June 2023
 ---
 
 ## Generating the Specialized Multisig Contract Code

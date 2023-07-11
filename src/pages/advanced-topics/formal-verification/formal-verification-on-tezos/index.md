@@ -2,7 +2,7 @@
 id: general
 title: Formal Verification on Tezos
 authors: Frank Hillard (Cardashift)
-lastUpdated: 30th June 2023
+lastUpdated: June 2023
 ---
 
 Smart contracts, though most are relatively simple, are prone to bugs like any program. However, within the context of a blockchain, it can be hard for a developer to predict and test for all the interactions and externalities possible. As a consequence, this can lead to critical bugs which can and has led to the loss of funds.

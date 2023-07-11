@@ -1,7 +1,7 @@
 ---
 title: Tezos Governance
 slug: /governance
-lastUpdated: 3rd July 2023
+lastUpdated: July 2023
 ---
 ## What is Self Amendment?
 

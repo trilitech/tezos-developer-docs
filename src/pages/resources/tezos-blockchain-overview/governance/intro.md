@@ -5,7 +5,7 @@ hide_title: true
 sidebar_label: Introduction
 slug: /learn/governance/
 sidebar_position: 1
-lastUpdated: 14th June 2023
+lastUpdated: June 2023
 ---
 ## Tezos Governance
 

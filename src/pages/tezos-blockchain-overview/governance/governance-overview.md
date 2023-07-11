@@ -1,7 +1,7 @@
 ---
 title: Tezos Governance Overview
 slug: /tezos-governance-overview
-lastUpdated: 4th July 2023
+lastUpdated: July 2023
 ---
 ## An Introduction to Tezos Governance
 

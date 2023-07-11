@@ -2,7 +2,7 @@
 id: consensus-key
 title: Create a baker's consensus key
 authors: 'Ferdinand ATTIVI, Aurelien MONTEILLET, Nomadic Labs'
-lastUpdated: 27th June 2023
+lastUpdated: June 2023
 ---
 
 In this chapter, we present a core feature introduced by the Lima amendment: the consensus keys. We'll explain the core concepts behind it, the motivations and the CLI command lines to manipulate a consensus key.
