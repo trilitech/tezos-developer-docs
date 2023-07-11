@@ -958,7 +958,7 @@ function useTableOfContents(tableOfContents) {
   return currentSection
 }
 
-export function Layout({ children, title, tableOfContents }) {
+export function Layout({ children, title, tableOfContents, lastUpdated }) {
   let router = useRouter()
   let isHomePage = router.pathname === '/'
 
@@ -1078,13 +1078,25 @@ export function Layout({ children, title, tableOfContents }) {
                   </p>
                 )}
                 {(isTabHomePage || selectedLink !== undefined) && (
-                  <h1 className="text-gradient font-display text-4xl font-semibold dark:text-white">
-                    {title}
-                  </h1>
+                  <>
+                    <h1 className="text-gradient font-display text-4xl font-semibold dark:text-white">
+                      {title}
+                    </h1>
+                    <div className="text-left">
+                      <h2 className="ml-1 mt-2 text-xs italic text-gray-500">
+                        Last Updated: {lastUpdated}
+                      </h2>
+                    </div>
+                  </>
                 )}
               </header>
             )}
             <Prose>{children}</Prose>
+            <div className="text-right">
+              <h2 className="mr-6 text-xs italic text-gray-500">
+                Last Updated: {lastUpdated}
+              </h2>
+            </div>
           </article>
 
           {!isHomePage && !router.pathname.endsWith('tutorials') && (
