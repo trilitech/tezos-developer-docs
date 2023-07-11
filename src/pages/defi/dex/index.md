@@ -2,6 +2,7 @@
 id: dex
 title: Decentralized Exchanges
 author: Aymeric Bethencourt
+lastUpdated: 30th June 2023
 ---
 
 ## Centralized Exchanges and Order Book

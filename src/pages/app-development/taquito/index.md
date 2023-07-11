@@ -3,6 +3,7 @@ id: taquito
 title: Taquito
 slug: /taquito
 authors: Claude Barde
+lastUpdated: 10th July 2023
 ---
 
 ## Introduction

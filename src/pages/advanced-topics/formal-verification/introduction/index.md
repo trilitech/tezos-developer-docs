@@ -3,6 +3,7 @@ id: introduction
 title: Introduction
 slug: /formal-verification
 authors: Frank Hillard
+lastUpdated: 30th June 2023
 ---
 
 One of the great benefits of Tezos is the ability to formally verify smart contracts. Tezos makes this formal verification possible for smart contracts with the design of Michelson and with tools such as [Coq](/developers/docs/advanced-topics/formal-verification/coq/) and the [Mi-Cho-Coq library](/developers/docs/advanced-topics/formal-verification/michocoq).

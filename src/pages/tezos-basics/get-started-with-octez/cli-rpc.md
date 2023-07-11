@@ -1,9 +1,10 @@
 ---
 hide_table_of_contents: true
-title: "Tezos Clients"
+title: Tezos Clients
 hide_title: true
-sidebar_label: "Introduction"
+sidebar_label: Introduction
 sidebar_position: 1
+lastUpdated: 30th June 2023
 ---
 ## Connecting to the network
 

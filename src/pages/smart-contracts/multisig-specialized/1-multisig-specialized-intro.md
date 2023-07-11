@@ -2,6 +2,7 @@
 id: 1-multisig-specialized-intro
 title: Specialized Multisig Introduction
 sidebar_label: Introduction
+lastUpdated: 29th June 2023
 ---
 
 ## What is a Specialized Multisig?

@@ -2,6 +2,7 @@
 id: wallets-tokens
 title: Wallets
 authors: Claude Barde
+lastUpdated: 10th July 2023
 ---
 
 ## Wallets

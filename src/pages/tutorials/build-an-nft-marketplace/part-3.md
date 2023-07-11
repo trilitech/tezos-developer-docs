@@ -1,6 +1,7 @@
 ---
 id: nft-marketplace-part-3
 title: NFT Marketplace Part 3
+lastUpdated: 7th July 2023
 ---
 
 This time we are going to use the single asset template. It is the opposite of the previous NFT template because:

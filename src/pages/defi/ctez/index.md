@@ -1,6 +1,7 @@
 ---
-title: Ctez 
+title: Ctez
 id: ctez
+lastUpdated: 27th June 2023
 ---
 
 Ctez is a synthetic XTZ that accumulates rewards from delegating XTZ. Literally: 1 ctez can be worth 1 XTZ today, and a year from now it will be worth 1.06 XTZ or more.

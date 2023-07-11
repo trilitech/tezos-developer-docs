@@ -3,6 +3,7 @@ id: cross-chain-swaps
 title: Cross-chain Swaps
 slug: /cross-chain-swaps
 author: Aymeric Bethencourt
+lastUpdated: 26th June 2023
 ---
 
 ## Swap scenarios

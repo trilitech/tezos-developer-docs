@@ -1,7 +1,11 @@
 ---
 title: Tezos Documentation Tooling
 pageTitle: Tezos Developer Documentation and Reference
-description: Get started building on Tezos today. This collection of guides will take you through writing your first smart contract, using the Unity SDK, and building an NFT Marketplace.
+description: >-
+  Get started building on Tezos today. This collection of guides will take you
+  through writing your first smart contract, using the Unity SDK, and building
+  an NFT Marketplace.
+lastUpdated: 10th July 2023
 ---
 
 Welcome to the Tezos Documentation Tooling Portal. We're currently in _beta_. Please share your [feedback](https://github.com/trilitech/tezos-developer-docs/issues/new/choose) to help us improve. {% .lead %}

@@ -2,6 +2,7 @@
 id: indexers
 title: Indexers
 authors: Tezos Ukraine
+lastUpdated: 10th July 2023
 ---
 
 {% callout type="note" %}

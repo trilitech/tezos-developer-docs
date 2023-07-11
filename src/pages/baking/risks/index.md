@@ -2,6 +2,7 @@
 id: baking_risks
 title: Risks
 authors: Nomadic Labs
+lastUpdated: 27th June 2023
 ---
 
 In this section, we will discuss how bakers may be subject to certain penalties, or risks incurred due to their activity.

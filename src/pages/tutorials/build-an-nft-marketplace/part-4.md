@@ -1,6 +1,7 @@
 ---
 id: nft-marketplace-part-4
 title: NFT Marketplace Part 4
+lastUpdated: 7th July 2023
 ---
 
 We finish by using multi asset template.

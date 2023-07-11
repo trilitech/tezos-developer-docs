@@ -1,7 +1,8 @@
 ---
 id: node-cluster
 title: Deploy a cluster of nodes using Pulumi
-authors: Oxhead Alpha, Daniel, Nomadic Labs
+authors: 'Oxhead Alpha, Daniel, Nomadic Labs'
+lastUpdated: 14th June 2023
 ---
 
 **(Thank you to [Oxhead Alpha](https://www.oxheadalpha.com/) for coding this great tool)**

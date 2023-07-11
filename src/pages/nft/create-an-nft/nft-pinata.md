@@ -1,6 +1,7 @@
 ---
 id: nft-pinata
 title: Mint an NFT using Taquito and Pinata
+lastUpdated: 10th July 2023
 ---
 
 In this guide, you will get an overview of the mechanics of NFTs, in general, and on Tezos. If you want to get your hands dirty, you will get an explanation of how the code of an NFT platform works, on the contract level but also on the app level. This article is mainly designed for beginner programmers who want to get a better idea of the code involved in the creation and use of NFTs, but non-technical readers will also find important information to deepen their understanding of both NFTs and the Tezos blockchain.

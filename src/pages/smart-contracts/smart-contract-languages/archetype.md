@@ -1,6 +1,7 @@
 ---
 id: archetype
 title: Archetype
+lastUpdated: 29th June 2023
 ---
 
 ## Introduction

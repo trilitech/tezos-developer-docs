@@ -1,10 +1,11 @@
 ---
 hide_table_of_contents: true
-title: "Tezos Governance"
+title: Tezos Governance
 hide_title: true
-sidebar_label: "Introduction"
-slug: "/learn/governance/"
+sidebar_label: Introduction
+slug: /learn/governance/
 sidebar_position: 1
+lastUpdated: 14th June 2023
 ---
 ## Tezos Governance
 

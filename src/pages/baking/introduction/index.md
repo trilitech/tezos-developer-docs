@@ -3,6 +3,7 @@ id: introduction
 title: Introduction
 slug: /baking
 authors: Maxime Sallerin
+lastUpdated: 27th June 2023
 ---
 
 In this module, we will see how baking works for the Tezos blockchain. More precisely, we will see the different actors involved, from creating new blocks to their validation. We will then see the associated reward system, and how to deploy your own baker. Finally, we will present a list of existing bakers and the criteria to evaluate them.
