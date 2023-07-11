@@ -1,7 +1,7 @@
 ---
 id: tezos-protocol-and-shell
 title: Tezos Protocol and Shell
-lastUpdated: 29th June 2023
+lastUpdated: July 2023
 ---
 
 The primary characteristic that makes Tezos unique is its self-amending property. The part that amends itself is called the economic protocol. The rest of the Tezos node is what we call the shell.

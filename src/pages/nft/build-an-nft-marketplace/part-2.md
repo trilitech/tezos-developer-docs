@@ -1,7 +1,7 @@
 ---
 id: nft-marketplace-part-2
 title: NFT Marketplace Part 2
-lastUpdated: 30th June 2023
+lastUpdated: July 2023
 ---
 
 This time we will add the ability to buy and sell an NFT!

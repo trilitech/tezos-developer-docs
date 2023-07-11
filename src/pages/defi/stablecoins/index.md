@@ -2,7 +2,7 @@
 id: stablecoins
 title: Stablecoins
 author: Aymeric Bethencourt
-lastUpdated: 27th June 2023
+lastUpdated: July 2023
 ---
 
 A stablecoin is a cryptocurrency whose price is fixed to another asset. Most stablecoins are pegged (fixed) to fiat currencies (currencies issued by the central bank of a sovereign state) like the US Dollar.

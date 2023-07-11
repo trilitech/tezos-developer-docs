@@ -2,7 +2,7 @@
 id: monitor-a-node
 title: Monitor a Node
 authors: Jean-Baptiste Col
-lastUpdated: 29th June 2023
+lastUpdated: July 2023
 ---
 
 This section will guide you through the steps to set up a monitoring tool that will allow you to track various metrics of an Octez node.

@@ -3,7 +3,7 @@ id: decentralized-fundraising
 title: Decentralized Fundraising
 author: Daniel Nomadic
 slug: /decentralized-fundraising
-lastUpdated: 26th June 2023
+lastUpdated: July 2023
 ---
 
 ## Introduction

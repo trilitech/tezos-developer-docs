@@ -2,7 +2,7 @@
 id: oracles
 title: Using and trusting Oracles
 authors: 'Mathias Hiron, Nomadic Labs'
-lastUpdated: 29th June 2023
+lastUpdated: July 2023
 ---
 
 ## The oracle problem

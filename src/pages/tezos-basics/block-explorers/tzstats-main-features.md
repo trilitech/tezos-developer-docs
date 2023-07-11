@@ -3,7 +3,7 @@ id: tzstats-main-features
 title: How to use the tzStats blockchain explorer?
 authors: Maxime Sallerin
 slug: /tzstats-main-features
-lastUpdated: 28th June 2023
+lastUpdated: July 2023
 ---
 
 In this chapter, we will use the [TzStats](https://tzstats.com/) explorer to illustrate the different features of an explorer, but similar features are usually available on others. Concerning the observation of smart contracts, the different aspects are discussed in the [following chapter](/explorer/tzstats-smart-contract).

@@ -2,7 +2,7 @@
 id: modelling-theorem
 title: Modelling for smart contracts
 authors: Frank Hillard (Cardashift)
-lastUpdated: 30th June 2023
+lastUpdated: July 2023
 ---
 
 This section describes how to bridge Tezos and the [Michelson](/developers/docs/smart-contracts/smart-contract-languages/michelson/) language with the formal world of [Coq](/developers/docs/advanced-topics/formal-verification/coq/). To achieve this, we are going to model a theorem representing a smart contract and the goal of the smart contract.

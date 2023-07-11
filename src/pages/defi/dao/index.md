@@ -3,7 +3,7 @@ id: dao
 title: Decentralized Autonomous Organization
 slug: /decentralized-autonomous-organization
 author: Daniel Nomadic
-lastUpdated: 26th June 2023
+lastUpdated: July 2023
 ---
 
 A DAO is an organization that uses open-source smart contract codes to automate and facilitate decision-making.

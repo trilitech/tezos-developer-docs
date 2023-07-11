@@ -1,7 +1,7 @@
 ---
 id: build-an-nft-marketplace
 title: Build an NFT Marketplace
-lastUpdated: 10th July 2023
+lastUpdated: July 2023
 ---
 
 ## Introduction

@@ -2,7 +2,7 @@
 id: 2-fa2-nft-tutorial
 title: Non-Fungible Tokens on Tezos Using FA2
 sidebar_label: FA2 NFT Tutorial LIGO
-lastUpdated: 29th June 2023
+lastUpdated: July 2023
 ---
 
 This tutorial shows how to originate and interact with the FA2 NFT contract

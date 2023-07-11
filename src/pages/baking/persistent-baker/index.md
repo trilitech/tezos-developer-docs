@@ -2,7 +2,7 @@
 id: persistent-baker
 title: Run a persistent baking node
 authors: Daniel Nomadic
-lastUpdated: 27th June 2023
+lastUpdated: July 2023
 ---
 
 Want to make your baking infrastructure more resilient to electricity and internet cut-offs? Let's use Linux service files to keep those Tezos binaries running.

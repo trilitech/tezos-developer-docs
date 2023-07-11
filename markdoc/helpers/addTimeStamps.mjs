@@ -18,7 +18,7 @@ async function updateLastUpdated(repoPath, docsDir) {
     } else if (file.isFile() && file.name.endsWith('.md')) {
       const log = await git.log({ file: filePath });
       const lastUpdatedDate = new Date(log.latest.date);
-      const lastUpdated = format(lastUpdatedDate, 'do MMMM yyyy');
+      const lastUpdated = format(lastUpdatedDate, 'MMMM yyyy');
 
       const content = await fsPromises.readFile(filePath, 'utf8');
       const parsed = matter(content);

@@ -1,5 +1,5 @@
 ---
-lastUpdated: 22nd June 2023
+lastUpdated: July 2023
 ---
 # What is Tezos?
 

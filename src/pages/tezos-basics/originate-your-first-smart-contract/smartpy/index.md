@@ -3,7 +3,7 @@ id: first-smart-contract-smartpy
 title: Originate your First Smart Contract with SmartPy
 slug: /first-smart-contract
 authors: 'John Joubert, Sasha Aldrick'
-lastUpdated: 30th June 2023
+lastUpdated: July 2023
 ---
 
 ## Prerequisites

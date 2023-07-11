@@ -3,7 +3,7 @@ id: gadt-coq
 title: 'Coq, GADT and Mi-Cho-Coq'
 authors: Frank Hillard
 slug: /gadt-coq
-lastUpdated: 30th June 2023
+lastUpdated: July 2023
 ---
 
 ## Introduction

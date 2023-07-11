@@ -3,7 +3,7 @@ id: fa12-fa2-standards
 title: FA1.2 & FA2 token standards
 slug: /fa12-fa2-standards
 authors: Claude Barde
-lastUpdated: 29th June 2023
+lastUpdated: July 2023
 ---
 
 Token standards in a blockchain ecosystem are important for 2 reasons:

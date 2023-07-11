@@ -2,7 +2,7 @@
 id: tezos-blockchain-overview
 title: An Overview of Tezos
 slug: /tezos-blockchain-overview
-lastUpdated: 14th June 2023
+lastUpdated: July 2023
 ---
 
 # History

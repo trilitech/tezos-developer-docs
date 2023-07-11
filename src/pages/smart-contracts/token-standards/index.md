@@ -2,7 +2,7 @@
 id: token-standards
 title: Token Standards
 author: Aymeric Bethencourt
-lastUpdated: 10th July 2023
+lastUpdated: July 2023
 ---
 
 In the blockchain ecosystem, any digitally transferable asset between two people is called a **token**. Tokens can be native to a blockchain, e.g., BTC is the native token of Bitcoin or tokens can also be created and hosted on an existing blockchain via a smart contract. Some tokens, called [stablecoins](/defi/stablecoins), follow the price of fiat currencies (e.g., USD, EUR). Others, called [_NFT_](/defi/token-standards#fungible--non-fungible-tokens), can represent collectibles or art pieces. Finally, tokens can represent rights of ownership of real-world estates or companies (i.e., [stock tokens](https://www.investopedia.com/terms/t/tokenized-equity.asp)). In this chapter, we will see the main types of tokens and the token standards on Tezos.

@@ -2,7 +2,7 @@
 id: coq
 title: Coq
 slug: /coq-language
-lastUpdated: 30th June 2023
+lastUpdated: July 2023
 ---
 # The Coq language
 As mentioned on the [Inria website](http://coq.inria.fr), **Coq** is a formal proof management system. It provides a formal language to write mathematical definitions, executable algorithms and theorems together with an environment for semi-interactive development of machine-checked proofs. Typical applications include the certification of properties of programming languages (e.g. the CompCert compiler certification project, the Verified Software Toolchain for verification of C programs, or the Iris framework for concurrent separation logic), the formalization of mathematics (e.g. the full formalization of the Feit-Thompson theorem, or homotopy type theory), and teaching. 

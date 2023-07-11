@@ -2,7 +2,7 @@
 id: synthetics
 title: Synthetics
 author: Aymeric Bethencourt
-lastUpdated: 30th June 2023
+lastUpdated: July 2023
 ---
 
 Synthetics are contracts where two parties bet on opposite outcomes for the value of an asset and then split the difference in profit/loss. The actual asset is not purchased in this contract. Both parties simply bet on the value appreciating or depreciating.

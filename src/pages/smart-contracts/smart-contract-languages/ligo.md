@@ -1,7 +1,7 @@
 ---
 id: ligo
 title: Ligo
-lastUpdated: 29th June 2023
+lastUpdated: July 2023
 ---
 
 ## Introduction to LIGO

@@ -2,7 +2,7 @@
 id: smart-contracts-concepts
 title: Smart Contract Concepts
 authors: 'Mathias Hiron (Nomadic Labs), Sasha Aldrick (TriliTech)'
-lastUpdated: 30th June 2023
+lastUpdated: July 2023
 ---
 
 ## Introduction

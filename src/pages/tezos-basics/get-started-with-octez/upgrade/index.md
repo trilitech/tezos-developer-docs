@@ -2,7 +2,7 @@
 id: upgrade
 title: Node upgrade
 authors: Nomadic Labs
-lastUpdated: 29th June 2023
+lastUpdated: July 2023
 ---
 
 Here we cover the CLI commands to install the necessary dependencies to upgrade an Octez node.

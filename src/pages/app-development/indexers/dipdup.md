@@ -2,7 +2,7 @@
 id: dipdup
 title: How to Use DipDup and Dappetizer
 authors: Tezos Ukraine
-lastUpdated: 10th July 2023
+lastUpdated: July 2023
 ---
 
 ## Introduction

@@ -2,7 +2,7 @@
 id: cli-baker
 title: Become a baker
 authors: 'Maxime Sallerin, Jean-Baptiste Col, Nomadic Labs'
-lastUpdated: 27th June 2023
+lastUpdated: July 2023
 ---
 
 Here we cover the CLI command lines for registering as a delegate. Then we will see how to exercise your rights as a baker, endorser, and accuser.

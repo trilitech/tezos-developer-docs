@@ -2,7 +2,7 @@
 id: wrapped-assets
 title: Wrapped Assets
 author: Aymeric Bethencourt
-lastUpdated: 10th July 2023
+lastUpdated: July 2023
 ---
 
 Wrapped assets are assets that are represented in one way or another by another token. That is, each token has a 1-to-1 relationship to some other coin, token, or asset, and can be converted from one to the other.
