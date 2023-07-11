@@ -10,7 +10,7 @@ Tezos also allows stakeholders to upgrade the amendment process itself. As a res
 
 ### Voters / Bakers
 
-Baking is how blocks are produced and validated on a Tezos blockchain using Liquid Proof-of-Stake. Bakers (also known as "delegates") obtain the right to create (i.e. bake) a block when a roll of tokens (1 roll = 6,000 ꜩ) they own (or that is delegated to them) is randomly selected to produce or validate a block.
+Baking is how blocks are produced and validated on a Tezos blockchain using Liquid Proof-of-Stake. Bakers (also known as "delegates") obtain the right to bake (i.e. create) a block when a roll of tokens (1 roll = 6,000 ꜩ) they own (or that is delegated to them) is randomly selected to produce or validate a block.
 
 As the maintainers of the Tezos network, **bakers are also the voters in a Tezos formal upgrade process**, with their votes proportional to the size of their stake (including delegations).
 
@@ -116,8 +116,7 @@ $ tezos-client submit ballot for <delegate> <proposal> <yea|nay|pass>
 $ tezos-client show voting period
 ```
 
-## Additional Resources 
-
-* [The Voting Process](https://tezos.gitlab.io/whitedoc/voting.html) from Nomadic Labs
-* [Amending Tezos](https://medium.com/tezos/amending-tezos-b77949d97e1e) from Jacob Arluck
-
+{% callout type="note" title="Additional Resources" %}
+- [The Voting Process](https://tezos.gitlab.io/whitedoc/voting.html) from Nomadic Labs
+- [Amending Tezos](https://medium.com/tezos/amending-tezos-b77949d97e1e) from Jacob Arluck
+{% /callout %}

@@ -40,9 +40,10 @@ At the end of the Testing Period, the Promotion Vote Period begins. In this peri
 
 At the end of the Promotion Vote Period, the network counts the number of votes. If the participation rate reaches the minimum quorum and an 80% supermajority of non-abstaining bakers votes “Yea,” then the proposal is activated as the new mainnet. Otherwise, the process once more reverts to the Proposal Period. The minimum vote participation rate is set based on past participation rates.
 
-See [the full details of the governance process](https://medium.com/tezos/amending-tezos-b77949d97e1e).
-
 #### 5. Adoption Period
 
 The Adoption Period provides a "cooldown" allowing developers and bakers some additional time to adapt their code and infrastructure to the upgrade based on the results of the Promotion Vote Period.
 
+{% callout type="note" title="References" %}
+    See [the full details of the governance process](https://medium.com/tezos/amending-tezos-b77949d97e1e).
+{% /callout %}
