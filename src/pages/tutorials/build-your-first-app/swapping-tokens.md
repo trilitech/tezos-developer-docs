@@ -2,6 +2,7 @@
 id: swapping-tokens
 title: Swapping XTZ and tzBTC
 authors: Claude Barde
+lastUpdated: 10th July 2023
 ---
 
 ## Swapping XTZ and tzBTC

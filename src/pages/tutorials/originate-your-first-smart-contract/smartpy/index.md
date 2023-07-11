@@ -2,7 +2,8 @@
 id: first-smart-contract-smartpy
 title: Originate your First Smart Contract with SmartPy
 slug: /first-smart-contract
-authors: John Joubert, Sasha Aldrick
+authors: 'John Joubert, Sasha Aldrick'
+lastUpdated: 7th July 2023
 ---
 
 {% callout type="note" title="Want to use LIGO?" %}

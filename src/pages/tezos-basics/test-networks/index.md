@@ -1,7 +1,8 @@
 ---
 id: test-networks
 title: Test Networks
-authors: Mathias Hiron, Nomadic Labs
+authors: 'Mathias Hiron, Nomadic Labs'
+lastUpdated: 5th June 2023
 ---
 
 {% callout type="note" %}

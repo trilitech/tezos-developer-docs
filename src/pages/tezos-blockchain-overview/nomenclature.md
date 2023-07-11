@@ -1,7 +1,8 @@
 ---
 hide_table_of_contents: true
-title: "Tezos Nomenclature"
+title: Tezos Nomenclature
 hide_title: true
+lastUpdated: 5th June 2023
 ---
 
 ## Tezos Nomenclature

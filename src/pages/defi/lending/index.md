@@ -3,6 +3,7 @@ id: lending
 title: Lending and Flash Loans
 slug: /lending
 author: Aymeric Bethencourt
+lastUpdated: 26th June 2023
 ---
 
 You probably had to borrow money at one point in your life, e.g., for a student loan, a car loan, or a mortgage. Lending and borrowing are essential services in any financial system. Traditionally, lenders such as banks provide you with a loan in exchange for a fee in the form of an interest rate. Repaying the said loan is enforced by legal contracts with the bank.

@@ -1,6 +1,7 @@
 ---
 id: create-an-nft
 title: Create an NFT
+lastUpdated: 5th June 2023
 ---
 
 This guide shows how to originate and interact with the FA2 NFT contract

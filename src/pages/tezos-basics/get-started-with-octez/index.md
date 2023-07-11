@@ -1,7 +1,8 @@
 ---
 id: get-started-with-octez
 title: Getting Started with Octez
-authors: Thomas Zoughebi, Aymeric Bethencourt, and Maxime Fernandez
+authors: 'Thomas Zoughebi, Aymeric Bethencourt, and Maxime Fernandez'
+lastUpdated: 5th June 2023
 ---
 
 ## Octez - The Tezos Client 

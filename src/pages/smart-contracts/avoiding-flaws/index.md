@@ -2,6 +2,7 @@
 id: avoiding-flaws
 title: Avoiding flaws
 authors: Mathias Hiron (Nomadic Labs)
+lastUpdated: 3rd July 2023
 ---
 
 The goal of this page is to bring you up to speed with a number of common flaws in smart contracts and some best practices on how to avoid them. 

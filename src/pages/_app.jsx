@@ -1,14 +1,13 @@
 import Head from 'next/head'
 import { slugifyWithCounter } from '@sindresorhus/slugify'
 
-import { Layout} from '@/components/Layout'
-import { ChatBob} from '@/components/ChatBob'
+import { Layout } from '@/components/Layout'
+import { ChatBob } from '@/components/ChatBob'
 
 import 'focus-visible'
 import '@/styles/tailwind.css'
 import 'katex/dist/katex.min.css'
 import '../styles/prism/prism_imports'
-
 
 function getNodeText(node) {
   let text = ''
@@ -54,6 +53,7 @@ function collectHeadings(nodes, slugify = slugifyWithCounter()) {
 
 export default function App({ Component, pageProps }) {
   let title = pageProps.markdoc?.frontmatter.title
+  let lastUpdated = pageProps.markdoc?.frontmatter.lastUpdated
 
   let pageTitle =
     pageProps.markdoc?.frontmatter.pageTitle ||
@@ -71,11 +71,14 @@ export default function App({ Component, pageProps }) {
         <title>{pageTitle}</title>
         {description && <meta name="description" content={description} />}
       </Head>
-      <Layout title={title} tableOfContents={tableOfContents}>
+      <Layout
+        title={title}
+        tableOfContents={tableOfContents}
+        lastUpdated={lastUpdated}
+      >
         <Component {...pageProps} />
-        <ChatBob/>
+        <ChatBob />
       </Layout>
-      
     </>
   )
 }

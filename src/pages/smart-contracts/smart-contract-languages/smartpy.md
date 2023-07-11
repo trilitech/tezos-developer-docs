@@ -2,6 +2,7 @@
 id: smartpy
 title: SmartPy
 authors: Mathias Hiron and Maxime Sallerin
+lastUpdated: 29th June 2023
 ---
 
 ## Introduction

@@ -1,6 +1,7 @@
 ---
-title: "Block Explorers"
-slug: "/block-explorers"
+title: Block Explorers
+slug: /block-explorers
+lastUpdated: 10th July 2023
 ---
 
 ## Block Explorers

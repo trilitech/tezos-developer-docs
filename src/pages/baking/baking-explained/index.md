@@ -2,6 +2,7 @@
 id: baking_explained
 title: How Baking Works?
 authors: Maxime Sallerin
+lastUpdated: 6th July 2023
 ---
 
 In this section we discuss how baking works. The different actors of the mechanism and the technological solutions will be presented.

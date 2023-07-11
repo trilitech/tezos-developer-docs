@@ -1,8 +1,9 @@
 ---
 id: history-of-amendments
 title: History of amendments
-authors: Thomas Zoughebi, Aymeric Bethencourt, and Maxime Fernandez
-slug: "/history-of-amendments"
+authors: 'Thomas Zoughebi, Aymeric Bethencourt, and Maxime Fernandez'
+slug: /history-of-amendments
+lastUpdated: 30th June 2023
 ---
 
 As presented in the [Governance on-chain chapter](/tezos-basics/governance-on-chain), the Tezos blockchain is constantly evolving, through new amendments. In this chapter, we will present an overview of past proposals and the reasons for their approval or disapproval.
