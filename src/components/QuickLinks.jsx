@@ -32,12 +32,15 @@ export function QuickLinks({ children }) {
   )
 }
 
-export function QuickLink({ title, description, href, icon, comingSoon }) {
+export function QuickLink({
+  title,
+  description,
+  href,
+  icon,
+  comingSoon,
+  isTutorial,
+}) {
   const pathsToHideDescription = ['/tooling', '/resources']
-
-  // if (comingSoon === "true") {
-  //   console.log('comingSoon', comingSoon);
-  // }
 
   const shouldHideDescription = pathsToHideDescription.some((path) =>
     href.startsWith(path)
@@ -66,19 +69,20 @@ export function QuickLink({ title, description, href, icon, comingSoon }) {
               lineHeight: !shouldHideDescription ? '1.5rem' : '1rem',
             }}
           >
-            {comingSoon ? (
-              <>
-                <div className="mb-0.5 flow-root w-fit items-center rounded-full bg-purple-50 px-1 py-0.5 text-xxs font-medium text-purple-700 ring-1 ring-inset ring-purple-600/10 dark:bg-transparent dark:text-white dark:ring-white">
-                  Coming Soon
-                </div>
-                {title}
-              </>
-            ) : (
-              <Link href={href}>
-                <span className="absolute -inset-px rounded-xl" />
-                {title}
-              </Link>
+            {comingSoon && (
+              <div className="mb-0.5 flow-root w-fit items-center rounded-full bg-purple-50 px-1 py-0.5 text-xxs font-medium text-purple-700 ring-1 ring-inset ring-purple-600/10 dark:bg-transparent dark:text-white dark:ring-white">
+                Coming Soon
+              </div>
             )}
+            {isTutorial && (
+              <div className="mb-0.5 flow-root w-fit items-center rounded-full bg-blue-50 px-1 py-0.5 text-xxs font-medium text-blue-800 ring-1 ring-inset ring-blue-600/10 dark:bg-transparent dark:text-white dark:ring-white">
+                Tutorial
+              </div>
+            )}
+            <Link href={href}>
+              <span className="absolute -inset-px rounded-xl" />
+              {title}
+            </Link>
           </h2>
           {!shouldHideDescription && (
             <p

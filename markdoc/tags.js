@@ -51,6 +51,7 @@ const tags = {
       icon: { type: String },
       href: { type: String },
       comingSoon: { type: Boolean, default: false },
+      isTutorial: { type: Boolean, default: false },
     },
   },
   'lg-links': {
@@ -64,6 +65,7 @@ const tags = {
       description: { type: String },
       icon: { type: String },
       href: { type: String },
+      isTutorial: { type: Boolean, default: false },
     },
   },
   math: {
