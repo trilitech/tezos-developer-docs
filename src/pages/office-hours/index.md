@@ -1,7 +1,6 @@
 ---
 title: Developer Success Office Hours
 description: Book into our office hours!
-lastUpdated: 5th July 2023
 ---
 
 

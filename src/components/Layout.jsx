@@ -962,10 +962,10 @@ export function Layout({ children, title, tableOfContents, lastUpdated }) {
   let router = useRouter()
   let isHomePage = router.pathname === '/'
 
-  let tabPaths = ['/', '/tutorials', '/tooling', '/resources']
-  let isTabHomePage = tabPaths.some((basePath) =>
-    router.pathname.startsWith(basePath)
-  )
+  let tabPaths = ['tutorials', 'office-hours']
+  let isTabHomePage =
+    tabPaths.some((basePath) => router.pathname.endsWith(basePath)) ||
+    isHomePage
 
   function getPathSegments(path) {
     // Remove the leading '/' and split the path into segments
@@ -1068,7 +1068,7 @@ export function Layout({ children, title, tableOfContents, lastUpdated }) {
 
         <div className="min-w-0 max-w-2xl flex-auto px-4 py-16 lg:max-w-none lg:pr-0 lg:pl-8 xl:px-16">
           <article>
-            {(selectedParent || section || isTabHomePage) && (
+            {(isTabHomePage || selectedParent || section) && (
               <header className="mb-6 space-y-1">
                 {section && !isHomePage && (
                   <p className="font-display text-sm font-medium text-blue-600">
@@ -1077,26 +1077,21 @@ export function Layout({ children, title, tableOfContents, lastUpdated }) {
                     }`}
                   </p>
                 )}
-                {(isTabHomePage || selectedLink !== undefined) && (
-                  <>
-                    <h1 className="text-gradient font-display text-4xl font-semibold dark:text-white">
-                      {title}
-                    </h1>
+                <>
+                  <h1 className="text-gradient font-display text-4xl font-semibold dark:text-white">
+                    {title}
+                  </h1>
+                  {!isTabHomePage && (
                     <div className="text-left">
-                      <h2 className="ml-1 mt-2 text-xs italic text-gray-500">
+                      <h2 className="mr-6 text-xs italic text-gray-500">
                         Last Updated: {lastUpdated}
                       </h2>
                     </div>
-                  </>
-                )}
+                  )}
+                </>
               </header>
             )}
             <Prose>{children}</Prose>
-            <div className="text-right">
-              <h2 className="mr-6 text-xs italic text-gray-500">
-                Last Updated: {lastUpdated}
-              </h2>
-            </div>
           </article>
 
           {!isHomePage && !router.pathname.endsWith('tutorials') && (
