@@ -100,24 +100,6 @@ function NavigationLinks({
 }
 
 export function Navigation({ navigation, className, selectedLink, selectedParent }) {
-  let router = useRouter()
-  
-  const [openSections, setOpenSections] = useState(
-    navigation.reduce((acc, section) => {
-      return {
-        ...acc,
-        [section.title]: true,
-      };
-    }, {})
-  );
-  
-  const toggleSection = (sectionTitle) => {
-    setOpenSections((prev) => ({
-      ...prev,
-      [sectionTitle]: !prev[sectionTitle],
-    }));
-  };
-
   return (
     <nav className={clsx('text-base lg:text-sm', className)}>
       <ul role="list" className="space-y-9">
@@ -126,7 +108,6 @@ export function Navigation({ navigation, className, selectedLink, selectedParent
             <h2 className="font-display font-medium text-slate-900 dark:text-white" style={{ fontSize: '1.3em' }}>
               <div
                 style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}
-                onClick={() => toggleSection(section.title)}
               >
                 {section.title}
                 <button
@@ -135,17 +116,14 @@ export function Navigation({ navigation, className, selectedLink, selectedParent
                     marginLeft: '5px',
                   }}
                 >
-                  {openSections[section.title] ? <FiChevronDown /> : <FiChevronRight />}
                 </button>
               </div>
             </h2>
-            {openSections[section.title] && (
               <NavigationLinks
                 links={section.links}
                 selectedLink={selectedLink}
                 selectedParent={selectedParent}
               />
-            )}
           </li>
         ))}
       </ul>
