@@ -104,19 +104,13 @@ export function Navigation({ navigation, className, selectedLink, selectedParent
   
   const [openSections, setOpenSections] = useState(
     navigation.reduce((acc, section) => {
-      const isTutorialsSection = router.pathname.includes('/tutorials')
       return {
         ...acc,
-        [section.title]: section.links.some(
-          (link) =>
-            link === selectedLink ||
-            link === selectedParent ||
-            (link.children && link.children.includes(selectedLink))
-        ) || (isTutorialsSection),
+        [section.title]: true,
       };
     }, {})
   );
-
+  
   const toggleSection = (sectionTitle) => {
     setOpenSections((prev) => ({
       ...prev,

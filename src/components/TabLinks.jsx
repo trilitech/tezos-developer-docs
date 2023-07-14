@@ -23,33 +23,73 @@ export function TabLinks({ isHomePage }) {
   }, [])
 
   return (
-    <div className="-ml-3 flex flex-col custom:-ml-0 custom:flex-row custom:items-center">
+    <div className="flex flex-col custom:-ml-0 custom:flex-row custom:items-center">
       <Link
-        href="/tezos-blockchain-overview/"
-        className={`px-4 py-2 ${
-          !router.pathname.includes('tutorials') &&
-          !router.pathname.includes('office-hours') &&
-          !isHomePage
+        href="/basics/history-and-vision"
+        className={`px-4 py-2 ml-3 -mr-1 ${
+          router.pathname.includes('/basics')
             ? 'text-blue-400'
             : 'text-white'
         }`}
       >
         {isLargeScreen ? (
           <div className="hover:text-gray-300 dark:hover:text-gray-500">
-            Documentation
+            📚 Basics
           </div>
         ) : (
           <h2
             className="font-display font-medium text-slate-900 hover:text-blue-400 dark:text-white"
             style={{ fontSize: '1.3em' }}
           >
-            Documentation
+            📚 Basics
+          </h2>
+        )}
+      </Link>
+      <Link
+        href="/build/smart-contracts/smart-contract-languages"
+        className={`px-4 py-2 -mr-1 ${
+          router.pathname.includes('/build')
+            ? 'text-blue-400'
+            : 'text-white'
+        }`}
+      >
+        {isLargeScreen ? (
+          <div className="hover:text-gray-300 dark:hover:text-gray-500">
+            🔧 Build
+          </div>
+        ) : (
+          <h2
+            className="font-display font-medium text-slate-900 hover:text-blue-400 dark:text-white"
+            style={{ fontSize: '1.3em' }}
+          >
+            🔧 Build
+          </h2>
+        )}
+      </Link>
+      <Link
+        href="/participate"
+        className={`px-4 py-2 -mr-1 ${
+          router.pathname.includes('/participate')
+            ? 'text-blue-400'
+            : 'text-white'
+        }`}
+      >
+        {isLargeScreen ? (
+          <div className="hover:text-gray-300 dark:hover:text-gray-500">
+            🤝 Participate
+          </div>
+        ) : (
+          <h2
+            className="font-display font-medium text-slate-900 hover:text-blue-400 dark:text-white"
+            style={{ fontSize: '1.3em' }}
+          >
+            🤝 Participate
           </h2>
         )}
       </Link>
       <Link
         href="/tutorials"
-        className={`px-4 py-2 ${
+        className={`px-4 py-2 -mr-1 ${
           router.pathname.includes('/tutorials')
             ? 'text-blue-400'
             : 'text-white'
@@ -57,14 +97,14 @@ export function TabLinks({ isHomePage }) {
       >
         {isLargeScreen ? (
           <div className="hover:text-gray-300 dark:hover:text-gray-500">
-            Tutorials
+            🎓 Learn
           </div>
         ) : (
           <h2
             className="font-display font-medium text-slate-900 hover:text-blue-400 dark:text-white"
             style={{ fontSize: '1.3em' }}
           >
-            Tutorials
+            🎓 Learn
           </h2>
         )}
       </Link>
@@ -78,14 +118,14 @@ export function TabLinks({ isHomePage }) {
       >
         {isLargeScreen ? (
           <div className="hover:text-gray-300 dark:hover:text-gray-500">
-            Office Hours
+            🛎️ Support
           </div>
         ) : (
           <h2
             className="font-display font-medium text-slate-900 hover:text-blue-400 dark:text-white"
             style={{ fontSize: '1.3em' }}
           >
-            Office Hours
+           🛎️ Support
           </h2>
         )}
       </Link>

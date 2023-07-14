@@ -1,10 +1,7 @@
 ---
-title: Tezos Governance
-slug: /governance
+title: Self Amendment
 lastUpdated: 3rd July 2023
 ---
-## What is Self Amendment?
-
 Tezos is a self-amending blockchain network that incorporates an on-chain mechanism for proposing, selecting, testing, and activating protocol upgrades without the need to hard fork.
 
 ## How Does It Work? 
