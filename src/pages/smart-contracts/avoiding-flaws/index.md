@@ -607,7 +607,7 @@ Generating a random value during a contract call, for example for selecting the 
 	
 - **The value of a new contract's address**. A contract may deploy a new contract and obtain its address. Unfortunately, a contract address is far from being as random as it looks. It is simply computed based on the operation group hash and an origination index (starting from 0 which is increased for every origination operation in the group). It can therefore be easily manipulated by the creator of the operation which is no better than trusting them.
 
-- **The exchange rate between currencies**. One may consider using an off-chain [oracle](/developers/docs/smart-contracts/oracles/) to obtain the exchange rate between two common currencies, such USD and Euro, and use this to get a few bits of entropy for randomness. This can be considered difficult to predict and therefore "random". There are however a number of issues with this approach:
+- **The exchange rate between currencies**. One may consider using an off-chain [oracle](/smart-contracts/oracles/) to obtain the exchange rate between two common currencies, such USD and Euro, and use this to get a few bits of entropy for randomness. This can be considered difficult to predict and therefore "random". There are however a number of issues with this approach:
 	- We can only get a few bits of entropy (randomness), which is usually insufficient.
 	- One of the entities behind the off-chain oracle could influence the exact value. The exact way to do this depends on the specifics of the oracle, but it's likely that there is a way to do so.
 	- A baker could also censor some of the transactions involved in the off-chain oracle, and by doing so, influence the exact value as well.
@@ -923,7 +923,7 @@ Good oracles always attach a timestamp to the information they provide. If for s
 
 ### Using on-chain oracles that can be manipulated
 
-On-chain oracles don't provide data from off-chain sources. Instead, they provide access to data collected from other smart contracts. For example, an on-chain oracle could collect and provide data about the exchange rate between two tokens from one or more [DEXes](/developers/docs/defi/dex/) running on the same blockchain. Doing this in a safe manner is not straightforward.
+On-chain oracles don't provide data from off-chain sources. Instead, they provide access to data collected from other smart contracts. For example, an on-chain oracle could collect and provide data about the exchange rate between two tokens from one or more [DEXes](/defi/dex/) running on the same blockchain. Doing this in a safe manner is not straightforward.
 
 An attacking contract could perform the following steps:
 - use a flash-loan to borrow a lot of tez

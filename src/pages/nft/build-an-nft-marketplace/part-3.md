@@ -1316,14 +1316,14 @@ export default function WineCataloguePage() {
 3. Click on `Upload an image` and select a bottle picture on your computer
 4. Click on the Mint button
 
-![minting.png](/developers/docs/images/minting_part3.png)
+![minting.png](/images/minting_part3.png)
 
 Your picture will be pushed to IPFS and displayed, then your wallet will ask you to sign the `mint` operation.
 
 - Confirm operation
 - Wait less than 1 minute to get the confirmation notification, the page will be automatically refreshed.
 
-![minted.png](/developers/docs/images/minted.png)
+![minted.png](/images/minted.png)
 
 Now you can see the `Trading` menu and the `Bottle offers` sub menu
 
@@ -1336,7 +1336,7 @@ You are the owner of this bottle so you can make an offer on it
 - Click on the `SELL` button
 - Wait a bit for the confirmation, then once automatically refreshed you have an offer attached to your NFT
 
-![offer.png](/developers/docs/images/offer.png)
+![offer.png](/images/offer.png)
 
 For buying,
 
@@ -1347,7 +1347,7 @@ For buying,
 - Click on `bottle offers` sub menu
 - You are now the owner of some bottles, you can resell a part of it at your own price, etc ...
 
-![buy.png](/developers/docs/images/buy_part3.png)
+![buy.png](/images/buy_part3.png)
 
 ## Conclusion 
 

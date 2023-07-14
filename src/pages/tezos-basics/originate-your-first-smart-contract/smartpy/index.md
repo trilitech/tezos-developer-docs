@@ -11,7 +11,7 @@ lastUpdated: 30th June 2023
 | Dependency         | Installation instructions                                                                                                                                                                                                                                        |
 | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | SmartPy            | Follow the _Installation_ steps in this [guide](https://smartpy.dev/docs/manual/introduction/installation). SmartPy requires Docker to run. For MacOS and Linux, it is recommended to install [Docker Desktop](https://www.docker.com/products/docker-desktop/). |
-| _octez-client_ CLI | Follow the _How to install the octez-client_ steps [here](/developers/docs/tezos-basics/get-started-with-octez/).                                                                                                                                                |
+| _octez-client_ CLI | Follow the _How to install the octez-client_ steps [here](/tezos-basics/get-started-with-octez/).                                                                                                                                                |
 
 {% callout type="warning" title="Note" %}
 Make sure you have **installed** the above CLI tools before getting started.
@@ -197,7 +197,7 @@ Tezos provides a [faucet](https://faucet.ghostnet.teztnets.xyz) to allow you to 
 
 Let's go ahead and fund our wallet through the [Ghostnet Faucet](https://faucet.ghostnet.teztnets.xyz). Paste the hash you copied earlier into the input field for "Or fund any address" and select the amount you'd like to add to your wallet.
 
-![Fund your wallet using the Ghostnet Faucet](/developers/docs/images/wallet-funding.png)
+![Fund your wallet using the Ghostnet Faucet](/images/wallet-funding.png)
 
 Wait a minute or two and you can then run the following command to check that your wallet has funds in it:
 
@@ -305,7 +305,7 @@ Then paste the contract address (starting with KT1) `KT1Nnk.................UFsJ
 
 Then navigate to the `Storage` tab to see your initial value of `Hello`.
 
-![Confirmation that all worked correctly](/developers/docs/images/storage_success.png)
+![Confirmation that all worked correctly](/images/storage_success.png)
 
 ## Calling the entrypoints
 

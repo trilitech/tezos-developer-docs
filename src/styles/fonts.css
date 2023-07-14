@@ -3,7 +3,7 @@
   font-style: normal;
   font-weight: 100 900;
   font-display: swap;
-  src: url('/developers/docs/fonts/GT-Eesti-Display-Regular.woff') format('woff');
+  src: url('/fonts/GT-Eesti-Display-Regular.woff') format('woff');
 }
 @font-face {
   font-family: 'Inter';
@@ -11,7 +11,7 @@
   font-display: block;
   font-style: normal;
   font-named-instance: 'Regular';
-  src: url('/developers/docs/fonts/Inter-roman.var.woff2') format('woff2');
+  src: url('/fonts/Inter-roman.var.woff2') format('woff2');
 }
 @font-face {
   font-family: 'Inter';
@@ -19,7 +19,7 @@
   font-display: block;
   font-style: italic;
   font-named-instance: 'Italic';
-  src: url('/developers/docs/fonts/Inter-italic.var.woff2') format('woff2');
+  src: url('/fonts/Inter-italic.var.woff2') format('woff2');
 }
 
 .text-gradient {

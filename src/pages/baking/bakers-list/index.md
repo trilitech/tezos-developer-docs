@@ -13,13 +13,13 @@ Most Tezos blockchain explorers have a list of bakers ordered according to diffe
 
 [Baking Bad](https://tzkt.io/bakers/), [TzStats](https://tzstats.com/bakers) or [Tezos Nodes](https://tezos-nodes.com/) allow you to browse through bakers.
 
-![baking-bad-bakers](/developers/docs/images/bakers-list/baking_bad_bakers.png)
+![baking-bad-bakers](/images/bakers-list/baking_bad_bakers.png)
 FIGURE 1: Baking Bad Bakers
 
-![tzstats-bakers](/developers/docs/images/bakers-list/tzstats_bakers.png)
+![tzstats-bakers](/images/bakers-list/tzstats_bakers.png)
 FIGURE 2: TzStats Bakers
 
-![tezos-nodes-bakers](/developers/docs/images/bakers-list/tezos_node_bakers.png)
+![tezos-nodes-bakers](/images/bakers-list/tezos_node_bakers.png)
 FIGURE 3: Tezos Nodes Bakers
 
 
@@ -37,7 +37,7 @@ A private baker doesn’t offer everyone to delegate their stakes. Technically s
 
 These days, it is the centralized exchanges like Coinbase, Binance or Kraken, that hold the biggest stakes. They offer their users an opportunity to stake Tez from their exchange accounts and get profits.
 
-![tzstats-bakers-top20](/developers/docs/images/bakers-list/tzstats_bakers_top20.png)
+![tzstats-bakers-top20](/images/bakers-list/tzstats_bakers_top20.png)
 
 ### Corporate bakers
 

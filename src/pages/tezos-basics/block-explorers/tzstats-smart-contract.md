@@ -18,11 +18,11 @@ Remember, the following TzStats website links are the following:
 
 Copy/paste your address in the search bar:
 
-![](/developers/docs/images/tzstats-smart-contract/tzStats_search_bar.png)
+![](/images/tzstats-smart-contract/tzStats_search_bar.png)
 
 TzStats then shows a page with information related to your smart contract, e.g. the balance of the contract, the amounts sent and received, the originator's address, etc.
 
-![](/developers/docs/images/tzstats-smart-contract/tzStats_smart_contract_general_information.png)
+![](/images/tzstats-smart-contract/tzStats_smart_contract_general_information.png)
 
 Below the general information, you have a list of tabs allowing you to see:
 
@@ -55,25 +55,25 @@ You can see:
 
 Here you have a list of all your entrypoints and their parameters. Furthermore, you can see how many calls each entrypoint has received.
 
-![](/developers/docs/images/tzstats-smart-contract/tzStats_smart_contract_entrypoints.png)
+![](/images/tzstats-smart-contract/tzStats_smart_contract_entrypoints.png)
 
 ### Contract Code
 
 Here you have the Michelson code of your smart contract.
 
-![](/developers/docs/images/tzstats-smart-contract/tzStats_smart_contract_code.png)
+![](/images/tzstats-smart-contract/tzStats_smart_contract_code.png)
 
 ### Storage
 
 Here you have access to the content of your storage with the type of each variable and its current value. Notice that the content excludes big_maps as they are specific tabs for them.
 
-![](/developers/docs/images/tzstats-smart-contract/tzStats_smart_contract_storage.png)
+![](/images/tzstats-smart-contract/tzStats_smart_contract_storage.png)
 
 ### Big_map
 
 Here you have the content of your big_map.
 
-![](/developers/docs/images/tzstats-smart-contract/tzStats_smart_contract_bigmap.png)
+![](/images/tzstats-smart-contract/tzStats_smart_contract_bigmap.png)
 
 ## API Calls
 

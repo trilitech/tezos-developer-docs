@@ -5,10 +5,10 @@ authors: Frank Hillard (Cardashift)
 lastUpdated: 30th June 2023
 ---
 
-This section describes how to bridge Tezos and the [Michelson](/developers/docs/smart-contracts/smart-contract-languages/michelson/) language with the formal world of [Coq](/developers/docs/advanced-topics/formal-verification/coq/). To achieve this, we are going to model a theorem representing a smart contract and the goal of the smart contract.
+This section describes how to bridge Tezos and the [Michelson](/smart-contracts/smart-contract-languages/michelson/) language with the formal world of [Coq](/advanced-topics/formal-verification/coq/). To achieve this, we are going to model a theorem representing a smart contract and the goal of the smart contract.
 
 ## Overview
-The Tezos blockchain can run smart contracts using the Michelson language. Michelson is a low-level stack-based Turing-complete language that is formally proven. The proof of Michelson language is compiled in a library called [Mi-Cho-Coq](/developers/docs/advanced-topics/formal-verification/michocoq/).
+The Tezos blockchain can run smart contracts using the Michelson language. Michelson is a low-level stack-based Turing-complete language that is formally proven. The proof of Michelson language is compiled in a library called [Mi-Cho-Coq](/advanced-topics/formal-verification/michocoq/).
 
 The Coq proof assistant is built upon the paradigm of **calculus of constructions**. The [Gallina](https://en.wikipedia.org/wiki/Coq#Overview) language provides a syntax (terms) for describing formal objects (a theorem) and also provides a set of instructions (vernacular syntax, know as tactics) for writing the proof of the theorem.
 
@@ -16,7 +16,7 @@ The formal verification of a Michelson smart contract is done by providing the p
 
 The proof consists in a sequence of tactics which the Coq engine will interpret. These instructions manipulate formal expressions (following laws of logic and the Mi-Cho-Coq definitions) to formally assert the truth of a given theorem (based on the given assumptions).
 
-![](/developers/docs/images/modelling-theorem/overview_process.svg)
+![](/images/modelling-theorem/overview_process.svg)
 
 Notice that Gallina provides:
 
@@ -33,18 +33,18 @@ The modelling theorem is based on:
 
 Formal verification of a Tezos smart contract consists in verifying formally that **the execution of the Michelson script satisfies specific post-conditions**.
 
-![](/developers/docs/images/modelling-theorem/overview_theorem.svg)
+![](/images/modelling-theorem/overview_theorem.svg)
 
 The schema above describes an equivalence between the execution of instructions and post-conditions (A, B, C, D). Post-conditions are rules that must be verified, but these post-conditions do not describe the whole behaviour of the smart contract, only specific traits representing the intent of the smart contract.
 
 In the following sections, we will detail how the execution of a Michelson script can be formally written and how to define the post-conditions. We will then study the formal proof as a sequence of Coq tactics (i.e. the vernacular part of the Gallina language).
 
 ### Smart Contract Invocation
-Tezos smart contracts can be written in multiple high-level [languages](/developers/docs/smart-contracts/smart-contract-languages/) but these are all ultimately compiled in Michelson.
+Tezos smart contracts can be written in multiple high-level [languages](/smart-contracts/smart-contract-languages/) but these are all ultimately compiled in Michelson.
 
 A smart contract invocation requires the smart contract itself (through its address), the entrypoint that is being called (and its related arguments) and the storage state. If all these elements are provided, the execution of the smart contract code is triggered, which results in side-effects on storage and optionally on the Tezos network itself:
 
-![](/developers/docs/images/modelling-theorem/smartcontract_invocation.svg)
+![](/images/modelling-theorem/smartcontract_invocation.svg)
 
 The entrypoint information is used to identify which portion of the code will be executed. The entrypoint arguments and the storage are used as the context of execution (i.e, the execution stack is initialized with arguments and a storage). The execution of the code produces a new storage state and operations.
 The operations produced by this invocation are also some new invocations of other smart contracts.
@@ -168,7 +168,7 @@ End ST.
 
 ### Annotated Script
 
-The smart contract is a Michelson script but this script cannot be taken as input by the Coq engine as is. [Mi-Cho-Coq](/developers/docs/advanced-topics/formal-verification/michocoq/) (the Coq specification of the Michelson language) provides the correspondence between a Michelson instruction and an equivalent logical proposition. There is no automated process that translates Michelson code into a formal definition based on Mi-Cho-Coq definitions. Therefore, this must be done manually.
+The smart contract is a Michelson script but this script cannot be taken as input by the Coq engine as is. [Mi-Cho-Coq](/advanced-topics/formal-verification/michocoq/) (the Coq specification of the Michelson language) provides the correspondence between a Michelson instruction and an equivalent logical proposition. There is no automated process that translates Michelson code into a formal definition based on Mi-Cho-Coq definitions. Therefore, this must be done manually.
 
 The example voting smart contract can be formalized in a formal definition in Coq (_Terms_ part of the _Gallina_ language):
 
@@ -212,7 +212,7 @@ Now, these rules can be translated into formal propositions. These propositions 
 
 The post conditions of the example contract can be visualised:  
 
-![](/developers/docs/images/modelling-theorem/postconditions_rules.svg)
+![](/images/modelling-theorem/postconditions_rules.svg)
 
 The rule "Keys of the old storage exists in the new storage" can be written in Coq (Gallina - Terms) with the following:
 
@@ -318,7 +318,7 @@ eval env CODE fuel (arguments, storage) = return (newStorage) <=> post-condition
 
 Here is a schema describing graphically the theorem formalization:
 
-![](/developers/docs/images/modelling-theorem/theorem_graphical.svg)
+![](/images/modelling-theorem/theorem_graphical.svg)
 
 Now that we have defined the post-conditions to verify, we can define the theorem in Gallina (Terms) syntax: 
 
@@ -338,7 +338,7 @@ The `vote` object represents our smart contract (in a formal representation). No
 
 We can represent this equivalence between the execution of the code and the verification of post-conditions by the following diagram:
 
-![](/developers/docs/images/modelling-theorem/theorem_graphical_detail.svg)
+![](/images/modelling-theorem/theorem_graphical_detail.svg)
 
 Notice that the `vote_spec` definition is used as post condition and requires 4 arguments (`storage`, `param`, `new_storage`, `returned_operations`). 
 

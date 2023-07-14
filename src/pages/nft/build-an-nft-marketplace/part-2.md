@@ -811,7 +811,7 @@ Your picture will be pushed to IPFS and displayed, then your wallet ask you to s
 
 6. Click on the submenu entry
 
-![sell.png](/developers/docs/images/sell.png)
+![sell.png](/images/sell.png)
 
 You are the owner of this bottle so you can create an offer to sell it.
 
@@ -1056,7 +1056,7 @@ export default function WineCataloguePage() {
 
 Now you can see on `Trading` menu the `Wine catalogue` submenu, click on it.
 
-![buy.png](/developers/docs/images/buy.png)
+![buy.png](/images/buy.png)
 
 As you are connected with the default administrator you can see your own unique offer on the market
 

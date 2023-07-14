@@ -811,7 +811,7 @@ Your picture will be pushed to IPFS and displayed, then your wallet ask you to s
 
 6. Click on the submenu entry
 
-![sell.png](/developers/docs/images/sell.png)
+![sell.png](/images/sell.png)
 
 You are the owner of this bottle so you can create an offer to sell it.
 
@@ -1056,7 +1056,7 @@ export default function WineCataloguePage() {
 
 Now you can see on `Trading` menu the `Wine catalogue` submenu, click on it.
 
-![buy.png](/developers/docs/images/buy.png)
+![buy.png](/images/buy.png)
 
 As you are connected with the default administrator you can see your own unique offer on the market
 
@@ -1073,4 +1073,4 @@ You created an NFT collection marketplace from the Ligo library, now you can buy
 
 In the next lesson, you will see another kind of NFT called `single asset`. Instead of creating *X* token types, you will be allowed to create only 1 token_id 0, on the other side, you can mint a quantity *n* of this token.
 
-To continue, let's go to [Part 3](/developers/docs/tutorials/build-an-nft-marketplace/part-3).
+To continue, let's go to [Part 3](/tutorials/build-an-nft-marketplace/part-3).
