@@ -34,7 +34,7 @@ The target price, i.e. the value of the ctez in XTZ, is required to calculate th
 
 In total, every swap on the ctez/XTZ AMM creates a chain of events that leads to ctez supply adjustment.
 
-![](/developers/docs/images/ctez-diagram.png)
+![](/images/ctez-diagram.png)
 
 Suppose Alice has deposited 100 XTZ in the oven and released 90 ctez at the target price of 1.0. The security percentage is 90%. If the target price rises to 1.05, the collateral percentage is 94.5% and the oven will be subject to liquidation. Bob will deposit the ctez into it and withdraw the XTZ.
 
@@ -50,28 +50,28 @@ To summarize, ctez cannot (and should not) maintain the pegging to XTZ. Its valu
 
 Go to [ctez.app](https://ctez.app/) and observe the drift value.
 
-![](/developers/docs/images/ctez6.png)
+![](/images/ctez6.png)
 If the drift value is lower than the yield from delegating, you can try to create an oven and benefit from mint-sell-mint. To do this, click on the Create Oven button in the menu on the left.
 
 If it is above 6 percent, it is advantageous to accumulate ctez. Its price will go up: oven owners will have to buy back and redeem ctez to avoid liquidation.
 
-![](/developers/docs/images/ctez1.png)
+![](/images/ctez1.png)
 
 Enter the address of the baker to whom the oven delegates XTZ, and specify how many XTZ you want to put into the oven. Click Whitelist if you want only the specified addresses to be able to contribute additional XTZ to your oven. Then click Create Oven and confirm the transaction in your wallet.
 
-![](/developers/docs/images/ctez2.png)
+![](/images/ctez2.png)
 
 Wait a minute until the transaction is included in the block and click on My Ovens on the left-hand side of the menu.
 
-![](/developers/docs/images/ctez3.png)
+![](/images/ctez3.png)
 
 Click on the oven you mean to open. It will pop open its data, such as the collateralization level, the amount of deposited XTZ, and the amount of issued ctez.
 
-![](/developers/docs/images/ctez4.png)
+![](/images/ctez4.png)
 
 Press Mint to issue ctez. Enter the amount and confirm the transaction in the wallet. After a few minutes, check your wallet: ctez should appear there.
 
-![](/developers/docs/images/ctez5.png)
+![](/images/ctez5.png)
 
 
 If they didn’t, add the tokens manually to the ctez contract address: ([KT1SjXiUX63QvdNMcM2m492f7kuf8JxXRLp4](https://tzkt.io/KT1SjXiUX63QvdNMcM2m492f7kuf8JxXRLp4/operations/)).

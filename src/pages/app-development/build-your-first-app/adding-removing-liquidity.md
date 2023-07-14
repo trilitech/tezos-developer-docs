@@ -15,7 +15,7 @@ First, let's understand what we are doing here: the LB DEX gives you the ability
 
 The interface here is going to look a lot like the interface for swapping, with some key differences:
 
-![AddLiquidity UI](/developers/docs/images/build-your-first-app/add-liquidity-ui.png "Add liquidity UI")
+![AddLiquidity UI](/images/build-your-first-app/add-liquidity-ui.png "Add liquidity UI")
 
 Like before, we have 2 input fields, but this time, there is no middle button to switch between the 2 tokens and both inputs are editable.
 
@@ -356,7 +356,7 @@ And that's it! Your users now have the ability to add liquidity to the Liquidity
 
 Removing liquidity from the Liquidity Baking contract is arguably the easiest of all the tasks accomplished by our interface. The interface only needs one input to receive the amount of SIRS that the user wants to unwrap to get XTZ and tzBTC.
 
-![RemoveLiquidity UI](/developers/docs/images/build-your-first-app/remove-liquidity-ui.png "Remove liquidity UI")
+![RemoveLiquidity UI](/images/build-your-first-app/remove-liquidity-ui.png "Remove liquidity UI")
 
 The dapp will then calculate the corresponding amount of XTZ and tzBTC expected to be received for the amount of SIRS in the input field.
 

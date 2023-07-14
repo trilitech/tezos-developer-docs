@@ -735,7 +735,7 @@ const mint = async (newTokenDefinition: TZIP21TokenMetadata) => {
 };
 ```
 
-![mint form](/developers/docs/images/mintForm.png)
+![mint form](/images/mintForm.png)
 
 Explanations:
 
@@ -907,7 +907,7 @@ const handleStepChange = (step: number) => {
 
 4. Click on the Mint button
 
-![minting](/developers/docs/images/minting.png)
+![minting](/images/minting.png)
 
 Your picture will be pushed to IPFS and displayed.
 
@@ -915,7 +915,7 @@ Then, Temple Wallet _(or whatever other wallet you choose)_ will ask you to sign
 
 Now you can see all NFTs
 
-![wine collection](/developers/docs/images/winecollection.png)
+![wine collection](/images/winecollection.png)
 
 ## Conclusion
 

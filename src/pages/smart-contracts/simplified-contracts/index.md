@@ -13,7 +13,7 @@ The contracts on this page are simplified contracts, provided for educational pu
 
 ## Prerequisites
 
-If you haven't already, please go ahead and read [Smart Contract Concepts](/developers/docs/smart-contracts/smart-contracts-concepts/). It also might be worth having a read through the [Smart Contract Languages](/developers/docs/smart-contracts/smart-contract-languages/) section to get an understanding of the options available to you - this way you can start thinking about how the implementations below might look in another of the supported smart contract languages on *Tezos*.
+If you haven't already, please go ahead and read [Smart Contract Concepts](/smart-contracts/smart-contracts-concepts/). It also might be worth having a read through the [Smart Contract Languages](/smart-contracts/smart-contract-languages/) section to get an understanding of the options available to you - this way you can start thinking about how the implementations below might look in another of the supported smart contract languages on *Tezos*.
 
 ## Common Contracts
 

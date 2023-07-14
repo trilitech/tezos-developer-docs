@@ -9,7 +9,7 @@ lastUpdated: 30th June 2023
 
 The goal of this page is to give you an overview of all the features available for Tezos Smart Contracts, independently of any specific language. We will cover the differences between smart contracts and standard programs, including what they do and don't support. By the end of this page, you should have a general understanding of what smart contracts are and how they can be used.
 
-If you'd like to learn more about each individual smart contract language, you can read the [Smart Contract Languages](/developers/docs/smart-contracts/smart-contract-languages/) section or if you are eager to get started you can [deploy your first smart contract](/developers/docs/tezos-basics/deploy-your-first-smart-contract/). 
+If you'd like to learn more about each individual smart contract language, you can read the [Smart Contract Languages](/smart-contracts/smart-contract-languages/) section or if you are eager to get started you can [deploy your first smart contract](/tezos-basics/deploy-your-first-smart-contract/). 
 
 ## Smart Contract Features:
 
@@ -46,10 +46,10 @@ Almost all of the features listed are available in each of the smart contract pr
 
 For details about the specific syntax of each language, feel free to check the corresponding reference documentations:
 
-- [Michelson](/developers/docs/smart-contracts/smart-contract-languages/michelson/), the low-level stack-based language that all other languages compile to.
-- [Archetype](/developers/docs/smart-contracts/smart-contract-languages/archetype/), a high-level language specifically designed to write consise and elegant Tezos smart contracts.
-- [SmartPy](/developers/docs/smart-contracts/smart-contract-languages/smartpy/), a python-based framework that uses meta-programming to build smart contracts.
-- [LIGO](/developers/docs/smart-contracts/smart-contract-languages/ligo/), with two different flavours, [JsLIGO](/developers/docs/smart-contracts/smart-contract-languages/ligo/#js-ligo) and [CameLIGO](/developers/docs/smart-contracts/smart-contract-languages/ligo/#came-ligo).
+- [Michelson](/smart-contracts/smart-contract-languages/michelson/), the low-level stack-based language that all other languages compile to.
+- [Archetype](/smart-contracts/smart-contract-languages/archetype/), a high-level language specifically designed to write consise and elegant Tezos smart contracts.
+- [SmartPy](/smart-contracts/smart-contract-languages/smartpy/), a python-based framework that uses meta-programming to build smart contracts.
+- [LIGO](/smart-contracts/smart-contract-languages/ligo/), with two different flavours, [JsLIGO](/smart-contracts/smart-contract-languages/ligo/#js-ligo) and [CameLIGO](/smart-contracts/smart-contract-languages/ligo/#came-ligo).
 
 {% callout type="note" title="VisualTez" %}
 [VisualTez](https://visualtez.com/editor) allows you to visualise the fundamental logic of a smart contract without relying on any specific syntax. You can use VisualTez to help you get a visual understanding of the topics covered on this page.
@@ -227,7 +227,7 @@ The only effects of calling a contract are that it may update the value of this 
 
 Here is one of the simplest possible smart contracts. It stores an `int`, and its code does only one thing: replace the storage with the new value, passed as a parameter.
 
-Check some [examples of contracts](/developers/docs/smart-contracts/simplified-contracts/) to get a good idea of how storage can be used.
+Check some [examples of contracts](/smart-contracts/simplified-contracts/) to get a good idea of how storage can be used.
 
 ### Links
 
@@ -266,7 +266,7 @@ Here is a very basic example of contract with two entrypoints:
 *  `reset` takes no parameter, and replaces the storage with 0.
 {% /table %}
 
-Check some [examples of contracts](/developers/docs/smart-contracts/simplified-contracts/) to get a good idea of how entrypoints are used.
+Check some [examples of contracts](/smart-contracts/simplified-contracts/) to get a good idea of how entrypoints are used.
 
 ### Links
 
@@ -474,7 +474,7 @@ Testing a contract thoroughly is not easy and requires experience, here are some
 - Create many small tests, each checking something very specific, rather than a long test that tries to do many things at once
 - Test around the limits. If a value should be strictly above 10, include a call with the value 10 that should fail, and a call with the value 11 that should succeed.
 - Test the extremes
-- See [Avoiding flaws](/developers/docs/smart-contracts/avoiding-flaws/), and make sure to follow the best practices listed there
+- See [Avoiding flaws](/smart-contracts/avoiding-flaws/), and make sure to follow the best practices listed there
 
 ### Links
 
@@ -981,7 +981,7 @@ The code of a `lambda` takes some parameters and returns a value, but doesn't ha
 - Archetype: [apply_lambda](https://archetype-lang.org/docs/reference/expressions/builtins#apply_lambda%28f%20:%20lambda%3CA%20*%20T,%20R%3E,%20x%20:%20A%29)
 - SmartPy: [Lambdas](https://smartpy.io/manual/syntax/lambdas)
 - LIGO: [Anonymous functions](https://ligolang.org/docs/language-basics/functions#anonymous-functions-aka-lambdas)
-- [Simplified DAO contract](/developers/docs/smart-contracts/simplified-contracts/#dao-decentralized-autonomous-organisation)
+- [Simplified DAO contract](/smart-contracts/simplified-contracts/#dao-decentralized-autonomous-organisation)
 
 
 ## Annotations
@@ -1184,7 +1184,7 @@ The particularity is that the amount of time it takes to crack it is bounded. We
 Let's say for example that you encrypt the data in a time lock, so that you know it will take between 10 minutes and 10 hours to decrypt, depending on what type of hardware is being used. You could have a commit phase that is opened during less than 10 minutes. This makes sure that no one can decrypt anyone's commitment while the commit phase is still open.
 Once the reveal phase starts, you could give a few minutes for everyone to reveal their data. If a participant doesn't reveal, you set a financial reward for anyone else who manages to crack the encryption and reveal the data. Eventually, the data will be revealed,  and so there is no positive incentive for the participant not to reveal: they would lose their deposit when someone else reveals for them. This acts as a deterrent, and in practice it becomes very unlikely that someone doesn't reveal and forces someone to use some computing resources to do it for them. Overall, timelocks make commit and reveal schemes effective in many additional use cases.
 
-Some use cases involve collectively generating a random value, or preventing [BPEV attacks](/developers/docs/smart-contracts/avoiding-flaws/#6-not-protecting-against-bots-bpev-attacks).
+Some use cases involve collectively generating a random value, or preventing [BPEV attacks](/smart-contracts/avoiding-flaws/#6-not-protecting-against-bots-bpev-attacks).
 
 ### Links:
 

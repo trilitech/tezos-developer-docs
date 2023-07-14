@@ -8,7 +8,7 @@ lastUpdated: 7th July 2023
 ---
 
 {% callout type="note" title="Want to use SmartPy?" %}
-Click [here](/developers/docs/tutorials/originate-your-first-smart-contract/smartpy) to find out how to originate your first smart contract using SmartPy. 
+Click [here](/tutorials/originate-your-first-smart-contract/smartpy) to find out how to originate your first smart contract using SmartPy. 
 {% /callout %}
 
 ## Prerequisites
@@ -184,7 +184,7 @@ Tezos provides a [faucet](https://faucet.ghostnet.teztnets.xyz) to allow you to 
 
 Let's go ahead and fund our wallet through the [Ghostnet Faucet](https://faucet.ghostnet.teztnets.xyz). Paste the hash you copied earlier into the input field for "Or fund any address" and select the amount you'd like to add to your wallet.
 
-![Fund your wallet using the Ghostnet Faucet](/developers/docs/images/wallet-funding.png)
+![Fund your wallet using the Ghostnet Faucet](/images/wallet-funding.png)
 
 Wait a minute or two and you can then run the following command to check that your wallet has funds in it:
 

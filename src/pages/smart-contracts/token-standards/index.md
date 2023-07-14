@@ -13,7 +13,7 @@ A token standard is an interface, and a set of rules, that a smart contract must
 
 Multiple implementations of a standard can co-exist, but they must all respect the interface and rules of the standard. Standards ensure that smart contracts remain compatible, so for instance, when a new project issues a token, it remains compatible with the existing decentralized exchanges, wallets, etc.
 
-{% figure src="/developers/docs/images/token-standards/standards.svg" alt="token-standard-implementation" caption="FIGURE 1: Illustration of 2 implementations of the same token standard" %} {% /figure %}
+{% figure src="/images/token-standards/standards.svg" alt="token-standard-implementation" caption="FIGURE 1: Illustration of 2 implementations of the same token standard" %} {% /figure %}
 
 ## Fungible & Non-Fungible Tokens
 
@@ -36,10 +36,10 @@ The FA1.2 specification is described in detail in the [TZIP-7 proposal](https://
 
 The FA2 standard (standing for _Financial Application 2_) refers to the unified token standard on Tezos. It supports a wide range of token types:
 
-- fungible (equivalent to [ERC-20](https://ethereum.org/en/developers/docs/standards/tokens/) on Ethereum),
-- non-fungible (equivalent to [ERC-721](https://ethereum.org/en/developers/docs/standards/tokens/) on Ethereum),
-- non-transferable (equivalent to [ERC-1238](https://ethereum.org/en/developers/docs/standards/tokens/) on Ethereum),
-- as well as multi-asset contracts (equivalent to [ERC-1155](https://ethereum.org/en/developers/docs/standards/tokens/) on Ethereum).
+- fungible (equivalent to [ERC-20](https://ethereum.org/en/standards/tokens/) on Ethereum),
+- non-fungible (equivalent to [ERC-721](https://ethereum.org/en/standards/tokens/) on Ethereum),
+- non-transferable (equivalent to [ERC-1238](https://ethereum.org/en/standards/tokens/) on Ethereum),
+- as well as multi-asset contracts (equivalent to [ERC-1155](https://ethereum.org/en/standards/tokens/) on Ethereum).
 
 As you can see, FA2 is a very powerful standard that allows many forms of tokens. It aims to provide significant expressivity to contract developers, allowing them to create new types of tokens while maintaining a common interface standard for wallet integrators and external developers. A variety of transfer permission policies can also be defined, such as how most tokens can be transferred, who can perform a transfer, and who can receive tokens. A token contract can be designed to support a single token type or multiple token types to optimize batch transfers and atomic swaps. A particular FA2 implementation may include hybrid implementations where multiple token kinds (fungible, non-fungible, non-transferable etc) can coexist (e.g. in a fractionalized NFT contract).
 
@@ -48,7 +48,7 @@ Note that FA2 is the successor to [FA1.2](/defi/token-standards#fa12) that only 
 
 To learn more on how to implement FA2 tokens, please refer to the corresponding Tezos Improvments Proposal, the TZIP-12[[3]](/defi/token-standards#references).
 
-{% figure src="/developers/docs/images/token-standards/tokens.svg" alt="fa2-token-standard" caption="FIGURE 2: Illustration of the multi-purpose aspect of the FA2 token standard." %} {% /figure %}
+{% figure src="/images/token-standards/tokens.svg" alt="fa2-token-standard" caption="FIGURE 2: Illustration of the multi-purpose aspect of the FA2 token standard." %} {% /figure %}
 
 To learn more on how to implement FA2 tokens, please refer to the corresponding Tezos Improvements Proposal, the [TZIP-12](https://tzip.tezosagora.org/proposal/tzip-12/).
 

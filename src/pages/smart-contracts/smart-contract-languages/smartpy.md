@@ -73,7 +73,7 @@ The organizer is in charge of defining a jackpot and selling tickets that will e
 
 Fig.3 represents our smart contract.
 
-![](/developers/docs/images/smart-contracts/raffle_schema.svg)
+![](/images/smart-contracts/raffle_schema.svg)
 <small className="figure">FIGURE 3: Raffle contract</small>
 
 Three entrypoints allow interaction with the contract:
@@ -90,7 +90,7 @@ This section illustrates the coding of the smart contract in the [online editor]
 #### Create your contract
 To start, create a new contract in the online editor and name it _Raffle Contract_.
 
-![](/developers/docs/images/smart-contracts/online_editor_create_contract.png)
+![](/images/smart-contracts/online_editor_create_contract.png)
 <small className="figure">FIGURE 4: Online Editor Create Contract</small>
 
 #### Template
@@ -390,7 +390,7 @@ The result is displayed in an HTML document in the output panel of the online ed
 
 Let's run our code:
 
-![](/developers/docs/images/smart-contracts/online_editor_summary_contract.png)
+![](/images/smart-contracts/online_editor_summary_contract.png)
 <small className="figure">FIGURE 4: Online Editor Contract Summary</small>
 
 You can see a summary of our smart contract with the following information:
@@ -401,7 +401,7 @@ You can see a summary of our smart contract with the following information:
 
 By clicking on the _Types_ tab, we have access to the types of the storage elements and the parameters of the entrypoints.
 
-![](/developers/docs/images/smart-contracts/online_editor_Types.png)
+![](/images/smart-contracts/online_editor_Types.png)
 <small className="figure">FIGURE 5: Online Editor Types</small>
 
 > As with Python, most of the time, it is not necessary to specify the type of an object in _SmartPy_.  
@@ -505,7 +505,7 @@ code
 
 By scrolling down a little, we have access to the results of the test scenario, and within each step a summary of the contract.
 
-![](/developers/docs/images/smart-contracts/online_editor_scenario_output.png)
+![](/images/smart-contracts/online_editor_scenario_output.png)
 <small className="figure">FIGURE 4: Online Editor Scenario Output</small>
 
 ### buy_ticket entrypoint

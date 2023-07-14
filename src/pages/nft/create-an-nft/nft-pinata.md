@@ -75,21 +75,21 @@ The backend of the app is a simple Express app written in TypeScript. The app on
 
 First step, sign up to create an account and follow the instructions:
 
-![](/developers/docs/images/nft-pinata/image36.png)
+![](/images/nft-pinata/image36.png)
 
 When you are all set up, click on “API Keys” in the left panel:
 
-![](/developers/docs/images/nft-pinata/image22.png)
+![](/images/nft-pinata/image22.png)
 
 To finish, click on “_+ New Key_” to get your keys:
 
-![](/developers/docs/images/nft-pinata/image9.png)
+![](/images/nft-pinata/image9.png)
 
 You will get an API key and a secret key, copy-paste them somewhere safe to use them later as they won’t be visible anymore after that.
 
 The app uses 5 packages:
 
-![](/developers/docs/images/nft-pinata/image34.png)
+![](/images/nft-pinata/image34.png)
 
 * **express** allows us to set up a server app quickly
 * **@pinata/sdk** gives us convenient functions to interact with our Pinata account
@@ -99,17 +99,17 @@ The app uses 5 packages:
 
 Next, we have to do some setup before writing the “mint” endpoint. Because I used [Heroku](https://id.heroku.com/login) to host the app, there is also some Heroku-specific setting up to do to start the server:
 
-![](/developers/docs/images/nft-pinata/image28.png)
+![](/images/nft-pinata/image28.png)
 
 Heroku doesn’t like it too much when you try to tell it which port to use 😅 So for the production version, you must let Heroku decide on which port your app is going to listen to.
 
 Setting up the Pinata SDK will also depend on the `process.env.NODE_ENV` variable. You can choose to have your API keys in a separate file, both in the development and production environment, but Heroku lets you define environment variables that are automatically injected in your build and stored securely, so this is generally the solution you would prefer, i.e having a separate file with your keys for development and having your keys in environment variables for production. Whichever solution you choose, the Pinata SDK can be easily instantiated by passing the API key and the secret key as parameters:
 
-![](/developers/docs/images/nft-pinata/image20.png)
+![](/images/nft-pinata/image20.png)
 
 Let’s finish setting up the server app:
 
-![](/developers/docs/images/nft-pinata/image29.png)
+![](/images/nft-pinata/image29.png)
 
 In the `corsOptions` variable, we indicate the URLs that are allowed to communicate with the server. During development, you should allow `localhost` with the port you are using, then you can use the URL of your app.
 
@@ -122,23 +122,23 @@ Now, we can set up the different middlewares:
 
 Now, everything is set up, let’s write the `mint` endpoint!
 
-![](/developers/docs/images/nft-pinata/image32.png)
+![](/images/nft-pinata/image32.png)
 
 This is going to be a `POST` endpoint \(because of the picture we need to receive\) that’s going to be called when a request comes to the `/mint` route. We use the `single` method of the `upload` middleware from `multer` with the `“image”` parameter, which tells `multer` that we are expecting to receive one image on this endpoint. We then store the request in a new variable cast to the `any` type because TypeScript will raise an error later as it is unaware that the request has been modified by `multer`.
 
 The request comes with the file sent by the user:
 
-![](/developers/docs/images/nft-pinata/image14.png)
+![](/images/nft-pinata/image14.png)
 
 We check first if a file was provided with `if(!multerReq.file)`, if there is none, the request fails with a 500 error code and a message. If a file was provided, we store the filename available at `multerReq.file.filename`.
 
 After checking if the request came along with a file, we’re going to verify that our connection to the Pinata service works properly:
 
-![](/developers/docs/images/nft-pinata/image21.png)
+![](/images/nft-pinata/image21.png)
 
 The instance of the Pinata SDK provides a method called `testAuthentication` that verifies that you are properly authenticated. With that done, we can go ahead and pin the user’s picture in Pinata:
 
-![](/developers/docs/images/nft-pinata/image24.png)
+![](/images/nft-pinata/image24.png)
 
 > Note: we have to pin the picture first before pinning the metadata to the IPFS because the metadata must include the hash of the picture.
 
@@ -150,7 +150,7 @@ Next, we can pin the picture to the IPFS. We use the `pinFileToIPFS` method of t
 
 Now, we can create the metadata for the NFT and pin it to the IPFS:
 
-![](/developers/docs/images/nft-pinata/image41.png)
+![](/images/nft-pinata/image41.png)
 
 First, we are going to remove the user’s image from the server. Whether you are using a service on a free tier with a limited storage or you have your own server, you don’t want to keep the images the users sent on your server. To remove it, you can use the `unlinkSync` method of the `fs` package and pass to it the path to the file.
 
@@ -193,21 +193,21 @@ As explained earlier, the NFTs are just token ids stored in the contract. In ord
 
 Let’s start by installing [Taquito](https://tezostaquito.io/) and creating a new instance of the Tezos toolkit:
 
-![](/developers/docs/images/nft-pinata/image8.png)
+![](/images/nft-pinata/image8.png)
 
 Now, we can fetch the storage of the contract:
 
-![](/developers/docs/images/nft-pinata/image10.png)
+![](/images/nft-pinata/image10.png)
 
 `await Tezos.wallet.at(contractAddress)` creates an instance of the contract with different useful methods to interact with the contract or get details about, like the storage, that you can get using `await contract.storage()`. After that, we have access to the whole storage.
 
 Now, we can look for the token ids owned by the user by searching the `reverse_ledger` bigmap with the `get` function:
 
-![](/developers/docs/images/nft-pinata/image19.png)
+![](/images/nft-pinata/image19.png)
 
 `getTokenIds` is an array containing all the ids owned by the `address`. We can simply loop through the array to get each id and look for the id in the `ledger` bigmap:
 
-![](/developers/docs/images/nft-pinata/image37.png)
+![](/images/nft-pinata/image37.png)
 
 The id is returned by Taquito as a `BigNumber`, so you have to call `.toNumber()` first before being able to use it. Once we have the id, we can look for its metadata in the `token_metadata` bigmap. The value returned is a Michelson map and the metadata path is going to be stored at the empty key. Because the path is stored as bytes, we use `bytes2Char()` provided by the `@taquito/utils` package to convert the returned `bytes` into a `string`. To finish, we return an object with 2 properties: the token id and the IPFS hash of the metadata.
 
@@ -217,23 +217,23 @@ _2- Sending the picture and metadata to the backend_
 
 First, we set up the HTML tags we need to get the picture, the name of the picture, and its description:
 
-![](/developers/docs/images/nft-pinata/image23.png)
+![](/images/nft-pinata/image23.png)
 
 The `bind` attribute in Svelte makes it very easy to store the input in a variable that we can use later when we want to pin the NFT to the IPFS. A click on the `upload` button will trigger the upload of the picture, its title, and description to the server.
 
 Now, let’s see how uploading the user data works!
 
-![](/developers/docs/images/nft-pinata/image26.png)
+![](/images/nft-pinata/image26.png)
 
 We define 2 boolean variables called `pinningMetadata` and `mintingToken` that we will update according to the result of the different steps of the upload to give some visual feedback to the users in the UI. Because we are not using a traditional form, we must build the form data manually. After instantiating a new `FormData`, we use the `append` method to add the different details of the form, the picture, the title, the description, and the creator of the NFT.
 
 Once the form is ready, we can use the [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) to make a POST request to the `/mint` endpoint of our server app. The request should include the required headers and the form in the `body`. The response from the server will include the hash for the picture and the hash for the metadata:
 
-![](/developers/docs/images/nft-pinata/image33.png)
+![](/images/nft-pinata/image33.png)
 
 When the `response` comes, we can convert it to a usable JS object with the `json` method. We check that the `status` property is `200` and that the `metadataHash` and `imageHash` properties exist. If that’s the case, we can switch the UI from “pinning” to “minting” and send the transaction to the blockchain to save the NFT metadata:
 
-![](/developers/docs/images/nft-pinata/image15.png)
+![](/images/nft-pinata/image15.png)
 
 This is a regular contract call. You create an instance of the contract by calling `Tezos.wallet.at(contractAddress)`, then you call the `mint` entrypoint in the `contract.methods` property. Because the entrypoint expects bytes, we have to convert the IPFS hash into bytes without forgetting to prefix `ipfs://` to make it valid. We pass the `userAddress` at the same time to identify the owner of the NFT in the contract. After the NFT is minted and the minting is confirmed, we save the data of the NFT into `newNft` to have it displayed in the interface, we reset the files, title, and description variables to give the opportunity to the user to mint another NFT and we refresh the list of NFTs owned by the user by querying them \(this is not absolutely necessary but getting up-to-date data from the contract never hurts\).
 

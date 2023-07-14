@@ -21,17 +21,17 @@ Now here is the issue: XTZ doesn't conform to its own FA standards.
 
 Indeed, XTZ is the proto-token of the Tezos Blockchain, i.e., it was built before the FA standards existed. This makes XTZ not compliant with the FA standards used by most Dapps, e.g., DEXs, NFT marketplaces, etc.
 
-{% figure src="/developers/docs/images/non-compliant.svg" alt="" caption="FIGURE: XTZ can't interact with FA tokens" %} {% /figure %}
+{% figure src="/images/non-compliant.svg" alt="" caption="FIGURE: XTZ can't interact with FA tokens" %} {% /figure %}
 
 One solution consists in _wrapping_ XTZ into an FA-compliant token called _wXTZ_. Wrapping XTZ allows you to trade them directly with alt tokens. You need wXTZ to trade XTZ for other FA tokens on decentralized platforms like _Dexter_ and _Quipuswap_. Because decentralized platforms running on Tezos use smart contracts to facilitate trades, directly between users, every user needs to have the same standardized format for the tokens they trade. This ensures tokens don't get lost.
 
-{% figure src="/developers/docs/images/wrap.svg" alt="" caption="FIGURE: Wrapping XTZ and unwrapping wXTZ" %} {% /figure %}
+{% figure src="/images/wrap.svg" alt="" caption="FIGURE: Wrapping XTZ and unwrapping wXTZ" %} {% /figure %}
 
 When you "wrap" XTZ, you aren't really wrapping so much as trading XTZ for an equal token called wXTZ via a smart contract. If you want to get plain XTZ back you need to "unwrap" it, i.e., trade it back for XTZ.
 
 In practice, during the wrapping step, your XTZ are stored in a smart contract, and an equal amount of wXTZ is minted by the contract and transferred to you. When unwrapping, your wXTZ are burned (a.k.a. destroyed), and the equivalent in XTZ is released and sent back to you.  
 
-{% figure src="/developers/docs/images/compliant.svg" alt="" caption="FIGURE: wXTZ can interact with other FA tokens" %} {% /figure %}
+{% figure src="/images/compliant.svg" alt="" caption="FIGURE: wXTZ can interact with other FA tokens" %} {% /figure %}
 
 ## Properties of wXTZ
 

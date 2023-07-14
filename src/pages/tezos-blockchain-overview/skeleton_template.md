@@ -27,7 +27,7 @@ Any Prerequisites go right after intro
 * Follow the _Installation_ steps in this [guide](https://smartpy.dev/docs/manual/introduction/installation). SmartPy requires Docker to run. For MacOS and Linux, it is recommended to install [Docker Desktop](https://www.docker.com/products/docker-desktop/).
 ---
 * _octez-client_ CLI
-* Follow the _How to install the octez-client_ steps [here](/developers/docs/tezos-basics/get-started-with-octez/
+* Follow the _How to install the octez-client_ steps [here](/tezos-basics/get-started-with-octez/
 {% /table %}
                                                                                                     
 
