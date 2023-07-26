@@ -202,7 +202,7 @@ This is an example of a Demo Dashboard with the following metrics:
 - `octez_p2p_peers_running`
 - `octez_store_last_written_block_size`
 
-![Example of a light monitoring dashboard](/developers/docs/images/monitor-a-node/netdata_dashboard.png)
+![Example of a light monitoring dashboard](/images/monitor-a-node/netdata_dashboard.png)
 
 ### Monitoring several nodes
 
@@ -304,7 +304,7 @@ To calculate the space needed to store your metrics you will need:
 
 For 2000 metrics, collected every second and retained for a month, Tier 0 needs: 1 byte x 2,000 metrics x 3,600 secs per hour x 24 hours per day x 30 days per month = 5,184MB.
 
-![Number of metrics location in the dashboard](/developers/docs/images/monitor-a-node/number-of-metrics.jpeg)
+![Number of metrics location in the dashboard](/images/monitor-a-node/number-of-metrics.jpeg)
 
 #### Modify netdata.conf file
 
@@ -344,11 +344,11 @@ Now you just have to change the value of "dbengine multihost disk space" in [db]
 
 Here is the global picture of a monitoring system, connecting all these tools together:
 
-![](/developers/docs/images/monitor-a-node/all-in-all.png)
+![](/images/monitor-a-node/all-in-all.png)
 
 A Grafazos dashboard looks like this:
 
-![](/developers/docs/images/monitor-a-node/octez-metrics-dashboard.gif)
+![](/images/monitor-a-node/octez-metrics-dashboard.gif)
 
 Table 1: Grafana dashboard of a Tezos node
 
@@ -433,7 +433,7 @@ Some metrics are self-explanatory, such as *P2P total connections*, which shows 
 
 Another useful metric is the *Block validation time*, which measures the time between when a request is registered in the worker till the worker pops the request and marks it complete. This should generally be under 1 second. If it's persistently longer, that could indicate trouble too.
 
-![](/developers/docs/images/monitor-a-node/metrics-block-validation-time.png)
+![](/images/monitor-a-node/metrics-block-validation-time.png)
 
 Graph 2: Block validation time
 
@@ -442,7 +442,7 @@ The *P2P connections* graph will show you immediately if your node is having tro
 A healthy node should typically have a few dozen peer connections (depending on how it was configured).
 
 
-![](/developers/docs/images/monitor-a-node/metrics-p2p-connections.png)
+![](/images/monitor-a-node/metrics-p2p-connections.png)
 
 Graph 3: P2P connections
 

@@ -79,10 +79,16 @@ export function QuickLink({
                 Tutorial
               </div>
             )}
-            <Link href={href}>
-              <span className="absolute -inset-px rounded-xl" />
-              {title}
-            </Link>
+            {comingSoon ? (
+              <span className="cursor-not-allowed text-opacity-50">
+                {title}
+              </span>
+            ) : (
+              <Link href={href}>
+                <span className="absolute -inset-px rounded-xl" />
+                {title}
+              </Link>
+            )}
           </h2>
           {!shouldHideDescription && (
             <p

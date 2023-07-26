@@ -1,7 +1,6 @@
 ---
 id: lending
 title: Lending and Flash Loans
-slug: /lending
 author: Aymeric Bethencourt
 lastUpdated: 26th June 2023
 ---
@@ -85,7 +84,7 @@ The gas cost bounds the number of steps in a single transaction. So although you
 Remember that a flash loan has to be borrowed and repaid within the same transaction, so there is no risk that borrowers will not repay their borrowed amount.
 
 {% figure 
-    src="/developers/docs/images/lending/flash-loan.svg" 
+    src="/images/lending/flash-loan.svg" 
     alt="Flash loan" 
     caption="FIGURE 1: Operation flow of a flash loan in the case of a successful repayment (green arrows) or failed repayment (red arrows)" %}
 {% /figure %}
@@ -109,7 +108,7 @@ Flash loans are particularly interesting for arbitrageurs to increase profits. T
 All these steps are included in one transaction. They either all succeed, or they will all fail.
 
 {% figure 
-    src="/developers/docs/images/lending/arbitrage.svg" 
+    src="/images/lending/arbitrage.svg" 
     alt="Arbitrage" 
     caption="FIGURE 2: A typical arbitrage operation involving a flash loan." %}
 {% /figure %}

@@ -1,7 +1,6 @@
 ---
 id: introduction
 title: Introduction
-slug: /baking
 authors: Maxime Sallerin
 lastUpdated: 27th June 2023
 ---

@@ -1,7 +1,6 @@
 ---
 id: cross-chain-swaps
 title: Cross-chain Swaps
-slug: /cross-chain-swaps
 author: Aymeric Bethencourt
 lastUpdated: 26th June 2023
 ---
@@ -15,7 +14,7 @@ Let's consider the following scenario: Alice has 100 XTZ and wants to exchange t
 One way is to use a centralized exchange like Binance. This means that you must trust them to store your tokens and process the transaction correctly and securely. But this way relies on a single point of failure that could, potentially, fail at any time. [Binance was hacked in 2019, and 7,000 bitcoins were stolen.](https://www.binance.com/en/blog/336904059293999104/Security-Incident-Recap) Moreover, exchanges usually take a fee for the service they offer. Does a better solution exist? Could we use a DEX instead?
 
 {% figure 
-    src="/developers/docs/images/cross-chain-swaps/swap-cex.svg" 
+    src="/images/cross-chain-swaps/swap-cex.svg" 
     alt="swap-cex" 
     caption="FIGURE 1: Illustration of non-atomic swap on a centralized exchange" %}
 {% /figure %}
@@ -25,7 +24,7 @@ One way is to use a centralized exchange like Binance. This means that you must 
 Using a DEX is a great solution for making trustless token swaps. However, they only work within the same blockchain network. For example, _Plenty_ and _Quipuswap_ only work on Tezos and only with FA1.2 or FA2 tokens. So that wouldn't work if you want to exchange XTZ against BTC! One way would be to use wrapped assets like in [this chapter](defi/wrapped-assets) and exchange wrapped XTZ (wXTZ) against wrapped BTC (tzBTC) on a Tezos DEX. However, this increases the difficulty of the process, as you must wrap and unwrap the tokens, which requires a third party for BTC. Additionally, you have to trust that the smart contract that allows you to unwrap your tzBTC for actual BTC is secured. So, does a fully trustless solution exist?
 
 {% figure 
-    src="/developers/docs/images/cross-chain-swaps/swap-dex.svg" 
+    src="/images/cross-chain-swaps/swap-dex.svg" 
     alt="swap-dex" 
     caption="FIGURE 2: Illustration of non-atomic swap on a decentralized exchange" %}
 {% /figure %}
@@ -47,7 +46,7 @@ A _cross-chain swap_ (also referred to as an _Atomic Swap_) refers to the exchan
 The term **atomic** relates to the fact that these transactions either happen entirely or not at all. If any of the parties give up or fails to do what they are supposed to, the contract is cancelled, and the funds are automatically returned to their owners.
 
 {% figure 
-    src="/developers/docs/images/cross-chain-swaps/atomic-swap.svg" 
+    src="/images/cross-chain-swaps/atomic-swap.svg" 
     alt="atomic-swap" 
     caption="FIGURE 3: Illustration of an atomic swap" %}
 {% /figure %}
@@ -55,7 +54,7 @@ The term **atomic** relates to the fact that these transactions either happen en
 Alice's HTLC will time out and refund the funds to Alice automatically if Bob never sends the funds.
 
 {% figure 
-    src="/developers/docs/images/cross-chain-swaps/atomic-swap-fail.svg" 
+    src="/images/cross-chain-swaps/atomic-swap-fail.svg" 
     alt="atomic-swap-fail" 
     caption="FIGURE 4: Illustration of a failed atomic swap (Bob did not send the funds)" %}
 {% /figure %}

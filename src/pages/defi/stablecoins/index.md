@@ -8,7 +8,7 @@ lastUpdated: 27th June 2023
 A stablecoin is a cryptocurrency whose price is fixed to another asset. Most stablecoins are pegged (fixed) to fiat currencies (currencies issued by the central bank of a sovereign state) like the US Dollar.
 
 
-![stablecoin](/developers/docs/images/stablecoins/stablecoin.svg)
+![stablecoin](/images/stablecoins/stablecoin.svg)
 FIGURE 1: Illustration of a stablecoin volatility compared to his pegged asset (e.g. USD)
 
 Stablecoins have gained traction as they attempt to offer the best of both worlds: the instant processing, security, and privacy of cryptocurrencies, and the volatile free stable valuations of fiat currencies.
@@ -31,7 +31,7 @@ If Alice wants 100 stable-USD, she needs to send 100 USD to the entity's bank ac
 
 As shown above, these entities must keep as much USD in their bank account as they have minted stable-USD. A malicious company could spend or invest the USD from their bank account and therefor not be able to pay back users in case of a massive exchange of stable-USD to USD. (Note that this problem is similar to the practice of _fractional reserve banking_).
 
-![stablecoin-kyc](/developers/docs/images/stablecoins/stablecoin-kyc.svg)
+![stablecoin-kyc](/images/stablecoins/stablecoin-kyc.svg)
 FIGURE 2: Exchanging stable coins against fiat currencies (or the other way around) is secured by a KYC. Exchanging stable coins between users do not require a KYC (i.e. as long as it stays inside the world of crypto)
 
 ### Crypto-Collateralized Stablecoins
@@ -73,7 +73,7 @@ The issue here is that buyers need to be confident that the bonds will payout. B
 This happened with [the crash of the UST](https://blog.chainalysis.com/reports/how-terrausd-collapsed/#:~:text=Summary,of%20both%20LUNA%20and%20UST.) in May 2022, an algorithm stablecoin.
 
 
-![stablecoin-type](/developers/docs/images/stablecoins/stablecoin-types.svg)
+![stablecoin-type](/images/stablecoins/stablecoin-types.svg)
 FIGURE 3: Recapitulation of the 3 types of stablecoins.
 
 ## Stablecoins on Tezos

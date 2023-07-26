@@ -19,7 +19,7 @@ For instance: _Alice has a sell order at \$5.0_, and _Bob has a buy order at \$4
 We call the mid-market price the average point between buyers and sellers, here it's at \$4.8 (see Fig. 1). For a trade to happen, Alice has to lower her offer to \$4.6, or Bob has to increase his demand to \$5.0. Another solution would be to wait for another trader to bid or sell at these prices. As exchanges normally have thousands of orders in and out the mid-market price move constantly.
 
 
-![centralized-exchange](/developers/docs/images/dex/centralized-exchange.svg)
+![centralized-exchange](/images/dex/centralized-exchange.svg)
 FIGURE 1: Illustration of an Order Book. Here buyers and sellers are meeting at the \$4.80 price point.
 
 
@@ -79,7 +79,7 @@ For instance, for a pool with 20 _XTZ_ and 100 _USDtz_, the marginal price of _X
 The difference between the effective swap price and the marginal price is referred to as _slippage_, i.e., the tendency of prices to move against a trader's actions as the trader absorbs liquidity — the larger the trade relative to the pool size, the greater the possible slippage.
 
 
-![swap](/developers/docs/images/dex/swap.svg)
+![swap](/images/dex/swap.svg)
 *FIGURE 2: Illustration of a token swap. The trader first sends his input tokens, then the pool computes the effective swap price by maintaining a constant product and finally sends the output of tokens.*
 
 From this, you can deduce two things:
@@ -93,7 +93,7 @@ Like centralized exchanges, liquidity providers (LP) play an essential role by p
 This is why liquidity pools are also known as _Automated Market Makers_ (AMM), their price is automatically set based on the number of tokens currently available in the pool (and not by some arbitrary order book that represents potential orders and not the actual liquidity).
 
 
-![pool-size](/developers/docs/images/dex/pool-size.svg)
+![pool-size](/images/dex/pool-size.svg)
 FIGURE 3: Marginal price vs. effective swap price of two pools of different sizes.
 
 
@@ -107,7 +107,7 @@ Arbitrage happens when the price offered by the pool diverges from the price sho
 
 When liquidity is supplied to a pool, the liquidity provider (or _LP_ for short) receives unique tokens called LP tokens in proportion to how much liquidity they provided to the pool. When a swap occurs in the pool, a 0.3% fee is proportionally distributed amongst all the LP token holders. If a liquidity provider wants to get his underlying liquidity back and any accrued fees, he must burn his LP tokens.
 
-![liquidity](/developers/docs/images/dex/liquidity.svg)
+![liquidity](/images/dex/liquidity.svg)
 FIGURE 4: How liquidity providers are rewarded
 
 

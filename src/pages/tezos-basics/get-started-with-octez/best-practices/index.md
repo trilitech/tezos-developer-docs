@@ -1,7 +1,6 @@
 ---
 id: best-practices
 title: Best practices
-slug: /best-practices
 authors: Nomadic Labs
 lastUpdated: 27th June 2023
 ---

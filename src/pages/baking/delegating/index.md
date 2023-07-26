@@ -69,7 +69,7 @@ The main steps are as follows:
 5. Choose the amount to delegate
 6. Start earning interests
 
-![](/developers/docs/images/delegating/delegate.gif)
+![](/images/delegating/delegate.gif)
 FIGURE 1: Delegating your Tez on *Atomex*.
 
 That's it. The only thing you should worry about is choosing an excellent and reliable Tezos baker or delegation service.

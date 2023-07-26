@@ -76,7 +76,7 @@ The origination of a Tezos smart contract must define:
 * **Storage Type**
 * **Set of instructions** in the low-level *Michelson* language
 
-![smart contract content](/developers/docs/images/tezos_smart_contract_content.svg)
+![smart contract content](/images/tezos_smart_contract_content.svg)
 *FIGURE 1: Content of a Tezos smart contract*
 
 The CLI command "`octez-client originate`" can be used to deploy a Tezos smart contract. Arguments are the following:
@@ -104,7 +104,7 @@ During the origination, the process must specify the storage **initial state** (
 ### Call of a Tezos smart contract
 A smart contract can be called by a classic account whose address starts with "**tz**" or by a smart contract account whose address begins with "**KT1**". The operation or transaction specifies *arguments*, that are ordered types. In the below example, we increase or decrease a value in the storage:
 
-![invoke smart contract without entrypoint](/developers/docs/images/invoke_smart_contract_wo_entrypoint.svg)
+![invoke smart contract without entrypoint](/images/invoke_smart_contract_wo_entrypoint.svg)
 *FIGURE 2: Call of a smart contract triggering its code and modifying its storage's state*
 
 One can use the Command Line Interface (CLI) provided by Tezos to interact with a node and make calls. The `octez-client` application allows anyone to deploy and call Tezos smart contracts.
@@ -116,7 +116,7 @@ Michelson is a low-level stack-based language. Therefore its adoption is quite l
 
 Depending on the high-level language used, a smart contract deployment also defines its *entrypoints* using the complex **Parameter Type**. These are special functions used to dispatch invocations of the smart contract. Each entrypoint is in charge of triggering an instruction. Below is the same example as before, abstracting the complex Parameter Type:
 
-![invoke smart contract](/developers/docs/images/invoke_smart_contract.svg)
+![invoke smart contract](/images/invoke_smart_contract.svg)
 *FIGURE 3: Call of a smart contract triggering its entrypoints, code, and modifying its storage's state*
 
 Each type and position of a parameter in the list (or pair) allows you to define an entrypoint (a function). For instance, in our example, there are two parameters, hence two types. Both types are integers (to increase or decrease a value). Because the type is the same, its position (left, right, or index number) determines which entrypoint is correct.  
@@ -126,5 +126,5 @@ It could be:
 
 Below is another illustration of this process:
 
-![tezos smart contract deploy invoke](/developers/docs/images/tezos_smart_contract_deploy_invoke.svg)
+![tezos smart contract deploy invoke](/images/tezos_smart_contract_deploy_invoke.svg)
 *FIGURE 4: Deployment and call of a Tezos smart contract with high-level languages*

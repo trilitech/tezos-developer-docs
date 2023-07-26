@@ -1,7 +1,6 @@
 ---
 id: introduction
 title: Introduction
-slug: /formal-verification
 authors: Frank Hillard
 ---
 

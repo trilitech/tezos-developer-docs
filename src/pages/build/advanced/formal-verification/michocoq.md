@@ -2,7 +2,6 @@
 id: michocoq
 title: Mi-Cho-Coq
 authors: Frank Hillard
-slug: /michocoq
 lastUpdated: 30th June 2023
 ---
 
