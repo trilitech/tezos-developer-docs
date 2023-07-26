@@ -9,13 +9,6 @@ function NavigationItem({ link, selectedLink, selectedParent }) {
   const [isOpen, setIsOpen] = useState(false)
   const hasChildren = !!link.children
 
-  // Update the isOpen state based on whether this link is the current link or a parent of the current link
-  // useEffect(() => {
-  //   if (link === selectedLink || link === selectedParent) {
-  //     setIsOpen(true)
-  //   }
-  // }, [link, selectedLink, selectedParent])
-
   useEffect(() => {
     setIsOpen(link === selectedLink || link === selectedParent);
   }, [link, selectedLink, selectedParent]);
@@ -100,30 +93,6 @@ function NavigationLinks({
 }
 
 export function Navigation({ navigation, className, selectedLink, selectedParent }) {
-  let router = useRouter()
-  
-  const [openSections, setOpenSections] = useState(
-    navigation.reduce((acc, section) => {
-      const isTutorialsSection = router.pathname.includes('/tutorials')
-      return {
-        ...acc,
-        [section.title]: section.links.some(
-          (link) =>
-            link === selectedLink ||
-            link === selectedParent ||
-            (link.children && link.children.includes(selectedLink))
-        ) || (isTutorialsSection),
-      };
-    }, {})
-  );
-
-  const toggleSection = (sectionTitle) => {
-    setOpenSections((prev) => ({
-      ...prev,
-      [sectionTitle]: !prev[sectionTitle],
-    }));
-  };
-
   return (
     <nav className={clsx('text-base lg:text-sm', className)}>
       <ul role="list" className="space-y-9">
@@ -132,7 +101,6 @@ export function Navigation({ navigation, className, selectedLink, selectedParent
             <h2 className="font-display font-medium text-slate-900 dark:text-white" style={{ fontSize: '1.3em' }}>
               <div
                 style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}
-                onClick={() => toggleSection(section.title)}
               >
                 {section.title}
                 <button
@@ -141,17 +109,14 @@ export function Navigation({ navigation, className, selectedLink, selectedParent
                     marginLeft: '5px',
                   }}
                 >
-                  {openSections[section.title] ? <FiChevronDown /> : <FiChevronRight />}
                 </button>
               </div>
             </h2>
-            {openSections[section.title] && (
               <NavigationLinks
                 links={section.links}
                 selectedLink={selectedLink}
                 selectedParent={selectedParent}
               />
-            )}
           </li>
         ))}
       </ul>

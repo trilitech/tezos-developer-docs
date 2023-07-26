@@ -5,7 +5,7 @@ import { Dialog } from '@headlessui/react'
 
 import { TabLinks } from '@/components/TabLinks'
 import { Logomark } from '@/components/Logo'
-import { Navigation } from '@/components/Navigation'
+import { Navigation } from '@/components/Navigation_old'
 
 function MenuIcon(props) {
   return (
@@ -87,9 +87,11 @@ export function MobileNavigation({ navigation }) {
               <Logomark className="h-9 w-9" />
             </Link>
           </div>
-          <div className="block custom:hidden border-b-2 border-gray-300 w-full my-4" /> {/* divider */}
+          <div className="my-4 block w-full border-b-2 border-gray-300 custom:hidden" />{' '}
+          {/* divider */}
           <TabLinks isHomePage={isHomePage} />
-          <div className="block custom:hidden border-b-2 border-gray-300 w-full my-4" /> {/* divider */}
+          <div className="my-4 block w-full border-b-2 border-gray-300 custom:hidden" />{' '}
+          {/* divider */}
           <Navigation navigation={navigation} className="mt-5 px-1" />
         </Dialog.Panel>
       </Dialog>

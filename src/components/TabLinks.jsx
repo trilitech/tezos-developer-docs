@@ -46,7 +46,7 @@ export function TabLinks({ isHomePage }) {
         )}
       </Link>
       <Link
-        href="/build/smart-contracts/languages"
+        href="/build/smart-contracts"
         className={`px-4 py-2 -mr-1 ${
           router.pathname.includes('/build')
             ? 'text-blue-400'
@@ -88,7 +88,7 @@ export function TabLinks({ isHomePage }) {
         )}
       </Link>
       <Link
-        href="/tutorials"
+        href="/learn"
         className={`px-4 py-2 -mr-1 ${
           router.pathname.includes('/tutorials')
             ? 'text-blue-400'
