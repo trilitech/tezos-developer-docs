@@ -1,7 +1,6 @@
 ---
 id: skeleton-template
 title: Skeleton Template
-authors: 'Author One, Author Two'
 lastUpdated: 26th June 2023
 ---
 
