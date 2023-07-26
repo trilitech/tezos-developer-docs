@@ -1,7 +1,6 @@
 ---
 id: framework-best-practices
 title: Framework Best Practices
-slug: /framework-best-practices
 authors: Claude Barde
 lastUpdated: 10th July 2023
 ---

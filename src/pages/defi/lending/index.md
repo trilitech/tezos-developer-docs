@@ -1,7 +1,6 @@
 ---
 id: lending
 title: Lending and Flash Loans
-slug: /lending
 author: Aymeric Bethencourt
 lastUpdated: 26th June 2023
 ---

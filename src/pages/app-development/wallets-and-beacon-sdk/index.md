@@ -1,7 +1,6 @@
 ---
 id: wallets-and-beacon-sdk
 title: Wallets and Beacon SDK
-slug: /wallets-and-beacon-sdk
 authors: Claude Barde
 lastUpdated: 10th July 2023
 ---

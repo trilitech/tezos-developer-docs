@@ -1,7 +1,6 @@
 ---
 id: coq
 title: Coq
-slug: /coq-language
 lastUpdated: 30th June 2023
 ---
 # The Coq language

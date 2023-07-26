@@ -1,7 +1,6 @@
 ---
 id: tezos-sdk-for-unity
 title: Tezos SDK for Unity
-slug: /tezos-sdk-for-unity
 authors: John Joubert
 lastUpdated: 5th June 2023
 ---
