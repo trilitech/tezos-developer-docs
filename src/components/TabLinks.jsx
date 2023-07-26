@@ -26,7 +26,7 @@ export function TabLinks({ isHomePage }) {
     <div className="flex flex-col custom:-ml-0 custom:flex-row custom:items-center">
       <Link
         href="/basics/history-and-vision"
-        className={`px-4 py-2 ml-3 -mr-1 ${
+        className={`px-4 py-2 -mr-1 ${
           router.pathname.includes('/basics')
             ? 'text-blue-400'
             : 'text-white'
@@ -34,7 +34,7 @@ export function TabLinks({ isHomePage }) {
       >
         {isLargeScreen ? (
           <div className="hover:text-gray-300 dark:hover:text-gray-500">
-            📚 Basics
+            Basics
           </div>
         ) : (
           <h2
@@ -55,7 +55,7 @@ export function TabLinks({ isHomePage }) {
       >
         {isLargeScreen ? (
           <div className="hover:text-gray-300 dark:hover:text-gray-500">
-            🔧 Build
+            Build
           </div>
         ) : (
           <h2
@@ -76,7 +76,7 @@ export function TabLinks({ isHomePage }) {
       >
         {isLargeScreen ? (
           <div className="hover:text-gray-300 dark:hover:text-gray-500">
-            🤝 Participate
+            Participate
           </div>
         ) : (
           <h2
@@ -97,7 +97,7 @@ export function TabLinks({ isHomePage }) {
       >
         {isLargeScreen ? (
           <div className="hover:text-gray-300 dark:hover:text-gray-500">
-            🎓 Learn
+            Learn
           </div>
         ) : (
           <h2
@@ -118,7 +118,7 @@ export function TabLinks({ isHomePage }) {
       >
         {isLargeScreen ? (
           <div className="hover:text-gray-300 dark:hover:text-gray-500">
-            🛎️ Support
+            Support
           </div>
         ) : (
           <h2

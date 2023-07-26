@@ -871,8 +871,6 @@ export function Layout({ children, title, tableOfContents, lastUpdated }) {
 
   let navigation = pathFound ? navigationMap[pathFound] : []
 
-  console.log('navigation', navigation)
-
   function flattenLinks(links) {
     return links.reduce((acc, link) => {
       const isDuplicate = acc.some(
