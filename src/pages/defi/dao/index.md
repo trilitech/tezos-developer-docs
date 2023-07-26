@@ -1,7 +1,6 @@
 ---
 id: dao
 title: Decentralized Autonomous Organization
-slug: /decentralized-autonomous-organization
 author: Daniel Nomadic
 lastUpdated: 26th June 2023
 ---

@@ -25,7 +25,7 @@ export function TabLinks({ isHomePage }) {
   return (
     <div className="-ml-3 flex flex-col custom:-ml-0 custom:flex-row custom:items-center">
       <Link
-        href="/tezos-blockchain-overview/"
+        href="/tezos-basics/tezos-blockchain-overview/"
         className={`px-4 py-2 ${
           !router.pathname.includes('tutorials') &&
           !router.pathname.includes('office-hours') &&

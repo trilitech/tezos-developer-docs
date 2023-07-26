@@ -9,13 +9,6 @@ function NavigationItem({ link, selectedLink, selectedParent }) {
   const [isOpen, setIsOpen] = useState(false)
   const hasChildren = !!link.children
 
-  // Update the isOpen state based on whether this link is the current link or a parent of the current link
-  // useEffect(() => {
-  //   if (link === selectedLink || link === selectedParent) {
-  //     setIsOpen(true)
-  //   }
-  // }, [link, selectedLink, selectedParent])
-
   useEffect(() => {
     setIsOpen(link === selectedLink || link === selectedParent);
   }, [link, selectedLink, selectedParent]);
