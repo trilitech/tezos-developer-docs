@@ -25,7 +25,7 @@ export function TabLinks({ isHomePage }) {
   return (
     <div className="flex flex-col custom:-ml-0 custom:flex-row custom:items-center">
       <Link
-        href="/basics/history-and-vision"
+        href="/basics/overview"
         className={`px-4 py-2 -mr-1 ${
           router.pathname.includes('/basics')
             ? 'text-blue-400'

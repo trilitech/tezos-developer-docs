@@ -5,7 +5,7 @@ import { Dialog } from '@headlessui/react'
 
 import { TabLinks } from '@/components/TabLinks'
 import { Logomark } from '@/components/Logo'
-import { Navigation } from '@/components/Navigation_old'
+import { Navigation } from '@/components/Navigation'
 
 function MenuIcon(props) {
   return (

@@ -6,7 +6,7 @@ import clsx from 'clsx'
 // import { Hero } from '@/components/Hero'
 import { Logomark } from '@/components/Logo'
 import { MobileNavigation } from '@/components/MobileNavigation'
-import { Navigation } from '@/components/Navigation_old'
+import { Navigation } from '@/components/Navigation'
 import { TabLinks } from '@/components/TabLinks'
 import { Prose } from '@/components/Prose'
 import { Search } from '@/components/Search'
@@ -14,11 +14,11 @@ import { ThemeSelector } from '@/components/ThemeSelector'
 
 const basicsNavigation = [
   {
-    title: 'Past, Present and Future',
+    title: 'What is Tezos?',
     links: [
       {
-        title: 'History & Vision',
-        href: '/basics/history-and-vision',
+        title: 'An Overview of Tezos',
+        href: '/basics/overview',
       },
       {
         title: 'Whitepaper',
@@ -117,8 +117,12 @@ const buildNavigation = [
 
           {
             title: 'Token Standards',
-            href: '/build/smart-contracts/fa12-fa2-standards',
+            href: '/build/smart-contracts/token-standards',
           },
+          {
+            title: 'FA1.2 & FA2',
+            href: '/build/smart-contracts/fa12-fa2-standards',
+          }
         ],
       },
       {
@@ -192,17 +196,6 @@ const buildNavigation = [
           },
         ],
       },
-      // {
-      //   title: 'Advanced Topics',
-      //   href: '/build/advanced/smart-rollups',
-      //   children: [
-      //     { title: 'Smart Rollups', href: '/build/advanced/smart-rollups' },
-      //     {
-      //       title: 'Formal Verification',
-      //       href: '/build/advanced/smart-rollups',
-      //     },
-      //   ],
-      // },
     ],
   },
   {
@@ -270,14 +263,14 @@ const participateNavigation = [
           },
         ],
       },
-      {
-        title: 'Running a Node*',
-        href: '',
-      },
-      {
-        title: 'Maintaining a Node*',
-        href: '',
-      },
+      // {
+      //   title: 'Running a Node*',
+      //   href: '',
+      // },
+      // {
+      //   title: 'Maintaining a Node*',
+      //   href: '',
+      // },
       {
         title: 'Baking',
         href: '/participate/baking/introduction',
@@ -328,6 +321,16 @@ const learnNavigation = [
           {
             title: 'LIGO',
             href: '/learn/originate-your-first-smart-contract/ligo',
+          },
+        ],
+      },
+      {
+        title: 'Create an NFT',
+        href: '/learn/create-an-nft',
+        children: [
+          {
+            title: 'Mint an NFT using Taquito and Pinata',
+            href: '/learn/create-an-nft/nft-pinata',
           },
         ],
       },

@@ -10,16 +10,9 @@ function NavigationItem({ link, selectedLink, selectedParent }) {
   const hasChildren = !!link.children
 
   // Update the isOpen state based on whether this link is the current link or a parent of the current link
-  // useEffect(() => {
-  //   if (link === selectedLink || link === selectedParent) {
-  //     setIsOpen(true)
-  //   }
-  // }, [link, selectedLink, selectedParent])
-
   useEffect(() => {
-    setIsOpen(link === selectedLink || link === selectedParent);
-  }, [link, selectedLink, selectedParent]);
-  
+    setIsOpen(link === selectedLink || link === selectedParent)
+  }, [link, selectedLink, selectedParent])
 
   // Handles the click on a chevron
   const handleChevronClick = (event) => {
@@ -99,39 +92,49 @@ function NavigationLinks({
   )
 }
 
-export function Navigation({ navigation, className, selectedLink, selectedParent }) {
+export function Navigation({
+  navigation,
+  className,
+  selectedLink,
+  selectedParent,
+}) {
   let router = useRouter()
-  
-  const [openSections, setOpenSections] = useState(
-    navigation.reduce((acc, section) => {
-      const isTutorialsSection = router.pathname.includes('/tutorials')
-      return {
-        ...acc,
-        [section.title]: section.links.some(
-          (link) =>
-            link === selectedLink ||
-            link === selectedParent ||
-            (link.children && link.children.includes(selectedLink))
-        ) || (isTutorialsSection),
-      };
-    }, {})
-  );
+
+  const [openSections, setOpenSections] = useState({})
+
+  useEffect(() => {
+    setOpenSections(
+      navigation.reduce((acc, section) => {
+        return {
+          ...acc,
+          [section.title]: true,
+        }
+      }, {})
+    )
+  }, [navigation])
 
   const toggleSection = (sectionTitle) => {
     setOpenSections((prev) => ({
       ...prev,
       [sectionTitle]: !prev[sectionTitle],
-    }));
-  };
+    }))
+  }
 
   return (
     <nav className={clsx('text-base lg:text-sm', className)}>
       <ul role="list" className="space-y-9">
         {navigation.map((section) => (
           <li key={section.title}>
-            <h2 className="font-display font-medium text-slate-900 dark:text-white" style={{ fontSize: '1.3em' }}>
+            <h2
+              className="font-display font-medium text-slate-900 dark:text-white"
+              style={{ fontSize: '1.3em' }}
+            >
               <div
-                style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  cursor: 'pointer',
+                }}
                 onClick={() => toggleSection(section.title)}
               >
                 {section.title}
@@ -141,7 +144,11 @@ export function Navigation({ navigation, className, selectedLink, selectedParent
                     marginLeft: '5px',
                   }}
                 >
-                  {openSections[section.title] ? <FiChevronDown /> : <FiChevronRight />}
+                  {openSections[section.title] ? (
+                    <FiChevronDown />
+                  ) : (
+                    <FiChevronRight />
+                  )}
                 </button>
               </div>
             </h2>
@@ -156,5 +163,5 @@ export function Navigation({ navigation, className, selectedLink, selectedParent
         ))}
       </ul>
     </nav>
-  );
+  )
 }
