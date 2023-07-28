@@ -138,7 +138,7 @@ export function Navigation({
                 onClick={() => toggleSection(section.title)}
               >
                 {section.title}
-                <button
+                {/* <button
                   style={{
                     fontSize: '1.2em',
                     marginLeft: '5px',
@@ -149,7 +149,7 @@ export function Navigation({
                   ) : (
                     <FiChevronRight />
                   )}
-                </button>
+                </button> */}
               </div>
             </h2>
             {openSections[section.title] && (
