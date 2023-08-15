@@ -14,7 +14,7 @@ import { ThemeSelector } from '@/components/ThemeSelector'
 
 const basicsNavigation = [
   {
-    title: 'What is Tezos (change)?',
+    title: 'Past, Present and Future',
     links: [
       {
         title: 'An Overview of Tezos',
@@ -96,7 +96,7 @@ const basicsNavigation = [
 
 const buildNavigation = [
   {
-    title: 'Building on Tezos',
+    title: 'Smart Contracts',
     links: [
       {
         title: 'Smart Contracts',
@@ -199,7 +199,7 @@ const buildNavigation = [
     ],
   },
   {
-    title: 'Advanced Topics',
+    title: 'Tooling',
     links: [
       { title: 'Smart Rollups', href: '/build/advanced/smart-rollups' },
       {
@@ -227,11 +227,17 @@ const buildNavigation = [
       },
     ],
   },
+  {
+    title: 'Smart Rollups',
+    links: [
+      
+    ]
+  }
 ]
 
 const participateNavigation = [
   {
-    title: 'Taking Part in Tezos',
+    title: 'Octez - The Tezos Client',
     links: [
       {
         title: 'Octez - The Tezos Client',
@@ -304,8 +310,33 @@ const participateNavigation = [
       },
     ],
   },
+  {
+    title: 'Running a Node',
+    links: [
+
+    ]
+  },
+  {
+    title: 'Baking',
+    links: [
+      
+    ]
+  },
+  {
+    title: 'Delegating',
+    links: [
+      
+    ]
+  },
+  {
+    title: 'Spirit Of Decentralisation',
+    links: [
+      
+    ]
+  }
 ]
 
+      
 const learnNavigation = [
   {
     title: 'Getting Started',
