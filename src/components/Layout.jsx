@@ -14,7 +14,7 @@ import { ThemeSelector } from '@/components/ThemeSelector'
 
 const basicsNavigation = [
   {
-    title: 'What is Tezos?',
+    title: 'What is Tezos (change)?',
     links: [
       {
         title: 'An Overview of Tezos',
