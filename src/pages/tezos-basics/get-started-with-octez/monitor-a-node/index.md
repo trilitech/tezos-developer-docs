@@ -11,7 +11,7 @@ Until now, the only tool developers had to monitor the behavior of their Tezos n
 
 After a few iterations of different methods to gather node information and statistics that could be easily analyzed, we have recently chosen to include metrics within the node. With Octez Metrics it's simple to get a myriad of statistics about your node -- and quite efficiently so. You can also attach a [Grafana](https://grafana.com/) dashboard to get a visual representation of how your node is performing. And with [Grafazos](https://gitlab.com/nomadic-labs/grafazos), you can get customized ready-to-use dashboards for monitoring your Tezos node.
 
-What metrics can we monitor ?
+What metrics can we monitor?
 
 There are two types of metrics on an Octez node that can be monitored:
 
@@ -162,13 +162,13 @@ You have in fact two ways to [open your dashboard](https://learn.netdata.cloud/d
 
 - You can access Netdata's dashboard by navigating to <http://NODE:19999> in your browser (replace NODE by either localhost or the hostname/IP address of a remote node)
 
-- You can also use [Netdata Cloud](https://app.netdata.cloud/) to create custom dashboards, monitor several nodes, and invite users to watch your dashboard... It's free of charges and your data are never stored in a remote cloud server, but rather in the local disk of your machines.
+- You can also use [Netdata Cloud](https://app.netdata.cloud/) to create custom dashboards, monitor several nodes, and invite users to watch your dashboard... It's free of charge and your data is never stored in a remote cloud server, but rather in the local disk of your machines.
 
-We recommend to use Netdata Cloud for a more user-friendly usage. The rest of this tutorial is based on Netdata Cloud.
+We recommend using Netdata Cloud for a more user-friendly usage. The rest of this tutorial is based on Netdata Cloud.
 
 #### Step 6: Create a custom dashboard with Netdata Cloud!
 
-Netdata provides a really intuitive tool to create custom dashboards. If you wants more details, read [Netdata documentation](https://learn.netdata.cloud/docs/cloud/visualize/dashboards).
+Netdata provides a really intuitive tool to create custom dashboards. If you want more details, read [Netdata documentation](https://learn.netdata.cloud/docs/cloud/visualize/dashboards).
 
 [Here](https://tezos.gitlab.io/developer/openmetrics.html) is an exhaustive list of Octez node metrics. With Netdata, your node metrics will have this format: "tezosMetrics.name_of_your_metric".
 
@@ -206,9 +206,9 @@ This is an example of a Demo Dashboard with the following metrics:
 
 ### Monitoring several nodes
 
-#### Step1. Install Netdata on each of the machines hosting your nodes as described in #### Step1 of "Set up the monitoring" part.
+#### Step 1. Install Netdata on each of the machines hosting your nodes as described in #### Step 1 of "Set up the monitoring" part.
 
-#### Step2. On Netdata Cloud click on the button `Connect Nodes`, and follow the instructions.
+#### Step 2. On Netdata Cloud click on the button `Connect Nodes`, and follow the instructions.
 
 ### Managing alerts
 
@@ -251,9 +251,9 @@ template: 10min_cpu_usage #Name of the alarm/template.(required)
       to: sysadmin
 ```
 
-[Here](https://learn.netdata.cloud/docs/agent/health/reference#entity-format) is an exhaustive liste of alerts parameters.
+[Here](https://learn.netdata.cloud/docs/agent/health/reference#entity-format) is an exhaustive list of alerts parameters.
 
-#### Create personnalised alerts: Write a new health entity
+#### Create personnalized alerts: Write a new health entity
 
 To create personalised alerts, create a `.conf` file in `/usr/lib/netdata/conf.d/health.d` and edit this new file using the template shown previously:
 
@@ -370,7 +370,7 @@ The result of the request is the list the node metrics described as:
 octez_metric_name{label_name=label_value} x.x
 ```
 
-Note the metrics are implemented to have the lowest possible impact on the node performance, and most of the metrics are only computed when scraping it. So starting the node with the metrics server shouldn't be a cause for concern. More details on Octez Metrics can be found in the Tezos Developer Documentation: [see here](https://tezos.gitlab.io/user/node-monitoring.html) for further detail on how to setup your monitoring; and [here](https://tezos.gitlab.io/developer/openmetrics), for the complete list of the metrics scrapped by the Octez node.
+Note the metrics are implemented to have the lowest possible impact on the node performance, and most of the metrics are only computed when scraping it. So starting the node with the metrics server shouldn't be a cause for concern. More details on Octez Metrics can be found in the Tezos Developer Documentation: [see here](https://tezos.gitlab.io/user/node-monitoring.html) for further detail on how to setup your monitoring; and [here](https://tezos.gitlab.io/developer/openmetrics), for the complete list of the metrics scraped by the Octez node.
 
 ### Types of metrics
 
@@ -461,5 +461,5 @@ Grafana is a relatively user-friendly tool, so play with creating a custom one a
 
 ## Conclusion
 
-Octez Metrics gives Tezos users insight into how their node is performing, and ability to observe the overall network health. The best way to keep your node healthy and keep the entire Tezos network healthy is with monitoring tools to gain insite into network health. 
+Octez Metrics gives Tezos users insight into how their node is performing, and ability to observe the overall network health. The best way to keep your node healthy and keep the entire Tezos network healthy is with monitoring tools to gain insight into network health. 
 

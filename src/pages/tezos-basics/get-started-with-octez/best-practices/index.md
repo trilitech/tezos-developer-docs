@@ -27,7 +27,7 @@ The rest of this document is structured around different aspects of the Octez no
 
 The Tezos node offers an [RPC programming interface](https://tezos.gitlab.io/shell/rpc.html), that is used by clients such as a wallet or a baker. This is a rich API providing many features. 
 
-Some of these RPC are sensitive in terms of security:
+Some of these RPCs are sensitive in terms of security:
 
 - either because they perform sensitive operations that shouldn't be available to untrusted peers, such as banning/trusting a peer, configuring the operations filtered out by the node mempool, etc.
 
@@ -35,7 +35,7 @@ Some of these RPC are sensitive in terms of security:
 
 As a concrete example (in the second category), there are two RPC calls to estimate baking and endorsing rights for the next cycles (GET endorsing_rights and GET baking_rights). Calling these RPCs repeatedly with no limitation by remote nodes can stall a node, preventing it to do any useful work.
 
-For this reasons, the Octez implementation of the Tezos nodes contains three built-in protection mechanisms:
+For this reason, the Octez implementation of the Tezos nodes contains three built-in protection mechanisms:
 
 - When running a node, the RPC interface is disabled by default. It has to be explicitly enabled using option `--rpc-addr`.
 
@@ -77,7 +77,7 @@ It is advised not to configure a node to target too many connections (hundreds o
 
 Running a Tezos node requires providing enough disk space for its storage requirements. Indeed, if a node runs out of disk space, it shuts down and thus discontinues its service.
 
-The disk space consumed by a node depends on its history mode, as explained above. But it is also important to know that, independendently of the archive mode, the disk space consumption varies in time. Thus, at regular intervals (about every 8 hours), disk space consumption increases temporarily, as the node re-orgranizes its storage. During this operation, the node keeps a copy of the old storage index, which explains why this temporary increase can typically add around 20G of disk space that are freed soon afterwards. More precisely, the extra space corresponds to the temporary copy of the `<node-dir>/context/index` subdirectory, where `<node-dir>` is the node's data directory.
+The disk space consumed by a node depends on its history mode, as explained above. But it is also important to know that, independently of the archive mode, the disk space consumption varies in time. Thus, at regular intervals (about every 8 hours), disk space consumption increases temporarily, as the node re-orgranizes its storage. During this operation, the node keeps a copy of the old storage index, which explains why this temporary increase can typically add around 20G of disk space that are freed soon afterwards. More precisely, the extra space corresponds to the temporary copy of the `<node-dir>/context/index` subdirectory, where `<node-dir>` is the node's data directory.
 
 Prior to running a node, make sure that it has not only enough disk space for its regular functioning (which may depend on its history mode and other options), but also extra available space for a copy of its index (typically around 20G extra space).
 
@@ -99,12 +99,12 @@ Prior to running a node, make sure that enough RAM is available (typically 4GB),
 
 ## Performance
 
-Ensuring a good performance level for a node requires allocating enough resources of different kinds (RAM, disk, CPUs) for its typical and peek needs. Currently, the central performance bottleneck of a Tezos node is constituted by disk bandwidth for read/write operations. For this reason, when dimensioning a machine for running a node, it is important to ensure sufficient disk bandwidth. This implies that increasing the number of CPUs machine and the RAM size of a machine to run several nodes on it does not scale well: the disk bandwidth will be the limiting factor. Rather, it is more resource-effective to run single nodes on moderately powerful machines.
+Ensuring a good performance level for a node requires allocating enough resources of different kinds (RAM, disk, CPUs) for its typical and peak needs. Currently, the central performance bottleneck of a Tezos node is constituted by disk bandwidth for read/write operations. For this reason, when dimensioning a machine for running a node, it is important to ensure sufficient disk bandwidth. This implies that increasing the number of CPUs machine and the RAM size of a machine to run several nodes on it does not scale well: the disk bandwidth will be the limiting factor. Rather, it is more resource-effective to run single nodes on moderately powerful machines.
 
 When dimensioning machines for running Tezos nodes, it is advised to ensure a good disk bandwidth, such as those offered by SSD disks (and ideally, SSD/NVE disks). Running several nodes on the same machine should be considered with caution: pay attention not to saturate the disk bandwidth.
 
 {% callout type="warning" title="multi-CPU machine" %}
-Running several nodes on a multi-CPU machine will likely lead to suboptimal performance, because the disk bandwith will probably constitute the main bottleneck.
+Running several nodes on a multi-CPU machine will likely lead to suboptimal performance, because the disk bandwidth will probably constitute the main bottleneck.
 {% /callout %}
 
 

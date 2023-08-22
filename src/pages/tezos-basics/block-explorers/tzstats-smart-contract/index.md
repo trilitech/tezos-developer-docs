@@ -1,6 +1,6 @@
 ---
 id: tzstats-smart-contract
-title: Checkout your smart contract on TzStats
+title: Check out your smart contract on TzStats
 authors: Benjamin Pila
 lastUpdated: 28th June 2023
 ---
@@ -11,7 +11,7 @@ As a developer, you will often want to check the state of your deployed smart co
 
 Once you have the address of your smart contract, go to the _TzStats_ website associated with the network you deployed your contract on.
 
-Remember, the following TzStats website links are the following:
+Remember, the TzStats website links for each network are as follows:
 - **Mainnet**: [tzstats.com](https://tzstats.com)
 - **Ghostnet**: [florence.tzstats.com](https://ghost.tzstats.com/)
 
@@ -31,7 +31,7 @@ Below the general information, you have a list of tabs allowing you to see:
 - the storage
 - the different *big_maps* of your smart contract (if there are any)
 
-For the following examples, we will check out the smart contract, deployed on the Mainnet, whose address is the following:
+For the following examples, we will check out the smart contract, deployed on the Mainnet, with the address:
 
 ```
 KT1HbQepzV1nVGg8QVznG7z4RcHseD5kwqBn

@@ -18,7 +18,7 @@ The following commands help to upgrade your node to the latest Octez version.
 
 #### Upgrade the docker image
 
-To upgrade your node to the latest Octez version, run the lastest image. Note that if you run the latest image, restarting your container is sufficient.
+To upgrade your node to the latest Octez version, run the latest image. Note that if you run the latest image, restarting your container is sufficient.
 
 See the [list of releases](https://tezos.gitlab.io/releases/releases.html) for the latest version number, and replace v17 below with that. 
 

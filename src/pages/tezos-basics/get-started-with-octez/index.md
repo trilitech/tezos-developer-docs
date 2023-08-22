@@ -7,7 +7,7 @@ lastUpdated: 5th June 2023
 
 ## Octez - The Tezos Client 
 
-_Octez_ is the official client to interact with a Tezos node via RPC (remote procedural calls). In theory, there can be multiple implementations of the Tezos protocol, but currently, there is only Octez. Octez consists of several binaries (i.e., executable files), including a client, a node, and a baker.
+_Octez_ is the official client to interact with a Tezos node via RPC (Remote Procedure Call). In theory, there can be multiple implementations of the Tezos protocol, but currently, there is only Octez. Octez consists of several binaries (i.e., executable files), including a client, a node, and a baker.
 
 ### How to install the *octez-client*
 

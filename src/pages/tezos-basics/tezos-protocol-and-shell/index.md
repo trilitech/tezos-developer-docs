@@ -26,7 +26,7 @@ A Tezos node has mainly three roles: it validates blocks and operations, it broa
 includes accounts and their balances, among other things. Note that, as blocks only specify a predecessor block, exchanged blocks do not necessarily form a chain, but rather a tree.
 
 A Tezos node acts as a server, which responds to queries and requests from clients. Such queries and requests are implemented via RPC calls. A client can query the chain's state and can inject blocks and operations into a
-node. One particular client is the `baker daemon`, which is associated to an account. In particular, the baker has access to the account's private key and thus can sign blocks and operations.
+node. One particular client is the `baker daemon`, which is associated with an account. In particular, the baker has access to the account's private key and thus can sign blocks and operations.
 
 The main reason for using such a client-server architecture is safety: to insulate the component that has access to the client keys, i.e. the baker, from the component which is exposed to the internet, i.e. the
 node. Indeed, the node and the baker can sit on different computers and the baker does not need to be exposed to the internet. So nodes manage communication and shield bakers from network attacks, and bakers hold
@@ -35,7 +35,7 @@ secrets and bake blocks into the blockchain.
 Another advantage of this architecture is that bakers can more easily have different implementations, and this is important, for instance because different bakers may want to implement different transaction
 selection strategies.
 
-As previously stated, Tezos is a self-amending blockchain. In large part of Tezos can be changed through a so-called amendment procedure.
+As previously stated, Tezos is a self-amending blockchain. A large part of Tezos can be changed through a so-called amendment procedure.
 
 -   the shell, which comprises the network and storage layer, and embeds
 -   the economic protocol component, which is the part that can be
@@ -63,7 +63,7 @@ The shell contains everything that is not part of the economic protocol. It incl
 - The Validator: the component responsible for checking that blocks coming from the network or a baker are valid, w.r.t. the rules defined by the economic protocol.
 - The Prevalidator: responsible for determining which operations to propagate for this chain over the peer-to-peer network.
 - The Storage Layer: responsible for aggregating blocks (along with their respective ledger state) and operations within blocks (along with their associated metadata).
-- Synchronization heuristic: Process to bootstrap a node when first joining the network, and knowing when it's synced with the network. 
+- Synchronization Heuristic: Process to bootstrap a node when first joining the network, and knowing when it's synced with the network. 
 - The peer-to-peer layer: this part is in charge of establishing and maintaining network connections with other nodes (via a gossip protocol).
 - Protocol Environment: a restricted API that may be used by the Octez code to interact with the protocol, and vice versa.
 

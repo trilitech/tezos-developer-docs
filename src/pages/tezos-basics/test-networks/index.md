@@ -11,11 +11,11 @@ The Tezos testnets are overseen and coordinated by [Oxhead Alpha](https://oxhead
 
 ## Testing without a node
 
-If you are a smart contract developer, testing contracts is a big part of your work. More time is spent testing contracts than writing them. You will often need to test new versions of your contracts and run many tests starting from their deployment to calling every entrypoint in all kinds of ways.
+If you are a smart contract developer, testing contracts is a big part of your work. Developers often spend more time testing contracts than writing them. You will often need to test new versions of your contracts and run many tests starting from their deployment to calling every entrypoint in all kinds of ways.
 
 Waiting for the next block every time you inject a new transaction takes a lot of time.
 
-To make testing a lot faster, options are available, depending on the language and tools you are using, that don't use a network or even a single node at all, and skip all the consensus mechanism steps.
+To make testing a lot faster, options are available, depending on the language and tools you are using, that neither use a network nor a single node and skip all the steps of the consensus mechanism.
 
 - The **Michelson interpreter** is an OCaml function that can be used by tools to simulate a call to any entry point of any smart contract, given an initial value of the storage and parameters. Some programming languages like **Ligo** or **Smartpy** use this as part of their testing frameworks.
 

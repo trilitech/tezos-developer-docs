@@ -13,7 +13,7 @@ Tezos is an open-source, decentralized blockchain [created in 2014](https://tezo
 
 Tezos stands apart from other blockchains in its capability to upgrade, allowing the network to evolve without requiring a hard fork. Anyone building on Tezos can propose a new protocol upgrade and have it adopted by the network without compromising the platform's stability or causing fragmentation. This makes Tezos adaptable to new technologies and able to address user needs where other blockchains struggle to make changes.
 
-Tezos is unique in its governance model. All stakeholders can participate in the decision-making processes that impact the future direction of the network. Holders of XTZ —-the chain’s native token-— can propose changes to the protocol and bakers vote on them, such as changes to gas fees, reduction in block times, adding new features such as smart rollups, and even changing the consensus mechanism itself.
+Tezos is unique in its governance model. All stakeholders can participate in the decision-making processes that impact the future direction of the network. Holders of XTZ — the chain’s native token - can propose changes to the protocol and bakers vote on them, such as changes to gas fees, reduction in block times, adding new features such as smart rollups, and even changing the consensus mechanism itself.
 
 The use of formal verification is a powerful feature where the code can be mathematically proven to be correct without side effects. The rigorous process of formal verification ensures that the smart contracts and other components function as intended, reducing the likelihood of errors, bugs, and security vulnerabilities. This approach gives Tezos an edge in security and reliability. 
 
@@ -37,11 +37,11 @@ Tezos is also being used for other NFT-related projects, such as [MoneyTrack](ht
 
 Enterprises and regulatory bodies have been adopting Tezos as well. 
 
-Tezos is being used by the French Armies and Gendarmerie's Information Center to [validate judicial expenses](https://cointelegraph.com/news/french-cybercrime-division-uses-smart-contacts-on-tezos-blockchain) incurred during investigations and record them on Tezos.
+Tezos is being used by the French Army and Gendarmerie's Information Center to [validate judicial expenses](https://cointelegraph.com/news/french-cybercrime-division-uses-smart-contacts-on-tezos-blockchain) incurred during investigations and record them on Tezos.
 
 In recent years, the concept of Central Bank Digital Currencies (CBDCs) has gained traction, with several countries around the world exploring their own CBDC projects. Société Générale carried out a series of successful tests [using Tezos](https://decrypt.co/112127/societe-generales-crypto-division-lands-regulatory-approval-france) to explore the potential of CBDCs. In September 2020, the bank announced that it had completed a pilot program using a custom-built version of the Tezos blockchain to simulate the issuance and circulation of CBDCs. The pilot involved testing the technology's ability to handle transactions, make payments, and settle transactions in a digital environment.
 
-The Califonia DMV is also using Tezos for its project to [put car titles on the blockchain](https://fortune.com/crypto/2023/01/26/california-announces-dmv-run-blockchain-through-partnership-with-tezos/). 
+The California DMV is also using Tezos for its project to [put car titles on the blockchain](https://fortune.com/crypto/2023/01/26/california-announces-dmv-run-blockchain-through-partnership-with-tezos/). 
 
 [Sword Group](https://www.sword-group.com/2020/09/28/sword-launches-tezos-digisign/) an international technology company, launched DigiSign, an open-source tool built on Tezos that enables users to digitally sign, certify, and verify the authenticity of digital documents.
 

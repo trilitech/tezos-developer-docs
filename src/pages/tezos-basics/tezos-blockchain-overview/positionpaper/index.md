@@ -14,7 +14,7 @@ You can find the PDF for the position paper [here](https://tezos.com/position-pa
 
 > "Laissez faire les propriétaires." -- Pierre-Joseph Proudhon
 
-The popularization of Bitcoin, a decentralized crypto-currency has inspired the production of several alternative, or “alt”, currencies. Ethereum, CryptoNote, and Zerocash all represent unique contributions to the cryptocurrency space. Although most alt currencies harbor their own source of innovation, they have no means of adopting the innovations of other currencies which may succeed them. We aim to remedy the potential for atrophied evolution in the crypto-currency space by presenting Tezos, a generic and self-amending crypto-ledger.
+The popularization of Bitcoin, a decentralized cryptocurrency has inspired the production of several alternative, or “alt”, currencies. Ethereum, CryptoNote, and Zerocash all represent unique contributions to the cryptocurrency space. Although most alt currencies harbor their own source of innovation, they have no means of adopting the innovations of other currencies which may succeed them. We aim to remedy the potential for atrophied evolution in the cryptocurrency space by presenting Tezos, a generic and self-amending crypto-ledger.
 
 Tezos can instantiate any blockchain based protocol. Its seed protocol specifies a procedure for stakeholders to approve amendments to the protocol, including amendments to the amendment procedure itself. Upgrades to Tezos are staged through a testing environment to allow stakeholders to recall potentially problematic amendments.
 
@@ -27,7 +27,7 @@ In our development of Tezos, we aspire to address four problems we perceive with
 * The “hard fork” problem, or the inability for Bitcoin to dynamically innovate due to coordination issues.
 * Cost and centralization issues raised by Bitcoin’s proof-of-work system.
 * The limited expressiveness of Bitcoin’s transaction language, which has pushed smart contracts onto other chains.
-* Security concerns regarding the implementation of a crypto-currency.
+* Security concerns regarding the implementation of a cryptocurrency.
 
 Tezos implements a generic network shell. This shell is agnostic to the transaction protocol and to the consensus protocol. We refer to the transaction protocol and the consensus protocol together as a "blockchain protocol". We will first give a mathematical representation of a blockchain protocol and then describe some of the implementation choices in Tezos.
 
@@ -35,17 +35,17 @@ Tezos implements a generic network shell. This shell is agnostic to the transact
 
 ### Keeping Up With Innovation
 
-In the wake of Bitcoin’s success, many developers and entrepreneurs have released alternative crypto-currencies \(“altcoins”\). While some of these altcoins did not diverge dramatically from Bitcoin’s original code, some presented interesting improvements. For example, Litecoin introduced a memory hard proof of work function and a shorter block confirmation time. Similarly, Ethereum has designed stateful contracts and a Turing-complete transaction language. More important contributions include privacy-preserving ring signatures \(CryptoNote\) and untraceable transactions using SNARK \(Zerocash\).
+In the wake of Bitcoin’s success, many developers and entrepreneurs have released alternative cryptocurrencies \(“altcoins”\). While some of these altcoins did not diverge dramatically from Bitcoin’s original code, some presented interesting improvements. For example, Litecoin introduced a memory hard proof of work function and a shorter block confirmation time. Similarly, Ethereum has designed stateful contracts and a Turing-complete transaction language. More important contributions include privacy-preserving ring signatures \(CryptoNote\) and untraceable transactions using SNARK \(Zerocash\).
 
 The rise of altcoins has inspired a vast competition in software innovation. Cheerleaders for this Hayekian growth, however, miss a fundamental point: for a cryptocurrency to be an effective form of money, it needs to be a stable store of value. Innovation within a ledger preserves value through protecting the network effect giving the currency its value.
 
-To illustrate the problem of many competing altcoins, let us compare a crypto-currency and a smart phone. When purchasing a smart phone, the consumer is paying for certain features, such as the ability to play music, check email, message his friends, and conduct phone calls.
+To illustrate the problem of many competing altcoins, let us compare a cryptocurrency and a smart phone. When purchasing a smart phone, the consumer is paying for certain features, such as the ability to play music, check email, message his friends, and conduct phone calls.
 
 Every few weeks, a newer smartphone model is released on the market which often contains enhanced features. Though consumers who have the older model may be jealous of those with the latest model, the introduction of newer smartphones does not render older smartphones dysfunctional.
 
 This dynamic would change, however, if the newest phones could not communicate with older models. If the many models and styles of smartphone could not be used together seamlessly, the value of each smartphone would be reduced to the number of people with the same model.
 
-Crypto-currencies suffer from the same fate as smartphones which are incompatible with one another; they derive their value from a network effect, or the number of users who have given it value. To this end, any innovation that occurs outside of a crypto-currency will either fail to build enough network effect to be noticed, or it will succeed but undermine the value of the savings in the old currency. If smartphones were incompatible with older models, there would be either very little innovation or extremely disruptive innovation forcing older phones into obsolescence.
+Cryptocurrencies suffer from the same fate as smartphones which are incompatible with one another; they derive their value from a network effect, or the number of users who have given it value. To this end, any innovation that occurs outside of a cryptocurrency will either fail to build enough network effect to be noticed, or it will succeed but undermine the value of the savings in the old currency. If smartphones were incompatible with older models, there would be either very little innovation or extremely disruptive innovation forcing older phones into obsolescence.
 
 Side-chains are an attempt to allow innovations which will retain compatibility with Bitcoin by pegging the value of a new currency to Bitcoin and creating a two-way convertibility. Unfortunately, it’s unclear whether they will be flexible enough to accommodate protocols substantially different from Bitcoin. The only alternative so far is to fork the protocol.
 
@@ -77,7 +77,7 @@ The proof-of-work mechanism used by Bitcoin is a careful balance of incentives m
 
 ### Mining Power Concentration
 
-There are several problems with proof-of-work as a foundation for crypto-currencies. The most salient problem, which is all too relevant as of 2014, is the existence of centralized mining pools, which concentrate power in the hands of a few individuals.
+There are several problems with proof-of-work as a foundation for cryptocurrencies. The most salient problem, which is all too relevant as of 2014, is the existence of centralized mining pools, which concentrate power in the hands of a few individuals.
 
 The proof-of-work mechanism is decentralized, which means that users do not need to explicitly trust anyone to secure the currency. However, implicitly, Bitcoin has yielded a system where all users have to trust the benevolence of one or two pool operators to secure the currency.
 
@@ -125,11 +125,11 @@ Proof-of-stake eliminates this source of waste without lowering the cost of atta
 
 ### Control
 
-Last but not least, the proof-of-work system puts the miners, not the stakeholders, in charge. Forks for instance require the consent of a majority of the miners. This poses a potential conflict of interest: a majority of miners could decide to hold the blockchain hostage until stakeholders consent to a protocol fork increasing the mining rewards; more generally, they will hold onto the hugely wasteful system that empowers them longer than is economically beneficial for users.
+Last but not least, the proof-of-work system puts the miners, not the stakeholders, in charge. Forks for instance require the consent of a majority of the miners. This poses a potential conflict of interest: a majority of miners could decide to hold the blockchain hostage until stakeholders consent to a protocol fork increasing the mining rewards; more generally, they will hold on to the hugely wasteful system that empowers them longer than is economically beneficial for users.
 
 ## Smart Contracts 
 
-Though Bitcoin does allow for smart contracts, most of its opcodes have been historically disabled and the possibilities are limited. Ethereum introduced a smart contract system with some critical differences: their scripting language is Turing complete and they substitute stateful accounts to Bitcoin’s unspent outputs.
+Though Bitcoin does allow for smart contracts, most of its opcodes have been historically disabled and the possibilities are limited. Ethereum introduced a smart contract system with some critical differences: their scripting language is Turing complete and they substitute stateful accounts for Bitcoin’s unspent outputs.
 
 While emphasis has been put on the Turing complete aspect of the language, the second property is by far the most interesting and powerful of the two. In Bitcoin, an output can be thought of as having only two states: spent and unspent. In Ethereum, accounts \(protected by a key\) hold a balance, a contract code and a data store. The state of an account’s storage can be mutated by making a transaction towards this account. The transaction specifies an amount and the parameters passed to the contract code.
 
@@ -139,13 +139,13 @@ To address this problem, Ethereum has devised a system by which the miner valida
 
 Yet, for the blockchain to be secure, _all_ the active nodes need to validate the transaction. A malicious miner could include in his block a transaction that he crafted specially to run into an infinite loop and pay himself an exorbitant fee for validating this transaction. Other miners could waste a very long time validating this transaction. Worse, they could just slack and fail to validate it. In practice though, most of the interesting smart contracts can be implemented with very simple business logic and do not need to perform complex calculations.
 
-Our solution is to cap the maximum number of steps that a program is allowed to run for in a single transaction. Since blocks have a size limit that caps the number of transactions per block, there is also a cap on the number of computation steps per block. This rate limitation foils CPU-usage denial-of service attacks. Meanwhile, legitimate users can issue multiple transactions to compute more steps than allowed in a single transaction, though at a limited rate. Miners may decide to exclude too long of an execution if they feel the included fee is too small. Since the Tezos protocol is amendable, the cap can be increased in future revisions and new cryptographic primitives included in the scripting language as the need develops.
+Our solution is to cap the maximum number of steps that a program is allowed to run for in a single transaction. Since blocks have a size limit that caps the number of transactions per block, there is also a cap on the number of computation steps per block. This rate limitation foils CPU-usage denial-of service attacks. Meanwhile, legitimate users can issue multiple transactions to compute more steps than allowed in a single transaction, though at a limited rate. Miners may decide to exclude executions that are too long if they feel the included fee is too small. Since the Tezos protocol is amendable, the cap can be increased in the future revisions and new cryptographic primitives included in the scripting language as the need develops.
 
 ## Correctness 
 
 Bitcoin underpins a $8B valuation with a modest code base. As security researcher Dan Kaminsky explains, Bitcoin looks like a security nightmare on paper. A C++ code base with a custom binary protocol powers nodes connected to the Internet while holding e-cash, sounds like a recipe for disaster. C++ programs are often riddled with memory corruption bugs. When they are connecting to the Internet, this creates vulnerabilities exploitable by remote attackers. E-cash gives an immediate payoff to any attacker clever enough to discover and exploit such a vulnerability.
 
-Fortunately, Bitcoin’s implementation has proven very resilient to attacks thus far, with some exceptions. In August 2010, a bug where the sum of two outputs overflowed to a negative number allowed attackers to create two outputs of 92233720368.54 coins from an input of 0.50 coins. More recently, massive vulnerabilities such as the heartbleed bug have been discovered in the OpenSSL libraries. These vulnerabilities have one thing in common, they happened because languages like C and C++ do not perform any checks on the operations they perform. For the sake of efficiency, they may access random parts of the memory, add integers larger than natively supported, etc. While these vulnerabilities have spared Bitcoin, they do no not bode well for the security of the system.
+Fortunately, Bitcoin’s implementation has proven very resilient to attacks thus far, with some exceptions. In August 2010, a bug where the sum of two outputs overflowed to a negative number allowed attackers to create two outputs of 92233720368.54 coins from an input of 0.50 coins. More recently, massive vulnerabilities such as the heartbleed bug have been discovered in the OpenSSL libraries. These vulnerabilities have one thing in common, they happened because languages like C and C++ do not perform any checks on the operations they perform. For the sake of efficiency, they may access random parts of the memory, add integers larger than natively supported, etc. While these vulnerabilities have spared Bitcoin, they do not bode well for the security of the system.
 
 Other languages do not exhibit those problems. OCaml is a functional programming language developed by the INRIA since 1996 \(and itself based on earlier efforts\). Its speed is comparable to that of C++ and it generally features among the fastest programming languages in benchmarks. More importantly, OCaml is strongly typed and offers a powerful type inference system. Its expressive syntax and semantics, including powerful pattern matching and higher-order modules, make it easy to concisely and correctly describe the type of logic underpinning blockchain based protocols.
 
@@ -153,13 +153,13 @@ OCaml’s semantic is fairly rigorous and a very large subset has been formalize
 
 In addition, Coq, one of the most advanced proof checking software is able to extract OCaml code from proofs. As Tezos matures, it will be possible to automatically extract key parts of the protocol’s code from mathematical proofs of correctness.
 
-Examples of spectacular software failure abound. The heartbleed bug caused millions of dollars in damages. In 2013, a single bug at high-frequency trading firm Knight capital caused half a billion dollars worth of losses. In 1996, an arithmetic overflow bug caused the crash of Ariane 5, a rocket that had cost $7B to develop; the cost of the rocket and the cargo was estimated at $500M.
+Examples of spectacular software failures abound. The heartbleed bug caused millions of dollars in damages. In 2013, a single bug at high-frequency trading firm Knight capital caused half a billion dollars worth of losses. In 1996, an arithmetic overflow bug caused the crash of Ariane 5, a rocket that had cost $7B to develop; the cost of the rocket and the cargo was estimated at $500M.
 
 All of these bugs could have been prevented with the use of formal verification. Formal verification has progressed by leaps and bounds in recent years, it is time to use it in real systems.
 
 ## Abstract Blockchains 
 
-Tezos attempts to represent a blockchain protocol in the most general way possible while attempting to remain as efficient as a native protocol. The goal of a blockchain is to represent a single state being concurrently edited. In order to avoid conflicts between concurrent edits, it represents the state as a ledger, that is as a series of transformations applied to an initial state. These transformations are the “blocks” of the blockchain, and — in the case of Bitcoin — the state is mostly the set of unspent outputs. Since the blocks are created asynchronously by many concurrent nodes, a block tree is formed. Each leaf of the tree represents a possible state and the end of a different blockchain. Bitcoin specifies that only one branch should be considered the valid branch: the one with the greatest total difficulty. Blocks, as their name suggests, actually bundle together multiple operations (known as transactions in the case of Bitcoin). These operations are sequentially applied to the state.
+Tezos attempts to represent a blockchain protocol in the most general way possible while attempting to remain as efficient as a native protocol. The goal of a blockchain is to represent a single state that concurrent users edit. In order to avoid conflicts between concurrent edits, it represents the state as a ledger, that is as a series of transformations applied to an initial state. These transformations are the “blocks” of the blockchain, and — in the case of Bitcoin — the state is mostly the set of unspent outputs. Since the blocks are created asynchronously by many concurrent nodes, a block tree is formed. Each leaf of the tree represents a possible state and the end of a different blockchain. Bitcoin specifies that only one branch should be considered the valid branch: the one with the greatest total difficulty. Blocks, as their name suggests, actually bundle together multiple operations (known as transactions in the case of Bitcoin). These operations are sequentially applied to the state.
 
 ## Three Protocols 
 
@@ -199,7 +199,7 @@ This is by far the most central and most difficult to change protocol, often req
 
 Tezos separates these three protocols. The transaction protocol and the consensus protocol are implemented in an isolated module plugged into a generic network shell responsible for maintaining the blockchain.
 
-In order for the protocol to remain generic, we define the following interface. We want our blockchain to represent the current “state” of the economy, which we call in Tezos the **Context**. This could include the balances of the various accounts and other informations such as the current block number. Blocks are seen as operators that transform an old state into a new state.
+In order for the protocol to remain generic, we define the following interface. We want our blockchain to represent the current “state” of the economy, which we call in Tezos the **Context**. This could include the balances of the various accounts and other information such as the current block number. Blocks are seen as operators that transform an old state into a new state.
 
 In this respect, a protocol can be described by only two functions:
 

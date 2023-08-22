@@ -51,7 +51,7 @@ In Tezos, we make a blockchain protocol introspective by letting blocks act on t
 
 This formal mathematical description doesn't tell us _how_ to build the block tree. This is the role of the network shell, which acts as an interface between a gossip network and the protocol.
 
-The network shell works by maintaining the best chain known to the client. It is aware of three type of objects. The first two are transactions and blocks, which are only propagated through the network if deemed valid. The third are protocols, OCaml modules used to amend the existing protocol. They will be described in more details later on. For now we will focus on transaction and blocks.
+The network shell works by maintaining the best chain known to the client. It is aware of three types of objects. The first two are transactions and blocks, which are only propagated through the network if deemed valid. The third are protocols, OCaml modules used to amend the existing protocol. They will be described in more details later on. For now we will focus on transaction and blocks.
 
 The most arduous part of the network shell is to protect nodes against denial-of-service attacks.
 
@@ -63,7 +63,7 @@ Every block carries a timestamp visible to the network shell. Blocks that appear
 
 The shell maintains a single chain rather than a full tree of blocks. This chain is only overwritten if the client becomes aware of a strictly better chain.
 
-Maintaining a tree would be more parsimonious in terms of network communications but would be susceptible to denial-of-service attacks where an attacker produces a large number of low-scoring but valid forks.
+Maintaining a tree would be more parsimonious in terms of network communications, but it would be susceptible to denial-of-service attacks where an attacker produces a large number of low-scoring but valid forks.
 
 Yet, it remains possible for a node to lie about the score of a given chain, a lie that the client may only uncover after having processed a potentially large number of blocks. However, such a node can be subsequently ignored.
 
@@ -132,9 +132,9 @@ module type PROTOCOL = sig
 end
 ```
 
-We no longer compare states directly as in the mathematical model, instead we project the **Context** onto a list of bytes using the **score** function. List of bytes are ordered first by length, then by lexicographic order. This is a fairly generic structure, similar to the one used in software versioning, which is quite versatile in representing various orderings.
+We no longer compare states directly as in the mathematical model, instead we project the **Context** onto a list of bytes using the **score** function. Lists of bytes are ordered first by length, then by lexicographic order. This is a fairly generic structure, similar to the one used in software versioning, which is quite versatile in representing various orderings.
 
-Why not define a comparison function within the protocol modules? First off it would be hard to enforce the requirement that such a function represent a _total_ order. The score projection always verifies this \(ties can be broken based on the hash of the last block\). Second, in principle we need the ability to compare states across distinct protocols. Specific protocol amendment rules are likely to make this extremely unlikely to ever happen, but the network shell does not know that.
+Why not define a comparison function within the protocol modules? First off it would be hard to enforce the requirement that such a function represent a _total_ order. The score projection always verifies this \(ties can be broken based on the hash of the last block\). Second, in principle we need the ability to compare states across distinct protocols. Although specific protocol amendment rules make this eventuality highly unlikely, the network shell remains unaware of it.
 
 The operations **parse\_block\_header** and **parse\_operation** are exposed to the shell and allow it to pass fully typed operations and blocks to the protocol but also to check whether these operations and blocks are well-formed, before deciding to relay operations or to add blocks to the local block tree database.
 
@@ -180,7 +180,7 @@ type service = {
 }
 ```
 
-The name is a list of string to allow namespaces in the procedures. Input and output are optionally described by a json schema.
+The name is a list of string to allow namespaces in the procedures. Input and output are optionally described by a JSON schema.
 
 Note that the call is made on a given context which is typically a recent ancestor of the highest scoring leaf. For instance, querying the context six blocks above the highest scoring leaf displays the state of the ledger with six confirmations.
 
@@ -222,7 +222,7 @@ If an address is inactive, it will not be selected to create blocks \(which woul
 
 ##### Amendment rules
 
-Amendments are adopted over election cycles lasting  {% math inline="true" %} N = 2^{17} = 131072 {% /math %} blocks each. Given the a one minute block interval, this is about three calendar months. The election cycle is itself divided in four quarters of  {% math inline="true" %} 2^{15} = 32768 {% /math %} blocks. This cycle is relatively short to encourage early improvements, but it is expected that further amendments will increase the length of the cycle. Protocol upgrade votes will be much more frequent in the first year in order to allow for rapid iteration. As a security measure, the Tezos foundation will have a veto power expiring after twelve months, until we rule out any kinks in the voting procedure. Adoption requires a certain quorum to be met. This quorum starts at  {% math inline="true" %} Q = 80\% {% /math %} but dynamically adapts to reflect the average participation. This is necessary if only to deal with lost coins.
+Amendments are adopted over election cycles lasting  {% math inline="true" %} N = 2^{17} = 131072 {% /math %} blocks each. Given the a one minute block interval, this is about three calendar months. The election cycle is itself divided in four quarters of  {% math inline="true" %} 2^{15} = 32768 {% /math %} blocks. This cycle is relatively short to encourage early improvements, but it is expected that further amendments will increase the length of the cycle. Protocol upgrade votes will be much more frequent in the first year in order to allow for rapid iteration. For security reasons, the Tezos foundation retains veto power, which will expire after twelve months or once we've addressed any issues with the voting procedure. Adoption requires a certain quorum to be met. This quorum starts at  {% math inline="true" %} Q = 80\% {% /math %} but will dynamically adapt to reflect the average participation. This is necessary if only to deal with lost coins.
 
 **First quarter**
 
@@ -230,11 +230,11 @@ Protocol amendments are suggested by submitting the hash of a tarball of `.ml` a
 
 **Second quarter**
 
-The amendment receiving the most approval in the first quarter is now subject to a vote. Stakeholders may cast a vote for, against or can choose to explicitely abstain. Abstentions count towards the quorum.
+The amendment receiving the most approval in the first quarter is now subject to a vote. Stakeholders may cast a vote for, against or can choose to explicitly abstain. Abstentions count towards the quorum.
 
 **Third quarter**
 
-If the quorum is met \(including explicit abstentions\), and the amendment received  {% math inline="true" %} 80\% {% /math %} of yays, the amendment is approved and replaces the test protocol. Otherwise, it is rejected. Assuming the quorum reached was  {% math inline="true" %} q {% /math %} , the minimum quorum  {% math inline="true" %} Q {% /math %} is updated as such:  {% math %} Q \leftarrow 0.8 Q + 0.2 q. {% /math %} 
+If the quorum is met \(including explicit abstentions\), and the amendment received  {% math inline="true" %} 80\% {% /math %} of yays, the amendment is approved and replaces the test protocol. Otherwise, it is rejected. Assuming the quorum reached was {% math inline="true" %} q {% /math %} , the minimum quorum  {% math inline="true" %} Q {% /math %} is updated as such:  {% math %} Q \leftarrow 0.8 Q + 0.2 q. {% /math %} 
 
 The goal of this update is to avoid lost coins causing the voting procedure to become stuck over time. The minimum quorum is an exponential moving average of the quorum reached over each previous election.
 
@@ -252,12 +252,11 @@ Our proof-of-stake mechanism is a mix of several ideas, including Slasher\[@Slas
 
 Each block is mined by a random stakeholder \(the miner\) and includes multiple signatures of the previous block provided by random stakeholders \(the signers\). Mining and signing both offer a small reward but also require making a 5-cycle safety deposit to be forfeited in the event of a double mining or double signing.
 
-The protocol unfolds in cycles of 4,096 blocks. At the beginning of each cycle, a random seed is derived from numbers that block miners chose and committed to in the penultimate cycle, and revealed in the last. Using this random seed, a follow the coin strategy is used to allocate migning rights and signing rights to a specific addresses for the next cycle.
+The protocol unfolds in cycles of 4,096 blocks. At the beginning of each cycle, a random seed is derived from numbers that block miners chose and committed to in the penultimate cycle, and revealed in the last. Using this random seed, a follow the coin strategy is used to allocate mining rights and signing rights to specific addresses for the next cycle.
 
 _Four cycles of the proof-of-stake mechanism:_ 
 
 ![](./assets/pos.png)
-
 ##### Clock
 
 The protocol imposes minimum delays between blocks. In principle, each block can be mined by any stakeholder. However, for a given block, each stakeholder is subject to a random minimum delay. The stakeholder receiving the highest priority may mine the block one minute after the previous block. The stakeholder receiving the second highest priority may mine the block two minutes after the previous block, the third, three minutes, and so on.
@@ -266,7 +265,7 @@ This guarantees that a fork where only a small fraction of stakeholder contribut
 
 ##### Generating the random seed
 
-Every block mined carries a hash commitment to a random number chosen by the miner. These numbers must be revealed in the next cycle under penalty of forfeiting the safety bond. This harsh penalty is meant to prevent selective whitholding of the numbers which could be sued to attack the entropy of the seed.
+Every block mined carries a hash commitment to a random number chosen by the miner. These numbers must be revealed in the next cycle under penalty of forfeiting the safety bond. This harsh penalty is meant to prevent selective withholding of the numbers which could be used to attack the entropy of the seed.
 
 Malicious miners in the next cycle could attempt to censor such reveals, however since multiple numbers may be revealed in a single block, they are very unlikely to succeed.
 
@@ -278,9 +277,9 @@ In order to randomly select a stakeholder, we use a follow the coin procedure.
 
 **Principle**
 
-The idea is known in bitcoin as follow-the-satoshi. The procedures works "as-if" every satoshi ever minted had a unique serial number. Satoshis are implicitly ordered by creation time, a random satoshi is drawn and tracked through the blockchain. Of course, individual cents are not tracked directly. Instead, rules are applied to describe what happens when inputs are combined and spent over multiple output.
+The idea is known in bitcoin as follow-the-satoshi. The procedure works "as-if" every satoshi ever minted had a unique serial number. Satoshis are implicitly ordered by creation time, a random satoshi is drawn and tracked through the blockchain. Of course, individual cents are not tracked directly. Instead, rules are applied to describe what happens when inputs are combined and spent over multiple outputs.
 
-In the end, the algorithm keeps track of a set of intervals associated with each key. Each intervals represents a "range" of satoshis. Unfortunately, over time, the database becomes more and more fragmented, increasing bloat on the client side.
+In the end, the algorithm keeps track of a set of intervals associated with each key. Each interval represents a "range" of satoshis. Unfortunately, over time, the database becomes more and more fragmented, increasing bloat on the client side.
 
 **Coin Rolls**
 
@@ -317,7 +316,7 @@ When a stakeholder observes the seed and realizes he can mint a high priority bl
 
 To avoid a potentially problematic situation were no stakeholder made a safety deposit to mine a particular block, after a 16 minutes delay, the block may be mined without a deposit.
 
-Bonds are implicitely returned to their buyers immediately in any chain where they do not mine the block.
+Bonds are implicitly returned to their buyers immediately in any chain where they do not mine the block.
 
 ##### Signing blocks
 
@@ -325,11 +324,11 @@ As it is, we almost have a working proof of stake system. We could define a chai
 
 We thus introduce a signing scheme. While a block is being minted, the random seed is used to randomly assign 32 signing rights to 32 rolls.
 
-The stakeholders who received signing rights observe the blocks being minted and then submit signatures of that blocks. Those signatures are then included in the next block, by miners attempting to secure their parent's inclusion in the blockchain.
+The stakeholders who received signing rights observe the blocks being minted and then submit signatures of that block. Those signatures are then included in the next block, by miners attempting to secure their parent's inclusion in the blockchain.
 
-The signing reward received by signers is dependent on the priority of the miner who mined the block. The higher the priority, the higher the signing reward. Signer thus have a strong incentive to sign what they genuinely believe to be the best block produced at one point. They also have a strong incentive to agree on which block they will sign as signing rewards are only paid if the block ends up included in the blockchain.
+The signing reward received by signers is dependent on the priority of the miner who mined the block. The higher the priority, the higher the signing reward. Signers thus have a strong incentive to sign what they genuinely believe to be the best block produced at one point. They also have a strong incentive to agree on which block they will sign as signing rewards are only paid if the block ends up included in the blockchain.
 
-If the highest priority block isn't mined \(perhaps because the miner isn't on line\), there could be an incentive for signers to wait for a while, just in case the miner is late. However, other signers may then decide to sign the best priority block, and a new block could include those signatures, leaving out the holdouts. Thus, miners are unlikely to follow this strategy.
+If the highest priority block isn't mined \(perhaps because the miner isn't online\), there could be an incentive for signers to wait for a while, just in case the miner is late. However, other signers may then decide to sign the best priority block, and a new block could include those signatures, leaving out the holdouts. Thus, miners are unlikely to follow this strategy.
 
 Conversely, we could imagine an equilibrium where signers panic and start signing the first block they see, for fear that other signers will do so and that a new block will be built immediately. This is however a very contrived situation which benefits no one. There is no incentive for signers to think this equilibrium is likely, let alone to modify the code of their program to act this way. A malicious stakeholder attempting to disrupt the operations would only hurt itself by attempting to follow this strategy, as others would be unlikely to follow suit.
 
@@ -388,7 +387,7 @@ The origination operation may be used to create a new contract, it specifies the
 
 ##### Transactions
 
-A transaction is a message sent from one contract to another contract, this messages is represented as:
+A transaction is a message sent from one contract to another contract, this message is represented as:
 
 ``` sh
 type transaction = {
@@ -414,11 +413,11 @@ Since storage imposes a cost on the network, a minimum fee of ꜩ 1 is assessed 
 
 ##### Code
 
-The language is stack based, with high-level data types and primitives and strict static type checking. Its design is insipired by Forth, Scheme, ML and Cat. A full specification of the instruction set is available in\[@language\]. This specification gives the complete instruction set, type system and semantics of the language. It is meant as a precise reference manual, not an easy introduction.
+The language is stack based, with high-level data types and primitives and strict static type checking. Its design is inspired by Forth, Scheme, ML and Cat. A full specification of the instruction set is available in\[@language\]. This specification gives the complete instruction set, type system and semantics of the language. It is meant as a precise reference manual, not an easy introduction.
 
 ##### Fees
 
-So far, this system is similar to the way Ethereum handles transaction. However, we differ in the way we handle fees. Ethereum allows arbitrarily long programs to execute by requiring a fee that increases linearly with the program's executing time. Unfortunately, while this does provide an incentive for one miner to verify the transaction, it does not provide such an incentive to other miners, who must also verify this transaction. In practice, most of the interesting programs that can be used for smart contracts are very short. Thus, we simplify the construction by imposing a hard cap on the number of steps we allow the programs to run for.
+So far, this system is similar to the way Ethereum handles transactions. However, we differ in the way we handle fees. Ethereum allows arbitrarily long programs to execute by requiring a fee that increases linearly with the program's executing time. Unfortunately, while this does provide an incentive for one miner to verify the transaction, it does not provide such an incentive to other miners, who must also verify this transaction. In practice, most of the interesting programs that can be used for smart contracts are very short. Thus, we simplify the construction by imposing a hard cap on the number of steps we allow the programs to run.
 
 If the hard cap proves too tight for some programs, they can break the execution in multiple steps and use multiple transactions to execute fully. Since Tezos is amendable, this cap can be changed in the future, or advanced primitives can be introduced as new opcodes.
 
