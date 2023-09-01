@@ -15,7 +15,7 @@ But selective indexers have two advantages. First, they use hardly any resources
 
 ### [](https://indexers.tezos.org.ua/dipdup-dappetizer#what-its-all-about)What it’s all about
 
-As DipDup and Dappetizer are harder to set up, we will index a simple contract and perform a simple query. We chose tzBTC—wrapped Bitcoin on Tezos as a FA1.2 token.
+As DipDup and Dappetizer are harder to set up, we will index a simple contract and perform a simple query. We chose tzBTC — wrapped Bitcoin on Tezos as a FA1.2 token.
 
 We will install each indexer and create an empty project. Then we will set it up to index what we need, for example, tzBTC holders' balances from storage or tzBTC transactions from the “transfer” entrypoint. And in the end, we will process the data and display it on a simple webpage.
 

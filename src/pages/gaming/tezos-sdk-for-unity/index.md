@@ -61,7 +61,7 @@ You can install the UPM package directly from a Git URL. To do this:
    - `https://github.com/trilitech/tezos-unity-sdk.git#X.Y.Z`
    - Replace `X.Y.Z` with the version you want to install.
    - Check all available releases [here](https://github.com/trilitech/tezos-unity-sdk/releases).
-   - The latest available release version is: [![Last Release](https://img.shields.io/github/v/release/trilitech/tezos-unity-sdk)](https://github.com/trilitech/tezos-unity-sdk/releases/latest)
+   - The latest available release version is:  [![Last Release](https://img.shields.io/github/v/release/trilitech/tezos-unity-sdk)](https://github.com/trilitech/tezos-unity-sdk/releases/latest)
 
 For more information about supported protocols, see [Git URLs](https://docs.unity3d.com/Manual/upm-git.html).
 
@@ -101,7 +101,7 @@ For more information about supported protocols, see [Git URLs](https://docs.unit
 * Navigate to Project -> Packages and find the Tezos Unity SDK.
 * Double-click the package file WebGLSupport.unitypackage. Project->Packages->Tezos-Unity-SDK.
 * The Import Unity Package dialog box displays, with all the items in the package pre-checked, ready to install.
-* This action creates WebGL template folders in your Project. Each template is a subfolder within the WebGLTemplates
+* This action creates WebGL template folders in your project. Each template is a subfolder within the WebGLTemplates
   folder. Each template subfolder contains an index.html file along with any other resources the page needs, such as
   images or stylesheets.
 

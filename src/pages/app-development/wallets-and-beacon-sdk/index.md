@@ -26,7 +26,7 @@ Wallets are an essential component of using blockchain services. They allow user
 
 Beacon is the implementation of the [tzip-10 proposal](https://gitlab.com/tezos/tzip/-/tree/master/proposals/tzip-10), which describes an interaction standard between a wallet and a dapp.
 
-A dapp implementing the Beacon SDK can build up a channel and send messages over a peer-to-peer communication layer to a wallet. This allows for communication for example of a mobile wallet with a desktop application. The requests of the dapp are sent to the wallet, signed, and returned to the application. The Beacon SDK can also communicate to Chrome extensions if compatible ones are installed.
+A dapp implementing the Beacon SDK can build up a channel and send messages over a peer-to-peer communication layer to a wallet. For example, this allows a mobile wallet to communicate with a desktop application. The requests of the dapp are sent to the wallet, signed, and returned to the application. The Beacon SDK can also communicate to Chrome extensions if compatible ones are installed.
 
 The Beacon SDK handles almost everything for you but is still customizable if needed. It detects whether or not a browser extension is installed, and tracks what connections have been established and the accounts that have been shared with the dapp.
 

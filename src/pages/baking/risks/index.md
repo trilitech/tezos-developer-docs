@@ -103,4 +103,4 @@ This mechanism is designed to ensure that a baker who is no longer active, does 
 
 ## Conclusion
 
-Being a baker doesn't come without risks but by following the proper precedures one can be confident in baking properly and reaping the rewards of doing so, in addition to being a valuable actor in the Tezos network.
+Being a baker doesn't come without risks but by following the proper procedures one can be confident in baking properly and reaping the rewards of doing so, in addition to being a valuable actor in the Tezos network.

@@ -83,7 +83,7 @@ Florence's notable bug fixes and improvements are the:
 
 * The elimination of the test chain activation
   
-[*Bakings Accounts*](https://midl-dev.medium.com/tezos-in-favor-of-baking-accounts-3886effa370c) was also included in the feature set. However, ongoing testing uncovered some important and previously undocumented breaking changes in the proposal with *Baking Accounts*. Hence, the feature was postponed until a thorough audit of the functionality was completed or an alternative implementation was produced. The version of *Florence* without *Baking Accounts* was considered a [safer choice](https://research-development.nomadic-labs.com/baking-accounts-proposal-contains-unexpected-breaking-changes.html).
+[*Baking Accounts*](https://midl-dev.medium.com/tezos-in-favor-of-baking-accounts-3886effa370c) was also included in the feature set. However, ongoing testing uncovered some important and previously undocumented breaking changes in the proposal with *Baking Accounts*. Hence, the feature was postponed until a thorough audit of the functionality was completed or an alternative implementation was produced. The version of *Florence* without *Baking Accounts* was considered a [safer choice](https://research-development.nomadic-labs.com/baking-accounts-proposal-contains-unexpected-breaking-changes.html).
 
 For more information, see the blog post from [Nomadic Labs](https://research-development.nomadic-labs.com/florence-our-next-protocol-upgrade-proposal.html) and [Tarides](https://tarides.com/blog/2021-03-04-florence-and-beyond-the-future-of-tezos-storage), as well as the [reference documentation](https://tezos.gitlab.io/protocols/009_florence.html).
 
@@ -144,7 +144,7 @@ For more information, see the blog post from [Nomadic Labs](https://research-dev
 
 Jakarta's main changes are:
 
-* Transactional optimistic rollups (or TORU), an experimental implementation of optimistic rollups on Tezos. TORU provide a way to enable higher throughput (TPS) of transactions by moving their validation away from the main chain, to 'Layer 2'.
+* Transactional optimistic rollups (or TORU), an experimental implementation of optimistic rollups on Tezos. TORU provides a way to enable higher throughput (TPS) of transactions by moving their validation away from the main chain, to 'Layer 2'.
 
 * A new improved design for the integration of Sapling transactions into Smart Contracts. The Sapling protocol uses advanced cryptography to enable the protection of users' privacy and transparency with regard to regulators.
 
@@ -166,7 +166,7 @@ Kathmandu's main changes are:
 
 * Pipelined validation of manager operations, increasing throughput, without compromising the network’s safety. This ongoing project reduces the need to fully execute time-expensive operations (like smart contract calls), before they reach a baker, resulting in a faster propagation of new blocks and operations across the network.
 
-* Improved randomness with the integration of Verifiable Delay Functions (VDF) into the protocol’s random seed generation, reinforcing the security of the rights allocation mechanism.
+* Improved randomness with the integration of Verifiable Delay Functions (VDF) into the protocol’s random  process, reinforcing the security of the rights allocation mechanism.
 
 * Event logging in Michelson smart contracts enabling DApps developers to send on-chain custom messages in order to trigger effects in off-chain applications (wallets, explorers, etc.).
 

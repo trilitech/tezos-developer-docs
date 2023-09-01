@@ -30,14 +30,14 @@ compromise the chain.
 
 Prospective bakers must meet the following requirements:
 
-- Server available round the clock and stable internet connection
+- Server available round the clock, and stable internet connection
 - At least 8GB of RAM
 - SSD disk (preferably with more than 100GB storage)
 - At least 6,000ꜩ as a staking balance (own funds + delegated balance)
 
-The more Tez a baker holds in his staking balance, the higher his chances to bake blocks and earn baking rewards.
+The more Tez a baker holds in his staking balance, the higher their chances to bake blocks and earn baking rewards.
 
-### Liquid Proof-of-Stake and delegation
+### Liquid Proof-of-Stake and Delegation
 
 On Tezos, baking rights are attributed randomly but proportionally to the staking balance. A Tez holder may:
 

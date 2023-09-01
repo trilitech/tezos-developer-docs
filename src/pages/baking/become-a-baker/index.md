@@ -26,7 +26,7 @@ A delegate is responsible for baking blocks, endorsing blocks, and accusing othe
 
 ### Deposit
 
-When baking or endorsing a block, a security deposit (>6,000ꜩ) is frozen for 5 cycles from the account of the delegate. Hence a delegate must have enough funds to be able to pay security deposits for all the blocks it can potentially bake/endorse during 5 cyles.
+When baking or endorsing a block, a security deposit (>6,000ꜩ) is frozen for 5 cycles from the account of the delegate. Hence a delegate must have enough funds to be able to pay security deposits for all the blocks it can potentially bake/endorse during 5 cycles.
 
 {% callout title="Stake requirement" %}
 It is necessary to have at least 10% of your stake to follow the deposits.
@@ -111,7 +111,7 @@ Remember that having **two bakers or endorsers** running connected to **the same
 
 ### Endorser
 
-The endorser is a daemon that, once connected to an account, computes the endorsing rights for that account. Upon reception of a new block, the daemon verifies its validity and then emits an *endorsement operation*. It can endorse for a specific account or, if omitted, for all accounts. Since **Ithaca amendment**, the endorser daemon is embedded into the baking daemon.
+The endorser is a daemon that, once connected to an account, computes the endorsing rights for that account. Upon reception of a new block, the daemon verifies its validity and then emits an *endorsement operation*. It can endorse for a specific account or, if omitted, for all accounts. Since the **Ithaca amendment**, the endorser daemon is embedded into the baking daemon.
 
 ### Accuser
 
