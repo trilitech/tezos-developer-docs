@@ -9,7 +9,7 @@ Token standards in a blockchain ecosystem are important for 2 reasons:
 - they enforce best practices that improve the safety of the code the tokens depend on
 - they provide an interface that makes it easier to create new applications that can use tokens already available on-chain.
 
-The FA1.2 standard is the first token standard that was available on Tezos. It was followed a few years later by the FA2 standards. Both standards provide different interfaces and behaviors that developers can choose according to their needs.
+The FA1.2 standard is the first token standard that was available on Tezos. It was followed a few years later by the FA2 standard. Both standards provide different interfaces and behaviors that developers can choose according to their needs.
 
 {% callout type="note" title="Note" %}
 To read the full specification of the FA1.2 standard, [check this page](https://gitlab.com/tezos/tzip/-/blob/master/proposals/tzip-7/tzip-7.md). For the full specification of the FA2 standard, [follow this link](https://gitlab.com/tezos/tzip/-/blob/master/proposals/tzip-12/tzip-12.md).

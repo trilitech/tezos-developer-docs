@@ -52,7 +52,7 @@ It is important, when thinking about developing or using oracles, to keep in min
 
 Many smart contracts make decisions based on these values and some of these decisions may involve very large amounts of money.
 
-A transaction that seems like a very good deal when looking at some data provided by an oracle could turn out to be a terrible decision and cost huge amounts of money if that data was invalid.
+A transaction that seems like a very good deal when looking at some data provided by an oracle could turn out to be a terrible decision and cost huge amounts of money if that data were invalid.
 
 Small changes in the value returned by an oracle can be used, with the help of flash loans, to extract very large amounts of tokens.
 
@@ -60,7 +60,7 @@ News about attacks due to manipulated oracle data are frequent and often involve
 
 Here are a few recent (at the time of writing) examples:
 - March 15th 2022: [DeFi platform Deus Finance has suffered a \$3 million exploit resulting from the manipulation of its price oracle.](https://cryptobriefing.com/deus-finance-suffers-3m-oracle-exploit/)
-	*"... the flash loan has managed to manipulate the oracle that updates the price from the USDC/DEI pools in Solidly and Spirit. The attack has caused a depeg between the token pair, resulting in a cascade of liquidations and users becoming insolvent."*
+	*"... the flash loan has managed to manipulate the oracle that updates the price from the USDC/DEI pools in Solidity and Spirit. The attack has caused a depeg between the token pair, resulting in a cascade of liquidations and users becoming insolvent."*
 - May 9th 2022: [DeFi Lending Protocol Fortress Loses All Funds in Oracle Price Manipulation Attack](https://cryptonews.com/news/defi-lending-protocol-fortress-loses-all-funds-oracle-price-manipulation-attack.htm).
 	*"Blockchain security firm Blocksec detailed that the Chain oracle used by Fortress lacked power verification, which enabled anyone to hijack it."*
 - June 17th 2022: [Inverse Finance exploited again for \$1.2M in flash loan oracle attack](https://cointelegraph.com/news/inverse-finance-exploited-again-for-1-2m-in-flashloan-oracle-attack).
@@ -303,7 +303,7 @@ Performing computations on-chain is very costly and should be avoided. However, 
 
 We can present two approaches that computation oracles may use:
 
-- Use [Trusted Execution Environments (TTEs)](#trusted-execution-environments-tees) to perform verifications in a way that can't be tampered with.
+- Use [Trusted Execution Environments (TEEs)](#trusted-execution-environments-tees) to perform verifications in a way that can't be tampered with.
 
 - Run the computation on a virtual machine and implement a contract with the ability to run single execution steps of this virtual machine. If an entity provides the result to a contract and another entity contests it, a negotiation process can be used to figure out the single execution step where the two entities disagree and punish the incorrect one.
 
@@ -323,7 +323,7 @@ It could also prevent honest nodes from sending their transactions and allow dis
 
 To prevent it, a system of commit & reveal can be used, where nodes have to submit a hash of their answer during the first phase and only reveal their actual answer in the second phase, which can be verified to match the committed hash. This comes at the cost of increasing the overall response time. Another approach could be to punish nodes that often take significant time before providing their answer.
 
-**Mirrorring**: a single entity could fetch the data once and share it with multiple nodes it controls, collecting multiple rewards while doing the work only once. The commit & reveal scheme would not help here. The main way to prevent this is to manage to attract more participants, therefore reducing the risk that multiple nodes controlled by the same entity end up in the same subset.
+**Mirroring**: a single entity could fetch the data once and share it with multiple nodes it controls, collecting multiple rewards while doing the work only once. The commit & reveal scheme would not help here. The main way to prevent this is to manage to attract more participants, therefore reducing the risk that multiple nodes controlled by the same entity end up in the same subset.
 
 **Reselling**: Getting users to pay means that the information provided by the oracle is valuable. We could imagine a situation where one user of the oracle creates its own secondary oracle that resells the information to multiple other contracts, for a cheaper price. They would make a profit without doing the work. Measures to prevent this behavior may be taken and this is another case where a DAO for the oracle can be useful: the community could simply have the ability to blacklist contracts that attempt to resell the information.
 
@@ -346,9 +346,9 @@ Other oracles:
 
 - [Chainlink](https://chain.link/), a decentralized oracle network that uses on-chain aggregation and a reputation-based node selection process. There were plans to integrate Chainlink with Tezos, but these have stalled for now.
 
-- [Provable](https://provable.xyz/) (formerly Oraclize), uses TTEs and [TLSNotary](https://tlsnotary.org/). Also supports simple computations.
+- [Provable](https://provable.xyz/) (formerly Oraclize), uses TEEs and [TLSNotary](https://tlsnotary.org/). Also supports simple computations.
 
-- [Witnet](https://witnet.io/) is a reputation-based oracle network, that selects a random subset of nodes for each request, based on their reputation. Protection schemes are set up to mitigate the risk of reputation centralization. It runs on its own blockchain.
+- [Witnet](https://witnet.io/) is a reputation-based oracle network that selects a random subset of nodes for each request, based on their reputation. Protection schemes are set up to mitigate the risk of reputation centralization. It runs on its own blockchain.
 
 - [DOS Network](https://dos.network/) is a decentralized on-demand data feed and computation oracle that can perform all kinds of services from off-chain computations. It uses VRF (Verifiable Random Function) to assign tasks randomly and verifiably to groups of users selected among the nodes of the network. Each node is required to lock in a security deposit. A single transaction that includes proof of cryptographic consensus built using Threshold Cryptography is sent to the contract, which performs the verification. It also uses zkSNARK for verifiable off-chain computation.
 

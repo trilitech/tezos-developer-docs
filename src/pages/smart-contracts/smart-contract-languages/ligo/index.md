@@ -1,6 +1,6 @@
 ---
 id: ligo
-title: Ligo
+title: LIGO
 lastUpdated: 29th June 2023
 ---
 
@@ -8,7 +8,7 @@ lastUpdated: 29th June 2023
 
 The LIGO design philosophy can be described as follows:
 
-1. Create a clean simple language with no unnecessary parts.
+1. Create a clean, simple language without unnecessary components.
 2. Offer multiple familiar syntaxes so users can get up and running quickly.
 3. Encourage people to write simple code, so that it's easy to formally verify the compiled output using a project like Mi-Cho-Coq.
 4. Significantly reduce the risk that your smart contract will lose its balance to an avoidable exploit.

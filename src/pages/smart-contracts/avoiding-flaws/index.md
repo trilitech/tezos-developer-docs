@@ -1,6 +1,6 @@
 ---
 id: avoiding-flaws
-title: Avoiding flaws
+title: Avoiding Flaws
 authors: Mathias Hiron (Nomadic Labs)
 lastUpdated: 3rd July 2023
 ---
@@ -42,7 +42,7 @@ For example, consider the chain of contract calls A → B → C, where a user A 
 
 ### Example of a vulnerable contract
 
-The `CharityFund` contract below has a entrypoint which can be used to `donate` some tez to `charity`. To make sure only an `admin` can initiate donations, this entrypoint checks that `admin` is equal to `source`.
+The `CharityFund` contract below has an entrypoint which can be used to `donate` some tez to `charity`. To make sure only an `admin` can initiate donations, this entrypoint checks that `admin` is equal to `source`.
 
 {% table %}
 * **Charity Fund Contract** {% colspan=2 %}
@@ -89,7 +89,7 @@ The `FakeCharity` contract contains a `default` entrypoint, that will be called 
 
 The best way to prevent this type of attack is simply to, depending on your use case, use `sender` (or `caller` in some languages) where possible instead of `source`.
 
-## 2. Transferring tez in a call that should benefits others
+## 2. Transferring tez in a call that should benefit others
 
 ### Summary
 
@@ -124,7 +124,7 @@ Take the following (partial) contract, that allows users to purchase NFTs, and s
   {% /list %}
 {% /table %}
 
-The holder of the NFT could be a contract in which case, `buy(tokenID)` may fail if the contract decides to prevent future sales of NFTs
+The holder of the NFT could be a contract, in which case `buy(tokenID)` may fail if the contract decides to prevent future sales of NFTs
 
 ### Best practices
 
@@ -298,7 +298,7 @@ With this approach, the caller has full control on the list of entries sent to `
 
 You should avoid relying on one entity involved in a contract to perform a step that shouldn't require that entity's approval, breaks the trustless benefits that a smart contract is intended to provide. In some cases, it may cause funds to get locked in the contract if this entity becomes permanently unavailable.
 
-See if can you spot the flaw in this version of an NFT Auction contract:
+See if you can spot the flaw in this version of an NFT Auction contract:
 
 {% table %}
 * **Flawed NFTAuction** {% colspan=2 %}

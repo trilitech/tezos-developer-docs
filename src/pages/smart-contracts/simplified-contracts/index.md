@@ -1,6 +1,6 @@
 ---
 id: simplified-contracts
-title: Simplified examples of common contracts
+title: Simplified Examples of Common Contracts
 authors: Mathias Hiron (Nomadic Labs)
 lastUpdated: 30th June 2023
 ---
@@ -41,7 +41,7 @@ The contract contains two main entrypoints:
 - `transfer` - to transfer a number of token from one address to another
 - `approve` - to allow another address, on behalf of the caller, to transfer a number of their tokens
 
-To be compatible with FA1.2, and so that other contacts can access to information, it also contains three entrypoints that have no effect other than reading storage:
+To be compatible with FA1.2, and so that other contracts can access to information, it also contains three entrypoints that have no effect other than reading storage:
 
 - `getBalance` - returns the current token balance.
 - `getAllowance` - returns the current token allowance amount for an approved address (via `approve`)
@@ -218,7 +218,7 @@ An escrow provides some trust between parties of a transaction:
 - when the buyer does not want to send the payment until the request has been fulfilled.
 - when the seller does not want to provide the product/service without some guarantee that they will be paid.
 
-There are a number of different types of escrow contracts. In our contract, the service to provided by the seller is data which can be verified to be valid by the escrow smart contract. For example, the request could consist in the service sending the decrypted version of some encrypted data.
+There are a number of different types of escrow contracts. In our contract, the service to provided by the seller is data which can be verified to be valid by the escrow smart contract. For example, the request could consist of the service sending the decrypted version of some encrypted data.
 
 ### Entrypoints
 
@@ -352,7 +352,7 @@ A flash loan is one of the many tools of decentralized finance (deFi). In essenc
 
 ### Principle
 
-The idea is that the following steps can will be done in an atomic way (all within the same transaction):
+The idea is that the following steps can be done in an atomic way (all within the same transaction):
 - the borrower receives the requested flash loan amount from the contract
 - the borrower uses the amount in a series of calls to other contracts, that allow them to make some instant profit
 - the borrower then pays the requested amount plus some interest to the contract pocketing any profit made

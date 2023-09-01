@@ -510,7 +510,7 @@ By scrolling down a little, we have access to the results of the test scenario, 
 
 ### buy_ticket entrypoint
 
-`buy_ticket` is an entrypoint that can be called on by everyone who wants to participate in the raffle.
+`buy_ticket` is an entrypoint that can be called by everyone who wants to participate in the raffle.
 If the invocation is successful, the address of the sender will be added to the storage, and the player will be eligible to win the jackpot
 
 #### Link to referential manual

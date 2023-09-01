@@ -5,7 +5,7 @@ authors: 'Thomas Zoughebi, Aymeric Bethencourt, and Maxime Fernandez'
 lastUpdated: 29th June 2023
 ---
 
-A smart contract is a piece of code stored on the *blockchain*. It contains a set of instructions and rules to trigger them. Once deployed, it becomes immutable, but a user can trigger the execution of the code without modifying it. 
+A smart contract is a piece of code stored on the *blockchain*. It contains a set of instructions and rules that trigger them. Once deployed, it becomes immutable, but a user can trigger the execution of the code without modifying it. 
 
 A smart contract is composed of three elements that are maintained by nodes in the state of the blockchain:
 
@@ -13,10 +13,10 @@ A smart contract is composed of three elements that are maintained by nodes in t
 - Its storage: data that is dedicated to and can be read and written by the contract
 - Its code: it is composed of a set of entrypoints, a kind of function that can be called either from outside the chain or from other contracts.
 
-The code of smart contracts is written in Michelson, a Turing-complete stack-based language that includes common features as well as some very specific blockchain-related features:
+The code of smart contracts are written in Michelson, a Turing-complete stack-based language that includes common features as well as some very specific blockchain-related features:
 
 - It doesn’t have variables but can manipulate data directly on a stack, through a set of stack manipulation instructions. For example, the _ADD_ instruction consumes two elements from the top of the stack and puts their sum on top of the stack.
-- It is strongly typed, with basic types such as integers, amounts of tez, strings, account addresses, as well as pairs, lists, key-value stores (big-maps), or pieces of code (lambdas).
+- It is strongly typed, with basic types such as integers, amounts of tez, strings,and account addresses, as well as pairs, lists, key-value stores (big-maps), or pieces of code (lambdas).
 - It has limited access to data, and can only read data from its own storage, data passed as parameters during calls to its entrypoints, and a few special values such as the balance of the contract, the amount of tez sent to it during a call, and the creation time of the current block. It can also access a table of constants.
 
 When someone calls a smart contract, all the contract can do may be summarized as:
@@ -43,7 +43,7 @@ As in Ethereum, Tezos uses 2 types of accounts:
 
 Smart contracts can achieve different kinds of operations with coins and *other smart contracts*. They're comparable to snack vending machines. 
 - Each machine has a contract saying "*Give me cryptocurrency, then I give you a food item or drink*" (promises).
-- Each machine can have a different smart contract for various food or drink items (see that as asset types).
+- Each machine can have a different smart contract for various food or drink items (consider these as different asset types).
 - There could be another smart contract gathering the cryptocurrency total for the company (from previous smart contracts).
 
 Each machine doesn't operate until enough currency is delivered (*Gas*). Note that the quantities of foods or drinks change while their *types* can't (ever).
@@ -58,7 +58,7 @@ Notice that a smart contract can only run and interact with the blockchain it's 
 
 
 ## Lifecycle of a Tezos smart contract
-A smart contract can only be deployed once but can be called many times. The Tezos smart contract lifecycle steps are two:
+A smart contract can only be deployed once but can be called many times. The Tezos smart contract lifecycle consists of two steps:
 
 1. Deployment
 2. Interactions through calls
@@ -111,8 +111,8 @@ One can use the Command Line Interface (CLI) provided by Tezos to interact with 
 
 It is also possible to send requests to a node through RPC (Remote Procedure Call) via HTTP.
 
-## Michelson vs high-level languages for Tezos smart contracts implementations
-Michelson is a low-level stack-based language. Therefore its adoption is quite limited because most developers won't take the time to learn it. Several Michelson *compilers* have been developed to avoid this friction, and this led to several high-level languages, listed above, that are closer to developers' habits.
+## Michelson vs. High-Level Languages for Tezos Smart Contract Implementations
+Michelson is a low-level stack-based language; therefore, its adoption is quite limited because most developers won't take the time to learn it. Several Michelson *compilers* have been developed to avoid this friction, and this led to several high-level languages, listed above, that are closer to developers' habits.
 
 Depending on the high-level language used, a smart contract deployment also defines its *entrypoints* using the complex **Parameter Type**. These are special functions used to dispatch invocations of the smart contract. Each entrypoint is in charge of triggering an instruction. Below is the same example as before, abstracting the complex Parameter Type:
 

@@ -217,13 +217,13 @@ There are a number of other types available of Tezos, that we cover in later sec
 
 ## Storage
 
-Each contract has an associated storage: some internal data that it can read and write to. Contracts can only access to their own storage. They can't access to the storage of other contracts.
+Each contract has an associated storage: some internal data that it can read and write to. Contracts can only access their own storage. They can't access the storage of other contracts.
 
 On the other hand, the content of the storage of a contract, as everything on the blockchain, is public. For example, you can look at the current value of the storage of any contract, using an explorer, such as [Better Call Dev](https://better-call.dev/).
 
 The type of the storage is fixed, as set in the code of the contract. It can be any type, from a basic primitive type such as a `nat`, to a complex type including `lists`, `sets`, `big-maps`, `variants`, etc.
 
-The only effects of calling a contract are that it may update the value of this storage, and may generate new transactions that are executed after the execution of the code of the contract.
+The only effects of calling a contract are that it may update the value of its storage, and may generate new transactions that are executed after the execution of the code of the contract.
 
 Here is one of the simplest possible smart contracts. It stores an `int`, and its code does only one thing: replace the storage with the new value, passed as a parameter.
 
@@ -378,7 +378,7 @@ Furthermore, if the contract was called by another contract, or if it generated 
 
 This is a double edged sword that you need to keep in mind when designing a contract:
 
-- **positive impact**: if something doesn't happen as intented and a single failure happens somewhere during a contract call or subsequent calls it produces, nothing at all happens, and you don't end up in an inconsistent state corresponding to a partial execution.
+- **positive impact**: if something doesn't happen as intended and a single failure happens somewhere during a contract call or subsequent calls it produces, nothing at all happens, and you don't end up in an inconsistent state corresponding to a partial execution.
 - **negative impact**: it only takes one small issue in one of the contracts called as a consequence of your initial call, for everything you wanted to happen to be undone. In some cases, this could mean your contract becomes unusable.
 
 ### Error values
@@ -386,12 +386,12 @@ This is a double edged sword that you need to keep in mind when designing a cont
 To help users of a contract, or tools that use that contract, understand what went wrong when a failure happens, an error value can be attached to each failure.
 
 {% callout type="note" title="Using Error Values" %}
-The error value is only meant to be used off-chain, as information to identify the cause of the error. Nothing can be done with it on-chain, as nothing at all ends up happening on-chain, if an error is ever produced.
+The error value is only meant to be used off-chain, as information to identify the cause of the error. Nothing can be done with it on-chain, as nothing at all ends up happening on-chain if an error is ever produced.
 {% /callout %}
 
 - The typical error value is simply a string, that contains an error message, for example, `Error: deadline has expired`.
 
-- Internally, all kinds of error values can be produced, including an integer, a record, etc. This exact types supported depend on the language you are using.
+- Internally, all kinds of error values can be produced, including an integer, a record, etc. The exact types supported depend on the language you are using.
 
 In particular, the error value is often used when [testing](#testing) your contracts, where the test verifies that a specific invalid call produces a specific error.
 
@@ -431,10 +431,10 @@ This is for example the case for `ediv`, the instruction for integer division, w
 
 The hardest part, by far, of writing smart contracts, is avoiding bugs, that can either lead to assets being lost or stuck. Even though most contracts are relatively small, compared to regular software applications, but as they are executed in an adversarial environment, with high financial stakes, the potential for bugs with dramatic consequences is high.
 
-- Due to the public nature of the blockchain, malicious users can exploit for these bugs for their own profit, at the expense of legitimate users.
+- Due to the public nature of the blockchain, malicious users can exploit these bugs for their own profit, at the expense of legitimate users.
 - Due to the immutable nature of contracts (even with upgradeability), it is best to test your smart contracts _extensively_ before production deployment.
 
-High-level languages come with tools to help write tests, and some testing tools can be used independently of the language used to write the smart contract. You can see for example, in [SmartPy](https://smartpy.io/manual/scenarios/overview), there is a whole syntax dedicated to testing.
+High-level languages come with tools to help write tests, and some testing tools can be used independently of the language used to write the smart contract. For example, in [SmartPy](https://smartpy.io/manual/scenarios/overview), there is a whole syntax dedicated to testing.
 
 ### Structure of a test scenario
 
@@ -464,7 +464,7 @@ The test scenarios are usually written using a full classical programming langua
 - generate testing accounts, to simulate calls from multiple accounts
 - perform cryptographic computations similar to the ones available in the contract
 
-### Rules when testing
+### Rules for testing
 
 Testing a contract thoroughly is not easy and requires experience, here are some tips to follow when getting started:
 
@@ -564,17 +564,17 @@ If a user calls `A.start()`, the following will happen:
   - add operation `A.add("End B,")` to list of operations
   - push the operations from the list `[A.add("Start B,"), A.add("End B,")]` to the stack
 - `A.add("Start B")` will execute:
-  - replace its storage with `"Start A,End A,Start B,"`
+  - replace its storage with `"Start A, End A, Start B,"`
 - `A.add("End B")` will execute and:
-  - replace its storage with `"Start A,End A,Start B,End B,"`
+  - replace its storage with `"Start A, End A, Start B, End B,"`
 - `C.start()` will execute and:
   - add operation `A.add("Start C,")` to its list of operations
   - add operation `A.add("End C,")` to its list of operations
   - push the operations from the list `[A.add("Start C,"), A.add("End C,")]` to the stack
 - `A.add("Start C")` will execute and:
-  - replace its storage with `"Start A,End A,Start B,End B,Start C,"`
+  - replace its storage with `"Start A, End A, Start B, End B, Start C,"`
 - `A.add("End C")` will execute and:
-  - replace its storage with `"Start A,End A,Start B,End B,Start C, End C,"`
+  - replace its storage with `"Start A, End A, Start B, End B, Start C, End C,"`
 
 To summarize:
 
@@ -708,7 +708,7 @@ Here are a few examples where an `option` is used:
 
 Using an `option` is convenient when you really need it, but it makes the corresponding code a bit harder to write and read, and a bit slower (costly).
 
-When all you need to store us an initial value, before you get some data, it may be much more convenient to initialize your storage with an arbitrary value that always works.
+When all you need to store is an initial value, before you get some data, it may be much more convenient to initialize your storage with an arbitrary value that always works.
 
 Here are a couple of examples:
 
@@ -816,7 +816,7 @@ Here is a table representing an example of contract that uses two `big-maps`:
 
 ## Views
 
-Contracts can read and write to their own storage, but can't access the storage of other contracts.`views` are a way for contracts to expose information of their choosing, to other contracts.
+Contracts can read and write to their own storage, but can't access the storage of other contracts. `views` are a way for contracts to expose information of their choosing, to other contracts.
 
 A view is very similar to an entrypoint, with a few differences:
 
@@ -1067,7 +1067,7 @@ The primitive `CHECK_SIGNATURE` takes as parameters the sequence of `bytes`, the
 
 BLS12-381 is the name of an elliptic curve, a cryptographic primitive that can be used for digital `signatures` and zero-knowledge proofs.
 
-It has the particularity of being pairing-friendly, which makes it possible to create short digital `signatures` that can be efficiently aggregated. It can also be used for identity-based cryptography, single-round multi-party key exchanges, or and efficient polynomial commitment schemes such as KZG commitments.
+It has the particularity of being pairing-friendly, which makes it possible to create short digital `signatures` that can be efficiently aggregated. It can also be used for identity-based cryptography, single-round multi-party key exchanges, and efficient polynomial commitment schemes such as KZG commitments.
 
 ### Links
 
@@ -1121,7 +1121,7 @@ These two instructions can be performed by any contract currently holding the `t
 A contract may create an initial single `ticket` with a large amount, for example 1000, transfer it to another contract through a simple contract call, and by doing so, forfeiting any control over it. Through multiple split and join operations and passing the resulting `tickets` as parameters to other contracts, we may end up in a situation where hundreds of `tickets` exist, all with the same ticketer and payload, but held by many different contracts. If we compute the sum of the amounts of all these `tickets`, it will always be 1000.
 
 {% callout type="note" title="Differentiating Tickets" %}
-The contract at the origin of the initial `ticket` may, at any time, create another `ticket` with the exact same value, and the amount of its choice. After more splits and transfers of this new `ticket`, there would there be no way, at least on-chain, to differentiate `tickets` coming from this newly issued `ticket`, and `tickets` coming from the original one.
+The contract at the origin of the initial `ticket` may, at any time, create another `ticket` with the exact same value, and the amount of its choice. After more splits and transfers of this new `ticket`, there would be no way, at least on-chain, to differentiate `tickets` coming from this newly issued `ticket`, and `tickets` coming from the original one.
  This means it's important to verify the part of the contract that mints `tickets`, before trusting them.
 {% /callout %}
 
@@ -1159,7 +1159,7 @@ Commit & reveal is a scheme that consists of two steps, involving one or more pa
 
 This scheme makes it possible to prove that a certain decision was taken before some information was revealed. This information may be the decision of other participants, or some external independent information.
 
-As an example, imagine that two players want to play the game [rock, paper, scissors](https://en.wikipedia.org/wiki/Rock_paper_scissors) via a smart contract. As it is impossible to force and verify that the two players reveal their choice between rock, paper or scissors simultaneously, they can use a **commit & reval** scheme to do so.
+As an example, imagine that two players want to play the game [rock, paper, scissors](https://en.wikipedia.org/wiki/Rock_paper_scissors) via a smart contract. As it is impossible to force and verify that the two players reveal their choice between rock, paper or scissors simultaneously, they can use a **commit & reveal** scheme to do so.
 
 During the first step, they pick their choice, identified by a number from 1 to 3, put it in a pair with some random data, compute a hash of the result. This hash is the commitment, that they can then send to the contract.
 
@@ -1193,13 +1193,13 @@ Some use cases involve collectively generating a random value, or preventing [BP
 
 ## Sapling
 
-Sapling is a protocol that enables transactions of fungible tokens, whilst increasing privacy. The transactions are hid from public, but they can be made available to specific entities to comply with regulations. 
+Sapling is a protocol that enables transactions of fungible tokens, whilst increasing privacy. The transactions are hidden from public, but they can be made available to specific entities to comply with regulations. 
 
 The key steps are as follows:
 
 - A **shielded pool** is created within a contract which a number of users can call to perform transactions whilst keeping details private.
 - These users then send tokens to this shielded pool. We say that they **shield their tokens**. This information is public.
-- Users then perform **shielded transactions**, in such a way that the amount, sender of receiver of each transactions are not revealed publicly. Only the origin and destination of each transaction have access to these information.
+- Users then perform **shielded transactions**, in such a way that the amount, sender or receiver of each transactions are not revealed publicly. Only the origin and destination of each transaction have access to this information.
 - Later, users may get some or all of their tokens out of the pool by **unshielding their tokens**. This operation is public as well.
 
 If a regulator needs access to the transactions of a user, this user may share a **viewing key**, that gives access to all the transactions made by this user.
@@ -1211,7 +1211,7 @@ Note that using the sapling protocol in a **shielded pool** and expecting a high
 - Making sure to use shielded tokens in multiple transactions. If Alice shields exactly 16.32 tokens and Bob later unshields exactly 16.32 tokens, this is traceable.
 - Being careful about information that can be deduced from the timing of transactions.
 
-The internals of `sapling` are quite technical. The system is based on an UTXO (bitcoin-like) transaction system, where each transaction consumes some unspent output, and produces new unspent outputs. A system of cryptographic commitments used in place of public amounts and addresses, that can then be "consumed" using a system of nullifiers. All this makes use a mix of cryptographic tools, including SNARKs, incremental Merkle trees and Diffie-Hellman key exchanges.
+The internals of `sapling` are quite technical. The system is based on an UTXO (bitcoin-like) transaction system, where each transaction consumes some unspent output, and produces new unspent outputs. A system of cryptographic commitments used in place of public amounts and addresses, that can then be "consumed" using a system of nullifiers. All this makes use of a mix of cryptographic tools, including SNARKs, incremental Merkle trees and Diffie-Hellman key exchanges.
 
 ### Links
 
