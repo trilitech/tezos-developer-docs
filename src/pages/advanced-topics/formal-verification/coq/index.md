@@ -4,7 +4,7 @@ title: Coq
 lastUpdated: 30th June 2023
 ---
 # The Coq language
-As mentioned on the [Inria website](http://coq.inria.fr), **Coq** is a formal proof management system. It provides a formal language to write mathematical definitions, executable algorithms and theorems together with an environment for semi-interactive development of machine-checked proofs. Typical applications include the certification of properties of programming languages (e.g. the CompCert compiler certification project, the Verified Software Toolchain for verification of C programs, or the Iris framework for concurrent separation logic), the formalization of mathematics (e.g. the full formalization of the Feit-Thompson theorem, or homotopy type theory), and teaching. 
+As mentioned on the [Inria website](http://coq.inria.fr), **Coq** is a formal proof management system. It provides a formal language to write mathematical definitions, executable algorithms and theorems together with an environment for semi-interactive development of machine-checked proofs. Typical applications include the certification of properties of programming languages (e.g., the CompCert compiler certification project, the Verified Software Toolchain for verification of C programs, or the Iris framework for concurrent separation logic), the formalization of mathematics (e.g., the full formalization of the Feit-Thompson theorem, or homotopy type theory), and teaching. 
 
 *For more information, please read the [Coq documentation](https://coq.inria.fr/documentation).*
 
@@ -59,7 +59,7 @@ All tactics are referenced in the list of [Coq tactics](https://coq.inria.fr/ref
 ## Proof creation using Mi-Cho-Coq
 As **Coq** is a proof software that has its own syntax, the difficulty has been in finding a way to translate the **Michelson** code into **Coq**. 
 
-[Mi-Cho-Coq](https://gitlab.com/nomadic-labs/mi-cho-coq) is the library that allows you to do this. When you wish to prove a smart contract written or compiled down in Michelson, you must use this library and import the code that you wish to formally prove. The syntax to be used at the start of the file containing the proof is as follows:
+[Mi-Cho-Coq](https://gitlab.com/nomadic-labs/mi-cho-coq) is the library that allows you to do this. When you wish to prove a smart contract written or compiled in Michelson, you must use this library and import the code that you wish to formally prove. The syntax to be used at the start of the file containing the proof is as follows:
 
 ```coq
 Require Import Michocoq.macros. Import syntax.

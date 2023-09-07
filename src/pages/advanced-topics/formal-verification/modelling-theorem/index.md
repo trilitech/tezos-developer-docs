@@ -10,11 +10,11 @@ This section describes how to bridge Tezos and the [Michelson](/smart-contracts/
 ## Overview
 The Tezos blockchain can run smart contracts using the Michelson language. Michelson is a low-level stack-based Turing-complete language that is formally proven. The proof of Michelson language is compiled in a library called [Mi-Cho-Coq](/advanced-topics/formal-verification/michocoq/).
 
-The Coq proof assistant is built upon the paradigm of **calculus of constructions**. The [Gallina](https://en.wikipedia.org/wiki/Coq#Overview) language provides a syntax (terms) for describing formal objects (a theorem) and also provides a set of instructions (vernacular syntax, know as tactics) for writing the proof of the theorem.
+The Coq proof assistant is built upon the paradigm of **calculus of constructions**. The [Gallina](https://en.wikipedia.org/wiki/Coq#Overview) language provides a syntax (terms) for describing formal objects (a theorem) and also provides a set of instructions (vernacular syntax, known as tactics) for writing the proof of the theorem.
 
 The formal verification of a Michelson smart contract is done by providing the proof for this theorem. Coq will perform the verification of a given proof (and its related theorem) based on the Mi-Cho-Coq proof.
 
-The proof consists in a sequence of tactics which the Coq engine will interpret. These instructions manipulate formal expressions (following laws of logic and the Mi-Cho-Coq definitions) to formally assert the truth of a given theorem (based on the given assumptions).
+The proof consists of a sequence of tactics which the Coq engine will interpret. These instructions manipulate formal expressions (following laws of logic and the Mi-Cho-Coq definitions) to formally assert the truth of a given theorem (based on the given assumptions).
 
 ![](/images/modelling-theorem/overview_process.svg)
 

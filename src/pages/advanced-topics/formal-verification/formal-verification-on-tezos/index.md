@@ -69,6 +69,6 @@ There are several considerations to take into account when thinking about using 
 - cryptographic functions are considered as a black box and used as such.
 - a gas model is not taken into account.
 - it only provides formal verification for Michelson.
-- it does not provide a way to verify interactions between different smart contracts (see [Concert](https://dl.acm.org/doi/10.1145/3372885.3373829) if you are interested exploring more here)
+- it does not provide a way to verify interactions between different smart contracts (see [Concert](https://dl.acm.org/doi/10.1145/3372885.3373829) if you are interested in exploring more here)
 
 

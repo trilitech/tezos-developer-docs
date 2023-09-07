@@ -17,17 +17,17 @@ A **rollup** is a processing unit that receives, retrieves, and
 interprets input messages to update its local state and to produce
 output messages targeting the Tezos blockchain. In this documentation,
 we will generally refer to the rollup under consideration as the Layer 2
-on top of the Tezos blockchain, considered as layer 1.
+on top of the Tezos blockchain, considered as Layer 1.
 
 Rollups are a permissionless scaling solution for the Tezos blockchain.
 Indeed, anyone can originate and operate one or more rollups, allowing
-to increase the throughput of the Tezos blockchain, (almost)
+for an increase the throughput of the Tezos blockchain, (almost)
 arbitrarily.
 
 The integration of these rollups in the Tezos protocol is *optimistic*:
 this means that when an operator publishes a claim about the state of
 the rollup, this claim is *a priori* trusted. However, a refutation
-mechanism allows anyone to economically punish a participant who has
+mechanism that allows anyone to economically punish a participant who has
 published an invalid claim. Therefore, thanks to the refutation
 mechanism, a single honest participant is enough to guarantee that the
 input messages are correctly interpreted.
@@ -38,7 +38,7 @@ precisely, the originator of a smart rollup provides a program (in one
 of the languages supported by Tezos) responsible for interpreting input
 messages. During the refutation mechanism, the execution of this program
 is handled by a **proof-generating virtual machine (PVM)** for this
-language, provided by the Tezos protocol, which allows to prove that the
+language, provided by the Tezos protocol, which allows proving that the
 result of applying an input message to the rollup context is correct.
 The rest of the time, any VM implementation of the chosen language can
 be used to run the smart rollup program, provided that it is compliant
@@ -123,7 +123,7 @@ type (defined at origination time). Any layer 1 smart contract can
 perform a transfer to this address with a payload of this type. This
 transfer is realized as an internal message pushed to the rollups inbox.
 
-Finally, after the application of the operations of the Tezos block, the layer 1 pushes one final internal message `"End of level"`. Similarly to `"Start of level"`, this internal messages does not come with any payload.
+Finally, after the application of the operations of the Tezos block, the layer 1 pushes one final internal message `"End of level"`. Similarly to `"Start of level"`, this internal message does not come with any payload.
 
 ### Reveal data channel
 
@@ -183,7 +183,7 @@ A **commitment** claims that the interpretation of all inbox messages
 published during a given commitment period and applied on the state of a
 parent commitment leads to a given new state by performing a given number
 of execution steps of the PVM. Execution steps are called **ticks** in
-the smart rollups terminology. A commitment must be published on the
+the smart rollups terminology. A commitment must be published on
 layer 1 after each commitment period to have the rollup progress. A
 commitment is always based on a parent commitment (except for the
 genesis commitment that is automatically published at origination time).
@@ -243,7 +243,7 @@ that they correctly interpreted this conflicting tick.
 The layer 1 PVM then determines whether these proofs are valid. There
 are only two possible outcomes: either one of the staker has provided a
 valid proof, then that staker wins the game, and is rewarded with half
-of the opponent's deposit (the other half being burnt); or, both
+of the opponent's deposit (the other half being burnt); or both
 stakers have provided an invalid proof and they both lose their deposit.
 In the end, at most one stake will be kept in the commitment tree. When
 a commitment has no more stake on it (because all stakers have lost the
@@ -276,7 +276,7 @@ publishing commitments and by playing refutation games.
 Just like the Octez node, the Octez rollup node provides an RPC
 interface `RPC <../api/openapi>`. The
 services of this interface can be called directly with HTTP requests or
-indirectly using the Octez rollup client.
+indirectly by using the Octez rollup client.
 
 ## Prerequisites
 
@@ -610,7 +610,7 @@ To check the contract has indeed been called with the parameter `Hello World` th
 can be used as long as they match the type of the entrypoint of the
 destination smart contract.
 
-## Sending An Internal Inbox Message
+## Sending an Internal Inbox Message
 
 A smart contract can push an internal message in the rollup inbox using
 the Michelson `TRANSFER_TOKENS` instruction targeting a specific rollup
@@ -1329,7 +1329,7 @@ Hello there!
 Metadata is automatically filled with level `0` as origination level
 and the configured smart rollup address (or the default one).
 
-Note that when stepping tick by tick (using the `step tick` command), it is possible to end up in a situation were the evaluation stops on
+Note that when stepping tick by tick (using the `step tick` command), it is possible to end up in a situation where the evaluation stops on
 `Waiting for reveal`. If the expected value is a metadata, the command
 `reveal metadata` will give the default metadata to the kernel. If the
 value expected is the preimage of a given hash, there are two possible
@@ -1350,7 +1350,7 @@ solutions:
     of rollups. The PVM is able to produce proofs enforcing this truth.
     This ability is used during the final step of refutation games.
 -  **Inbox**: A sequence of messages from layer 1 to smart rollups.
-    The contents of the inbox is determined by the consensus of the
+    The contents of the inbox are determined by the consensus of the
     Tezos protocol.
 -  **Outbox**: A sequence of messages from a smart rollup to
     layer 1. Messages are smart contract calls, potentially containing

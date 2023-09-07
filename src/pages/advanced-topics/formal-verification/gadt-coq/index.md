@@ -11,7 +11,7 @@ To better understand formal verification, let's first describe the theory and to
 
 In order to perform a formal verification, we need a _proof assistant_. _Coq_ is a proof assistant that can be used for formal verification on Tezos smart contracts. Other proof assistants can also be used such as _Archetype_ or _K-framework_. But in this section, we will focus on _Coq_ which provides a language (_Gallina_) to define theorems and to prove these theorems. The proof process relies on:
 
-- A theory (i.e. a base foundation of mathematic): we will introduce a branch of mathematics called **Type theory**, and more specifically, the _Calculus of Construction_ (CoC), the building principle of _Coq_.
+- A theory (i.e. a base foundation of mathematics): we will introduce a branch of mathematics called **Type theory**, and more specifically, the _Calculus of Construction_ (CoC), the building principle of _Coq_.
 
 - An expression of the Michelson language as a formal definition: We use _GADT_ for the theory and _Mi-Cho-Coq_ in practice.
 
@@ -84,7 +84,7 @@ The values of a product type typically contain several values, called **fields**
 
 The values of a sum type are typically grouped into several classes, called **variants**. A value of a variant type is created with a quasi-functional entity called a constructor. Each variant has its own constructor, which takes a specified number of arguments with specified types. The set of all possible values of a sum type is the set-theoretic sum, i.e., the disjoint union, of the sets of all possible values of its variants.  
 
-The _Algebraic Data Type_ (ADT) formalizes a language into a composite type and describes possible operations on data types.
+The _Algebraic Data Type_ (ADT) formalize a language into a composite type and describes possible operations on data types.
 
 #### Example with Michelson pairs and variants
 Let's illustrate the ADT formalization by defining a set with PRODUCT (a product type) and SUM (a sum type) thus forming a _semi-ring_ that can model Michelson language structures (_Pairs_ and _Variants_). Defining Michelson data structures as an ADT provides a robust type-checking mechanism on Michelson scripts.
@@ -239,7 +239,7 @@ Category theory formalizes mathematical structure and its concepts in terms of a
 
 The common usage of "type theory" is when those types are used with a term rewrite system. The most famous early example is Alonzo Church's simply typed lambda calculus. Church's theory of types helped the formal system avoid the Kleene–Rosser paradox that afflicted the original untyped lambda calculus. Church demonstrated that it could serve as a foundation of mathematics and it was referred to as a **higher-order logic**.
 
-In **category theory**, a category is **Cartesian closed** if, roughly speaking, any morphism defined on a product of two objects can be naturally identified with a morphism defined on one of the factors. These categories are particularly important in mathematical logic and the theory of programming, in that their internal language is the **simply typed lambda calculus**. They are generalized by closed monoidal categories, whose internal language, linear type systems, are suitable for both quantum and classical computation.
+In **category theory**, a category is **Cartesian closed** if, roughly speaking, any morphism defined on a product of two objects can be naturally identified with a morphism defined on one of the factors. These categories are particularly important in mathematical logic and the theory of programming, in that their internal language is the **simply typed lambda calculus**. They are generalized by closed monoidal categories, whose internal language, linear type systems, is suitable for both quantum and classical computation.
 
  Here is an embedding of the **simply typed lambda calculus** with an arbitrary collection of base types, tuples and a fixed point combinator: 
 
@@ -268,7 +268,7 @@ This allows monads to simplify a wide range of problems, like handling potential
 
 Without getting too much into mathematics, in programming a Monad is a Design Pattern. It’s a structure, a wrapper which “enriches” a value by giving it a context.
 
-It's about having representations simulating exactly notions such as exceptions and side-effects while keeping the purety of functionnal languages.
+It's about having representations simulating exactly notions such as exceptions and side-effects while keeping the purity of functional languages.
 
 Famous examples of Monads are:
 
