@@ -326,6 +326,10 @@ const tutorialNavigation = [
         href: '/tutorials/build-your-first-app',
         children: [
           {
+            title: 'Part 1: Setting up the application',
+            href: '/tutorials/build-your-first-app/setting-up-app'
+          },
+          {
             title: 'Wallets and user tokens',
             href: '/tutorials/build-your-first-app/wallets-tokens',
           },
