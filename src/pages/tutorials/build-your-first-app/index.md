@@ -32,8 +32,8 @@ The LB contract is a decentralized exchange (or DEX) that handles only 3 tokens:
 Like a physical currency exchange at an airport or train station, the LB contract maintains a *liquidity pool* of the tokens that it exchanges.
 Users can deposit XTZ and receive tzBTC from the pool or vice versa.
 
-However, because the LB contract is decentralized, no single authority provides the tokens for the liquidity pool.
-Instead, any user can deposit an equal amount of XTZ and tzBTC tokens to the pool, which is called "adding liquidity."
+Tezos automatically deposits XTZ into the contract, but users must provide the tzBTC for the liquidity pool.
+Any user can deposit an equal amount of XTZ and tzBTC tokens to the pool, which is called "adding liquidity."
 Then, the LB contract provides SIRS tokens as proof of that deposit.
 Later, users can return the SIRS and withdraw their XTZ and tzBTC with interest.
 
