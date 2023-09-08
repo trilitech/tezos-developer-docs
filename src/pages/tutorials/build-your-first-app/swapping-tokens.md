@@ -1,25 +1,27 @@
 ---
 id: swapping-tokens
-title: Swapping XTZ and tzBTC
-authors: Claude Barde
-lastUpdated: 10th July 2023
+title: "Part 3: Swapping tokens"
+authors:
+  - Claude Barde
+  - Tim McMackin
+lastUpdated: 8th September 2023
 ---
 
-## Swapping XTZ and tzBTC
+Now that the app has a framework and the ability to connect to wallets, you can implement the most complex feature of the app: swapping XTZ and tzBTC.
 
-Now, let's go down the rabbit hole and implement the most complex feature of the app: the swap of XTZ and tzBTC.
+Like most smart contracts, the Liquidity Baking contract is very picky about the requests that it accepts.
+Your application must make several calculations to create a valid swap request.
 
-### Designing the UI
-
-I say "the most complex" because the interface you are about to build includes a lot of moving parts and calculations that must be done at the moment of the user's input and confirmation. The Liquidity Baking contract is also a bit picky about the data you must send in order to swap tokens, so you will have to fine-tune our code to make sure that it goes like clockwork!
-
-Here is a screenshot of the UI you are aiming for:
+When complete, the app UI will look like this:
 
 ![Swap UI](/images/build-your-first-app/swap-ui.png "Swap UI")
 
-There are 2 text inputs, the one on the left is editable and will let the user input the amount of XTZ or tzBTC they want to exchange and the one on the right will be disabled and will display the corresponding amount they'll get in the other token. The button in the middle with the 2 arrows will allow the user to switch the input between XTZ and tzBTC.
+The text field on the left is editable; the user can enter the amount of XTZ or tzBTC to exchange or click the "Max" button to set the field to the total amount of that token in the wallet.
+The field on the right is not editable; it shows the corresponding amount that they will get of the other token.
+The button in the middle with the 2 arrows switches the input between XTZ and tzBTC.
 
-Going into the details of how the text inputs are implemented would go beyond the scope of this tutorial, but you can have a look at it in the `UserInput.svelte` file.
+TPM TODO: Need to import this file (and others) somehow
+Going into the details of how the text inputs are implemented is beyond the scope of this tutorial, but you can see the code in the `src/lib/UserInput.svelte` file.
 
 ### Handling user input
 

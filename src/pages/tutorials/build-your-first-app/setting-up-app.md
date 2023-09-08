@@ -174,7 +174,7 @@ Here are descriptions for each of these files:
 Svelte uses Sass, which allows you to create powerful and simple CSS style sheets.
 These steps set up the style sheets for the application:
 
-1. Create a file in the `src/styles` folder named `index.scss` and paste in this code:
+1. Create a file in the `src/styles` folder (creating the folder if necessary) named `index.scss` and paste in this code:
 
    ```css
    @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
@@ -409,7 +409,7 @@ These steps set up the style sheets for the application:
    }
    ```
 
-1. Create a file in the `src/styles` folder named `index.scss` and paste in this code:
+1. Create a file in the `src/styles` folder named `settings.scss` and paste in this code:
 
    ```css
    /* Color palette: https://coolors.co/palette/e63946-f1faee-a8dadc-457b9d-1d3557 */
@@ -506,15 +506,15 @@ Follow these steps to set up the `src/App.svelte` file, which is the container f
 
    ```html
    <script lang="ts">
-   import { onMount } from "svelte";
-   import { TezosToolkit } from "@taquito/taquito";
-   import store from "./store";
-   import { rpcUrl, dexAddress } from "./config";
-   import Sidebar from "./lib/Sidebar.svelte";
-   import Interface from "./lib/Interface.svelte";
-   import Toast from "./lib/Toast.svelte";
-   import type { Storage } from "./types";
-   import { fetchExchangeRates } from "./utils";
+    import { onMount } from "svelte";
+    import { TezosToolkit } from "@taquito/taquito";
+    import store from "./store";
+    import { rpcUrl, dexAddress } from "./config";
+    import Sidebar from "./lib/Sidebar.svelte";
+    import Interface from "./lib/Interface.svelte";
+    import Toast from "./lib/Toast.svelte";
+    import type { Storage } from "./types";
+    import { fetchExchangeRates } from "./utils";
    </script>
    ```
 
@@ -563,6 +563,8 @@ Follow these steps to set up the `src/App.svelte` file, which is the container f
 
    Then the code creates a `contract` object to represent the LB contract and a `storage` object to represent the contract's persistent storage.
    Finally, it retrieves the exchange rates for XTZ and tzBTC and stores them using the code you create in the next step.
+
+   Don't worry about errors about missing imports in this file, because you will add those imports later.
 
 1. Create a file named `src/utils.ts` and add the following function to retrieve the exchange rates:
 

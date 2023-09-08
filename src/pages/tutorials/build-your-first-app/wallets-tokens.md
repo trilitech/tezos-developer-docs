@@ -12,8 +12,13 @@ Accessing the wallet allows your app to see the tokens in it and to prompt the u
 
 ## Connecting to the user's wallet
 
-It's very important to use a single instance of the Beacon SDK to access user wallets.
-Using more than one instance of this SDK can cause bugs, so application isolates wallet-related code in a single component in the `src/lib/Wallet.svelte` file.
+In this section, you add code to connect to the user's wallet with the `TezosToolkit` and `BeaconWallet` objects.
+
+IMPORTANT: however you design your app, it is essential to use a single instance of the `BeaconWallet` object.
+It is also highly recommended use a single instance of the `TezosToolkit` object.
+Creating multiple instances can cause problems in your app and with Taquito in general.
+
+For this reason, this application isolates wallet-related code in a single component in the `src/lib/Wallet.svelte` file.
 
 1. Create a file named `src/lib/Wallet.svelte` and add this code:
 
@@ -58,7 +63,6 @@ Using more than one instance of this SDK can cause bugs, so application isolates
         store.updateUserBalance("SIRS", null);
       }
     };
-
    </script>
    ```
 
@@ -115,20 +119,16 @@ Using more than one instance of this SDK can cause bugs, so application isolates
 
    Now the wallet is connected so the app can show the connection status and token balances.
 
-   IMPORTANT: however you want to design your app, it is essential to use a single instance of the `BeaconWallet` object.
-   It is also highly recommended use a single instance of the `TezosToolkit` object.
-   Creating multiple instances can cause problems in your app and with Taquito in general.
-
 1. Add the following code to disconnect the wallet:
 
    ```typescript
    const disconnectWallet = async () => {
-       $store.wallet.client.clearActiveAccount();
-       store.updateWallet(undefined);
-       store.updateUserAddress(undefined);
-       connectedNetwork = "";
-       walletIcon = "";
-     };
+     $store.wallet.client.clearActiveAccount();
+     store.updateWallet(undefined);
+     store.updateUserAddress(undefined);
+     connectedNetwork = "";
+     walletIcon = "";
+   };
    ```
 
    Disconnecting the wallet is as important as connecting it.

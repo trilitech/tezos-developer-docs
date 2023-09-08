@@ -330,15 +330,15 @@ const tutorialNavigation = [
             href: '/tutorials/build-your-first-app/setting-up-app'
           },
           {
-            title: 'Wallets and user tokens',
+            title: 'Part 2: Accessing wallets and tokens',
             href: '/tutorials/build-your-first-app/wallets-tokens',
           },
           {
-            title: 'Swapping tokens',
+            title: 'Part 3: Swapping tokens',
             href: '/tutorials/build-your-first-app/swapping-tokens',
           },
           {
-            title: 'Adding and removing liquidity',
+            title: 'Part 4: Adding and removing liquidity',
             href: '/tutorials/build-your-first-app/adding-removing-liquidity',
           },
         ],

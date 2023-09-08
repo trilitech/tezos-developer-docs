@@ -1,6 +1,6 @@
 ---
 id: adding-removing-liquidity
-title: Adding Liquidity
+title: "Part 4: Adding and removing liquidity"
 authors: Claude Barde
 lastUpdated: 10th July 2023
 ---
