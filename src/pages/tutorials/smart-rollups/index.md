@@ -21,6 +21,8 @@ This tutorial will explain in detail the necessary steps for setting up a **smar
 
 This is an attempt to collect information from multiple resources (provided at the end of this tutorial) to ensure a smooth onboarding experience. However, a basic familiarity with blockchain terms and practices is assumed.
 
+The article is available on the official Tezos developers' website, at the section dedicated to [smart rollups](https://tezos.com/developers/smart-rollups/).
+
 ## 1. Introduction to Smart Rollups
 
 **Smart rollups** are an elegant solution for **horizontally scaling** the Tezos blockchain, which involves distributing the workload of the main layer (Layer 1) to external layers that perform their tasks "off-chain". In comparison, **vertical scaling** focuses on optimizing the main layer itself but is less scalable than the former.
