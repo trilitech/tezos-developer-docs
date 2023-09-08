@@ -69,5 +69,5 @@ The shell contains everything that is not part of the economic protocol. It incl
 
 
 {% callout type="note" %}
-In-depth documentation on the [shell](https://tezos.gitlab.io/shell/the_big_picture.html) and [protocol](https://tezos.gitlab.io/active/protocol.html) and the semantics of [operations and blocks](https://tezos.gitlab.io/active/blocks_ops.html) can be found in the [Nomadic Labs documentation](https://tezos.gitlab.io/index.html). 
+In-depth documentation on the [shell](https://tezos.gitlab.io/shell/the_big_picture.html) and [protocol](https://tezos.gitlab.io/active/protocol.html) and the semantics of [operations and blocks](https://tezos.gitlab.io/active/blocks_ops.html) can be found in Tezos' [technical documentation](https://tezos.gitlab.io/index.html). 
 {% /callout %}
