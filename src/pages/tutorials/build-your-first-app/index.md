@@ -20,51 +20,6 @@ This tutorial uses [TypeScript](https://www.typescriptlang.org/), so it will be 
 
 You do not need any familiarity with any of the libraries in the tutorial, including [Taquito](https://tezostaquito.io/), a TypeScript library that helps developers access Tezos.
 
-
-
-
-## Overview of this tutorial
-### Setting up the project
-- Installing ViteJS + Svelte
-- Installing Tezos packages
-- Configuring ViteJS
-- Checking that everything works
-
-### Setting up the app
-- File structure
-- Configuration
-- The `TezosToolkit` instance
-
-### Setting up the wallet
-- Setting up Beacon
-- Design considerations (wallet, etc.)
-
-### Fetching user's balances
-- XTZ balance
-- tzBTC balance
-- SIRIUS balance
-- Displaying the balances
-
-### Swapping XTZ/tzBTC
-- Requirements
-- UI design
-- Calculating minimum tokens out
-- Transaction feedback
-
-### Adding liquidity
-- Requirements
-- UI design
-- Calculating amounts of XTZ and tzBTC
-
-### Removing liquidity
-- Requirements
-- UI design
-
-
-
-
-
-
 ## The Liquidity Baking contract
 
 This tutorial uses a special contract on Tezos called the *Liquidity Baking* (LB) contract.
