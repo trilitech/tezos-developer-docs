@@ -610,5 +610,41 @@ Follow these steps to set up the `src/App.svelte` file, which is the container f
    };
    ```
 
-  This function uses the [QuipuSwap GraphQL API](https://analytics-api.quipuswap.com/graphql) to fetch the exchange rates.
-  Then the function parses them and validates the prices for XTZ and tzBTC.
+   This function uses the [QuipuSwap GraphQL API](https://analytics-api.quipuswap.com/graphql) to fetch the exchange rates.
+   Then the function parses them and validates the prices for XTZ and tzBTC.
+
+1. Add this code to the top of the `utils.ts` file, which includes functions to format token amounts:
+
+   ```typescript
+   import BigNumber from "bignumber.js";
+   import type { TezosToolkit } from "@taquito/taquito";
+   import type { token } from "./types";
+   import type { TezosAccountAddress } from "./store";
+   import { tzbtcAddress, sirsAddress, testnetApi } from "./config";
+
+   export const displayTokenAmount = (
+     amount_: BigNumber | number,
+     token: token
+   ): string => {
+     let amount = BigNumber.isBigNumber(amount_) ? amount_.toNumber() : amount_;
+     switch (token) {
+       case "XTZ":
+         return (+(amount / 10 ** 6).toFixed(6)).toLocaleString("en-US");
+       case "tzBTC":
+         if (amount < 100) {
+           return "> 0.000001";
+         }
+         return (+(amount / 10 ** 8).toFixed(8)).toLocaleString("en-US", {
+           maximumSignificantDigits: 8
+         });
+       case "SIRS":
+         return (+amount.toFixed(2)).toLocaleString("en-US");
+     }
+   };
+
+   export const shortenHash = (hash: string): string =>
+     hash ? hash.slice(0, 5) + "..." + hash.slice(-5) : "";
+
+   export const calcDeadline = () =>
+   new Date(Date.now() + 3_600_000).toISOString();
+   ```
