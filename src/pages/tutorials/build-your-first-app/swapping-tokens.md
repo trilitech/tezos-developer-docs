@@ -23,7 +23,10 @@ The button in the middle with the 2 arrows switches the input between XTZ and tz
 TPM TODO: Need to import this file (and others) somehow
 Going into the details of how the text inputs are implemented is beyond the scope of this tutorial, but you can see the code in the `src/lib/UserInput.svelte` file.
 
-### Handling user input
+The component that contains these fields is in the file `src/lib/SwapView.svelte`.
+Going into the details of how the text inputs are implemented is beyond the scope of this tutorial, but you can see the their  in the `src/lib/UserInput.svelte` file.
+
+## Handling user input
 
 In a nutshell, each input with its token icon and `max` field is the same component, the parent component tracks the position of each to update their UI accordingly. Internally, each input component keeps track of the user's input and the available balance to display error messages if the balance is too low. Each update in the input is dispatched to the parent component to adjust the general UI.
 
