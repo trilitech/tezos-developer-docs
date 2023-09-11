@@ -145,6 +145,67 @@ For this reason, this application isolates wallet-related code in a single compo
    TPM TODO: Is this next paragraph needed? If this is the only thing I need to do, why am I doing other things in the `disconnectWallet` function?
    The call to `clearActiveAccount()` on the wallet instance is the only thing that you will do in whatever app you are building, it will remove all the data in the local storage and when your user revisits your app, they won't be automatically connected with their wallet.
 
+1. At the end of the file, add this code, which creates a button that the user can click to connect or disconnect their wallet:
+
+   ```html
+   <style lang="scss">
+     .wallet {
+       display: flex;
+       flex-direction: column;
+       justify-content: flex-start;
+       align-items: center;
+
+       .wallet__info {
+         padding-bottom: 20px;
+         text-align: center;
+
+         p {
+           margin: 0px;
+           padding: 5px;
+           display: flex;
+           justify-content: center;
+           align-items: center;
+
+           img.wallet-icon {
+             width: 32px;
+             height: 32px;
+           }
+         }
+       }
+     }
+   </style>
+
+   <div class="wallet">
+     {#if $store.wallet && $store.userAddress}
+       <div class="wallet__info">
+         <p>
+           {#if walletIcon}
+             <img src={walletIcon} alt="wallet-icon" class="wallet-icon" />
+           {/if}
+           <span>{shortenHash($store.userAddress)}</span>
+         </p>
+         {#if !walletIcon && walletName}
+           <p style="font-size:0.7rem">({walletName})</p>
+         {/if}
+         <p>
+           {#if connectedNetwork}
+             On {connectedNetwork}
+           {:else}
+             No network data
+           {/if}
+         </p>
+       </div>
+       <button class="wallet-button" on:click={disconnectWallet}>
+         Disconnect
+       </button>
+     {:else}
+       <button class="wallet-button" on:click={connectWallet}>
+         Connect wallet
+       </button>
+     {/if}
+   </div>
+   ```
+
    Now you have functions that allow your application to connect and disconnect wallets.
 
 ## Design considerations
