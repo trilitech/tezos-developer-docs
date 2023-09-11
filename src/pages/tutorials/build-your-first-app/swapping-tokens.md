@@ -36,9 +36,9 @@ Every time an update is sent to the parent component (`SwapView.svelte`), the da
 
 ```typescript
 import {
-	xtzToTokenTokenOutput,
-	tokenToXtzXtzOutput,
-	calcSlippageValue
+  xtzToTokenTokenOutput,
+  tokenToXtzXtzOutput,
+  calcSlippageValue
 } from "../lbUtils";
 
 const saveInput = ev => {
@@ -269,62 +269,64 @@ Because XTZ is the chain's native token, that's all the app must do to send the 
 Then, like the tzBTC to XTZ scenario, the application waits for the transaction to complete.
 Waiting for the transaction to complete is optional, but this application waits so it can update the wallet information automatically.
 
-### Updating the UI
+## Updating the UI
 
 Whether the swap is successful or not, the app must provide feedback to the user.
 
-PLACE
+If the swap succeeded, the app fetches the user's new balances and provides visual feedback with this code:
 
-
-
-
-
-
-If the swap succeeded, you will fetch the user's new balances and provide visual feedback:
-
-```typescript=
+```typescript
 const res = await fetchBalances($store.Tezos, $store.userAddress);
 if (res) {
-	store.updateUserBalance("XTZ", res.xtzBalance);
-	store.updateUserBalance("tzBTC", res.tzbtcBalance);
-	store.updateUserBalance("SIRS", res.sirsBalance);
+  store.updateUserBalance("XTZ", res.xtzBalance);
+  store.updateUserBalance("tzBTC", res.tzbtcBalance);
+  store.updateUserBalance("SIRS", res.sirsBalance);
 } else {
-	store.updateUserBalance("XTZ", null);
-	store.updateUserBalance("tzBTC", null);
-	store.updateUserBalance("SIRS", null);
+  store.updateUserBalance("XTZ", null);
+  store.updateUserBalance("tzBTC", null);
+  store.updateUserBalance("SIRS", null);
 }
 
 // visual feedback
 store.updateToast(true, "Swap successful!");
 ```
 
-> _Note: it would also be possible to avoid 2 HTTP requests and calculate the new balances from the amounts that were passed as parameters for the swap. However, the users may have received tokens since the last time the balances were fetched, and it will provide a better user experience if you get the accurate balances after the swap._
+The app could avoid sending these HTTP requests and instead calculate the new balances from the amounts that were passed as parameters for the swap.
+However, the user may have received tokens since the last time the balances were fetched, and it provides a better user experience to get the accurate balances after the swap.
 
-If the swap isn't successful, you will be redirected to the `catch` branch where you also have to provide visual feedback and update the UI:
+If the swap isn't successful, the app runs the code in the `catch` block to provide visual feedback and update the UI:
 
-```typescript=
+```typescript
 swapStatus = TxStatus.Error;
 store.updateToast(true, "An error has occurred");
 ```
 
-Setting `swapStatus` to `TxStatus.Error` will remove the loading interface you set during the swap before you display a toast to indicate that the transaction failed.
+Setting `swapStatus` to `TxStatus.Error` removes the loading interface set at the start of the swap before the app displays a toast to indicate that the transaction failed.
 
-Finally (pun intended), you move to the `finally` branch to reset the UI after 3 seconds:
+Finally, the app resets the UI after 3 seconds:
 
-```typescript=
+```typescript
 finally {
   setTimeout(() => {
-	swapStatus = TxStatus.NoTransaction;
-	store.showToast(false);
+  swapStatus = TxStatus.NoTransaction;
+  store.showToast(false);
   }, 3000);
 }
 ```
 
 ### Design considerations
 
-As you can tell from the code involved, swapping tokens is a pretty complex action and there are a few things that you should keep in mind, regarding both the code you write and the UI you create:
+As you can tell from the code involved, swapping tokens is a complex action.
+Keep these design considerations in mind as you write code and create the UI for your dApp:
 
-- Try to structure your code into different steps that don't mix, for example, step 1: updating the UI before forging the transaction, step 2: forging the transaction, step 3: emitting the transaction, step 4: updating the UI, etc.
-- Never forget to provide visual feedback to your users! Baking a new operation can take up to 30 seconds when the network is not congested, and even longer if there is a lot of traffic. The users will wonder what is happening if you don't make them wait. A spinner or a loading animation is generally a good idea to indicate that the app is waiting for some sort of confirmation.
-- Disable the UI while the transaction is in the mempool! You don't want the users to click on the _Swap_ button a second time (or third, or fourth!) while the blockchain is processing the transaction they already created. In addition to costing them more money, it can also confuse them and create unexpected behaviors in your UI.
-- Reset the UI at the end. Nobody wants to click on the _Refresh_ button after an interaction with the blockchain because the UI seems to be stuck in its previous state. Make sure the interface is in the same (or similar) state as it was when the user first opened it.
+- Structure your code into independent steps that don't overlap, as in this example:
+  1. Update the UI
+  1. Create the transaction
+  1. Send the transaction
+  1. Update the UI with the results of the transaction
+- Always provide visual feedback.
+Baking a transaction can take up to 30 seconds when the network is not congested, and even longer if there is a lot of traffic.
+A spinner or a loading animation is generally a good idea to indicate to users that the app is waiting for some sort of confirmation so they don't think that the app has frozen or failed.
+- Disable the UI while the transaction processing to prevent users from submitting multiple transactions.
+- Reset the UI at the end of the transaction automatically instead of making users manually refresh the application.
+Ideally, the interface returns to the same or similar state as when the user first opened it.
