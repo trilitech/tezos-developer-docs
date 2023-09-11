@@ -185,78 +185,72 @@ The contract rejects the transaction if the deadline is passed.
 
 Now the process forks depending on which tokens are being swapped, as described in the following sections:
 
-### Swapping tzBTC for XTZ
+### Swapping tzBTC to XTZ
 
+To swap tzBTC to XTZ, the application runs these steps:
 
+TODO: verify that this is accurate and clarify what's going on:
 
-PLACE
+1. It creates an object of the `ContractAbstraction` type that represents the contract that manages tzBTC.
+1. It converts the number of tokens to the full decimal amount.
+1. It starts a Taquito [batch](https://tezostaquito.io/docs/batch_api/#what-is-the-batch-api) to combine the following transactions into a single operation:
+  1. It sets the permission for the LB contract (with its address in the `dexAddress` constant) to 0.
+  1. It prompts the user to approve the amount of tokens in the wallet.
+  1. It calls the contract's `tokenToXtz` method to swap the tokens, including the parameters for that method:
+    - The address of the account that will receive the XTZ
+    - The amount of tzBTC that will be sold for the swap
+    - The expected amount of XTZ that will be received
+    - A deadline after which the transaction expires
+  1. It sets the permission for the LB contract back to 0.
+  TPM TODO: When did it change and what does permission 0 mean?
+1. It sends the batch of transactions to Tezos with the `batch.send` function.
+1. It awaits the completion of the transaction.
 
+Here is the relevant code from the `swap` function in the `src/lib/SwapView.svelte` file:
 
-
-
-
-
-
-
-Now, you have 2 situations: the user selected either XTZ or tzBTC as the token to swap. Let's start with tzBTC as the preparation of the transaction is more complicated:
-
-```typescript=
+```typescript
 if (tokenFrom === "tzBTC") {
-	const tzBtcContract = await $store.Tezos.wallet.at(tzbtcAddress);
-	const tokensSold = Math.floor(+inputFrom * 10 ** tzBTC.decimals);
-	let batch = $store.Tezos.wallet
-	  .batch()
-	  .withContractCall(tzBtcContract.methods.approve(dexAddress, 0))
-	  .withContractCall(
-		tzBtcContract.methods.approve(dexAddress, tokensSold)
-	  )
-	  .withContractCall(
-		lbContract.methods.tokenToXtz(
-		  $store.userAddress,
-		  tokensSold,
-		  minimumOutput,
-		  deadline
-		)
-	  )
-	  .withContractCall(tzBtcContract.methods.approve(dexAddress, 0));
-	const batchOp = await batch.send();
-	await batchOp.confirmation();
-  }
+  // selling tzbtc for xtz => tokenToXTZ
+  const tzBtcContract = await $store.Tezos.wallet.at(tzbtcAddress);
+  const tokensSold = Math.floor(+inputFrom * 10 ** tzBTC.decimals);
+  let batch = $store.Tezos.wallet
+    .batch()
+    .withContractCall(tzBtcContract.methods.approve(dexAddress, 0))
+    .withContractCall(
+      tzBtcContract.methods.approve(dexAddress, tokensSold)
+    )
+    .withContractCall(
+      lbContract.methods.tokenToXtz(
+        $store.userAddress,
+        tokensSold,
+        minimumOutput,
+        deadline
+      )
+    )
+    .withContractCall(tzBtcContract.methods.approve(dexAddress, 0));
+  const batchOp = await batch.send();
+  await batchOp.confirmation();
+} else {
+  // ...
+}
 ```
 
-The major difference between swapping XTZ to tzBTC and swapping tzBTC to XTZ is that the latter requires 3 additional operations: one to set the current permission for the LB DEX (if any) to zero, one to register the LB DEX as an operator within the tzBTC contract with the amount of tokens that it is allowed to spend on behalf of the user and one to set this amount back to zero and avoid later uses of the given permission.
+Here are some notes about the specific implementation of this transaction:
 
-> _Note 1: you can read more about the behaviors of the tzBTC contract and other FA1.2 contracts [here](https://gitlab.com/tezos/tzip/-/blob/master/proposals/tzip-7/tzip-7.md)_.
+- You can read more about the behaviors of the tzBTC contract and other FA1.2 contracts [here](https://gitlab.com/tezos/tzip/-/blob/master/proposals/tzip-7/tzip-7.md).
 
-> _Note 2: technically speaking, it is not necessary to set the permission back to zero at the end of the transaction (but setting it to zero at the beginning is required). It's just a common practice to prevent any unexpected pending permission._
+- Technically speaking, it is not necessary to set the permission back to zero at the end of the transaction.
+Setting it to zero at the beginning is required.
+Setting it back to zero is a common practice to prevent any unexpected pending permission.
 
-First, you create the `ContractAbstraction` for the tzBTC contract as you are about to interact with it. Once done, you calculate the amount of tokens you should approve based on our previous calculations.
-
-> _Note: the `ContractAbstraction` is a very useful instance provided by Taquito that exposes different tools and properties to get details about a given contract or interact with it._
-
-After that, you use the [Batch API](https://tezostaquito.io/docs/batch_api/) provided by Taquito. The Batch API allows grouping multiple operations in a single transaction to save on gas and on processing time. This is how it works:
-
-1. You call the `batch()` method present on the `wallet` or `contract` property of the instance of the `TezosToolkit`
-2. This returns a batch instance with different methods that you can use to create transactions, in our example, `withContractCall()` is a method that will add a new contract call to the batch of operations
-3. As a parameter for `withContractCall()`, you pass the contract call as if you would call it on its own, by using the name of the entrypoint on the `methods` property of the `ContractAbstraction`
-4. In this case, you batch 1 operation to set the permission of the LB DEX within the tzBTC contract to zero, 1 operation to approve the amount required by the swap, 1 operation to confirm the swap within the LB DEX contract, and 1 operation to set the permission of the LB DEX back to zero
-5. On the returned batch, you call the `.send()` method to forge the transaction, sign it and send it to the Tezos mempool, which returns an operation
-6. You can `await` the confirmation of the transaction by calling `.confirmation()` on the operation returned in the step above.
-
-Notice the penultimate transaction: the `tokenToXtz` entrypoint of the LB contract requires 4 parameters:
-
-- The address of the account that will receive the XTZ
-- The amount of tzBTC that will be sold for the swap
-- The expected amount of XTZ that will be received
-- A deadline after which the transaction expires
-
-After the transaction is sent by calling the `.send()` method, you call `.confirmation()` on the operation object to wait for one confirmation (which is the default if you don't pass a parameter to the method).
+- The `ContractAbstraction` is a useful instance provided by Taquito that exposes different tools and properties to get details about a given contract or interact with it.
 
 ### Swapping XTZ to tzBTC
 
-This will be a much easier endeavor! Let's check the code first:
+Swapping XTZ to tzBTC is much simpler.
+Here is the relevant code:
 
-```typescript=
+```typescript
 const op = await lbContract.methods
   .xtzToToken($store.userAddress, minimumOutput, deadline)
   .send({ amount: +inputFrom });
@@ -265,19 +259,26 @@ await op.confirmation();
 
 The `xtzToToken` entrypoint takes 3 parameters:
 
-- The address of the account that will receive the tzBTC tokens
-- The expected amount of tzBTC to be received
+- The address of the account to send the tzBTC tokens to
+- The amount of tzBTC to receive
 - The deadline
 
-In addition to that, you have to attach the right amount of XTZ to the transaction. This can be achieved very easily with Taquito.
+Of course, the transaction also attach the correct amount of XTZ in the parameters of the Taquito `send` function.
+Because XTZ is the chain's native token, that's all the app must do to send the tokens; Taquito requests permission in the browser automatically.
 
-Remember the `.send()` method that you call on the output of the entrypoint call? If you didn't know, you can pass parameters to this method, one of the most important ones is an amount of XTZ to send along with the transaction. Just pass an object with an `amount` property and a value of the amount of tez you want to attach, and that's it!
-
-Then, just like any other transaction, you get an operation object and call `.confirmation()` on it to wait for the operation to be included in a new block.
+Then, like the tzBTC to XTZ scenario, the application waits for the transaction to complete.
+Waiting for the transaction to complete is optional, but this application waits so it can update the wallet information automatically.
 
 ### Updating the UI
 
-Whether the swap is successful or not, it is crucial to provide feedback to your users.
+Whether the swap is successful or not, the app must provide feedback to the user.
+
+PLACE
+
+
+
+
+
 
 If the swap succeeded, you will fetch the user's new balances and provide visual feedback:
 
