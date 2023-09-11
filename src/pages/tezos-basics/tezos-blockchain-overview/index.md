@@ -1,7 +1,7 @@
 ---
 id: tezos-blockchain-overview
 title: An Overview of Tezos
-lastUpdated: 5th June 2023
+lastUpdated: 11th September 2023
 ---
 
 # History
@@ -9,21 +9,35 @@ lastUpdated: 5th June 2023
 Tezos is an open-source, decentralized blockchain [created in 2014](https://tezos.com/whitepaper.pdf) by Arthur and Kathleen Breitman. It raised awareness and support in 2017 with its crowdfunding and launched the following year. Since its inception, Tezos has gone through multiple iterations of upgrades and development, staying true to its ethos -- "a blockchain designed to evolve".
 
 
-# What Makes Tezos Different?
+# What makes Tezos different?
 
-Tezos stands apart from other blockchains in its capability to upgrade, allowing the network to evolve without requiring a hard fork. Anyone building on Tezos can propose a new protocol upgrade and have it adopted by the network without compromising the platform's stability or causing fragmentation. This makes Tezos adaptable to new technologies and able to address user needs where other blockchains struggle to make changes.
+Here are some of the features that make Tezos different from other blockchains:
 
-Tezos is unique in its governance model. All stakeholders can participate in the decision-making processes that impact the future direction of the network. Holders of XTZ —-the chain’s native token-— can propose changes to the protocol and bakers vote on them, such as changes to gas fees, reduction in block times, adding new features such as smart rollups, and even changing the consensus mechanism itself.
+## Tezos can upgrade itself
 
-The use of formal verification is a powerful feature where the code can be mathematically proven to be correct without side effects. The rigorous process of formal verification ensures that the smart contracts and other components function as intended, reducing the likelihood of errors, bugs, and security vulnerabilities. This approach gives Tezos an edge in security and reliability. 
+Tezos has a built-in capability to upgrade itself, which allows the network to evolve without requiring a hard fork. Anyone can propose an upgrade to the protocol and have it adopted by the network without compromising the platform's stability or causing fragmentation. This feature allows Tezos to adapt to new technologies and to address user needs rapidly.
 
-Tezos’ proof-of-stake consensus model eliminates the need for high-energy use, making it the “green” choice for blockchains. Tezos' mechanism is known as baking and features optional delegation, allowing any stakeholder to participate in consensus without giving up custody of their tokens. Tezos' approach to consensus has been described as [Liquid Proof of Stake](https://medium.com/tezos/liquid-proof-of-stake-aec2f7ef1da7). Tezos allows its stakers \(i.e. delegators\) to earn rewards by delegating their tez coins without any lock-in or freeze mechanism. This gives the "liquid" nature to Tezos's proof-of-stake implementation.
+## Stakeholders participate in governance
 
-Proof-of-stake improves scalability and encourages incentive alignment. It also increases the cost of 51% attacks and avoids environmentally wasteful proof-of-work. Tezos launched in June 2018 as one of the first major Proof-of-Stake networks.
+Anyone who holds XTZ — the chain's native token — can propose changes to how Tezos works, such as changes to gas fees and block times, new features such as smart rollups, or even major changes like how the consensus mechanism works.
+
+## Formal verification ensures trust and code quality
+
+*Formal verification* is a process that ensures that a smart contract does what it says it does and has no side effects. Formal verification reduces errors, bugs, and security vulnerabilities in contracts and allows users to trust them. For more information, see [Formal Verification on Tezos](../../advanced-topics/formal-verification/formal-verification-on-tezos).
+
+## Tezos uses proof of stake
+
+The proof-of-stake consensus model consensus model eliminates the need for high energy use, making it the "green" choice for blockchains. Instead of competing to achieve consensus as in proof-of-work models, Tezos nodes (called *bakers*) stake Tezos tokens to earn the right to create blocks and receive rewards. Users who want to participate without running a node themselves can delegate tokens to a baker for a share of the rewards. The bakers and delegators keep control of their tokens and can remove them at any time. Tezos's approach to consensus has been described as [Liquid Proof of Stake](https://medium.com/tezos/liquid-proof-of-stake-aec2f7ef1da7).
+
+The proof-of-stake model improves scalability and encourages incentive alignment. It also increases the cost of 51% attacks and avoids environmentally wasteful proof-of-work. Tezos launched in June 2018 as one of the first major proof-of-stake networks.
+
+## Tezos accepts multiple languages
+
+Tezos lets developers use languages that make sense for their use case, including versions of Python and JavaScript/TypeScript. For more information, see [An Introduction to Smart Contracts](../../smart-contracts/smart-contract-languages/).
 
 # The Tezos Ecosystem
 
-Tezos has robust applications ranging from NFTs, DeFi, and gaming to enterprise and government use cases. 
+Tezos has robust applications ranging from NFTs, DeFi, and gaming to enterprise and government use cases.
 
 ## NFTs on Tezos
 
@@ -35,13 +49,13 @@ Tezos is also being used for other NFT-related projects, such as [MoneyTrack](ht
 
 ## Enterprise and Government Uses of Tezos
 
-Enterprises and regulatory bodies have been adopting Tezos as well. 
+Enterprises and regulatory bodies have been adopting Tezos as well.
 
 Tezos is being used by the French Armies and Gendarmerie's Information Center to [validate judicial expenses](https://cointelegraph.com/news/french-cybercrime-division-uses-smart-contacts-on-tezos-blockchain) incurred during investigations and record them on Tezos.
 
 In recent years, the concept of Central Bank Digital Currencies (CBDCs) has gained traction, with several countries around the world exploring their own CBDC projects. Société Générale carried out a series of successful tests [using Tezos](https://decrypt.co/112127/societe-generales-crypto-division-lands-regulatory-approval-france) to explore the potential of CBDCs. In September 2020, the bank announced that it had completed a pilot program using a custom-built version of the Tezos blockchain to simulate the issuance and circulation of CBDCs. The pilot involved testing the technology's ability to handle transactions, make payments, and settle transactions in a digital environment.
 
-The Califonia DMV is also using Tezos for its project to [put car titles on the blockchain](https://fortune.com/crypto/2023/01/26/california-announces-dmv-run-blockchain-through-partnership-with-tezos/). 
+The Califonia DMV is also using Tezos for its project to [put car titles on the blockchain](https://fortune.com/crypto/2023/01/26/california-announces-dmv-run-blockchain-through-partnership-with-tezos/).
 
 [Sword Group](https://www.sword-group.com/2020/09/28/sword-launches-tezos-digisign/) an international technology company, launched DigiSign, an open-source tool built on Tezos that enables users to digitally sign, certify, and verify the authenticity of digital documents.
 
