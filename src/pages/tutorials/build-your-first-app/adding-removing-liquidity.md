@@ -207,134 +207,93 @@ Now the app uses can add liquidity to the Liquidity Baking contract and invest t
 
 ## Removing liquidity
 
-Removing liquidity from the Liquidity Baking contract is arguably the easiest of all the tasks accomplished by our interface. The interface only needs one input to receive the amount of SIRS that the user wants to unwrap to get XTZ and tzBTC.
+The transaction to remove liquidity requires only the amount of SIRS that the user wants to exchange for tzBTC and XTZ.
+Therefore, the UI shows only one input field:
 
 ![RemoveLiquidity UI](/images/build-your-first-app/remove-liquidity-ui.png "Remove liquidity UI")
 
-The app will then calculate the corresponding amount of XTZ and tzBTC expected to be received for the amount of SIRS in the input field.
+The app uses the `removeLiquidityXtzTzbtcOut` function in the `src/lbUtils.ts` file to calculate the amount of XTZ and tzBTC that the user receives:
 
-In the `lbUtils.ts` file, you will find the `removeLiquidityXtzTzbtcOut` function to calculate these amounts:
-
-```typescript=
-const outputRes = removeLiquidityXtzTzbtcOut({
-	liquidityBurned: val,
-	totalLiquidity: $store.dexInfo.lqtTotal.toNumber(),
-	xtzPool: $store.dexInfo.xtzPool.toNumber(),
-	tokenPool: $store.dexInfo.tokenPool.toNumber()
-  });
-  if (outputRes) {
-	const { xtzOut, tzbtcOut } = outputRes;
-	xtzOutput = xtzOut
-	  .decimalPlaces(0, 1)
-	  .dividedBy(10 ** 6)
-	  .decimalPlaces(6)
-	  .toNumber();
-	tzbtcOutput = tzbtcOut
-	  .decimalPlaces(0, 1)
-	  .dividedBy(10 ** 8)
-	  .decimalPlaces(8)
-	  .toNumber();
-  }
-```
+   ```typescript
+   const outputRes = removeLiquidityXtzTzbtcOut({
+     liquidityBurned: val,
+     totalLiquidity: $store.dexInfo.lqtTotal.toNumber(),
+     xtzPool: $store.dexInfo.xtzPool.toNumber(),
+     tokenPool: $store.dexInfo.tokenPool.toNumber()
+     });
+   if (outputRes) {
+     const { xtzOut, tzbtcOut } = outputRes;
+     xtzOutput = xtzOut
+       .decimalPlaces(0, 1)
+       .dividedBy(10 ** 6)
+       .decimalPlaces(6)
+       .toNumber();
+     tzbtcOutput = tzbtcOut
+       .decimalPlaces(0, 1)
+       .dividedBy(10 ** 8)
+       .decimalPlaces(8)
+       .toNumber();
+     }
+   ```
 
 This function takes an object as a parameter with 4 properties:
 
-- `liquidityBurned` -> the amount of SIRS to burn
-- `totalLiquidity` -> the total amount of SIRS tokens in the contract
-- `xtzPool` -> the total amount of XTZ tokens in the contract
-- `tokenPool` -> the total amount of tzBTC tokens in the contract
+- `liquidityBurned`: The amount of SIRS to return and burn
+- `totalLiquidity`: The total amount of SIRS tokens in the contract
+- `xtzPool`: The total amount of XTZ tokens in the contract
+- `tokenPool`: The total amount of tzBTC tokens in the contract
 
-If the function has been able to calculate the amounts of XTZ and tzBTC, they are returned in an object, otherwise `null` is returned. After that, those amounts can be displayed in the interface.
+The `removeLiquidity` function in the `src/lib/RemoveLiquidityView.svelte` file creates the transaction by running these steps:
 
-Now, let's see how to interact with the `removeLiquidity` entrypoint of the contract. First, we create a `removeLiquidity` function within our TypeScript code that will be triggered when the user clicks on the `Remove liquidity` button:
+1. It verifies the number of SIRS to return and updates the UI to show that a transaction is pending.
 
-```typescript=
-const removeLiquidity = async () => {
-    try {
-      if (inputSirs) {
-        removeLiquidityStatus = TxStatus.Loading;
-        store.updateToast(
-          true,
-          "Removing liquidity, waiting for confirmation..."
-        );
+1. It creates an object of the `ContractAbstraction` that represents the LB contract:
 
-        const lbContract = await $store.Tezos.wallet.at(dexAddress);
+   ```typescript
+   const lbContract = await $store.Tezos.wallet.at(dexAddress);
+   ```
 
-    ...
+1. It creates the transaction, sends it, and waits for it to complete:
 
-};
-```
+   ```typescript
+   const op = await lbContract.methodsObject
+     .removeLiquidity({
+       to: $store.userAddress,
+       lqtBurned: inputSirs,
+       minXtzWithdrawn: Math.floor(xtzOutput * 10 ** XTZ.decimals),
+       minTokensWithdrawn: Math.floor(tzbtcOutput * 10 ** tzBTC.decimals),
+       deadline: calcDeadline()
+     })
+     .send();
+   await op.confirmation();
+   ```
 
-The function starts by checking if there is an amount of SIRS that was input before the remove liquidity action was triggered. If that's the case, the `removeLiquidityStatus` is set to `loading` to update the UI and inform the user that the transaction is getting ready. A toast will also be displayed.
+   The `removeLiquidity` entrypoint accepts these parameters:
 
-Next, a `ContractAbstraction` is created for the LB DEX in order to interact with it from Taquito.
+   - `to`: The account that receives the XTZ and tzBTC
+   - `lqtBurned`: The amount of SIRS to return and burn
+   - `minXtzWithdrawn`: The minimum amount of XTZ to receive
+   - `minTokensWithdrawn`: The minimum amount of tzBTC to receive
+   - `deadline`: The deadline
 
-Now, we can forge the actual transaction:
+1. The function updates the user's balances with the `fetchBalances` function.
 
-```typescript=
-const op = await lbContract.methodsObject
-  .removeLiquidity({
-	to: $store.userAddress,
-	lqtBurned: inputSirs,
-	minXtzWithdrawn: Math.floor(xtzOutput * 10 ** XTZ.decimals),
-	minTokensWithdrawn: Math.floor(tzbtcOutput * 10 ** tzBTC.decimals),
-	deadline: calcDeadline()
-  })
-  .send();
-await op.confirmation();
-```
+Now the users can return their SIRS tokens and receive their XTZ and tzBTC tokens.
 
-The `removeLiquidity` entrypoint expects 5 parameters:
+## Summary
 
-1. `to` -> the account that will receive the XTZ and tzBTC
-2. `lqtBurned` -> the amount of SIRS to burn
-3. `minXtzWithdrawn` -> the minimum amount of XTZ expected to be received
-4. `minTokensWithdrawn` -> the minimum amount of tzBTC expected to be received
-5. `deadline` -> just as the other entrypoint, a deadline for the transaction must be provided
+You've made it until the end of this tutorial! 🙂
 
-After the transaction has been emitted, we call `.confirmation()` on the operation object returned by Taquito.
+To start the application, run `npm run dev` from the command line and open it in a browser.
 
-If the transaction was successful, we update the UI and reset the token values to let the user know:
+You learned: many concepts that are fundamental to developing applications on Tezos and to understanding how Tezos works in general, including:
 
-```typescript=
-removeLiquidityStatus = TxStatus.Success;
-inputSirs = "";
-xtzOutput = 0;
-tzbtcOutput = 0;
+- How to use Taquito to develop on Tezos, interact with smart contracts, and use wallet, whether you want to prototype ideas quickly or want to create full-stack decentralized applications.
 
-// fetches user's XTZ, tzBTC and SIRS balances
-const res = await fetchBalances($store.Tezos, $store.userAddress);
-if (res) {
-  store.updateUserBalance("XTZ", res.xtzBalance);
-  store.updateUserBalance("tzBTC", res.tzbtcBalance);
-  store.updateUserBalance("SIRS", res.sirsBalance);
-} else {
-  store.updateUserBalance("XTZ", null);
-  store.updateUserBalance("tzBTC", null);
-  store.updateUserBalance("SIRS", null);
-}
+- How to use the Beacon SDK to interact with wallets.
 
-store.updateToast(true, "Liquidity successfully removed!");
-```
+- How to use the TzKT API to get data from the blockchain.
 
-If the transaction failed, we also update the UI accordingly:
+Although this tutorial uses Svelte for its framework, the skills you learned are transferrable to other JS/TS frameworks, because many of them use the same concepts, such as similar component lifecycles.
 
-```typescript=
-removeLiquidityStatus = TxStatus.Error;
-store.updateToast(true, "An error has occurred");
-```
-
-And that's it, the users have now the possibility to remove SIRS tokens and get XTZ and tzBTC tokens in exchange!
-
-
-You've made it until the end of this tutorial 🙂
-
-This very simple app introduced a lot of different concepts that are fundamental to developing applications on Tezos, but also to understanding how Tezos works in general.
-
-Taquito is an amazing library to develop on Tezos, whether you want to prototype ideas quickly or want to create full-stack decentralized applications. It provides a main library with all you need to read from the Tezos blockchain, interact with smart contracts and use wallets, and several smaller packages for specific usage, for example, reading token metadata or batching operations.
-
-Whether you want to build a front-end app, a back-end, or even a desktop app, as long as you are using JavaScript/NodeJS, you will be able to use Taquito!
-
-This tutorial also introduced different tools you may need on your journey to developing dapps on Tezos, The Beacon SDK to interact with wallets, the TzKT API to get more data from the blockchain, etc.
-
-Although this tutorial uses Svelte as its framework of choice, the skills you learned are transferrable to other frameworks as they are based on a lot of the same concepts (the component lifecycles are very similar, etc.) It gives you everything you need to build amazing dapps on Tezos and I can't wait to see what you will build next!
+Now you know many of the things that you need to build amazing dApps on Tezos and we can't wait to see what you build next!
