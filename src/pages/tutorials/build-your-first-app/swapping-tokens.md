@@ -314,9 +314,8 @@ finally {
 }
 ```
 
-### Design considerations
+### UI design considerations
 
-As you can tell from the code involved, swapping tokens is a complex action.
 Keep these design considerations in mind as you write code and create the UI for your dApp:
 
 - Structure your code into independent steps that don't overlap, as in this example:
