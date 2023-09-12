@@ -38,21 +38,35 @@ After you deploy the contract, you or any other user can call it through Octez o
 
 ## Prerequisites
 
-| Dependency         | Installation instructions                                                                                                                                                                                                                                        |
-| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Ligo            | Follow the _Installation_ steps in this [guide](https://ligolang.org/docs/tutorials/getting-started/?lang=cameligo#install-ligo)                                                                                                                                                |
+To run this tutorial, you need the Octez client and LIGO.
 
-{% callout type="warning" title="Note" %}
-Make sure you have **installed** the above CLI tools before getting started.
-{% /callout %}
+- To install LIGO, see <https://ligolang.org/docs/intro/installation>.
+You can verify that LIGO is installed by running this command:
 
-Now that you have installed the [_octez-client_](https://opentezos.com/tezos-basics/cli-and-rpc/#how-to-install-the-octez-client) and [_Ligo_](https://ligolang.org/docs/tutorials/getting-started/?lang=cameligo#install-ligo), we'll go ahead and dive right in.
+   ```bash
+   ligo version
+   ```
 
-Ligo is a high-level programming language created by Marigold to write smart contracts for the Tezos blockchain.
+   If you see a message with the version of LIGO you have installed, LIGO is installed correctly.
+
+- To install the Octez client, follow the instructions to install the `tezos-client` package on your system on this site: <http://tezos.gitlab.io/index.html>.
+You need only the `tezos-client` packages, not the other Octez packages such as `tezos-node`.
+
+   You can verify that the Octez client is installed by running this command:
+
+   ```bash
+   octez-client --version
+   ```
+
+   If you see a message with the version of Octez that you have installed, the Octez client is installed correctly.
+   For help on Octez, run `octez-client --help` or see <http://tezos.gitlab.io/index.html>.
+
+LIGO is a high-level programming language created by Marigold to write smart contracts for the Tezos blockchain.
 
 It abstracts away the complexity of using Michelson (the smart contract language directly available on-chain) and provides different syntaxes that make it easier to write smart contracts on Tezos.
 
-The 2 syntaxes that are available at the moment are *JsLigo*, a syntax similar to TypeScript, and *CameLigo*, a syntax similar to OCaml. The following article will introduce CameLigo.
+LIGO provides two syntaxes: *JsLigo*, a syntax similar to TypeScript, and *CameLigo*, a syntax similar to OCaml.
+This tutorial uses CameLigo, but you do not need any experience with OCaml to run it.
 
 ## Create a project folder
 
@@ -72,66 +86,6 @@ Inside the `example-smart-contract` folder, let's create a file called `incremen
 
 ```bash
 touch increment.mligo
-```
-
-## Confirm your setup
-### Ligo
-
-You can run
-```bash
-./ligo version
-```
-or
-```bash
-ligo version
-```
-according to your setup to check if Ligo is properly installed. You should see something like:
-``` sh
-Protocol built-in: lima
-0.60.0
-```
-
-### Octez-client
-
-We can check that it's correctly installed by running the following command:
-
-``` sh
-octez-client
-```
-
-And we should see something like this returned:
-
-``` sh
-Usage:
-  octez-client [global options] command [command options]
-  octez-client --help (for global options)
-  octez-client [global options] command --help (for command options)
-  octez-client --version (for version information)
-
-To browse the documentation:
-  octez-client [global options] man (for a list of commands)
-  octez-client [global options] man -v 3 (for the full manual)
-
-Global options (must come before the command):
-  -d --base-dir <path>: client data directory (absent: TEZOS_CLIENT_DIR env)
-  -c --config-file <path>: configuration file
-  -t --timings: show RPC request times
-  --chain <hash|tag>: chain on which to apply contextual commands (commands dependent on the context associated with the specified chain). Possible tags are 'main' and 'test'.
-  -b --block <hash|level|tag>: block on which to apply contextual commands (commands dependent on the context associated with the specified block). Possible tags include 'head' and 'genesis' +/- an optional offset (e.g. "octez-client -b head-1 get timestamp"). Note that block queried must exist in node's storage.
-  -w --wait <none|<int>>: how many confirmation blocks are needed before an operation is considered included
-  -p --protocol <hash>: use commands of a specific protocol
-  -l --log-requests: log all requests to the node
-  --better-errors: Error reporting is more detailed. Can be used if a call to an RPC fails or if you don't know the input accepted by the RPC. It may happen that the RPC calls take more time however.
-  -A --addr <IP addr|host>: [DEPRECATED: use --endpoint instead] IP address of the node
-  -P --port <number>: [DEPRECATED: use --endpoint instead] RPC port of the node
-  -S --tls: [DEPRECATED: use --endpoint instead] use TLS to connect to node.
-  -m --media-type <json, binary, any or default>: Sets the "media-type" value for the "accept" header for RPC requests to the node. The media accept header indicates to the node which format of data serialisation is supported. Use the value "json" for serialisation to the JSON format.
-  -E --endpoint <uri>: HTTP(S) endpoint of the node RPC interface; e.g. 'http://localhost:8732'
-  -s --sources <path>: path to JSON file containing sources for --mode light. Example file content: {"min_agreement": 1.0, "uris": ["http://localhost:8732", "https://localhost:8733"]}
-  -R --remote-signer <uri>: URI of the remote signer
-  -f --password-filename <filename>: path to the password filename
-  -M --mode <client|light|mockup|proxy>: how to interact with the node
-
 ```
 
 ## Switch to a Testnet
@@ -383,7 +337,6 @@ Finally, to reset the current storage to zero, you can call the `reset` entrypoi
 ```bash
 octez-client --wait none transfer 0 from local_wallet to increment --entrypoint 'reset' --arg 'Unit' --burn-cap 0.1
 ```
-
 
 ## Summary
 
