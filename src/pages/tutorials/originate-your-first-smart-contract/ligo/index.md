@@ -122,38 +122,36 @@ You should then see something like this returned:
 
 ## Create a local wallet
 
-We're now going to create a local wallet to use throughout this guide.
+Deploying a smart contract costs fees, so you need a local wallet and XTZ tokens.
+The Octez client can manage a local wallet for you, and you can get XTZ tokens on testnets from faucets.
 
-Run the following command to generate a local wallet with _octez-client_, making sure to replace `<my_wallet>` with a name of your choosing:
+1. Run the following command to generate a local wallet, replacing `local_wallet` with a name for your wallet:
 
-```bash
-octez-client gen keys local_wallet
-```
+   ```bash
+   octez-client gen keys local_wallet
+   ```
 
-Let's get the address for this wallet because we'll need it later:
+1. Get the address for the wallet by running this command, again replacing `local_wallet` with the name of your local wallet.
 
-```bash
-octez-client show address local_wallet
-```
+   ```bash
+   octez-client show address local_wallet
+   ```
 
-Which will return something like this:
+   The Octez client prints a warning that you are using a testnet and the address of the new wallet in the `hash` field.
+   The wallet address begins with `tz1`, `tz2`, or `tz3`, as in this example:
 
-``` sh
-Warning:
+   ```sh
+   Warning:
 
-                 This is NOT the Tezos Mainnet.
+                    This is NOT the Tezos Mainnet.
 
-           Do NOT use your fundraiser keys on this network.
+              Do NOT use your fundraiser keys on this network.
 
-Hash: tz1dW9Mk...........H67L
-Public Key: edp.............................bjbeDj
-```
+   Hash: tz1dW9Mk...........H67L
+   Public Key: edp.............................bjbeDj
+   ```
 
-We'll want to copy the Hash that starts with `tz` to your clipboard:
-
-``` sh
-tz1dW9Mk...........H67L
-```
+   You will need the wallet address to send funds to the wallet, to deploy the contract, and to send transactions to the contract.
 
 ## Fund your test wallet&#x20;
 
