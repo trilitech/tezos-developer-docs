@@ -28,7 +28,7 @@ In this tutorial, you will learn how to:
 ## Tutorial contract
 
 The contract that you deploy in this tutorial stores a single integer.
-It provides these endpoints that users can call to change the value of that integer:
+It provides a single endpoint that users can call to change the value of that integer
 
 - The `increment` endpoint accepts an integer as a parameter and adds that integer to the value in storage
 - The `decrement` endpoint accepts an integer as a parameter and subtracts that integer to the value in storage
@@ -98,7 +98,7 @@ The [Ghostnet](https://teztnets.xyz/ghostnet-about) testnet is a good choice for
 
 Follow these steps to set your Octez client to use a testnet instead of the main network:
 
-1. On <https://teztnets.xyz/>, click the testnet to use, such as ghostnet.
+1. On <https://teztnets.xyz/>, click the testnet to use, such as Ghostnet.
 
 1. Copy the one of the testnet's public RPC endpoints, such as `https://rpc.ghostnet.teztnets.xyz`.
 
@@ -122,7 +122,7 @@ You should then see something like this returned:
 
 ## Create a local wallet
 
-Deploying a smart contract costs fees, so you need a local wallet and XTZ tokens.
+Deploying and using a smart contract costs fees, so you need a local wallet and XTZ tokens.
 The Octez client can manage a local wallet for you, and you can get XTZ tokens on testnets from faucets.
 
 1. Run the following command to generate a local wallet, replacing `local_wallet` with a name for your wallet:
@@ -140,7 +140,7 @@ The Octez client can manage a local wallet for you, and you can get XTZ tokens o
    The Octez client prints a warning that you are using a testnet and the address of the new wallet in the `hash` field.
    The wallet address begins with `tz1`, `tz2`, or `tz3`, as in this example:
 
-   ```sh
+   ```bash
    Warning:
 
                     This is NOT the Tezos Mainnet.
@@ -151,92 +151,102 @@ The Octez client can manage a local wallet for you, and you can get XTZ tokens o
    Public Key: edp.............................bjbeDj
    ```
 
-   You will need the wallet address to send funds to the wallet, to deploy the contract, and to send transactions to the contract.
+   You need the wallet address to send funds to the wallet, to deploy the contract, and to send transactions to the contract.
 
-## Fund your test wallet&#x20;
+1. On the testnets page at <https://teztnets.xyz/>, click the faucet link for the testnet you are using.
+For example, the Ghostnet faucet is at <https://faucet.ghostnet.teztnets.xyz>.
 
-Tezos provides a [faucet](https://faucet.ghostnet.teztnets.xyz) to allow you to use the Testnet for free (has no value and can't be used on the Mainnet).
+1. On the faucet page, paste your wallet address into the input field labeled "Or fund any address" and click the button for the amount of XTZ to add to your wallet.
+It may take a few minutes for the faucet to send the tokens and for those tokens to appear in your wallet.
 
-Let's go ahead and fund our wallet through the [Ghostnet Faucet](https://faucet.ghostnet.teztnets.xyz). Paste the hash you copied earlier into the input field for "Or fund any address" and select the amount you'd like to add to your wallet.
+   You can use the faucet as much as you need to get tokens on the testnet, but those tokens are worthless and cannot be used on mainnet.
 
-![Fund your wallet using the Ghostnet Faucet](/images/wallet-funding.png)
+   ![Fund your wallet using the Ghostnet Faucet](/images/wallet-funding.png)
 
-Wait a minute or two and you can then run the following command to check that your wallet has funds in it:
+1. Run this command to check the balance of your wallet:
 
-``` sh
- octez-client get balance for local_wallet
+   ```bash
+   octez-client get balance for local_wallet
+   ```
+
+If your wallet is set up correctly and the faucet has sent tokens to it, the Octez client prints the balance of your wallet, as in this example:
+
 ```
-
-Which will return something like this:
-
-``` sh
 100 ꜩ
 ```
 
-## Use Ligo to create the contract
+## Create the contract
 
-For this introduction to Ligo, you will write a very simple contract that increments, decrements, or resets a number in its storage.
+The contract that you will create has these basic parts:
 
-A contract is made of 3 main parts:
-- a parameter type to update the storage
-- a storage type to describe how values are stored
-- a piece of code that controls the update of the storage
+- A type that describes the contract's storage, in this case an integer.
+The storage can be a primitive type such as an integer, string, or timestamp, or a complex data type that contains multiple values.
+For more information on contract data types, see [Smart contract concepts](../../../smart-contracts/smart-contracts-concepts/).
 
-The purpose of a smart contract is to write code that will use the values passed as a parameter to manipulate and update the storage in the intended way.
+- A single entrypoint named `main` that clients can call.
+Contracts can have any number of endpoints, but for simplicity, this contract uses only one endpoint.
 
-The contract will store an integer:
+- A definition for the parameter that determines whether the contract increments, decrements, or resets the storage.
 
-``` sh
-type storage = int
-```
+- Internal functions that describe what to do when clients call the contract.
 
-The parameter to update the contract storage is a *variant*, similar to a TypeScript enum:
+Follow these steps to create the code for the contract:
 
-``` sh
-type parameter =
-| Increment of int
-| Decrement of int
-| Reset
-```
+1. Open the `increment.mligo` file in any text editor.
 
-You can use the different branches of the variant to simulate entrypoints for your contract. In this case, there is an **Increment** entrypoint, a **Decrement** entrypoint, and a **Reset** entrypoint.
+1. Add this line of code to set the storage type to an integer:
 
-Next, you declare a function called `main` that will receive the parameter value and the storage when the contract is called. This function returns a tuple with a list of operations on the left and the new storage on the right:
+   ```ocaml
+   type storage = int
+   ```
 
-``` sh
-let main (action, store : parameter * storage) : operation list * storage =
-```
+1. Add this code to create the parameter that tells the contract what to do:
 
-You can return an empty list of operations from the beginning, then use pattern matching to match the targetted entrypoint:
-``` sh
-([] : operation list),
- (match action with
- | Increment (n) -> add (store, n)
- | Decrement (n) -> sub (store, n)
- | Reset         -> 0)
-```
+   ```ocaml
+   type parameter =
+   | Increment of int
+   | Decrement of int
+   | Reset
+   ```
 
-The **Increment** branch redirects to an `add` function that takes a tuple as a parameter made of the current storage and the value used to increment the storage.
+   This parameter is an OCaml type called a *variant*, similar to an enumeration in many other languages, but with some other features.
 
-The **Decrement** branch redirects to a `sub` function that takes a tuple as a parameter made of the current storage and the value used to decrement the storage.
+   The contract uses different branches of this variant to simulate entrypoints for the contract contract.
+   In this case, you can imagine that there is an **Increment** entrypoint, a **Decrement** entrypoint, and a **Reset** entrypoint, even though technically the contract will have only one endpoint, named `main`.
 
-The **Reset** branch only returns `0`, the new storage.
+1. Add this code to create the `main` endpoint:
 
-The `add` function:
+   ```ocaml
+   let main (action, store : parameter * storage) : operation list * storage =
+    ([] : operation list),    // No operations
+    (match action with
+    | Increment (n) -> add (store, n)
+    | Decrement (n) -> sub (store, n)
+    | Reset         -> 0)
+   ```
 
-```bash
-let add (store, inc : storage * int) : storage = store + inc
-```
-takes a tuple with the current storage on the left and the value to increment it on the right. These 2 values are added and returned as the new storage.
+   This endpoint accepts the increment, decrement, or reset parameter and refers to it as the `action` variable.
+   It also accepts the current value of the storage as the `store` variable.
+   Then it uses the OCaml `match` command to map the `action` variable to the new value of the storage:
 
-The `sub` function:
+    - If the parameter is "Reset," the new value of the storage is 0.
+    - If the parameter is "Increment" or "Decrement," the function passes the integer that the client sent to the `add` or `sub` functions, which you create in the next step.
 
-```bash
-let sub (store, dec : storage * int) : storage = store - dec
-```
-takes a tuple with the current storage on the left and the value to subtract from it on the right. The passed value is subtracted from the current storage and the new storage is returned.
+1. Add these functions to increment or decrement the storage:
 
-``` sh
+   ```ocaml
+   // Increment entrypoint
+   let add (store, inc : storage * int) : storage = store + inc
+   // Decrement entrypoint
+   let sub (store, dec : storage * int) : storage = store - dec
+   ```
+
+   These functions receive a tuple as a parameter, which includes the current value of the storage in the `store` variable and the value that the client passed in the `inc` or `dec` variables.
+   Then they set the new value of the storage based on those parameters.
+
+The complete contract code looks like this:
+
+```ocaml
 type storage = int
 
 type parameter =
@@ -255,24 +265,34 @@ let main (action, store : parameter * storage) : operation list * storage =
  | Increment (n) -> add (store, n)
  | Decrement (n) -> sub (store, n)
  | Reset         -> 0)
-
 ```
 
-## Compile the smart contract to Michelson
+## Test and compile the contract
 
-You can now compile the contract to Michelson directly from the terminal with the following command:
+Before you can deploy the contract to Tezos, you must compile it to Michelson, the base language of Tezos contracts.
 
-```bash
-ligo compile contract increment.mligo -o increment.tz
-```
+1. Test the contract by passing parameters and the storage value to the LIGO `dry-run` command.
+For example, this command sets the storage at 10 and increments it by 32:
 
-You can also test that the contract works by calling one of its entrypoints with this command:
+   ```bash
+   ligo run dry-run increment.mligo "Increment(32)" "10"
+   ```
 
-```bash
-ligo run dry-run increment.mligo "Increment(32)" "10"
-```
+   The terminal should show the response `(LIST_EMPTY(), 42)`.
+   This response means that the contract did not call any other contracts, so the list of operations is empty.
+   Then it shows the new value of the storage.
+   You can test the decrement and reset functions in the same way.
 
-This should return `(LIST_EMPTY(), 42)` if everything is correct.
+1. Run this command to compile the contract:
+
+   ```bash
+   ligo compile contract increment.mligo -o increment.tz
+   ```
+
+   If the compilation succeeds, no messages are shown in the terminal.
+   If you see error messages, verify that your contract code matches the code in the previous section.
+
+Now you can deploy the contract.
 
 ## Originate to the Testnet
 
