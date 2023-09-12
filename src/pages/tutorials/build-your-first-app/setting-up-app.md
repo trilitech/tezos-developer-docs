@@ -648,3 +648,16 @@ Follow these steps to set up the `src/App.svelte` file, which is the container f
    export const calcDeadline = () =>
    new Date(Date.now() + 3_600_000).toISOString();
    ```
+
+1. Copy these files from the tutorial repository at <https://github.com/trilitech/tutorial-applications/tree/main/liquidity-baking-dapp>, making sure to put the files in the sale folder in your application.
+These files handle parts of the application including displaying the user's wallet information and storing application state information:
+
+   - `src/config.ts`
+   - `src/store.ts`
+   - `src/types.ts`
+   - `src/lib/Interface.svelte`
+   - `src/lib/Sidebar.svelte`
+   - `src/lib/Toast.svelte`
+   - `src/lib/UserStats.svelte`
+
+   Create the `src/lib` folder if your application does not already have it.
