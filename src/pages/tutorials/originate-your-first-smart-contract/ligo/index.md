@@ -1,15 +1,40 @@
 ---
 id: first-smart-contract-ligo
-title: Originate your First Smart Contract with LIGO
-authors: 'John Joubert, Sasha Aldrick, Claude Barde'
-lastUpdated: 7th July 2023
+title: Deploy a smart contract with LIGO
+authors: 'John Joubert, Sasha Aldrick, Claude Barde, Tim McMackin'
+lastUpdated: 12th August 2023
 ---
 
----
+This tutorial covers using the Octez command-line client to deploy a smart contract to Tezos.
+The tutorial uses the LIGO programming language, which is one of the languages that you can write Tezos smart contracts in, but you don't need any experience with LIGO.
 
 {% callout type="note" title="Want to use SmartPy?" %}
-Click [here](/tutorials/originate-your-first-smart-contract/smartpy) to find out how to originate your first smart contract using SmartPy. 
+Click [here](/tutorials/originate-your-first-smart-contract/smartpy) to find out how to deploy a smart contract using SmartPy.
 {% /callout %}
+
+In this tutorial, you will learn how to:
+
+- Connect the Octez client to a testnet
+- Create a wallet
+- Get tokens from a faucet
+- Code a contract in LIGO, including:
+  - Defining the storage for the contract
+  - Defining endpoints in the contract
+  - Writing code to run when the endpoints are called
+- Deploy (or originate) the contract to Tezos and set its starting storage value
+- Look up the current state of the contract
+- Call the contract from the command line
+
+## Tutorial contract
+
+The contract that you deploy in this tutorial stores a single integer.
+It provides these endpoints that users can call to change the value of that integer:
+
+- The `increment` endpoint accepts an integer as a parameter and adds that integer to the value in storage
+- The `decrement` endpoint accepts an integer as a parameter and subtracts that integer to the value in storage
+- The `reset` endpoint takes no parameters and resets the value in storage to 0
+
+After you deploy the contract, you or any other user can call it through Octez or a distributed application (dApp).
 
 ## Prerequisites
 
@@ -358,3 +383,11 @@ Finally, to reset the current storage to zero, you can call the `reset` entrypoi
 ```bash
 octez-client --wait none transfer 0 from local_wallet to increment --entrypoint 'reset' --arg 'Unit' --burn-cap 0.1
 ```
+
+
+## Summary
+
+Now the contract is running on the Tezos blockchain.
+You or any other user can call it from any source that can send transactions to Tezos, including Octez, dApps, and other contracts.
+
+If you want to continue working with this contract, try creating a dApp to call it from a web application, similar to the dApp that you create in the tutorial [Build your first app on Tezos](../../build-your-first-app/).
