@@ -294,61 +294,68 @@ For example, this command sets the storage at 10 and increments it by 32:
 
 Now you can deploy the contract.
 
-## Originate to the Testnet
+## Deploying (originating) to the testnet
 
-Run the following command to originate the smart contract:
+Deploying a contract to the network is called "originating."
+Originating the contract requires a small amount of Tezos tokens as a fee.
+
+1. Run the following command to originate the smart contract, changing `$MY_TZ_ADDRESS` to the address of the wallet that you created earlier in the tutorial:
+
+   ```bash
+   octez-client originate contract my-counter \
+       transferring 0 from $MY_TZ_ADDRESS \
+       running increment.tz \
+       --init 10 --burn-cap 0.1 --force
+   ```
+
+   This command includes these parts:
+
+     - It uses the Octez client `originate contract` command to originate the contract and assigns the local name `my-counter` to the contract
+     - It includes 0 tokens from your wallet with the transaction, but the `--burn-cap` argument allows the transaction to take up to 0.1 XTZ from your wallet for fees.
+     - It sets the initial value of the contract storage to 10 with the `--init` argument.
+
+   If the contract deploys successfully, Octez shows the address of the new contract, as in this example:
+
+   ```bash
+   New contract KT1Nnk.................UFsJrq originated.
+   The operation has only been included 0 blocks ago.
+   We recommend to wait more.
+   ```
+
+1. Copy the contract address, which starts with `KT1`.
+
+1. Optional: Run the command `octez-client get balance for local_wallet` to get the updated balance of your wallet.
+
+1. Verify that the contract deployed successfully by finding it on a block explorer:
+
+  1. Open a Tezos block explorer such as [TzKT](https://tzkt.io) or [Better Call Dev](https://better-call.dev/).
+
+  1. Set the explorer to Ghostnet instead of mainnet.
+
+  1. Paste the contract address, which starts with `KT1`, into the search field and press Enter.
+
+  1. Go to the Storage tab to see that the initial value of the storage is 10.
+
+## Calling the contract
+
+Now you can call the contract from any Tezos client, including Octez.
+
+To increment the current storage by a certain value, call the `increment` entrypoint, as in this example:
+
 ```bash
-octez-client originate contract increment \
-    transferring 0 from <my_tz_address...> \
-    running increment.tz \
-    --init 10 --burn-cap 0.1 --force
+octez-client --wait none transfer 0 from local_wallet to my-counter --entrypoint 'increment' --arg '5' --burn-cap 0.1
 ```
 
-This will originate the contract with an initial storage of `10`.
+The previous example uses the local name `my-counter`.
+You can also specify the contract address.
 
-You should get a confirmation that your smart contract has been originated:
-
-```bash
-New contract KT1Nnk.................UFsJrq originated.
-The operation has only been included 0 blocks ago.
-We recommend to wait more.
-```
-
-Make sure you copy the contract address for the next step!
-
-## Confirm that all worked as expected
-
-To interact with the contract and confirm that all went as expected, you can use an Explorer such as: [TzKT](https://tzkt.io) or [Better Call Dev](https://better-call.dev/).
-
-Make sure you have switched to [Ghostnet](https://ghostnet.tzkt.io) before you start looking.
-
-Then paste the contract address (starting with KT1) `KT1Nnk.................UFsJrq` into the search field and hit `enter` to find it.
-
-Then navigate to the `Storage` tab to see your initial value of `10`.
-
-## Calling the entrypoints
-
-Now that we've successfully originated our smart contract, let's test out the three entrypoints that we created: `increment`, `decrement`, and `reset`.
-
-#### Increment
-
-To increment the current storage by a certain value, you can call the `increment` entrypoint:
-
-```bash
-octez-client --wait none transfer 0 from local_wallet to increment --entrypoint 'increment' --arg '5' --burn-cap 0.1
-```
-
-#### Decrement
-
-To decrement the current storage by a certain value, you can call the `decrement` entrypoint:
+To decrement the current storage by a certain value, call the `decrement` entrypoint, as in this example:
 
 ```bash
 octez-client --wait none transfer 0 from local_wallet to increment --entrypoint 'decrement' --arg '6' --burn-cap 0.1
 ```
 
-#### Reset
-
-Finally, to reset the current storage to zero, you can call the `reset` entrypoint:
+Finally, to reset the current storage to zero, call the `reset` entrypoint, as in this example:
 
 ```bash
 octez-client --wait none transfer 0 from local_wallet to increment --entrypoint 'reset' --arg 'Unit' --burn-cap 0.1
