@@ -70,57 +70,55 @@ This tutorial uses CameLigo, but you do not need any experience with OCaml to ru
 
 ## Create a project folder
 
-Now we can go ahead and create a folder somewhere on our local drive with the name of the project. Let's call it `example-smart-contract`.
+Follow these steps to create a LIGO project:
 
-```bash
-mkdir example-smart-contract
-```
+1. On the command-line terminal, create a folder for the project and open it.
+You can name your project anything you want, such as `example-smart-contract`.
 
-```bash
-cd example-smart-contract
-```
+   ```bash
+   mkdir example-smart-contract
+   cd example-smart-contract
+   ```
 
-## Create a project file
+1. Create a file named `increment.mligo` in the project folder.
+This is where the contract code goes.
 
-Inside the `example-smart-contract` folder, let's create a file called `increment.mligo` and save it. We'll need this file later.
+   ```bash
+   touch increment.mligo
+   ```
 
-```bash
-touch increment.mligo
-```
+## Switch to a testnet
 
-## Switch to a Testnet
+Before you deploy your contract to the main Tezos network (referred to as *mainnet*), you can deploy it to a testnet.
+Testnets are useful for testing Tezos operations because testnets provide tokens for free so you can work with them without spending real tokens.
 
-Before going further let's make sure we're working on a [Testnet](https://teztnets.xyz).&#x20;
+Tezos testnets are listed on this site: <https://teztnets.xyz/>.
 
-View the available Testnets:
+The [Ghostnet](https://teztnets.xyz/ghostnet-about) testnet is a good choice for testing because it is intended to be long-lived, as opposed to shorter-term testnets that allow people to test new Tezos features.
 
-``` sh
-https://teztnets.xyz
-```
+Follow these steps to set your Octez client to use a testnet instead of the main network:
 
-The [Ghostnet](https://teztnets.xyz/ghostnet-about) might be a good choice for this guide (at the time of writing).&#x20;
+1. On <https://teztnets.xyz/>, click the testnet to use, such as ghostnet.
 
-Copy the _Public RPC endpoint_ which looks something like this:
+1. Copy the one of the testnet's public RPC endpoints, such as `https://rpc.ghostnet.teztnets.xyz`.
 
-``` sh
-https://rpc.ghostnet.teztnets.xyz
-```
+1. Set your Octez client to use this testnet by running this command on the command line, replacing the testnet RPC URL with the URL that you copied:
 
-Make sure we use this endpoint by running:
+   ```bash
+   octez-client --endpoint https://rpc.ghostnet.teztnets.xyz config update
+   ```
 
-```bash
-octez-client --endpoint https://rpc.ghostnet.teztnets.xyz config update
-```
+   Octez shows a warning that you are using a testnet instead of mainnet.
+
+1. Verify that you are using a testnet by running this command:
+
+   ```bash
+   octez-client config show
+   ```
+
+   The response from Octez includes the URL of the testnet.
 
 You should then see something like this returned:
-
-``` sh
-Warning:
-
-                 This is NOT the Tezos Mainnet.
-
-           Do NOT use your fundraiser keys on this network.
-```
 
 ## Create a local wallet
 
