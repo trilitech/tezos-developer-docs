@@ -213,7 +213,7 @@ If it calls the reset endpoint, it does not pass any parameters.
 
    This code is an OCaml type called a *variant*, similar to an enumeration in many other languages, but with some other features.
 
-1. Add this code to create the `main` function, which defines entrypoints based on the variant in the previous step:
+1. Add this code to create the `main` function, which defines the entrypoints that the client can call:
 
    ```ocaml
    let main (action, store : parameter * storage) : operation list * storage =
@@ -224,10 +224,13 @@ If it calls the reset endpoint, it does not pass any parameters.
     | Reset         -> 0)
    ```
 
-   This function returns a list of entrypoints that the client can call and the new value of the storage:
+   Tezos entrypoints return two values: a list of other operations to call and the new value of the contract's storage.
+   In this case, the contract does not call any other operations, so the first return value is an empty list of operations, denoted by the code `([] : operation list)`.
 
-    - If the parameter is "Reset," the new value of the storage is 0.
-    - If the parameter is "Increment" or "Decrement," the function passes the storage and the integer that the client sent to the `add` or `sub` functions, which you create in the next step.
+   The second return value, the new value of the contract's storage, depends on which endpoint the client called:
+
+    - If the client calls the "Reset" entrypoint, the new value of the storage is 0.
+    - If the client calls the "Increment" or "Decrement" entrypoints the function passes the storage and the integer that the client sent to the `add` or `sub` functions, which you create in the next step.
 
 1. Add these functions to increment or decrement the storage:
 
@@ -239,7 +242,7 @@ If it calls the reset endpoint, it does not pass any parameters.
    ```
 
    These functions receive a tuple as a parameter, which includes the current value of the storage in the `store` variable and the value that the client passed in the `inc` or `dec` variables.
-   Then they set the new value of the storage based on those parameters.
+   Then return the new value of the storage based on those parameters.
 
 The complete contract code looks like this:
 
