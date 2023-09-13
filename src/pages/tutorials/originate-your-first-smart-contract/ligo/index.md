@@ -8,9 +8,7 @@ lastUpdated: 13th September 2023
 This tutorial covers using the Octez command-line client to deploy a smart contract to Tezos.
 The tutorial uses the LIGO programming language, which is one of the languages that you can write Tezos smart contracts in, but you don't need any experience with LIGO.
 
-{% callout type="note" title="Want to use SmartPy?" %}
-Click [here](/tutorials/originate-your-first-smart-contract/smartpy) to find out how to deploy a smart contract using SmartPy.
-{% /callout %}
+If you are more familiar with Python, try [Originate your First Smart Contract with SmartPy](/tutorials/originate-your-first-smart-contract/smartpy).
 
 In this tutorial, you will learn how to:
 
@@ -40,7 +38,7 @@ After you deploy the contract, you or any other user can call it through Octez o
 
 To run this tutorial, you need the Octez client and LIGO.
 
-- To install LIGO, see <https://ligolang.org/docs/intro/installation>.
+- To install the LIGO programming language, see <https://ligolang.org/docs/intro/installation>.
 You can verify that LIGO is installed by running this command:
 
    ```bash
@@ -49,7 +47,7 @@ You can verify that LIGO is installed by running this command:
 
    If you see a message with the version of LIGO you have installed, LIGO is installed correctly.
 
-- To install the Octez client, follow the instructions to install the `tezos-client` package on your system on this site: <http://tezos.gitlab.io/index.html>.
+- To install the Octez client, which allows you to send transactions to the Tezos blockchain, follow the instructions to install the `tezos-client` package on your system on this site: <http://tezos.gitlab.io/index.html>.
 You need only the `tezos-client` packages, not the other Octez packages such as `tezos-node`.
 
    You can verify that the Octez client is installed by running this command:
