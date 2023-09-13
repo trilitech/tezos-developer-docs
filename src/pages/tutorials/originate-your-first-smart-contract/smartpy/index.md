@@ -54,6 +54,26 @@ You need only the `tezos-client` packages, not the other Octez packages such as 
    If you see a message with the version of Octez that you have installed, the Octez client is installed correctly.
    For help on Octez, run `octez-client --help` or see <http://tezos.gitlab.io/index.html>.
 
+## Prerequisites
+
+To run this tutorial, you need the Octez client, Docker, and SmartPy.
+
+- SmartPy requires Docker, so see <https://www.docker.com/> to install Docker.
+
+- To install the SmartPy programming language, see <https://smartpy.io/manual/introduction/installation>.
+
+- To install the Octez client, which allows you to send transactions to the Tezos blockchain, follow the instructions to install the `tezos-client` package on your system on this site: <http://tezos.gitlab.io/index.html>.
+You need only the `tezos-client` packages, not the other Octez packages such as `tezos-node`.
+
+   You can verify that the Octez client is installed by running this command:
+
+   ```bash
+   octez-client --version
+   ```
+
+   If you see a message with the version of Octez that you have installed, the Octez client is installed correctly.
+   For help on Octez, run `octez-client --help` or see <http://tezos.gitlab.io/index.html>.
+
 ## Tutorial contract
 
 The contract that you deploy in this tutorial stores a string value.
