@@ -282,7 +282,7 @@ Now you can deploy the contract.
 Deploying a contract to the network is called "originating."
 Originating the contract requires a small amount of Tezos tokens as a fee.
 
-1. Run the following command to originate the smart contract, changing `$MY_TZ_ADDRESS` to the address of the wallet that you created earlier in the tutorial:
+1. Run the following command to originate the smart contract, changing `$MY_TZ_ADDRESS` to the address or local name of the wallet that you created earlier in the tutorial:
 
    ```bash
    octez-client originate contract my-counter \
@@ -323,7 +323,7 @@ Originating the contract requires a small amount of Tezos tokens as a fee.
 
 Now you can call the contract from any Tezos client, including Octez.
 
-To increment the current storage by a certain value, call the `increment` entrypoint, as in this example:
+To increment the current storage by a certain value, call the `increment` entrypoint, as in this example, again changing `$MY_TZ_ADDRESS` to the address or local name of the wallet that you created earlier in the tutorial:
 
 ```bash
 octez-client --wait none transfer 0 from $MY_TZ_ADDRESS to my-counter --entrypoint 'increment' --arg '5' --burn-cap 0.1
