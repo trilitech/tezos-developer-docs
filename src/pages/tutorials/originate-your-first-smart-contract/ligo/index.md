@@ -344,6 +344,8 @@ Finally, to reset the current storage to zero, call the `reset` entrypoint, as i
 octez-client --wait none transfer 0 from $MY_TZ_ADDRESS to my-counter --entrypoint 'reset' --arg 'Unit' --burn-cap 0.1
 ```
 
+You can go back to the block explorer to verify that the storage of the contract changed.
+
 ## Summary
 
 Now the contract is running on the Tezos blockchain.
