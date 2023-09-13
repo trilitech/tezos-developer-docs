@@ -72,11 +72,11 @@ This tutorial uses CameLigo, but you do not need any experience with OCaml to ru
 Follow these steps to create a LIGO project:
 
 1. On the command-line terminal, create a folder for the project and open it.
-You can name your project anything you want, such as `example-smart-contract`.
+You can name your project anything you want, such as `example-smart-contract-cameligo`.
 
    ```bash
-   mkdir example-smart-contract
-   cd example-smart-contract
+   mkdir example-smart-contract-cameligo
+   cd example-smart-contract-cameligo
    ```
 
 1. Create a file named `increment.mligo` in the project folder.
