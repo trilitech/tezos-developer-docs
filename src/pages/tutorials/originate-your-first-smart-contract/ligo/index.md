@@ -2,7 +2,7 @@
 id: first-smart-contract-ligo
 title: Deploy a smart contract with LIGO
 authors: 'John Joubert, Sasha Aldrick, Claude Barde, Tim McMackin'
-lastUpdated: 12th August 2023
+lastUpdated: 13th September 2023
 ---
 
 This tutorial covers using the Octez command-line client to deploy a smart contract to Tezos.
