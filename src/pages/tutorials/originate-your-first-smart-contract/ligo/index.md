@@ -183,12 +183,12 @@ The contract that you will create has these basic parts:
 The storage can be a primitive type such as an integer, string, or timestamp, or a complex data type that contains multiple values.
 For more information on contract data types, see [Smart contract concepts](../../../smart-contracts/smart-contracts-concepts/).
 
-- A single entrypoint named `main` that clients can call.
-Contracts can have any number of endpoints, but for simplicity, this contract uses only one endpoint.
+- A function named `main` that defines the contract's _entrypoints_, which are functions that clients can call, like endpoints in an API.
+Contracts can have any number of entrypoints.
 
 - A definition for the parameter that determines whether the contract increments, decrements, or resets the storage.
 
-- Internal functions that describe what to do when clients call the contract.
+- Internal functions that run code when clients call the contract.
 
 Follow these steps to create the code for the contract:
 
@@ -200,7 +200,9 @@ Follow these steps to create the code for the contract:
    type storage = int
    ```
 
-1. Add this code to create the parameter that tells the contract what to do:
+1. Add this code to define the parameters that the contract accepts.
+In this case, if the client calls the increment or decrement endpoints, it must pass an integer.
+If it calls the reset endpoint, it does not pass any parameters.
 
    ```ocaml
    type parameter =
@@ -209,12 +211,9 @@ Follow these steps to create the code for the contract:
    | Reset
    ```
 
-   This parameter is an OCaml type called a *variant*, similar to an enumeration in many other languages, but with some other features.
+   This code is an OCaml type called a *variant*, similar to an enumeration in many other languages, but with some other features.
 
-   The contract uses different branches of this variant to simulate entrypoints for the contract contract.
-   In this case, you can imagine that there is an **Increment** entrypoint, a **Decrement** entrypoint, and a **Reset** entrypoint, even though technically the contract will have only one endpoint, named `main`.
-
-1. Add this code to create the `main` endpoint:
+1. Add this code to create the `main` function, which defines entrypoints based on the variant in the previous step:
 
    ```ocaml
    let main (action, store : parameter * storage) : operation list * storage =
@@ -225,12 +224,10 @@ Follow these steps to create the code for the contract:
     | Reset         -> 0)
    ```
 
-   This endpoint accepts the increment, decrement, or reset parameter and refers to it as the `action` variable.
-   It also accepts the current value of the storage as the `store` variable.
-   Then it uses the OCaml `match` command to map the `action` variable to the new value of the storage:
+   This function returns a list of entrypoints that the client can call and the new value of the storage:
 
     - If the parameter is "Reset," the new value of the storage is 0.
-    - If the parameter is "Increment" or "Decrement," the function passes the integer that the client sent to the `add` or `sub` functions, which you create in the next step.
+    - If the parameter is "Increment" or "Decrement," the function passes the storage and the integer that the client sent to the `add` or `sub` functions, which you create in the next step.
 
 1. Add these functions to increment or decrement the storage:
 
