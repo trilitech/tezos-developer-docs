@@ -19,8 +19,8 @@ In this tutorial, you will learn how to:
 - Get tokens from a faucet
 - Code a contract in LIGO, including:
   - Defining the storage for the contract
-  - Defining endpoints in the contract
-  - Writing code to run when the endpoints are called
+  - Defining entrypoints in the contract
+  - Writing code to run when the entrypoints are called
 - Deploy (or originate) the contract to Tezos and set its starting storage value
 - Look up the current state of the contract
 - Call the contract from the command line
@@ -28,7 +28,7 @@ In this tutorial, you will learn how to:
 ## Tutorial contract
 
 The contract that you deploy in this tutorial stores a single integer.
-It provides a single endpoint that users can call to change the value of that integer
+It provides entrypoints that clients can call to change the value of that integer:
 
 - The `increment` endpoint accepts an integer as a parameter and adds that integer to the value in storage
 - The `decrement` endpoint accepts an integer as a parameter and subtracts that integer to the value in storage
@@ -183,12 +183,9 @@ The contract that you will create has these basic parts:
 The storage can be a primitive type such as an integer, string, or timestamp, or a complex data type that contains multiple values.
 For more information on contract data types, see [Smart contract concepts](../../../smart-contracts/smart-contracts-concepts/).
 
-- A function named `main` that defines the contract's _entrypoints_, which are functions that clients can call, like endpoints in an API.
-Contracts can have any number of entrypoints.
+- Internal functions called entrypoints that run code when clients call the contract.
 
-- A definition for the parameter that determines whether the contract increments, decrements, or resets the storage.
-
-- Internal functions that run code when clients call the contract.
+- A type that describes the return value of the entrypoints.
 
 Follow these steps to create the code for the contract:
 
