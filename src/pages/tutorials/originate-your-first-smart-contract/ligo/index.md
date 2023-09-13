@@ -117,8 +117,6 @@ Follow these steps to set your Octez client to use a testnet instead of the main
 
    The response from Octez includes the URL of the testnet.
 
-You should then see something like this returned:
-
 ## Create a local wallet
 
 Deploying and using a smart contract costs fees, so you need a local wallet and XTZ tokens.
