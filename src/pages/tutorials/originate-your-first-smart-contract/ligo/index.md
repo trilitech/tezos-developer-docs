@@ -217,7 +217,7 @@ Tezos entrypoints return two values: a list of other operations to call and the 
    ```
 
    These functions begin with the `@entry` annotation to indicate that they are entrypoints.
-   They accept two parameters: the change in the storage value (an integer) and the current value of the storage (in the `storage` type that you created earlier in the code.)
+   They accept two parameters: the change in the storage value (an integer) and the current value of the storage (in the `storage` type that you created earlier in the code).
    They return a value of the type `returnValue` that you created in the previous step.
 
    Each function returns an empty list of other operations to call and the new value of the storage.
