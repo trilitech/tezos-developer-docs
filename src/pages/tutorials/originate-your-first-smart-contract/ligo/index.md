@@ -353,3 +353,4 @@ Now the contract is running on the Tezos blockchain.
 You or any other user can call it from any source that can send transactions to Tezos, including Octez, dApps, and other contracts.
 
 If you want to continue working with this contract, try creating a dApp to call it from a web application, similar to the dApp that you create in the tutorial [Build your first app on Tezos](../../build-your-first-app/).
+You can also try adding your own endpoints and originating a new contract, but you cannot update the existing contract after it is deployed.
