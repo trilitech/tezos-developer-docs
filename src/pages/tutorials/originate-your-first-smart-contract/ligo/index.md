@@ -326,7 +326,7 @@ Now you can call the contract from any Tezos client, including Octez.
 To increment the current storage by a certain value, call the `increment` entrypoint, as in this example:
 
 ```bash
-octez-client --wait none transfer 0 from local_wallet to my-counter --entrypoint 'increment' --arg '5' --burn-cap 0.1
+octez-client --wait none transfer 0 from $MY_TZ_ADDRESS to my-counter --entrypoint 'increment' --arg '5' --burn-cap 0.1
 ```
 
 The previous example uses the local name `my-counter`.
@@ -335,13 +335,13 @@ You can also specify the contract address.
 To decrement the current storage by a certain value, call the `decrement` entrypoint, as in this example:
 
 ```bash
-octez-client --wait none transfer 0 from local_wallet to increment --entrypoint 'decrement' --arg '6' --burn-cap 0.1
+octez-client --wait none transfer 0 from $MY_TZ_ADDRESS to my-counter --entrypoint 'decrement' --arg '6' --burn-cap 0.1
 ```
 
 Finally, to reset the current storage to zero, call the `reset` entrypoint, as in this example:
 
 ```bash
-octez-client --wait none transfer 0 from local_wallet to increment --entrypoint 'reset' --arg 'Unit' --burn-cap 0.1
+octez-client --wait none transfer 0 from $MY_TZ_ADDRESS to my-counter --entrypoint 'reset' --arg 'Unit' --burn-cap 0.1
 ```
 
 ## Summary
