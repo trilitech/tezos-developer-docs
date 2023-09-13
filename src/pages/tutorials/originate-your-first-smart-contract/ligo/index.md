@@ -6,7 +6,8 @@ lastUpdated: 13th September 2023
 ---
 
 This tutorial covers using the Octez command-line client to deploy a smart contract to Tezos.
-The tutorial uses the LIGO programming language, which is one of the languages that you can write Tezos smart contracts in, but you don't need any experience with LIGO.
+The tutorial uses the LIGO programming language, which is one of the languages that you can write Tezos smart contracts in
+Specifically, this tutorial uses the CameLIGO version of LIGO, which has syntax similar to OCaml, but you don't need any experience with OCaml or LIGO to do this tutorial.
 
 If you are more familiar with Python, try [Originate your First Smart Contract with SmartPy](/tutorials/originate-your-first-smart-contract/smartpy).
 
