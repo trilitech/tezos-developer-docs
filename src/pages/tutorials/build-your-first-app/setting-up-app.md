@@ -1,9 +1,7 @@
 ---
 id: setting-up-app
 title: "Part 1: Setting up the application"
-authors:
-  - Claude Barde
-  - Tim McMackin
+authors: 'Claude Barde, Tim McMackin'
 lastUpdated: 8th September 2023
 ---
 

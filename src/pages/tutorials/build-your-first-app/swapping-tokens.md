@@ -1,9 +1,7 @@
 ---
 id: swapping-tokens
 title: "Part 3: Swapping tokens"
-authors:
-  - Claude Barde
-  - Tim McMackin
+authors: 'Claude Barde, Tim McMackin'
 lastUpdated: 11th September 2023
 ---
 

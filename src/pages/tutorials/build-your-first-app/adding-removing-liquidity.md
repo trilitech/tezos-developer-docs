@@ -1,9 +1,7 @@
 ---
 id: adding-removing-liquidity
 title: "Part 4: Adding and removing liquidity"
-authors:
-  - Claude Barde
-  - Tim McMackin
+authors: 'Claude Barde, Tim McMackin'
 lastUpdated: 12 September 2023
 ---
 
