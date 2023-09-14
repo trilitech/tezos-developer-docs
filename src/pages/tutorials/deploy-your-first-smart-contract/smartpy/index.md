@@ -9,8 +9,9 @@ This tutorial covers using the Octez command-line client to deploy a smart contr
 The tutorial uses the SmartPy programming language, which is one of the languages that you can write Tezos smart contracts in.
 SmartPy has syntax similar to Python, but you don't need any experience with Python or SmartPy to do this tutorial.
 
-- If you are more familiar with Python, try [Deploy a smart contract with SmartPy](/tutorials/originate-your-first-smart-contract/smartpy).
-- If you are more familiar with JavaScript, try [Deploy a smart contract with jsLIGO](/tutorials/originate-your-first-smart-contract/jsligo).
+- If you are more familiar with OCaml, try [Deploy a smart contract with CameLIGO](/tutorials/deploy-your-first-smart-contract/ligo).
+- If you are more familiar with JavaScript, try [Deploy a smart contract with jsLIGO](/tutorials/deploy-your-first-smart-contract/jsligo).
+
 In this tutorial, you will learn how to:
 
 - Connect the Octez client to a testnet

@@ -21,7 +21,7 @@ Welcome to the Tezos Documentation Portal. We're currently in _beta_. Please sha
 
 {% quick-link title="Get and Install Tezos" icon="installation" href="/tezos-basics/get-started-with-octez" description="Get started with the Tezos client, Octez" /%}
 
-{% quick-link title="Originate your First Smart Contract" icon="deploy" href="/tutorials/originate-your-first-smart-contract/smartpy" description="How to originate your first smart contract" isTutorial=true /%}
+{% quick-link title="Deploy your First Smart Contract" icon="deploy" href="/tutorials/deploy-your-first-smart-contract/smartpy" description="Deploy your first smart contract on Tezos" isTutorial=true /%}
 
 {% quick-link title="Tezos Protocol & Shell" icon="protocol" href="/tezos-basics/tezos-protocol-and-shell" description="Understanding the Tezos Protocol & Shell" /%}
 

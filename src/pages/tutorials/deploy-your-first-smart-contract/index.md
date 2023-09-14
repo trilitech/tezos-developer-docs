@@ -25,4 +25,4 @@ You do not need an experience in these languages to run the tutorial.
 
 - To use SmartPy, a language similar to Python, see [Deploy a smart contract with SmartPy](./smartpy)
 - To use jsLIGO, a language similar to JavaScript and TypeScript, see [Deploy a smart contract with jsLIGO](./jsligo)
-- To use CameLIGO, a language similar to OCaml, see [Deploy a smart contract with OCaml](./ligo)
+- To use CameLIGO, a language similar to OCaml, see [Deploy a smart contract with CameLIGO](./ligo)
