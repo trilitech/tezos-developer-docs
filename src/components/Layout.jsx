@@ -269,19 +269,19 @@ const tutorialNavigation = [
     links: [
       {
         title: 'Deploy a smart contract',
-        href: '/tutorials/originate-your-first-smart-contract',
+        href: '/tutorials/deploy-your-first-smart-contract',
         children: [
           {
             title: 'SmartPy',
-            href: '/tutorials/originate-your-first-smart-contract/smartpy',
+            href: '/tutorials/deploy-your-first-smart-contract/smartpy',
           },
           {
             title: 'CameLIGO',
-            href: '/tutorials/originate-your-first-smart-contract/ligo',
+            href: '/tutorials/deploy-your-first-smart-contract/ligo',
           },
           {
             title: 'jsLIGO',
-            href: '/tutorials/originate-your-first-smart-contract/jsligo',
+            href: '/tutorials/deploy-your-first-smart-contract/jsligo',
           },
         ],
       },
