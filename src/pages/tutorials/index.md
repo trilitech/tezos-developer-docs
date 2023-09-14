@@ -11,7 +11,7 @@ Welcome to the Tezos Documentation Tutorials Portal. We're currently in _beta_. 
 
 {% lg-links %}
 
-{% lg-link title="Originating your first smart contract" icon="deploy" href="/tutorials/originate-your-first-smart-contract/smartpy/" description="In 15 minutes, go from zero to hero and originate your first smart contract with SmartPy/LIGO" /%}
+{% lg-link title="Deploy your first smart contract" icon="deploy" href="/tutorials/deploy-your-first-smart-contract/" description="In 15 minutes, go from zero to hero and deploy your first smart contract with SmartPy/LIGO" /%}
 
 {% lg-link title="Smart Rollups" icon="quickstart" href="/tutorials/smart-rollups" description="Get started by deploying your own smart rollup with our onboarding tutorial" /%}
 
