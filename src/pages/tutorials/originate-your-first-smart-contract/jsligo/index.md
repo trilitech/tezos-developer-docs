@@ -1,16 +1,16 @@
 ---
-id: first-smart-contract-ligo
-title: Deploy a smart contract with CameLIGO
+id: first-smart-contract-jsligo
+title: Deploy a smart contract with jsLIGO
 authors: 'John Joubert, Sasha Aldrick, Claude Barde, Tim McMackin'
-lastUpdated: 13th September 2023
+lastUpdated: 14th September 2023
 ---
 
 This tutorial covers using the Octez command-line client to deploy a smart contract to Tezos.
 The tutorial uses the LIGO programming language, which is one of the languages that you can write Tezos smart contracts in.
-Specifically, this tutorial uses the CameLIGO version of LIGO, which has syntax similar to OCaml, but you don't need any experience with OCaml or LIGO to do this tutorial.
+Specifically, this tutorial uses the jsLIGO version of LIGO, which has syntax similar to JavaScript, but you don't need any experience with JavaScript or LIGO to do this tutorial.
 
-- If you are more familiar with JavaScript, try [Deploy a smart contract with jsLIGO](/tutorials/originate-your-first-smart-contract/jsligo).
 - If you are more familiar with Python, try [Deploy a smart contract with SmartPy](/tutorials/originate-your-first-smart-contract/smartpy).
+- If you are more familiar with OCaml, try [Deploy a smart contract with CameLIGO](/tutorials/originate-your-first-smart-contract/ligo).
 
 In this tutorial, you will learn how to:
 
@@ -66,25 +66,25 @@ LIGO is a high-level programming language created by Marigold to write smart con
 It abstracts away the complexity of using Michelson (the smart contract language directly available on-chain) and provides different syntaxes that make it easier to write smart contracts on Tezos.
 
 LIGO provides two syntaxes: *jsLigo*, a syntax similar to TypeScript, and *CameLigo*, a syntax similar to OCaml.
-This tutorial uses CameLigo, but you do not need any experience with OCaml to run it.
+This tutorial uses jsLigo, but you do not need any experience with JavaScript or TypeScript to run it.
 
 ## Create a project folder
 
 Follow these steps to create a LIGO project:
 
 1. On the command-line terminal, create a folder for the project and open it.
-You can name your project anything you want, such as `example-smart-contract-cameligo`.
+You can name your project anything you want, such as `example-smart-contract-jsligo`.
 
    ```bash
-   mkdir example-smart-contract-cameligo
-   cd example-smart-contract-cameligo
+   mkdir example-smart-contract-jsligo
+   cd example-smart-contract-jsligo
    ```
 
-1. Create a file named `increment.mligo` in the project folder.
+1. Create a file named `increment.jsligo` in the project folder.
 This is where the contract code goes.
 
    ```bash
-   touch increment.mligo
+   touch increment.jsligo
    ```
 
 ## Switch to a testnet
@@ -187,31 +187,41 @@ For more information on contract data types, see [Smart contract concepts](../..
 
 Follow these steps to create the code for the contract:
 
-1. Open the `increment.mligo` file in any text editor.
+1. Open the `increment.jsligo` file in any text editor.
 
-1. Add this line of code to set the storage type to an integer:
+1. Create a namespace named `Counter` to hold the code for the contract:
 
-   ```ocaml
-   type storage = int
+   ```ts
+   namespace Counter {
+
+   }
+   ```
+
+1. Inside the namespace, create a TypeScript type to set the storage type to an integer:
+
+   ```ts
+   type storage = int;
    ```
 
 1. Add this code to define the return type for the endpoints.
 Tezos entrypoints return two values: a list of other operations to call and the new value of the contract's storage.
 
-   ```ocaml
-   type returnValue = operation list * storage
+   ```ts
+   type returnValue = [list<operation>, storage];
    ```
 
 1. Add the code for the increment and decrement entrypoints:
 
-   ```ocaml
+   ```ts
    // Increment entrypoint
-   [@entry] let increment (delta : int) (store : storage) : returnValue =
-     [], store + delta
+   @entry
+   const increment = (delta : int, store : storage) : returnValue =>
+     [list([]), store + delta];
 
    // Decrement entrypoint
-   [@entry] let decrement (delta : int) (store : storage) : returnValue =
-     [], store - delta
+   @entry
+   const decrement = (delta : int, store : storage) : returnValue =>
+     [list([]), store - delta];
    ```
 
    These functions begin with the `@entry` annotation to indicate that they are entrypoints.
@@ -222,10 +232,11 @@ Tezos entrypoints return two values: a list of other operations to call and the 
 
 1. Add this code for the reset entrypoint:
 
-   ```ocaml
+   ```ts
    // Reset entrypoint
-   [@entry] let reset (() : unit) (_ : storage) : returnValue =
-     [], 0
+   @entry
+   const reset = (_ : unit, _ : storage) : returnValue =>
+     [list([]), 0];
    ```
 
    This function is similar to the others, but it does not take the current value of the storage into account.
@@ -233,22 +244,26 @@ Tezos entrypoints return two values: a list of other operations to call and the 
 
 The complete contract code looks like this:
 
-```ocaml
-type storage = int
+```ts
+namespace Counter {
+  type storage = int;
+  type returnValue = [list<operation>, storage];
 
-type returnValue = operation list * storage
+  // Increment entrypoint
+  @entry
+  const increment = (delta : int, store : storage) : returnValue =>
+    [list([]), store + delta];
 
-// Increment entrypoint
-[@entry] let increment (delta : int) (store : storage) : returnValue =
-  [], store + delta
+  // Decrement entrypoint
+  @entry
+  const decrement = (delta : int, store : storage) : returnValue =>
+    [list([]), store - delta];
 
-// Decrement entrypoint
-[@entry] let decrement (delta : int) (store : storage) : returnValue =
-  [], store - delta
-
-// Reset entrypoint
-[@entry] let reset (() : unit) (_ : storage) : returnValue =
-  [], 0
+  // Reset entrypoint
+  @entry
+  const reset = (_ : unit, _ : storage) : returnValue =>
+    [list([]), 0];
+}
 ```
 
 ## Test and compile the contract
@@ -259,7 +274,7 @@ Before you can deploy the contract to Tezos, you must compile it to Michelson, t
 For example, this command sets the storage at 10 and increments it by 32:
 
    ```bash
-   ligo run dry-run increment.mligo "Increment(32)" "10"
+   ligo run dry-run increment.jsligo -m Counter -e increment "Increment(32)" "10"
    ```
 
    The terminal should show the response `(LIST_EMPTY(), 42)`.
@@ -270,7 +285,7 @@ For example, this command sets the storage at 10 and increments it by 32:
 1. Run this command to compile the contract:
 
    ```bash
-   ligo compile contract increment.mligo -o increment.tz
+   ligo compile contract increment.jsligo -m Counter -o increment.tz
    ```
 
    If the compilation succeeds, no messages are shown in the terminal.
