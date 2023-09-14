@@ -274,7 +274,7 @@ Before you can deploy the contract to Tezos, you must compile it to Michelson, t
 For example, this command sets the storage at 10 and increments it by 32:
 
    ```bash
-   ligo run dry-run increment.jsligo -m Counter -e increment "Increment(32)" "10"
+   ligo run dry-run increment.jsligo -m Counter -e increment "32" "10"
    ```
 
    The terminal should show the response `(LIST_EMPTY(), 42)`.
