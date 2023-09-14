@@ -1,360 +1,355 @@
 ---
 id: first-smart-contract-ligo
-title: Originate your First Smart Contract with LIGO
-authors: 'John Joubert, Sasha Aldrick, Claude Barde'
-lastUpdated: 7th July 2023
+title: Deploy a smart contract with LIGO
+authors: 'John Joubert, Sasha Aldrick, Claude Barde, Tim McMackin'
+lastUpdated: 13th September 2023
 ---
 
----
+This tutorial covers using the Octez command-line client to deploy a smart contract to Tezos.
+The tutorial uses the LIGO programming language, which is one of the languages that you can write Tezos smart contracts in
+Specifically, this tutorial uses the CameLIGO version of LIGO, which has syntax similar to OCaml, but you don't need any experience with OCaml or LIGO to do this tutorial.
 
-{% callout type="note" title="Want to use SmartPy?" %}
-Click [here](/tutorials/originate-your-first-smart-contract/smartpy) to find out how to originate your first smart contract using SmartPy. 
-{% /callout %}
+If you are more familiar with Python, try [Originate your First Smart Contract with SmartPy](/tutorials/originate-your-first-smart-contract/smartpy).
+
+In this tutorial, you will learn how to:
+
+- Connect the Octez client to a testnet
+- Create a wallet
+- Get tokens from a faucet
+- Code a contract in LIGO, including:
+  - Defining the storage for the contract
+  - Defining entrypoints in the contract
+  - Writing code to run when the entrypoints are called
+- Deploy (or originate) the contract to Tezos and set its starting storage value
+- Look up the current state of the contract
+- Call the contract from the command line
+
+## Tutorial contract
+
+The contract that you deploy in this tutorial stores a single integer.
+It provides entrypoints that clients can call to change the value of that integer:
+
+- The `increment` endpoint accepts an integer as a parameter and adds that integer to the value in storage
+- The `decrement` endpoint accepts an integer as a parameter and subtracts that integer to the value in storage
+- The `reset` endpoint takes no parameters and resets the value in storage to 0
+
+After you deploy the contract, you or any other user can call it through Octez or a distributed application (dApp).
 
 ## Prerequisites
 
-| Dependency         | Installation instructions                                                                                                                                                                                                                                        |
-| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Ligo            | Follow the _Installation_ steps in this [guide](https://ligolang.org/docs/tutorials/getting-started/?lang=cameligo#install-ligo)                                                                                                                                                |
+To run this tutorial, you need the Octez client and LIGO.
 
-{% callout type="warning" title="Note" %}
-Make sure you have **installed** the above CLI tools before getting started.
-{% /callout %}
+- To install the LIGO programming language, see <https://ligolang.org/docs/intro/installation>.
+You can verify that LIGO is installed by running this command:
 
-Now that you have installed the [_octez-client_](https://opentezos.com/tezos-basics/cli-and-rpc/#how-to-install-the-octez-client) and [_Ligo_](https://ligolang.org/docs/tutorials/getting-started/?lang=cameligo#install-ligo), we'll go ahead and dive right in.
+   ```bash
+   ligo version
+   ```
 
-Ligo is a high-level programming language created by Marigold to write smart contracts for the Tezos blockchain.
+   If you see a message with the version of LIGO you have installed, LIGO is installed correctly.
+
+- To install the Octez client, which allows you to send transactions to the Tezos blockchain, follow the instructions to install the `tezos-client` package on your system on this site: <http://tezos.gitlab.io/index.html>.
+You need only the `tezos-client` packages, not the other Octez packages such as `tezos-node`.
+
+   You can verify that the Octez client is installed by running this command:
+
+   ```bash
+   octez-client --version
+   ```
+
+   If you see a message with the version of Octez that you have installed, the Octez client is installed correctly.
+   For help on Octez, run `octez-client --help` or see <http://tezos.gitlab.io/index.html>.
+
+LIGO is a high-level programming language created by Marigold to write smart contracts for the Tezos blockchain.
 
 It abstracts away the complexity of using Michelson (the smart contract language directly available on-chain) and provides different syntaxes that make it easier to write smart contracts on Tezos.
 
-The 2 syntaxes that are available at the moment are *JsLigo*, a syntax similar to TypeScript, and *CameLigo*, a syntax similar to OCaml. The following article will introduce CameLigo.
+LIGO provides two syntaxes: *JsLigo*, a syntax similar to TypeScript, and *CameLigo*, a syntax similar to OCaml.
+This tutorial uses CameLigo, but you do not need any experience with OCaml to run it.
 
 ## Create a project folder
 
-Now we can go ahead and create a folder somewhere on our local drive with the name of the project. Let's call it `example-smart-contract`.
+Follow these steps to create a LIGO project:
 
-```bash
-mkdir example-smart-contract
-```
+1. On the command-line terminal, create a folder for the project and open it.
+You can name your project anything you want, such as `example-smart-contract-cameligo`.
 
-```bash
-cd example-smart-contract
-```
+   ```bash
+   mkdir example-smart-contract-cameligo
+   cd example-smart-contract-cameligo
+   ```
 
-## Create a project file
+1. Create a file named `increment.mligo` in the project folder.
+This is where the contract code goes.
 
-Inside the `example-smart-contract` folder, let's create a file called `increment.mligo` and save it. We'll need this file later.
+   ```bash
+   touch increment.mligo
+   ```
 
-```bash
-touch increment.mligo
-```
+## Switch to a testnet
 
-## Confirm your setup
-### Ligo
+Before you deploy your contract to the main Tezos network (referred to as *mainnet*), you can deploy it to a testnet.
+Testnets are useful for testing Tezos operations because testnets provide tokens for free so you can work with them without spending real tokens.
 
-You can run
-```bash
-./ligo version
-```
-or
-```bash
-ligo version
-```
-according to your setup to check if Ligo is properly installed. You should see something like:
-``` sh
-Protocol built-in: lima
-0.60.0
-```
+Tezos testnets are listed on this site: <https://teztnets.xyz/>.
 
-### Octez-client
+The [Ghostnet](https://teztnets.xyz/ghostnet-about) testnet is a good choice for testing because it is intended to be long-lived, as opposed to shorter-term testnets that allow people to test new Tezos features.
 
-We can check that it's correctly installed by running the following command:
+Follow these steps to set your Octez client to use a testnet instead of the main network:
 
-``` sh
-octez-client
-```
+1. On <https://teztnets.xyz/>, click the testnet to use, such as Ghostnet.
 
-And we should see something like this returned:
+1. Copy the one of the testnet's public RPC endpoints, such as `https://rpc.ghostnet.teztnets.xyz`.
 
-``` sh
-Usage:
-  octez-client [global options] command [command options]
-  octez-client --help (for global options)
-  octez-client [global options] command --help (for command options)
-  octez-client --version (for version information)
+1. Set your Octez client to use this testnet by running this command on the command line, replacing the testnet RPC URL with the URL that you copied:
 
-To browse the documentation:
-  octez-client [global options] man (for a list of commands)
-  octez-client [global options] man -v 3 (for the full manual)
+   ```bash
+   octez-client --endpoint https://rpc.ghostnet.teztnets.xyz config update
+   ```
 
-Global options (must come before the command):
-  -d --base-dir <path>: client data directory (absent: TEZOS_CLIENT_DIR env)
-  -c --config-file <path>: configuration file
-  -t --timings: show RPC request times
-  --chain <hash|tag>: chain on which to apply contextual commands (commands dependent on the context associated with the specified chain). Possible tags are 'main' and 'test'.
-  -b --block <hash|level|tag>: block on which to apply contextual commands (commands dependent on the context associated with the specified block). Possible tags include 'head' and 'genesis' +/- an optional offset (e.g. "octez-client -b head-1 get timestamp"). Note that block queried must exist in node's storage.
-  -w --wait <none|<int>>: how many confirmation blocks are needed before an operation is considered included
-  -p --protocol <hash>: use commands of a specific protocol
-  -l --log-requests: log all requests to the node
-  --better-errors: Error reporting is more detailed. Can be used if a call to an RPC fails or if you don't know the input accepted by the RPC. It may happen that the RPC calls take more time however.
-  -A --addr <IP addr|host>: [DEPRECATED: use --endpoint instead] IP address of the node
-  -P --port <number>: [DEPRECATED: use --endpoint instead] RPC port of the node
-  -S --tls: [DEPRECATED: use --endpoint instead] use TLS to connect to node.
-  -m --media-type <json, binary, any or default>: Sets the "media-type" value for the "accept" header for RPC requests to the node. The media accept header indicates to the node which format of data serialisation is supported. Use the value "json" for serialisation to the JSON format.
-  -E --endpoint <uri>: HTTP(S) endpoint of the node RPC interface; e.g. 'http://localhost:8732'
-  -s --sources <path>: path to JSON file containing sources for --mode light. Example file content: {"min_agreement": 1.0, "uris": ["http://localhost:8732", "https://localhost:8733"]}
-  -R --remote-signer <uri>: URI of the remote signer
-  -f --password-filename <filename>: path to the password filename
-  -M --mode <client|light|mockup|proxy>: how to interact with the node
+   Octez shows a warning that you are using a testnet instead of mainnet.
 
-```
+1. Verify that you are using a testnet by running this command:
 
-## Switch to a Testnet
+   ```bash
+   octez-client config show
+   ```
 
-Before going further let's make sure we're working on a [Testnet](https://teztnets.xyz).&#x20;
-
-View the available Testnets:
-
-``` sh
-https://teztnets.xyz
-```
-
-The [Ghostnet](https://teztnets.xyz/ghostnet-about) might be a good choice for this guide (at the time of writing).&#x20;
-
-Copy the _Public RPC endpoint_ which looks something like this:
-
-``` sh
-https://rpc.ghostnet.teztnets.xyz
-```
-
-Make sure we use this endpoint by running:
-
-```bash
-octez-client --endpoint https://rpc.ghostnet.teztnets.xyz config update
-```
-
-You should then see something like this returned:
-
-``` sh
-Warning:
-
-                 This is NOT the Tezos Mainnet.
-
-           Do NOT use your fundraiser keys on this network.
-```
+   The response from Octez includes the URL of the testnet.
 
 ## Create a local wallet
 
-We're now going to create a local wallet to use throughout this guide.
+Deploying and using a smart contract costs fees, so you need a local wallet and XTZ tokens.
+The Octez client can manage a local wallet for you, and you can get XTZ tokens on testnets from faucets.
 
-Run the following command to generate a local wallet with _octez-client_, making sure to replace `<my_wallet>` with a name of your choosing:
+1. Run the following command to generate a local wallet, replacing `local_wallet` with a name for your wallet:
 
-```bash
-octez-client gen keys local_wallet
+   ```bash
+   octez-client gen keys local_wallet
+   ```
+
+1. Get the address for the wallet by running this command, again replacing `local_wallet` with the name of your local wallet.
+
+   ```bash
+   octez-client show address local_wallet
+   ```
+
+   The Octez client prints a warning that you are using a testnet and the address of the new wallet in the `hash` field.
+   The wallet address begins with `tz1`, `tz2`, or `tz3`, as in this example:
+
+   ```bash
+   Warning:
+
+                    This is NOT the Tezos Mainnet.
+
+              Do NOT use your fundraiser keys on this network.
+
+   Hash: tz1dW9Mk...........H67L
+   Public Key: edp.............................bjbeDj
+   ```
+
+   You need the wallet address to send funds to the wallet, to deploy the contract, and to send transactions to the contract.
+
+1. On the testnets page at <https://teztnets.xyz/>, click the faucet link for the testnet you are using.
+For example, the Ghostnet faucet is at <https://faucet.ghostnet.teztnets.xyz>.
+
+1. On the faucet page, paste your wallet address into the input field labeled "Or fund any address" and click the button for the amount of XTZ to add to your wallet.
+It may take a few minutes for the faucet to send the tokens and for those tokens to appear in your wallet.
+
+   You can use the faucet as much as you need to get tokens on the testnet, but those tokens are worthless and cannot be used on mainnet.
+
+   ![Fund your wallet using the Ghostnet Faucet](/images/wallet-funding.png)
+
+1. Run this command to check the balance of your wallet:
+
+   ```bash
+   octez-client get balance for local_wallet
+   ```
+
+If your wallet is set up correctly and the faucet has sent tokens to it, the Octez client prints the balance of your wallet, as in this example:
+
 ```
-
-Let's get the address for this wallet because we'll need it later:
-
-```bash
-octez-client show address local_wallet
-```
-
-Which will return something like this:
-
-``` sh
-Warning:
-
-                 This is NOT the Tezos Mainnet.
-
-           Do NOT use your fundraiser keys on this network.
-
-Hash: tz1dW9Mk...........H67L
-Public Key: edp.............................bjbeDj
-```
-
-We'll want to copy the Hash that starts with `tz` to your clipboard:
-
-``` sh
-tz1dW9Mk...........H67L
-```
-
-## Fund your test wallet&#x20;
-
-Tezos provides a [faucet](https://faucet.ghostnet.teztnets.xyz) to allow you to use the Testnet for free (has no value and can't be used on the Mainnet).
-
-Let's go ahead and fund our wallet through the [Ghostnet Faucet](https://faucet.ghostnet.teztnets.xyz). Paste the hash you copied earlier into the input field for "Or fund any address" and select the amount you'd like to add to your wallet.
-
-![Fund your wallet using the Ghostnet Faucet](/images/wallet-funding.png)
-
-Wait a minute or two and you can then run the following command to check that your wallet has funds in it:
-
-``` sh
- octez-client get balance for local_wallet
-```
-
-Which will return something like this:
-
-``` sh
 100 ꜩ
 ```
 
-## Use Ligo to create the contract
+## Create the contract
 
-For this introduction to Ligo, you will write a very simple contract that increments, decrements, or resets a number in its storage.
+The contract that you will create has these basic parts:
 
-A contract is made of 3 main parts:
-- a parameter type to update the storage
-- a storage type to describe how values are stored
-- a piece of code that controls the update of the storage
+- A type that describes the contract's storage, in this case an integer.
+The storage can be a primitive type such as an integer, string, or timestamp, or a complex data type that contains multiple values.
+For more information on contract data types, see [Smart contract concepts](../../../smart-contracts/smart-contracts-concepts/).
 
-The purpose of a smart contract is to write code that will use the values passed as a parameter to manipulate and update the storage in the intended way.
+- Internal functions called entrypoints that run code when clients call the contract.
 
-The contract will store an integer:
+- A type that describes the return value of the entrypoints.
 
-``` sh
-type storage = int
-```
+Follow these steps to create the code for the contract:
 
-The parameter to update the contract storage is a *variant*, similar to a TypeScript enum:
+1. Open the `increment.mligo` file in any text editor.
 
-``` sh
-type parameter =
-| Increment of int
-| Decrement of int
-| Reset
-```
+1. Add this line of code to set the storage type to an integer:
 
-You can use the different branches of the variant to simulate entrypoints for your contract. In this case, there is an **Increment** entrypoint, a **Decrement** entrypoint, and a **Reset** entrypoint.
+   ```ocaml
+   type storage = int
+   ```
 
-Next, you declare a function called `main` that will receive the parameter value and the storage when the contract is called. This function returns a tuple with a list of operations on the left and the new storage on the right:
+1. Add this code to define the return type for the endpoints.
+Tezos entrypoints return two values: a list of other operations to call and the new value of the contract's storage.
 
-``` sh
-let main (action, store : parameter * storage) : operation list * storage =
-```
+   ```ocaml
+   type returnValue = operation list * storage
+   ```
 
-You can return an empty list of operations from the beginning, then use pattern matching to match the targetted entrypoint:
-``` sh
-([] : operation list),
- (match action with
- | Increment (n) -> add (store, n)
- | Decrement (n) -> sub (store, n)
- | Reset         -> 0)
-```
+1. Add the code for the increment and decrement entrypoints:
 
-The **Increment** branch redirects to an `add` function that takes a tuple as a parameter made of the current storage and the value used to increment the storage.
+   ```ocaml
+   // Increment entrypoint
+   [@entry] let increment (delta : int) (store : storage) : returnValue =
+     [], store + delta
 
-The **Decrement** branch redirects to a `sub` function that takes a tuple as a parameter made of the current storage and the value used to decrement the storage.
+   // Decrement entrypoint
+   [@entry] let decrement (delta : int) (store : storage) : returnValue =
+     [], store - delta
+   ```
 
-The **Reset** branch only returns `0`, the new storage.
+   These functions begin with the `@entry` annotation to indicate that they are entrypoints.
+   They accept two parameters: the change in the storage value (an integer) and the current value of the storage (in the `storage` type that you created earlier in the code).
+   They return a value of the type `returnValue` that you created in the previous step.
 
-The `add` function:
+   Each function returns an empty list of other operations to call and the new value of the storage.
 
-```bash
-let add (store, inc : storage * int) : storage = store + inc
-```
-takes a tuple with the current storage on the left and the value to increment it on the right. These 2 values are added and returned as the new storage.
+1. Add this code for the reset entrypoint:
 
-The `sub` function:
+   ```ocaml
+   // Reset entrypoint
+   [@entry] let reset (() : unit) (_ : storage) : returnValue =
+     [], 0
+   ```
 
-```bash
-let sub (store, dec : storage * int) : storage = store - dec
-```
-takes a tuple with the current storage on the left and the value to subtract from it on the right. The passed value is subtracted from the current storage and the new storage is returned.
+   This function is similar to the others, but it does not take the current value of the storage into account.
+   It always returns an empty list of operations and 0.
 
-``` sh
+The complete contract code looks like this:
+
+```ocaml
 type storage = int
 
-type parameter =
-| Increment of int
-| Decrement of int
-| Reset
+type returnValue = operation list * storage
 
 // Increment entrypoint
-let add (store, inc : storage * int) : storage = store + inc
+[@entry] let increment (delta : int) (store : storage) : returnValue =
+  [], store + delta
+
 // Decrement entrypoint
-let sub (store, dec : storage * int) : storage = store - dec
+[@entry] let decrement (delta : int) (store : storage) : returnValue =
+  [], store - delta
 
-let main (action, store : parameter * storage) : operation list * storage =
- ([] : operation list),    // No operations
- (match action with
- | Increment (n) -> add (store, n)
- | Decrement (n) -> sub (store, n)
- | Reset         -> 0)
-
+// Reset entrypoint
+[@entry] let reset (() : unit) (_ : storage) : returnValue =
+  [], 0
 ```
 
-## Compile the smart contract to Michelson
+## Test and compile the contract
 
-You can now compile the contract to Michelson directly from the terminal with the following command:
+Before you can deploy the contract to Tezos, you must compile it to Michelson, the base language of Tezos contracts.
+
+1. Test the contract by passing parameters and the storage value to the LIGO `dry-run` command.
+For example, this command sets the storage at 10 and increments it by 32:
+
+   ```bash
+   ligo run dry-run increment.mligo "Increment(32)" "10"
+   ```
+
+   The terminal should show the response `(LIST_EMPTY(), 42)`.
+   This response means that the contract did not call any other contracts, so the list of operations is empty.
+   Then it shows the new value of the storage.
+   You can test the decrement and reset functions in the same way.
+
+1. Run this command to compile the contract:
+
+   ```bash
+   ligo compile contract increment.mligo -o increment.tz
+   ```
+
+   If the compilation succeeds, no messages are shown in the terminal.
+   If you see error messages, verify that your contract code matches the code in the previous section.
+
+Now you can deploy the contract.
+
+## Deploying (originating) to the testnet
+
+Deploying a contract to the network is called "originating."
+Originating the contract requires a small amount of Tezos tokens as a fee.
+
+1. Run the following command to originate the smart contract, changing `$MY_TZ_ADDRESS` to the address or local name of the wallet that you created earlier in the tutorial:
+
+   ```bash
+   octez-client originate contract my-counter \
+       transferring 0 from $MY_TZ_ADDRESS \
+       running increment.tz \
+       --init 10 --burn-cap 0.1 --force
+   ```
+
+   This command includes these parts:
+
+     - It uses the Octez client `originate contract` command to originate the contract and assigns the local name `my-counter` to the contract
+     - It includes 0 tokens from your wallet with the transaction, but the `--burn-cap` argument allows the transaction to take up to 0.1 XTZ from your wallet for fees.
+     - It sets the initial value of the contract storage to 10 with the `--init` argument.
+
+   If the contract deploys successfully, Octez shows the address of the new contract, as in this example:
+
+   ```bash
+   New contract KT1Nnk.................UFsJrq originated.
+   The operation has only been included 0 blocks ago.
+   We recommend to wait more.
+   ```
+
+1. Copy the contract address, which starts with `KT1`.
+
+1. Optional: Run the command `octez-client get balance for local_wallet` to get the updated balance of your wallet.
+
+1. Verify that the contract deployed successfully by finding it on a block explorer:
+
+  1. Open a Tezos block explorer such as [TzKT](https://tzkt.io) or [Better Call Dev](https://better-call.dev/).
+
+  1. Set the explorer to Ghostnet instead of mainnet.
+
+  1. Paste the contract address, which starts with `KT1`, into the search field and press Enter.
+
+  1. Go to the Storage tab to see that the initial value of the storage is 10.
+
+## Calling the contract
+
+Now you can call the contract from any Tezos client, including Octez.
+
+To increment the current storage by a certain value, call the `increment` entrypoint, as in this example, again changing `$MY_TZ_ADDRESS` to the address or local name of the wallet that you created earlier in the tutorial:
 
 ```bash
-ligo compile contract increment.mligo -o increment.tz
+octez-client --wait none transfer 0 from $MY_TZ_ADDRESS to my-counter --entrypoint 'increment' --arg '5' --burn-cap 0.1
 ```
 
-You can also test that the contract works by calling one of its entrypoints with this command:
+The previous example uses the local name `my-counter`.
+You can also specify the contract address.
+
+To decrement the current storage by a certain value, call the `decrement` entrypoint, as in this example:
 
 ```bash
-ligo run dry-run increment.mligo "Increment(32)" "10"
+octez-client --wait none transfer 0 from $MY_TZ_ADDRESS to my-counter --entrypoint 'decrement' --arg '6' --burn-cap 0.1
 ```
 
-This should return `(LIST_EMPTY(), 42)` if everything is correct.
-
-## Originate to the Testnet
-
-Run the following command to originate the smart contract:
-```bash
-octez-client originate contract increment \
-    transferring 0 from <my_tz_address...> \
-    running increment.tz \
-    --init 10 --burn-cap 0.1 --force
-```
-
-This will originate the contract with an initial storage of `10`.
-
-You should get a confirmation that your smart contract has been originated:
+Finally, to reset the current storage to zero, call the `reset` entrypoint, as in this example:
 
 ```bash
-New contract KT1Nnk.................UFsJrq originated.
-The operation has only been included 0 blocks ago.
-We recommend to wait more.
+octez-client --wait none transfer 0 from $MY_TZ_ADDRESS to my-counter --entrypoint 'reset' --arg 'Unit' --burn-cap 0.1
 ```
 
-Make sure you copy the contract address for the next step!
+You can go back to the block explorer to verify that the storage of the contract changed.
 
-## Confirm that all worked as expected
+## Summary
 
-To interact with the contract and confirm that all went as expected, you can use an Explorer such as: [TzKT](https://tzkt.io) or [Better Call Dev](https://better-call.dev/).
+Now the contract is running on the Tezos blockchain.
+You or any other user can call it from any source that can send transactions to Tezos, including Octez, dApps, and other contracts.
 
-Make sure you have switched to [Ghostnet](https://ghostnet.tzkt.io) before you start looking.
-
-Then paste the contract address (starting with KT1) `KT1Nnk.................UFsJrq` into the search field and hit `enter` to find it.
-
-Then navigate to the `Storage` tab to see your initial value of `10`.
-
-## Calling the entrypoints
-
-Now that we've successfully originated our smart contract, let's test out the three entrypoints that we created: `increment`, `decrement`, and `reset`.
-
-#### Increment
-
-To increment the current storage by a certain value, you can call the `increment` entrypoint:
-
-```bash
-octez-client --wait none transfer 0 from local_wallet to increment --entrypoint 'increment' --arg '5' --burn-cap 0.1
-```
-
-#### Decrement
-
-To decrement the current storage by a certain value, you can call the `decrement` entrypoint:
-
-```bash
-octez-client --wait none transfer 0 from local_wallet to increment --entrypoint 'decrement' --arg '6' --burn-cap 0.1
-```
-
-#### Reset
-
-Finally, to reset the current storage to zero, you can call the `reset` entrypoint:
-
-```bash
-octez-client --wait none transfer 0 from local_wallet to increment --entrypoint 'reset' --arg 'Unit' --burn-cap 0.1
-```
+If you want to continue working with this contract, try creating a dApp to call it from a web application, similar to the dApp that you create in the tutorial [Build your first app on Tezos](../../build-your-first-app/).
+You can also try adding your own endpoints and originating a new contract, but you cannot update the existing contract after it is deployed.

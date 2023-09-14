@@ -1,8 +1,8 @@
 ---
 id: first-smart-contract-smartpy
-title: Originate your First Smart Contract with SmartPy
-authors: 'John Joubert, Sasha Aldrick'
-lastUpdated: 7th July 2023
+title: Deploy a smart contract with SmartPy
+authors: 'John Joubert, Sasha Aldrick, Tim McMackin'
+lastUpdated: 13th September 2023
 ---
 
 This tutorial covers using the Octez command-line client to deploy a smart contract to Tezos.
@@ -23,6 +23,36 @@ In this tutorial, you will learn how to:
 - Deploy (or originate) the contract to Tezos and set its starting storage value
 - Look up the current state of the contract
 - Call the contract from the command line
+
+## Tutorial contract
+
+The contract that you deploy in this tutorial stores a string value.
+It provides entrypoints that clients can call to change the value of that string:
+
+- The `replace` endpoint accepts a new string as a parameter and stores that string, replacing the existing string.
+- The `append` endpoint accepts a new string as a parameter and appends it to the existing string.
+
+After you deploy the contract, you or any other user can call it through Octez or a distributed application (dApp).
+
+## Prerequisites
+
+To run this tutorial, you need the Octez client, Docker, and SmartPy.
+
+- SmartPy requires Docker, so see <https://www.docker.com/> to install Docker.
+
+- To install the SmartPy programming language, see <https://smartpy.io/manual/introduction/installation>.
+
+- To install the Octez client, which allows you to send transactions to the Tezos blockchain, follow the instructions to install the `tezos-client` package on your system on this site: <http://tezos.gitlab.io/index.html>.
+You need only the `tezos-client` packages, not the other Octez packages such as `tezos-node`.
+
+   You can verify that the Octez client is installed by running this command:
+
+   ```bash
+   octez-client --version
+   ```
+
+   If you see a message with the version of Octez that you have installed, the Octez client is installed correctly.
+   For help on Octez, run `octez-client --help` or see <http://tezos.gitlab.io/index.html>.
 
 ## Tutorial contract
 
