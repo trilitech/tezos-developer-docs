@@ -5,327 +5,324 @@ authors: 'John Joubert, Sasha Aldrick'
 lastUpdated: 7th July 2023
 ---
 
-{% callout type="note" title="Want to use LIGO?" %}
-Click [here](/tutorials/originate-your-first-smart-contract/ligo) to find out how to originate your first smart contract using LIGO. 
-{% /callout %}
+This tutorial covers using the Octez command-line client to deploy a smart contract to Tezos.
+The tutorial uses the SmartPy programming language, which is one of the languages that you can write Tezos smart contracts in.
+SmartPy has syntax similar to Python, but you don't need any experience with Python or SmartPy to do this tutorial.
+
+If you are more familiar with OCaml or LIGO, try [Deploy a smart contract with LIGO](/tutorials/originate-your-first-smart-contract/ligo).
+
+In this tutorial, you will learn how to:
+
+- Connect the Octez client to a testnet
+- Create a wallet
+- Get tokens from a faucet
+- Code a contract in SmartPy, including:
+  - Defining the storage for the contract
+  - Defining entrypoints in the contract
+  - Writing code to run when the entrypoints are called
+- Deploy (or originate) the contract to Tezos and set its starting storage value
+- Look up the current state of the contract
+- Call the contract from the command line
+
+## Tutorial contract
+
+The contract that you deploy in this tutorial stores a string value.
+It provides entrypoints that clients can call to change the value of that string:
+
+- The `replace` endpoint accepts a new string as a parameter and stores that string, replacing the existing string.
+- The `append` endpoint accepts a new string as a parameter and appends it to the existing string.
+
+After you deploy the contract, you or any other user can call it through Octez or a distributed application (dApp).
 
 ## Prerequisites
 
-| Dependency         | Installation instructions                                                                                                                                                                                                                                        |
-| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| SmartPy            | Follow the _Installation_ steps in this [guide](https://smartpy.dev/docs/manual/introduction/installation). SmartPy requires Docker to run. For MacOS and Linux, it is recommended to install [Docker Desktop](https://www.docker.com/products/docker-desktop/). |
-| _octez-client_ CLI | Follow the _How to install the octez-client_ steps [here](/tezos-basics/get-started-with-octez/).                                                                                                                                                |
+To run this tutorial, you need the Octez client, Docker, and SmartPy.
 
-{% callout type="warning" title="Note" %}
-Make sure you have **installed** the above CLI tools before getting started.
-{% /callout %}
+- SmartPy requires Docker Desktop, so see <https://www.docker.com/> to install Docker Desktop.
 
-Now that you have installed the [_octez-client_](https://opentezos.com/tezos-basics/cli-and-rpc/#how-to-install-the-octez-client) and [_Smartpy_](https://smartpy.io/docs/cli/#installation), we'll go ahead and dive right in.
+- To install the SmartPy programming language, see <https://smartpy.io/manual/introduction/installation>.
+
+- To install the Octez client, which allows you to send transactions to the Tezos blockchain, follow the instructions to install the `tezos-client` package on your system on this site: <http://tezos.gitlab.io/index.html>.
+You need only the `tezos-client` packages, not the other Octez packages such as `tezos-node`.
+
+   You can verify that the Octez client is installed by running this command:
+
+   ```bash
+   octez-client --version
+   ```
+
+   If you see a message with the version of Octez that you have installed, the Octez client is installed correctly.
+   For help on Octez, run `octez-client --help` or see <http://tezos.gitlab.io/index.html>.
+
+SmartPy is a high-level programming language that you can use to write smart contracts for the Tezos blockchain.
+
+It abstracts away the complexity of using Michelson (the smart contract language directly available on-chain) and provides different syntaxes that make it easier to write smart contracts on Tezos.
 
 ## Create a project folder
 
-Now we can go ahead and create a folder somewhere on our local drive with the name of the project. Let's call it `example-smart-contract`.
+Follow these steps to create a SmartPy project:
 
-```bash
-mkdir example-smart-contract
-```
+1. On the command-line terminal, create a folder for the project and open it.
+You can name your project anything you want, such as `example-smart-contract-smartpy`.
 
-```bash
-cd example-smart-contract
-```
+   ```bash
+   mkdir example-smart-contract-smartpy
+   cd example-smart-contract-smartpy
+   ```
 
-## Create a project file
+1. Create a file named `store_greeting.py` in the project folder.
+This is where the contract code goes.
 
-Inside the `example-smart-contract` folder, let's create a file called `store_greeting.py` and save it. We'll need this file later.
+   ```bash
+   touch store_greeting.py
+   ```
 
-```bash
-touch store_greeting.py
-```
+## Switch to a testnet
 
-## Confirm your setup
+Before you deploy your contract to the main Tezos network (referred to as *mainnet*), you can deploy it to a testnet.
+Testnets are useful for testing Tezos operations because testnets provide tokens for free so you can work with them without spending real tokens.
 
-### Smartpy
+Tezos testnets are listed on this site: <https://teztnets.xyz/>.
 
-The preferred way of running SmartPy is via the `smartPy` wrapper. To obtain the SmartPy executable within your local project folder:
+The [Ghostnet](https://teztnets.xyz/ghostnet-about) testnet is a good choice for testing because it is intended to be long-lived, as opposed to shorter-term testnets that allow people to test new Tezos features.
 
-```bash
-wget smartpy.io/smartpy
-chmod a+x smartpy
-```
+Follow these steps to set your Octez client to use a testnet instead of the main network:
 
-If you are missing `wget` on MacOS, you can use `brew install wget` or the package manager of your choice.
+1. On <https://teztnets.xyz/>, click the testnet to use, such as Ghostnet.
 
-This creates a local executable file named `smartpy` which we will use to to compile our contract.
+1. Copy the one of the testnet's public RPC endpoints, such as `https://rpc.ghostnet.teztnets.xyz`.
 
-We can check that it's correctly installed by running the following command:
+1. Set your Octez client to use this testnet by running this command on the command line, replacing the testnet RPC URL with the URL that you copied:
 
-```bash
-./smartpy
-```
+   ```bash
+   octez-client --endpoint https://rpc.ghostnet.teztnets.xyz config update
+   ```
 
-And we should see something like this returned:
+   Octez shows a warning that you are using a testnet instead of mainnet.
 
-```
-./smartpy
-Usage:
-   ./smartpy test        <script> <output> <options>* (execute all test targets)
-   ./smartpy doc         <script> <output>            (document script)
+1. Verify that you are using a testnet by running this command:
 
-   Parameters:
-         <script>              : a script containing SmartPy code
-         <output>              : a directory for the results
+   ```bash
+   octez-client config show
+   ```
 
-   Options:
-         --protocol <protocol> : optional, select target protocol - default is lima
-         --<flag> <arguments>  : optional, set some flag with arguments
-         --<flag>              : optional, activate some boolean flag
-         --no-<flag>           : optional, deactivate some boolean flag
-```
-
-### Octez-client
-
-We can check that it's correctly installed by running the following command:
-
-```
-octez-client
-```
-
-And we should see something like this returned:
-
-```
-Usage:
-  octez-client [global options] command [command options]
-  octez-client --help (for global options)
-  octez-client [global options] command --help (for command options)
-  octez-client --version (for version information)
-
-To browse the documentation:
-  octez-client [global options] man (for a list of commands)
-  octez-client [global options] man -v 3 (for the full manual)
-
-Global options (must come before the command):
-  -d --base-dir <path>: client data directory (absent: TEZOS_CLIENT_DIR env)
-  -c --config-file <path>: configuration file
-  -t --timings: show RPC request times
-  --chain <hash|tag>: chain on which to apply contextual commands (commands dependent on the context associated with the specified chain). Possible tags are 'main' and 'test'.
-  -b --block <hash|level|tag>: block on which to apply contextual commands (commands dependent on the context associated with the specified block). Possible tags include 'head' and 'genesis' +/- an optional offset (e.g. "octez-client -b head-1 get timestamp"). Note that block queried must exist in node's storage.
-  -w --wait <none|<int>>: how many confirmation blocks are needed before an operation is considered included
-  -p --protocol <hash>: use commands of a specific protocol
-  -l --log-requests: log all requests to the node
-  --better-errors: Error reporting is more detailed. Can be used if a call to an RPC fails or if you don't know the input accepted by the RPC. It may happen that the RPC calls take more time however.
-  -A --addr <IP addr|host>: [DEPRECATED: use --endpoint instead] IP address of the node
-  -P --port <number>: [DEPRECATED: use --endpoint instead] RPC port of the node
-  -S --tls: [DEPRECATED: use --endpoint instead] use TLS to connect to node.
-  -m --media-type <json, binary, any or default>: Sets the "media-type" value for the "accept" header for RPC requests to the node. The media accept header indicates to the node which format of data serialisation is supported. Use the value "json" for serialisation to the JSON format.
-  -E --endpoint <uri>: HTTP(S) endpoint of the node RPC interface; e.g. 'http://localhost:8732'
-  -s --sources <path>: path to JSON file containing sources for --mode light. Example file content: {"min_agreement": 1.0, "uris": ["http://localhost:8732", "https://localhost:8733"]}
-  -R --remote-signer <uri>: URI of the remote signer
-  -f --password-filename <filename>: path to the password filename
-  -M --mode <client|light|mockup|proxy>: how to interact with the node
-
-```
-
-## Switch to a Testnet
-
-Before going further let's make sure we're working on a [Testnet](https://teztnets.xyz).&#x20;
-
-View the available Testnets:
-
-```
-https://teztnets.xyz
-```
-
-The [Ghostnet](https://teztnets.xyz/ghostnet-about) might be a good choice for this guide (at the time of writing).&#x20;
-
-Copy the _Public RPC endpoint_ which looks something like this:
-
-```
-https://rpc.ghostnet.teztnets.xyz
-```
-
-Make sure we use this endpoint by running:
-
-```bash
-octez-client --endpoint https://rpc.ghostnet.teztnets.xyz config update
-```
-
-You should then see something like this returned:
-
-```
-Warning:
-
-                 This is NOT the Tezos Mainnet.
-
-           Do NOT use your fundraiser keys on this network.
-```
+   The response from Octez includes the URL of the testnet.
 
 ## Create a local wallet
 
-We're now going to create a local wallet to use throughout this guide.
+Deploying and using a smart contract costs fees, so you need a local wallet and XTZ tokens.
+The Octez client can manage a local wallet for you, and you can get XTZ tokens on testnets from faucets.
 
-Run the following command to generate a local wallet with _octez-client_, making sure to replace `<my_wallet>` with a name of your choosing:
+1. Run the following command to generate a local wallet, replacing `local_wallet` with a name for your wallet:
 
-```bash
-octez-client gen keys local_wallet
-```
+   ```bash
+   octez-client gen keys local_wallet
+   ```
 
-Let's get the address for this wallet because we'll need it later:
+1. Get the address for the wallet by running this command, again replacing `local_wallet` with the name of your local wallet.
 
-```bash
-octez-client show address local_wallet
-```
+   ```bash
+   octez-client show address local_wallet
+   ```
 
-Which will return something like this:
+   The Octez client prints a warning that you are using a testnet and the address of the new wallet in the `hash` field.
+   The wallet address begins with `tz1`, `tz2`, or `tz3`, as in this example:
 
-```
-Warning:
+   ```bash
+   Warning:
 
-                 This is NOT the Tezos Mainnet.
+                    This is NOT the Tezos Mainnet.
 
-           Do NOT use your fundraiser keys on this network.
+              Do NOT use your fundraiser keys on this network.
 
-Hash: tz1dW9Mk...........H67L
-Public Key: edp.............................bjbeDj
-```
+   Hash: tz1dW9Mk...........H67L
+   Public Key: edp.............................bjbeDj
+   ```
 
-We'll want to copy the Hash that starts with `tz` to your clipboard:
+   You need the wallet address to send funds to the wallet, to deploy the contract, and to send transactions to the contract.
 
-```
-tz1dW9Mk...........H67L
-```
+1. On the testnets page at <https://teztnets.xyz/>, click the faucet link for the testnet you are using.
+For example, the Ghostnet faucet is at <https://faucet.ghostnet.teztnets.xyz>.
 
-## Fund your test wallet&#x20;
+1. On the faucet page, paste your wallet address into the input field labeled "Or fund any address" and click the button for the amount of XTZ to add to your wallet.
+It may take a few minutes for the faucet to send the tokens and for those tokens to appear in your wallet.
 
-Tezos provides a [faucet](https://faucet.ghostnet.teztnets.xyz) to allow you to use the Testnet for free (has no value and can't be used on the Mainnet).
+   You can use the faucet as much as you need to get tokens on the testnet, but those tokens are worthless and cannot be used on mainnet.
 
-Let's go ahead and fund our wallet through the [Ghostnet Faucet](https://faucet.ghostnet.teztnets.xyz). Paste the hash you copied earlier into the input field for "Or fund any address" and select the amount you'd like to add to your wallet.
+   ![Fund your wallet using the Ghostnet Faucet](/images/wallet-funding.png)
 
-![Fund your wallet using the Ghostnet Faucet](/images/wallet-funding.png)
+1. Run this command to check the balance of your wallet:
 
-Wait a minute or two and you can then run the following command to check that your wallet has funds in it:
+   ```bash
+   octez-client get balance for local_wallet
+   ```
 
-```
- octez-client get balance for local_wallet
-```
-
-Which will return something like this:
+If your wallet is set up correctly and the faucet has sent tokens to it, the Octez client prints the balance of your wallet, as in this example:
 
 ```
 100 ꜩ
 ```
 
-## Use Smartpy to create the contract
+## Create the contract
 
-Open the file `store_greeting.py` in your favourite text editor and let's start writing our first smart contract!
+The contract that you will create has these basic parts:
 
-Copy and paste the following code block into your file and save it.
+- A function that initializes the contract and sets the starting value for it storage.
 
-```python
-import smartpy as sp
+- Internal functions called entrypoints that run code when clients call the contract.
 
-@sp.module
-def main():
-    class StoreGreeting(sp.Contract):
-        def __init__(self, greeting):  # Note the indentation
-            self.data.greeting = greeting
+- Automated tests that verify that the contract works as expected.
 
-        @sp.entrypoint   # Note the indentation
-        def replace(self, params):
-            self.data.greeting = params.text
+Follow these steps to create the code for the contract:
 
-        @sp.entrypoint    # Note the indentation
-        def append(self, params):
-            self.data.greeting += params.text
+1. Open the `store_greeting.py` in any text editor.
 
-@sp.add_test(name = "StoreGreeting")
-def test():
-  scenario = sp.test_scenario(main)
-  scenario.h1("StoreGreeting")
+1. Add this line of code to import SmartPy:
 
-  contract = main.StoreGreeting("Hello")
-  scenario += contract
+   ```python
+   import smartpy as sp
+   ```
 
-  scenario.verify(contract.data.greeting == "Hello")
+1. Add this code that creates the entrypoints:
 
-  contract.replace(text = "Hi")
-  contract.append(text = ", there!")
-  scenario.verify(contract.data.greeting == "Hi, there!")
-```
+   ```python
+   @sp.module
+   def main():
+       class StoreGreeting(sp.Contract):
+           def __init__(self, greeting):  # Note the indentation
+               self.data.greeting = greeting
 
-As you can see we're going to set the intial greeting to "Hello" and we'll have the ability later to either replace this greeting or add to it (append).
+           @sp.entrypoint   # Note the indentation
+           def replace(self, params):
+               self.data.greeting = params.text
 
-We've also included some tests to make sure all is working as expected. You can read more about about SmartPy testing [here](https://smartpy.io/manual/scenarios/overview).
+           @sp.entrypoint    # Note the indentation
+           def append(self, params):
+               self.data.greeting += params.text
+   ```
 
-## Compile the smart contract to Michelson&#x20;
+   Indentation is significant in Python, so make sure that your indentation matches this code.
 
-Now that we have our code setup, let's compile the smart contract and run the tests simultaneously.
+   The first two lines create a SmartPy module, which indicates that the code is SmartPy instead of ordinary Python.
 
-```bash
-./smartpy test store_greeting.py store_greeting/
-```
+   Then the code creates a class named StoreGreeting, which represents the smart contract.
+   The contract has an `__init__` function, which runs when the contract is deployed.
+   In this case, the function sets the initial value of the storage to a parameter that you pass when you deploy the contract.
+   This storage value is a string, but the storage can be another primitive type such as an integer or timestamp, or a complex data type that contains multiple values.
+   For more information on contract data types, see [Smart contract concepts](../../../smart-contracts/smart-contracts-concepts/).
 
-You should see this command output our test results and compiled contracts to the folder `/store_greeting/StoreGreeting`.
+1. Add this code that creates the tests:
 
-There are two types of output, JSON Michelson in `.json` files and [Micheline Micelson](https://tezos.gitlab.io/shell/micheline.html) in `.tz` files.
+   ```python
+   @sp.add_test(name = "StoreGreeting")
+   def test():
+     scenario = sp.test_scenario(main)
+     scenario.h1("StoreGreeting")
 
-The most important file is `step_002_cont_0_contract.tz`. This Michelson file we can use to originate the contract to the testnet.
+     contract = main.StoreGreeting("Hello")
+     scenario += contract
 
-## Originate to the Testnet
+     scenario.verify(contract.data.greeting == "Hello")
 
-First you need to make sure that your current directory is `/store_greeting/StoreGreeting`.
+     contract.replace(text = "Hi")
+     contract.append(text = ", there!")
+     scenario.verify(contract.data.greeting == "Hi, there!")
+   ```
 
-From the project folder:
+   These tests run automatically on compilation to verify that the replace and append endpoints work.
+   For more information about SmartPy and tests, see the [SmartPy documentation](https://smartpy.io/).
 
-```bash
-cd output/storeGreeting
-```
+## Test and compile the contract
 
-Then run the following command to originate the smart contract:
+Before you can deploy the contract to Tezos, you must compile it to Michelson, the base language of Tezos contracts.
+The compilation process automatically runs the tests in the `store_greeting.py` file.
 
-```bash
-octez-client originate contract storeGreeting transferring 0 from local_wallet running step_002_cont_0_contract.tz --init '"Hello"' --burn-cap 0.1
-```
+1. Run this command to compile the contract:
 
-This will originate the contract with an initial greeting of "Hello".
+   ```bash
+   ./smartpy test store_greeting.py store_greeting/
+   ```
 
-You should get a similar confirmation that your smart contract has been originated:
+If the compilation succeeds, no messages are shown in the terminal and SmartPy creates a compiled smart contract in the `store_greeting/StoreGreeting` folder.
+If you see error messages, verify that your contract code matches the code in the previous section.
 
-```bash
-New contract KT1Nnk.................UFsJrq originated.
-The operation has only been included 0 blocks ago.
-We recommend to wait more.
-```
+The output includes JSON Michelson in `.json` files and [Micheline Michelson](https://tezos.gitlab.io/shell/micheline.html) in `.tz` files.
+The most important file is named `step_002_cont_0_contract.tz`.
+This is the Michelson file that you will use to deploy the contract to the testnet.
 
-Make sure you copy the contract address for the next step!
+## Deploying (originating) to the testnet
 
-## Confirm that all worked as expected
+Deploying a contract to the network is called "originating."
+Originating the contract requires a small amount of Tezos tokens as a fee.
 
-To interact with the contract and confirm that all went as expected, you can use an Explorer such as:[TzKT ](https://tzkt.io) or [Better Call Dev](https://better-call.dev/).
+1. Go to the the `store_greeting/StoreGreeting` folder:
 
-Make sure you have switched to [Ghostnet](https://ghostnet.tzkt.io) before you start looking.
+   ```bash
+   cd store_greeting/StoreGreeting
+   ```
 
-Then paste the contract address (starting with KT1) `KT1Nnk.................UFsJrq` into the search field and hit `enter` to find it.
+1. Run the following command to originate the smart contract, changing `$MY_TZ_ADDRESS` to the address of the wallet that you created earlier in the tutorial:
 
-Then navigate to the `Storage` tab to see your initial value of `Hello`.
+   ```bash
+   octez-client originate contract storeGreeting \
+       transferring 0 from $MY_TZ_ADDRESS \
+       running step_002_cont_0_contract.tz \
+       --init '"Hello"' --burn-cap 0.1
+   ```
+
+   This command includes these parts:
+
+     - It uses the Octez client `originate contract` command to originate the contract and assigns the local name `storeGreeting` to the contract
+     - It includes 0 tokens from your wallet with the transaction, but the `--burn-cap` argument allows the transaction to take up to 0.1 XTZ from your wallet for fees.
+     - It sets the initial value of the contract storage to "Hello" with the `--init` argument.
+
+   If the contract deploys successfully, Octez shows the address of the new contract, as in this example:
+
+   ```bash
+   New contract KT1Nnk.................UFsJrq originated.
+   The operation has only been included 0 blocks ago.
+   We recommend to wait more.
+   ```
+
+1. Copy the contract address, which starts with `KT1`.
+
+1. Optional: Run the command `octez-client get balance for local_wallet` to get the updated balance of your wallet.
+
+1. Verify that the contract deployed successfully by finding it on a block explorer:
+
+  1. Open a Tezos block explorer such as [TzKT](https://tzkt.io) or [Better Call Dev](https://better-call.dev/).
+
+  1. Set the explorer to Ghostnet instead of mainnet.
+
+  1. Paste the contract address, which starts with `KT1`, into the search field and press Enter.
+
+  1. Go to the Storage tab to see that the initial value of the storage is "Hello".
 
 ![Confirmation that all worked correctly](/images/storage_success.png)
 
-## Calling the entrypoints
+## Calling the contract
 
-Now that we've successfully originated our smart contract, let's test out the two entrypoints that we created: `replace` and `append`
+Now you can call the contract from any Tezos client, including Octez.
 
-#### Replace
-
-To replace "Hello" with "Hi there!", we can run the command below:
+To replace the string in storage, call the `replace` entrypoint and pass a new string value, again changing `$MY_TZ_ADDRESS` to the address or local name of the wallet that you created earlier in the tutorial:
 
 ```bash
-octez-client --wait none transfer 0 from local_wallet to storeGreeting --entrypoint 'replace' --arg '"Hi there!"' --burn-cap 0.1
+octez-client --wait none transfer 0 from $MY_TZ_ADDRESS to storeGreeting --entrypoint 'replace' --arg '"Hi there!"' --burn-cap 0.1
 ```
 
-#### &#x20;Append
+The previous example uses the local name `storeGreeting`.
+You can also specify the contract address.
 
-Finally, to append some text, you can run this command:
+To append text to the string in storage, pass the string to append to the `append` entrypoint:
 
 ```bash
-octez-client --wait none transfer 0 from local_wallet to storeGreeting --entrypoint 'append' --arg '" Appended Greeting"' --burn-cap 0.1
+octez-client --wait none transfer 0 from $MY_TZ_ADDRESS to storeGreeting --entrypoint 'append' --arg '" Appended Greeting"' --burn-cap 0.1
 ```
+
+## Summary
+
+Now the contract is running on the Tezos blockchain.
+You or any other user can call it from any source that can send transactions to Tezos, including Octez, dApps, and other contracts.
+
+If you want to continue working with this contract, try creating a dApp to call it from a web application, similar to the dApp that you create in the tutorial [Build your first app on Tezos](../../build-your-first-app/).
+You can also try adding your own endpoints and originating a new contract, but you cannot update the existing contract after it is deployed.
