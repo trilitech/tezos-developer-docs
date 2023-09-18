@@ -32,29 +32,6 @@ In this tutorial, you create NFTs that comply with the FA2 standard (formally kn
 The FA2 standard creates a framework for how tokens behave on Tezos, including fungible, non-fungible, and other types of tokens.
 It provides a standard API to transfer tokens, check token balances, manage operators (addresses that are permitted to transfer tokens on behalf of the token owner), and manage token metadata.
 
-
-
-
-
-For each non-fungible token, the FA2 assigns a unique
-token ID and associates it with the token owner's address. The FA2 API enables the
-inspection of token balances for the specific token ID and token owner address.
-For NFTs the balance can be either 0 (which means that the address does not own
-this particular token) or 1 (the address owns the token).
-
-The FA2 contract also associates some metadata with each token. This tutorial supports
-token symbol and token name metadata attributes. However, the implementation can
-be easily extended to support custom metadata attributes such as an associated
-image or document URL and its crypto-hash.
-
-
-
-This guide shows how to originate and interact with the FA2 NFT contract
-implementation. We use a pre-compiled FA2 NFT contract written in the
-[LIGO](https://ligolang.org/) smart contract language and a command line interface
-(CLI) to originate and interact with the NFT contracts either on the
-[Flextesa](https://tezos.gitlab.io/flextesa/) sandbox or Tezos testnet.
-
 ## Prerequisites
 
 To run this tutorial you need Node.JS, NPM, and Docker Desktop to install and use the `tznft` CLI tool, which helps you create and test NFT collections on Tezos.
@@ -167,6 +144,8 @@ Follow these steps to set up the local metadata for the NFT collection:
    The command also includes the metadata file and an optional local alias for the collection.
 
    The command also updates the `tznft.json` file with information about the new collection, including the address of the smart contract that manages the collection and the addresses of the two users in the sandbox, Alice and Bob.
+   This smart contract is a pre-compiled FA2 NFT contract written in the [LIGO](https://ligolang.org/) smart contract language.
+   You can write your own smart contracts to manage NFTs, but using this contract prevents errors and provides all of the functionality needed to create, transfer, and manage NFTs.
 
 1. Create a metadata file for the first NFT in the collection by running this command:
 
@@ -180,18 +159,77 @@ Follow these steps to set up the local metadata for the NFT collection:
 
 1. Optional: Edit the metadata such as the name and description fields in the `Token1.json` file.
 
-1. TODO Add metadata fields.
+1. Optional: Edit other fields in the metadata based on the FA2 standard.
+
+   For example, you can expand the `attributes` section with other attributes.
+   Each attribute must have the `name` and `value` fields and can optionally have a `type` field, as in this example:
+
+   ```json
+   "attributes": [
+     {
+       "name": "My string attribute",
+       "value": "String attribute value"
+      },
+     {
+       "name": "My integer attribute",
+       "value": "5",
+       "type": "integer"
+      },
+     {
+       "name": "My number attribute",
+       "value": "12.3",
+       "type": "number"
+      },
+     {
+       "name": "My percentage attribute",
+       "value": "19",
+       "type": "percentage"
+      }
+   ]
+   ```
+
+   By default the `artifactUri`, `displayUri`, and `thumbnailUri` fields are set to the picture that you passed in the `tznft create-nft-meta` command.
+   You can update these to different images to allow applications to show media to represent the NFT.
+   You can also add a `formats` object to provide media in different formats, such as different image, video, or audio formats:
+
+   ```json
+   "formats": [
+     {
+       "uri": "ipfs://QmRyTc9KbD7ZSkmEf4e7fk6A44RPciW5pM4iyqRGrhbyvj",
+       "hash": "a56017a1317b1bc900acdaf600874c00e5c048d30894f452049db6dcef6e4f0d",
+       "mimeType": "image/svg+xml"
+     },
+     {
+       "uri": "ipfs://QmRyTc9KbD7ZSkmEf4e7fk6A44RPciW5pM4iyqRGrhbyvj",
+       "hash": "8968db6bde43255876c464613a31fbd0416ca7d74be4c5ae86c1450418528302",
+       "mimeType": "image/png",
+       "dimensions": {
+         "value": "512x512",
+         "unit": "px"
+       }
+     },
+     {
+       "uri": "ipfs://QmRyTc9KbD7ZSkmEf4e7fk6A44RPciW5pM4iyqRGrhbyvj",
+       "hash": "d4a93fc8d8991caa9b52c04c5ff7edf5c4bc29317a373e3a97f1398c697d6714",
+       "mimeType": "model/gltf+json"
+     }
+   ]
+   ```
+
+   For specifics about what is allowed in an NFT metadata file, see the [TZIP-21](https://gitlab.com/tezos/tzip/-/blob/master/proposals/tzip-21/tzip-21.md) standard.
+
+1. Validate the NFT metadata file with this command:
+
+   ```bash
+   tznft validate-nft-meta Token1.json
+   ```
+
+   If the file does not validate, verify that it is valid JSON and has only the fields listed in the [TZIP-21](https://gitlab.com/tezos/tzip/-/blob/master/proposals/tzip-21/tzip-21.md) standard.
 
 1. Create at least one more metadata file for other NFTs by running commands like this example:
 
    ```bash
    tznft create-nft-meta Token2 bob ipfs://QmRyTc9KbD7ZSkmEf4e7fk6A44RPciW5pM4iyqRGrhbyvj
-   ```
-
-1. Validate the NFT metadata files with this command:
-
-   ```bash
-   tznft validate-nft-meta Token1.json
    ```
 
 ## Configure IPFS storage
