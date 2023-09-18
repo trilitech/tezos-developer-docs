@@ -116,15 +116,18 @@ implementation. We use a pre-compiled FA2 NFT contract written in the
    ```
 
    This command uses the [Flextesa](https://tezos.gitlab.io/flextesa/) tool to create a local sandbox in a Docker container.
-   This sandbox comes preconfigured with two account aliases named `bob` and `alice` that you can use to test account operations like transferring NFTs.
+   This sandbox comes preconfigured with two account aliases named `bob` and `alice` that you can use to test account operations like creating and transferring NFTs.
+
+   You can verify that the sandbox is running by running the command `docker ps` and looking for a container named `flextesa-sandbox`.
+   To stop the container, run the command `tznft kill-sandbox`, but beware that stopping the container sets the sandbox back to its initial state.
 
 TODO: May need troubleshooting here for the sandbox.
 What if people already have the sandbox running; how to restart it?
 
-## Create an NFT collection
+## Create NFT metadata
 
 In most cases, you create a collection of NFTs instead of creating NFTs one at a time.
-Follow these steps to create a smart contract that manages the NFT collection:
+Follow these steps to set up the local metadata for the NFT collection:
 
 1. Create a collection metadata file by running this command:
 
@@ -161,27 +164,204 @@ Follow these steps to create a smart contract that manages the NFT collection:
 
    TODO: Is this the address of the contract, the collection, or the address of something else?
 
+1. Create a metadata file for the first NFT in the collection by running this command:
+
+   ```bash
+   tznft create-nft-meta Token1 bob ipfs://QmRyTc9KbD7ZSkmEf4e7fk6A44RPciW5pM4iyqRGrhbyvj
+   ```
+
+   This command creates a metadata file named `Token1.json` with default information about the NFT.
+   It includes the minter's account address and URIs to pictures that represent the NFT.
+   In this case, the `ipfs` URI links to a picture of the Tezos logo, which you can see at this link: <https://ipfs.io/ipfs/QmRyTc9KbD7ZSkmEf4e7fk6A44RPciW5pM4iyqRGrhbyvj>.
+
+1. Optional: Edit the metadata such as the name and description fields in the `Token1.json` file.
+
+1. TODO Add metadata fields.
+
+1. Create at least one more metadata file for other NFTs by running commands like this example:
+
+   ```bash
+   tznft create-nft-meta Token2 bob ipfs://QmRyTc9KbD7ZSkmEf4e7fk6A44RPciW5pM4iyqRGrhbyvj
+   ```
+
+1. Validate the NFT metadata files with this command:
+
+   ```bash
+   tznft validate-nft-meta Token1.json
+   ```
+
+## Configure IPFS storage
+
+Because storage space on blockchains is expensive, developers don't put entire token metadata files on Tezos.
+Instead, they configure decentralized storage for the NFT data and put only the link to that data on Tezos itself.
+In this section, you set up storage for the NFT metadata using the InterPlanetary File System (IPFS) protocol.
+
+IPFS requires authentication just like blockchain transactions, so in this section you set up an account with the Pinata IPFS provider and use it to upload (or _pin_) the NFT data to IPFS.
+
+1. Create a free Pinata account at <https://app.pinata.cloud/developers/api-keys>.
+
+1. Go to the API Keys tab and click **New Key**.
+
+1. On the Create New API Key page, expand API Endpoint Access and enable the `pinFileToIPFS` permission, as in this picture:
+
+   ![Selecting the permissions for the Pinata key](/images/nft-create/pinata-key-permissions.png)
+
+1. In the **Key Name** field, give the key a name, such as "My Key."
+
+1. Click **Create Key**.
+
+   The API Key Info window shows the API key and secret, which you must copy immediately, because it is not shown again.
+
+1. Copy the API Key and API Secret fields and save the values on your computer.
+You need these values in the next section.
+
+   You can see the new API key on the API Keys tab:
+
+   ![The new Pinata API key in the Pinata web app](/images/nft-create/created-pinata-key.png)
+
+1. Add the API key and secret to your local `tznft` configuration by running this command, replacing `$PINATA_KEY` and `$PINATA_SECRET` with your API key and secret:
+
+   ```bash
+   tznft set-pinata-keys $PINATA_KEY $PINATA_SECRET --force
+   ```
+
+   This command stores the key and secret in the `tznft.json` file, so be careful not to share this file.
+
+1. Pin the first NFT metadata file to IPFS by running this command and passing the file name and a tag for the NFT, which can be the same as the file name:
+
+   ```bash
+   tznft pin-file Token1.json --tag Token1
+   ```
+
+   The command returns the URI for the data on IPFS, which starts with `ipfs://`.
+
+1. Copy the IPFS URI, because you will need it later.
+
+1. In the same way, pin the other NFT metadata files with the `tznft pin-file` command and save their URIs.
+
+1. Optional: Verify that the files are pinned successfully by opening the Pinata app to the Files page, as in this picture:
+
+   ![The Files tab on Pinata, showing three NFT metadata files](/images/nft-create/pinned-nft-meta.png)
+
+Now that the metadata is pinned to IPFS, you can create NFTs that link to this metadata.
+
 ## Mint NFTs
 
 Creating NFTs is called _minting_.
 When you mint NFTs, the `tznft` tool creates a smart contract to manage those NFTs based on the configuration files that you created in the previous steps.
 
-You can't add more NFTs to a contract later, so you must create all of the NFTs in the collection at once.
-
 To create NFTs, use the `tznft mint` command and pass these parameters:
 
-- The alias or address of the new tokens' owner.
+- The alias or address of the initial owner.
 - The alias of the collection from the `tznft create-collection` command.
-- The metadata for the new tokens in a comma-delimited string.
-In this case, the metadata for each token is a comma-separated list of the token's internal ID, symbol, and name.
+- The ID number and IPFS URI for the NFTs in a comma-delimited string.
 
-1. Run this command to create two tokens and set Bob as the owner:
+1. Run this command to create a token and set Bob as the owner, replacing the IPFS URI with the URI that the `tznft pin-file` command returned in the previous section:
 
    ```bash
-   tznft mint bob my_collection --tokens '0, T1, My Token One' '1, T2, My Token Two'
+   tznft mint bob my_collection --tokens '1, ipfs://abcde12345'
    ```
 
-   The response in the terminal says that the tokens were minted.
+   The response in the terminal says that the token was minted.
+
+   If you forgot the IPFS URI, you can look it up in the Pinata app on the Files tab.
+   This tab has a column labeled "Content Identifier (CID)."
+   To create the IPFS URI, add the content identifier to the string `ipfs://`.
+
+1. Run the `tznft mint` command to mint the other NFTs.
+You can create more than one NFT in a single command by providing more than one string after the `--tokens` switch, as in this example:
+
+   ```bash
+   tznft mint bob my_collection --tokens '2, ipfs://defgh12345' '3, ipfs://ijklm12345'
+   ```
+
+1. Verify that the NFTs were minted successfully by getting their metadata with the `tznft show-meta` command:
+
+   ```bash
+   tznft show-meta bob --nft my_collection --tokens 1 2
+   ```
+
+   If the NFTs were created successfully, the command prints the metadata that you pinned to IPFS.
+
+1. When you have created all of the NFTs that you want, freeze the collection so it cannot be changed and no more NFTs can be added by running this command:
+
+   ```bash
+   tznft mint-freeze bob my_collection
+   ```
+
+Now the NFTs are minted to the sandbox.
+Because these NFTs are only on your local computer, in the Flextesa sandbox, you can interact with them only locally.
+
+## Transferring and manipulating NFTs
+
+The `tznft` command provides commands to manipulate NFTs locally, including transferring them between accounts.
+Just like transactions on live blockchain networks, the transaction signer must have permission to transfer or manipulate the NFTs.
+Currently, only Bob has access to the NFTs, so the `tznft` commands include him as the signer of most transactions.
+
+1. Use the `tznft show-balance` command to print information about Bob's NFTs.
+This command takes the alias or address of the collection, the signer of the transaction, the owner of the NFTs, and the IDs of one or more NFTs.
+
+   ```bash
+   tznft show-balance --nft my_collection --signer bob --owner bob --tokens 1 2
+   ```
+
+   Because NFTs are unique, the response shows a balance of 1 if the account owns the token and 0 if it does not.
+
+1. Use the `tznft show-balance` command to print information about Alice's NFTs:
+
+   ```bash
+   tznft show-balance --nft my_collection --signer alice --owner alice --tokens 1 2
+   ```
+
+   Because Bob is the initial owner of all of the NFTs, Alice's balance is 0 for each NFT.
+
+1. Use the `tznft transfer` command to transfer one or more NFTs from Bob to Alice.
+This command takes the alias or address of the collection, the signer, and one or more comma-separated strings with the current owner, the new owner, and the ID of the NFT to transfer.
+For example, this command transfers NFTs 1 and 2 from Bob to Alice:
+
+   ```bash
+   tznft transfer --nft my_collection --signer bob --batch 'bob, alice, 1' 'bob, alice, 2'
+   ```
+
+1. Verify that the transfer worked by checking Alice's balance with the `tznft show-balance` command:
+
+   ```bash
+   tznft show-balance --nft my_collection --signer alice --owner alice --tokens 1 2
+   ```
+
+   Now Alice's balance is 1 for each token that transferred.
+   Alice is in control of these NFTs and Bob can no longer transfer them.
+
+1. Verify that Bob does not have control over the transferred NFTs by trying to transfer them back from Alice's account to Bob's account:
+
+   ```bash
+   tznft transfer --nft my_collection --signer bob --batch 'alice, bob, 1' 'alice, bob, 2'
+   ```
+
+   The response shows the error "FA2_INSUFFICIENT_BALANCE" because Bob's account does not have these NFTs.
+
+   One way to give accounts control over NFTs that are not in their account is to make those accounts operators for those NFTs.
+
+1. Make Bob an operator of Alice's NFTs by passing the token IDs to the `tznft update-ops` command:
+
+   ```bash
+   tznft update-ops alice --nft my_collection --add 'bob, 1' 'bob, 2'
+   ```
+
+1. Try again to transfer the NFTs from Alice's account to Bob's account with a transaction signed by Bob:
+
+   ```bash
+   tznft transfer --nft my_collection --signer bob --batch 'alice, bob, 1' 'alice, bob, 2'
+   ```
+
+1. Check Bob's account to see that he now owns the NFTs:
+
+   ```bash
+   tznft show-balance --nft my_collection --signer bob --owner bob --tokens 1 2
+   ```
+
+
+
 
 
 
