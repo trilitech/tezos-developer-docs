@@ -57,11 +57,10 @@ implementation. We use a pre-compiled FA2 NFT contract written in the
 
 ## Prerequisites
 
-TODO: Need to mention that Flextesa requires node version before 20.
-
 To run this tutorial you need Node.JS, NPM, and Docker Desktop to install and use the `tznft` CLI tool, which helps you create and test NFT collections on Tezos.
 
-- To install Node.JS and NPM, see <https://nodejs.org/>.
+- Install Node.JS version 18 (not 20) and NPM.
+See <https://nodejs.org/>.
 You can verify that they are installed by running these commands:
 
    ```bash
