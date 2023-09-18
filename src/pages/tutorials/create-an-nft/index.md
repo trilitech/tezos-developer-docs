@@ -2,46 +2,20 @@
 id: create-an-nft
 title: Create an NFT
 authors: 'Sol Lederer, Tim McMackin'
-lastUpdated: 15th September 2023
+lastUpdated: 18th September 2023
 ---
 
-This tutorial covers how to create a collection of NFTs on Tezos.
+This tutorial covers how to create a collection of NFTs on Tezos and manipulate them using the `tznft` command-line tool.
+No prior knowledge of NFTs or Tezos is required, but you need basic experience with your computer's command-line terminal to paste commands and run them.
 
-TODO learning objectives
+In this tutorial, you will learn:
 
-
-## Prerequisites
-
-TODO: Need to mention that Flextesa requires node version before 20.
-
-To run this tutorial you need Node.JS, NPM, and Docker Desktop to install and use the `tznft` CLI tool, which helps you create and test NFT collections on Tezos.
-
-- To install Node.JS and NPM, see <https://nodejs.org/>.
-You can verify that they are installed by running these commands:
-
-   ```bash
-   node --version
-   npm --version
-   ```
-
-   If you see a message with the versions of Node.JS and NPM, they are installed correctly.
-
-- To install Docker Desktop, see <https://www.docker.com>.
-Make sure to start Docker Desktop after you install it.
-
-- To install the `tznft` tool, run this command:
-
-   ```bash
-   npm install -g @oxheadalpha/tznft
-   ```
-
-   You can verify that it is installed by running this command:
-
-   ```bash
-   tznft --version
-   ```
-
-   If you see a message with the version of the `tznft` tool, it is installed correctly.
+- What NFTs are
+- How to install and start a local Tezos sandbox environment
+- How to create metadata files to describe NFT collections and individual NFTs
+- How to deploy (or _mint_) the NFTs to the sandbox
+- How to transfer NFTs and change operator permissions for them
+- How to mint NFTs to a testnet
 
 ## What is a non-fungible token (NFT)?
 
@@ -80,6 +54,39 @@ implementation. We use a pre-compiled FA2 NFT contract written in the
 [LIGO](https://ligolang.org/) smart contract language and a command line interface
 (CLI) to originate and interact with the NFT contracts either on the
 [Flextesa](https://tezos.gitlab.io/flextesa/) sandbox or Tezos testnet.
+
+## Prerequisites
+
+TODO: Need to mention that Flextesa requires node version before 20.
+
+To run this tutorial you need Node.JS, NPM, and Docker Desktop to install and use the `tznft` CLI tool, which helps you create and test NFT collections on Tezos.
+
+- To install Node.JS and NPM, see <https://nodejs.org/>.
+You can verify that they are installed by running these commands:
+
+   ```bash
+   node --version
+   npm --version
+   ```
+
+   If you see a message with the versions of Node.JS and NPM, they are installed correctly.
+
+- To install Docker Desktop, see <https://www.docker.com>.
+Make sure to start Docker Desktop after you install it.
+
+- To install the `tznft` tool, run this command:
+
+   ```bash
+   npm install -g @oxheadalpha/tznft
+   ```
+
+   You can verify that it is installed by running this command:
+
+   ```bash
+   tznft --version
+   ```
+
+   If you see a message with the version of the `tznft` tool, it is installed correctly.
 
 
 ## Create a project folder
