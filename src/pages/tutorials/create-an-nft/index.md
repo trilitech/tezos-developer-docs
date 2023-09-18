@@ -64,7 +64,6 @@ Make sure to start Docker Desktop after you install it.
 
    If you see a message with the version of the `tznft` tool, it is installed correctly.
 
-
 ## Create a project folder
 
 1. Create a folder to store your NFT configuration files:
@@ -132,20 +131,6 @@ Follow these steps to set up the local metadata for the NFT collection:
    If you did not change values in the file, this command may show warnings that the collection uses placeholder values.
    You can continue with these placeholder values or insert your own information.
    If there are any errors, make sure that the file is valid JSON.
-
-1. Create the collection from the metadata file by running this command:
-
-   ```bash
-   tznft create-collection bob --meta_file my_collection.json --alias my_collection
-   ```
-
-   This command takes the alias of the user who is the owner of the collection.
-   In this case, the owner is one of the default accounts in the sandbox.
-   The command also includes the metadata file and an optional local alias for the collection.
-
-   The command also updates the `tznft.json` file with information about the new collection, including the address of the smart contract that manages the collection and the addresses of the two users in the sandbox, Alice and Bob.
-   This smart contract is a pre-compiled FA2 NFT contract written in the [LIGO](https://ligolang.org/) smart contract language.
-   You can write your own smart contracts to manage NFTs, but using this contract prevents errors and provides all of the functionality needed to create, transfer, and manage NFTs.
 
 1. Create a metadata file for the first NFT in the collection by running this command:
 
@@ -290,13 +275,23 @@ Now that the metadata is pinned to IPFS, you can create NFTs that link to this m
 ## Mint NFTs
 
 Creating NFTs is called _minting_.
-When you mint NFTs, the `tznft` tool creates a smart contract to manage those NFTs based on the configuration files that you created in the previous steps.
+First, you create the smart contract to manage the NFTs.
+Then, you mint one or more NFTs with that contract.
+The related `tznft` commands use the configuration files that you created earlier.
 
-To create NFTs, use the `tznft mint` command and pass these parameters:
+1. Create the collection contract from the metadata file by running this command:
 
-- The alias or address of the initial owner.
-- The alias of the collection from the `tznft create-collection` command.
-- The ID number and IPFS URI for the NFTs in a comma-delimited string.
+   ```bash
+   tznft create-collection bob --meta_file my_collection.json --alias my_collection
+   ```
+
+   This command takes the alias of the user who is the owner of the collection.
+   In this case, the owner is one of the default accounts in the sandbox.
+   The command also includes the metadata file and an optional local alias for the collection.
+
+   The command also updates the `tznft.json` file with information about the new collection, including the address of the smart contract that manages the collection.
+   This smart contract is a pre-compiled FA2 NFT contract written in the [LIGO](https://ligolang.org/) smart contract language.
+   You can write your own smart contracts to manage NFTs, but using this contract prevents errors and provides all of the functionality needed to create, transfer, and manage NFTs.
 
 1. Run this command to create a token and set Bob as the owner, replacing the IPFS URI with the URI that the `tznft pin-file` command returned in the previous section:
 
@@ -304,11 +299,17 @@ To create NFTs, use the `tznft mint` command and pass these parameters:
    tznft mint bob my_collection --tokens '1, ipfs://abcde12345'
    ```
 
-   The response in the terminal says that the token was minted.
+   This command includes these parameters:
+
+      - The alias or address of the initial owner.
+      - The alias of the collection from the `tznft create-collection` command.
+      - The ID number and IPFS URI for the NFTs in a comma-delimited string.
 
    If you forgot the IPFS URI, you can look it up in the Pinata app on the Files tab.
    This tab has a column labeled "Content Identifier (CID)."
    To create the IPFS URI, add the content identifier to the string `ipfs://`.
+
+   The response in the terminal says that the token was minted.
 
 1. Run the `tznft mint` command to mint the other NFTs.
 You can create more than one NFT in a single command by providing more than one string after the `--tokens` switch, as in this example:
