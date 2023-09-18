@@ -467,3 +467,10 @@ For example, to transfer NFTs to an account with the alias `second-account`, run
 ```bash
 tznft transfer --nft my_collection --signer my-account --batch 'my-account, other-account, 1' 'my-account, other-account, 2'
 ```
+
+## Summary
+
+Now you can create, test, and deploy NFTs locally and to testnets.
+The process for minting NFTs to Tezos mainnet is the same, but you must use an account with real XTZ in it to pay the transaction fees.
+
+If you want to continue working with these NFTs, try creating a marketplace for them as described in the tutorial [Build an NFT Marketplace](../build-an-nft-marketplace).
