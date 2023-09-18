@@ -121,6 +121,9 @@ implementation. We use a pre-compiled FA2 NFT contract written in the
    You can verify that the sandbox is running by running the command `docker ps` and looking for a container named `flextesa-sandbox`.
    To stop the container, run the command `tznft kill-sandbox`, but beware that stopping the container sets the sandbox back to its initial state.
 
+   Unlike the live Tezos networks, this sandbox bakes a new block every 5 seconds.
+   Therefore, commands that you run on the sandbox can take a few seconds to complete.
+
 TODO: May need troubleshooting here for the sandbox.
 What if people already have the sandbox running; how to restart it?
 
@@ -361,86 +364,58 @@ For example, this command transfers NFTs 1 and 2 from Bob to Alice:
    tznft show-balance --nft my_collection --signer bob --owner bob --tokens 1 2
    ```
 
+## Minting tokens on testnet
+
+So far, the NFTs you have created are available only in your local sandbox.
+When you are satisfied with the NFTs and how they behave, you can send them to a testnet and use them there.
+You can use the same configuration files and IPFS data as you used on the sandbox.
+
+By default, the `tznft.json` file has configuration information for the Tezos Ghostnet testnet, where you can test your tokens on a running Tezos network.
+
+1. Show the available networks by running the command `tznft show-network --all` and verify that the testnet is in the list.
+
+1. Change the `tznft` tool to use the testnet instead of your local sandbox:
+
+   ```bash
+   tznft set-network testnet
+   ```
+
+1. Run the `tznft bootstrap` command to get the testnet ready for your use.
+Now that the network is set to testnet, this command deploys a helper balance inspector contract to testnet that allows the `tznft` command to get information from the testnet.
+You only need to run this command for testnet once.
+
+1. Create an alias on the testnet to own the NFTs.
+
+TODO: alias faucet is down; is there a better way than giving tznft my private key?
+
+tznft add-alias tpm $PRIVATE_KEY
+
+tznft add-alias tpm2 $PRIVATE_KEY
+
+1. Create the collection on the testnet.
+
+tznft create-collection tpm --meta_file my_collection.json --alias tpm_collection
+
+tznft mint tpm tpm_collection --tokens '1, ipfs://Qme9CePkmuuVRxAm9ouEN5xzKGC98zivTeBtJF38kTBFfj' '2, ipfs://QmVDS7m7hs1gAHpxgViaKkVWGQTkbQBwehHLaY7mbtvyx7' '3, ipfs://QmTFSQx3ron1sTbFFVBC8MZtzsvKcQ78BSRHiDTwfj4Fxk'
+
+You can use the same collection alias because `tznft` keeps aliases separate on different networks, but be sure not to get the aliases confused.
+
+tznft show-balance --nft tpm_collection --signer tpm --owner tpm --tokens 1 2 3
+
+$ tznft show-balance --nft tpm_collection --signer tpm --owner tpm --tokens 1 2 3
+querying NFT contract KT1Uno2Ecg7UnjLujiGeoH5voRGusuaz5CJy
+requested NFT balances:
+owner: tz1QCVQinE8iVj1H2fckqx6oiM85CNJSK9Sx	token: 1	balance: 1
+owner: tz1QCVQinE8iVj1H2fckqx6oiM85CNJSK9Sx	token: 2	balance: 1
+owner: tz1QCVQinE8iVj1H2fckqx6oiM85CNJSK9Sx	token: 3	balance: 1
+
+go to tzkt.io and see the contract and its tokens
+
+transfer:
+
+tznft transfer --nft tpm_collection --signer tpm --batch 'tpm, tpm2, 1' 'tpm, tpm2, 2'
 
 
-
-### Configuration
-
-`tznft` can be configured to interact with different Tezos networks. The user can
-also configure address aliases to sign Tezos operations and/or use them as command
-parameters when addresses are required. The default configuration that is created
-by `tznft init-config` command includes two pre-configured networks: `sandbox`
-and `testnet` (Carthagenet). Each pre-configured network has two bootstrap aliases:
-`bob` and `alice`.
-
-#### Network Configuration Commands
-
-- `set-network <network>` selects a specified pre-configured network as an active one.
-  All subsequent commands will operate on the active network
-
-  Example:
-
-  ```bash
-  tznft set-network sandbox
-
-  network sandbox is selected
-  ```
-
-- `show-network [--all]` show currently selected network. If `--all` flag is
-  specified, show all pre-configured networks
-
-  Example:
-
-  ```bash
-  tznft show-network --all
-
-  * sandbox
-    testnet
-  ```
-
-- `bootstrap` bootstrap selected network and deploy helper balance inspector contract.
-  If the selected network is `sandbox`, this command needs to be run each time the sandbox
-  is restarted, for other public networks like `testnet` it is enough to run this
-  command once.
-
-  Example:
-
-  ```bash
-  tznft bootstrap
-
-  366b9f3ead158a086e8c397d542b2a2f81111a119f3bd6ddbf36574b325f1f03
-
-  starting sandbox...
-  sandbox started
-  originating balance inspector contract...
-  originated balance inspector KT1WDqPuRFMm2HwDRBotGmnWdkWm1WyG4TYE
-  ```
-
-- `kill-sandbox` stop Flextesa sandbox process if the selected network is `sandbox`.
-  This command has no effect on other network types.
-
-  Example:
-
-  ```bash
-  tznft kill-sandbox
-
-  flextesa-sandbox
-
-  killed sandbox.
-  ```
-
-The sandbox network (selected by default) is configured to bake new Tezos blocks
-every 5 seconds. It makes running the commands that interact with the network
-faster. However, all originated contracts will be lost after the sandbox is stopped.
-
-If you are using `testnet`, your originated contracts will remain on the blockchain
-and you can inspect them afterwards using a block explorer like [BCD](https://better-call.dev/).
-
-_Note: Although `testnet` configuration already has two bootstrap aliases `bob`
-and `alice`, it is a good practice to create your own alias from the faucet file
-(see `tznft add-alias-faucet` command described below) and use it as a signer for
-the commands like `mint`, `transfer` and `show_balance`. In this way, your Tezos
-operations will not interfere with the operations initiated by other users._
 
 #### Alias Configuration Commands
 
