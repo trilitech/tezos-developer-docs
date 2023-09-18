@@ -370,10 +370,10 @@ For example, this command transfers NFTs 1 and 2 from Bob to Alice:
    tznft show-balance --nft my_collection --signer bob --owner bob --tokens 1 2
    ```
 
-## Minting tokens on testnet
+## Mint tokens on a testnet
 
-So far, the NFTs you have created are available only in your local sandbox.
-When you are satisfied with the NFTs and how they behave, you can send them to a testnet and use them there.
+So far, the NFTs that you have created are available only in your local sandbox.
+When you are satisfied with the NFTs and how they behave, you can send them to a testnet and test them there.
 You can use the same configuration files and IPFS data as you used on the sandbox.
 
 By default, the `tznft.json` file has configuration information for the Tezos Ghostnet testnet, where you can test your tokens on a running Tezos network.
@@ -391,125 +391,79 @@ Now that the network is set to testnet, this command deploys a helper balance in
 You only need to run this command for testnet once.
 
 1. Create an alias on the testnet to own the NFTs.
+You can do this in either of these two ways:
 
-TODO: alias faucet is down; is there a better way than giving tznft my private key?
+   - If you have an existing Tezos wallet that supports testnets (such as Temple wallet), copy the private key from that wallet and use the `tznft add-alias` command to create a local alias for it.
+   For example, this command creates a wallet with the alias `my-account`:
 
-tznft add-alias tpm $PRIVATE_KEY
+      ```bash
+      tznft add-alias my-account $TEZOS_PRIVATE_KEY
+      ```
 
-tznft add-alias tpm2 $PRIVATE_KEY
+   - Create a local wallet with the installation of the `octez-client` command within the Flextesa Docker container:
+
+      1. Generate local keys with the `octez-client gen keys` command.
+      For example, this command creates keys for a wallet with the alias `my-account`:
+
+         ```bash
+         docker exec flextesa-sandbox octez-client gen keys my-account
+         ```
+
+      1. Get the private key for the wallet with this command:
+
+         ```bash
+         docker exec flextesa-sandbox octez-client show address my-account -S
+         ```
+
+         The response includes the hash, public key, and secret key for the wallet.
+
+      1. Add the secret key as an alias with the `tznft` command:
+
+         ```bash
+         tznft add-alias my-account $TEZOS_PRIVATE_KEY
+         ```
 
 1. Create the collection on the testnet.
+The command is the same as for the sandbox, and you can create a new collection file or use the file from the sandbox.
+Similarly, you can use the same collection because `tznft` keeps aliases separate on different networks, but be sure not to get the aliases confused.
 
-tznft create-collection tpm --meta_file my_collection.json --alias tpm_collection
+   ```bash
+   tznft create-collection my-account --meta_file my_collection.json --alias my_collection
+   ```
 
-tznft mint tpm tpm_collection --tokens '1, ipfs://Qme9CePkmuuVRxAm9ouEN5xzKGC98zivTeBtJF38kTBFfj' '2, ipfs://QmVDS7m7hs1gAHpxgViaKkVWGQTkbQBwehHLaY7mbtvyx7' '3, ipfs://QmTFSQx3ron1sTbFFVBC8MZtzsvKcQ78BSRHiDTwfj4Fxk'
+1. Mint the tokens on the testnet.
+The command is the same as for the sandbox:
 
-You can use the same collection alias because `tznft` keeps aliases separate on different networks, but be sure not to get the aliases confused.
+   ```bash
+   tznft mint my-account my_collection --tokens '1, ipfs://abcde12345'
+   ```
 
-tznft show-balance --nft tpm_collection --signer tpm --owner tpm --tokens 1 2 3
+   You can add more NFTs until you freeze the collection.
 
-$ tznft show-balance --nft tpm_collection --signer tpm --owner tpm --tokens 1 2 3
-querying NFT contract KT1Uno2Ecg7UnjLujiGeoH5voRGusuaz5CJy
-requested NFT balances:
-owner: tz1QCVQinE8iVj1H2fckqx6oiM85CNJSK9Sx	token: 1	balance: 1
-owner: tz1QCVQinE8iVj1H2fckqx6oiM85CNJSK9Sx	token: 2	balance: 1
-owner: tz1QCVQinE8iVj1H2fckqx6oiM85CNJSK9Sx	token: 3	balance: 1
+1. View your token balances.
+The command is the same as for the sandbox:
 
-go to tzkt.io and see the contract and its tokens
+   ```bash
+   tznft show-balance --nft my_collection --signer my-account --owner my-account --tokens 1
+   ```
 
-transfer:
+1. View the tokens on a block explorer:
 
-tznft transfer --nft tpm_collection --signer tpm --batch 'tpm, tpm2, 1' 'tpm, tpm2, 2'
+   1. Get the address of the collection on the testnet from the `testnet` section of the `tznft.json` file.
+   The address starts with "KT1".
 
+   1. Go to a block explorer, such as <https://tzkt.io>.
 
+   1. Set the block explorer to use testnet instead of Tezos mainnet.
 
-#### Alias Configuration Commands
+   1. In the search field, paste the address of the collection and press Enter.
 
-`tznft` allows user to configure and use short names (aliases) instead of typing
-in full Tezos addresses when invoking `tznft` commands.
-Each network comes with two pre-configured aliases `bob` and `alice`. The user
-can manage aliases by directly editing `tznft.json` file or using the following
-commands:
+   The block explorer shows information about the contract that manages the NFTs, including a list of all NFTs in the contract, who owns them, and a list of recent transactions.
 
-- `show-alias [alias]` show address and private key (if configured) of the
-  specified `[alias]`. If `[alias]` option is not specified, show all configured
-  aliases.
+Now the NFTs are on Tezos mainnet and you can transfer and manipulate them just like you did in the sandbox.
+You may need to create more account aliases to transfer them, but the commands are the same.
+For example, to transfer NFTs to an account with the alias `second-account`, run this command:
 
-  Example:
-
-  ```bash
-  tznft show-alias bob
-
-  bob	tz1YPSCGWXwBdTncK2aCctSZAXWvGsGwVJqU	edsk3RFgDiCt7tWB2oe96w1eRw72iYiiqZPLu9nnEY23MYRp2d8Kkx
-
-  tznft show-alias
-
-  bob	tz1YPSCGWXwBdTncK2aCctSZAXWvGsGwVJqU	edsk3RFgDiCt7tWB2oe96w1eRw72iYiiqZPLu9nnEY23MYRp2d8Kkx
-  alice	tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb	edsk3QoqBuvdamxouPhin7swCvkQNgq4jP5KZPbwWNnwdZpSpJiEbq
-  ```
-
-- `add-alias <alias> <private_key>` add alias using its private key. Aliases
-  that are configured with the private key can be used to sign operations that
-  originate or call smart contracts on-chain. `tznft` commands that require Tezos
-  operation signing have `--signer` option.
-
-  Example:
-
-  ```bash
-  tznft add-alias jane edsk3QoqBuvdamxouPhin7swCvkQNgq4jP5KZPbwWNnwdZpSpJiEbq
-
-  alias jane has been added
-
-  tznft show-alias jane
-
-  jane	tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb	edsk3QoqBuvdamxouPhin7swCvkQNgq4jP5KZPbwWNnwdZpSpJiEbq
-  ```
-
-- `add-alias <alias> <address>` add alias using Tezos address (public key hash).
-  Such aliases do not have an associated private key and cannot be used to sign
-  Tezos operations.
-
-  Example:
-
-  ```bash
-  tznft add-alias michael tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb
-
-  alias michael has been added
-
-  tznft show-alias michael
-
-  michael	tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb
-  ```
-
-- `add-alias-faucet <alias> <faucet_json_file_path>` add alias with private key
-  from the faucet file (see [Tezos Faucet](https://faucet.tzalpha.net/)). This
-  command will not work on `sandbox` network. An alias configured from the faucet
-  has the private key and can be used to sign Tezos operations.
-
-  Example:
-
-  ```bash
-  tznft add-alias-faucet john ~/Downloads/tz1NfTBQM9QpZpEY6GSvdw3XBpyEjLLGhcEU.json
-
-  activating faucet account...
-  faucet account activated
-  alias john has been added
-
-  tznft show-alias john
-
-  john	tz1NfTBQM9QpZpEY6GSvdw3XBpyEjLLGhcEU	edskRzaCrGEDr1Ras1U55U73dXoLfQQJyuwE95rSkqbydxUS4oS3fGmWywbaVcYw7DLH34zedoJzwMQxzAXQdixi5QzYC5pGJ6
-  ```
-
-- `remove-alias <alias>` remove the alias from the selected network configuration.
-
-  Example:
-
-  ```bash
-  tznft remove-alias john
-
-  alias john has been deleted
-  ```
-
-{% callout type="note" %}
-This guide was created by Oxhead Alpha and can be found [here](https://github.com/oxheadalpha/nft-tutorial/blob/master/packages/tznft/README.md).
-{% /callout %}
+```bash
+tznft transfer --nft my_collection --signer my-account --batch 'my-account, other-account, 1' 'my-account, other-account, 2'
+```
