@@ -130,9 +130,6 @@ Make sure to start Docker Desktop after you install it.
    Unlike the live Tezos networks, this sandbox bakes a new block every 5 seconds.
    Therefore, commands that you run on the sandbox can take a few seconds to complete.
 
-TODO: May need troubleshooting here for the sandbox.
-What if people already have the sandbox running; how to restart it?
-
 ## Create NFT metadata
 
 In most cases, you create a collection of NFTs instead of creating NFTs one at a time.
@@ -170,8 +167,6 @@ Follow these steps to set up the local metadata for the NFT collection:
    The command also includes the metadata file and an optional local alias for the collection.
 
    The command also updates the `tznft.json` file with information about the new collection, including the address of the smart contract that manages the collection and the addresses of the two users in the sandbox, Alice and Bob.
-
-   TODO: Is this the address of the contract, the collection, or the address of something else?
 
 1. Create a metadata file for the first NFT in the collection by running this command:
 
