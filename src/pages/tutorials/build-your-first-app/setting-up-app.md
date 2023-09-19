@@ -479,37 +479,39 @@ Follow these steps to set up the `src/App.svelte` file, which is the container f
 1. Replace the default `<style>` section with this code:
 
    ```scss
-   @import "./styles/settings.scss";
+   <style>
+     @import "./styles/settings.scss";
 
-   main {
-     display: grid;
-     grid-template-columns: 250px 1fr;
-     gap: $padding;
-     padding: $padding;
-     height: calc(100% - (#{$padding} * 2));
-   }
-
-   @media screen and (max-height: 700px) {
      main {
-     padding: 0px;
-     height: 100%;
+       display: grid;
+       grid-template-columns: 250px 1fr;
+       gap: $padding;
+       padding: $padding;
+       height: calc(100% - (#{$padding} * 2));
      }
-   }
+
+     @media screen and (max-height: 700px) {
+       main {
+         padding: 0px;
+         height: 100%;
+       }
+     }
+   </style>
    ```
 
 1. Remove the default TypeScript section and replace it with this code, which imports the libraries and components that the app uses:
 
    ```html
    <script lang="ts">
-    import { onMount } from "svelte";
-    import { TezosToolkit } from "@taquito/taquito";
-    import store from "./store";
-    import { rpcUrl, dexAddress } from "./config";
-    import Sidebar from "./lib/Sidebar.svelte";
-    import Interface from "./lib/Interface.svelte";
-    import Toast from "./lib/Toast.svelte";
-    import type { Storage } from "./types";
-    import { fetchExchangeRates } from "./utils";
+     import { onMount } from "svelte";
+     import { TezosToolkit } from "@taquito/taquito";
+     import store from "./store";
+     import { rpcUrl, dexAddress } from "./config";
+     import Sidebar from "./lib/Sidebar.svelte";
+     import Interface from "./lib/Interface.svelte";
+     import Toast from "./lib/Toast.svelte";
+     import type { Storage } from "./types";
+     import { fetchExchangeRates } from "./utils";
    </script>
    ```
 

@@ -32,35 +32,35 @@ For this reason, this application isolates wallet-related code in a single compo
      let walletIcon = "";
      let walletName = "";
 
-    const connectWallet = async () => {
-      if (!$store.wallet) {
-        const wallet = new BeaconWallet({
-          name: "Tezos dev portal app tutorial",
-          preferredNetwork: network
-        });
-        store.updateWallet(wallet);
-      }
+     const connectWallet = async () => {
+       if (!$store.wallet) {
+         const wallet = new BeaconWallet({
+           name: "Tezos dev portal app tutorial",
+           preferredNetwork: network
+         });
+         store.updateWallet(wallet);
+       }
 
-      await $store.wallet.requestPermissions({
-        network: { type: network, rpcUrl }
-      });
-      const userAddress = (await $store.wallet.getPKH()) as TezosAccountAddress;
-      store.updateUserAddress(userAddress);
-      $store.Tezos.setWalletProvider($store.wallet);
-      // Get account info
-      await getWalletInfo($store.wallet);
-      // Fetch the user's XTZ, tzBTC and SIRS balances
-      const res = await fetchBalances($store.Tezos, userAddress);
-      if (res) {
-        store.updateUserBalance("XTZ", res.xtzBalance);
-        store.updateUserBalance("tzBTC", res.tzbtcBalance);
-        store.updateUserBalance("SIRS", res.sirsBalance);
-      } else {
-        store.updateUserBalance("XTZ", null);
-        store.updateUserBalance("tzBTC", null);
-        store.updateUserBalance("SIRS", null);
-      }
-    };
+       await $store.wallet.requestPermissions({
+         network: { type: network, rpcUrl }
+       });
+       const userAddress = (await $store.wallet.getPKH()) as TezosAccountAddress;
+       store.updateUserAddress(userAddress);
+       $store.Tezos.setWalletProvider($store.wallet);
+       // Get account info
+       await getWalletInfo($store.wallet);
+       // Fetch the user's XTZ, tzBTC and SIRS balances
+       const res = await fetchBalances($store.Tezos, userAddress);
+       if (res) {
+         store.updateUserBalance("XTZ", res.xtzBalance);
+         store.updateUserBalance("tzBTC", res.tzbtcBalance);
+         store.updateUserBalance("SIRS", res.sirsBalance);
+       } else {
+         store.updateUserBalance("XTZ", null);
+         store.updateUserBalance("tzBTC", null);
+         store.updateUserBalance("SIRS", null);
+       }
+     };
    </script>
    ```
 
@@ -86,32 +86,32 @@ For this reason, this application isolates wallet-related code in a single compo
 1. Add the following code to the `<script lang="ts">` section:
 
    ```typescript
-    onMount(async () => {
-        const wallet = new BeaconWallet({
-          name: "Tezos dev portal app tutorial",
-          preferredNetwork: network
-        });
-        store.updateWallet(wallet);
-        const activeAccount = await wallet.client.getActiveAccount();
-        if (activeAccount) {
-          const userAddress = (await wallet.getPKH()) as TezosAccountAddress;
-          store.updateUserAddress(userAddress);
-          $store.Tezos.setWalletProvider(wallet);
-          await getWalletInfo(wallet);
-          // fetches user's XTZ, tzBTC and SIRS balances
-          const res = await fetchBalances($store.Tezos, userAddress);
-          if (res) {
-            store.updateUserBalance("XTZ", res.xtzBalance);
-            store.updateUserBalance("tzBTC", res.tzbtcBalance);
-            store.updateUserBalance("SIRS", res.sirsBalance);
-          } else {
-            store.updateUserBalance("XTZ", null);
-            store.updateUserBalance("tzBTC", null);
-            store.updateUserBalance("SIRS", null);
-          }
-        }
-      });
-    ```
+   onMount(async () => {
+     const wallet = new BeaconWallet({
+       name: "Tezos dev portal app tutorial",
+       preferredNetwork: network
+     });
+     store.updateWallet(wallet);
+     const activeAccount = await wallet.client.getActiveAccount();
+     if (activeAccount) {
+       const userAddress = (await wallet.getPKH()) as TezosAccountAddress;
+       store.updateUserAddress(userAddress);
+       $store.Tezos.setWalletProvider(wallet);
+       await getWalletInfo(wallet);
+       // fetches user's XTZ, tzBTC and SIRS balances
+       const res = await fetchBalances($store.Tezos, userAddress);
+       if (res) {
+         store.updateUserBalance("XTZ", res.xtzBalance);
+         store.updateUserBalance("tzBTC", res.tzbtcBalance);
+         store.updateUserBalance("SIRS", res.sirsBalance);
+       } else {
+         store.updateUserBalance("XTZ", null);
+         store.updateUserBalance("tzBTC", null);
+         store.updateUserBalance("SIRS", null);
+       }
+     }
+   });
+   ```
 
    This code runs when the component mounts, checks if the user has already connected a wallet, and if so, it updates information in the store.
 
@@ -246,8 +246,8 @@ This API has many features that provide information about Tezos.
      tzbtcBalance: number;
      sirsBalance: number;
    } | null> => {
-   	try {
-   	// Add code here in the next step
+     try {
+       // Add code here in the next step
      } catch (error) {
        console.error(error);
        return null;
