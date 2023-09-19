@@ -24,9 +24,8 @@ Fungible tokens such as XTZ and real-world currencies like dollars and euros are
 By contrast, each NFT is unique and not interchangeable.
 NFTs can represent ownership over digital or physical assets like virtual collectibles or unique artwork, or anything that you want them to represent.
 
-Like other types of Tezos tokens, a collection is managed by a smart contract.
-The smart contract defines the collection of NFTs, including what information is in each token.
-It also describes how they behave, such as what happens when a user transfers an NFT to another user.
+Like other types of Tezos tokens, a collection of NFTs is managed by a smart contract.
+The smart contract defines what information is in each token and how the tokens behave, such as what happens when a user transfers an NFT to another user.
 
 In this tutorial, you create NFTs that comply with the FA2 standard (formally known as the [TZIP-12](https://gitlab.com/tezos/tzip/-/blob/master/proposals/tzip-12/tzip-12.md) standard), the current standard for tokens on Tezos.
 The FA2 standard creates a framework for how tokens behave on Tezos, including fungible, non-fungible, and other types of tokens.
@@ -82,7 +81,7 @@ Make sure to start Docker Desktop after you install it.
    The resulting file, named `tznft.config`, contains information about the Tezos networks that are available for you to work with, including the [Ghostnet](https://teztnets.xyz/ghostnet-about) test network and the local sandbox that you set up in the next steps.
    The `tznft` tool requires this file, so the commands in the following steps work only from the directory that you ran `tznft init` in.
 
-4. Check that the default active network is "sandbox":
+4. Check that the default active network is "sandbox:"
 
    ```bash
    tznft show-network
@@ -91,25 +90,27 @@ Make sure to start Docker Desktop after you install it.
    The response should show that the active network is "sandbox."
    The sandbox is a local simulation of Tezos that you can use to test your work.
 
-5. Set up a local Tezos sandbox:
+5. Set up a local Tezos sandbox by running this command:
 
    ```bash
    tznft bootstrap
    ```
 
+   This command can take time to run, so wait until you see the message "sandbox started."
+
    This command uses the [Flextesa](https://tezos.gitlab.io/flextesa/) tool to create a local sandbox in a Docker container.
-   This sandbox comes preconfigured with two account aliases named `bob` and `alice` that you can use to test account operations like creating and transferring NFTs.
+   This sandbox is a local instance of Tezos that you can use to test your work before you send it to a live Tezos network.
+   The sandbox comes preconfigured with two account aliases named `bob` and `alice` that you can use to test account operations like creating and transferring NFTs.
 
    You can verify that the sandbox is running by running the command `docker ps` and looking for a container named `flextesa-sandbox`.
-   To stop the container, run the command `tznft kill-sandbox`, but beware that stopping the container sets the sandbox back to its initial state.
+   To stop the container, run the command `tznft kill-sandbox`, but beware that stopping the container sets the sandbox back to its initial state, which removes any changes you made or contracts or tokens that you created.
 
    Unlike the live Tezos networks, this sandbox bakes a new block every 5 seconds.
    Therefore, commands that you run on the sandbox can take a few seconds to complete.
 
 ## Create NFT metadata
 
-In most cases, you create a collection of NFTs instead of creating NFTs one at a time.
-Follow these steps to set up the local metadata for the NFT collection:
+The first step in creating NFTs is to create local metadata files that describe the collection and the individual NFTs:
 
 1. Create a collection metadata file by running this command:
 
@@ -343,7 +344,9 @@ This command takes the alias or address of the collection, the signer of the tra
    tznft show-balance --nft my_collection --signer bob --owner bob --tokens 1 2
    ```
 
-   Because NFTs are unique, the response shows a balance of 1 if the account owns the token and 0 if it does not.
+   Because NFTs are unique, the response shows a balance of 1 if the account owns the token and 0 if it does not, as in this picture:
+
+   ![THe results of the `show-balance` command, with two NFTs in Bob's account](/images/nft-create/show-balance-bob.png)
 
 1. Use the `tznft show-balance` command to print information about Alice's NFTs:
 
@@ -376,9 +379,9 @@ For example, this command transfers NFTs 1 and 2 from Bob to Alice:
    tznft transfer --nft my_collection --signer bob --batch 'alice, bob, 1' 'alice, bob, 2'
    ```
 
-   The response shows the error "FA2_INSUFFICIENT_BALANCE" because Bob's account does not have these NFTs.
+   The response shows the error "FA2_NOT_OPERATOR" because Bob's account is not in control of these NFTs.
 
-   One way to give accounts control over NFTs that are not in their account is to make those accounts operators for those NFTs.
+   You can give Bob's account control over the NFTs by making his account an operator of those NFTs.
 
 1. Make Bob an operator of Alice's NFTs by passing the token IDs to the `tznft update-ops` command:
 
@@ -445,15 +448,18 @@ You can do this in either of these two ways:
          docker exec flextesa-sandbox octez-client gen keys my-account
          ```
 
-      1. Get the private key for the wallet with this command:
+      1. Get the keys for the wallet with this command:
 
          ```bash
          docker exec flextesa-sandbox octez-client show address my-account -S
          ```
 
          The response includes the hash, public key, and secret key for the wallet.
+         For example, in this response, the secret key starts with "edsk3WR":
 
-      1. Add the secret key as an alias with the `tznft` command:
+         ![The keys for the new account](/images/nft-create/new-key-output.png)
+
+      1. Add the secret key as an alias with the `tznft` command, replacing `$TEZOS_PRIVATE_KEY` with the value of the secret key from the previous command:
 
          ```bash
          tznft add-alias my-account $TEZOS_PRIVATE_KEY
@@ -464,7 +470,7 @@ You can do this in either of these two ways:
 
 1. Create the collection on the testnet.
 The command is the same as for the sandbox, and you can create a new collection file or use the file from the sandbox.
-Similarly, you can use the same collection because `tznft` keeps aliases separate on different networks, but be sure not to get the aliases confused.
+Similarly, you can use the same collection alias because `tznft` keeps aliases separate on different networks, but be sure not to get the aliases confused.
 
    ```bash
    tznft create-collection my-account --meta_file my_collection.json --alias my_collection
@@ -499,9 +505,9 @@ The command is the same as for the sandbox:
 
    The block explorer shows information about the contract that manages the NFTs, including a list of all NFTs in the contract, who owns them, and a list of recent transactions.
 
-Now the NFTs are on Tezos mainnet and you can transfer and manipulate them just like you did in the sandbox.
-You may need to create more account aliases to transfer them, but the commands are the same.
-For example, to transfer NFTs to an account with the alias `second-account`, run this command:
+Now the NFTs are on Tezos ghostnet and you can transfer and manipulate them just like you did in the sandbox.
+You may need to create and fund more account aliases to transfer them, but the commands are the same.
+For example, to transfer NFTs to an account with the alias `other-account`, run this command:
 
 ```bash
 tznft transfer --nft my_collection --signer my-account --batch 'my-account, other-account, 1' 'my-account, other-account, 2'
