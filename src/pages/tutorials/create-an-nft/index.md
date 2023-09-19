@@ -20,7 +20,7 @@ In this tutorial, you will learn:
 ## What is a non-fungible token (NFT)?
 
 An NFT is a special type of blockchain token that represents something unique.
-Fungible tokens such as XTZ and real-world currencies like dollars and Euros are interchangeable; each one is the same as every other.
+Fungible tokens such as XTZ and real-world currencies like dollars and euros are interchangeable; each one is the same as every other.
 By contrast, each NFT is unique and not interchangeable.
 NFTs can represent ownership over digital or physical assets like virtual collectibles or unique artwork, or anything that you want them to represent.
 
