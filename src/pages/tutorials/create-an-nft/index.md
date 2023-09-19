@@ -459,6 +459,9 @@ You can do this in either of these two ways:
          tznft add-alias my-account $TEZOS_PRIVATE_KEY
          ```
 
+      1. Add funds to the new wallet by going to the Ghostnet faucet at <https://faucet.ghostnet.teztnets.xyz/>, pasting the wallet's hash in the "Or fund any address" field, and clicking a button to request tokens.
+      The wallet needs tokens to pay the fees to create the collection and mint the tokens on Ghostnet.
+
 1. Create the collection on the testnet.
 The command is the same as for the sandbox, and you can create a new collection file or use the file from the sandbox.
 Similarly, you can use the same collection because `tznft` keeps aliases separate on different networks, but be sure not to get the aliases confused.
