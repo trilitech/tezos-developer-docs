@@ -615,7 +615,7 @@ Follow these steps to set up the `src/App.svelte` file, which is the container f
    import type { TezosToolkit } from "@taquito/taquito";
    import type { token } from "./types";
    import type { TezosAccountAddress } from "./store";
-   import { tzbtcAddress, sirsAddress, testnetApi } from "./config";
+   import { tzbtcAddress, sirsAddress } from "./config";
 
    export const displayTokenAmount = (
      amount_: BigNumber | number,
