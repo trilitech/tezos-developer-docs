@@ -1,8 +1,8 @@
 ---
 id: build-your-first-app
 title: Build your first app on Tezos
-authors: Claude Barde
-lastUpdated: 10th July 2023
+authors: 'Claude Barde, Tim McMackin'
+lastUpdated: 12th September 2023
 ---
 
 This tutorial shows you how to create a decentralized web application on Tezos that swaps one token for another.

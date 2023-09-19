@@ -2,7 +2,7 @@
 id: adding-removing-liquidity
 title: "Part 4: Adding and removing liquidity"
 authors: 'Claude Barde, Tim McMackin'
-lastUpdated: 12 September 2023
+lastUpdated: 12th September 2023
 ---
 
 As mentioned before, users stake XTZ and tzBTC to the LB contract, in a process called "adding liquidity."

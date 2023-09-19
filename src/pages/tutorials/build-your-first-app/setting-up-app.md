@@ -13,7 +13,7 @@ If you are familiar with Svelte, note that this application includes its own Sve
 
 1. Run these commands to install Svelte with TypeScript and Vite:
 
-   ```
+   ```bash
    npm create vite@latest lb-dex -- --template svelte-ts
    cd lb-dex
    npm install
@@ -21,14 +21,14 @@ If you are familiar with Svelte, note that this application includes its own Sve
 
 1. Install Sass and the Tezos-related dependencies:
 
-   ```
+   ```bash
    npm install --save-dev sass
    npm install @taquito/taquito @taquito/beacon-wallet
    ```
 
 1. Install the `buffer`, `events`, and `vite-compatible-readable-stream` libraries:
 
-   ```
+   ```bash
    npm install --save-dev buffer events vite-compatible-readable-stream
    ```
 
