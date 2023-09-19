@@ -106,9 +106,6 @@ If you are familiar with Svelte, note that this application includes its own Sve
    This updated file sets the `global` variable to `globalThis` and adds a buffer object to the window.
    The Beacon SDK requires this configuration to run in a Vite app.
 
-1. Run the project by running the command `npm run dev` on the command line and opening <http://localhost:4000> in your browser.
-You should see a sample Svelte page that confirms that the application is configured properly.
-
 ## File structure
 
 The final structure of the tutorial application will look like this:
