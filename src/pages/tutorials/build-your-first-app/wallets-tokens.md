@@ -299,10 +299,4 @@ This API has many features that provide information about Tezos.
 
    For more information about the call to the TzKT API in this code, see the API reference for the [GET /v1/tokens/balances](https://api.tzkt.io/#operation/Tokens_GetTokenBalances) endpoint.
 
-1. At the top of the file, add this import statement to get the addresses of the tokens:
-
-   ```typescript
-   import { tzbtcAddress, sirsAddress } from "./config";
-   ```
-
 Now other components can fetch and store the user's token balances at any time.
