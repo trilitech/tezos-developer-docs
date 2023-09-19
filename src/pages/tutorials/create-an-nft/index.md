@@ -326,12 +326,6 @@ You can create more than one NFT in a single command by providing more than one 
 
    If the NFTs were created successfully, the command prints the metadata that you pinned to IPFS.
 
-1. When you have created all of the NFTs that you want, freeze the collection so it cannot be changed and no more NFTs can be added by running this command:
-
-   ```bash
-   tznft mint-freeze bob my_collection
-   ```
-
 Now the NFTs are minted to the sandbox.
 Because these NFTs are only on your local computer, in the Flextesa sandbox, you can interact with them only locally.
 They exist as long as you keep the Flextesa Docker container running, which you started with the `tznft bootstrap` command.
@@ -403,6 +397,14 @@ For example, this command transfers NFTs 1 and 2 from Bob to Alice:
    ```bash
    tznft show-balance --nft my_collection --signer bob --owner bob --tokens 1 2
    ```
+
+## Freeze the collection
+
+When you have created all of the NFTs that you want, freeze the collection so it cannot be changed and no more NFTs can be added by running this command:
+
+```bash
+tznft mint-freeze bob my_collection
+```
 
 ## Mint tokens on a testnet
 
