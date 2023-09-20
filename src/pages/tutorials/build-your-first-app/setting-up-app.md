@@ -23,7 +23,7 @@ If you are familiar with Svelte, note that this application includes its own Sve
 
    ```bash
    npm install --save-dev sass
-   npm install @taquito/taquito @taquito/beacon-wallet
+   npm install @taquito/taquito @taquito/beacon-wallet @airgap/beacon-sdk
    ```
 
 1. Install the `buffer`, `events`, and `vite-compatible-readable-stream` libraries:
@@ -479,7 +479,7 @@ Follow these steps to set up the `src/App.svelte` file, which is the container f
 1. Replace the default `<style>` section with this code:
 
    ```scss
-   <style>
+   <style lang="scss">
      @import "./styles/settings.scss";
 
      main {

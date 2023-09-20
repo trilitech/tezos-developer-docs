@@ -88,10 +88,11 @@ This function does several things:
 
 *Slippage* is the percentage that the user tolerates losing during the trade due to changes in the exchange rate.
 For example, if the user wants to swap 100 XTZ tokens for 100 xtBTC tokens and selects a slippage of 1%, the user receives between 99 and 100 tzBTC tokens.
+If changes in the exchange rate would cause the user to receive less than 99 tzBTC tokens, the transaction fails.
 
 ## Calculating the tokens that the user receives
 
-To set up the functions that calculate the transaction amounts, copy these files from the tutorial repository at <https://github.com/trilitech/tutorial-applications/tree/main/liquidity-baking-dapp>:
+To set up the functions that calculate the transaction amounts, copy this file from the tutorial repository at <https://github.com/trilitech/tutorial-applications/tree/main/liquidity-baking-dapp>:
 
 - `src/lbUtils.ts`
 
@@ -186,8 +187,6 @@ Now the process forks depending on which tokens are being swapped, as described 
 ### Swapping tzBTC to XTZ
 
 To swap tzBTC to XTZ, the application runs these steps:
-
-TODO: verify that this is accurate and clarify what's going on:
 
 1. It creates an object of the `ContractAbstraction` type that represents the contract that manages tzBTC.
 1. It converts the number of tokens to the full decimal amount.
@@ -323,6 +322,6 @@ Keep these design considerations in mind as you write code and create the UI for
 - Always provide visual feedback.
 Baking a transaction can take up to 30 seconds when the network is not congested, and even longer if there is a lot of traffic.
 A spinner or a loading animation is generally a good idea to indicate to users that the app is waiting for some sort of confirmation so they don't think that the app has frozen or failed.
-- Disable the UI while the transaction processing to prevent users from submitting multiple transactions.
+- Disable the UI while the transaction processing to prevent users from submitting duplicate transactions.
 - Reset the UI at the end of the transaction automatically instead of making users manually refresh the application.
 Ideally, the interface returns to the same or similar state as when the user first opened it.

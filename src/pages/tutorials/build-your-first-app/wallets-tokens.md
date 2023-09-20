@@ -140,9 +140,6 @@ For this reason, this application isolates wallet-related code in a single compo
    1. It removes the user's address from the state with the `store.updateUserAddress(undefined)` command, which also updates the UI.
    1. It resets the local variables for the network and wallet icon.
 
-   TPM TODO: Is this next paragraph needed? If this is the only thing I need to do, why am I doing other things in the `disconnectWallet` function?
-   The call to `clearActiveAccount()` on the wallet instance is the only thing that you will do in whatever app you are building, it will remove all the data in the local storage and when your user revisits your app, they won't be automatically connected with their wallet.
-
 1. At the end of the file, add this code, which creates a button that the user can click to connect or disconnect their wallet:
 
    ```html

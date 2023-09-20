@@ -5,12 +5,15 @@ authors: 'Claude Barde, Tim McMackin'
 lastUpdated: 12th September 2023
 ---
 
-As mentioned before, users stake XTZ and tzBTC to the LB contract, in a process called "adding liquidity."
+As mentioned before, users stake XTZ and tzBTC to the LB contract in a process called "adding liquidity."
 Those tokens become the liquidity pool that other users can use to swap tokens.
-In this section, you will enhance the application to allow users to stake tokens and receive SIRS and to allow users to return the SIRS and receive their XTZ and tzBTC back with interest.
+In this section, you will enhance the application to allow users to:
+
+- Stake tokens and receive SIRS
+- Return the SIRS and receive their XTZ and tzBTC back with interest
 
 The most difficult part of this process is getting the tokens amounts correct.
-Sending the transactions to Tezos is relatively simple.
+Sending the transactions to Tezos is simple compared to the swap transactions.
 
 The interface for staking tokens looks similar to the interface for swapping, but in this case, both token amounts are editable.
 The user enters a token amount in one of the fields and the app calculates the amount of the other token in the other field.
@@ -88,8 +91,8 @@ When the user confirms the transaction to add liquidity, the app runs the `addLi
    const tzBtcContract = await $store.Tezos.wallet.at(tzbtcAddress);
    ```
 
-1. As with the operation to swap tzBTC to XTZ, the transaction to add liquidity requires multiple operations.
-You could use a Taquito batch operation as in the swap function, but to illustrate a different way of bundling the operations, the `addLiquidity` function batches operations in this way:
+1. As with the transaction to swap tzBTC to XTZ, the transaction to add liquidity requires multiple steps.
+You could use a Taquito batch operation as in the swap function, but to illustrate a different way of bundling the transactions, the `addLiquidity` function passes transactions to the `batch` method as an array:
 
    ```typescript
    const batch = $store.Tezos.wallet.batch([
@@ -122,31 +125,14 @@ You could use a Taquito batch operation as in the swap function, but to illustra
    ]);
    ```
 
-   This code passes an array of operations to Taquito:
+   This series of transactions is similar to the transactions that swap tokens:
 
-   1. This operation sets the amount of approved tzBTC for the LB DEX to zero.
+      1. It calls the LB contract's `approve` entrypoint to set the number of tokens that the contract can take from the wallet to 0.
+      1. It calls the LB contract's `approve` entrypoint to set the number of tokens that the contract can take from the wallet to the number of tokens that the user intends to send.
+      1. It sends the transaction with the tokens.
+      1. It sets the the number of tokens that the contract can take from the wallet back to 0.
 
-      ```typescript
-      {
-        kind: OpKind.TRANSACTION,
-        ...tzBtcContract.methods.approve(dexAddress, 0).toTransferParams()
-      }
-      ```
-
-      TPM TODO: Why do we need to do this? Is this to reset any pending transactions to 0 before setting the requested amount in the next transaction?
-
-   1. This operation prompts the user's wallet to get approval for the amount of tzBTC to send:
-
-      ```typescript
-      {
-        kind: OpKind.TRANSACTION,
-        ...tzBtcContract.methods
-          .approve(dexAddress, tzbtcForLiquidity)
-          .toTransferParams()
-      }
-      ```
-
-   1. This operation calls the contract endpoint, represented by the `addLiquidity` function:
+      This is the call to the contract's `addLiquidity` entrypoint:
 
       ```typescript
       {
@@ -173,15 +159,6 @@ You could use a Taquito batch operation as in the swap function, but to illustra
 
       Finally, it adds the amount of XTZ as the last property of the operation.
       This field must be after the `toTransferParams` function or it is overwritten with the default amount, which is zero.
-
-   1. This operation resets the allowed amount of tzBTC to be used by the LB contract back to zero.
-
-      ```typescript
-      {
-        kind: OpKind.TRANSACTION,
-        ...tzBtcContract.methods.approve(dexAddress, 0).toTransferParams()
-      }
-      ```
 
 1. Then the function sends the transaction to Tezos and waits for it to complete:
 
