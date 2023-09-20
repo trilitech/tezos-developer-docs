@@ -326,6 +326,10 @@ const tutorialNavigation = [
         href: '/tutorials/build-your-first-app',
         children: [
           {
+            title: "Introduction",
+            href: '/tutorials/build-your-first-app',
+          },
+          {
             title: 'Part 1: Setting up the application',
             href: '/tutorials/build-your-first-app/setting-up-app'
           },
