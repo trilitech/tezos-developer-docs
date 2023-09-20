@@ -294,6 +294,10 @@ const tutorialNavigation = [
         href: '/tutorials/create-an-nft',
         children: [
           {
+            title: 'Create an NFT with the `tznft` tool',
+            href: '/tutorials/create-an-nft/nft-tznft',
+          },
+          {
             title: 'Mint an NFT using Taquito',
             href: '/tutorials/create-an-nft/nft-taquito',
           },
