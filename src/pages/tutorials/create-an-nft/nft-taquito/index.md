@@ -84,13 +84,154 @@ Now, let’s start by understanding better what NFTs are and how they work!
 
 > Note: the first part of the article doesn’t require any knowledge in programming but to follow the second part, you need to have a basic knowledge of JavaScript.
 
-### Useful lexicon
+## The tutorial contract
 
-* To mint an NFT: to create an NFT and record its data into a smart contract
-* To burn an NFT: to delete the data associated with an NFT from a smart contract
-* A smart contract: a piece of autonomous code that lives on a blockchain
-* The [IPFS](https://ipfs.io/#how): a network of computers providing decentralized storage
-* To pin on the IPFS: storing data on the IPFS
+The file `contract/NFTS_contract.mligo` contains the code for the smart contract that manages the NFTs.
+This contract is written in the CameLIGO version of the LIGO smart contract programming language, with a syntax similar to OCaml.
+This contract is already written for you, so do not need any experience with these languages to run the tutorial.
+
+This contract creates NFTs that comply with the FA2 standard (formally known as the [TZIP-12](https://gitlab.com/tezos/tzip/-/blob/master/proposals/tzip-12/tzip-12.md) standard), the current standard for tokens on Tezos.
+The FA2 standard creates a framework for how tokens behave on Tezos, including fungible, non-fungible, and other types of tokens.
+It provides a standard API to transfer tokens, check token balances, manage operators (addresses that are permitted to transfer tokens on behalf of the token owner), and manage token metadata.
+
+The full details of the smart contract are beyond the scope of this tutorial, but the major parts of the contract have descriptions in comments.
+
+### Contract entrypoints
+
+Like APIs, smart contracts have _entrypoints_, which are commands that clients can call.
+To comply with the TZIP-12 standard, the smart contract must have these entrypoints:
+
+- `transfer`: Transfers tokens from one account to another
+- `balance_of`: Provides information about the tokens that an account owns
+- `update_operators`: Changes the accounts that can transfer tokens
+
+This contract includes these additional entrypoints:
+
+- `mint`: Creates NFTs
+- `burn`: Destroys NFTs
+
+### Contract types
+
+Because Tezos uses strongly-typed languages, this contract's code starts by defining the types that the contract uses.
+These types are important for verifying that data is in the correct format, including that the client sends the correct data to the entrypoints.
+
+For example, the `transfer` entrypoint accepts a list of the `transfer` type.
+This type includes the account to transfer tokens from and a list of the `transfer_destination` type, which includes the account to transfer tokens to, the ID of the token to transfer, and the amount to transfer:
+
+```ocaml
+type token_id = nat
+
+type transfer_destination =
+[@layout:comb]
+{
+  to_ : address;
+  token_id : token_id;
+  amount : nat;
+}
+
+type transfer =
+[@layout:comb]
+{
+  from_ : address;
+  txs : transfer_destination list;
+}
+```
+
+The type `fa2_entry_points` is a special type that the contract's `main` function uses to define the endpoints.
+It maps the entry points to the type of parameter that they accept:
+
+```ocaml
+type fa2_entry_points =
+  | Transfer of transfer list
+  | Balance_of of balance_of_param
+  | Update_operators of update_operator list
+  | Mint of mint_params
+  | Burn of token_id
+```
+
+### Error messages
+
+The contract defines a series of error messages, and comments in the code describe what each error message means.
+For example, the `balance_of` and `transfer` endpoints return this error if the client requests information about a token that does not exist or tries to transfer a token that does not exist:
+
+```ocaml
+(** One of the specified `token_id`s is not defined within the FA2 contract *)
+let fa2_token_undefined = "FA2_TOKEN_UNDEFINED"
+```
+
+### Internal functions
+
+The contract has many internal functions, such as this function, which gets the specified account's balance of tokens.
+In the case of NFTs, only one of each token exists, so the function returns a balance of 1 if the account owns the token and 0 if it does not.
+
+```ocaml
+(**
+Retrieve the balances for the specified tokens and owners
+@return callback operation
+*)
+let get_balance (p, ledger : balance_of_param * ledger) : operation =
+  let to_balance = fun (r : balance_of_request) ->
+    let owner = Big_map.find_opt r.token_id ledger in
+    match owner with
+    | None -> (failwith fa2_token_undefined : balance_of_response)
+    | Some o ->
+      let bal = if o = r.owner then 1n else 0n in
+      { request = r; balance = bal; }
+  in
+  let responses = List.map to_balance p.requests in
+  Tezos.transaction responses 0mutez p.callback
+```
+
+### Main function
+
+The `main` function is a special function that defines the entrypoints in the contract.
+In this case, it accepts the entrypoint that the client called and the current state of the contract's storage.
+Then the function branches based on the entrypoint.
+
+For example, if the client calls the `balance_of` entrypoint, the function calls the `get_balance` function and passes the parameters that the client passed and the
+current state of the contract's ledger:
+
+```ocaml
+  | Balance_of p ->
+    let op = get_balance (p, storage.ledger) in
+    [op], storage
+```
+
+Here is the complete code of the `main` function:
+
+```ocaml
+let main (param, storage : fa2_entry_points * nft_token_storage)
+    : (operation  list) * nft_token_storage =
+  match param with
+  | Transfer txs ->
+    let (new_ledger, new_reverse_ledger) = transfer
+      (txs, default_operator_validator, storage.operators, storage.ledger, storage.reverse_ledger) in
+    let new_storage = { storage with ledger = new_ledger; reverse_ledger = new_reverse_ledger } in
+    ([] : operation list), new_storage
+
+  | Balance_of p ->
+    let op = get_balance (p, storage.ledger) in
+    [op], storage
+
+  | Update_operators updates ->
+    let new_ops = fa2_update_operators (updates, storage.operators) in
+    let new_storage = { storage with operators = new_ops; } in
+    ([] : operation list), new_storage
+
+  | Mint p ->
+    ([]: operation list), mint (p, storage)
+
+  | Burn p ->
+    ([]: operation list), burn (p, storage)
+```
+
+### Initial storage state
+
+When you deploy the contract to Tezos, you must set the initial state of its storage.
+For this contract, the initial storage state is in the comment at the end of the file.
+This state creates empty variables for the ledger, the list of operators, and the next token ID
+It also initializes a few other values.
+
 
 ### Creating an NFT platform on Tezos
 
