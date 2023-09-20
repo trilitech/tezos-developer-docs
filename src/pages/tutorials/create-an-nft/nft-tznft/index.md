@@ -231,7 +231,7 @@ IPFS requires authentication just like blockchain transactions, so in this secti
 
 1. Go to the API Keys tab and click **New Key**.
 
-1. On the Create New API Key page, expand API Endpoint Access and enable the `pinFileToIPFS` permission, as in this picture:
+1. On the Create New API Key page, expand "API Endpoint Access > Pinning," and enable the `pinFileToIPFS` permission, as in this picture:
 
    ![Selecting the permissions for the Pinata key](/images/nft-create/pinata-key-permissions.png)
 
@@ -239,7 +239,7 @@ IPFS requires authentication just like blockchain transactions, so in this secti
 
 1. Click **Create Key**.
 
-   The API Key Info window shows the API key and secret, which you must copy immediately, because it is not shown again.
+   The API Key Info window shows the API key and secret, which you must copy immediately, because they are not shown again.
 
 1. Copy the API Key and API Secret fields and save the values on your computer.
 You need these values in the next section.

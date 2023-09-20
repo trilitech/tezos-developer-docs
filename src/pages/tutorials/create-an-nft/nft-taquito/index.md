@@ -71,6 +71,8 @@ You need these values in the next section.
 
    ![The new Pinata API key in the Pinata web app](/images/nft-create/created-pinata-key-two-permissions.png)
 
+Now your applications can use your Pinata account to pin NFT data to IPFS.
+
 
 
 
