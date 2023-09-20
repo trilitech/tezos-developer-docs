@@ -73,16 +73,25 @@ You need these values in the next section.
 
 Now your applications can use your Pinata account to pin NFT data to IPFS.
 
+## Download the tutorial files
 
+The tutorial application has three parts:
 
+- The smart contract that manages the NFTs
+- The backend application that handles uploading data to IPFS
+- The frontend application that connects to the user's wallet, sends the data to the backend application, and sends the transactions to the smart contract to mint the NFTs
 
+The tutorial application files are in this GiHub repository: <https://github.com/trilitech/tutorial-applications/tree/main/nft-taquito>.
 
+If you have the `git` program installed, you can clone the repository with this command:
 
-If you just want the code, you can find the complete source code in [this GitHub repository](https://github.com/claudebarde/taquito-pinata-tezos-nft). The **backend** folder holds the code that generates the metadata and pins the picture and the metadata to the IPFS. The **frontend** folder holds the code for the app that allows users to connect to their Tezos wallet and mint NFTs. The **contract** folder holds the FA2 contract written in CameLigo to mint, transfer, and burn NFTs.
+```bash
+git clone https://github.com/trilitech/tutorial-applications.git
+```
 
-Now, let’s start by understanding better what NFTs are and how they work!
+If you don't have git installed, go to <https://github.com/trilitech/tutorial-applications/tree/main/nft-taquito> and click "Code > Download ZIP" and extra the ZIP file on your computer.
 
-> Note: the first part of the article doesn’t require any knowledge in programming but to follow the second part, you need to have a basic knowledge of JavaScript.
+Then, go to the application in the `nft-taquito` folder.
 
 ## The tutorial contract
 
