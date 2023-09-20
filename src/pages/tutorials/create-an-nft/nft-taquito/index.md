@@ -31,14 +31,50 @@ The FA2 standard creates a framework for how tokens behave on Tezos, including f
 It provides a standard API to transfer tokens, check token balances, manage operators (addresses that are permitted to transfer tokens on behalf of the token owner), and manage token metadata.
 
 
+## Prerequisites
+
+To run this tutorial you need Node.JS and NPM installed.
+See <https://nodejs.org/>.
+You can verify that they are installed by running these commands:
+
+   ```bash
+   node --version
+   npm --version
+   ```
+
+## Configure IPFS storage
+
+Because storage space on blockchains is expensive, developers don't put entire token metadata files on Tezos.
+Instead, they configure decentralized storage for the NFT data and put only the link to that data on Tezos itself.
+In this section, you set up storage for the NFT metadata using the InterPlanetary File System (IPFS) protocol.
+
+IPFS requires authentication just like blockchain transactions, so in this section you set up an account with the Pinata IPFS provider and use it to upload (or _pin_) the NFT data to IPFS.
+
+1. Create a free Pinata account at <https://app.pinata.cloud/developers/api-keys>.
+
+1. Go to the API Keys tab and click **New Key**.
+
+1. On the Create New API Key page, expand "API Endpoint Access > Pinning," and enable the `pinFileToIPFS` and `pinJSONToIPFS` permissions, as in this picture:
+
+   ![Selecting the permissions for the Pinata key](/images/nft-create/pinata-key-permissions.png)
+
+1. In the **Key Name** field, give the key a name, such as "My Key."
+
+1. Click **Create Key**.
+
+   The API Key Info window shows the API key and secret, which you must copy immediately, because they are not shown again.
+
+1. Copy the API Key and API Secret fields and save the values on your computer.
+You need these values in the next section.
+
+   You can see the new API key on the API Keys tab:
+
+   ![The new Pinata API key in the Pinata web app](/images/nft-create/created-pinata-key-two-permissions.png)
 
 
 
 
 
-In this guide, you will get an overview of the mechanics of NFTs, in general, and on Tezos. If you want to get your hands dirty, you will get an explanation of how the code of an NFT platform works, on the contract level but also on the app level. This article is mainly designed for beginner programmers who want to get a better idea of the code involved in the creation and use of NFTs, but non-technical readers will also find important information to deepen their understanding of both NFTs and the Tezos blockchain.
-
-You will learn how to build a simple NFT platform backed by a smart contract on the Tezos blockchain capable of minting, transferring, and burning NFTs while hosting their metadata on the IPFS. You need a basic knowledge of JavaScript to follow along in part 2. We will only have a high-level overview of the smart contract so no knowledge of Ligo is required, but a general knowledge of programming concepts would help.
 
 If you just want the code, you can find the complete source code in [this GitHub repository](https://github.com/claudebarde/taquito-pinata-tezos-nft). The **backend** folder holds the code that generates the metadata and pins the picture and the metadata to the IPFS. The **frontend** folder holds the code for the app that allows users to connect to their Tezos wallet and mint NFTs. The **contract** folder holds the FA2 contract written in CameLigo to mint, transfer, and burn NFTs.
 
