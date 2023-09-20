@@ -54,7 +54,7 @@ IPFS requires authentication just like blockchain transactions, so in this secti
 
 1. Go to the API Keys tab and click **New Key**.
 
-1. On the Create New API Key page, expand "API Endpoint Access > Pinning," and enable the `pinFileToIPFS` and `pinJSONToIPFS` permissions, as in this picture:
+1. On the Create New API Key page, expand **API Endpoint Access > Pinning** and enable the `pinFileToIPFS` and `pinJSONToIPFS` permissions, as in this picture:
 
    ![Selecting the permissions for the Pinata key](/images/nft-create/pinata-key-permissions.png)
 
@@ -231,6 +231,115 @@ When you deploy the contract to Tezos, you must set the initial state of its sto
 For this contract, the initial storage state is in the comment at the end of the file.
 This state creates empty variables for the ledger, the list of operators, and the next token ID
 It also initializes a few other values.
+
+## Deploy the smart contract to the testnet
+
+There are many ways to deploy (originate) a contract on Tezos.
+For a tutorial on using the command line, see [Deploy a smart contract](../../deploy-your-first-smart-contract/).
+
+Before you deploy your contract to the main Tezos network (referred to as *mainnet*), you can deploy it to a testnet.
+Testnets are useful for testing Tezos operations because testnets provide tokens for free so you can work with Tezos without spending real tokens.
+
+This tutorial uses the online LIGO IDE at <https://ide.ligolang.org/> because you don't have to install any tools to use it.
+
+Follow these steps to originate the smart contract to Tezos:
+
+1. In a web browser, open the IDE at <https://ide.ligolang.org/>.
+
+1. At the top right, click the **Network** drop-down list and next to **Tezos**, select the **Ghostnet** testnet.
+The network changes to the Ghostnet testnet, as in this picture:
+
+   ![The IDE menu, showing the Ghostnet testnet selected](/images/nft-create/web-ligo-ide-ghostnet.png)
+
+1. Create an account to use to deploy the contract:
+
+   1. At the top right, click the **Keypair Manager** button.
+   The "Keypair Manager" window opens.
+
+   1. Click **Create**.
+
+   1. Give the keypair a name such as "My keys" and click **Create**.
+
+   1. From the "Keypair Manager" window, copy the address of the new account, which begins with `kt1`.
+
+   1. Click **Close**.
+
+1. Send funds to the account from the testnet faucet:
+
+   1. Go to the Ghostnet faucet at <https://faucet.ghostnet.teztnets.xyz/>.
+
+   1. Put the new account address in the **Or fund any address** field.
+
+   1. Click the button to request 100 tokens and wait for the browser to complete the operation.
+
+   1. When you see a message that the tokens are sent to your address, go back to the web IDE, open the "Keypair Manager" window and verify that the account has tokens, as in this example:
+
+      ![The IDE Keypair Manager window, showing an account with funds](/images/nft-create/web-ligo-ide-account.png)
+
+1. In the IDE, Click the **New** button.
+
+1. In the "Create a New Project" window, give your project a name, such as "NFT tutorial," select "Empty Project" in the **Template** field, and select "CameLIGO" in the **Syntax** field.
+
+1. Click **Create Project**.
+The IDE opens a blank contract file and shows commands for the file on the left-hand side of the window.
+
+1. Paste the contents of the `contract/NFTS_contract.mligo` file into the editor.
+The IDE saves the file automatically.
+
+1. Click **Compile** and then in the "Compile" window, click **Compile**.
+The IDE compiles the contract code to Michelson, the base language that all Tezos contracts use.
+At the bottom of the window, it prints the message `wrote output to .workspaces/NFT tutorial/build/contracts/Contract.tz`.
+If you see an error, make sure that you copied the entire contract file.
+
+1. Deploy the contract:
+
+   1. Click **Deploy**.
+
+   1. In the "Deploy contract" window, in the **Init storage** field, paste the initial storage value for the contract, which you can get from the comment at the end of the contract:
+
+      ```ocaml
+      {
+        ledger = (Big_map.empty: (token_id, address) big_map);
+        operators = (Big_map.empty: ((address * (address * token_id)), unit) big_map);
+        reverse_ledger = (Big_map.empty: (address, token_id list) big_map);
+        metadata = Big_map.literal [
+        ("", Bytes.pack("tezos-storage:contents"));
+        ("contents", ("7b2276657273696f6e223a2276312e302e30222c226e616d65223a2254555473222c22617574686f7273223a5b2240636c617564656261726465225d2c22696e7465726661636573223a5b22545a49502d303132222c22545a49502d303136225d7d": bytes))
+        ];
+        token_metadata = (Big_map.empty: (token_id, token_metadata) big_map);
+        next_token_id = 0n;
+        admin = ("tz1Me1MGhK7taay748h4gPnX2cXvbgL6xsYL": address);
+      }
+      ```
+
+   1. In the **Signer** field, make sure your new account is selected.
+
+   1. Leave the other fields blank and click **Estimate**.
+   The IDE calculates the fees for the deployment.
+
+   1. Click **Deploy** and leave the window open to wait for the contract to be deployed.
+
+      Deploying the contract can take a few minutes.
+      When the transaction completes, the window shows a message that the contract was deployed.
+
+   1. Copy the contract address, which starts with `KT1`, and then close the "Deploy contract" window.
+
+1. Verify that the contract deployed successfully by finding it on a block explorer:
+
+   1. Open a Tezos block explorer such as [TzKT](https://tzkt.io) or [Better Call Dev](https://better-call.dev/).
+
+   1. Set the explorer to Ghostnet instead of mainnet.
+
+   1. Paste the contract address into the search field and press Enter.
+
+   1. Go to the Entrypoints tab to see the entrypoints and their parameters.
+
+Now anyone can call the Tezos contract if they have tokens for the fees and send a valid request.
+
+
+
+
+
 
 
 ### Creating an NFT platform on Tezos
