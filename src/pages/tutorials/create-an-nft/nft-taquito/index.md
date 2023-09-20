@@ -1,6 +1,6 @@
 ---
-id: nft-pinata
-title: Mint an NFT using Taquito and Pinata
+id: nft-taquito
+title: Mint an NFT using Taquito
 lastUpdated: 10th July 2023
 ---
 

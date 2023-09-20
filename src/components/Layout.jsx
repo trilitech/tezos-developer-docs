@@ -294,8 +294,8 @@ const tutorialNavigation = [
         href: '/tutorials/create-an-nft',
         children: [
           {
-            title: 'Mint NFT using Taquito and Pinata',
-            href: '/tutorials/create-an-nft/nft-pinata',
+            title: 'Mint an NFT using Taquito',
+            href: '/tutorials/create-an-nft/nft-taquito',
           },
         ],
       },
