@@ -26,6 +26,7 @@ NFTs can represent ownership over digital or physical assets like virtual collec
 
 Like other types of Tezos tokens, a collection of NFTs is managed by a smart contract.
 The smart contract defines what information is in each token and how the tokens behave, such as what happens when a user transfers an NFT to another user.
+It also keeps a ledger that records which account owns each NFT.
 
 In this tutorial, you create NFTs that comply with the FA2 standard (formally known as the [TZIP-12](https://gitlab.com/tezos/tzip/-/blob/master/proposals/tzip-12/tzip-12.md) standard), the current standard for tokens on Tezos.
 The FA2 standard creates a framework for how tokens behave on Tezos, including fungible, non-fungible, and other types of tokens.
