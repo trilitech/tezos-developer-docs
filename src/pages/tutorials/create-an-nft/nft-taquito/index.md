@@ -15,6 +15,27 @@ In this tutorial, you will learn:
 - How to deploy (originate) a smart contract to Tezos
 - How to use the [Taquito](https://tezostaquito.io/) JavaScript/TypeScript SDK to access Tezos and user wallets
 
+## What is a non-fungible token (NFT)?
+
+An NFT is a special type of blockchain token that represents something unique.
+Fungible tokens such as XTZ and real-world currencies like dollars and euros are interchangeable; each one is the same as every other.
+By contrast, each NFT is unique and not interchangeable.
+NFTs can represent ownership over digital or physical assets like virtual collectibles or unique artwork, or anything that you want them to represent.
+
+Like other types of Tezos tokens, a collection of NFTs is managed by a smart contract.
+The smart contract defines what information is in each token and how the tokens behave, such as what happens when a user transfers an NFT to another user.
+It also keeps a ledger that records which account owns each NFT.
+
+In this tutorial, you create NFTs that comply with the FA2 standard (formally known as the [TZIP-12](https://gitlab.com/tezos/tzip/-/blob/master/proposals/tzip-12/tzip-12.md) standard), the current standard for tokens on Tezos.
+The FA2 standard creates a framework for how tokens behave on Tezos, including fungible, non-fungible, and other types of tokens.
+It provides a standard API to transfer tokens, check token balances, manage operators (addresses that are permitted to transfer tokens on behalf of the token owner), and manage token metadata.
+
+
+
+
+
+
+
 In this guide, you will get an overview of the mechanics of NFTs, in general, and on Tezos. If you want to get your hands dirty, you will get an explanation of how the code of an NFT platform works, on the contract level but also on the app level. This article is mainly designed for beginner programmers who want to get a better idea of the code involved in the creation and use of NFTs, but non-technical readers will also find important information to deepen their understanding of both NFTs and the Tezos blockchain.
 
 You will learn how to build a simple NFT platform backed by a smart contract on the Tezos blockchain capable of minting, transferring, and burning NFTs while hosting their metadata on the IPFS. You need a basic knowledge of JavaScript to follow along in part 2. We will only have a high-level overview of the smart contract so no knowledge of Ligo is required, but a general knowledge of programming concepts would help.
@@ -24,20 +45,6 @@ If you just want the code, you can find the complete source code in [this GitHub
 Now, let’s start by understanding better what NFTs are and how they work!
 
 > Note: the first part of the article doesn’t require any knowledge in programming but to follow the second part, you need to have a basic knowledge of JavaScript.
-
-
-## What is an NFT?
-
-“NFT” is an acronym that stands for “non-fungible token”. A token is called “fungible” when you can exchange it for another identical token without losing any value. For example, the coins in your wallet are fungible. If we both have 1 euro and we exchange our coins, we both still have 1 euro. An NFT is non-fungible due to its unique nature: there is no other token 100% identical with the same value.
-
-> Note: the word “token” in this context means “a list of data that altogether represent something”. An NFT is a token because it is made of data related to something from the real world.
-
-Although NFTs are mostly known for representing artwork, they can actually represent anything and have been used to represent certificates, contracts, users, etc. One of the most important things to remember about NFTs is that they are not a “physical object” but a representation of somebody’s ownership. When you own the NFT for an artwork, it doesn’t prove you have the artwork with you, but it proves you have ownership of the artwork.
-
-On a technical level, NFTs are stored in smart contracts, little programs that live on blockchains and that are able to execute and store data. This point is particularly important to remember: if you have an NFT on your favorite platform, the data is saved in the contract the platform is built upon and the other platforms in the ecosystem built on different contracts are not aware of your NFT. In most cases, this also means you cannot transfer your NFT from one platform to another. If you are the creator of the NFT, you can “_burn_” it \(i.e destroy it\) and “_mint_” it \(i.e create it\) on another platform.
-
-On Tezos, NFTs are stored in contracts that follow the [TZIP-12 standard](https://gitlab.com/tzip/tzip/-/blob/master/proposals/tzip-12/tzip-12.md) that you will often see labeled as “**FA2 contracts**”. The NFT is made of 2 main parts: an id to identify it in the contract and metadata to describe what the NFT is. The contract holds a _ledger_, a table where the ids of every NFT are matched with the address of their owner. Another table in the contract matches the ids of every NFT with their metadata, so knowing the id of an NFT, you can easily find out who owns it and what it represents. The metadata is just text and can be stored directly in the contract or somewhere else on the Internet, in which case the address of the metadata is stored in the contract.
-The contract that holds the NFTs can implement different features according to the platform, it can allow its users to transfer their NFTs to other users of the contract, sell them, burn them, track royalties for every purchase, etc. As the smart contract is just a piece of code, the possibilities are virtually limitless!
 
 ### Useful lexicon
 
