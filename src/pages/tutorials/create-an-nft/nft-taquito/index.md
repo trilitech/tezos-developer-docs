@@ -1,8 +1,19 @@
 ---
 id: nft-taquito
-title: Mint an NFT using Taquito
-lastUpdated: 10th July 2023
+title: Create a web app that mints NFTs
+authors: 'Sol Lederer, Tim McMackin'
+lastUpdated: 20th September 2023
 ---
+
+This tutorial covers how to set up a decentralized web application (dApp) that allows users to create NFTs on Tezos.
+No prior knowledge of NFTs or Tezos is required, but because the tutorial application uses TypeScript, some familiarity with JavaScript or TypeScript will make it easier to understand.
+
+In this tutorial, you will learn:
+
+- What NFTs are
+- How to set up distributed storage for NFT metadata
+- How to deploy (originate) a smart contract to Tezos
+- How to use the [Taquito](https://tezostaquito.io/) JavaScript/TypeScript SDK to access Tezos and user wallets
 
 In this guide, you will get an overview of the mechanics of NFTs, in general, and on Tezos. If you want to get your hands dirty, you will get an explanation of how the code of an NFT platform works, on the contract level but also on the app level. This article is mainly designed for beginner programmers who want to get a better idea of the code involved in the creation and use of NFTs, but non-technical readers will also find important information to deepen their understanding of both NFTs and the Tezos blockchain.
 
@@ -25,7 +36,7 @@ Although NFTs are mostly known for representing artwork, they can actually repre
 
 On a technical level, NFTs are stored in smart contracts, little programs that live on blockchains and that are able to execute and store data. This point is particularly important to remember: if you have an NFT on your favorite platform, the data is saved in the contract the platform is built upon and the other platforms in the ecosystem built on different contracts are not aware of your NFT. In most cases, this also means you cannot transfer your NFT from one platform to another. If you are the creator of the NFT, you can “_burn_” it \(i.e destroy it\) and “_mint_” it \(i.e create it\) on another platform.
 
-On Tezos, NFTs are stored in contracts that follow the [TZIP-12 standard](https://gitlab.com/tzip/tzip/-/blob/master/proposals/tzip-12/tzip-12.md) that you will often see labeled as “**FA2 contracts**”. The NFT is made of 2 main parts: an id to identify it in the contract and metadata to describe what the NFT is. The contract holds a _ledger_, a table where the ids of every NFT are matched with the address of their owner. Another table in the contract matches the ids of every NFT with their metadata, so knowing the id of an NFT, you can easily find out who owns it and what it represents. The metadata is just text and can be stored directly in the contract or somewhere else on the Internet, in which case the address of the metadata is stored in the contract.  
+On Tezos, NFTs are stored in contracts that follow the [TZIP-12 standard](https://gitlab.com/tzip/tzip/-/blob/master/proposals/tzip-12/tzip-12.md) that you will often see labeled as “**FA2 contracts**”. The NFT is made of 2 main parts: an id to identify it in the contract and metadata to describe what the NFT is. The contract holds a _ledger_, a table where the ids of every NFT are matched with the address of their owner. Another table in the contract matches the ids of every NFT with their metadata, so knowing the id of an NFT, you can easily find out who owns it and what it represents. The metadata is just text and can be stored directly in the contract or somewhere else on the Internet, in which case the address of the metadata is stored in the contract.
 The contract that holds the NFTs can implement different features according to the platform, it can allow its users to transfer their NFTs to other users of the contract, sell them, burn them, track royalties for every purchase, etc. As the smart contract is just a piece of code, the possibilities are virtually limitless!
 
 ### Useful lexicon
@@ -36,7 +47,7 @@ The contract that holds the NFTs can implement different features according to t
 * The [IPFS](https://ipfs.io/#how): a network of computers providing decentralized storage
 * To pin on the IPFS: storing data on the IPFS
 
-### Creating an NFT platform on Tezos 
+### Creating an NFT platform on Tezos
 
 Now comes the time to look at some code 👀
 
@@ -48,7 +59,7 @@ Our simple NFT platform will be made of 3 different parts:
 
 These three parts of the platform will communicate with each other at some point: the frontend talks to the contract when a user starts the minting process of a new NFT and to the backend to pin the metadata and the picture on the IPFS. The backend talks to the frontend to provide the IPFS hash \(also called a [**CID**](https://docs.ipfs.io/concepts/content-addressing/)\) before minting the NFT. The contract just listens because Michelson contracts do not return any value, they don’t talk 🙂
 
-#### The contract 
+#### The contract
 
 The goal of this tutorial is not to create an FA2 contract from scratch but rather to understand the principles of such a contract. You can find amazing templates of FA2 contracts in the [TQ Tezos repository on Github](https://github.com/tqtezos/smart-contracts). This app uses a modified version of their NFT contract.
 
@@ -69,7 +80,7 @@ The contract we will use for this tutorial is a basic FA2 contract that implemen
 
 You can have a look at the contract [at this address](https://github.com/claudebarde/taquito-pinata-tezos-nft/blob/main/contract/NFTS_contract.mligo).
 
-#### The backend 
+#### The backend
 
 The backend of the app is a simple Express app written in TypeScript. The app only exposes a single route, “`/mint`”, that will be called to create the NFT metadata and pin it on the IPFS with the associated picture. Before continuing with the code, you must set up an account with [Pinata](https://pinata.cloud/) and get your API keys.
 
@@ -181,7 +192,7 @@ res.status(200).json({
 
 The two hashes will confirm on the frontend side that the picture and the metadata have been correctly pinned.
 
-#### The frontend 
+#### The frontend
 
 The app we will build for the frontend has the typical structure of a Tezos app so we will only focus on the functions required to get the picture and the metadata from the user and send them to the backend before minting the NFT and to display the NFTs the user may own. If you are interested in learning how to build a Tezos app, you can follow [this tutorial](https://medium.com/ecad-labs-inc/how-to-build-your-first-tezos-dapp-2021-edition-b1263b4ba016) to learn everything you need to know!
 
