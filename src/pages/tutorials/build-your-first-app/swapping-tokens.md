@@ -191,16 +191,19 @@ TODO: verify that this is accurate and clarify what's going on:
 
 1. It creates an object of the `ContractAbstraction` type that represents the contract that manages tzBTC.
 1. It converts the number of tokens to the full decimal amount.
-1. It starts a Taquito [batch](https://tezostaquito.io/docs/batch_api/#what-is-the-batch-api) to combine the following transactions into a single operation:
-  1. It sets the permission for the LB contract (with its address in the `dexAddress` constant) to 0.
-  1. It prompts the user to approve the amount of tokens in the wallet.
-  1. It calls the contract's `tokenToXtz` method to swap the tokens, including the parameters for that method:
+1. It starts a Taquito [batch](https://tezostaquito.io/docs/batch_api/#what-is-the-batch-api) method to combine the following transactions into a single transaction:
+  1. It calls the LB contract's `approve` entrypoint three times.
+
+    The first call sets the number of tokens that the contract can take from the wallet to 0.
+    The second call sets the number to the number of tokens that the user intends to spend.
+    After the actual transaction, the third call sets the number back to 0.
+    Due to a security restriction in Tezos, dApps cannot change these amounts from a nonzero number to another nonzero number, so setting the number to 0 before and after the actual transaction prevents this restriction from blocking transactions.
+
+  1. It calls the contract's `tokenToXtz` entrypoint to swap the tokens, including the parameters for that entrypoint:
     - The address of the account that will receive the XTZ
     - The amount of tzBTC that will be sold for the swap
     - The expected amount of XTZ that will be received
     - A deadline after which the transaction expires
-  1. It sets the permission for the LB contract back to 0.
-  TPM TODO: When did it change and what does permission 0 mean?
 1. It sends the batch of transactions to Tezos with the `batch.send` function.
 1. It awaits the completion of the transaction.
 
@@ -236,10 +239,6 @@ if (tokenFrom === "tzBTC") {
 Here are some notes about the specific implementation of this transaction:
 
 - You can read more about the behaviors of the tzBTC contract and other FA1.2 contracts [here](https://gitlab.com/tezos/tzip/-/blob/master/proposals/tzip-7/tzip-7.md).
-
-- Technically speaking, it is not necessary to set the permission back to zero at the end of the transaction.
-Setting it to zero at the beginning is required.
-Setting it back to zero is a common practice to prevent any unexpected pending permission.
 
 - The `ContractAbstraction` is a useful instance provided by Taquito that exposes different tools and properties to get details about a given contract or interact with it.
 
