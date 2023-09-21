@@ -286,6 +286,7 @@ The network changes to the Ghostnet testnet, as in this picture:
    1. Give the keypair a name such as "My keys" and click **Create**.
 
    1. From the "Keypair Manager" window, copy the address of the new account, which begins with `kt1`.
+   You will need this address later.
 
    1. Click **Close**.
 
