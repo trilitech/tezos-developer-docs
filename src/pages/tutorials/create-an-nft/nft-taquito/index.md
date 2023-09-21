@@ -664,23 +664,29 @@ To see information about the smart contract and NFT collection, go to a block ex
 The explorer shows information such a list of the tokens in the collection and who owns them.
 You can also see the current state of the storage for the contract.
 
+## Summary
+
+In this tutorial, you learned how to create an application that mints applications on Tezos on behalf of users.
+The parts are independent, so you could code a different frontend application to call the smart contract or use a different backend application to upload the NFT metadata.
+
+If you want to continue working with this application, try implementing the `burn` entrypoint in the frontend to allow users to destroy their NFTs.
+The contract has a `burn` entrypoint, but the frontend does not provide a way to call it.
 
 
+You can try adding your own entrypoints and originating a new contract, but you cannot update the existing contract after it is deployed.
+For example, you could add entrypoints
 
-### Suggested improvements
+You can add a fee to mint NFTs by sending funds along with the mint transaction.
+If you add the fee as in the following code, the transaction takes the fee amount along with the transaction fee from the user's wallet.
+Currently, the contract does not have a way to send this fee to any other account, so the fee is locked in the contract forever.
+You can add an entrypoint to the contract that allows authorized users to withdraw the fee later.
 
-The purpose of this tutorial is to build a simple NFT platform and introduce some concepts related to creating and minting NFTs, in general, and specifically on the Tezos blockchain. Here are a few additional features and design considerations you would like to take into account for a fully-featured NFT app:
+```typescript
+const op = await contract.methods
+  .mint(char2Bytes("ipfs://" + data.msg.metadataHash), userAddress)
+  .send({ amount: 1 });
+```
 
-* Generate the IPFS hashes client-side first before pinning them: a failed transaction and other worst-case scenarios may leave unused content pinned into your Pinata account, to avoid this, you can spin up an IPFS node in the client browser, pin the data, mint the NFT and then pin it to your Pinata account
-* Add a `burn` endpoint: right now, your users can only create tokens, but you could also allow them to delete their NFTs
-* Display other NFTs of the platform in the front-end interface
-* Add a fee to mint new NFTs: when sending a call to the mint entrypoint, add `.send({ amount: fee })` to monetize your service.
-
-If you want to get your hands dirty, you can also improve the contract. You can add a marketplace to the contract where NFT creators can sell their artwork, you can implement royalties every time an NFT is sold, you can track the sales and their amount and create a “reputation” system for the artists, etc., the possibilities are endless!
-
-### Conclusion
-
-This tutorial introduced a lot of information about NFTs. You learned about the 3 different parts that make up an NFT platform: the contract that records the NFT ids and a link to their associated metadata, the backend that securely builds the metadata and pins it to the IPFS, and the frontend that collects the picture and the related information from the user before minting the NFT. These 3 elements work in concert to receive the user’s input, process it, format it, save it on the IPFS, and record it on the Tezos blockchain.
-
-These 3 parts of the minting and pinning process require 3 tools that are the cornerstones of building NFT platforms on Tezos: a smart contract language like [Ligo](https://ligolang.org/) to write the smart contract, an IPFS pinning service like [Pinata](https://pinata.cloud/) to easily save data to the IPFS, and a JavaScript library like [Taquito](https://tezostaquito.io/) to let the users interact with the smart contract. This is everything you need to build yourself the next Hic et Nunc!
-
+You can also optimize the application by generating the IPFS hashes on the client side before pinning them.
+If the mint transaction fails, it may leave unused metadata in your IPFS account.
+To avoid this problem, you can start an IPFS node in the browser, pin the metadata there, mint the NFT, and pin the metadata to your Pinata account only if the mint transaction succeeds.
