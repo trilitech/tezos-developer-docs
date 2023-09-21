@@ -10,4 +10,4 @@ There are two tutorials that show different ways of creating NFTS:
 
 - The tutorial [Create an NFT with the `tznft` tool](./nft-tznft/) covers how to create NFTs on the command line with the `tznft` tool, a tool that helps you create, test, and manipulate NFTs in a local sandbox before you mint them on the live network.
 
-- The tutorial [Mint an NFT using Taquito](./nft-taquito/) covers how to create a web application that allows users to mint their own NFTs using the [Taquito](https://tezostaquito.io/) JavaScript/TypeScript SDK for Tezos.
+- The tutorial [Create a web app that mints NFTs](./nft-taquito/) covers how to create a web application that allows users to mint their own NFTs using the [Taquito](https://tezostaquito.io/) JavaScript/TypeScript SDK for Tezos.

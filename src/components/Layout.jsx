@@ -298,7 +298,7 @@ const tutorialNavigation = [
             href: '/tutorials/create-an-nft/nft-tznft',
           },
           {
-            title: 'Mint an NFT using Taquito',
+            title: 'Create a web app that mints NFTs',
             href: '/tutorials/create-an-nft/nft-taquito',
           },
         ],
