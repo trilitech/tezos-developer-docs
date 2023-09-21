@@ -6,14 +6,14 @@ lastUpdated: 20th September 2023
 ---
 
 This tutorial covers how to set up a decentralized web application (dApp) that allows users to create NFTs on Tezos.
-No prior knowledge of NFTs or Tezos is required, but because the tutorial application uses TypeScript, some familiarity with JavaScript or TypeScript will make it easier to understand.
+No prior knowledge of NFTs or Tezos is required, but because the tutorial application uses TypeScript, some familiarity with JavaScript or TypeScript makes it easier to understand.
 
 In this tutorial, you will learn:
 
 - What NFTs are
 - How to set up distributed storage for NFT metadata
 - How to deploy (originate) a smart contract to Tezos
-- How to use the [Taquito](https://tezostaquito.io/) JavaScript/TypeScript SDK to access Tezos and user wallets
+- How to use the [Taquito](https://tezostaquito.io/) JavaScript/TypeScript SDK to access Tezos and user wallets and to send transactions to Tezos
 
 ## What is a non-fungible token (NFT)?
 
