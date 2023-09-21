@@ -166,7 +166,7 @@ type transfer =
 }
 ```
 
-The type `fa2_entry_points` is a special type that the contract's `main` function uses to define the endpoints.
+The type `fa2_entry_points` is a special type that the contract's `main` function uses to define the entrypoints.
 It maps the entry points to the type of parameter that they accept:
 
 ```ocaml
@@ -181,7 +181,7 @@ type fa2_entry_points =
 ### Error messages
 
 The contract defines a series of error messages, and comments in the code describe what each error message means.
-For example, the `balance_of` and `transfer` endpoints return this error if the client requests information about a token that does not exist or tries to transfer a token that does not exist:
+For example, the `balance_of` and `transfer` entrypoints return this error if the client requests information about a token that does not exist or tries to transfer a token that does not exist:
 
 ```ocaml
 (** One of the specified `token_id`s is not defined within the FA2 contract *)
