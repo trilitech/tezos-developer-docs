@@ -30,6 +30,22 @@ In this tutorial, you create NFTs that comply with the FA2 standard (formally kn
 The FA2 standard creates a framework for how tokens behave on Tezos, including fungible, non-fungible, and other types of tokens.
 It provides a standard API to transfer tokens, check token balances, manage operators (addresses that are permitted to transfer tokens on behalf of the token owner), and manage token metadata.
 
+## Tutorial application
+
+The application that you set up in this tutorial has three parts:
+
+- The **smart contract** runs on the Tezos blockchain to manage the NFTs, including creating, transferring, and destroying them
+- The **backend application** runs on a web server to upload the NFT data to the internet
+- The **frontend application** runs on a web server and allows the user to connect their wallet, enter the information for the NFT, and send a request to the smart contract to create the NFT
+
+This diagram shows what happens when the user creates an NFT with the application.
+The rest of this tutorial covers these steps in detail:
+
+![Flow diagram of the tutorial application and interaction between the user and the parts of the application](/images/nft-create/taquito-application-flow.png)
+
+The frontend application looks like this, with fields for the image to represent the NFT and for its metadata:
+
+![The home page of the frontend application](/images/nft-create/taquito-application-home.png)
 
 ## Prerequisites
 
