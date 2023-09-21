@@ -362,11 +362,290 @@ If you see an error, make sure that you copied the entire contract file.
 
 Now anyone can call the Tezos contract if they have tokens for the fees and send a valid request.
 
+## Run the backend application
 
+The backend application is responsible for uploading the NFT data to IPFS.
+In these steps, you configure the backend application with your Pinata information:
 
+1. In your command-line window, go to the `backend` folder of the tutorial application.
 
+1. Install its dependencies by running `npm install`.
 
+1. In the `src/PinataKeys.ts` file, replace `DUMMY_KEY` with your Pinata API key and replace `DUMMY_SECRET` with your Pinata secret.
 
+1. Open the `src/index.ts` file.
+
+   The `corsOptions` constant in this file contains the location of the frontend application.
+   It includes the default location of the frontend application (`http://localhost:5173`) and an example custom URL.
+
+   ```typescript
+   const corsOptions = {
+     origin: ["http://localhost:5173", "https://my-cool-nft-app.com"],
+     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+   };
+   ```
+
+1. If you intend to deploy the frontend application anywhere other than on your computer, add its URL to the `corsOptions` constant.
+
+   If you are not going to change where the frontend application is deployed, you can leave this code unchanged.
+
+1. Review the code for the `POST /mint` endpoint.
+
+   This endpoint is the only endpoint that the frontend application uses.
+   First, it accesses the image file that the user uploads and uses the Pinata `pinFileToIFPS` method to pin it to IPFS with a name and description:
+
+   ```typescript
+   const readableStreamForFile = fs.createReadStream(`./uploads/${fileName}`);
+   const options: any = {
+     pinataMetadata: {
+       name: req.body.title.replace(/\s/g, "-"),
+       keyvalues: {
+         description: req.body.description
+       }
+     }
+   };
+   const pinnedFile = await pinata.pinFileToIPFS(
+     readableStreamForFile,
+     options
+   );
+   ```
+
+   Then, it creates a metadata object with information about the NFT, including its name and description and the IPFS URI of the image and pins that metadata object to IPFS:
+
+   ```typescript
+   if (pinnedFile.IpfsHash && pinnedFile.PinSize > 0) {
+     // remove file from server
+     fs.unlinkSync(`./uploads/${fileName}`);
+     // pins metadata
+     const metadata = {
+       name: req.body.title,
+       description: req.body.description,
+       symbol: "TUT",
+       artifactUri: `ipfs://${pinnedFile.IpfsHash}`,
+       displayUri: `ipfs://${pinnedFile.IpfsHash}`,
+       creators: [req.body.creator],
+       decimals: 0,
+       thumbnailUri: "https://tezostaquito.io/img/favicon.png",
+       is_transferable: true,
+       shouldPreferSymbol: false
+     };
+
+     const pinnedMetadata = await pinata.pinJSONToIPFS(metadata, {
+       pinataMetadata: {
+         name: "TUT-metadata"
+       }
+     });
+     // ...
+   }
+   ```
+
+   If both of the pins were successful, the endpoint returns the IPFS URIs of the image and metadata to the frontend application:
+
+   ```typescript
+   if (pinnedMetadata.IpfsHash && pinnedMetadata.PinSize > 0) {
+     res.status(200).json({
+       status: true,
+       msg: {
+         imageHash: pinnedFile.IpfsHash,
+         metadataHash: pinnedMetadata.IpfsHash
+       }
+     });
+   } else {
+     res
+       .status(500)
+       .json({ status: false, msg: "metadata were not pinned" });
+   }
+   ```
+
+1. Start the backend application by running `npm run dev`.
+
+## Run the frontend application
+
+The front application accepts information about a new NFT from the user, sends the image and metadata to the backend, and calls the smart contract to mint the NFT.
+Follow these steps to configure and start the frontend application:
+
+1. In your command-line window, go to the `frontend` folder of the tutorial application.
+
+1. Install its dependencies by running `npm install`.
+
+1. Open the `src/App.svelte` file.
+
+1. Set the `contractAddress` constant to the address of the deployed smart contract, which starts with `KT1`:
+
+   ```typescript
+   const contractAddress = "KT1XdU2tK5hoDhtToP4kSSR9HiCkie4mZqFp";
+   ```
+
+1. Review the code for the `onMount` function:
+
+   This function runs when the page loads.
+   It starts by creating an instance of the Taquito `TezosToolkit` object, which provides access to Taquito's tools to access Tezos.
+   It also creates an object to unpack data from the map variables in the contract's storage:
+
+   ```typescript
+   Tezos = new TezosToolkit(rpcUrl);
+   Tezos.setPackerProvider(new MichelCodecPacker());
+   ```
+
+   It creates an instance of the Beacon `BeaconWallet` object to prepare to connect to the user's wallet, but it does not connect to the user's wallet immediately.
+   It could try to connect to the user's wallet immediately, but it's better programming practice to wait and let the user click a button to connect their wallet after the page loads.
+
+   ```typescript
+   wallet = new BeaconWallet(walletOptions);
+   ```
+
+   The application can remember if it has a connection to a wallet, so if the user has connected their wallet before, it connects to that wallet automatically:
+
+   ```typescript
+   if (await wallet.client.getActiveAccount()) {
+     userAddress = await wallet.getPKH();
+     Tezos.setWalletProvider(wallet);
+     await getUserNfts(userAddress);
+   }
+   ```
+
+1. Review the code for the `connect` function.
+
+   First, this function uses the [Beacon wallet SDK](https://docs.walletbeacon.io/) to prompt the user to connect their wallet if it is not already connected:
+
+   ```typescript
+   if (!wallet) {
+     wallet = new BeaconWallet(walletOptions);
+   }
+   ```
+
+   Then, it requests permission to swap to the Ghostnet testnet:
+
+   ```typescript
+   await wallet.requestPermissions({
+     network: {
+       type: NetworkType.GHOSTNET,
+       rpcUrl
+     }
+   });
+   ```
+
+   Finally, it retrieves the user's current NFTs with the `getUserNfts` function:
+
+   ```typescript
+   await getUserNfts(userAddress);
+   ```
+
+1. Review the code for the `getUserNfts` function:
+
+   This function receives the user's account address.
+   Then, it retrieves the current storage for the smart contract, including information about which account owns each NFT:
+
+   ```typescript
+   const getUserNfts = async (address: string) => {
+     // finds user's NFTs
+     const contract = await Tezos.wallet.at(contractAddress);
+     nftStorage = await contract.storage();
+     const getTokenIds = await nftStorage.reverse_ledger.get(address);
+     // ...
+   }
+   ```
+
+   The `reverse_ledger` variable in the contract storage keeps a list of who owns each NFT.
+   However, this variable is not a standard feature of NFT smart contracts.
+   According to the standard, the contract must have a `ledger` variable that maps the ID of each token to the address that owns it.
+   The `reverse_ledger` variable indexes this information in the opposite way, so the code can filter the list of tokens according to a given owner's address.
+   This variable is for the convenience of clients and may not be available on other NFT contracts.
+
+   Now that it has the list of IDs of NFTs that the account owns, it retrieves the metadata for each token from the contract storage:
+
+   ```typescript
+   if (getTokenIds) {
+     userNfts = await Promise.all([
+       ...getTokenIds.map(async id => {
+         const tokenId = id.toNumber();
+         const metadata = await nftStorage.token_metadata.get(tokenId);
+         const tokenInfoBytes = metadata.token_info.get("");
+         const tokenInfo = bytes2Char(tokenInfoBytes);
+         return {
+           tokenId,
+           ipfsHash:
+             tokenInfo.slice(0, 7) === "ipfs://" ? tokenInfo.slice(7) : null
+         };
+       })
+     ]);
+   }
+   ```
+
+   The frontend uses this `userNfts` variable to show the user's NFTs on the page.
+
+1. Review the `upload` function:
+
+   This function starts by creating an HTML form data object with the image, title, and description for the NFT and the address of the creator, who will own the new NFT.
+   It sends this data to the backend's `POST /mint` endpoint:
+
+   ```typescript
+   const data = new FormData();
+   data.append("image", files[0]);
+   data.append("title", title);
+   data.append("description", description);
+   data.append("creator", userAddress);
+
+   const response = await fetch(`${serverUrl}/mint`, {
+     method: "POST",
+     headers: {
+       "Access-Control-Allow-Origin": "*"
+     },
+     body: data
+   });
+   ```
+
+   It receives the response from the backend with the URIs for the NFT metadata.
+   Then, it creates a Taquito `ContractAbstraction` object to represent the smart contract:
+
+   ```typescript
+   const contract = await Tezos.wallet.at(contractAddress);
+   ```
+
+   It uses this object to call the contract's `mint` entrypoint and pass the metadata and wallet address:
+
+   ```typescript
+   const contract = await Tezos.wallet.at(contractAddress);
+   const op = await contract.methods
+     .mint(char2Bytes("ipfs://" + data.msg.metadataHash), userAddress)
+     .send();
+   console.log("Op hash:", op.opHash);
+   await op.confirmation();
+   ```
+
+   Finally, it refreshes the list of the user's NFTs with the `getUserNfts` function:
+
+   ```typescript
+   await getUserNfts(userAddress);
+   ```
+
+1. Start the frontend application by running `npm run dev`.
+
+## Testing the application
+
+1. When the frontend application starts, open the web browser to <http://localhost:5173/>.
+
+1. Click **Connect your wallet** and approve the connection in your wallet.
+
+1. Click **Choose file** and select any image for the NFT.
+
+1. Add a title and description for the new NFT in the **Title** and **Description** fields.
+
+1. Click **Mint NFT**.
+
+1. Confirm the transaction in your wallet, which requires a small amount of XTZ for the transaction fees.
+
+1. Wait for the transaction to complete.
+When it completes, the screen changes to a success message with links to the NFT information, as in this picture:
+
+   ![The success message, with links to the NFT information](/images/nft-create/taquito-application-created-nft.png)
+
+   In the "Your NFTs" list, you can click on a number (starting at 0) to see the information that is in the NFT, which includes the name and description that you added and links to data on IPFS.
+   The page also shows a link to a block explorer where you can see technical information about the minting transaction.
+
+To see information about the smart contract and NFT collection, go to a block explorer such as <https://tzkt.io/>, set it to Ghostnet, and enter the address of the smart contract.
+The explorer shows information such a list of the tokens in the collection and who owns them.
+You can also see the current state of the storage for the contract.
 
 ### Creating an NFT platform on Tezos
 
