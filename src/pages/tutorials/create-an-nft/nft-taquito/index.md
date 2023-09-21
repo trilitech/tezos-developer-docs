@@ -640,6 +640,21 @@ Follow these steps to configure and start the frontend application:
 
 ## Testing the application
 
+To test the application, you must have a Tezos wallet and a small amount of XTZ tokens to pay the transaction fees.
+
+1. Install any wallet that is compatible with Tezos, such as [Temple wallet](https://templewallet.com/) and switch to the Ghostnet network.
+
+1. Send funds to the wallet from the testnet faucet:
+
+   1. Go to the Ghostnet faucet at <https://faucet.ghostnet.teztnets.xyz/>.
+
+   1. Put the wallet account address in the **Or fund any address** field.
+
+   1. Click the button to request 100 tokens and wait for the browser to complete the operation.
+
+   1. When you see a message that the tokens are sent to your address, open your wallet and verify that the tokens are there.
+   It can take a few minutes for them to appear.
+
 1. When the frontend application starts, open the web browser to <http://localhost:5173/>.
 
 1. Click **Connect your wallet** and approve the connection in your wallet.
