@@ -225,7 +225,8 @@ Because storage space on blockchains is expensive, developers don't put entire t
 Instead, they configure decentralized storage for the NFT data and put only the link to that data on Tezos itself.
 In this section, you set up storage for the NFT metadata using the InterPlanetary File System (IPFS) protocol.
 
-IPFS requires authentication just like blockchain transactions, so in this section you set up an account with the Pinata IPFS provider and use it to upload (or _pin_) the NFT data to IPFS.
+There are many services that provide access to IPFS, but in this tutorial you use the [Pinata](https://www.pinata.cloud/) IPFS provider.
+Pinata requires authentication, so in this section you set up an account with Pinata and use it to upload (or _pin_) the NFT data to IPFS.
 
 1. Create a free Pinata account at <https://app.pinata.cloud/developers/api-keys>.
 
