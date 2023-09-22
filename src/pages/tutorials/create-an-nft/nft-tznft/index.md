@@ -13,7 +13,7 @@ In this tutorial, you will learn:
 - What NFTs are
 - How to install and start a local Tezos sandbox environment
 - How to create metadata files to describe NFT collections and individual NFTs
-- How to deploy (or _mint_) the NFTs to the sandbox
+- How to create (or _mint_) the NFTs in the sandbox
 - How to transfer NFTs and change operator permissions for them
 - How to mint NFTs to a testnet
 
