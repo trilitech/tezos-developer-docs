@@ -255,7 +255,7 @@ let main (param, storage : fa2_entry_points * nft_token_storage)
 
 ### Initial storage state
 
-An FA2 contract usually contains these variables in its storage:
+An FA2 contract usually contains these properties in its storage:
 
 - A table named `ledger` that records the token IDs and the address of the current owner
 - A table named `metadata` that records the metadata associated with the contract itself, such as its name, creator, and what standards it meets
@@ -263,7 +263,7 @@ An FA2 contract usually contains these variables in its storage:
 
 In this case, the contract uses the CameLIGO `bigmap` type for these tables.
 
-This contract's storage includes other variables, including the list of operators and the next token ID.
+This contract's storage includes other properties, including the list of operators and the next token ID.
 
 When you originate (deploy) the contract to Tezos, you must set the initial state of its storage.
 For this contract, the initial storage state is in the comment at the end of the file.
@@ -496,7 +496,7 @@ Follow these steps to configure and start the frontend application:
 
    This function runs when the page loads.
    It starts by creating an instance of the Taquito `TezosToolkit` object, which provides access to Tezos.
-   It also creates an object to unpack data from the map variables in the contract's storage:
+   It also creates an object to unpack data from the map properties in the contract's storage:
 
    ```typescript
    Tezos = new TezosToolkit(rpcUrl);
@@ -562,11 +562,11 @@ Follow these steps to configure and start the frontend application:
    }
    ```
 
-   The `reverse_ledger` variable in the contract storage keeps a list of who owns each NFT.
-   However, this variable is not a standard feature of NFT smart contracts.
-   According to the standard, the contract must have a `ledger` variable that maps the ID of each token to the address that owns it.
-   The `reverse_ledger` variable indexes this information in the opposite way, so the code can filter the list of tokens according to a given owner's address.
-   This variable is for the convenience of apps accessing the storage and may not be available on other NFT contracts.
+   The `reverse_ledger` property in the contract storage keeps a list of who owns each NFT.
+   However, this property is not a standard feature of NFT smart contracts.
+   According to the standard, the contract must have a `ledger` property that maps the ID of each token to the address that owns it.
+   The `reverse_ledger` property indexes this information in the opposite way, so the code can filter the list of tokens according to a given owner's address.
+   This property is for the convenience of apps accessing the storage and may not be available on other NFT contracts.
 
    Now that it has the list of IDs of NFTs that the account owns, it retrieves the metadata for each token from the contract storage:
 
