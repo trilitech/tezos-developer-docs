@@ -686,9 +686,7 @@ The parts are independent, so you could code a different frontend application to
 If you want to continue working with this application, try implementing the `burn` entrypoint in the frontend to allow users to destroy their NFTs.
 The contract has a `burn` entrypoint, but the frontend does not provide a way to call it.
 
-
 You can try adding your own entrypoints and originating a new contract, but you cannot update the existing contract after it is originated.
-For example, you could add entrypoints
 
 You can add a fee to mint NFTs by sending funds along with the mint transaction.
 If you add the fee as in the following code, the transaction takes the fee amount along with the transaction fee from the user's wallet.
