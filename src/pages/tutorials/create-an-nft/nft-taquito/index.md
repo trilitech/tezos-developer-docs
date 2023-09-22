@@ -266,15 +266,15 @@ In this case, the contract uses the CameLIGO `bigmap` type for these tables.
 
 This contract's storage includes other variables, including the list of operators and the next token ID.
 
-When you deploy the contract to Tezos, you must set the initial state of its storage.
-For this contract, the initial storage state is in the comment at the end of the file, which you will use later to deploy the contract.
+When you originate (deploy) the contract to Tezos, you must set the initial state of its storage.
+For this contract, the initial storage state is in the comment at the end of the file.
 
-## Deploy the smart contract to the testnet
+## Originate (deploy) the smart contract to the testnet
 
-There are many ways to deploy (originate) a contract on Tezos.
+There are many ways to originate a contract on Tezos.
 For a tutorial on using the command line, see [Deploy a smart contract](../../deploy-your-first-smart-contract/).
 
-Before you deploy your contract to the main Tezos network (referred to as *mainnet*), you can deploy it to a testnet.
+Before you originate your contract to the main Tezos network (referred to as *mainnet*), you can originate it to a testnet.
 Testnets are useful for testing Tezos operations because testnets provide tokens for free so you can work with Tezos without spending real tokens.
 
 This tutorial uses the online LIGO IDE at <https://ide.ligolang.org/> because you don't have to install any tools to use it.
@@ -288,7 +288,7 @@ The network changes to the Ghostnet testnet, as in this picture:
 
    ![The IDE menu, showing the Ghostnet testnet selected](/images/nft-create/web-ligo-ide-ghostnet.png)
 
-1. Create an account to use to deploy the contract:
+1. Create an account to use to originate the contract:
 
    1. At the top right, click the **Keypair Manager** button.
    The "Keypair Manager" window opens.
@@ -329,7 +329,7 @@ The IDE compiles the contract code to Michelson, the base language that all Tezo
 At the bottom of the window, it prints the message `wrote output to .workspaces/NFT tutorial/build/contracts/Contract.tz`.
 If you see an error, make sure that you copied the entire contract file.
 
-1. Deploy the contract:
+1. Originate the contract:
 
    1. Click **Deploy**.
 
@@ -355,14 +355,14 @@ If you see an error, make sure that you copied the entire contract file.
    1. Leave the other fields blank and click **Estimate**.
    The IDE calculates the fees for the deployment.
 
-   1. Click **Deploy** and leave the window open to wait for the contract to be deployed.
+   1. Click **Deploy** and leave the window open to wait for the contract to be originate.
 
-      Deploying the contract can take a few minutes.
+      Originating the contract can take a few minutes.
       When the transaction completes, the window shows a message that the contract was deployed.
 
    1. Copy the contract address, which starts with `KT1`, and then close the "Deploy contract" window.
 
-1. Verify that the contract deployed successfully by finding it on a block explorer:
+1. Verify that the contract is on the testnet by finding it on a block explorer:
 
    1. Open a Tezos block explorer such as [TzKT](https://tzkt.io) or [Better Call Dev](https://better-call.dev/).
 
@@ -397,9 +397,9 @@ In these steps, you configure the backend application with your Pinata informati
    };
    ```
 
-1. If you intend to deploy the frontend application anywhere other than on your computer, add its URL to the `corsOptions` constant.
+1. If you intend to host the frontend application anywhere other than on your computer, add its URL to the `corsOptions` constant.
 
-   If you are not going to change where the frontend application is deployed, you can leave this code unchanged.
+   If you are not going to change where the frontend application is hosted, you can leave this code unchanged.
 
 1. Review the code for the `POST /mint` endpoint.
 
@@ -487,7 +487,7 @@ Follow these steps to configure and start the frontend application:
 
 1. Open the `src/App.svelte` file.
 
-1. Set the `contractAddress` constant to the address of the deployed smart contract, which starts with `KT1`:
+1. Set the `contractAddress` constant to the address of the originated smart contract, which starts with `KT1`:
 
    ```typescript
    const contractAddress = "KT1XdU2tK5hoDhtToP4kSSR9HiCkie4mZqFp";
@@ -688,7 +688,7 @@ If you want to continue working with this application, try implementing the `bur
 The contract has a `burn` entrypoint, but the frontend does not provide a way to call it.
 
 
-You can try adding your own entrypoints and originating a new contract, but you cannot update the existing contract after it is deployed.
+You can try adding your own entrypoints and originating a new contract, but you cannot update the existing contract after it is originated.
 For example, you could add entrypoints
 
 You can add a fee to mint NFTs by sending funds along with the mint transaction.
