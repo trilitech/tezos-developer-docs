@@ -127,7 +127,7 @@ For more examples of smart contracts, see [oxheadalpha/smart-contracts](https://
 
 ### Contract entrypoints
 
-Like APIs, smart contracts have _entrypoints_, which are commands that clients can call.
+Like APIs, smart contracts have _entrypoints_, which are commands that transaction senders (client applications such as your web app or other contracts) can call.
 To comply with the TZIP-12 standard, the smart contract must have these entrypoints:
 
 - `transfer`: Transfers tokens from one account to another
@@ -142,7 +142,7 @@ This contract includes these additional entrypoints:
 ### Contract types
 
 Because Tezos uses strongly-typed languages, this contract's code starts by defining the types that the contract uses.
-These types are important for verifying that data is in the correct format, including that the client sends the correct data to the entrypoints.
+These types are important for verifying that data is in the correct format, such as the parameters the transaction senders pass.
 
 For example, the `transfer` entrypoint accepts a list of the `transfer` type.
 This type includes the account to transfer tokens from and a list of the `transfer_destination` type, which includes the account to transfer tokens to, the ID of the token to transfer, and the amount to transfer:
@@ -214,11 +214,10 @@ let get_balance (p, ledger : balance_of_param * ledger) : operation =
 ### Main function
 
 The `main` function is a special function that defines the entrypoints in the contract.
-In this case, it accepts the entrypoint that the client called and the current state of the contract's storage.
+In this case, it accepts the entrypoint that the transaction sender called and the current state of the contract's storage.
 Then the function branches based on the entrypoint.
 
-For example, if the client calls the `balance_of` entrypoint, the function calls the `get_balance` function and passes the parameters that the client passed and the
-current state of the contract's ledger:
+For example, if the sender calls the `balance_of` entrypoint, the function calls the `get_balance` function and passes the parameters that the sender passed and the current state of the contract's ledger:
 
 ```ocaml
   | Balance_of p ->
@@ -567,7 +566,7 @@ Follow these steps to configure and start the frontend application:
    However, this variable is not a standard feature of NFT smart contracts.
    According to the standard, the contract must have a `ledger` variable that maps the ID of each token to the address that owns it.
    The `reverse_ledger` variable indexes this information in the opposite way, so the code can filter the list of tokens according to a given owner's address.
-   This variable is for the convenience of clients and may not be available on other NFT contracts.
+   This variable is for the convenience of apps accessing the storage and may not be available on other NFT contracts.
 
    Now that it has the list of IDs of NFTs that the account owns, it retrieves the metadata for each token from the contract storage:
 
