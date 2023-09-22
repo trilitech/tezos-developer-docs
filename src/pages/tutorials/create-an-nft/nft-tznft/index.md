@@ -106,7 +106,7 @@ Make sure to start Docker Desktop after you install it.
    You can verify that the sandbox is running by running the command `docker ps` and looking for a container named `flextesa-sandbox`.
    To stop the container, run the command `tznft kill-sandbox`, but beware that stopping the container sets the sandbox back to its initial state, which removes any changes you made or contracts or tokens that you created.
 
-   Unlike the live Tezos networks, this sandbox bakes a new block every 5 seconds.
+   Unlike the live Tezos networks, this sandbox bakes a new block every 5 seconds, by default.
    Therefore, commands that you run on the sandbox can take a few seconds to complete.
 
 ## Create NFT metadata
