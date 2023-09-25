@@ -40,58 +40,185 @@ Change the `storage` definition
 
 ```ligolang
 type offer = {
-  quantity : nat,
-  price : nat
+  quantity: nat,
+  price: nat
 };
 
-type storage =
-  {
-    administrators: set<address>,
-    offers: map<[address,nat],offer>,  //user sells an offer for a token_id
-    ledger: MULTIASSET.Ledger.t,
-    metadata: MULTIASSET.Metadata.t,
-    token_metadata: MULTIASSET.TokenMetadata.t,
-    operators: MULTIASSET.Operators.t,
-    owner_token_ids : set<[MULTIASSET.Storage.owner,MULTIASSET.Storage.token_id]>,
-    token_ids : set<MULTIASSET.Storage.token_id>
-  };
-```
-
-Update `parameter` type too
-
-```ligolang
-type parameter =
-  | ["Mint", nat,nat,bytes,bytes,bytes,bytes] //token_id, quantity, name , description ,symbol , bytesipfsUrl
-  | ["AddAdministrator" , address]
-  | ["Buy", nat,nat, address]  //buy token_id,quantity at a seller offer price
-  | ["Sell", nat,nat, nat]  //sell token_id,quantity at a price
-  | ["Transfer", MULTIASSET.transfer]
-  | ["Balance_of", MULTIASSET.balance_of]
-  | ["Update_operators", MULTIASSET.update_operators];
+type storage = {
+  administrators: set<address>,
+  offers: map<[address, nat], offer>, //user sells an offer for a token_id
+  ledger: MULTIASSET.Ledger.t,
+  metadata: MULTIASSET.Metadata.t,
+  token_metadata: MULTIASSET.TokenMetadata.t,
+  operators: MULTIASSET.Operators.t,
+  owner_token_ids: set<[MULTIASSET.owner, MULTIASSET.token_id]>,
+  token_ids: set<MULTIASSET.token_id>
+};
 ```
 
 Update `mint` function
 
 ```ligolang
-const mint = (token_id : nat, quantity: nat, name : bytes, description : bytes,symbol : bytes, ipfsUrl: bytes, s: storage) : ret => {
+@entry
+const mint = (
+  [token_id, quantity, name, description, symbol, ipfsUrl]
+    : [nat, nat, bytes, bytes, bytes, bytes],
+  s: storage
+): ret => {
+  if (quantity <= (0 as nat)) return failwith("0");
+  if (!Set.mem(Tezos.get_sender(), s.administrators)) return failwith("1");
+  const token_info: map<string, bytes> =
+    Map.literal(
+      list(
+        [
+          ["name", name],
+          ["description", description],
+          ["interfaces", (bytes `["TZIP-12"]`)],
+          ["thumbnailUri", ipfsUrl],
+          ["symbol", symbol],
+          ["decimals", (bytes `0`)]
+        ]
+      )
+    ) as map<string, bytes>;
+  return [
+    list([]) as list<operation>,
+    {
+      ...s,
+      ledger: Big_map.add(
+        [Tezos.get_sender(), token_id],
+        quantity as nat,
+        s.ledger
+      ) as MULTIASSET.Ledger.t,
+      token_metadata: Big_map.add(
+        token_id,
+        { token_id: token_id, token_info: token_info },
+        s.token_metadata
+      ),
+      operators: Big_map.empty as MULTIASSET.Operators.t,
+      owner_token_ids: Set.add(
+        [Tezos.get_sender(), token_id],
+        s.owner_token_ids
+      ),
+      token_ids: Set.add(token_id, s.token_ids)
+    }
+  ]
+};
+```
 
-   if(quantity <= (0 as nat)) return failwith("0");
+You also need to update `sell` function
 
-   if(! Set.mem(Tezos.get_sender(), s.administrators)) return failwith("1");
+```ligolang
+@entry
+const sell = ([token_id, quantity, price]: [nat, nat, nat], s: storage): ret => {
+  //check balance of seller
 
-   const token_info: map<string, bytes> =
-     Map.literal(list([
-      ["name", name],
-      ["description",description],
-      ["interfaces", (bytes `["TZIP-12"]`)],
-      ["thumbnailUri", ipfsUrl],
-      ["symbol",symbol],
-      ["decimals", (bytes `0`)]
-     ])) as map<string, bytes>;
+  const sellerBalance =
+    MULTIASSET.Ledger.get_for_user([s.ledger, Tezos.get_source(), token_id]);
+  if (quantity > sellerBalance) return failwith("2");
+  //need to allow the contract itself to be an operator on behalf of the seller
 
+  const newOperators =
+    MULTIASSET.Operators.add_operator(
+      [s.operators, Tezos.get_source(), Tezos.get_self_address(), token_id]
+    );
+  //DECISION CHOICE: if offer already exists, we just override it
 
-    const metadata : bytes = bytes
-  `{
+  return [
+    list([]) as list<operation>,
+    {
+      ...s,
+      offers: Map.add(
+        [Tezos.get_source(), token_id],
+        { quantity: quantity, price: price },
+        s.offers
+      ),
+      operators: newOperators
+    }
+  ]
+};
+```
+
+Same for the `buy` function
+
+```ligolang
+@entry
+const buy = ([token_id, quantity, seller]: [nat, nat, address], s: storage): ret => {
+  //search for the offer
+
+  return match(
+    Map.find_opt([seller, token_id], s.offers),
+    {
+      None: () => failwith("3"),
+      Some: (offer: offer) => {
+        //check if amount have been paid enough
+
+        if (Tezos.get_amount() < offer.price * (1 as mutez)) return failwith(
+          "5"
+        );
+        // prepare transfer of XTZ to seller
+
+        const op =
+          Tezos.transaction(
+            unit,
+            offer.price * (1 as mutez),
+            Tezos.get_contract_with_error(seller, "6")
+          );
+        //transfer tokens from seller to buyer
+
+        let ledger =
+          MULTIASSET.Ledger.decrease_token_amount_for_user(
+            [s.ledger, seller, token_id, quantity]
+          );
+        ledger =
+          MULTIASSET.Ledger.increase_token_amount_for_user(
+            [ledger, Tezos.get_source(), token_id, quantity]
+          );
+        //update new offer
+
+        const newOffer = { ...offer, quantity: abs(offer.quantity - quantity) };
+        return [
+          list([op]) as list<operation>,
+          {
+            ...s,
+            offers: Map.update([seller, token_id], Some(newOffer), s.offers),
+            ledger: ledger,
+            owner_token_ids: Set.add(
+              [Tezos.get_source(), token_id],
+              s.owner_token_ids
+            )
+          }
+        ]
+      }
+    }
+  )
+};
+```
+
+On `transfer,balance_of and update_ops` functions, change :
+
+- `owners: s.owners` by `owner_token_ids: s.owner_token_ids,token_ids: s.token_ids`
+- `owners: ret2[1].owners` by `owner_token_ids: ret2[1].owner_token_ids,token_ids: ret2[1].token_ids`
+
+Change the initial storage to
+
+```ligolang
+#import "nft.jsligo" "Contract"
+#import "@ligo/fa/lib/fa2/asset/multi_asset.jsligo" "MULTIASSET"
+const default_storage =
+    {
+        administrators: Set.literal(
+            list(["tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb" as address])
+        ) as set<address>,
+        offers: Map.empty as map<[address, nat], Contract.offer>,
+        ledger: Big_map.empty as MULTIASSET.Ledger.t,
+        metadata: Big_map.literal(
+            list(
+                [
+                    ["", bytes `tezos-storage:data`],
+                    [
+                        "data",
+                        bytes
+                        `{
       "name":"FA2 NFT Marketplace",
       "description":"Example of FA2 implementation",
       "version":"0.0.1",
@@ -104,195 +231,24 @@ const mint = (token_id : nat, quantity: nat, name : bytes, description : bytes,s
       "interfaces":["TZIP-012"],
       "errors": [],
       "views": []
-      }` ;
+      }`
+                    ]
+                ]
+            )
+        ) as MULTIASSET.Metadata.t,
+        token_metadata: Big_map.empty as MULTIASSET.TokenMetadata.t,
+        operators: Big_map.empty as MULTIASSET.Operators.t,
+        owner_token_ids: Set.empty as
+            set<[MULTIASSET.owner, MULTIASSET.token_id]>,
+        token_ids: Set.empty as set<MULTIASSET.token_id>
+    };
 
-    return [list([]) as list<operation>,
-          {...s,
-     ledger: Big_map.add([Tezos.get_sender(),token_id],quantity as nat,s.ledger) as MULTIASSET.Ledger.t,
-     metadata : Big_map.literal(list([["",  bytes `tezos-storage:data`],["data", metadata]])),
-     token_metadata: Big_map.add(token_id, {token_id: token_id,token_info:token_info},s.token_metadata),
-     operators: Big_map.empty as MULTIASSET.Operators.t,
-     owner_token_ids : Set.add([Tezos.get_sender(),token_id],s.owner_token_ids),
-     token_ids: Set.add(token_id, s.token_ids)}]};
-```
-
-You also need to update `sell` function
-
-```ligolang
-const sell = (token_id : nat, quantity: nat, price: nat, s: storage) : ret => {
-
-  //check balance of seller
-  const sellerBalance = MULTIASSET.Ledger.get_for_user(s.ledger,Tezos.get_source(),token_id);
-  if(quantity > sellerBalance) return failwith("2");
-
-  //need to allow the contract itself to be an operator on behalf of the seller
-  const newOperators = MULTIASSET.Operators.add_operator(s.operators,Tezos.get_source(),Tezos.get_self_address(),token_id);
-
-  //DECISION CHOICE: if offer already exists, we just override it
-  return [list([]) as list<operation>,{...s,offers:Map.add([Tezos.get_source(),token_id],{quantity : quantity, price : price},s.offers),operators:newOperators}];
-};
-```
-
-Same for the `buy` function
-
-```ligolang
-const buy = (token_id : nat, quantity: nat, seller: address, s: storage) : ret => {
-
-  //search for the offer
-  return match( Map.find_opt([seller,token_id],s.offers) , {
-    None : () => failwith("3"),
-    Some : (offer : offer) => {
-
-      //check if amount have been paid enough
-      if(Tezos.get_amount() < offer.price  * (1 as mutez)) return failwith("5");
-
-      // prepare transfer of XTZ to seller
-      const op = Tezos.transaction(unit,offer.price  * (1 as mutez),Tezos.get_contract_with_error(seller,"6"));
-
-      //transfer tokens from seller to buyer
-      let ledger = MULTIASSET.Ledger.decrease_token_amount_for_user(s.ledger,seller,token_id,quantity);
-      ledger = MULTIASSET.Ledger.increase_token_amount_for_user(ledger,Tezos.get_source(),token_id,quantity);
-
-      //update new offer
-      const newOffer = {...offer,quantity : abs(offer.quantity - quantity)};
-
-      return [list([op]) as list<operation>, {...s, offers : Map.update([seller,token_id],Some(newOffer),s.offers), ledger : ledger, owner_token_ids : Set.add([Tezos.get_source(),token_id],s.owner_token_ids) }];
-    }
-  });
-};
-```
-
-and finally the `main` function
-
-```ligolang
-const main = ([p, s]: [parameter, storage]): ret =>
-  match(
-    p,
-    {
-      Mint: (p: [nat, nat, bytes, bytes, bytes, bytes]) =>
-        mint(p[0], p[1], p[2], p[3], p[4], p[5], s),
-      AddAdministrator: (p: address) => {
-        if (Set.mem(Tezos.get_sender(), s.administrators)) {
-          return [
-            list([]),
-            { ...s, administrators: Set.add(p, s.administrators) }
-          ]
-        } else {
-          return failwith("1")
-        }
-      },
-      Buy: (p: [nat, nat, address]) => buy(p[0], p[1], p[2], s),
-      Sell: (p: [nat, nat, nat]) => sell(p[0], p[1], p[2], s),
-      Transfer: (p: MULTIASSET.transfer) => {
-        const ret2: [list<operation>, MULTIASSET.storage] =
-          MULTIASSET.transfer(
-            [
-              p,
-              {
-                ledger: s.ledger,
-                metadata: s.metadata,
-                token_metadata: s.token_metadata,
-                operators: s.operators,
-                owner_token_ids: s.owner_token_ids,
-                token_ids: s.token_ids
-              }
-            ]
-          );
-        return [
-          ret2[0],
-          {
-            ...s,
-            ledger: ret2[1].ledger,
-            metadata: ret2[1].metadata,
-            token_metadata: ret2[1].token_metadata,
-            operators: ret2[1].operators,
-            owner_token_ids: ret2[1].owner_token_ids,
-            token_ids: ret2[1].token_ids
-          }
-        ]
-      },
-      Balance_of: (p: MULTIASSET.balance_of) => {
-        const ret2: [list<operation>, MULTIASSET.storage] =
-          MULTIASSET.balance_of(
-            [
-              p,
-              {
-                ledger: s.ledger,
-                metadata: s.metadata,
-                token_metadata: s.token_metadata,
-                operators: s.operators,
-                owner_token_ids: s.owner_token_ids,
-                token_ids: s.token_ids
-              }
-            ]
-          );
-        return [
-          ret2[0],
-          {
-            ...s,
-            ledger: ret2[1].ledger,
-            metadata: ret2[1].metadata,
-            token_metadata: ret2[1].token_metadata,
-            operators: ret2[1].operators,
-            owner_token_ids: ret2[1].owner_token_ids,
-            token_ids: ret2[1].token_ids
-          }
-        ]
-      },
-      Update_operators: (p: MULTIASSET.update_operators) => {
-        const ret2: [list<operation>, MULTIASSET.storage] =
-          MULTIASSET.update_ops(
-            [
-              p,
-              {
-                ledger: s.ledger,
-                metadata: s.metadata,
-                token_metadata: s.token_metadata,
-                operators: s.operators,
-                owner_token_ids: s.owner_token_ids,
-                token_ids: s.token_ids
-              }
-            ]
-          );
-        return [
-          ret2[0],
-          {
-            ...s,
-            ledger: ret2[1].ledger,
-            metadata: ret2[1].metadata,
-            token_metadata: ret2[1].token_metadata,
-            operators: ret2[1].operators,
-            owner_token_ids: ret2[1].owner_token_ids,
-            token_ids: ret2[1].token_ids
-          }
-        ]
-      }
-    }
-  );
-```
-
-Change the initial storage to
-
-```ligolang
-#include "nft.jsligo"
-const default_storage =
-{
-    administrators: Set.literal(list(["tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb" as address])) as set<address>,
-    offers: Map.empty as map<[address,nat],offer>,
-    ledger: Big_map.empty as MULTIASSET.Ledger.t,
-    metadata: Big_map.empty as MULTIASSET.Metadata.t,
-    token_metadata: Big_map.empty as MULTIASSET.TokenMetadata.t,
-    operators: Big_map.empty as MULTIASSET.Operators.t,
-    owner_token_ids : Set.empty as set<[MULTIASSET.Storage.owner,MULTIASSET.Storage.token_id]>,
-    token_ids : Set.empty as set<MULTIASSET.Storage.token_id>
-  }
-;
 ```
 
 Compile again and deploy to ghostnet
 
 ```bash
-TAQ_LIGO_IMAGE=ligolang/ligo:0.64.2 taq compile nft.jsligo
+TAQ_LIGO_IMAGE=ligolang/ligo:0.73.0 taq compile nft.jsligo
 taq deploy nft.tz -e "testing"
 ```
 
@@ -300,11 +256,11 @@ taq deploy nft.tz -e "testing"
 ┌──────────┬──────────────────────────────────────┬───────┬──────────────────┬────────────────────────────────┐
 │ Contract │ Address                              │ Alias │ Balance In Mutez │ Destination                    │
 ├──────────┼──────────────────────────────────────┼───────┼──────────────────┼────────────────────────────────┤
-│ nft.tz   │ KT1QfMdyRq56xLBiofFTjLhkq5VCdj9PwC25 │ nft   │ 0                │ https://ghostnet.ecadinfra.com │
+│ nft.tz   │ KT1LwiszjMiEXasgtuHLswaMjUUdm5ARBmvk │ nft   │ 0                │ https://ghostnet.ecadinfra.com │
 └──────────┴──────────────────────────────────────┴───────┴──────────────────┴────────────────────────────────┘
 ```
 
-** Hooray! We have finished the smart contract _(backend)_ **
+**Hooray! We have finished the smart contract _(backend)_**
 
 ## NFT Marketplace front
 
@@ -314,7 +270,7 @@ Generate Typescript classes and go to the frontend to run the server
 taq generate types ./app/src
 cd ./app
 yarn install
-yarn run start
+yarn dev
 ```
 
 ## Update in `App.tsx`
@@ -477,11 +433,11 @@ export default function MintPage() {
         const requestHeaders: HeadersInit = new Headers();
         requestHeaders.set(
           "pinata_api_key",
-          `${process.env.REACT_APP_PINATA_API_KEY}`
+          `${import.meta.env.VITE_PINATA_API_KEY}`
         );
         requestHeaders.set(
           "pinata_secret_api_key",
-          `${process.env.REACT_APP_PINATA_API_SECRET}`
+          `${import.meta.env.VITE_PINATA_API_SECRET}`
         );
 
         const resFile = await fetch(
@@ -1297,7 +1253,7 @@ export default function WineCataloguePage() {
             page={currentPageIndex}
             onChange={(_, value) => setCurrentPageIndex(value)}
             count={Math.ceil(
-              Array.from(storage?.offers.entries()).filter(([key, offer]) =>
+              Array.from(storage?.offers.entries()).filter(([_, offer]) =>
                 offer.quantity.isGreaterThan(0)
               ).length / itemPerPage
             )}
@@ -1308,7 +1264,7 @@ export default function WineCataloguePage() {
             cols={isDesktop ? itemPerPage / 2 : isTablet ? itemPerPage / 3 : 1}
           >
             {Array.from(storage?.offers.entries())
-              .filter(([key, offer]) => offer.quantity.isGreaterThan(0))
+              .filter(([_, offer]) => offer.quantity.isGreaterThan(0))
               .filter((_, index) =>
                 index >= currentPageIndex * itemPerPage - itemPerPage &&
                 index < currentPageIndex * itemPerPage
@@ -1487,7 +1443,7 @@ For buying,
 
 To add more collections, go to the Mint page and repeat the process.
 
-# Conclusion 
+## Conclusion
 
 You are able to use any NFT template from the Ligo library.
 
