@@ -41,136 +41,27 @@ type storage =
     metadata: NFT.Metadata.t,
     token_metadata: NFT.TokenMetadata.t,
     operators: NFT.Operators.t,
-    token_ids : set<NFT.Storage.token_id>
+    token_ids : set<NFT.token_id>
   };
-```
-
-Add 2 variants `Buy` and `Sell` to the parameter
-
-```ligolang
-type parameter =
-  | ["Mint", nat,bytes,bytes,bytes,bytes] //token_id, name , description  ,symbol , ipfsUrl
-  | ["Buy", nat, address]  //buy token_id at a seller offer price
-  | ["Sell", nat, nat]  //sell token_id at a price
-  | ["AddAdministrator" , address]
-  | ["Transfer", NFT.transfer]
-  | ["Balance_of", NFT.balance_of]
-  | ["Update_operators", NFT.update_operators];
-```
-
-Add 2 entrypoints `Buy` and `Sell` inside the `main` function
-
-```ligolang
-const main = ([p, s]: [parameter,storage]): ret =>
-    match(p, {
-     Mint: (p: [nat,bytes,bytes,bytes,bytes]) => mint(p[0],p[1],p[2],p[3],p[4],s),
-     Buy: (p : [nat,address]) => [list([]),s],
-     Sell: (p : [nat,nat]) => [list([]),s],
-     AddAdministrator : (p : address) => {if(Set.mem(Tezos.get_sender(), s.administrators)){ return [list([]),{...s,administrators:Set.add(p, s.administrators)}]} else {return failwith("1");}} ,
-      Transfer: (p: NFT.transfer) => {
-        const ret2: [list<operation>, NFT.storage] =
-          NFT.transfer(
-            p,
-            {
-              ledger: s.ledger,
-              metadata: s.metadata,
-              token_metadata: s.token_metadata,
-              operators: s.operators,
-              token_ids: s.token_ids
-            }
-          );
-        return [
-          ret2[0],
-          {
-            ...s,
-            ledger: ret2[1].ledger,
-            metadata: ret2[1].metadata,
-            token_metadata: ret2[1].token_metadata,
-            operators: ret2[1].operators,
-            token_ids: ret2[1].token_ids
-          }
-        ]
-      },
-      Balance_of: (p: NFT.balance_of) => {
-        const ret2: [list<operation>, NFT.storage] =
-          NFT.balance_of(
-            p,
-            {
-              ledger: s.ledger,
-              metadata: s.metadata,
-              token_metadata: s.token_metadata,
-              operators: s.operators,
-              token_ids: s.token_ids
-            }
-          );
-        return [
-          ret2[0],
-          {
-            ...s,
-            ledger: ret2[1].ledger,
-            metadata: ret2[1].metadata,
-            token_metadata: ret2[1].token_metadata,
-            operators: ret2[1].operators,
-            token_ids: ret2[1].token_ids
-          }
-        ]
-      },
-      Update_operators: (p: NFT.update_operators) => {
-        const ret2: [list<operation>, NFT.storage] =
-          NFT.update_ops(
-            p,
-            {
-              ledger: s.ledger,
-              metadata: s.metadata,
-              token_metadata: s.token_metadata,
-              operators: s.operators,
-              token_ids: s.token_ids
-            }
-          );
-        return [
-          ret2[0],
-          {
-            ...s,
-            ledger: ret2[1].ledger,
-            metadata: ret2[1].metadata,
-            token_metadata: ret2[1].token_metadata,
-            operators: ret2[1].operators,
-            token_ids: ret2[1].token_ids
-          }
-        ]
-      }
-    }
-  );
 ```
 
 Explanation:
 
 - an `offer` is an NFT _(owned by someone)_ with a price
 - `storage` has a new field to store `offers`: a `map` of offers
-- `parameter` has two new entrypoints `buy` and `sell`
-- `main` function exposes these two new entrypoints
 
-Update also the initial storage on file `nft.storages.jsligo` to initialize `offers`
+Update also the initial storage on file `nft.storageList.jsligo` to initialize `offers`
 
 ```ligolang
-#include "nft.jsligo"
-const default_storage =
-  {administrators: Set.literal(list(["tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb"
-      as address]))
-    as set<address>,
-   offers: Map.empty as map<nat,offer>,
-   ledger: Big_map.empty as NFT.Ledger.t,
-   metadata: Big_map.empty as NFT.Metadata.t,
-   token_metadata: Big_map.empty as NFT.TokenMetadata.t,
-   operators: Big_map.empty as NFT.Operators.t,
-   token_ids: Set.empty as set<NFT.Storage.token_id>
-   };
+...
+   offers: Map.empty as map<nat,Contract.offer>,
+...
 ```
 
 Finally, compile the contract
 
 ```bash
-TAQ_LIGO_IMAGE=ligolang/ligo:0.64.2 taq compile nft.jsligo
+TAQ_LIGO_IMAGE=ligolang/ligo:0.73.0 taq compile nft.jsligo
 ```
 
 ### Sell at an offer price
@@ -178,115 +69,47 @@ TAQ_LIGO_IMAGE=ligolang/ligo:0.64.2 taq compile nft.jsligo
 Define the `sell` function as below:
 
 ```ligolang
-const sell = (token_id : nat,price : nat, s : storage) : ret => {
-
+@entry
+const sell = ([token_id, price]: [nat, nat], s: storage): ret => {
   //check balance of seller
-  const sellerBalance = NFT.Storage.get_balance({ledger:s.ledger,metadata:s.metadata,operators:s.operators,token_metadata:s.token_metadata,token_ids : s.token_ids},Tezos.get_source(),token_id);
-  if(sellerBalance != (1 as nat)) return failwith("2");
 
+  const sellerBalance =
+    NFT.Storage.get_balance(
+      {
+        ledger: s.ledger,
+        metadata: s.metadata,
+        operators: s.operators,
+        token_metadata: s.token_metadata,
+        token_ids: s.token_ids
+      },
+      Tezos.get_source(),
+      token_id
+    );
+  if (sellerBalance != (1 as nat)) return failwith("2");
   //need to allow the contract itself to be an operator on behalf of the seller
-  const newOperators = NFT.Operators.add_operator(s.operators,Tezos.get_source(),Tezos.get_self_address(),token_id);
 
+  const newOperators =
+    NFT.Operators.add_operator(
+      s.operators,
+      Tezos.get_source(),
+      Tezos.get_self_address(),
+      token_id
+    );
   //DECISION CHOICE: if offer already exists, we just override it
-  return [list([]) as list<operation>,{...s,offers:Map.add(token_id,{owner : Tezos.get_source(), price : price},s.offers),operators:newOperators}];
-};
-```
 
-Then call it in the `main` function to do the right business operations
-
-```ligolang
-const main = ([p, s]: [parameter, storage]): ret =>
-  match(
-    p,
+  return [
+    list([]) as list<operation>,
     {
-      Mint: (p: [nat, bytes, bytes, bytes, bytes]) =>
-        mint(p[0], p[1], p[2], p[3], p[4], s),
-      Buy: (p: [nat, address]) => [list([]), s],
-      Sell: (p : [nat,nat]) => sell(p[0],p[1], s),
-      AddAdministrator: (p: address) => {
-        if (Set.mem(Tezos.get_sender(), s.administrators)) {
-          return [
-            list([]),
-            { ...s, administrators: Set.add(p, s.administrators) }
-          ]
-        } else {
-          return failwith("1")
-        }
-      },
-      Transfer: (p: NFT.transfer) => {
-        const ret2: [list<operation>, NFT.storage] =
-          NFT.transfer(
-            p,
-            {
-              ledger: s.ledger,
-              metadata: s.metadata,
-              token_metadata: s.token_metadata,
-              operators: s.operators,
-              token_ids: s.token_ids
-            }
-          );
-        return [
-          ret2[0],
-          {
-            ...s,
-            ledger: ret2[1].ledger,
-            metadata: ret2[1].metadata,
-            token_metadata: ret2[1].token_metadata,
-            operators: ret2[1].operators,
-            token_ids: ret2[1].token_ids
-          }
-        ]
-      },
-      Balance_of: (p: NFT.balance_of) => {
-        const ret2: [list<operation>, NFT.storage] =
-          NFT.balance_of(
-            p,
-            {
-              ledger: s.ledger,
-              metadata: s.metadata,
-              token_metadata: s.token_metadata,
-              operators: s.operators,
-              token_ids: s.token_ids
-            }
-          );
-        return [
-          ret2[0],
-          {
-            ...s,
-            ledger: ret2[1].ledger,
-            metadata: ret2[1].metadata,
-            token_metadata: ret2[1].token_metadata,
-            operators: ret2[1].operators,
-            token_ids: ret2[1].token_ids
-          }
-        ]
-      },
-      Update_operators: (p: NFT.update_operators) => {
-        const ret2: [list<operation>, NFT.storage] =
-          NFT.update_ops(
-            p,
-            {
-              ledger: s.ledger,
-              metadata: s.metadata,
-              token_metadata: s.token_metadata,
-              operators: s.operators,
-              token_ids: s.token_ids
-            }
-          );
-        return [
-          ret2[0],
-          {
-            ...s,
-            ledger: ret2[1].ledger,
-            metadata: ret2[1].metadata,
-            token_metadata: ret2[1].token_metadata,
-            operators: ret2[1].operators,
-            token_ids: ret2[1].token_ids
-          }
-        ]
-      }
+      ...s,
+      offers: Map.add(
+        token_id,
+        { owner: Tezos.get_source(), price: price },
+        s.offers
+      ),
+      operators: newOperators
     }
-  );
+  ]
+};
 ```
 
 Explanation:
@@ -294,7 +117,6 @@ Explanation:
 - User must have enough tokens _(wine bottles)_ to place an offer
 - the seller will set the NFT marketplace smart contract as an operator. When the buyer sends his money to buy the NFT, the smart contract will change the NFT ownership _(it is not interactive with the seller, the martketplace will do it on behalf of the seller based on the offer data)_
 - we update the `storage` to publish the offer
-- finally, do the correct business by calling `sell` function inside the `sell` case on `main`
 
 ### Buy a bottle on the marketplace
 
@@ -303,124 +125,51 @@ Now that we have offers available on the marketplace, let's buy bottles!
 Edit the smart contract to add the `buy` feature
 
 ```ligolang
-const buy = (token_id : nat, seller : address, s : storage) : ret => {
-
+@entry
+const buy = ([token_id, seller]: [nat, address], s: storage): ret => {
   //search for the offer
-  return match( Map.find_opt(token_id,s.offers) , {
-    None : () => failwith("3"),
-    Some : (offer : offer) => {
 
-      //check if amount have been paid enough
-      if(Tezos.get_amount() < offer.price  * (1 as mutez)) return failwith("5");
-
-      // prepare transfer of XTZ to seller
-      const op = Tezos.transaction(unit,offer.price  * (1 as mutez),Tezos.get_contract_with_error(seller,"6"));
-
-      //transfer tokens from seller to buyer
-      const ledger = NFT.Ledger.transfer_token_from_user_to_user(s.ledger,token_id,seller,Tezos.get_source());
-
-      //remove offer
-      return [list([op]) as list<operation>, {...s, offers : Map.update(token_id,None(),s.offers), ledger : ledger}];
-    }
-  });
-};
-```
-
-Call `buy` function on `main`
-
-```ligolang
-const main = ([p, s]: [parameter, storage]): ret =>
-  match(
-    p,
+  return match(
+    Map.find_opt(token_id, s.offers),
     {
-      Mint: (p: [nat, bytes, bytes, bytes, bytes]) =>
-        mint(p[0], p[1], p[2], p[3], p[4], s),
-      Buy: (p: [nat, address]) => buy(p[0], p[1], s),
-      Sell: (p: [nat, nat]) => sell(p[0], p[1], s),
-      AddAdministrator: (p: address) => {
-        if (Set.mem(Tezos.get_sender(), s.administrators)) {
-          return [
-            list([]),
-            { ...s, administrators: Set.add(p, s.administrators) }
-          ]
-        } else {
-          return failwith("1")
-        }
-      },
-      Transfer: (p: NFT.transfer) => {
-        const ret2: [list<operation>, NFT.storage] =
-          NFT.transfer(
-            p,
-            {
-              ledger: s.ledger,
-              metadata: s.metadata,
-              token_metadata: s.token_metadata,
-              operators: s.operators,
-              token_ids: s.token_ids
-            }
+      None: () => failwith("3"),
+      Some: (offer: offer) => {
+        //check if amount have been paid enough
+
+        if (Tezos.get_amount() < offer.price * (1 as mutez)) return failwith(
+          "5"
+        );
+        // prepare transfer of XTZ to seller
+
+        const op =
+          Tezos.transaction(
+            unit,
+            offer.price * (1 as mutez),
+            Tezos.get_contract_with_error(seller, "6")
           );
+        //transfer tokens from seller to buyer
+
+        const ledger =
+          NFT.Ledger.transfer_token_from_user_to_user(
+            s.ledger,
+            token_id,
+            seller,
+            Tezos.get_source()
+          );
+        //remove offer
+
         return [
-          ret2[0],
+          list([op]) as list<operation>,
           {
             ...s,
-            ledger: ret2[1].ledger,
-            metadata: ret2[1].metadata,
-            token_metadata: ret2[1].token_metadata,
-            operators: ret2[1].operators,
-            token_ids: ret2[1].token_ids
-          }
-        ]
-      },
-      Balance_of: (p: NFT.balance_of) => {
-        const ret2: [list<operation>, NFT.storage] =
-          NFT.balance_of(
-            p,
-            {
-              ledger: s.ledger,
-              metadata: s.metadata,
-              token_metadata: s.token_metadata,
-              operators: s.operators,
-              token_ids: s.token_ids
-            }
-          );
-        return [
-          ret2[0],
-          {
-            ...s,
-            ledger: ret2[1].ledger,
-            metadata: ret2[1].metadata,
-            token_metadata: ret2[1].token_metadata,
-            operators: ret2[1].operators,
-            token_ids: ret2[1].token_ids
-          }
-        ]
-      },
-      Update_operators: (p: NFT.update_operators) => {
-        const ret2: [list<operation>, NFT.storage] =
-          NFT.update_ops(
-            p,
-            {
-              ledger: s.ledger,
-              metadata: s.metadata,
-              token_metadata: s.token_metadata,
-              operators: s.operators,
-              token_ids: s.token_ids
-            }
-          );
-        return [
-          ret2[0],
-          {
-            ...s,
-            ledger: ret2[1].ledger,
-            metadata: ret2[1].metadata,
-            token_metadata: ret2[1].token_metadata,
-            operators: ret2[1].operators,
-            token_ids: ret2[1].token_ids
+            offers: Map.update(token_id, None(), s.offers),
+            ledger: ledger
           }
         ]
       }
     }
-  );
+  )
+};
 ```
 
 Explanation:
@@ -428,14 +177,13 @@ Explanation:
 - search for the offer based on the `token_id` or return an error if it does not exist
 - check that the amount sent by the buyer is greater than the offer price. If it is ok, transfer the offer price to the seller and transfer the NFT to the buyer
 - remove the offer as it has been executed
-- finally, do the correct business by calling `sell` function inside the `sell` case on `main`
 
 ### Compile and deploy
 
 We finished the smart contract implementation of this second training, let's deploy to ghostnet.
 
 ```bash
-TAQ_LIGO_IMAGE=ligolang/ligo:0.64.2 taq compile nft.jsligo
+TAQ_LIGO_IMAGE=ligolang/ligo:0.73.0 taq compile nft.jsligo
 taq deploy nft.tz -e "testing"
 ```
 
@@ -443,11 +191,11 @@ taq deploy nft.tz -e "testing"
 ┌──────────┬──────────────────────────────────────┬───────┬──────────────────┬────────────────────────────────┐
 │ Contract │ Address                              │ Alias │ Balance In Mutez │ Destination                    │
 ├──────────┼──────────────────────────────────────┼───────┼──────────────────┼────────────────────────────────┤
-│ nft.tz   │ KT1J9QpWT8awyYiFJSpEWqZtVYWKVrbm1idY │ nft   │ 0                │ https://ghostnet.ecadinfra.com │
+│ nft.tz   │ KT1WZFHYKPpfjPKMsCqLRQJzSUSrBWAm3gKC │ nft   │ 0                │ https://ghostnet.ecadinfra.com │
 └──────────┴──────────────────────────────────────┴───────┴──────────────────┴────────────────────────────────┘
 ```
 
-** We have implemented and deployed the smart contract (backend)!**
+**We have implemented and deployed the smart contract (backend)!**
 
 ## NFT Marketplace front
 
@@ -457,7 +205,7 @@ Generate Typescript classes and go to the frontend to run the server
 taq generate types ./app/src
 cd ./app
 yarn install
-yarn run start
+yarn dev
 ```
 
 ## Sale page
@@ -1067,7 +815,7 @@ As you are connected with the default administrator you can see your own unique 
 - Click on `bottle offers` sub menu
 - You are now the owner of this bottle, you can resell it at your own price, etc ...
 
-## Conclusion 
+## Conclusion
 
 You created an NFT collection marketplace from the Ligo library, now you can buy and sell NFTs at your own price.
 
