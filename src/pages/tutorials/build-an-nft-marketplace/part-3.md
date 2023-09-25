@@ -27,7 +27,7 @@ cd ..
 Point to the new template changing the first import line of your `nft.jsligo` file to
 
 ```ligolang
-#import "@ligo/fa/lib/fa2/asset/single_asset.mligo" "SINGLEASSET"
+#import "@ligo/fa/lib/fa2/asset/single_asset.jsligo" "SINGLEASSET"
 ```
 
 It means you will change the namespace from `NFT` to `SINGLEASSET` everywhere (like this you are sure to use the correct library)
@@ -61,41 +61,169 @@ Explanation:
 - Because the ledger is made of `big_map` of key `owners`, we cache the keys to be able to loop on it
 - Since we have a unique collection, we remove `token_ids`. `token_id` will be set to `0`
 
-We don't change the `parameter` type because the signature is the same, but you can edit the comments because it is not the same parameter anymore and also changes to the new namespace `SINGLEASSET`
-
-```ligolang
-type parameter =
-  | ["Mint", nat,bytes,bytes,bytes,bytes] // quantity, name , description ,symbol , bytesipfsUrl
-  | ["Buy", nat, address]  //buy quantity at a seller offer price
-  | ["Sell", nat, nat]  //sell quantity at a price
-  | ["AddAdministrator" , address]
-  | ["Transfer", SINGLEASSET.transfer]
-  | ["Balance_of", SINGLEASSET.balance_of]
-  | ["Update_operators", SINGLEASSET.update_operators];
-```
+- Replace all `token_ids` fields by `owners` field on the file `nft.jsligo`
 
 Edit the `mint` function to add the `quantity` extra param, and finally change the `return`
 
 ```ligolang
-const mint = (quantity : nat, name : bytes, description : bytes ,symbol : bytes , ipfsUrl : bytes, s : storage) : ret => {
+@entry
+const mint = (
+  [quantity, name, description, symbol, ipfsUrl]
+    : [nat, bytes, bytes, bytes, bytes],
+  s: storage
+): ret => {
+  if (quantity <= (0 as nat)) return failwith("0");
+  if (!Set.mem(Tezos.get_sender(), s.administrators)) return failwith("1");
+  const token_info: map<string, bytes> =
+    Map.literal(
+      list(
+        [
+          ["name", name],
+          ["description", description],
+          ["interfaces", (bytes `["TZIP-12"]`)],
+          ["thumbnailUri", ipfsUrl],
+          ["symbol", symbol],
+          ["decimals", (bytes `0`)]
+        ]
+      )
+    ) as map<string, bytes>;
+  return [
+    list([]) as list<operation>,
+    {
+      ...s,
+      totalSupply: quantity,
+      ledger: Big_map.literal(list([[Tezos.get_sender(), quantity as nat]])) as
+        SINGLEASSET.Ledger.t,
+      token_metadata: Big_map.add(
+        0 as nat,
+        { token_id: 0 as nat, token_info: token_info },
+        s.token_metadata
+      ),
+      operators: Big_map.empty as SINGLEASSET.Operators.t,
+      owners: Set.add(Tezos.get_sender(), s.owners)
+    }
+  ]
+};
+```
 
-   if(quantity <= (0 as nat)) return failwith("0");
+Edit the `sell` function to replace `token_id` by `quantity`, we add/override an offer for the user
 
-   if(! Set.mem(Tezos.get_sender(), s.administrators)) return failwith("1");
+```ligolang
+@entry
+const sell = ([quantity, price]: [nat, nat], s: storage): ret => {
+  //check balance of seller
 
-   const token_info: map<string, bytes> =
-     Map.literal(list([
-      ["name", name],
-      ["description",description],
-      ["interfaces", (bytes `["TZIP-12"]`)],
-      ["thumbnailUri", ipfsUrl],
-      ["symbol",symbol],
-      ["decimals", (bytes `0`)]
-     ])) as map<string, bytes>;
+  const sellerBalance =
+    SINGLEASSET.Storage.get_amount_for_owner(
+      {
+        ledger: s.ledger,
+        metadata: s.metadata,
+        operators: s.operators,
+        token_metadata: s.token_metadata,
+        owners: s.owners
+      }
+    )(Tezos.get_source());
+  if (quantity > sellerBalance) return failwith("2");
+  //need to allow the contract itself to be an operator on behalf of the seller
 
+  const newOperators =
+    SINGLEASSET.Operators.add_operator(s.operators)(Tezos.get_source())(
+      Tezos.get_self_address()
+    );
+  //DECISION CHOICE: if offer already exists, we just override it
 
-    const metadata : bytes = bytes
-  `{
+  return [
+    list([]) as list<operation>,
+    {
+      ...s,
+      offers: Map.add(
+        Tezos.get_source(),
+        { quantity: quantity, price: price },
+        s.offers
+      ),
+      operators: newOperators
+    }
+  ]
+};
+```
+
+Also edit the `buy` function to replace `token_id` by `quantity`, check quantities, check final price is enough and update the current offer
+
+```ligolang
+@entry
+const buy = ([quantity, seller]: [nat, address], s: storage): ret => {
+  //search for the offer
+
+  return match(
+    Map.find_opt(seller, s.offers),
+    {
+      None: () => failwith("3"),
+      Some: (offer: offer) => {
+        //check if quantity is enough
+
+        if (quantity > offer.quantity) return failwith("4");
+        //check if amount have been paid enough
+
+        if (Tezos.get_amount() < (offer.price * quantity) * (1 as mutez)) return failwith(
+          "5"
+        );
+        // prepare transfer of XTZ to seller
+
+        const op =
+          Tezos.transaction(
+            unit,
+            (offer.price * quantity) * (1 as mutez),
+            Tezos.get_contract_with_error(seller, "6")
+          );
+        //transfer tokens from seller to buyer
+
+        let ledger =
+          SINGLEASSET.Ledger.decrease_token_amount_for_user(s.ledger)(seller)(
+            quantity
+          );
+        ledger =
+          SINGLEASSET.Ledger.increase_token_amount_for_user(ledger)(
+            Tezos.get_source()
+          )(quantity);
+        //update new offer
+
+        const newOffer = { ...offer, quantity: abs(offer.quantity - quantity) };
+        return [
+          list([op]) as list<operation>,
+          {
+            ...s,
+            offers: Map.update(seller, Some(newOffer), s.offers),
+            ledger: ledger,
+            owners: Set.add(Tezos.get_source(), s.owners)
+          }
+        ]
+      }
+    }
+  )
+};
+```
+
+Edit the storage file `nft.storageList.jsligo` as it. (:warning: you can change the `administrator` address to your own address or keep `alice`)
+
+```ligolang
+#import "nft.jsligo" "Contract"
+#import "@ligo/fa/lib/fa2/asset/single_asset.jsligo" "SINGLEASSET"
+const default_storage =
+    {
+        administrators: Set.literal(
+            list(["tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb" as address])
+        ) as set<address>,
+        totalSupply: 0 as nat,
+        offers: Map.empty as map<address, Contract.offer>,
+        ledger: Big_map.empty as SINGLEASSET.Ledger.t,
+        metadata: Big_map.literal(
+            list(
+                [
+                    ["", bytes `tezos-storage:data`],
+                    [
+                        "data",
+                        bytes
+                        `{
       "name":"FA2 NFT Marketplace",
       "description":"Example of FA2 implementation",
       "version":"0.0.1",
@@ -108,112 +236,22 @@ const mint = (quantity : nat, name : bytes, description : bytes ,symbol : bytes 
       "interfaces":["TZIP-012"],
       "errors": [],
       "views": []
-      }` ;
+      }`
+                    ]
+                ]
+            )
+        ) as SINGLEASSET.Metadata.t,
+        token_metadata: Big_map.empty as SINGLEASSET.TokenMetadata.t,
+        operators: Big_map.empty as SINGLEASSET.Operators.t,
+        owners: Set.empty as set<SINGLEASSET.owner>
+    };
 
-     return [list([]) as list<operation>,
-          {...s,
-     totalSupply: quantity,
-     ledger: Big_map.literal(list([[Tezos.get_sender(),quantity as nat]])) as SINGLEASSET.Ledger.t,
-     metadata : Big_map.literal(list([["",  bytes `tezos-storage:data`],["data", metadata]])),
-     token_metadata: Big_map.add(0 as nat, {token_id: 0 as nat,token_info:token_info},s.token_metadata),
-     operators: Big_map.empty as SINGLEASSET.Operators.t,
-     owners: Set.add(Tezos.get_sender(),s.owners)}];
-     };
-```
-
-Edit the `sell` function to replace `token_id` by `quantity`, we add/override an offer for the user
-
-```ligolang
-const sell = (quantity: nat, price: nat, s: storage) : ret => {
-
-  //check balance of seller
-  const sellerBalance = SINGLEASSET.Storage.get_amount_for_owner({ledger:s.ledger,metadata:s.metadata,operators:s.operators,token_metadata:s.token_metadata,owners:s.owners})(Tezos.get_source());
-  if(quantity > sellerBalance) return failwith("2");
-
-  //need to allow the contract itself to be an operator on behalf of the seller
-  const newOperators = SINGLEASSET.Operators.add_operator(s.operators)(Tezos.get_source())(Tezos.get_self_address());
-
-  //DECISION CHOICE: if offer already exists, we just override it
-  return [list([]) as list<operation>,{...s,offers:Map.add(Tezos.get_source(),{quantity : quantity, price : price},s.offers),operators:newOperators}];
-};
-```
-
-Also edit the `buy` function to replace `token_id` by `quantity`, check quantities, check final price is enough and update the current offer
-
-```ligolang
-const buy = (quantity: nat, seller: address, s: storage) : ret => {
-
-  //search for the offer
-  return match( Map.find_opt(seller,s.offers) , {
-    None : () => failwith("3"),
-    Some : (offer : offer) => {
-      //check if quantity is enough
-      if(quantity > offer.quantity) return failwith("4");
-      //check if amount have been paid enough
-      if(Tezos.get_amount() < (offer.price * quantity) * (1 as mutez)) return failwith("5");
-
-      // prepare transfer of XTZ to seller
-      const op = Tezos.transaction(unit,(offer.price * quantity) * (1 as mutez),Tezos.get_contract_with_error(seller,"6"));
-
-      //transfer tokens from seller to buyer
-      let ledger = SINGLEASSET.Ledger.decrease_token_amount_for_user(s.ledger)(seller)(quantity);
-      ledger = SINGLEASSET.Ledger.increase_token_amount_for_user(ledger)(Tezos.get_source())(quantity);
-
-      //update new offer
-      const newOffer = {...offer,quantity : abs(offer.quantity - quantity)};
-
-      return [list([op]) as list<operation>, {...s, offers : Map.update(seller,Some(newOffer),s.offers), ledger : ledger, owners : Set.add(Tezos.get_source(),s.owners)}];
-    }
-  });
-};
-```
-
-Finally, update the namespaces and replace `token_ids` by owners on the `main` function
-
-```ligolang
-const main = ([p, s]: [parameter,storage]): ret =>
-    match(p, {
-     Mint: (p: [nat,bytes,bytes,bytes,bytes]) => mint(p[0],p[1],p[2],p[3],p[4],s),
-     Buy: (p : [nat,address]) => buy(p[0],p[1],s),
-     Sell: (p : [nat,nat]) => sell(p[0],p[1], s),
-     AddAdministrator : (p : address) => {if(Set.mem(Tezos.get_sender(), s.administrators)){ return [list([]),{...s,administrators:Set.add(p, s.administrators)}]} else {return failwith("1");}} ,
-     Transfer: (p: SINGLEASSET.transfer) => {
-      const ret2 : [list<operation>, SINGLEASSET.storage] = SINGLEASSET.transfer(p)({ledger:s.ledger,metadata:s.metadata,token_metadata:s.token_metadata,operators:s.operators,owners:s.owners});
-      return [ret2[0],{...s,ledger:ret2[1].ledger,metadata:ret2[1].metadata,token_metadata:ret2[1].token_metadata,operators:ret2[1].operators,owners:ret2[1].owners}];
-     },
-     Balance_of: (p: SINGLEASSET.balance_of) => {
-      const ret2 : [list<operation>, SINGLEASSET.storage] = SINGLEASSET.balance_of(p)({ledger:s.ledger,metadata:s.metadata,token_metadata:s.token_metadata,operators:s.operators,owners:s.owners});
-      return [ret2[0],{...s,ledger:ret2[1].ledger,metadata:ret2[1].metadata,token_metadata:ret2[1].token_metadata,operators:ret2[1].operators,owners:ret2[1].owners}];
-      },
-     Update_operators: (p: SINGLEASSET.update_operators) => {
-      const ret2 : [list<operation>, SINGLEASSET.storage] = SINGLEASSET.update_ops(p)({ledger:s.ledger,metadata:s.metadata,token_metadata:s.token_metadata,operators:s.operators,owners:s.owners});
-      return [ret2[0],{...s,ledger:ret2[1].ledger,metadata:ret2[1].metadata,token_metadata:ret2[1].token_metadata,operators:ret2[1].operators,owners:ret2[1].owners}];
-      }
-     });
-```
-
-Edit the storage file `nft.storageList.jsligo` as it. (:warning: you can change the `administrator` address to your own address or keep `alice`)
-
-```ligolang
-#include "nft.jsligo"
-const default_storage =
-{
-    administrators: Set.literal(list(["tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb" as address])) as set<address>,
-    totalSupply: 0 as nat,
-    offers: Map.empty as map<address,offer>,
-    ledger: Big_map.empty as SINGLEASSET.Ledger.t,
-    metadata: Big_map.empty as SINGLEASSET.Metadata.t,
-    token_metadata: Big_map.empty as SINGLEASSET.TokenMetadata.t,
-    operators: Big_map.empty as SINGLEASSET.Operators.t,
-    owners: Set.empty as set<SINGLEASSET.Storage.owner>,
-  }
-;
 ```
 
 Compile again and deploy to ghostnet.
 
 ```bash
-TAQ_LIGO_IMAGE=ligolang/ligo:0.64.2 taq compile nft.jsligo
+TAQ_LIGO_IMAGE=ligolang/ligo:0.73.0 taq compile nft.jsligo
 taq deploy nft.tz -e "testing"
 ```
 
@@ -221,13 +259,13 @@ taq deploy nft.tz -e "testing"
 ┌──────────┬──────────────────────────────────────┬───────┬──────────────────┬────────────────────────────────┐
 │ Contract │ Address                              │ Alias │ Balance In Mutez │ Destination                    │
 ├──────────┼──────────────────────────────────────┼───────┼──────────────────┼────────────────────────────────┤
-│ nft.tz   │ KT1SYqk9tAhgExhLawfvwc3ZCfGNzYjwi38n │ nft   │ 0                │ https://ghostnet.ecadinfra.com │
+│ nft.tz   │ KT1QAV6tJ4ZVSDSF6WqCr4qRD7a33DY3iDpj │ nft   │ 0                │ https://ghostnet.ecadinfra.com │
 └──────────┴──────────────────────────────────────┴───────┴──────────────────┴────────────────────────────────┘
 ```
 
 We finished the smart contract! _(backend)_
 
-# NFT Marketplace front
+## NFT Marketplace front
 
 Generate Typescript classes and go to the frontend to run the server
 
@@ -235,10 +273,10 @@ Generate Typescript classes and go to the frontend to run the server
 taq generate types ./app/src
 cd ./app
 yarn install
-yarn run start
+yarn dev
 ```
 
-## Update in `App.tsx`
+### Update in `App.tsx`
 
 We just need to fetch the token_id == 0.
 Replace the function `refreshUserContextOnPageReload` by
@@ -392,11 +430,11 @@ export default function MintPage() {
         const requestHeaders: HeadersInit = new Headers();
         requestHeaders.set(
           "pinata_api_key",
-          `${process.env.REACT_APP_PINATA_API_KEY}`
+          `${import.meta.env.VITE_PINATA_API_KEY}`
         );
         requestHeaders.set(
           "pinata_secret_api_key",
-          `${process.env.REACT_APP_PINATA_API_SECRET}`
+          `${import.meta.env.VITE_PINATA_API_SECRET}`
         );
 
         const resFile = await fetch(
@@ -1169,7 +1207,7 @@ export default function WineCataloguePage() {
             page={currentPageIndex}
             onChange={(_, value) => setCurrentPageIndex(value)}
             count={Math.ceil(
-              Array.from(storage?.offers.entries()).filter(([key, offer]) =>
+              Array.from(storage?.offers.entries()).filter(([_, offer]) =>
                 offer.quantity.isGreaterThan(0)
               ).length / itemPerPage
             )}
@@ -1181,7 +1219,7 @@ export default function WineCataloguePage() {
           >
             {Array.from(storage?.offers.entries())
               .filter(([_, offer]) => offer.quantity.isGreaterThan(0))
-              .filter((owner, index) =>
+              .filter((_, index) =>
                 index >= currentPageIndex * itemPerPage - itemPerPage &&
                 index < currentPageIndex * itemPerPage
                   ? true
@@ -1349,7 +1387,7 @@ For buying,
 
 ![buy.png](/images/buy_part3.png)
 
-## Conclusion 
+## Conclusion
 
 You are now able to play with a unique NFT collection from the Ligo library.
 
