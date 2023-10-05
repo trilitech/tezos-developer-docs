@@ -1,7 +1,7 @@
 ---
 id: smart-rollups-tutorial
-title: Smart Rollups Onboarding Tutorial
-lastUpdated: 7th July 2023
+title: Create a smart rollup
+lastUpdated: 5th October 2023
 ---
 
 {% callout type="note" title="Repo Link" %}
