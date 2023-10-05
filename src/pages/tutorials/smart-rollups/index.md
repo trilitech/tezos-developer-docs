@@ -15,6 +15,36 @@ In this tutorial, you will learn:
 - How to respond to messages from Tezos in a smart rollup
 - How to send messages from a smart rollup to Tezos
 
+## What is a smart rollup?
+
+On Tezos itself, each baking node runs the code for each new block.
+This duplicated work provides consensus but limits the ability of users to run large amounts of processing on the chain.
+
+Smart rollups are processing units that run outside the Tezos blockchain but communicate with Tezos on a regular basis.
+These processing units can run arbitrarily large amounts of code and stay in sync with Tezos by passing messages to Tezos and receiving messages from Tezos and other rollups.
+Smart rollups help spread out processing tasks to keep Tezos itself running quickly.
+In this context, the processing that runs on Tezos itself is referred to as _layer 1_ and the processing that smart rollups run is referred to as _layer 2_.
+
+In short, smart rollups allow users to run large amounts of processing without the expense of running that processing on Tezos layer 1.
+
+Rollups maintain consensus by publishing the hash of their state to Tezos, which other nodes can use to verify the rollup.
+The specific way that rollups maintain consensus is beyond the scope of this tutorial.
+For more information about rollups and  their consensus mechanism, see [Smart Optimistic Rollups](../../advanced-topics/smart-rollups/).
+
+## Smart rollup analogy
+
+Businesses talk about _horizontal scaling_ versus _vertical scaling_.
+If a business is growing and its employees are being overworked, the business could use vertical scaling to hire more employees or use better tools to improve the productivity of each employee.
+Scaling Tezos in this way would mean using more processing power to process each new block, which would increase the cost to run baking nodes.
+Also, if the business hires more employees, the amount of communication between employees increases because, for example, they have to make sure that they are working in the same way and not doing duplicate jobs.
+
+By contrast, smart rollups behave like horizontal scaling.
+In horizontal scaling, businesses create specialized teams that work on different portions of the workload.
+These teams can work independently of other teams and take advantage of efficiencies of being focused on a specific task.
+They also have to communicate less with other teams, which speeds up their work.
+Smart rollups are like separate horizontally scaled teams, with Tezos layer 1 as the source of communication between teams.
+
+
 {% callout type="note" title="Repo Link" %}
 Please clone this [repo](https://gitlab.com/trili/hello-world-kernel) to get started.
 {% /callout %}
