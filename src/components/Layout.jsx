@@ -286,10 +286,6 @@ const tutorialNavigation = [
         ],
       },
       {
-        title: 'Deploy your own smart rollup',
-        href: '/tutorials/smart-rollups',
-      },
-      {
         title: 'Create an NFT',
         href: '/tutorials/create-an-nft',
         children: [
@@ -346,6 +342,10 @@ const tutorialNavigation = [
             href: '/tutorials/build-your-first-app/adding-removing-liquidity',
           },
         ],
+      },
+      {
+        title: 'Deploy a smart rollup',
+        href: '/tutorials/smart-rollups',
       },
     ],
   },
