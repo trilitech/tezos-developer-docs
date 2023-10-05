@@ -4,6 +4,17 @@ title: Create a smart rollup
 lastUpdated: 5th October 2023
 ---
 
+This tutorial covers how to deploy a smart rollup in a Tezos sandbox.
+To run this tutorial, you should have a basic understanding of how Tezos works and the ability to use the command-line terminal on your computer.
+If you are new to Tezos, try the tutorial [Deploy a smart contract](../deploy-your-first-smart-contract) first.
+
+In this tutorial, you will learn:
+
+- What a smart rollup is and how they help scale Tezos
+- How information passes between Tezos and smart rollups
+- How to respond to messages from Tezos in a smart rollup
+- How to send messages from a smart rollup to Tezos
+
 {% callout type="note" title="Repo Link" %}
 Please clone this [repo](https://gitlab.com/trili/hello-world-kernel) to get started.
 {% /callout %}
