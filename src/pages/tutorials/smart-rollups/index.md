@@ -44,12 +44,121 @@ These teams can work independently of other teams and take advantage of efficien
 They also have to communicate less with other teams, which speeds up their work.
 Smart rollups are like separate horizontally scaled teams, with Tezos layer 1 as the source of communication between teams.
 
+## Prerequisites
+
+To run this tutorial, make sure that the following tools are installed:
+
+- [Docker](https://www.docker.com/)
+
+- Rust
+
+   The application in this tutorial uses Rust because of its support for WebAssembly (WASM), the language that smart rollups use to communicate.
+   Rollups can use any language that has WASM compilation support.
+
+   To install Rust via the `rustup` command, run this command:
+
+   ```bash
+   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+   ```
+
+   You can see other ways of installing Rust at <https://www.rust-lang.org>.
+
+- Clang and LLVM
+
+   Clang and LLVM are required for compilation to WebAssembly.
+   At minimum version 11 of Clang is required.
+   Here are instructions for installing the appropriate tools on different operating systems:
+
+   **MacOS**
+
+   ```bash
+   brew install llvm
+   export CC="$(brew --prefix llvm)/bin/clang"
+   ```
+
+   **Ubuntu**
+
+   ```bash
+   sudo apt-get install clang-11
+   export CC=clang-11
+   ```
+
+   **Fedora**
+
+   ```bash
+   dnf install clang
+   export CC=clang
+   ```
+
+   **Arch Linux**
+
+   ```bash
+   pacman -S clang
+   export CC=clang
+   ```
+
+   The `export CC` command sets Clang as the default C/C++ compiler.
+
+   After you run these commands, run `CC --version` to verify that you have version 11 or greater installed.
+
+   Also, ensure that your version of Clang `wasm32` target with by running the command `CC -print-targets | grep WebAssembly` and verifying that the results include `wasm32`.
+
+- AR (macOS only)
+
+   To compile to WebAssembly on macOS, you need to use the LLVM archiver.
+   If you've used Homebrew to install LLVM, you can configure it to use the archiver by running this command:
+
+   ```bash
+   export AR="$(brew --prefix llvm)/bin/llvm-ar"
+   ```
+
+- WebAssembly Toolkit
+
+   The the [WebAssembly Toolkit (`wabt`)](https://github.com/WebAssembly/wabt) provides tooling for reducing (or _stripping_) the size of WebAssembly binaries (with the `wasm-strip` command) and conversion utilities between the textual and binary representations of WebAssembly (including the `wat2wasm` and `wasm2wat` commands).
+
+   Most distributions ship a `wabt` package, which you can install with the appropriate command for your operating system:
+
+   **MacOS**
+
+   ```bash
+   brew install wabt
+   ```
+
+   **Ubuntu**
+
+   ```bash
+   sudo apt install wabt
+   ```
+
+   **Fedora**
+
+   ```bash
+   dnf install wabt
+   ```
+
+   **Arch Linux**
+
+   ```bash
+   pacman -S wabt
+   ```
+
+   To verify that `wabt` is installed, run the command `wasm-strip --version` and verify that the version is at least 1.0.31.
+   If not, you can download this version directly and extract its files: <https://github.com/WebAssembly/wabt/releases/tag/1.0.31>.
+   Then, whenever you have to use `wasm-strip`, you can use `.<path_to_wabt_1.0.31>/bin/wasm-strip` instead.
+
 
 {% callout type="note" title="Repo Link" %}
 Please clone this [repo](https://gitlab.com/trili/hello-world-kernel) to get started.
 {% /callout %}
 
-## Introduction
+
+
+
+
+
+
+
+## Tutorial application
 
 - `src/lib.rs` -- contains the `Rust` code for our "Hello, World" kernel.
 - `Cargo.toml` -- has the necessary dependencies for the building process.
@@ -58,19 +167,9 @@ Please clone this [repo](https://gitlab.com/trili/hello-world-kernel) to get sta
 - `sandbox_node.sh` -- the script for setting up the sandboxed mode binaries.
 - `two_inputs.json` -- an example of a kernel input with two messages (for debugging purposes).
 
-This tutorial will explain in detail the necessary steps for setting up a **smart rollup** on a test network for the Tezos blockchain. A valuable resource for learning about this exciting new feature can be found by following the [GitLab documentation](https://tezos.gitlab.io/alpha/smart_rollups.html).
-
-This is an attempt to collect information from multiple resources (provided at the end of this tutorial) to ensure a smooth onboarding experience. However, a basic familiarity with blockchain terms and practices is assumed.
-
-The article is available on the official Tezos developers' website, at the section dedicated to [smart rollups](https://tezos.com/developers/smart-rollups/).
 
 ## 1. Introduction to Smart Rollups
 
-**Smart rollups** are an elegant solution for **horizontally scaling** the Tezos blockchain, which involves distributing the workload of the main layer (Layer 1) to external layers that perform their tasks "off-chain". In comparison, **vertical scaling** focuses on optimizing the main layer itself but is less scalable than the former.
-
-Let us use an analogy: think of a company with N employees who receive increasing amounts of work every day. Eventually, the team becomes overwhelmed. While hiring more people for the team is an option, it becomes challenging for them to coordinate, which ultimately reduces their productivity.
-
-**Vertical scaling** in this scenario means providing better working equipment to increase productivity. On the other hand, **horizontal scaling** involves creating external teams that work on specific portions of the workload, reducing the need for extensive interaction with the initial team. The latter option is more scalable because one can continuously improve the equipment up to a certain point, while creating external teams can happen at any time and will always be beneficial. In our case, these external teams are the **smart rollups**.
 
 ## 2. The Kernel
 
@@ -78,101 +177,9 @@ Let us use an analogy: think of a company with N employees who receive increasin
 
 The core component of any smart rollup is the **kernel**. A kernel is a 32-bit `WebAssembly` (`WASM`) program responsible for managing input messages, updating the state of the rollup, and determining when to output messages to Layer 1. To continue with the analogy, the kernel represents the work ethic of the "external team".
 
-### 2.2. `Rust`
 
-In this tutorial, `Rust` is used as the programming language for the kernel due to its excellent support for `WASM`. However, any programming language that has `WASM` compilation support could be used.
 
-Prerequisites for developing kernels are `cargo` and a `Rust` compiler with `WebAssembly` support (e.g. `wasm32-unknown-unknown` target).
 
-We propose using `rustup` for this purpose by following this [installation tutorial](https://www.rust-lang.org/tools/install):
-
-```bash!
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-```
-
-### 2.3. `Clang` and `LLVM`
-
-We need `Clang` for compilation to `WebAssembly`. At minimum version `11` is required. Here are some suggested ways to achieve that, depending on your OS:
-
-#### MacOS
-
-```bash!
-brew install llvm
-export CC="$(brew --prefix llvm)/bin/clang"
-```
-
-#### Ubuntu
-
-```bash!
-sudo apt-get install clang-11
-export CC=clang-11
-```
-
-#### Fedora
-
-```bash!
-dnf install clang
-export CC=clang
-```
-
-#### Arch Linux
-
-```bash!
-pacman -S clang
-export CC=clang
-```
-
-We do `export CC` because there are systems, such as various Linux distributions, that don't ship with `Clang` as their default `C/C++` compiler.
-
-Check that at least version `11` is installed with `$CC --version`.
-
-Also, ensure that the `clang` you've installed supports the `wasm32` target with:
-
-```bash!
-$CC -print-targets | grep WebAssembly
-#     wasm32      - WebAssembly 32-bit
-#     wasm64      - WebAssembly 64-bit
-```
-
-#### `AR` on macOS
-
-To compile to `WebAssembly` on macOS, you need to use the `LLVM` archiver. If you've used `Homebrew` to install `LLVM`, you can configure it with the following:
-
-```bash!
-export AR="$(brew --prefix llvm)/bin/llvm-ar"
-```
-
-### 2.4. WebAssembly Toolkit
-
-During development, having the [`WebAssembly Toolkit` (`wabt`)](https://github.com/WebAssembly/wabt) available is useful. It provides tooling for stripping `WebAssembly` binaries (`wasm-strip`) and conversion utilities between the textual and binary representations of `WebAssembly` (`wat2wasm`, `wasm2wat`).
-
-Most distributions ship a `wabt` package, which you can install using:
-
-#### MacOS
-
-```bash!
-brew install wabt
-```
-
-#### Ubuntu
-
-```bash!
-sudo apt install wabt
-```
-
-#### Fedora
-
-```bash!
-dnf install wabt
-```
-
-#### Arch Linux
-
-```bash!
-pacman -S wabt
-```
-
-Then, check that the `wasm-strip` version is at least `1.0.31` (with `wasm-strip --version`). If not, you can download it directly from [here](https://github.com/WebAssembly/wabt/releases/tag/1.0.31), extract the files, and then whenever you have to use `wasm-strip`, you can use `.<path_to_wabt_1.0.31>/bin/wasm-strip` instead.
 
 ### 2.5. "Hello, World!" Kernel
 
