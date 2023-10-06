@@ -41,7 +41,7 @@ These calls are how rollups send messages back to Tezos.
 
 <!-- TODO discuss reveal data channel -->
 
-Rollups maintain consensus by publishing the hash of their state to Tezos, which other nodes can use to verify the rollup.
+Rollups maintain consensus by publishing the hash of their state to Tezos, which other nodes can use to verify the rollup's behavior.
 The specific way that rollups publish their states and maintain consensus is beyond the scope of this tutorial.
 For more information about rollups and their consensus mechanism, see [Smart Optimistic Rollups](../../advanced-topics/smart-rollups/).
 
@@ -306,7 +306,7 @@ These steps use the Octez command-line client to set up a sandbox in a Docker co
    The specific version number is not important as long as you retrieved the latest image with the `docker pull tezos/tezos:master` command.
 
    Don't close this terminal window or exit the Docker terminal session, because Docker will close the container.
-   If you accidentally close the container, you can run the `docker run -it --rm --volume $(pwd):/home/tezos/hello-world-kernel --entrypoint /bin/sh --name octez-container tezos/tezos:master` again to restart it.
+   If you accidentally close the container, you can run the `docker run ...` command again to restart it.
 
 1. Within the container, go to the `hello-world-kernel` folder:
 
