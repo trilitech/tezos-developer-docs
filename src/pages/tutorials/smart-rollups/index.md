@@ -221,53 +221,38 @@ The tutorial repository also includes two files that represent example message i
 - `empty_input.json`: An empty rollup message inbox
 - `two_inputs.json`: A rollup message inbox with two messages
 
+## Part 1: Configure the tutorial application
 
+Follow these steps to get the application code and build it:
 
+1. Clone the repository with the tutorial application:
 
-### 2.5. "Hello, World!" Kernel
+   ```bash
+   git clone https://gitlab.com/trili/hello-world-kernel.git
+   cd hello-world-kernel/
+   ```
 
-To get started, we've prepared a [repository](https://gitlab.com/trili/hello-world-kernel) that helps you get started with kernel development quickly.
+1. Configure Rust to build WebAssembly applications:
 
-You can clone the repository as follows:
+   1. Verify that you have Rust version 1.66.0 or later installed by running `cargo --version`.
 
-```bash!
-git clone https://gitlab.com/trili/hello-world-kernel.git
-cd hello-world-kernel/
-```
+   1. If you have an earlier version of Rust, use the `rustup` command to use version 1.66.0:
 
-Now, ensure that you have the `rust` version (run `cargo --version`) at least `1.66.0` installed. Otherwise, run the following:
+      ```bash
+      rustup override set 1.66.0
+      ```
 
-```bash!
-rustup override set 1.66.0
-```
+   1. Add WASM as a compilation target for Rust by running this command:
 
-With `rustup`, you have to enable `WASM` as a compilation target using the following:
+      ```bash
+      rustup target add wasm32-unknown-unknown
+      ```
 
-```bash!
-rustup target add wasm32-unknown-unknown
-```
+1. Build the application by running the command `cargo build --target wasm32-unknown-unknown`.
 
-You can now immediately build using:
-
-```bash!
-cargo build --target wasm32-unknown-unknown
-```
-
-After building it, you should be able to inspect the produced artifacts.
-
-```bash!
-ls -1 target/wasm32-unknown-unknown/debug
-# build
-# deps
-# examples
-# hello_world_kernel.d
-# hello_world_kernel.wasm
-# incremental
-# libhello_world_kernel.d
-# libhello_world_kernel.rlib
-```
-
-The most important item is `hello_world_kernel.wasm`, which is our readily compiled kernel.
+   If the application built correctly, the terminal shows a message that looks like "Finished dev [unoptimized + debuginfo] target(s) in 0.44s."
+   You can see the compiled application in the `target/wasm32-unknown-unknown/debug` folder.
+   In particular, the compiled kernel is in the `hello_world_kernel.wasm` file.
 
 ## 3. Getting `Octez`
 
