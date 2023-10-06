@@ -29,6 +29,7 @@ Smart rollups can run any kind of applications that they want, such as:
 - Financial applications that use information and transactions from Tezos
 - Gaming applications that manipulate assets and keep them in sync with Tezos
 - Applications that run complex logic on NFTs or other types of tokens
+- Applications that communicate with other blockchains
 
 Smart rollups stay in sync with Tezos by passing messages to Tezos and receiving messages from Tezos and other rollups.
 Each Tezos block contains a global rollups inbox that contains messages from Tezos layer 1 to all rollups.
