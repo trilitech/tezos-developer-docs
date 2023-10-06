@@ -542,6 +542,20 @@ In these steps, you start a smart rollup node, but note that anyone can run a no
 
 Now you can send messages to this rollup via Tezos level 1.
 
+## Part 7:
+
+
+When the kernel is running on ghostnet, there's no way to see the logging messages.
+So I'll have to set up an output to see what it's receiving the messages.
+So I'll need to deploy a contract and deploy the rollup with gas for the contract call.
+
+Deployed this contract to ghostnet:
+KT1HYjMn2kMLtvxb6tuGNpHRma49jfWPnMpx
+
+
+
+
+
 ### 5.4. Test Networks
 
 In the above section, we proposed how to create your `Octez` binaries in **sandbox mode**. Here, we propose a different approach to that, using [test networks](https://teztnets.xyz/). We encourage the reader to try at least one of the following linked tutorials:
