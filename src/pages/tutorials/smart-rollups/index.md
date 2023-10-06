@@ -166,37 +166,59 @@ To run this tutorial, make sure that the following tools are installed:
    If not, you can download this version directly and extract its files: <https://github.com/WebAssembly/wabt/releases/tag/1.0.31>.
    Then, whenever you have to use `wasm-strip`, you can use `.<path_to_wabt_1.0.31>/bin/wasm-strip` instead.
 
-
-{% callout type="note" title="Repo Link" %}
-Please clone this [repo](https://gitlab.com/trili/hello-world-kernel) to get started.
-{% /callout %}
-
-
-
-
-
-
-
-
 ## Tutorial application
 
-- `src/lib.rs` -- contains the `Rust` code for our "Hello, World" kernel.
-- `Cargo.toml` -- has the necessary dependencies for the building process.
-- `empty_input.json` -- an empty example of a kernel input (for debugging purposes).
-- `rustup-toolchain.toml` -- specifies the `rust` version required.
-- `sandbox_node.sh` -- the script for setting up the sandboxed mode binaries.
-- `two_inputs.json` -- an example of a kernel input with two messages (for debugging purposes).
+Despite the number of command-line tools needed, the code for the core of the rollup itself is relatively simple.
+This core is called the _kernel_ and is responsible for accepting messages from layer 1 and sending messages to layer 1.
+It also updates its state to allow other rollup nodes to verify it.
 
+The code for the tutorial application is here: <https://gitlab.com/trili/hello-world-kernel>.
 
-## 1. Introduction to Smart Rollups
+The code for the kernel is in the `src/lib.rs` file.
+It is written in the Rust programming language and looks like this:
 
+```rust
+use tezos_smart_rollup::inbox::InboxMessage;
+use tezos_smart_rollup::kernel_entry;
+use tezos_smart_rollup::michelson::MichelsonBytes;
+use tezos_smart_rollup::prelude::*;
 
-## 2. The Kernel
+kernel_entry!(hello_kernel);
 
-### 2.1. Definition
+fn handle_message(host: &mut impl Runtime, msg: impl AsRef<[u8]>) {
+    if let Some((_, msg)) = InboxMessage::<MichelsonBytes>::parse(msg.as_ref()).ok() {
+        debug_msg!(host, "Got message: {:?}\n", msg);
+    }
+}
 
-The core component of any smart rollup is the **kernel**. A kernel is a 32-bit `WebAssembly` (`WASM`) program responsible for managing input messages, updating the state of the rollup, and determining when to output messages to Layer 1. To continue with the analogy, the kernel represents the work ethic of the "external team".
+pub fn hello_kernel(host: &mut impl Runtime) {
+    debug_msg!(host, "Hello, kernel!\n");
 
+    while let Some(msg) = host.read_input().unwrap() {
+        handle_message(host, msg);
+    }
+}
+```
+
+This example kernel has these major parts:
+
+1. It imports resources that allow it to access and decode messages from layer 1.
+1. It runs the Rust macro `kernel_entry!` to set the main function for the kernel.
+1. It declares the `handle_message` function, which accepts, decodes, and processes messages from layer 1.
+In this case, the function decodes the message (which is sent as a sequence of bytes) and prints it to the log.
+1. It declares the `hello_kernel` function, which prints a logging message each time it is called and then runs the `handle_message` function on each message from layer 1.
+
+You don't need to access the other files in the application directly, but here are descriptions of them:
+
+- `src/lib.rs`: The Rust code for the kernel
+- `Cargo.toml`: The dependencies for the build process
+- `rustup-toolchain.toml`: The required Rust version
+- `sandbox_node.sh`: A script that sets up a Tezos sandbox for testing the rollup
+
+The tutorial repository also includes two files that represent example message inboxes in layer 1 blocks:
+
+- `empty_input.json`: An empty rollup message inbox
+- `two_inputs.json`: A rollup message inbox with two messages
 
 
 
