@@ -248,11 +248,23 @@ Follow these steps to get the application code and build it:
       rustup target add wasm32-unknown-unknown
       ```
 
-1. Build the application by running the command `cargo build --target wasm32-unknown-unknown`.
+1. Build the application by running this command:
 
-   If the application built correctly, the terminal shows a message that looks like "Finished dev [unoptimized + debuginfo] target(s) in 0.44s."
+   ```bash
+   cargo build --target wasm32-unknown-unknown
+   ```
+
+   If the application builds correctly, the terminal shows a message that looks like "Finished dev [unoptimized + debuginfo] target(s) in 0.44s."
    You can see the compiled application in the `target/wasm32-unknown-unknown/debug` folder.
    In particular, the compiled kernel is in the `hello_world_kernel.wasm` file.
+
+   If you see a message that says "error: package `time v0.3.29` cannot be built because it requires rustc 1.67.0 or newer, while the currently active rustc version is 1.66.0" or "error: package `time-core v0.1.2` cannot be built because it requires rustc 1.67.0 or newer, while the currently active rustc version is 1.66.0," run this command to use an earlier version of the `time` package:
+
+   ```bash
+   cargo update -p time@0.3.29 --precise 0.3.23
+   ```
+
+   Then, run the `cargo build --target wasm32-unknown-unknown` command again.
 
 ## Part 2: Start a Tezos sandbox
 
