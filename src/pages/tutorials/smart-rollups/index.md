@@ -61,7 +61,7 @@ Also, if the business hires more employees, the amount of communication between 
 By contrast, smart rollups behave like horizontal scaling.
 In horizontal scaling, businesses create specialized teams that work on different portions of the workload.
 These teams can work independently of other teams and take advantage of efficiencies of being focused on a specific task.
-They also have to communicate less with other teams, which speeds up their work.
+They also need to communicate less with other teams, which speeds up their work.
 Smart rollups are like separate horizontally scaled teams, with Tezos layer 1 as the source of communication between teams.
 
 ## Prerequisites
