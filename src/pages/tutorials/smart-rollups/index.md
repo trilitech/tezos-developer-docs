@@ -39,6 +39,8 @@ Rollups receive this inbox, filter it to the messages that they are interested i
 Rollups also have an outbox, which consists of calls to smart contracts on layer 1.
 These calls are how rollups send messages back to Tezos.
 
+<!-- TODO discuss reveal data channel -->
+
 Rollups maintain consensus by publishing the hash of their state to Tezos, which other nodes can use to verify the rollup.
 The specific way that rollups publish their states and maintain consensus is beyond the scope of this tutorial.
 For more information about rollups and their consensus mechanism, see [Smart Optimistic Rollups](../../advanced-topics/smart-rollups/).
@@ -351,109 +353,107 @@ These steps use the Octez command-line client to set up a sandbox in a Docker co
 
    If you don't see a message that looks like this one, check for errors in the first terminal window.
 
-## 4. Processing the Kernel
+## Part 3: Run the kernel in debug mode
 
-### 4.1. Debugging the Kernel
+Octez provides a command named `octez-smart-rollup-wasm-debugger` that runs smart rollups in debug mode to make it easier to test and observe them.
+Later, you will deploy the rollup to the sandbox, but running it in debug mode first verifies that it built correctly.
 
-Before originating a rollup, it can be helpful to observe the behavior of its kernel. To facilitate this, there is a dedicated `Octez` binary called `octez-smart-rollup-wasm-debugger`.
-However, before using it, it is important to understand how the rollup receives its inputs. Each block at every level of the blockchain has a specific section dedicated to the shared and unique **smart rollup inbox**. Consequently, the inputs of a rollup can be seen as a list of inboxes for each level, or more precisely, a list of lists.
-Let us start with a trivial inbox, which is stored in the `empty_input.json` file. We can debug the `"Hello, World!" kernel` with:
+1. In the second terminal window inside the Docker container, run this command to start the rollup and pass an empty message inbox to it:
 
-`docker session 1`
+   ```bash
+   octez-smart-rollup-wasm-debugger --kernel target/wasm32-unknown-unknown/debug/hello_world_kernel.wasm --inputs empty_input.json
+   ```
 
-```bash!
-cd hello-world-kernel
-```
+   The command prompt changes again to show that you are in debugging mode, which steps through commands.
 
-`docker session 1`
+1. At the debugging prompt, run this command to send the message inbox to the kernel:
 
-```bash!
-octez-smart-rollup-wasm-debugger --kernel target/wasm32-unknown-unknown/debug/hello_world_kernel.wasm --inputs empty_input.json
-```
+   ```bash
+   step inbox
+   ```
 
-Now you are in **debugging** mode, which is very well documented and explained in the [documentation](https://tezos.gitlab.io/alpha/smart_rollups.html#testing-your-kernel). Similar to how the rollup awaits internal messages from Layer 1 or external sources, the debugger also waits for inputs.
+   The response shows the logging information for the kernel, including these parts:
 
-Once we're in the debugger REPL (read–eval–print loop), you can run the kernel for one level using the `step inbox` command:
+   - The message "Hello, kernel" from the `hello_kernel` function
+   - The message "Got message: Internal(StartOfLevel)," which represents the start of the message inbox
+   - The message "Got message: Internal(InfoPerLevel(InfoPerLevel ...," which provides the hash of the previous block
+   - The message "Got message: Internal(EndOfLevel)," which represents the end of the message inbox
 
-`docker session 1`
+Now you know that the kernel works.
+In the next section, you optimize and deploy it to the sandbox.
 
-```bash!
-> step inbox
-# Loaded 0 inputs at level 0
-# Hello, kernel!
-# Got message: Internal(StartOfLevel)!
-# Got message: Internal(InfoPerLevel(InfoPerLevel { predecessor_timestamp: 1970-01-01T00:00:00Z, predecessor: BlockHash("BKiHLREqU3JkXfzEDYAkmmfX48gBDtYhMrpA98s7Aq4SzbUAB6M") }))!
-# Got message: Internal(EndOfLevel)!
-# Evaluation took 11000000000 ticks so far
-# Status: Waiting for input
-# Internal_status: Collect
-```
+1. Press Ctrl + C to end debugging mode.
 
-Let us explain what our kernel is supposed to do:
+## Part 4: Optimizing the kernel
 
-- whenever it receives an input, it prints the `"Hello, kernel!"` message.
-- whenever there is a message in the input, it is printed, because of the `handle_message` function.
+Because the kernel is deployed on Tezos level 1, it must be efficient with space and processing power.
+In particular, the size of the kernel needs to be smaller than the manager operation size limit.
+<!-- TODO what is the manager operation size limit? -->
 
-It is important to understand that the **shared rollup inbox** has at each level at least the following **internal** messages:
+1. Run this command to print the current size of the kernel:
 
-- `StartOfLevel` -- marks the beginning of the inbox level and does not have any payload.
-- `InfoPerLevel` -- provides the timestamp and block hash of the predecessor of the current Tezos block as payload.
-- `EndOfLevel` -- pushed after the application of the operations of the Tezos block and does not have any payload.
+   ```bash
+   du -h target/wasm32-unknown-unknown/debug/hello_world_kernel.wasm
+   ```
 
-You will notice that the behavior aligns with the expectations. You can also experiment with a non-empty input, such as `two_inputs.json`:
+   You can run this command inside or outside of the Docker container.
 
-`docker session 1`
+   The size of the application and its dependencies may be 18MB or more, which is too large to deploy to Tezos.
 
-```bash!
-octez-smart-rollup-wasm-debugger --kernel target/wasm32-unknown-unknown/debug/hello_world_kernel.wasm --inputs two_inputs.json
-```
+1. In a terminal window outside of the Docker container, run the `wasm-strip` command to reduce the size of the kernel:
 
-`docker session 1`
+   ```bash
+   wasm-strip target/wasm32-unknown-unknown/debug/hello_world_kernel.wasm
+   ```
 
-```bash!
-> step inbox
-# Loaded 2 inputs at level 0
-# Hello, kernel!
-# Got message: Internal(StartOfLevel)
-# Got message: Internal(InfoPerLevel(InfoPerLevel { predecessor_timestamp: 1970-01-01T00:00:00Z, predecessor: BlockHash("BKiHLREqU3JkXfzEDYAkmmfX48gBDtYhMrpA98s7Aq4SzbUAB6M") }))
-# Got message: External([26, 84, 104, 105, 115, 32, 109, 101, 115, 115, 97, 103, 101, 32, 105, 115, 32, 102, 111, 114, 32, 109, 101])
-# Got message: External([5, 84, 104, 105, 115, 32, 111, 110, 101, 32, 105, 115, 110, 39, 116])
-# Got message: Internal(EndOfLevel)
-# Evaluation took 11000000000 ticks so far
-# Status: Waiting for input
-# Internal_status: Collect
-```
+   This command removes WebAssembly code that is not necessary to run rollups.
+   You must run this command outside of the Docker container because it does not have the `wasm-strip` command.
 
-As expected, the two messages from the input are also displayed as debug messages.
-Feel free to explore additional examples from the dedicated [kernel gallery](https://gitlab.com/tezos/kernel-gallery/-/tree/main/) or create your own!
+1. Run the `du` command again to see the new size of the kernel:
 
-### 4.2. Reducing the Size of the Kernel
+   ```bash
+   du -h target/wasm32-unknown-unknown/debug/hello_world_kernel.wasm
+   ```
 
-The origination process is similar to that of smart contracts. To originate a smart rollup, we have to consider the size of the kernel that will be deployed. The size of the kernel needs to be smaller than the manager operation size limit.
+   The size of the kernel is smaller now.
+   Note that the changes that you make to the kernel outside of the Docker container also appear in the container because the folder is mounted with the Docker `--volume` argument.
 
-Regrettably, the size of the `.wasm` file is currently too large:
+   To optimize the kernel further, you can convert it to an _installer kernel_, which includes only enough information to start the kernel, like an installation program.
+   This installer kernel keeps the rest of its logic and data in separate files called _preimages_.
 
-`docker session 1`
+1. Outside of the Docker container, run this command to install the installer kernel tool:
 
-```bash!
-du -h target/wasm32-unknown-unknown/debug/hello_world_kernel.wasm 
-# 17.3M target/wasm32-unknown-unknown/debug/hello_world_kernel.wasm
-```
+   ```bash
+   cargo install tezos-smart-rollup-installer
+   ```
 
-To address this, we can use `wasm-strip`, a tool designed to reduce the size of kernels. It accomplishes this by removing unused parts of the `WebAssembly` module (e.g. dead code), which are not required for the execution of the rollups. Open a new terminal session and navigate to the `"Hello, world!" kernel ` directory since you do not have `wasm-strip` in your `Docker` session:
+1. Outside of the Docker container, run this command to convert the kernel to an installer kernel:
 
-`outside docker session - hello-world-kernel`
+   ```bash
+   smart-rollup-installer get-reveal-installer --upgrade-to target/wasm32-unknown-unknown/debug/hello_world_kernel.wasm --output hello_world_kernel_installer.hex --preimages-dir preimages/
+   ```
 
-```bash!
-wasm-strip target/wasm32-unknown-unknown/debug/hello_world_kernel.wasm 
+   This command creates the following files:
 
-du -h target/wasm32-unknown-unknown/debug/hello_world_kernel.wasm
-# 532.0K target/wasm32-unknown-unknown/debug/hello_world_kernel.wasm
-```
+   - `hello_world_kernel_installer.hex`: The hexadecimal representation of the installer kernel
+   - `preimages/`: A directory that contains the preimages that allow nodes to restore the installer kernel to the original kernel code
 
-The modifications from outside will get propagated to the interactive `Docker` session thanks to the `--volume` command option.
+   When a node runs the installer kernel, it retrieves the preimages through the reveal data channel.
+   For more information about the reveal data channel, see [reveal data channel](https://tezos.gitlab.io/alpha/smart_rollups.html#reveal-data-channel).
 
-Undoubtedly, this process has effectively reduced the size of the kernel. However, there is still additional work required to ensure compliance with the manager operation size limit.
+1. Verify the size of the installer kernel by running this command:
+
+   ```bash
+   du -h hello_world_kernel_installer.hex
+   ```
+
+   Now the kernel is small enough to be deployed on layer 1.
+   In fact, when it is deployed, it will be even smaller than the result of this command because the command is checking the hexadecimal representation and the deployed kernel will be in binary.
+
+
+
+
+
 
 ### 4.3. The Installer Kernel
 
