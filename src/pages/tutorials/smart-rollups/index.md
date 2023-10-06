@@ -17,19 +17,30 @@ In this tutorial, you will learn:
 
 ## What is a smart rollup?
 
-On Tezos itself, each baking node runs the code for each new block.
-This duplicated work provides consensus but limits the ability of users to run large amounts of processing on the chain.
+Smart rollups are processing units that run outside the Tezos network but communicate with Tezos on a regular basis.
+These processing units can run arbitrarily large amounts of code without waiting for Tezos baking nodes to run and verify that code.
+Smart rollups use Tezos for information and transactions but can run large applications at their own speed, independently of the Tezos baking system.
 
-Smart rollups are processing units that run outside the Tezos blockchain but communicate with Tezos on a regular basis.
-These processing units can run arbitrarily large amounts of code and stay in sync with Tezos by passing messages to Tezos and receiving messages from Tezos and other rollups.
-Smart rollups help spread out processing tasks to keep Tezos itself running quickly.
-In this context, the processing that runs on Tezos itself is referred to as _layer 1_ and the processing that smart rollups run is referred to as _layer 2_.
+In this way, smart rollups allow Tezos to scale to support large, complex applications without slowing Tezos itself.
+The processing that runs on Tezos itself is referred to as _layer 1_ and the processing that smart rollups run is referred to as _layer 2_.
 
-In short, smart rollups allow users to run large amounts of processing without the expense of running that processing on Tezos layer 1.
+Smart rollups can run any kind of applications that they want, such as:
+
+- Financial applications that use information and transactions from Tezos
+- Gaming applications that manipulate assets and keep them in sync with Tezos
+- Applications that run complex logic on NFTs or other types of tokens
+
+Smart rollups stay in sync with Tezos by passing messages to Tezos and receiving messages from Tezos and other rollups.
+Each Tezos block contains a global rollups inbox that contains messages from Tezos layer 1 to all rollups.
+Anyone can add a message to this inbox and all messages are visible to all rollups.
+Rollups receive this inbox, filter it to the messages that they are interested in, and act on them accordingly.
+
+Rollups also have an outbox, which consists of calls to smart contracts on layer 1.
+These calls are how rollups send messages back to Tezos.
 
 Rollups maintain consensus by publishing the hash of their state to Tezos, which other nodes can use to verify the rollup.
-The specific way that rollups maintain consensus is beyond the scope of this tutorial.
-For more information about rollups and  their consensus mechanism, see [Smart Optimistic Rollups](../../advanced-topics/smart-rollups/).
+The specific way that rollups publish their states and maintain consensus is beyond the scope of this tutorial.
+For more information about rollups and their consensus mechanism, see [Smart Optimistic Rollups](../../advanced-topics/smart-rollups/).
 
 ## Smart rollup analogy
 
