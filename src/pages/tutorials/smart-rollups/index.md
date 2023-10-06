@@ -43,6 +43,14 @@ Rollups maintain consensus by publishing the hash of their state to Tezos, which
 The specific way that rollups publish their states and maintain consensus is beyond the scope of this tutorial.
 For more information about rollups and their consensus mechanism, see [Smart Optimistic Rollups](../../advanced-topics/smart-rollups/).
 
+This diagram shows a smart rollup interacting with layer 1 by receiving a message, running processing based on that message, and sending a transaction to layer 1:
+
+{% html htmlWrapperTag="div" %}
+
+<div style="width: 640px; height: 480px; margin: 10px; position: relative;"><iframe allowfullscreen frameborder="0" style="width:640px; height:480px" src="https://lucid.app/documents/embedded/74fd884e-9c71-409e-b7d3-c3a871a17178" id="KYtBl2woQVuV"></iframe></div>
+
+{% /html %}
+
 ## Smart rollup analogy
 
 Businesses talk about _horizontal scaling_ versus _vertical scaling_.
