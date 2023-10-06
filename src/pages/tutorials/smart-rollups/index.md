@@ -86,7 +86,7 @@ To run this tutorial, make sure that the following tools are installed:
 - Clang and LLVM
 
    Clang and LLVM are required for compilation to WebAssembly.
-   At minimum version 11 of Clang is required.
+   Version 11 or later of Clang is required.
    Here are instructions for installing the appropriate tools on different operating systems:
 
    **MacOS**
@@ -206,6 +206,7 @@ This example kernel has these major parts:
 1. It runs the Rust macro `kernel_entry!` to set the main function for the kernel.
 1. It declares the `handle_message` function, which accepts, decodes, and processes messages from layer 1.
 In this case, the function decodes the message (which is sent as a sequence of bytes) and prints it to the log.
+The function could call any other logic that the application needs to run.
 1. It declares the `hello_kernel` function, which prints a logging message each time it is called and then runs the `handle_message` function on each message from layer 1.
 
 You don't need to access the other files in the application directly, but here are descriptions of them:
