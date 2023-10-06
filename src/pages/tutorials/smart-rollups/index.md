@@ -450,186 +450,97 @@ In particular, the size of the kernel needs to be smaller than the manager opera
    Now the kernel is small enough to be deployed on layer 1.
    In fact, when it is deployed, it will be even smaller than the result of this command because the command is checking the hexadecimal representation and the deployed kernel will be in binary.
 
+## Part 5: Deploying (originating) the kernel
 
+Smart rollup kernels are originated to Tezos in a way similar to smart contracts.
+Instead of running the `octez-client originate contract`, you run the `octez-client originate smart rollup` command.
 
+1. In the second terminal window, in the Docker container, in the `hello-world-kernel` folder, run this command to deploy the installer kernel to the Tezos sandbox:
 
+   ```bash
+   octez-client originate smart rollup "test_smart_rollup" from "bootstrap1" of kind wasm_2_0_0 of type bytes with kernel file:hello_world_kernel_installer.hex --burn-cap 3
+   ```
 
+   Like the command to originate a smart contract, this command uses the `--burn-cap` argument to allow the transaction to take fees from the account.
+   Also like deploying a smart contract, the response in the terminal shows information about the transaction and the address of the originated smart rollup, which starts with `sr1`.
 
-### 4.3. The Installer Kernel
+   If you need to open a new terminal window within the Docker container, run the command `docker exec -it octez-container /bin/sh`.
 
-Instead of using a kernel file for origination in the aforementioned format, an alternative approach is to utilize the **installer** version of the kernel. This **installer kernel** can be **upgraded** to the original version if provided with additional information in the form of **preimages**, which can be provided to the rollup node later on as part of its **reveal data channel**.
+## Part 6: Running the smart rollup node
 
-There are two ways to communicate with smart rollups:
+Now that the smart rollup kernel is set up on level 1, anyone can run a smart rollup node based on that kernel.
+Smart rollup nodes are similar to baking nodes, but they run the smart rollup code instead of baking Tezos blocks.
+In these steps, you start a smart rollup node, but note that anyone can run a node based on your kernel, including people who want to verify the rollup's behavior.
 
-1. **global inbox** -- allows Layer 1 to transmit information to all rollups. This unique inbox contains two kinds of messages: **external messages** are pushed through a Layer 1 manager operation, while **internal messages** are pushed by Layer 1 smart contracts or the protocol itself (e.g. `StartOfLevel`, `InfoPerLevel`, `EndOfLevel`).
-2. **reveal data channel** -- allows the rollup to retrieve data (e.g. **preimages**) coming from data sources external to Layer 1.
+1. Copy the contents of the preimages folder to a folder that the rollup node can access by running these commands:
 
-The main benefit of the installer kernel is that it is small enough to be used in origination regardless of the kernel that it will be upgraded to.
+   ```bash
+   mkdir -p ~/.tezos-rollup-node/wasm_2_0_0
 
-There is an [installer kernel origination topic](https://tezos.stackexchange.com/questions/4784/how-to-originating-a-smart-rollup-with-an-installer-kernel/5794#5794) for this; please consult it for further clarifications. To generate the **installer kernel**, the `smart-rollup-installer` tool is required:
+   cp preimages/* ~/.tezos-rollup-node/wasm_2_0_0/
+   ```
 
-`outside docker session - hello-world-kernel`
+1. In the second terminal window, in the Docker container, start the rollup node:
 
-```bash!
-cargo install tezos-smart-rollup-installer
-```
+   ```bash
+   octez-smart-rollup-node-alpha run operator for "test_smart_rollup" with operators "bootstrap2" --data-dir ~/.tezos-rollup-node/ --log-kernel-debug --log-kernel-debug-file hello_kernel.debug
+   ```
 
-To create the installer kernel from the initial kernel:
+   Now the node is running and writing to the log file `hello_kernel.debug`.
+   Leave this command running in the terminal window just like you left the first terminal window running the Tezos sandbox.
 
-`outside docker session - hello-world-kernel`
+1. Open a third terminal window and enter the Docker container again:
 
-```bash!
-smart-rollup-installer get-reveal-installer --upgrade-to target/wasm32-unknown-unknown/debug/hello_world_kernel.wasm --output hello_world_kernel_installer.hex --preimages-dir preimages/
-```
+   ```bash
+   docker exec -it octez-container /bin/sh
+   ```
 
-This command creates the following:
+1. In the container, go to the `hello_world_kernel` folder.
 
-- `hello_world_kernel_installer.hex` -- the hexadecimal representation of the installer kernel to be used in the origination.
-- `preimages/` -- a directory containing the preimages necessary for upgrading from the installer kernel to the original kernel. These preimages are transmitted to the rollup node that runs the installer kernel with the help of the [**reveal data channel**](https://tezos.gitlab.io/alpha/smart_rollups.html#reveal-data-channel).
+1. Print the contents of the log file:
 
-Notice the reduced dimensions of the installer kernel:
+   ```bash
+   tail -f hello_kernel.debug
+   ```
 
-`outside docker session - hello-world-kernel`
+   Now, each time a block is baked, the smart rollup node prints the contents of the messages in the smart rollup inbox, as in this example:
 
-```bash!
-du -h hello_world_kernel_installer.hex
-# 36.0K hello_world_kernel_installer.hex
-```
+   ```
+   # Hello, kernel!
+   # Got message: Internal(StartOfLevel)
+   # Got message: Internal(InfoPerLevel(InfoPerLevel { predecessor_timestamp: 2023-06-07T15:31:09Z, predecessor: BlockHash("BLQucC2rFyNhoeW4tuh1zS1g6H6ukzs2DQDUYArWNALGr6g2Jdq") }))
+   # Got message: Internal(EndOfLevel)
+   ```
 
-Because of the size of this installer kernel, you are now ready for deployment.
+1. Stop the command by pressing Ctrl + C.
 
-Note that this shows the size of the `hex` encoded file, which is larger than the actual binary size of the kernel that we originate.
+1. Run this command to watch for external messages to the rollup:
 
-## 5. Deploying the Kernel
+   ```bash
+   tail -f hello_kernel.debug | grep External
+   ```
 
-### 5.1. Sandboxed Mode
+   No output appears at first because the rollup has not received any messages aside from the internal messages that indicate the beginning and end of the inbox.
 
-Our goal now is to create a testing environment for originating our rollup with the created kernel. In the `hello-world-kernel` repository, we offer the `sandbox-node.sh` file, which does the following:
+   Leave this command running.
 
-- configures the `Octez` node to operate in [**sandbox mode**](https://tezos.gitlab.io/user/sandbox.html).
-- activates the `alpha` protocol by using an `activator` account.
-- creates five test (bootstrapping) accounts used for manual [**baking**](https://opentezos.com/baking/cli-baker/).
-- creates a loop of continuous baking.
+1. Open a fourth terminal window, enter the Docker container with the command `docker exec -it octez-container /bin/sh`, and go to the `hello_world_kernel` folder.
 
-Run the file with:
+1. In this fourth terminal window, run this command to simulate adding a message to the smart rollup inbox:
 
-`docker session 1`
+   ```bash
+   octez-client send smart rollup message '[ "test" ]' from "bootstrap3"
+   ```
 
-```bash!
-./sandbox_node.sh
-```
+1. Go back to the third terminal window.
 
-Ignore the "Unable to connect to the node" error, as it only comes once because the `octez-client` command was used while the node was not yet bootstrapped. The result should be a permanent loop containing:
+   This window shows the message that you sent in the fourth window, which it received in binary format, with the numbers representing the letters in "test."
 
-`docker session 1`
+   ```
+   Got message: External([116, 101, 115, 116])
+   ```
 
-```bash!
-# Injected block at minimal timestamp
-```
-
-Leave that process running. Open a new `Docker` session, which works in the same container named `octez-container`:
-
-`outside docker session - hello-world-kernel`
-
-```bash!
-docker exec -it octez-container /bin/sh
-```
-
-It is very important to remember to open a new terminal session and run the command above whenever we mention a "new `Docker` session" or when you see that the `docker session` counter has increased.
-
-To check that the network has the correctly configured protocol:
-
-`docker session 2`
-
-```bash!
-octez-client rpc get /chains/main/blocks/head/metadata | grep protocol
-
-# "protocol": "ProtoALphaALphaALphaALphaALphaALphaALphaALphaDdp3zK",
-# "next_protocol": "ProtoALphaALphaALphaALphaALphaALphaALphaALphaDdp3zK"
-```
-
-You are now ready for the Smart Rollup origination process.
-
-### 5.2. Smart Rollup Origination
-
-To originate a smart rollup using the `hello_world_kernel_installer` created above:
-
-`docker session 2`
-
-```bash!
-octez-client originate smart rollup "test_smart_rollup" from "bootstrap1" of kind wasm_2_0_0 of type bytes with kernel file:hello-world-kernel/hello_world_kernel_installer.hex --burn-cap 3
-```
-
-```bash!
-# > Node is bootstrapped.
-# ...
-# Smart rollup sr1B8HjmEaQ1sawZtnPU3YNEkYZavkv54M4z memorized as "test_smart_rollup"
-```
-
-In the command above, the `--burn-cap` option specifies the amount of ꜩ you are willing to "burn" (lose) to allocate storage in the global context of the blockchain for each rollup.
-
-To run a rollup node for the rollup using the installer kernel, you need to copy the contents of the preimages directory to `${ROLLUP_NODE_DIR}/wasm_2_0_0/`. You can set `$ROLLUP_NODE_DIR` to `~/.tezos-rollup-node`, for instance:
-
-`docker session 2`
-
-```bash!
-mkdir -p ~/.tezos-rollup-node/wasm_2_0_0
-
-cp hello-world-kernel/preimages/* ~/.tezos-rollup-node/wasm_2_0_0/
-```
-
-You should now be able to **run** your rollup node:
-
-`docker session 2`
-
-```bash!
-octez-smart-rollup-node-alpha run operator for "test_smart_rollup" with operators "bootstrap2" --data-dir ~/.tezos-rollup-node/ --log-kernel-debug --log-kernel-debug-file hello_kernel.debug
-```
-
-Leave this running as well, and open another `Docker` session, as already explained, with the `octez-container`.
-
-Each time a block is baked, a new "Hello, kernel!" message should appear in the `hello_kernel.debug` file:
-
-`docker session 3`
-
-```bash!
-tail -f hello_kernel.debug 
-# Hello, kernel!
-# Got message: Internal(StartOfLevel)
-# Got message: Internal(InfoPerLevel(InfoPerLevel { predecessor_timestamp: 2023-06-07T15:31:09Z, predecessor: BlockHash("BLQucC2rFyNhoeW4tuh1zS1g6H6ukzs2DQDUYArWNALGr6g2Jdq") }))
-# Got message: Internal(EndOfLevel)
-# ... (repeats)
-```
-
-Finally, you have successfully deployed a very basic yet functional smart rollup.
-
-### 5.3. Sending an Inbox Message to the Smart Rollup
-
-We now want to send an external message into the rollup inbox, which should be read by our kernel and sent as a debug message. First, we will wait for it to appear using:
-
-`docker session 3`
-
-```bash!
-tail -f hello_kernel.debug | grep External
-```
-
-Open yet another `Docker` session and send an external message into the rollup inbox. You can use the `Octez` client:
-
-`docker session 4`
-
-```bash!
-octez-client send smart rollup message '[ "test" ]' from "bootstrap3"
-```
-
-Once you send the Smart Rollup message, you will notice that in the debug trace, you get:
-
-`docker session 3`
-
-```bash!
-Got message: External([116, 101, 115, 116])
-```
-
-`116, 101, 115, 116` represent the bytes of "test".
+Now you can send messages to this rollup via Tezos level 1.
 
 ### 5.4. Test Networks
 
@@ -659,3 +570,8 @@ The workflow should be similar to the one presented for the sandbox mode:
 7. [Tezos Testnets](https://teztnets.xyz/)
 8. [Origination of the Installer Kernel](https://tezos.stackexchange.com/questions/4784/how-to-originating-a-smart-rollup-with-an-installer-kernel/5794#5794)
 9. [Docker Documentation](https://docs.docker.com/get-started/)
+
+
+## Next steps
+
+Feel free to explore additional examples from the dedicated [kernel gallery](https://gitlab.com/tezos/kernel-gallery/-/tree/main/) or create your own!
