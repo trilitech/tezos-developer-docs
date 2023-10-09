@@ -455,9 +455,9 @@ In these steps, you optimize the kernel:
    Now the kernel is small enough to be deployed on layer 1.
    In fact, when it is deployed, it will be even smaller than the result of this command because the command is checking the hexadecimal representation and the deployed kernel will be in binary.
 
-## Part 5: Deploy (originate) the kernel
+## Part 5: Deploy (originate) the rollup
 
-Smart rollup kernels are originated in a way similar to smart contracts.
+Smart rollups are originated in a way similar to smart contracts.
 Instead of running the `octez-client originate contract`, you run the `octez-client originate smart rollup` command.
 This command creates an address for the rollup and stores a small amount of data about it on layer 1.
 
