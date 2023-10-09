@@ -310,7 +310,7 @@ These steps use the Octez command-line client to set up a sandbox in a Docker co
    The specific version number is not important as long as you retrieved the latest image with the `docker pull tezos/tezos:master` command.
 
    Don't close this terminal window or exit the Docker terminal session, because Docker will close the container.
-   If you accidentally close the container, you can run the `docker run ...` command again to restart it.
+   If you accidentally close the container, you can run the `docker run ...` command again to open a new one.
 
 1. Within the container, go to the `hello-world-kernel` folder:
 
