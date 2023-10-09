@@ -141,7 +141,7 @@ Follow these steps to set your Octez client to use a testnet instead of the main
 
 1. On <https://teztnets.xyz/>, click the testnet to use, such as Ghostnet.
 
-1. Copy the one of the testnet's public RPC endpoints, such as `https://rpc.ghostnet.teztnets.xyz`.
+1. Copy the one of the testnets' public RPC endpoints, such as `https://rpc.ghostnet.teztnets.xyz`.
 
 1. Set your Octez client to use this testnet by running this command on the command line, replacing the testnet RPC URL with the URL that you copied:
 
