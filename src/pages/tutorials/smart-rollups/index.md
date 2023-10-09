@@ -392,12 +392,8 @@ Later, you will deploy the rollup to the sandbox, but running it in debug mode f
 
 ## Part 4: Optimize the kernel
 
-Because the kernel is deployed on Tezos level 1, it must be efficient with space and processing power.
-In particular, the size of the kernel needs to be smaller than the manager operation size limit.
-
-{% comment %}
-TODO what is the manager operation size limit?
-{% /comment %}
+The kernel must be efficient with space and processing power because there is a size limit for kernels.
+In these steps, you optimize the kernel:
 
 1. Run this command to print the current size of the kernel:
 
@@ -407,7 +403,7 @@ TODO what is the manager operation size limit?
 
    You can run this command inside or outside of the Docker container.
 
-   The size of the application and its dependencies may be 18MB or more, which is too large to deploy to Tezos.
+   The size of the application and its dependencies may be 18MB or more, which is too large to deploy.
 
 1. In a terminal window outside of the Docker container, run the `wasm-strip` command to reduce the size of the kernel:
 
@@ -425,7 +421,7 @@ TODO what is the manager operation size limit?
    ```
 
    The size of the kernel is smaller now.
-   Note that the changes that you make to the kernel outside of the Docker container also appear in the container because the folder is mounted with the Docker `--volume` argument.
+   Note that the changes that you make to the kernel outside of the Docker container also appear in the container and vice versa because the folder is mounted with the Docker `--volume` argument.
 
    To optimize the kernel further, you can convert it to an _installer kernel_, which includes only enough information to start the kernel, like an installation program.
    This installer kernel keeps the rest of its logic and data in separate files called _preimages_.
@@ -461,8 +457,9 @@ TODO what is the manager operation size limit?
 
 ## Part 5: Deploy (originate) the kernel
 
-Smart rollup kernels are originated to Tezos in a way similar to smart contracts.
+Smart rollup kernels are originated in a way similar to smart contracts.
 Instead of running the `octez-client originate contract`, you run the `octez-client originate smart rollup` command.
+This command creates an address for the rollup and stores a small amount of data about it on layer 1.
 
 1. In the second terminal window, in the Docker container, in the `hello-world-kernel` folder, run this command to deploy the installer kernel to the Tezos sandbox:
 
@@ -477,7 +474,7 @@ Instead of running the `octez-client originate contract`, you run the `octez-cli
 
 ## Part 6: Run the smart rollup node
 
-Now that the smart rollup kernel is set up on level 1, anyone can run a smart rollup node based on that kernel.
+Now that the smart rollup kernel is set up on layer 1, anyone can run a smart rollup node based on that kernel.
 Smart rollup nodes are similar to baking nodes, but they run the smart rollup code instead of baking Tezos blocks.
 In these steps, you start a smart rollup node, but note that anyone can run a node based on your kernel, including people who want to verify the rollup's behavior.
 
@@ -549,7 +546,7 @@ In these steps, you start a smart rollup node, but note that anyone can run a no
    Got message: External([116, 101, 115, 116])
    ```
 
-Now you can send messages to this rollup via Tezos level 1 and act on them in the rollup code.
+Now you can send messages to this rollup via Tezos layer 1 and act on them in the rollup code.
 
 ## Next steps
 
