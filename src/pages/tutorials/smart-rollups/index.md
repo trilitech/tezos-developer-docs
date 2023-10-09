@@ -1,7 +1,7 @@
 ---
 id: smart-rollups-tutorial
-title: Create a smart rollup
-lastUpdated: 5th October 2023
+title: Deploy a smart rollup
+lastUpdated: 9th October 2023
 ---
 
 This tutorial covers how to deploy a smart rollup in a Tezos sandbox.
@@ -177,7 +177,6 @@ To run this tutorial, make sure that the following tools are installed:
 
 Despite the number of command-line tools needed, the code for the core of the rollup itself is relatively simple.
 This core is called the _kernel_ and is responsible for accepting messages from layer 1 and sending messages to layer 1.
-It also updates its state to allow other rollup nodes to verify it.
 
 The code for the tutorial application is here: <https://gitlab.com/trili/hello-world-kernel>.
 
