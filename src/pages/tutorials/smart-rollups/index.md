@@ -358,7 +358,9 @@ These steps use the Octez command-line client to set up a sandbox in a Docker co
 Octez provides a command named `octez-smart-rollup-wasm-debugger` that runs smart rollups in debug mode to make it easier to test and observe them.
 Later, you will deploy the rollup to the sandbox, but running it in debug mode first verifies that it built correctly.
 
-1. In the second terminal window inside the Docker container, run this command to start the rollup and pass an empty message inbox to it:
+1. In the second terminal window inside the Docker container, go to the `hello_world_kernel` folder.
+
+1. Run this command to start the rollup and pass an empty message inbox to it:
 
    ```bash
    octez-smart-rollup-wasm-debugger --kernel target/wasm32-unknown-unknown/debug/hello_world_kernel.wasm --inputs empty_input.json
@@ -384,7 +386,7 @@ In the next section, you optimize and deploy it to the sandbox.
 
 1. Press Ctrl + C to end debugging mode.
 
-## Part 4: Optimizing the kernel
+## Part 4: Optimize the kernel
 
 Because the kernel is deployed on Tezos level 1, it must be efficient with space and processing power.
 In particular, the size of the kernel needs to be smaller than the manager operation size limit.
@@ -450,7 +452,7 @@ In particular, the size of the kernel needs to be smaller than the manager opera
    Now the kernel is small enough to be deployed on layer 1.
    In fact, when it is deployed, it will be even smaller than the result of this command because the command is checking the hexadecimal representation and the deployed kernel will be in binary.
 
-## Part 5: Deploying (originating) the kernel
+## Part 5: Deploy (originate) the kernel
 
 Smart rollup kernels are originated to Tezos in a way similar to smart contracts.
 Instead of running the `octez-client originate contract`, you run the `octez-client originate smart rollup` command.
@@ -466,7 +468,7 @@ Instead of running the `octez-client originate contract`, you run the `octez-cli
 
    If you need to open a new terminal window within the Docker container, run the command `docker exec -it octez-container /bin/sh`.
 
-## Part 6: Running the smart rollup node
+## Part 6: Run the smart rollup node
 
 Now that the smart rollup kernel is set up on level 1, anyone can run a smart rollup node based on that kernel.
 Smart rollup nodes are similar to baking nodes, but they run the smart rollup code instead of baking Tezos blocks.
@@ -540,52 +542,31 @@ In these steps, you start a smart rollup node, but note that anyone can run a no
    Got message: External([116, 101, 115, 116])
    ```
 
-Now you can send messages to this rollup via Tezos level 1.
-
-## Part 7:
-
-
-When the kernel is running on ghostnet, there's no way to see the logging messages.
-So I'll have to set up an output to see what it's receiving the messages.
-So I'll need to deploy a contract and deploy the rollup with gas for the contract call.
-
-Deployed this contract to ghostnet:
-KT1HYjMn2kMLtvxb6tuGNpHRma49jfWPnMpx
-
-
-
-
-
-### 5.4. Test Networks
-
-In the above section, we proposed how to create your `Octez` binaries in **sandbox mode**. Here, we propose a different approach to that, using [test networks](https://teztnets.xyz/). We encourage the reader to try at least one of the following linked tutorials:
-
-- [Ghostnet](https://teztnets.xyz/ghostnet-about) -- uses the protocol that `Mainnet` follows as well.
-- [Nairobinet](https://teztnets.xyz/nairobinet-about) -- uses the `Nairobi` protocol.
-- [Mondaynet](https://teztnets.xyz/mondaynet-about) -- uses the `alpha` protocol and resets every Monday.
-
-The workflow should be similar to the one presented for the sandbox mode:
-
-- **configure** the network;
-- run a node (needs to synchronize with the network -- can make use of [snapshots](https://tezos.gitlab.io/user/snapshots.html));
-- create test accounts (which should be funded by the appropriate **Faucet**);
-- originate the rollup;
-- run the rollup node;
-- check the debug file.
-
-## 6. Further References and Documentation
-
-1. [Smart Rollup Documentation](https://tezos.gitlab.io/alpha/smart_rollups.html)
-2. [Smart Rollup Kernel SDK Tutorial](https://gitlab.com/tezos/tezos/-/tree/master/src/kernel_sdk)
-3. [Smart Rollup Kernel Examples](https://gitlab.com/tezos/kernel-gallery/-/tree/main/)
-4. [Ghostnet Indexer](https://ghost.tzstats.com/)
-5. [Blockchain Explorer](https://ghostnet.tzkt.io/)
-6. [Tezos Smart Rollups Resources](https://airtable.com/shrvwpb63rhHMiDg9/tbl2GNV1AZL4dkGgq)
-7. [Tezos Testnets](https://teztnets.xyz/)
-8. [Origination of the Installer Kernel](https://tezos.stackexchange.com/questions/4784/how-to-originating-a-smart-rollup-with-an-installer-kernel/5794#5794)
-9. [Docker Documentation](https://docs.docker.com/get-started/)
-
+Now you can send messages to this rollup via Tezos level 1 and act on them in the rollup code.
 
 ## Next steps
 
-Feel free to explore additional examples from the dedicated [kernel gallery](https://gitlab.com/tezos/kernel-gallery/-/tree/main/) or create your own!
+Currently, your rollup and kernel are running in sandbox mode.
+If you want to explore further, you can try deploying the rollup to a testnet as you do in the [Deploy a smart contract](../deploy-your-first-smart-contract/) tutorial.
+The workflow for deploying to a testnet is similar to the workflow that you used to deploy to the sandbox:
+
+1. Configure the network to use the testnet
+1. Run a node (needs to synchronize with the network — can make use of [snapshots](https://tezos.gitlab.io/user/snapshots.html))
+1. Create or import an account and fun it by a faucet
+1. Originate the rollup to the testnet
+1. Start the rollup node
+1. Check the log file
+
+You can also explore other smart rollup examples from the dedicated [kernel gallery](https://gitlab.com/tezos/kernel-gallery/-/tree/main/) or create your own.
+
+## References
+
+- [Smart rollup documentation](https://tezos.gitlab.io/alpha/smart_rollups.html)
+- [Smart rollup kernel SDK tutorial](https://gitlab.com/tezos/tezos/-/tree/master/src/kernel_sdk)
+- [Smart rollup kernel examples](https://gitlab.com/tezos/kernel-gallery/-/tree/main/)
+- [Ghostnet indexer](https://ghost.tzstats.com/)
+- [Blockchain explorer](https://ghostnet.tzkt.io/)
+- [Tezos smart rollups resources](https://airtable.com/shrvwpb63rhHMiDg9/tbl2GNV1AZL4dkGgq)
+- [Tezos testnets](https://teztnets.xyz/)
+- [Origination of the installer kernel](https://tezos.stackexchange.com/questions/4784/how-to-originating-a-smart-rollup-with-an-installer-kernel/5794#5794)
+- [Docker documentation](https://docs.docker.com/get-started/)
