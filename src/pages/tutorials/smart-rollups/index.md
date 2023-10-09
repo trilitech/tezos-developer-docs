@@ -13,7 +13,10 @@ In this tutorial, you will learn:
 - What a smart rollup is and how they help scale Tezos
 - How information passes between Tezos and smart rollups
 - How to respond to messages from Tezos in a smart rollup
+
+{% comment %}
 - How to send messages from a smart rollup to Tezos
+{% /comment %}
 
 ## What is a smart rollup?
 
