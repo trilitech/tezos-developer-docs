@@ -39,7 +39,9 @@ Rollups receive this inbox, filter it to the messages that they are interested i
 Rollups also have an outbox, which consists of calls to smart contracts on layer 1.
 These calls are how rollups send messages back to Tezos.
 
-<!-- TODO discuss reveal data channel -->
+{% comment %}
+TODO discuss reveal data channel
+{% /comment %}
 
 Rollups maintain consensus by publishing the hash of their state to Tezos, which other nodes can use to verify the rollup's behavior.
 The specific way that rollups publish their states and maintain consensus is beyond the scope of this tutorial.
@@ -390,7 +392,10 @@ In the next section, you optimize and deploy it to the sandbox.
 
 Because the kernel is deployed on Tezos level 1, it must be efficient with space and processing power.
 In particular, the size of the kernel needs to be smaller than the manager operation size limit.
-<!-- TODO what is the manager operation size limit? -->
+
+{% comment %}
+TODO what is the manager operation size limit?
+{% /comment %}
 
 1. Run this command to print the current size of the kernel:
 
