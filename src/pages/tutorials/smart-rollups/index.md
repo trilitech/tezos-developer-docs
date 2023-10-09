@@ -383,8 +383,8 @@ Later, you will deploy the rollup to the sandbox, but running it in debug mode f
    - The message "Got message: Internal(InfoPerLevel(InfoPerLevel ...," which provides the hash of the previous block
    - The message "Got message: Internal(EndOfLevel)," which represents the end of the message inbox
 
-Now you know that the kernel works.
-In the next section, you optimize and deploy it to the sandbox.
+   Now you know that the kernel works.
+   In the next section, you optimize and deploy it to the sandbox.
 
 1. Press Ctrl + C to end debugging mode.
 
