@@ -566,11 +566,9 @@ You can also explore other smart rollup examples from the dedicated [kernel gall
 ## References
 
 - [Smart rollup documentation](https://tezos.gitlab.io/alpha/smart_rollups.html)
-- [Smart rollup kernel SDK tutorial](https://gitlab.com/tezos/tezos/-/tree/master/src/kernel_sdk)
+- [Smart rollup kernel SDK](https://gitlab.com/tezos/tezos/-/tree/master/src/kernel_sdk)
 - [Smart rollup kernel examples](https://gitlab.com/tezos/kernel-gallery/-/tree/main/)
-- [Ghostnet indexer](https://ghost.tzstats.com/)
-- [Blockchain explorer](https://ghostnet.tzkt.io/)
 - [Tezos smart rollups resources](https://airtable.com/shrvwpb63rhHMiDg9/tbl2GNV1AZL4dkGgq)
 - [Tezos testnets](https://teztnets.xyz/)
-- [Origination of the installer kernel](https://tezos.stackexchange.com/questions/4784/how-to-originating-a-smart-rollup-with-an-installer-kernel/5794#5794)
+- [Originating the installer kernel](https://tezos.stackexchange.com/questions/4784/how-to-originating-a-smart-rollup-with-an-installer-kernel/5794#5794)
 - [Docker documentation](https://docs.docker.com/get-started/)
