@@ -1,6 +1,6 @@
 ---
 id: build-an-nft-marketplace
-title: Build an NFT Marketplace
+title: NFT Marketplace Part 1
 lastUpdated: 22nd September 2023
 ---
 
@@ -50,7 +50,7 @@ On Tezos, FA2 is the standard for Non-Fungible Token contracts. We will be using
 
 #### 2. Marketplace unique contract
 
-On a second time, we will import the token contract into the marketplace unique contract. The latter will bring missing features as:
+Next, we will import the token contract into the marketplace unique contract. The latter will bring missing features as:
 
 - Mint
 - Buy
@@ -104,7 +104,7 @@ Before building an NFT marketplace, ensure you have the following tools on hand.
 - [taqueria VS Code extension](https://marketplace.visualstudio.com/items?itemName=ecadlabs.taqueria-vscode): visualize your project and execute tasks
 
 
-## Build Your Own Smart contract
+## Smart Contract Modification
 
 We will use `taqueria` to shape the project structure, then create the NFT marketplace smart contract thanks to the `ligo/fa` library.
 

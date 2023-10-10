@@ -17,11 +17,16 @@ yarn install
 cd ..
 ```
 
-## Smart contract
+## Smart Contract Modification
+In this section, you'll be guided through the process of constructing the core backend structure of the NFT marketplace. 
+
+
+### Step 1: Initialize offers
+First, we will initialize offers into our smart contract.
 
 Add the following code sections on your `nft.jsligo` smart contract
 
-Add offer type
+**Add offer type**
 
 ```ligolang
 type offer = {
@@ -30,7 +35,7 @@ type offer = {
 };
 ```
 
-Add `offers` field to storage
+**Add `offers` field to storage**
 
 ```ligolang
 type storage =
@@ -50,7 +55,7 @@ Explanation:
 - an `offer` is an NFT _(owned by someone)_ with a price
 - `storage` has a new field to store `offers`: a `map` of offers
 
-Update also the initial storage on file `nft.storageList.jsligo` to initialize `offers`
+**Update also the initial storage on file `nft.storageList.jsligo` to initialize `offers`**
 
 ```ligolang
 ...
@@ -58,15 +63,16 @@ Update also the initial storage on file `nft.storageList.jsligo` to initialize `
 ...
 ```
 
-Finally, compile the contract
+**Finally, compile the contract**
 
 ```bash
 TAQ_LIGO_IMAGE=ligolang/ligo:0.73.0 taq compile nft.jsligo
 ```
 
-### Sell at an offer price
 
-Define the `sell` function as below:
+### Step 2: Sell at an offer price
+
+**Define the `sell` function as below:**
 
 ```ligolang
 @entry
@@ -118,11 +124,11 @@ Explanation:
 - the seller will set the NFT marketplace smart contract as an operator. When the buyer sends his money to buy the NFT, the smart contract will change the NFT ownership _(it is not interactive with the seller, the martketplace will do it on behalf of the seller based on the offer data)_
 - we update the `storage` to publish the offer
 
-### Buy a bottle on the marketplace
+### Step 3: Buy a bottle on the marketplace
 
 Now that we have offers available on the marketplace, let's buy bottles!
 
-Edit the smart contract to add the `buy` feature
+**Edit the smart contract to add the `buy` feature**
 
 ```ligolang
 @entry
@@ -178,7 +184,7 @@ Explanation:
 - check that the amount sent by the buyer is greater than the offer price. If it is ok, transfer the offer price to the seller and transfer the NFT to the buyer
 - remove the offer as it has been executed
 
-### Compile and deploy
+### Step 4: Compile and deploy
 
 We finished the smart contract implementation of this second training, let's deploy to ghostnet.
 
@@ -198,8 +204,7 @@ taq deploy nft.tz -e "testing"
 **We have implemented and deployed the smart contract (backend)!**
 
 ## NFT Marketplace front
-
-Generate Typescript classes and go to the frontend to run the server
+After finishing the backend structure, we will generate Typescript classes and then move to the frontend to run the server. There are two steps to set up the frontend. After each step, there will be a small interaction where you can test your work.
 
 ```bash
 taq generate types ./app/src
@@ -208,7 +213,7 @@ yarn install
 yarn dev
 ```
 
-## Sale page
+### Step 1: Edit the Sale page
 
 Edit Sale Page on `./src/OffersPage.tsx`
 
@@ -535,7 +540,7 @@ Explanation:
 - for each NFT, we have a form to make an offer at a price
 - if you do an offer, it calls the `sell` function and the smart contract entrypoint `nftContrat?.methods.sell(BigNumber(token_id) as nat,BigNumber(price * 1000000) as nat).send()`. We multiply the XTZ price by 10^6 because the smart contract manipulates mutez.
 
-## Let's play : Sell
+### - Let's play : Sell
 
 1. Connect with your wallet and choose `alice` account (or one of the administrators you set on the smart contract earlier). You are redirected to the Administration /mint page as there is no NFT minted yet
 
@@ -567,7 +572,8 @@ You are the owner of this bottle so you can create an offer to sell it.
 - Click on `SELL` button
 - Wait a bit for the confirmation, then after auto-refresh you have an offer for this NFT
 
-## Wine Catalogue page
+
+### Step 2: Edit the Wine Catalogue page
 
 Edit the Wine Catalogue page on `./src/WineCataloguePage.tsx`
 
@@ -800,7 +806,7 @@ export default function WineCataloguePage() {
 }
 ```
 
-## Buy some wine!
+### - Buy some wine!
 
 Now you can see on `Trading` menu the `Wine catalogue` submenu, click on it.
 
@@ -815,7 +821,7 @@ As you are connected with the default administrator you can see your own unique 
 - Click on `bottle offers` sub menu
 - You are now the owner of this bottle, you can resell it at your own price, etc ...
 
-## Conclusion
+## Summary
 
 You created an NFT collection marketplace from the Ligo library, now you can buy and sell NFTs at your own price.
 
