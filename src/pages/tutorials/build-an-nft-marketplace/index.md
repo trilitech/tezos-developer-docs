@@ -6,15 +6,59 @@ lastUpdated: 22nd September 2023
 
 ## Introduction
 
+Welcome to the first part of our four-part series on building an NFT Marketplace. This tutorial aims to equip you with the knowledge and tools to create a robust NFT platform. 
+
+In the first part, you will learn:
+- The concepts of FA, IPFS, and smart contracts.
+- How to build an NFT Marketplace from the ligo/fa library.
+
+{% callout type="note" %} 
+Here we present Part 1 of 4 of a training course by [Marigold](https://www.marigold.dev/). You can find all 4 parts on github.
+- [NFT 1](https://github.com/marigold-dev/training-nft-1): use FA2 NFT template to understand the basics
+- [NFT 2](https://github.com/marigold-dev/training-nft-2): finish FA2 NFT marketplace to introduce sales
+- [NFT 3](https://github.com/marigold-dev/training-nft-3): use FA2 single asset template to build another kind of marketplace
+- [NFT 4](https://github.com/marigold-dev/training-nft-4): use FA2 multi asset template to build last complex kind of marketplace
+{% /callout %} 
+
+## Key Concepts
+
+To begin with, we will introduce you to the critical concepts of FA, IPFS, and smart contracts used for the marketplace.
+
+### What is FA?
+
 Business objects managed by a blockchain are called `assets`. On Tezos you will find the term `Financial Asset or FA` with different versions 1, 2, or 2.1.
 
 Here are different categorizations of assets.
 
 ![](http://jingculturecommerce.com/wp-content/uploads/2021/03/nft-assets-1024x614.jpg)
 
+### What is IPFS?
+
+The InterPlanetary File System is a protocol and peer-to-peer network for storing and sharing data in a distributed file system. IPFS uses content-addressing to uniquely identify each file in a global namespace connecting all computing devices. In this tutorial, we will be using [Pinata](https://www.pinata.cloud/) (free developer plan) to store the metadata for NFTs. An alternative would be to install a local IPFS node or an API gateway backend with a usage quota.
+
+### Smart Contracts Overview
+
+We will use two contracts for the marketplace.
+
+#### 1. The token contract
+
+On Tezos, FA2 is the standard for Non-Fungible Token contracts. We will be using the [template provided by Ligo](https://packages.ligolang.org/package/@ligo/fa) to build out the Token Contract. The template contains the basic entrypoints for building a Fungible or Non-fungible token including:
+
+- Transfer
+- Balance_of
+- Update_operators
+
+#### 2. Marketplace unique contract
+
+On a second time, we will import the token contract into the marketplace unique contract. The latter will bring missing features as:
+
+- Mint
+- Buy
+- Sell
+
 ## Wine marketplace
 
-We are going to build a Wine marketplace extending the `@ligo/fa` package from the [Ligo repository](https://packages.ligolang.org/). The goal is to showcase how to extend an existing smart contract and build a frontend on top of it.
+After grasping the key concepts, we'll proceed to build a Wine marketplace extending the `@ligo/fa` package from the [Ligo repository](https://packages.ligolang.org/). The goal is to showcase how to extend an existing smart contract and build a frontend on top of it.
 
 The Wine marketplace is adding these features on top of a generic NFT contract :
 
@@ -27,14 +71,6 @@ You can play with the [final demo](https://demo.winefactory.marigold.dev/).
 
 ![nftfactory.png](/images/nftfactory.png)
 
-{% callout type="note" %} 
-Here we present Part 1 of 4 of a training course by [Marigold](https://www.marigold.dev/). You can find all 4 parts on github.
-- [NFT 1](https://github.com/marigold-dev/training-nft-1): use FA2 NFT template to understand the basics
-- [NFT 2](https://github.com/marigold-dev/training-nft-2): finish FA2 NFT marketplace to introduce sales
-- [NFT 3](https://github.com/marigold-dev/training-nft-3): use FA2 single asset template to build another kind of marketplace
-- [NFT 4](https://github.com/marigold-dev/training-nft-4): use FA2 multi asset template to build last complex kind of marketplace
-{% /callout %} 
-
 
 | Token template | # of token_type | # of item per token_type |
 | -------------- | --------------- | ------------------------ |
@@ -46,34 +82,9 @@ Here we present Part 1 of 4 of a training course by [Marigold](https://www.marig
 Because we are in web3, buy or sell features are a real payment system using on-chain XTZ tokens as money. This differs from traditional web2 applications where you have to integrate a payment system and so, pay extra fees
 {% /callout %}
 
-## Glossary
-
-## What is IPFS?
-
-The InterPlanetary File System is a protocol and peer-to-peer network for storing and sharing data in a distributed file system. IPFS uses content-addressing to uniquely identify each file in a global namespace connecting all computing devices. In this tutorial, we will be using [Pinata](https://www.pinata.cloud/) (free developer plan) to store the metadata for NFTs. An alternative would be to install a local IPFS node or an API gateway backend with a usage quota.
-
-## Smart Contracts
-
-We will use two contracts for the marketplace.
-
-### The token contract
-
-On Tezos, FA2 is the standard for Non-Fungible Token contracts. We will be using the [template provided by Ligo](https://packages.ligolang.org/package/@ligo/fa) to build out the Token Contract. The template contains the basic entrypoints for building a Fungible or Non-fungible token including:
-
-- Transfer
-- Balance_of
-- Update_operators
-
-### Marketplace unique contract
-
-On a second time, we will import the token contract into the marketplace unique contract. The latter will bring missing features as:
-
-- Mint
-- Buy
-- Sell
 
 ## Prerequisites
-
+Before building an NFT marketplace, ensure you have the following tools on hand.
 ### Required
 
 - [npm](https://nodejs.org/en/download/): front-end is a TypeScript React client app
@@ -93,7 +104,7 @@ On a second time, we will import the token contract into the marketplace unique 
 - [taqueria VS Code extension](https://marketplace.visualstudio.com/items?itemName=ecadlabs.taqueria-vscode): visualize your project and execute tasks
 
 
-## Smart contract
+## Build Your Own Smart contract
 
 We will use `taqueria` to shape the project structure, then create the NFT marketplace smart contract thanks to the `ligo/fa` library.
 
@@ -105,8 +116,8 @@ You will require to copy some code from this git repository later, so you can cl
  ```
 {% /callout %}
 
-### Taq'ify your project
-
+### Step 1: Taq'ify your project
+First, we will set up our smart contract structure.
 ```bash
 taq init training
 cd training
@@ -123,9 +134,9 @@ echo "{}" > esy.json
 
 **Your project is ready!**
 
-### FA2 contract
+### Step 2: FA2 contract
 
-We will rely on the Ligo FA library. To understand in detail how assets work on Tezos, please read below notes:
+Next, we will build the FA2 contract, which relies on the Ligo FA library. To understand in detail how assets work on Tezos, please read the notes below.
 
 - [FA2 standard](https://gitlab.com/tezos/tzip/-/blob/master/proposals/tzip-12/tzip-12.md)
 
@@ -139,9 +150,9 @@ Install the `ligo/fa` library locally:
 TAQ_LIGO_IMAGE=ligolang/ligo:0.73.0 taq ligo --command "install @ligo/fa"
 ```
 
-### NFT marketplace contract
+### Step 3: NFT marketplace contract
 
-Create the NFT marketplace contract with `taqueria`
+Then, we will create the NFT marketplace contract with `taqueria`
 
 ```bash
 taq create contract nft.jsligo
@@ -416,8 +427,8 @@ taq deploy nft.tz -e "testing"
 ** We have finished the backend! **
 
 ## NFT Marketplace frontend
-
-## Get the react boilerplate
+This section guides you step-by-step in setting up an intuitive frontend.
+### Step 1: Get the react boilerplate
 
 To save time, we have a [boilerplate ready for the UI](https://github.com/marigold-dev/training-nft-1/tree/main/reactboilerplateapp)
 
@@ -456,11 +467,11 @@ If you try to connect you are redirected to `/` path that is also the wine catal
 
 There are no bottle collections yet, so we need to create the mint page.
 
-## Mint Page
+### Step 2: Mint Page
 
 Edit default Mint Page on `./src/MintPage.tsx`
 
-### Add a form to create the NFT
+#### Add a form to create the NFT
 
 In `MintPage.tsx`, replace the `HTML` template with this one :
 
@@ -619,7 +630,7 @@ In `MintPage.tsx`, replace the `HTML` template with this one :
     </Paper>
 ```
 
-Add `formik` form to your Component function inside the same `MintPage.tsx` file:
+Then, add `formik` form to your Component function inside the same `MintPage.tsx` file:
 
 ```typescript
 const validationSchema = yup.object({
@@ -697,9 +708,9 @@ import { TZIP21TokenMetadata, UserContext, UserContextType } from "./App";
 import { address } from "./type-aliases";
 ```
 
-### Add mint missing function
+#### Add mint missing function
 
-Add the `mint` function and related imports :
+First, add the `mint` function and related imports :
 
 ```typescript
 import { useSnackbar } from "notistack";
@@ -806,7 +817,7 @@ useEffect(() => {
 }, [storage?.token_ids]);
 ```
 
-### Display all minted bottles
+#### Display all minted bottles
 
 Replace the `"//TODO"` keyword with this template
 
@@ -966,7 +977,7 @@ Now you can see all NFTs
 
 ![wine collection](/images/winecollection.png)
 
-## Conclusion
+## Summary
 
 You are able to create an NFT collection marketplace from the `ligo/fa` library.
 
