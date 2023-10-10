@@ -22,9 +22,12 @@ yarn install
 cd ..
 ```
 
-## Smart Contract
+## Smart Contract Modification
 
-Point to the new template changing the first import line of `nft.jsligo` file to
+There are 5 modification steps in the smart contract to construct the core backend structure of the NFT marketplace.
+
+### Step 1: Change the Namespace
+First, point to the new template changing the first import line of `nft.jsligo` file to
 
 ```ligolang
 #import "@ligo/fa/lib/fa2/asset/multi_asset.jsligo" "MULTIASSET"
@@ -36,7 +39,9 @@ You will re-introduce the `token_id` as there are several collections now.
 
 We can remove `totalSupply` and add two extra key sets `owner_token_ids` and `token_ids`
 
-Change the `storage` definition
+### Step 2: Change the `storage` definition
+
+Then, we will change the definations of `storage`.
 
 ```ligolang
 type offer = {
@@ -56,7 +61,11 @@ type storage = {
 };
 ```
 
-Update `mint` function
+### Step 3: Update Functions
+
+In this step, we will modify `mint`, `sell` and `buy` functions respectively.
+
+**1. Update `mint` function**
 
 ```ligolang
 @entry
@@ -104,8 +113,9 @@ const mint = (
   ]
 };
 ```
+**2. Update `sell` function**
 
-You also need to update `sell` function
+You also need to update `sell` function.
 
 ```ligolang
 @entry
@@ -137,6 +147,8 @@ const sell = ([token_id, quantity, price]: [nat, nat, nat], s: storage): ret => 
   ]
 };
 ```
+
+**3. Update `buy` function**
 
 Same for the `buy` function
 
@@ -199,6 +211,8 @@ On `transfer,balance_of and update_ops` functions, change :
 - `owners: s.owners` by `owner_token_ids: s.owner_token_ids,token_ids: s.token_ids`
 - `owners: ret2[1].owners` by `owner_token_ids: ret2[1].owner_token_ids,token_ids: ret2[1].token_ids`
 
+### Step 4: Modify Storage File
+
 Change the initial storage to
 
 ```ligolang
@@ -245,6 +259,7 @@ const default_storage =
 
 ```
 
+### Step 5: Compile and Deploy
 Compile again and deploy to ghostnet
 
 ```bash
@@ -264,7 +279,8 @@ taq deploy nft.tz -e "testing"
 
 ## NFT Marketplace front
 
-Generate Typescript classes and go to the frontend to run the server
+After finishing the backend structure, we will generate Typescript classes and then move to the frontend to run the server. There are four steps to set up the frontend. After that, there will be a small interaction where you can test your work.
+
 
 ```bash
 taq generate types ./app/src
@@ -273,7 +289,7 @@ yarn install
 yarn dev
 ```
 
-## Update in `App.tsx`
+### Step 1: Update in `App.tsx`
 
 We forget about `token_id == 0` and fetch back all tokens.
 Replace the function `refreshUserContextOnPageReload` with the following content
@@ -317,7 +333,7 @@ const refreshUserContextOnPageReload = async () => {
 };
 ```
 
-## Update in `MintPage.tsx`
+### Step 2: Update in `MintPage.tsx`
 
 Just update the `mint` call and add the missing quantity, and add back the `token_id` counter incrementer
 
@@ -761,7 +777,7 @@ export default function MintPage() {
 }
 ```
 
-## Update in `OffersPage.tsx`
+### Step 3: Update in `OffersPage.tsx`
 
 Copy the content below, and paste it to `OffersPage.tsx`
 
@@ -1123,7 +1139,7 @@ export default function OffersPage() {
 }
 ```
 
-## Update in `WineCataloguePage.tsx`
+### Step 4: Update in `WineCataloguePage.tsx`
 
 Copy the content below, and paste it to `WineCataloguePage.tsx`
 
@@ -1443,7 +1459,7 @@ For buying,
 
 To add more collections, go to the Mint page and repeat the process.
 
-## Conclusion
+## Summary
 
 You are able to use any NFT template from the Ligo library.
 

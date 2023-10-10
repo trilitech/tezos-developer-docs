@@ -22,9 +22,13 @@ yarn install
 cd ..
 ```
 
-## Smart Contract
+## Smart Contract Modification
 
-Point to the new template changing the first import line of your `nft.jsligo` file to
+There are 5 modification steps in the smart contract to construct the core backend structure of the NFT marketplace.
+
+### Step 1: Change the Namespace
+
+First, point to the new template changing the first import line of your `nft.jsligo` file to
 
 ```ligolang
 #import "@ligo/fa/lib/fa2/asset/single_asset.jsligo" "SINGLEASSET"
@@ -32,7 +36,8 @@ Point to the new template changing the first import line of your `nft.jsligo` fi
 
 It means you will change the namespace from `NFT` to `SINGLEASSET` everywhere (like this you are sure to use the correct library)
 
-Change the `offer` and `storage` definitions
+### Step 2: Change the `offer` and `storage` Definitions
+Then, we will change the definations of `offer` and `storage`.
 
 ```ligolang
 type offer = {
@@ -63,7 +68,13 @@ Explanation:
 
 - Replace all `token_ids` fields by `owners` field on the file `nft.jsligo`
 
-Edit the `mint` function to add the `quantity` extra param, and finally change the `return`
+### Step 3: Modify Functions
+
+In this step, we will modify `mint`, `sell` and `buy` functions respectively.
+
+**1. Modify Mint Function**
+
+First, we will edit the `mint` function to add the `quantity` extra param, and finally change the `return`
 
 ```ligolang
 @entry
@@ -106,7 +117,9 @@ const mint = (
 };
 ```
 
-Edit the `sell` function to replace `token_id` by `quantity`, we add/override an offer for the user
+**2. Modify Sell Function**
+
+Then, we will edit the `sell` function to replace `token_id` by `quantity`, we add/override an offer for the user
 
 ```ligolang
 @entry
@@ -147,7 +160,9 @@ const sell = ([quantity, price]: [nat, nat], s: storage): ret => {
 };
 ```
 
-Also edit the `buy` function to replace `token_id` by `quantity`, check quantities, check final price is enough and update the current offer
+**3. Modify Buy Function**
+
+Finaly, we will edit the `buy` function to replace `token_id` by `quantity`, check quantities, check final price is enough and update the current offer
 
 ```ligolang
 @entry
@@ -203,7 +218,9 @@ const buy = ([quantity, seller]: [nat, address], s: storage): ret => {
 };
 ```
 
-Edit the storage file `nft.storageList.jsligo` as it. (:warning: you can change the `administrator` address to your own address or keep `alice`)
+### Step 4: Modify Storage File
+
+In this step, we will edit the storage file `nft.storageList.jsligo` as it. (:warning: you can change the `administrator` address to your own address or keep `alice`)
 
 ```ligolang
 #import "nft.jsligo" "Contract"
@@ -248,6 +265,8 @@ const default_storage =
 
 ```
 
+### Step 5: Compile and Deploy
+
 Compile again and deploy to ghostnet.
 
 ```bash
@@ -267,7 +286,7 @@ We finished the smart contract! _(backend)_
 
 ## NFT Marketplace front
 
-Generate Typescript classes and go to the frontend to run the server
+After finishing the backend structure, we will generate Typescript classes and then move to the frontend to run the server. There are four steps to set up the frontend. After that, there will be a small interaction where you can test your work.
 
 ```bash
 taq generate types ./app/src
@@ -276,7 +295,7 @@ yarn install
 yarn dev
 ```
 
-### Update in `App.tsx`
+### Step 1: Update in `App.tsx`
 
 We just need to fetch the token_id == 0.
 Replace the function `refreshUserContextOnPageReload` by
@@ -323,7 +342,7 @@ const refreshUserContextOnPageReload = async () => {
 };
 ```
 
-### Update in `MintPage.tsx`
+### Step 2: Update in `MintPage.tsx`
 
 We introduce the quantity and remove the `token_id` variable. Replace the full file with the following content:
 
@@ -757,7 +776,7 @@ export default function MintPage() {
 }
 ```
 
-### Update in `OffersPage.tsx`
+### Step 3: Update in `OffersPage.tsx`
 
 We introduce the quantity and remove the `token_id` variable. Replace the full file with the following content:
 
@@ -1079,7 +1098,7 @@ export default function OffersPage() {
 }
 ```
 
-### Update in `WineCataloguePage.tsx`
+### Step 4: Update in `WineCataloguePage.tsx`
 
 We introduce the quantity and remove the `token_id` variable. Replace the full file with the following content:
 
@@ -1341,7 +1360,7 @@ export default function WineCataloguePage() {
 }
 ```
 
-### Let's play
+## Let's play
 
 1. Connect with your wallet and choose `alice` account (or one of the administrators you set on the smart contract earlier). You are redirected to the Administration/mint page as there is no minted NFT yet
 2. Create an asset, for example:
@@ -1387,7 +1406,7 @@ For buying,
 
 ![buy.png](/images/buy_part3.png)
 
-## Conclusion
+## Summary
 
 You are now able to play with a unique NFT collection from the Ligo library.
 
