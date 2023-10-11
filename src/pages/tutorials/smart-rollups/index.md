@@ -15,6 +15,7 @@ In this tutorial, you will learn:
 - How to respond to messages from Tezos in a smart rollup
 
 {% comment %}
+It would be good to add:
 - How to send messages from a smart rollup to Tezos
 {% /comment %}
 
@@ -38,10 +39,7 @@ Smart rollups can run any kind of applications that they want, such as:
 - Applications that communicate with other blockchains
 
 {% comment %}
-TODO discuss reveal data channel
-{% /comment %}
-{% comment %}
-TODO Could we install some of the tools in the docker container instead of making them install them locally?
+TODO Should this intro discuss the reveal data channel?
 {% /comment %}
 
 Rollups maintain consensus by publishing the hash of their state to Tezos, which other nodes can use to verify the rollup's behavior.
@@ -77,6 +75,10 @@ Smart rollups are like separate horizontally scaled teams, with Tezos layer 1 as
 ## Prerequisites
 
 To run this tutorial, make sure that the following tools are installed:
+
+{% comment %}
+TODO Could we install some of the tools in the docker container instead of making them install them locally?
+{% /comment %}
 
 - [Docker](https://www.docker.com/)
 
@@ -447,7 +449,7 @@ In these steps, you optimize the kernel:
    - `hello_world_kernel_installer.hex`: The hexadecimal representation of the installer kernel
    - `preimages/`: A directory that contains the preimages that allow nodes to restore the installer kernel to the original kernel code
 
-   When a node runs the installer kernel, it retrieves the preimages through the reveal data channel.
+   When a node runs the installer kernel, it retrieves the preimages through the reveal data channel, a channel that smart rollups use to communicate outside of layer 1.
    For more information about the reveal data channel, see [reveal data channel](https://tezos.gitlab.io/alpha/smart_rollups.html#reveal-data-channel).
 
 1. Verify the size of the installer kernel by running this command:
@@ -555,6 +557,8 @@ Now you can send messages to this rollup via Tezos layer 1 and act on them in th
 ## Next steps
 
 {% comment %}
+Commenting this out because there's not enough info for a tutorial user to do this without further information; consider adding this because it would be good to be able to send messages (that is, call contracts) from the rollup, and I don't know how you'd do that in the sandbox.
+
 Currently, your rollup and kernel are running in sandbox mode.
 If you want to explore further, you can try deploying the rollup to a testnet as you do in the [Deploy a smart contract](../deploy-your-first-smart-contract/) tutorial.
 The workflow for deploying to a testnet is similar to the workflow that you used to deploy to the sandbox:
