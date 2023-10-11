@@ -554,6 +554,7 @@ Now you can send messages to this rollup via Tezos layer 1 and act on them in th
 
 ## Next steps
 
+{% comment %}
 Currently, your rollup and kernel are running in sandbox mode.
 If you want to explore further, you can try deploying the rollup to a testnet as you do in the [Deploy a smart contract](../deploy-your-first-smart-contract/) tutorial.
 The workflow for deploying to a testnet is similar to the workflow that you used to deploy to the sandbox:
@@ -564,8 +565,9 @@ The workflow for deploying to a testnet is similar to the workflow that you used
 1. Originate the rollup to the testnet
 1. Start the rollup node
 1. Check the log file
+{% /comment %}
 
-You can also explore other smart rollup examples from the dedicated [kernel gallery](https://gitlab.com/tezos/kernel-gallery/-/tree/main/) or create your own.
+To continue your work with smart rollups, you can you can explore examples from the [kernel gallery](https://gitlab.com/tezos/kernel-gallery/-/tree/main/) or create your own.
 
 ## References
 
