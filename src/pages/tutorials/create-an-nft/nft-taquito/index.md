@@ -354,7 +354,7 @@ If you see an error, make sure that you copied the entire contract file.
    1. Leave the other fields blank and click **Estimate**.
    The IDE calculates the fees for the deployment.
 
-   1. Click **Deploy** and leave the window open to wait for the contract to be originate.
+   1. Click **Deploy** and leave the window open to wait for the contract to be originated.
 
       Originating the contract can take a few minutes.
       When the transaction completes, the window shows a message that the contract was deployed.
