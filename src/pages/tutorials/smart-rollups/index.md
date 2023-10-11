@@ -40,6 +40,9 @@ Smart rollups can run any kind of applications that they want, such as:
 {% comment %}
 TODO discuss reveal data channel
 {% /comment %}
+{% comment %}
+TODO Could we install some of the tools in the docker container instead of making them install them locally?
+{% /comment %}
 
 Rollups maintain consensus by publishing the hash of their state to Tezos, which other nodes can use to verify the rollup's behavior.
 The specific way that rollups publish their states and maintain consensus is beyond the scope of this tutorial.
@@ -275,7 +278,7 @@ Follow these steps to get the application code and build it:
 
 ## Part 2: Start a Tezos sandbox
 
-Follow these steps to set up a Tezos sandbox that you can use to test sending messages to the smart rollup.
+Follow these steps to set up a Tezos sandbox that you can use to test the smart rollup.
 These steps use the Octez command-line client to set up a sandbox in a Docker container:
 
 1. Pull the most recent Tezos Docker image, which contains the most recent version of Octez:
@@ -404,7 +407,7 @@ In these steps, you optimize the kernel:
 
    You can run this command inside or outside of the Docker container.
 
-   The size of the application and its dependencies may be 18MB or more, which is too large to deploy.
+   The size of the compiled kernel and its dependencies may be 18MB or more, which is too large to deploy.
 
 1. In a terminal window outside of the Docker container, run the `wasm-strip` command to reduce the size of the kernel:
 
@@ -459,7 +462,7 @@ In these steps, you optimize the kernel:
 ## Part 5: Deploy (originate) the rollup
 
 Smart rollups are originated in a way similar to smart contracts.
-Instead of running the `octez-client originate contract`, you run the `octez-client originate smart rollup` command.
+Instead of running the `octez-client originate contract` command, you run the `octez-client originate smart rollup` command.
 This command creates an address for the rollup and stores a small amount of data about it on layer 1.
 
 1. In the second terminal window, in the Docker container, in the `hello-world-kernel` folder, run this command to deploy the installer kernel to the Tezos sandbox:
@@ -475,11 +478,11 @@ This command creates an address for the rollup and stores a small amount of data
 
 ## Part 6: Run the smart rollup node
 
-Now that the smart rollup kernel is set up on layer 1, anyone can run a smart rollup node based on that kernel.
-Smart rollup nodes are similar to baking nodes, but they run the smart rollup code instead of baking Tezos blocks.
+Now that the smart rollup is originated on layer 1, anyone can run a smart rollup node for it.
+Smart rollup nodes are similar to baking nodes, but they run the smart rollup kernel instead of baking Tezos blocks.
 In these steps, you start a smart rollup node, but note that anyone can run a node based on your kernel, including people who want to verify the rollup's behavior.
 
-1. Copy the contents of the preimages folder to a folder that the rollup node can access by running these commands:
+1. Copy the contents of the `preimages` folder to a folder that the rollup node can access by running these commands:
 
    ```bash
    mkdir -p ~/.tezos-rollup-node/wasm_2_0_0
