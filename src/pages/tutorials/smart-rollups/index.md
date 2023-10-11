@@ -1,7 +1,7 @@
 ---
 id: smart-rollups-tutorial
 title: Deploy a smart rollup
-lastUpdated: 9th October 2023
+lastUpdated: 11th October 2023
 ---
 
 This tutorial covers how to deploy a smart rollup in a Tezos sandbox.
@@ -27,20 +27,15 @@ Smart rollups use Tezos for information and transactions but can run large appli
 In this way, smart rollups allow Tezos to scale to support large, complex applications without slowing Tezos itself.
 The processing that runs on Tezos itself is referred to as _layer 1_ and the processing that smart rollups run is referred to as _layer 2_.
 
+Rollups also have an outbox, which consists of calls to smart contracts on layer 1.
+These calls are how rollups send messages back to Tezos.
+
 Smart rollups can run any kind of applications that they want, such as:
 
 - Financial applications that use information and transactions from Tezos
 - Gaming applications that manipulate assets and keep them in sync with Tezos
 - Applications that run complex logic on NFTs or other types of tokens
 - Applications that communicate with other blockchains
-
-Smart rollups stay in sync with Tezos by passing messages to Tezos and receiving messages from Tezos and other rollups.
-Each Tezos block contains a global rollups inbox that contains messages from Tezos layer 1 to all rollups.
-Anyone can add a message to this inbox and all messages are visible to all rollups.
-Rollups receive this inbox, filter it to the messages that they are interested in, and act on them accordingly.
-
-Rollups also have an outbox, which consists of calls to smart contracts on layer 1.
-These calls are how rollups send messages back to Tezos.
 
 {% comment %}
 TODO discuss reveal data channel
@@ -57,6 +52,11 @@ This diagram shows a smart rollup interacting with layer 1 by receiving a messag
 <div style="width: 640px; height: 480px; margin: 10px; position: relative;"><iframe allowfullscreen frameborder="0" style="width:640px; height:480px" src="https://lucid.app/documents/embedded/74fd884e-9c71-409e-b7d3-c3a871a17178" id="KYtBl2woQVuV"></iframe></div>
 
 {% /html %}
+
+Smart rollups stay in sync with Tezos by passing messages to Tezos and receiving messages from Tezos and other rollups.
+Each Tezos block contains a global rollups inbox that contains messages from Tezos layer 1 to all rollups.
+Anyone can add a message to this inbox and all messages are visible to all rollups.
+Rollups receive this inbox, filter it to the messages that they are interested in, and act on them accordingly.
 
 ## Smart rollup analogy
 
