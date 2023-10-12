@@ -11,6 +11,7 @@ SmartPy has syntax similar to Python, but you don't need any experience with Pyt
 
 - If you are more familiar with OCaml, try [Deploy a smart contract with CameLIGO](/tutorials/deploy-your-first-smart-contract/ligo).
 - If you are more familiar with JavaScript, try [Deploy a smart contract with jsLIGO](/tutorials/deploy-your-first-smart-contract/jsligo).
+- To learn the Archetype language, try [Deploy a smart contract with Archetype](/tutorials/deploy-your-first-smart-contract/archetype).
 
 In this tutorial, you will learn how to:
 

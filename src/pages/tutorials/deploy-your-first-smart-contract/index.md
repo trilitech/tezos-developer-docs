@@ -2,7 +2,7 @@
 id: first-smart-contract-ov
 title: Deploy a smart contract
 authors: Tim McMackin
-lastUpdated: 14th September 2023
+lastUpdated: 11th October 2023
 ---
 
 This tutorial covers using the Octez command-line client to deploy a smart contract to Tezos.
@@ -26,3 +26,4 @@ You do not need any experience in these languages to run the tutorial.
 - To use SmartPy, a language similar to Python, see [Deploy a smart contract with SmartPy](./smartpy)
 - To use jsLIGO, a language similar to JavaScript and TypeScript, see [Deploy a smart contract with jsLIGO](./jsligo)
 - To use CameLIGO, a language similar to OCaml, see [Deploy a smart contract with CameLIGO](./ligo)
+- To use Archetype, a language that is specific to Tezos contracts, see [Deploy a smart contract with Archetype](./archetype).

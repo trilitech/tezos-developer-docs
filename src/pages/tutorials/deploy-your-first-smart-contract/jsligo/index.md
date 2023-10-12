@@ -11,6 +11,7 @@ Specifically, this tutorial uses the jsLIGO version of LIGO, which has syntax si
 
 - If you are more familiar with Python, try [Deploy a smart contract with SmartPy](/tutorials/deploy-your-first-smart-contract/smartpy).
 - If you are more familiar with OCaml, try [Deploy a smart contract with CameLIGO](/tutorials/deploy-your-first-smart-contract/ligo).
+- To learn the Archetype language, try [Deploy a smart contract with Archetype](/tutorials/deploy-your-first-smart-contract/archetype).
 
 In this tutorial, you will learn how to:
 

@@ -283,6 +283,10 @@ const tutorialNavigation = [
             title: 'jsLIGO',
             href: '/tutorials/deploy-your-first-smart-contract/jsligo',
           },
+          {
+            title: 'Archetype',
+            href: '/tutorials/deploy-your-first-smart-contract/archetype',
+          },
         ],
       },
       {
