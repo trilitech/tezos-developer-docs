@@ -100,7 +100,7 @@ Follow these steps to set your Octez client to use a testnet instead of the main
 
 1. On <https://teztnets.xyz/>, click the testnet to use, such as Ghostnet.
 
-1. Copy the one of the testnet's public RPC endpoints, such as `https://rpc.ghostnet.teztnets.xyz`.
+1. Copy the one of the testnets' public RPC endpoints, such as `https://rpc.ghostnet.teztnets.xyz`.
 
 1. Set your Octez client to use this testnet by running this command on the command line, replacing the testnet RPC URL with the URL that you copied:
 
@@ -274,7 +274,7 @@ Before you can deploy the contract to Tezos, you must compile it to Michelson, t
 For example, this command sets the storage at 10 and increments it by 32:
 
    ```bash
-   ligo run dry-run increment.jsligo -m Counter -e increment "Increment(32)" "10"
+   ligo run dry-run increment.jsligo -m Counter -e increment "32" "10"
    ```
 
    The terminal should show the response `(LIST_EMPTY(), 42)`.
