@@ -87,6 +87,80 @@ Eventually we should have the user create a local account and fund it with the f
 https://github.com/completium/completium-cli/issues/45
 {% /comment %}
 
+## Using a testnet
+
+Before you deploy your contract to the main Tezos network (referred to as *mainnet*), you can deploy it to a testnet.
+Testnets are useful for testing Tezos operations because testnets provide tokens for free so you can work with them without spending real tokens.
+
+Tezos testnets are listed on this site: <https://teztnets.xyz/>.
+
+The [Ghostnet](https://teztnets.xyz/ghostnet-about) testnet is a good choice for testing because it is intended to be long-lived, as opposed to shorter-term testnets that allow people to test new Tezos features.
+
+By default, completium-cli uses Ghostnet, but these steps verify the network:
+
+1. Verify that completium-cli is set to use Ghostnet by running this command:
+
+   ```bash
+   completium-cli show endpoint
+   ```
+
+   The response shows the RPC endpoint that completium-cli is using, which is its access point to the Tezos network.
+   If the response shows `Current network: ghost`, it is using Ghostnet.
+
+1. If completium-cli is not using Ghostnet, switch to Ghostnet by running this command, selecting any endpoint labeled "ghost," and pressing Enter:
+
+   ```bash
+   completium-cli switch endpoint
+   ```
+
+## Creating a local wallet
+
+Deploying and using a smart contract costs fees, so you need a local wallet and XTZ tokens.
+You could use the default accounts that are included in completium-cli, but follow these steps to create your own local wallet on a test network:
+
+1. Run the following command to generate a local wallet, replacing `local_wallet` with a name for your wallet:
+
+   ```bash
+   completium-cli generate account as local_wallet
+   ```
+
+1. Switch to the account that you created by running this command, selecting the new account, and pressing Enter:
+
+   ```bash
+   completium-cli switch account
+   ```
+
+1. Get the address for the wallet by running this command:
+
+   ```bash
+   completium-cli show account
+   ```
+
+   The result shows the address of the account, which begins with "tz1".
+
+   You need the wallet address to send funds to the wallet, to deploy the contract, and to send transactions to the contract.
+
+1. Copy the address for the account, which is labeled as the "public key hash" in the response to the previous command.
+The address starts with "tz1".
+
+1. On the testnets page at <https://teztnets.xyz/>, click the faucet link for the Ghostnet testnet, which is at <https://faucet.ghostnet.teztnets.xyz>.
+
+1. On the faucet page, paste your wallet address into the input field labeled "Or fund any address" and click the button for the amount of XTZ to add to your wallet.
+1 XTZ is enough for the tutorial.
+It may take a few minutes for the faucet to send the tokens and for those tokens to appear in your wallet.
+
+   You can use the faucet as much as you need to get tokens on the testnet, but those tokens are worthless and cannot be used on mainnet.
+
+   ![Fund your wallet using the Ghostnet Faucet](/images/wallet-funding.png)
+
+1. Run this command to check the balance of your wallet:
+
+   ```bash
+   completium-cli show account
+   ```
+
+If your wallet is set up correctly and the faucet has sent tokens to it, the response includes the balance of your wallet.
+
 ## Create the contract
 
 The contract that you will create has these basic parts:
@@ -176,75 +250,6 @@ entry reset() {
   value := 0
 }
 ```
-
-## Using a testnet and a local wallet
-
-Before you deploy your contract to the main Tezos network (referred to as *mainnet*), you can deploy it to a testnet.
-Testnets are useful for testing Tezos operations because testnets provide tokens for free so you can work with them without spending real tokens.
-
-Tezos testnets are listed on this site: <https://teztnets.xyz/>.
-
-The [Ghostnet](https://teztnets.xyz/ghostnet-about) testnet is a good choice for testing because it is intended to be long-lived, as opposed to shorter-term testnets that allow people to test new Tezos features.
-
-By default, completium-cli uses Ghostnet, but these steps verify the network:
-
-1. Verify that completium-cli is set to use Ghostnet by running this command:
-
-   ```bash
-   completium-cli show endpoint
-   ```
-
-   The response shows the RPC endpoint that completium-cli is using, which is its access point to the Tezos network.
-   If the response shows `Current network: ghost`, it is using Ghostnet.
-
-1. If completium-cli is not using Ghostnet, switch to Ghostnet by running this command, selecting any endpoint labeled "ghost," and pressing Enter:
-
-   ```bash
-   completium-cli switch endpoint
-   ```
-
-1. Run this command to show the accounts in completium-cli:
-
-   ```bash
-   completium-cli show accounts
-   ```
-
-   The response is a list of accounts that completium-cli can use.
-
-1. Switch to the account named "alice" by running this command, selecting "alice," and pressing Enter:
-
-   ```bash
-   completium-cli switch account
-   ```
-
-1. Print information about the account by running this command:
-
-   ```bash
-   completium-cli show account
-   ```
-
-   The response shows the name of the current account, its address, and its balance in XTZ.
-   The account probably has enough tokens to deploy and use smart contracts, but for practice, the next steps walk you through funding the account with a faucet.
-   You can use the faucet to get tokens for any testnet account, including accounts that you create later and in other applications.
-
-1. Copy the address for the account, which is labeled as the "public key hash" in the response to the previous command.
-The address starts with "tz1".
-
-1. On the testnets page at <https://teztnets.xyz/>, click the faucet link for the testnet you are using.
-For example, the Ghostnet faucet is at <https://faucet.ghostnet.teztnets.xyz>.
-
-1. On the faucet page, paste the wallet address into the input field labeled "Or fund any address" and click the button for the amount of XTZ to add to the wallet.
-1 XTZ is enough to deploy and work with the contract.
-It may take a few minutes for the faucet to send the tokens and for those tokens to appear in the wallet.
-
-   You can use the faucet as much as you need to get tokens on the testnet, but those tokens are worthless and cannot be used on mainnet.
-
-   ![Fund your wallet using the Ghostnet Faucet](/images/wallet-funding.png)
-
-1. Run the `completium-cli show account` command again and see that the balance of the account has increased.
-
-You can use the faucet to fund any account in this way so you have enough tokens to test your work on Ghostnet.
-Note that the "alice" account is shared by many people who use Ghostnet.
 
 ## Deploying (originating) to the testnet
 
