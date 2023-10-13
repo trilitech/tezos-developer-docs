@@ -1,10 +1,14 @@
 ---
-id: nft-marketplace-part-2
+id: build-an-nft-marketplace
 title: NFT Marketplace Part 2
-lastUpdated: 7th July 2023
+lastUpdated: 11th October 2023
 ---
 
-This time we will add the ability to buy and sell an NFT!
+## Introduction
+
+![https://img.etimg.com/thumb/msid-71286763,width-1070,height-580,overlay-economictimes/photo.jpg](https://img.etimg.com/thumb/msid-71286763,width-1070,height-580,overlay-economictimes/photo.jpg)
+
+This time, buy and sell an NFT feature is added !
 
 Keep your code from the previous lesson or get the solution [here](https://github.com/marigold-dev/training-nft-1/tree/main/solution)
 
@@ -24,25 +28,23 @@ Add the following code sections on your `nft.jsligo` smart contract
 Add offer type
 
 ```ligolang
-type offer = {
+export type offer = {
   owner : address,
   price : nat
 };
 ```
 
-Add `offers` field to storage
+Add `offers` field to storage, it should look like this below :
 
 ```ligolang
-type storage =
-  {
-    administrators: set<address>,
-    offers: map<nat,offer>,  //user sells an offer
-    ledger: NFT.Ledger.t,
-    metadata: NFT.Metadata.t,
-    token_metadata: NFT.TokenMetadata.t,
-    operators: NFT.Operators.t,
-    token_ids : set<NFT.token_id>
-  };
+export type storage = {
+  administrators: set<address>,
+  offers: map<nat, offer>, //user sells an offer
+  ledger: FA2Impl.NFT.ledger,
+  metadata: FA2Impl.TZIP16.metadata,
+  token_metadata: FA2Impl.TZIP12.tokenMetadata,
+  operators: FA2Impl.NFT.operators
+};
 ```
 
 Explanation:
@@ -50,18 +52,51 @@ Explanation:
 - an `offer` is an NFT _(owned by someone)_ with a price
 - `storage` has a new field to store `offers`: a `map` of offers
 
-Update also the initial storage on file `nft.storageList.jsligo` to initialize `offers`
+Update the initial storage on file `nft.storageList.jsligo` to initialize `offers` field. Here is what it should look like :
 
 ```ligolang
-...
-   offers: Map.empty as map<nat,Contract.offer>,
-...
+#import "nft.jsligo" "Contract"
+
+const default_storage : Contract.storage = {
+    administrators: Set.literal(
+        list(["tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb" as address])
+    ) as set<address>,
+    offers: Map.empty as map<nat, Contract.offer>,
+    ledger: Big_map.empty as Contract.FA2Impl.NFT.ledger,
+    metadata: Big_map.literal(
+        list(
+            [
+                ["", bytes `tezos-storage:data`],
+                [
+                    "data",
+                    bytes
+                    `{
+      "name":"FA2 NFT Marketplace",
+      "description":"Example of FA2 implementation",
+      "version":"0.0.1",
+      "license":{"name":"MIT"},
+      "authors":["Marigold<contact@marigold.dev>"],
+      "homepage":"https://marigold.dev",
+      "source":{
+        "tools":["Ligo"],
+        "location":"https://github.com/ligolang/contract-catalogue/tree/main/lib/fa2"},
+      "interfaces":["TZIP-012"],
+      "errors": [],
+      "views": []
+      }`
+                ]
+            ]
+        )
+    ) as Contract.FA2Impl.TZIP16.metadata,
+    token_metadata: Big_map.empty as Contract.FA2Impl.TZIP12.tokenMetadata,
+    operators: Big_map.empty as Contract.FA2Impl.NFT.operators,
+};
 ```
 
 Finally, compile the contract
 
 ```bash
-TAQ_LIGO_IMAGE=ligolang/ligo:0.73.0 taq compile nft.jsligo
+TAQ_LIGO_IMAGE=ligolang/ligo:1.0.0 taq compile nft.jsligo
 ```
 
 ### Sell at an offer price
@@ -74,22 +109,20 @@ const sell = ([token_id, price]: [nat, nat], s: storage): ret => {
   //check balance of seller
 
   const sellerBalance =
-    NFT.Storage.get_balance(
+    FA2Impl.NFT.get_balance(
+      [Tezos.get_source(), token_id],
       {
         ledger: s.ledger,
         metadata: s.metadata,
         operators: s.operators,
         token_metadata: s.token_metadata,
-        token_ids: s.token_ids
-      },
-      Tezos.get_source(),
-      token_id
+      }
     );
   if (sellerBalance != (1 as nat)) return failwith("2");
   //need to allow the contract itself to be an operator on behalf of the seller
 
   const newOperators =
-    NFT.Operators.add_operator(
+    FA2Impl.Sidecar.add_operator(
       s.operators,
       Tezos.get_source(),
       Tezos.get_self_address(),
@@ -116,11 +149,11 @@ Explanation:
 
 - User must have enough tokens _(wine bottles)_ to place an offer
 - the seller will set the NFT marketplace smart contract as an operator. When the buyer sends his money to buy the NFT, the smart contract will change the NFT ownership _(it is not interactive with the seller, the martketplace will do it on behalf of the seller based on the offer data)_
-- we update the `storage` to publish the offer
+- `storage` is updated with `offer` field
 
 ### Buy a bottle on the marketplace
 
-Now that we have offers available on the marketplace, let's buy bottles!
+Now that there are offers available on the marketplace, let's buy bottles!
 
 Edit the smart contract to add the `buy` feature
 
@@ -129,11 +162,11 @@ Edit the smart contract to add the `buy` feature
 const buy = ([token_id, seller]: [nat, address], s: storage): ret => {
   //search for the offer
 
-  return match(
-    Map.find_opt(token_id, s.offers),
-    {
-      None: () => failwith("3"),
-      Some: (offer: offer) => {
+  return match(Map.find_opt(token_id, s.offers)) {
+    when (None()):
+      failwith("3")
+    when (Some(offer)):
+      do {
         //check if amount have been paid enough
 
         if (Tezos.get_amount() < offer.price * (1 as mutez)) return failwith(
@@ -150,7 +183,7 @@ const buy = ([token_id, seller]: [nat, address], s: storage): ret => {
         //transfer tokens from seller to buyer
 
         const ledger =
-          NFT.Ledger.transfer_token_from_user_to_user(
+          FA2Impl.Sidecar.transfer_token_from_user_to_user(
             s.ledger,
             token_id,
             seller,
@@ -161,14 +194,11 @@ const buy = ([token_id, seller]: [nat, address], s: storage): ret => {
         return [
           list([op]) as list<operation>,
           {
-            ...s,
-            offers: Map.update(token_id, None(), s.offers),
-            ledger: ledger
+            ...s, offers: Map.update(token_id, None(), s.offers), ledger: ledger
           }
         ]
       }
-    }
-  )
+  }
 };
 ```
 
@@ -180,10 +210,10 @@ Explanation:
 
 ### Compile and deploy
 
-We finished the smart contract implementation of this second training, let's deploy to ghostnet.
+Smart contract implementation of this second training is finished, let's deploy to ghostnet.
 
 ```bash
-TAQ_LIGO_IMAGE=ligolang/ligo:0.73.0 taq compile nft.jsligo
+TAQ_LIGO_IMAGE=ligolang/ligo:1.0.0 taq compile nft.jsligo
 taq deploy nft.tz -e "testing"
 ```
 
@@ -191,11 +221,11 @@ taq deploy nft.tz -e "testing"
 ┌──────────┬──────────────────────────────────────┬───────┬──────────────────┬────────────────────────────────┐
 │ Contract │ Address                              │ Alias │ Balance In Mutez │ Destination                    │
 ├──────────┼──────────────────────────────────────┼───────┼──────────────────┼────────────────────────────────┤
-│ nft.tz   │ KT1WZFHYKPpfjPKMsCqLRQJzSUSrBWAm3gKC │ nft   │ 0                │ https://ghostnet.ecadinfra.com │
+│ nft.tz   │ KT1KyV1Hprert33AAz5B94CLkqAHdKZU56dq │ nft   │ 0                │ https://ghostnet.ecadinfra.com │
 └──────────┴──────────────────────────────────────┴───────┴──────────────────┴────────────────────────────────┘
 ```
 
-**We have implemented and deployed the smart contract (backend)!**
+**Smart contract (backend) is implmented and deployed!**
 
 ## NFT Marketplace front
 
@@ -217,6 +247,8 @@ Add this code inside the file :
 ```typescript
 import { InfoOutlined } from "@mui/icons-material";
 import SellIcon from "@mui/icons-material/Sell";
+
+import * as api from "@tzkt/sdk-api";
 
 import {
   Box,
@@ -260,13 +292,17 @@ type Offer = {
 };
 
 export default function OffersPage() {
+  api.defaults.baseUrl = "https://api.ghostnet.tzkt.io";
+
   const [selectedTokenId, setSelectedTokenId] = React.useState<number>(0);
   const [currentPageIndex, setCurrentPageIndex] = useState<number>(1);
 
-  let [offersTokenIDMap, setOffersTokenIDMap] = React.useState<Map<nat, Offer>>(
-    new Map()
+  let [offersTokenIDMap, setOffersTokenIDMap] = React.useState<
+    Map<string, Offer>
+  >(new Map());
+  let [ownerTokenIds, setOwnerTokenIds] = React.useState<Set<string>>(
+    new Set()
   );
-  let [ownerTokenIds, setOwnerTokenIds] = React.useState<Set<nat>>(new Set());
 
   const {
     nftContrat,
@@ -299,20 +335,31 @@ export default function OffersPage() {
       ownerTokenIds = new Set();
       offersTokenIDMap = new Map();
 
-      await Promise.all(
-        storage.token_ids.map(async (token_id) => {
-          let owner = await storage.ledger.get(token_id);
-          if (owner === userAddress) {
-            ownerTokenIds.add(token_id);
+      const token_metadataBigMapId = (
+        storage.token_metadata as unknown as { id: BigNumber }
+      ).id.toNumber();
 
-            const ownerOffers = await storage.offers.get(token_id);
-            if (ownerOffers) offersTokenIDMap.set(token_id, ownerOffers);
+      const token_ids = await api.bigMapsGetKeys(token_metadataBigMapId, {
+        micheline: "Json",
+        active: true,
+      });
+
+      await Promise.all(
+        token_ids.map(async (token_idKey) => {
+          const token_idNat = new BigNumber(token_idKey.key) as nat;
+
+          let owner = await storage.ledger.get(token_idNat);
+          if (owner === userAddress) {
+            ownerTokenIds.add(token_idKey.key);
+
+            const ownerOffers = await storage.offers.get(token_idNat);
+            if (ownerOffers) offersTokenIDMap.set(token_idKey.key, ownerOffers);
 
             console.log(
               "found for " +
                 owner +
                 " on token_id " +
-                token_id +
+                token_idKey.key +
                 " with balance " +
                 1
             );
@@ -419,9 +466,8 @@ export default function OffersPage() {
                             </Typography>
                             <Typography>
                               {"Description : " +
-                                nftContratTokenMetadataMap.get(
-                                  token_id.toNumber()
-                                )?.description}
+                                nftContratTokenMetadataMap.get(token_id)
+                                  ?.description}
                             </Typography>
                           </Box>
                         }
@@ -429,16 +475,14 @@ export default function OffersPage() {
                         <InfoOutlined />
                       </Tooltip>
                     }
-                    title={
-                      nftContratTokenMetadataMap.get(token_id.toNumber())?.name
-                    }
+                    title={nftContratTokenMetadataMap.get(token_id)?.name}
                   />
                   <CardMedia
                     sx={{ width: "auto", marginLeft: "33%" }}
                     component="img"
                     height="100px"
                     image={nftContratTokenMetadataMap
-                      .get(token_id.toNumber())
+                      .get(token_id)
                       ?.thumbnailUri?.replace(
                         "ipfs://",
                         "https://gateway.pinata.cloud/ipfs/"
@@ -478,7 +522,7 @@ export default function OffersPage() {
                       <form
                         style={{ width: "100%" }}
                         onSubmit={(values) => {
-                          setSelectedTokenId(token_id.toNumber());
+                          setSelectedTokenId(Number(token_id));
                           formik.handleSubmit(values);
                         }}
                       >
@@ -529,33 +573,25 @@ export default function OffersPage() {
 }
 ```
 
-Explanation:
+Explanation :
 
-- the template will display all owned NFTs. Only NFTs belonging to the logged user are selected
-- for each NFT, we have a form to make an offer at a price
-- if you do an offer, it calls the `sell` function and the smart contract entrypoint `nftContrat?.methods.sell(BigNumber(token_id) as nat,BigNumber(price * 1000000) as nat).send()`. We multiply the XTZ price by 10^6 because the smart contract manipulates mutez.
+- the template displays all owned NFTs. Only NFTs belonging to the logged user are selected
+- for each NFT, there is a form to make an offer at a price
+- if you do an offer, it calls the `sell` function and the smart contract entrypoint `nftContrat?.methods.sell(BigNumber(token_id) as nat,BigNumber(price * 1000000) as nat).send()`. Multiply the XTZ price by 10^6 because the smart contract manipulates mutez.
 
 ## Let's play : Sell
 
-1. Connect with your wallet and choose `alice` account (or one of the administrators you set on the smart contract earlier). You are redirected to the Administration /mint page as there is no NFT minted yet
+- Connect with your wallet and choose **alice** account (or one of the administrators you set on the smart contract earlier). You are redirected to the Administration /mint page as there is no NFT minted yet
+- Enter these values on the form for example :
+  - `name`: Saint Emilion - Franc la Rose
+  - `symbol`: SEMIL
+  - `description`: Grand cru 2007
+- Click on **Upload an image** and select a bottle picture on your computer
+- Click on the Mint button
 
-2. Enter these values on the form for example :
+Your picture is pushed to IPFS and displayed, then your wallet ask you to sign the mint operation.
 
-- `name`: Saint Emilion - Franc la Rose
-- `symbol`: SEMIL
-- `description`: Grand cru 2007
-
-3. Click on `Upload an image` and select a bottle picture on your computer
-
-4. Click on the Mint button
-
-Your picture will be pushed to IPFS and displayed, then your wallet ask you to sign the mint operation.
-
-- Confirm operation
-
-- Wait less than 1 minute until you get the confirmation notification, the page will automatically be refreshed.
-
-5. Now, go to the `Trading` menu and the `Sell bottles` submenu.
+5. Now, go to the **Trading** menu and the **Sell bottles** submenu.
 
 6. Click on the submenu entry
 
@@ -564,7 +600,7 @@ Your picture will be pushed to IPFS and displayed, then your wallet ask you to s
 You are the owner of this bottle so you can create an offer to sell it.
 
 - Enter a price offer
-- Click on `SELL` button
+- Click on **SELL** button
 - Wait a bit for the confirmation, then after auto-refresh you have an offer for this NFT
 
 ## Wine Catalogue page
@@ -721,7 +757,7 @@ export default function WineCataloguePage() {
                             <Typography>
                               {"Description : " +
                                 nftContratTokenMetadataMap.get(
-                                  token_id.toNumber()
+                                  token_id.toString()
                                 )?.description}
                             </Typography>
                             <Typography>
@@ -734,7 +770,7 @@ export default function WineCataloguePage() {
                       </Tooltip>
                     }
                     title={
-                      nftContratTokenMetadataMap.get(token_id.toNumber())?.name
+                      nftContratTokenMetadataMap.get(token_id.toString())?.name
                     }
                   />
                   <CardMedia
@@ -742,7 +778,7 @@ export default function WineCataloguePage() {
                     component="img"
                     height="100px"
                     image={nftContratTokenMetadataMap
-                      .get(token_id.toNumber())
+                      .get(token_id.toString())
                       ?.thumbnailUri?.replace(
                         "ipfs://",
                         "https://gateway.pinata.cloud/ipfs/"
@@ -802,7 +838,7 @@ export default function WineCataloguePage() {
 
 ## Buy some wine!
 
-Now you can see on `Trading` menu the `Wine catalogue` submenu, click on it.
+Now you can see on **Trading** menu the **Wine catalogue** submenu, click on it.
 
 ![buy.png](/images/buy.png)
 
@@ -810,15 +846,16 @@ As you are connected with the default administrator you can see your own unique 
 
 - Disconnect from your user and connect with another account that has enough tez to buy the bottle
 - The buyer can see that Alice is selling a bottle
-- Buy the bottle by clicking on the `BUY` button
+- Buy the bottle by clicking on the **BUY** button
 - Once confirmed, the offer is removed from the market
-- Click on `bottle offers` sub menu
+- Click on **Sell bottle** sub menu
 - You are now the owner of this bottle, you can resell it at your own price, etc ...
 
 ## Conclusion
 
 You created an NFT collection marketplace from the Ligo library, now you can buy and sell NFTs at your own price.
+This concludes the NFT training!
 
-In the next lesson, you will see another kind of NFT called `single asset`. Instead of creating *X* token types, you will be allowed to create only 1 token_id 0, on the other side, you can mint a quantity *n* of this token.
+In the next lesson, you will see another kind of NFT called **single asset**. Instead of creating _X_ token types, you will be allowed to create only 1 token*id 0, on the other side, you can mint a quantity \_n* of this token.
 
 To continue, let's go to [Part 3](/tutorials/build-an-nft-marketplace/part-3).
