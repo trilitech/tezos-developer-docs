@@ -21,7 +21,7 @@ You can find the 4 parts on github (solution + materials to build the UI)
 - [NFT 2](https://github.com/marigold-dev/training-nft-2): finish FA2 NFT marketplace to introduce sales
 - [NFT 3](https://github.com/marigold-dev/training-nft-3): use FA2 single asset template to build another kind of marketplace
 - [NFT 4](https://github.com/marigold-dev/training-nft-4): use FA2 multi asset template to build last complex kind of marketplace
-  {% /callout %}
+{% /callout %}
 
 ## Key Concepts
 
