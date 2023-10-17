@@ -15,12 +15,12 @@ Follow these steps to get the application code and build it:
 
 1. Configure Rust to build WebAssembly applications:
 
-   1. Verify that you have Rust version 1.66.0 or later installed by running `cargo --version`.
+   1. Verify that you have Rust version 1.73.0 or later installed by running `cargo --version`.
 
-   1. If you have an earlier version of Rust, use the `rustup` command to use version 1.66.0:
+   1. If you have an earlier version of Rust, use the `rustup` command to use version 1.73.0:
 
       ```bash
-      rustup override set 1.66.0
+      rustup override set 1.73.0
       ```
 
    1. Add WASM as a compilation target for Rust by running this command:
