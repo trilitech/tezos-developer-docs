@@ -8,12 +8,12 @@ lastUpdated: 11th October 2023
 
 ![https://vinepair.com/wp-content/uploads/2016/06/Cellar-HEAD.jpg](https://vinepair.com/wp-content/uploads/2016/06/Cellar-HEAD.jpg)
 
-This time, let's use the single asset template. It is the opposite of the previous NFT template because:
+In the third part, the single asset template is employed. This contrasts with the earlier NFT template in the following ways:
 
 - you have a unique `token_id`, so only 1 wine collection
 - you have a certain quantity of items in the same collection
 
-To sum up, you are producing wine bottles from the same collection with `n` quantity.
+In essence, you are producing wine bottles from the same collection with `n` quantity.
 
 Keep your code from previous training or get the solution [here](https://github.com/marigold-dev/training-nft-2/tree/main/solution)
 
@@ -26,242 +26,249 @@ yarn install
 cd ..
 ```
 
-## Smart Contract
+## Smart Contract Modification
 
-Point to the new template changing the first import line of your `nft.jsligo` file to
+To adapt to the new template, follow these steps:
 
-```ligolang
-#import "@ligo/fa/lib/fa2/asset/single_asset.impl.jsligo" "FA2Impl"
-```
+1. In your `nft.jsligo` file, replace the initial import line with:
 
-On nft.jsligo file, query/replace any reference to `NFT` namespace by `SingleAsset` one
+    ```ligolang
+    #import "@ligo/fa/lib/fa2/asset/single_asset.impl.jsligo" "FA2Impl"
+    ```
 
-Change the `offer` and `storage` definitions
+2. Within the `nft.jsligo` file, find and replace all instances of the `NFT` namespace with `SingleAsset`.
 
-```ligolang
-export type offer = { quantity: nat, price: nat };
+3. Update the definitions for both `offer` and `storage`.
 
-export type storage = {
-  administrators: set<address>,
-  totalSupply: nat,
-  offers: map<address, offer>, //user sells an offer
+    ```ligolang
+    export type offer = { quantity: nat, price: nat };
 
-  ledger: FA2Impl.Datatypes.ledger,
-  metadata: FA2Impl.TZIP16.metadata,
-  token_metadata: FA2Impl.TZIP12.tokenMetadata,
-  operators: FA2Impl.Datatypes.operators,
-};
-```
+    export type storage = {
+      administrators: set<address>,
+      totalSupply: nat,
+      offers: map<address, offer>, //user sells an offer
 
-Explanation:
+      ledger: FA2Impl.Datatypes.ledger,
+      metadata: FA2Impl.TZIP16.metadata,
+      token_metadata: FA2Impl.TZIP12.tokenMetadata,
+      operators: FA2Impl.Datatypes.operators,
+    };
+    ```
 
-- `offers` is now a `map<address,offer>`, because you don't have to store `token_id` as a key, now the key is the owner's address. Each owner can sell a part of the unique collection
-- `offer` requires a quantity, each owner is selling a part of the unique collection
-- `totalSupply` is set while minting in order to track the global quantity of minted items on the collection. It makes it unnecessary to recalculate each time the quantity from each owner's holdings (this value is constant)
+    Explanation:
 
-Edit the `mint` function to add the `quantity` extra param, and finally change the `return`
+    - `offers` is now a `map<address,offer>`, because you don't have to store `token_id` as a key, now the key is the owner's address. Each owner can sell a part of the unique collection
+    - `offer` requires a quantity, each owner is selling a part of the unique collection
+    - `totalSupply` is set while minting in order to track the global quantity of minted items on the collection. It makes it unnecessary to recalculate each time the quantity from each owner's holdings (this value is constant)
 
-```ligolang
-@entry
-const mint = (
-  [quantity, name, description, symbol, ipfsUrl]: [
-    nat,
-    bytes,
-    bytes,
-    bytes,
-    bytes
-  ],
-  s: storage
-): ret => {
-  if (quantity <= (0 as nat)) return failwith("0");
-  if (! Set.mem(Tezos.get_sender(), s.administrators)) return failwith("1");
-  const token_info: map<string, bytes> =
-    Map.literal(
-      list(
-        [
-          ["name", name],
-          ["description", description],
-          ["interfaces", (bytes `["TZIP-12"]`)],
-          ["artifactUri", ipfsUrl],
-          ["displayUri", ipfsUrl],
-          ["thumbnailUri", ipfsUrl],
-          ["symbol", symbol],
-          ["decimals", (bytes `0`)]
-        ]
-      )
-    ) as map<string, bytes>;
-  return [
-    list([]) as list<operation>,
-    {
-      ...s,
-      totalSupply: quantity,
-      ledger: Big_map.literal(list([[Tezos.get_sender(), quantity as nat]])) as
-        FA2Impl.SingleAsset.ledger,
-      token_metadata: Big_map.add(
-        0 as nat,
-        { token_id: 0 as nat, token_info: token_info },
-        s.token_metadata
-      ),
-      operators: Big_map.empty as FA2Impl.SingleAsset.operators,
-    }
-  ]
-};
-```
+4. Edit the `mint` function to add the `quantity` extra param, and finally change the `return`
 
-Edit the `sell` function to replace `token_id` by `quantity`, add/override an offer for the user
-
-```ligolang
-@entry
-const sell = ([quantity, price]: [nat, nat], s: storage): ret => {
-  //check balance of seller
-
-  const sellerBalance =
-    FA2Impl.Sidecar.get_amount_for_owner(
-      {
-        ledger: s.ledger,
-        metadata: s.metadata,
-        operators: s.operators,
-        token_metadata: s.token_metadata,
-      }
-    )(Tezos.get_source());
-  if (quantity > sellerBalance) return failwith("2");
-  //need to allow the contract itself to be an operator on behalf of the seller
-
-  const newOperators =
-    FA2Impl.Sidecar.add_operator(s.operators)(Tezos.get_source())(
-      Tezos.get_self_address()
-    );
-  //DECISION CHOICE: if offer already exists, we just override it
-
-  return [
-    list([]) as list<operation>,
-    {
-      ...s,
-      offers: Map.add(
-        Tezos.get_source(),
-        { quantity: quantity, price: price },
-        s.offers
-      ),
-      operators: newOperators
-    }
-  ]
-};
-```
-
-Also edit the `buy` function to replace `token_id` by `quantity`, check quantities, check final price is enough and update the current offer
-
-```ligolang
-@entry
-const buy = ([quantity, seller]: [nat, address], s: storage): ret => {
-  //search for the offer
-
-  return match(Map.find_opt(seller, s.offers)) {
-    when (None()):
-      failwith("3")
-    when (Some(offer)):
-      do {
-        //check if quantity is enough
-
-        if (quantity > offer.quantity) return failwith("4");
-        //check if amount have been paid enough
-
-        if (Tezos.get_amount() < (offer.price * quantity) * (1 as mutez)) return failwith(
-          "5"
-        );
-        // prepare transfer of XTZ to seller
-
-        const op =
-          Tezos.transaction(
-            unit,
-            (offer.price * quantity) * (1 as mutez),
-            Tezos.get_contract_with_error(seller, "6")
-          );
-        //transfer tokens from seller to buyer
-
-        let ledger =
-          FA2Impl.Sidecar.decrease_token_amount_for_user(s.ledger)(seller)(
-            quantity
-          );
-        ledger
-        = FA2Impl.Sidecar.increase_token_amount_for_user(ledger)(
-            Tezos.get_source()
-          )(quantity);
-        //update new offer
-
-        const newOffer = { ...offer, quantity: abs(offer.quantity - quantity) };
-        return [
-          list([op]) as list<operation>,
-          {
-            ...s,
-            offers: Map.update(seller, Some(newOffer), s.offers),
-            ledger: ledger,
-          }
-        ]
-      }
-  }
-};
-```
-
-Edit the storage file `nft.storageList.jsligo` as it. (:warning: you can change the `administrator` address to your own address or keep `alice`)
-
-```ligolang
-#import "nft.jsligo" "Contract"
-
-const default_storage: Contract.storage = {
-    administrators: Set.literal(
-        list(["tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb" as address])
-    ) as set<address>,
-    totalSupply: 0 as nat,
-    offers: Map.empty as map<address, Contract.offer>,
-    ledger: Big_map.empty as Contract.FA2Impl.SingleAsset.ledger,
-    metadata: Big_map.literal(
-        list(
+    ```ligolang
+    @entry
+    const mint = (
+      [quantity, name, description, symbol, ipfsUrl]: [
+        nat,
+        bytes,
+        bytes,
+        bytes,
+        bytes
+      ],
+      s: storage
+    ): ret => {
+      if (quantity <= (0 as nat)) return failwith("0");
+      if (! Set.mem(Tezos.get_sender(), s.administrators)) return failwith("1");
+      const token_info: map<string, bytes> =
+        Map.literal(
+          list(
             [
-                ["", bytes `tezos-storage:data`],
-                [
-                    "data",
-                    bytes
-                    `{
-      "name":"FA2 NFT Marketplace",
-      "description":"Example of FA2 implementation",
-      "version":"0.0.1",
-      "license":{"name":"MIT"},
-      "authors":["Marigold<contact@marigold.dev>"],
-      "homepage":"https://marigold.dev",
-      "source":{
-        "tools":["Ligo"],
-        "location":"https://github.com/ligolang/contract-catalogue/tree/main/lib/fa2"},
-      "interfaces":["TZIP-012"],
-      "errors": [],
-      "views": []
-      }`
-                ]
+              ["name", name],
+              ["description", description],
+              ["interfaces", (bytes `["TZIP-12"]`)],
+              ["artifactUri", ipfsUrl],
+              ["displayUri", ipfsUrl],
+              ["thumbnailUri", ipfsUrl],
+              ["symbol", symbol],
+              ["decimals", (bytes `0`)]
             ]
-        )
-    ) as Contract.FA2Impl.TZIP16.metadata,
-    token_metadata: Big_map.empty as Contract.FA2Impl.TZIP12.tokenMetadata,
-    operators: Big_map.empty as Contract.FA2Impl.SingleAsset.operators,
-};
-```
+          )
+        ) as map<string, bytes>;
+      return [
+        list([]) as list<operation>,
+        {
+          ...s,
+          totalSupply: quantity,
+          ledger: Big_map.literal(list([[Tezos.get_sender(), quantity as nat]])) as
+            FA2Impl.SingleAsset.ledger,
+          token_metadata: Big_map.add(
+            0 as nat,
+            { token_id: 0 as nat, token_info: token_info },
+            s.token_metadata
+          ),
+          operators: Big_map.empty as FA2Impl.SingleAsset.operators,
+        }
+      ]
+    };
+    ```
 
-Compile again and deploy to ghostnet.
+5. Edit the `sell` function to replace `token_id` by `quantity`, add/override an offer for the user
 
-```bash
-TAQ_LIGO_IMAGE=ligolang/ligo:1.0.0 taq compile nft.jsligo
-taq deploy nft.tz -e "testing"
-```
+    ```ligolang
+    @entry
+    const sell = ([quantity, price]: [nat, nat], s: storage): ret => {
+      //check balance of seller
 
-```logs
-┌──────────┬──────────────────────────────────────┬───────┬──────────────────┬────────────────────────────────┐
-│ Contract │ Address                              │ Alias │ Balance In Mutez │ Destination                    │
-├──────────┼──────────────────────────────────────┼───────┼──────────────────┼────────────────────────────────┤
-│ nft.tz   │ KT1EUWEeR9RHMb5q5jeW5jbhxBFHbLTqQgiZ │ nft   │ 0                │ https://ghostnet.ecadinfra.com │
-└──────────┴──────────────────────────────────────┴───────┴──────────────────┴────────────────────────────────┘
-```
+      const sellerBalance =
+        FA2Impl.Sidecar.get_amount_for_owner(
+          {
+            ledger: s.ledger,
+            metadata: s.metadata,
+            operators: s.operators,
+            token_metadata: s.token_metadata,
+          }
+        )(Tezos.get_source());
+      if (quantity > sellerBalance) return failwith("2");
+      //need to allow the contract itself to be an operator on behalf of the seller
+
+      const newOperators =
+        FA2Impl.Sidecar.add_operator(s.operators)(Tezos.get_source())(
+          Tezos.get_self_address()
+        );
+      //DECISION CHOICE: if offer already exists, we just override it
+
+      return [
+        list([]) as list<operation>,
+        {
+          ...s,
+          offers: Map.add(
+            Tezos.get_source(),
+            { quantity: quantity, price: price },
+            s.offers
+          ),
+          operators: newOperators
+        }
+      ]
+    };
+    ```
+
+6. Also edit the `buy` function to replace `token_id` by `quantity`, check quantities, check final price is enough and update the current offer
+
+    ```ligolang
+    @entry
+    const buy = ([quantity, seller]: [nat, address], s: storage): ret => {
+      //search for the offer
+
+      return match(Map.find_opt(seller, s.offers)) {
+        when (None()):
+          failwith("3")
+        when (Some(offer)):
+          do {
+            //check if quantity is enough
+
+            if (quantity > offer.quantity) return failwith("4");
+            //check if amount have been paid enough
+
+            if (Tezos.get_amount() < (offer.price * quantity) * (1 as mutez)) return failwith(
+              "5"
+            );
+            // prepare transfer of XTZ to seller
+
+            const op =
+              Tezos.transaction(
+                unit,
+                (offer.price * quantity) * (1 as mutez),
+                Tezos.get_contract_with_error(seller, "6")
+              );
+            //transfer tokens from seller to buyer
+
+            let ledger =
+              FA2Impl.Sidecar.decrease_token_amount_for_user(s.ledger)(seller)(
+                quantity
+              );
+            ledger
+            = FA2Impl.Sidecar.increase_token_amount_for_user(ledger)(
+                Tezos.get_source()
+              )(quantity);
+            //update new offer
+
+            const newOffer = { ...offer, quantity: abs(offer.quantity - quantity) };
+            return [
+              list([op]) as list<operation>,
+              {
+                ...s,
+                offers: Map.update(seller, Some(newOffer), s.offers),
+                ledger: ledger,
+              }
+            ]
+          }
+      }
+    };
+    ```
+
+7. Edit the storage file `nft.storageList.jsligo` as it. 
+  > Reminder: While editing, you can either modify the administrator address to reflect your own or retain the default alice address.
+
+    ```ligolang
+    #import "nft.jsligo" "Contract"
+
+    const default_storage: Contract.storage = {
+        administrators: Set.literal(
+            list(["tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb" as address])
+        ) as set<address>,
+        totalSupply: 0 as nat,
+        offers: Map.empty as map<address, Contract.offer>,
+        ledger: Big_map.empty as Contract.FA2Impl.SingleAsset.ledger,
+        metadata: Big_map.literal(
+            list(
+                [
+                    ["", bytes `tezos-storage:data`],
+                    [
+                        "data",
+                        bytes
+                        `{
+          "name":"FA2 NFT Marketplace",
+          "description":"Example of FA2 implementation",
+          "version":"0.0.1",
+          "license":{"name":"MIT"},
+          "authors":["Marigold<contact@marigold.dev>"],
+          "homepage":"https://marigold.dev",
+          "source":{
+            "tools":["Ligo"],
+            "location":"https://github.com/ligolang/contract-catalogue/tree/main/lib/fa2"},
+          "interfaces":["TZIP-012"],
+          "errors": [],
+          "views": []
+          }`
+                    ]
+                ]
+            )
+        ) as Contract.FA2Impl.TZIP16.metadata,
+        token_metadata: Big_map.empty as Contract.FA2Impl.TZIP12.tokenMetadata,
+        operators: Big_map.empty as Contract.FA2Impl.SingleAsset.operators,
+    };
+    ```
+
+8. Compile again and deploy to ghostnet.
+
+    ```bash
+    TAQ_LIGO_IMAGE=ligolang/ligo:1.0.0 taq compile nft.jsligo
+    taq deploy nft.tz -e "testing"
+    ```
+
+    ```logs
+    ┌──────────┬──────────────────────────────────────┬───────┬──────────────────┬────────────────────────────────┐
+    │ Contract │ Address                              │ Alias │ Balance In Mutez │ Destination                    │
+    ├──────────┼──────────────────────────────────────┼───────┼──────────────────┼────────────────────────────────┤
+    │ nft.tz   │ KT1EUWEeR9RHMb5q5jeW5jbhxBFHbLTqQgiZ │ nft   │ 0                │ https://ghostnet.ecadinfra.com │
+    └──────────┴──────────────────────────────────────┴───────┴──────────────────┴────────────────────────────────┘
+    ```
 
 **The smart contract! _(backend)_ is finished**
 
 ## NFT Marketplace front
+
+This section guides you step-by-step in setting up an intuitive frontend.
+
+### Step 1: Initialize Typescript Classes
 
 Generate Typescript classes and go to the frontend to run the server
 
@@ -272,488 +279,488 @@ yarn install
 yarn dev
 ```
 
-### Update in `App.tsx`
+### Step 2: Update in `App.tsx`
 
-Fetch the `token_id == 0`.
-Replace the function `refreshUserContextOnPageReload` by
+    Fetch the `token_id == 0`.
+    Replace the function `refreshUserContextOnPageReload` by
 
-```typescript
-const refreshUserContextOnPageReload = async () => {
-  console.log("refreshUserContext");
-  //CONTRACT
-  try {
-    let c = await Tezos.contract.at(nftContractAddress, tzip12);
-    console.log("nftContractAddress", nftContractAddress);
+    ```typescript
+    const refreshUserContextOnPageReload = async () => {
+      console.log("refreshUserContext");
+      //CONTRACT
+      try {
+        let c = await Tezos.contract.at(nftContractAddress, tzip12);
+        console.log("nftContractAddress", nftContractAddress);
 
-    let nftContrat: NftWalletType = await Tezos.wallet.at<NftWalletType>(
-      nftContractAddress
-    );
-    const storage = (await nftContrat.storage()) as Storage;
-
-    try {
-      let tokenMetadata: TZIP21TokenMetadata = (await c
-        .tzip12()
-        .getTokenMetadata(0)) as TZIP21TokenMetadata;
-      nftContratTokenMetadataMap.set("0", tokenMetadata);
-
-      setNftContratTokenMetadataMap(new Map(nftContratTokenMetadataMap)); //new Map to force refresh
-    } catch (error) {
-      console.log("error refreshing nftContratTokenMetadataMap: ");
-    }
-
-    setNftContrat(nftContrat);
-    setStorage(storage);
-  } catch (error) {
-    console.log("error refreshing nft contract: ", error);
-  }
-
-  //USER
-  const activeAccount = await wallet.client.getActiveAccount();
-  if (activeAccount) {
-    setUserAddress(activeAccount.address);
-    const balance = await Tezos.tz.getBalance(activeAccount.address);
-    setUserBalance(balance.toNumber());
-  }
-
-  console.log("refreshUserContext ended.");
-};
-```
-
-### Update in `MintPage.tsx`
-
-The quantity field is added and the `token_id` field is removed. Replace the full file by the following content:
-
-```typescript
-import OpenWithIcon from "@mui/icons-material/OpenWith";
-import {
-  Button,
-  CardHeader,
-  CardMedia,
-  MobileStepper,
-  Stack,
-  SwipeableDrawer,
-  TextField,
-  Toolbar,
-  useMediaQuery,
-} from "@mui/material";
-import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
-import { BigNumber } from "bignumber.js";
-import { useSnackbar } from "notistack";
-import React, { useEffect, useState } from "react";
-import { TZIP21TokenMetadata, UserContext, UserContextType } from "./App";
-import { TransactionInvalidBeaconError } from "./TransactionInvalidBeaconError";
-
-import {
-  AddCircleOutlined,
-  Close,
-  KeyboardArrowLeft,
-  KeyboardArrowRight,
-} from "@mui/icons-material";
-import { char2Bytes } from "@taquito/utils";
-import { useFormik } from "formik";
-import SwipeableViews from "react-swipeable-views";
-import * as yup from "yup";
-import { address, bytes, nat } from "./type-aliases";
-export default function MintPage() {
-  const {
-    userAddress,
-    storage,
-    nftContrat,
-    refreshUserContextOnPageReload,
-    nftContratTokenMetadataMap,
-  } = React.useContext(UserContext) as UserContextType;
-  const { enqueueSnackbar } = useSnackbar();
-  const [pictureUrl, setPictureUrl] = useState<string>("");
-  const [file, setFile] = useState<File | null>(null);
-
-  const [activeStep, setActiveStep] = React.useState(0);
-
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  };
-
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
-  const handleStepChange = (step: number) => {
-    setActiveStep(step);
-  };
-  const validationSchema = yup.object({
-    name: yup.string().required("Name is required"),
-    description: yup.string().required("Description is required"),
-    symbol: yup.string().required("Symbol is required"),
-    quantity: yup
-      .number()
-      .required("Quantity is required")
-      .positive("ERROR: The number must be greater than 0!"),
-  });
-
-  const formik = useFormik({
-    initialValues: {
-      name: "",
-      description: "",
-      token_id: 0,
-      symbol: "WINE",
-      quantity: 1,
-    } as TZIP21TokenMetadata & { quantity: number },
-    validationSchema: validationSchema,
-    onSubmit: (values) => {
-      mint(values);
-    },
-  });
-
-  //open mint drawer if admin
-  useEffect(() => {
-    if (storage && storage!.administrators.indexOf(userAddress! as address) < 0)
-      setFormOpen(false);
-    else setFormOpen(true);
-  }, [userAddress]);
-
-  const mint = async (
-    newTokenDefinition: TZIP21TokenMetadata & { quantity: number }
-  ) => {
-    try {
-      //IPFS
-      if (file) {
-        const formData = new FormData();
-        formData.append("file", file);
-
-        const requestHeaders: HeadersInit = new Headers();
-        requestHeaders.set(
-          "pinata_api_key",
-          `${import.meta.env.VITE_PINATA_API_KEY}`
+        let nftContrat: NftWalletType = await Tezos.wallet.at<NftWalletType>(
+          nftContractAddress
         );
-        requestHeaders.set(
-          "pinata_secret_api_key",
-          `${import.meta.env.VITE_PINATA_API_SECRET}`
-        );
+        const storage = (await nftContrat.storage()) as Storage;
 
-        const resFile = await fetch(
-          "https://api.pinata.cloud/pinning/pinFileToIPFS",
-          {
-            method: "post",
-            body: formData,
-            headers: requestHeaders,
-          }
-        );
+        try {
+          let tokenMetadata: TZIP21TokenMetadata = (await c
+            .tzip12()
+            .getTokenMetadata(0)) as TZIP21TokenMetadata;
+          nftContratTokenMetadataMap.set("0", tokenMetadata);
 
-        const responseJson = await resFile.json();
-        console.log("responseJson", responseJson);
+          setNftContratTokenMetadataMap(new Map(nftContratTokenMetadataMap)); //new Map to force refresh
+        } catch (error) {
+          console.log("error refreshing nftContratTokenMetadataMap: ");
+        }
 
-        const thumbnailUri = `ipfs://${responseJson.IpfsHash}`;
-        setPictureUrl(
-          `https://gateway.pinata.cloud/ipfs/${responseJson.IpfsHash}`
-        );
-
-        const op = await nftContrat!.methods
-          .mint(
-            new BigNumber(newTokenDefinition.quantity) as nat,
-            char2Bytes(newTokenDefinition.name!) as bytes,
-            char2Bytes(newTokenDefinition.description!) as bytes,
-            char2Bytes(newTokenDefinition.symbol!) as bytes,
-            char2Bytes(thumbnailUri) as bytes
-          )
-          .send();
-
-        //close directly the form
-        setFormOpen(false);
-        enqueueSnackbar(
-          "Wine collection is minting ... it will be ready on next block, wait for the confirmation message before minting another collection",
-          { variant: "info" }
-        );
-
-        await op.confirmation(2);
-
-        enqueueSnackbar("Wine collection minted", { variant: "success" });
-
-        refreshUserContextOnPageReload(); //force all app to refresh the context
+        setNftContrat(nftContrat);
+        setStorage(storage);
+      } catch (error) {
+        console.log("error refreshing nft contract: ", error);
       }
-    } catch (error) {
-      console.table(`Error: ${JSON.stringify(error, null, 2)}`);
-      let tibe: TransactionInvalidBeaconError =
-        new TransactionInvalidBeaconError(error);
-      enqueueSnackbar(tibe.data_message, {
-        variant: "error",
-        autoHideDuration: 10000,
-      });
-    }
-  };
 
-  const [formOpen, setFormOpen] = useState<boolean>(false);
-
-  const toggleDrawer =
-    (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
-      if (
-        event.type === "keydown" &&
-        ((event as React.KeyboardEvent).key === "Tab" ||
-          (event as React.KeyboardEvent).key === "Shift")
-      ) {
-        return;
+      //USER
+      const activeAccount = await wallet.client.getActiveAccount();
+      if (activeAccount) {
+        setUserAddress(activeAccount.address);
+        const balance = await Tezos.tz.getBalance(activeAccount.address);
+        setUserBalance(balance.toNumber());
       }
-      setFormOpen(open);
+
+      console.log("refreshUserContext ended.");
     };
+    ```
 
-  const isTablet = useMediaQuery("(min-width:600px)");
+### Step 3: Update in `MintPage.tsx`
 
-  return (
-    <Paper>
-      {storage ? (
-        <Button
-          disabled={storage.administrators.indexOf(userAddress! as address) < 0}
-          sx={{
-            p: 1,
-            position: "absolute",
-            right: "0",
-            display: formOpen ? "none" : "block",
-            zIndex: 1,
-          }}
-          onClick={toggleDrawer(!formOpen)}
-        >
-          {" Mint Form " +
-            (storage!.administrators.indexOf(userAddress! as address) < 0
-              ? " (You are not admin)"
-              : "")}
-          <OpenWithIcon />
-        </Button>
-      ) : (
-        ""
-      )}
+    The quantity field is added and the `token_id` field is removed. Replace the full file by the following content:
 
-      <SwipeableDrawer
-        onClose={toggleDrawer(false)}
-        onOpen={toggleDrawer(true)}
-        anchor="right"
-        open={formOpen}
-        variant="temporary"
-      >
-        <Toolbar
-          sx={
-            isTablet
-              ? { marginTop: "0", marginRight: "0" }
-              : { marginTop: "35px", marginRight: "125px" }
-          }
-        />
-        <Box
-          sx={{
-            width: isTablet ? "40vw" : "60vw",
-            borderColor: "text.secondary",
-            borderStyle: "solid",
-            borderWidth: "1px",
+    ```typescript
+    import OpenWithIcon from "@mui/icons-material/OpenWith";
+    import {
+      Button,
+      CardHeader,
+      CardMedia,
+      MobileStepper,
+      Stack,
+      SwipeableDrawer,
+      TextField,
+      Toolbar,
+      useMediaQuery,
+    } from "@mui/material";
+    import Box from "@mui/material/Box";
+    import Card from "@mui/material/Card";
+    import CardContent from "@mui/material/CardContent";
+    import Paper from "@mui/material/Paper";
+    import Typography from "@mui/material/Typography";
+    import { BigNumber } from "bignumber.js";
+    import { useSnackbar } from "notistack";
+    import React, { useEffect, useState } from "react";
+    import { TZIP21TokenMetadata, UserContext, UserContextType } from "./App";
+    import { TransactionInvalidBeaconError } from "./TransactionInvalidBeaconError";
 
-            height: "calc(100vh - 64px)",
-          }}
-        >
-          <Button
-            sx={{
-              position: "absolute",
-              right: "0",
-              display: !formOpen ? "none" : "block",
-            }}
-            onClick={toggleDrawer(!formOpen)}
-          >
-            <Close />
-          </Button>
-          <form onSubmit={formik.handleSubmit}>
-            <Stack spacing={2} margin={2} alignContent={"center"}>
-              <Typography variant="h5">Mint a new collection</Typography>
+    import {
+      AddCircleOutlined,
+      Close,
+      KeyboardArrowLeft,
+      KeyboardArrowRight,
+    } from "@mui/icons-material";
+    import { char2Bytes } from "@taquito/utils";
+    import { useFormik } from "formik";
+    import SwipeableViews from "react-swipeable-views";
+    import * as yup from "yup";
+    import { address, bytes, nat } from "./type-aliases";
+    export default function MintPage() {
+      const {
+        userAddress,
+        storage,
+        nftContrat,
+        refreshUserContextOnPageReload,
+        nftContratTokenMetadataMap,
+      } = React.useContext(UserContext) as UserContextType;
+      const { enqueueSnackbar } = useSnackbar();
+      const [pictureUrl, setPictureUrl] = useState<string>("");
+      const [file, setFile] = useState<File | null>(null);
 
-              <TextField
-                id="standard-basic"
-                name="token_id"
-                label="token_id"
-                value={formik.values.token_id}
-                disabled
-                variant="filled"
-              />
-              <TextField
-                id="standard-basic"
-                name="name"
-                label="name"
-                required
-                value={formik.values.name}
-                onChange={formik.handleChange}
-                error={formik.touched.name && Boolean(formik.errors.name)}
-                helperText={formik.touched.name && formik.errors.name}
-                variant="filled"
-              />
-              <TextField
-                id="standard-basic"
-                name="symbol"
-                label="symbol"
-                required
-                value={formik.values.symbol}
-                onChange={formik.handleChange}
-                error={formik.touched.symbol && Boolean(formik.errors.symbol)}
-                helperText={formik.touched.symbol && formik.errors.symbol}
-                variant="filled"
-              />
-              <TextField
-                id="standard-basic"
-                name="description"
-                label="description"
-                required
-                multiline
-                minRows={2}
-                value={formik.values.description}
-                onChange={formik.handleChange}
-                error={
-                  formik.touched.description &&
-                  Boolean(formik.errors.description)
-                }
-                helperText={
-                  formik.touched.description && formik.errors.description
-                }
-                variant="filled"
-              />
+      const [activeStep, setActiveStep] = React.useState(0);
 
-              <TextField
-                type="number"
-                id="standard-basic"
-                name="quantity"
-                label="quantity"
-                required
-                value={formik.values.quantity}
-                onChange={formik.handleChange}
-                error={
-                  formik.touched.quantity && Boolean(formik.errors.quantity)
-                }
-                helperText={formik.touched.quantity && formik.errors.quantity}
-                variant="filled"
-              />
+      const handleNext = () => {
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+      };
 
-              {pictureUrl ? (
-                <img height={100} width={100} src={pictureUrl} />
-              ) : (
-                ""
-              )}
-              <Button variant="contained" component="label" color="primary">
-                <AddCircleOutlined />
-                Upload an image
-                <input
-                  type="file"
-                  hidden
-                  name="data"
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                    const data = e.target.files ? e.target.files[0] : null;
-                    if (data) {
-                      setFile(data);
-                    }
-                    e.preventDefault();
-                  }}
-                />
-              </Button>
+      const handleBack = () => {
+        setActiveStep((prevActiveStep) => prevActiveStep - 1);
+      };
 
-              <Button variant="contained" type="submit">
-                Mint
-              </Button>
-            </Stack>
-          </form>
-        </Box>
-      </SwipeableDrawer>
+      const handleStepChange = (step: number) => {
+        setActiveStep(step);
+      };
+      const validationSchema = yup.object({
+        name: yup.string().required("Name is required"),
+        description: yup.string().required("Description is required"),
+        symbol: yup.string().required("Symbol is required"),
+        quantity: yup
+          .number()
+          .required("Quantity is required")
+          .positive("ERROR: The number must be greater than 0!"),
+      });
 
-      <Typography variant="h5">Mint your wine collection</Typography>
+      const formik = useFormik({
+        initialValues: {
+          name: "",
+          description: "",
+          token_id: 0,
+          symbol: "WINE",
+          quantity: 1,
+        } as TZIP21TokenMetadata & { quantity: number },
+        validationSchema: validationSchema,
+        onSubmit: (values) => {
+          mint(values);
+        },
+      });
 
-      {nftContratTokenMetadataMap.size != 0 ? (
-        <Box sx={{ width: "70vw" }}>
-          <SwipeableViews
-            axis="x"
-            index={activeStep}
-            onChangeIndex={handleStepChange}
-            enableMouseEvents
-          >
-            {Array.from(nftContratTokenMetadataMap!.entries()).map(
-              ([token_id, token]) => (
-                <Card
-                  sx={{
-                    display: "block",
-                    maxWidth: "80vw",
-                    overflow: "hidden",
-                  }}
-                  key={token_id.toString()}
-                >
-                  <CardHeader
-                    titleTypographyProps={
-                      isTablet ? { fontSize: "1.5em" } : { fontSize: "1em" }
-                    }
-                    title={token.name}
-                  />
+      //open mint drawer if admin
+      useEffect(() => {
+        if (storage && storage!.administrators.indexOf(userAddress! as address) < 0)
+          setFormOpen(false);
+        else setFormOpen(true);
+      }, [userAddress]);
 
-                  <CardMedia
-                    sx={
-                      isTablet
-                        ? {
-                            width: "auto",
-                            marginLeft: "33%",
-                            maxHeight: "50vh",
-                          }
-                        : { width: "100%", maxHeight: "40vh" }
-                    }
-                    component="img"
-                    image={token.thumbnailUri?.replace(
-                      "ipfs://",
-                      "https://gateway.pinata.cloud/ipfs/"
-                    )}
-                  />
+      const mint = async (
+        newTokenDefinition: TZIP21TokenMetadata & { quantity: number }
+      ) => {
+        try {
+          //IPFS
+          if (file) {
+            const formData = new FormData();
+            formData.append("file", file);
 
-                  <CardContent>
-                    <Box>
-                      <Typography>{"ID : " + token_id}</Typography>
-                      <Typography>{"Symbol : " + token.symbol}</Typography>
-                      <Typography>
-                        {"Description : " + token.description}
-                      </Typography>
-                    </Box>
-                  </CardContent>
-                </Card>
+            const requestHeaders: HeadersInit = new Headers();
+            requestHeaders.set(
+              "pinata_api_key",
+              `${import.meta.env.VITE_PINATA_API_KEY}`
+            );
+            requestHeaders.set(
+              "pinata_secret_api_key",
+              `${import.meta.env.VITE_PINATA_API_SECRET}`
+            );
+
+            const resFile = await fetch(
+              "https://api.pinata.cloud/pinning/pinFileToIPFS",
+              {
+                method: "post",
+                body: formData,
+                headers: requestHeaders,
+              }
+            );
+
+            const responseJson = await resFile.json();
+            console.log("responseJson", responseJson);
+
+            const thumbnailUri = `ipfs://${responseJson.IpfsHash}`;
+            setPictureUrl(
+              `https://gateway.pinata.cloud/ipfs/${responseJson.IpfsHash}`
+            );
+
+            const op = await nftContrat!.methods
+              .mint(
+                new BigNumber(newTokenDefinition.quantity) as nat,
+                char2Bytes(newTokenDefinition.name!) as bytes,
+                char2Bytes(newTokenDefinition.description!) as bytes,
+                char2Bytes(newTokenDefinition.symbol!) as bytes,
+                char2Bytes(thumbnailUri) as bytes
               )
-            )}
-          </SwipeableViews>
-          <MobileStepper
-            variant="text"
-            steps={Array.from(nftContratTokenMetadataMap!.entries()).length}
-            position="static"
-            activeStep={activeStep}
-            nextButton={
-              <Button
-                size="small"
-                onClick={handleNext}
-                disabled={
-                  activeStep ===
-                  Array.from(nftContratTokenMetadataMap!.entries()).length - 1
-                }
-              >
-                Next
-                <KeyboardArrowRight />
-              </Button>
-            }
-            backButton={
-              <Button
-                size="small"
-                onClick={handleBack}
-                disabled={activeStep === 0}
-              >
-                <KeyboardArrowLeft />
-                Back
-              </Button>
-            }
-          />
-        </Box>
-      ) : (
-        <Typography sx={{ py: "2em" }} variant="h4">
-          Sorry, there is not NFT yet, you need to mint bottles first
-        </Typography>
-      )}
-    </Paper>
-  );
-}
-```
+              .send();
 
-### Update in `OffersPage.tsx`
+            //close directly the form
+            setFormOpen(false);
+            enqueueSnackbar(
+              "Wine collection is minting ... it will be ready on next block, wait for the confirmation message before minting another collection",
+              { variant: "info" }
+            );
+
+            await op.confirmation(2);
+
+            enqueueSnackbar("Wine collection minted", { variant: "success" });
+
+            refreshUserContextOnPageReload(); //force all app to refresh the context
+          }
+        } catch (error) {
+          console.table(`Error: ${JSON.stringify(error, null, 2)}`);
+          let tibe: TransactionInvalidBeaconError =
+            new TransactionInvalidBeaconError(error);
+          enqueueSnackbar(tibe.data_message, {
+            variant: "error",
+            autoHideDuration: 10000,
+          });
+        }
+      };
+
+      const [formOpen, setFormOpen] = useState<boolean>(false);
+
+      const toggleDrawer =
+        (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
+          if (
+            event.type === "keydown" &&
+            ((event as React.KeyboardEvent).key === "Tab" ||
+              (event as React.KeyboardEvent).key === "Shift")
+          ) {
+            return;
+          }
+          setFormOpen(open);
+        };
+
+      const isTablet = useMediaQuery("(min-width:600px)");
+
+      return (
+        <Paper>
+          {storage ? (
+            <Button
+              disabled={storage.administrators.indexOf(userAddress! as address) < 0}
+              sx={{
+                p: 1,
+                position: "absolute",
+                right: "0",
+                display: formOpen ? "none" : "block",
+                zIndex: 1,
+              }}
+              onClick={toggleDrawer(!formOpen)}
+            >
+              {" Mint Form " +
+                (storage!.administrators.indexOf(userAddress! as address) < 0
+                  ? " (You are not admin)"
+                  : "")}
+              <OpenWithIcon />
+            </Button>
+          ) : (
+            ""
+          )}
+
+          <SwipeableDrawer
+            onClose={toggleDrawer(false)}
+            onOpen={toggleDrawer(true)}
+            anchor="right"
+            open={formOpen}
+            variant="temporary"
+          >
+            <Toolbar
+              sx={
+                isTablet
+                  ? { marginTop: "0", marginRight: "0" }
+                  : { marginTop: "35px", marginRight: "125px" }
+              }
+            />
+            <Box
+              sx={{
+                width: isTablet ? "40vw" : "60vw",
+                borderColor: "text.secondary",
+                borderStyle: "solid",
+                borderWidth: "1px",
+
+                height: "calc(100vh - 64px)",
+              }}
+            >
+              <Button
+                sx={{
+                  position: "absolute",
+                  right: "0",
+                  display: !formOpen ? "none" : "block",
+                }}
+                onClick={toggleDrawer(!formOpen)}
+              >
+                <Close />
+              </Button>
+              <form onSubmit={formik.handleSubmit}>
+                <Stack spacing={2} margin={2} alignContent={"center"}>
+                  <Typography variant="h5">Mint a new collection</Typography>
+
+                  <TextField
+                    id="standard-basic"
+                    name="token_id"
+                    label="token_id"
+                    value={formik.values.token_id}
+                    disabled
+                    variant="filled"
+                  />
+                  <TextField
+                    id="standard-basic"
+                    name="name"
+                    label="name"
+                    required
+                    value={formik.values.name}
+                    onChange={formik.handleChange}
+                    error={formik.touched.name && Boolean(formik.errors.name)}
+                    helperText={formik.touched.name && formik.errors.name}
+                    variant="filled"
+                  />
+                  <TextField
+                    id="standard-basic"
+                    name="symbol"
+                    label="symbol"
+                    required
+                    value={formik.values.symbol}
+                    onChange={formik.handleChange}
+                    error={formik.touched.symbol && Boolean(formik.errors.symbol)}
+                    helperText={formik.touched.symbol && formik.errors.symbol}
+                    variant="filled"
+                  />
+                  <TextField
+                    id="standard-basic"
+                    name="description"
+                    label="description"
+                    required
+                    multiline
+                    minRows={2}
+                    value={formik.values.description}
+                    onChange={formik.handleChange}
+                    error={
+                      formik.touched.description &&
+                      Boolean(formik.errors.description)
+                    }
+                    helperText={
+                      formik.touched.description && formik.errors.description
+                    }
+                    variant="filled"
+                  />
+
+                  <TextField
+                    type="number"
+                    id="standard-basic"
+                    name="quantity"
+                    label="quantity"
+                    required
+                    value={formik.values.quantity}
+                    onChange={formik.handleChange}
+                    error={
+                      formik.touched.quantity && Boolean(formik.errors.quantity)
+                    }
+                    helperText={formik.touched.quantity && formik.errors.quantity}
+                    variant="filled"
+                  />
+
+                  {pictureUrl ? (
+                    <img height={100} width={100} src={pictureUrl} />
+                  ) : (
+                    ""
+                  )}
+                  <Button variant="contained" component="label" color="primary">
+                    <AddCircleOutlined />
+                    Upload an image
+                    <input
+                      type="file"
+                      hidden
+                      name="data"
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                        const data = e.target.files ? e.target.files[0] : null;
+                        if (data) {
+                          setFile(data);
+                        }
+                        e.preventDefault();
+                      }}
+                    />
+                  </Button>
+
+                  <Button variant="contained" type="submit">
+                    Mint
+                  </Button>
+                </Stack>
+              </form>
+            </Box>
+          </SwipeableDrawer>
+
+          <Typography variant="h5">Mint your wine collection</Typography>
+
+          {nftContratTokenMetadataMap.size != 0 ? (
+            <Box sx={{ width: "70vw" }}>
+              <SwipeableViews
+                axis="x"
+                index={activeStep}
+                onChangeIndex={handleStepChange}
+                enableMouseEvents
+              >
+                {Array.from(nftContratTokenMetadataMap!.entries()).map(
+                  ([token_id, token]) => (
+                    <Card
+                      sx={{
+                        display: "block",
+                        maxWidth: "80vw",
+                        overflow: "hidden",
+                      }}
+                      key={token_id.toString()}
+                    >
+                      <CardHeader
+                        titleTypographyProps={
+                          isTablet ? { fontSize: "1.5em" } : { fontSize: "1em" }
+                        }
+                        title={token.name}
+                      />
+
+                      <CardMedia
+                        sx={
+                          isTablet
+                            ? {
+                                width: "auto",
+                                marginLeft: "33%",
+                                maxHeight: "50vh",
+                              }
+                            : { width: "100%", maxHeight: "40vh" }
+                        }
+                        component="img"
+                        image={token.thumbnailUri?.replace(
+                          "ipfs://",
+                          "https://gateway.pinata.cloud/ipfs/"
+                        )}
+                      />
+
+                      <CardContent>
+                        <Box>
+                          <Typography>{"ID : " + token_id}</Typography>
+                          <Typography>{"Symbol : " + token.symbol}</Typography>
+                          <Typography>
+                            {"Description : " + token.description}
+                          </Typography>
+                        </Box>
+                      </CardContent>
+                    </Card>
+                  )
+                )}
+              </SwipeableViews>
+              <MobileStepper
+                variant="text"
+                steps={Array.from(nftContratTokenMetadataMap!.entries()).length}
+                position="static"
+                activeStep={activeStep}
+                nextButton={
+                  <Button
+                    size="small"
+                    onClick={handleNext}
+                    disabled={
+                      activeStep ===
+                      Array.from(nftContratTokenMetadataMap!.entries()).length - 1
+                    }
+                  >
+                    Next
+                    <KeyboardArrowRight />
+                  </Button>
+                }
+                backButton={
+                  <Button
+                    size="small"
+                    onClick={handleBack}
+                    disabled={activeStep === 0}
+                  >
+                    <KeyboardArrowLeft />
+                    Back
+                  </Button>
+                }
+              />
+            </Box>
+          ) : (
+            <Typography sx={{ py: "2em" }} variant="h4">
+              Sorry, there is not NFT yet, you need to mint bottles first
+            </Typography>
+          )}
+        </Paper>
+      );
+    }
+    ```
+
+### Step 4: Update in `OffersPage.tsx`
 
 The quantity field is added and the `token_id` filed is removed. Replace the full file with the following content:
 
@@ -1087,7 +1094,7 @@ export default function OffersPage() {
 }
 ```
 
-### Update in `WineCataloguePage.tsx`
+### Step 5: Update in `WineCataloguePage.tsx`
 
 The quantity field is added and `token_id` filed is removed. Replace the full file with the following content:
 
@@ -1394,7 +1401,7 @@ For buying,
 
 ![buy.png](/images/buy_part3.png)
 
-## Conclusion
+## Summary
 
 You are now able to play with a unique NFT collection from the Ligo library.
 
