@@ -8,9 +8,10 @@ lastUpdated: 11th October 2023
 
 Welcome to the first part of our four-part series on building an NFT Marketplace. This tutorial aims to equip you with the knowledge and tools to create a robust NFT platform.
 
-In the first part, you could learn
-- the basic concept in NFT marketplace
-- how to create a collection of blockchain tokens that represent real-world items.
+After this training, you will be able to :
+- Understand the basic concepts about NFTs and collectibles
+- Extend an existing Ligo library
+- Create a marketplace to buy and sell tokens
 
 {% callout type="note" %}
 This training course is provided by [Marigold](https://www.marigold.dev/).
@@ -26,9 +27,9 @@ You can find the 4 parts on github (solution + materials to build the UI)
 
 ### What is FA?
 
-Business objects managed by a blockchain are called **assets**. On Tezos you find the term **Financial Asset or FA**.
+Business objects managed by a blockchain are called **assets**. On Tezos you find the term **Financial Asset (abbr. FA)**.
 
-Here are different categorizations of assets.
+This diagram shows different kinds of assets. Some tangible assets in the real-world, like physical currency and precious metals, are _fungible_, or interchangeable. Other tangible assets, such as specific pieces of art or property, are non-fungible. Similarly, Tezos financial assets can be fungible or non-fungible.
 
 ![](http://jingculturecommerce.com/wp-content/uploads/2021/03/nft-assets-1024x614.jpg)
 
@@ -60,18 +61,18 @@ Next, you need to import the token contract into the unique marketplace contract
 
 ## Wine marketplace
 
-The `@ligo/fa` package is a pre-built module from the [Ligo repository](https://packages.ligolang.org/) that provides foundational tools and functions for building and interacting with smart contracts on the Tezos blockchain. 
+The `@ligo/fa` package is a pre-built module from the [Ligo repository](https://packages.ligolang.org/) that provides foundational tools and functions for building and interacting with smart contracts on the Tezos blockchain.
 
-The next step is to build a wine marketplace extending the `@ligo/fa` package from the [Ligo repository](https://packages.ligolang.org/). 
+The next step is to build a wine marketplace extending the `@ligo/fa` package from the [Ligo repository](https://packages.ligolang.org/).
 
 The goal is to showcase how to extend an existing smart contract and build a frontend on top of it.
 
-The wine marketplace is adding these features on top of a generic NFT contract :
+The wine marketplace has additional features on top of the generic NFT contract :
 
-- mint new wine bottles
-- update wine bottle metadata details
-- buy wine bottles
-- sell wine bottles
+- Mint new wine bottles
+- Update wine bottle metadata details
+- Buy wine bottles
+- Sell wine bottles
 
 You can play with the [final demo](https://demo.winefactory.marigold.dev/). It is a platform where you can buy, sell, and check your own wine collection.
 
@@ -674,7 +675,7 @@ Edit default mint Page on `./src/MintPage.tsx`
     const [file, setFile] = useState<File | null>(null);
     ```
 
-3. Add drawer variables to manage the side popup of the form:
+4. Add drawer variables to manage the side popup of the form:
 
     ```typescript
     //open mint drawer if admin
@@ -699,7 +700,7 @@ Edit default mint Page on `./src/MintPage.tsx`
       };
     ```
 
-4. Fix the missing imports at the beginning of the file :
+5. Fix the missing imports at the beginning of the file :
 
     ```typescript
     import { AddCircleOutlined, Close } from "@mui/icons-material";
@@ -724,19 +725,19 @@ Edit default mint Page on `./src/MintPage.tsx`
 
 #### Add mint missing function
 
-1. Add the `mint` function and related imports :
+1. Add the related imports at the beginning of the file :
 
-    ```typescript
+```typescript
     import { useSnackbar } from "notistack";
     import { BigNumber } from "bignumber.js";
     import { address, bytes, nat } from "./type-aliases";
     import { char2Bytes } from "@taquito/utils";
     import { TransactionInvalidBeaconError } from "./TransactionInvalidBeaconError";
-    ```
+```
 
 2. Add the `mint` function inside your `MintPage` Component function
 
-    ```typescript
+```typescript
     const { enqueueSnackbar } = useSnackbar();
 
     const mint = async (newTokenDefinition: TZIP21TokenMetadata) => {
@@ -807,25 +808,25 @@ Edit default mint Page on `./src/MintPage.tsx`
         });
       }
     };
-    ```
+```
 
-    > Note : organize/fix duplicated import declarations if necessary
+> Note : organize/fix duplicated import declarations if necessary
 
     ![mint form](/images/mintForm.png)
 
     Explanations:
 
-    - on Mint button click, upload a file and then call the **pinata API** to push the file to **IPFS**. It returns the hash
-    - hash is used in two different ways
-      - https pinata gateway link (or any other ipfs http viewer)
-      - ipfs link for the backend thumbnail url
+    - On Mint button click, a file is uploaded and a call to the Pinata API pushes the file to IPFS. It returns the hash of the file.
+    - The hash is used in two different ways :
+      - On the UI, to display the picture using the Https pinata gateway url + hash
+      - On the smart contract, the IPFS link is stored as artifactUrl field on the toekn definition metadata
     - TZIP standard requires storing data in `bytes`. As there is no Michelson function to convert string to bytes (using Micheline data PACK is not working, as it alters the final bytes), do the conversion using `char2Bytes` on the frontend side
 
     > Note : Finally, if you remember on the backend, token_id increment management was done in the ui, so you can write this code. It is not a good security practice as it supposes that the counter is managed on frontend side, but it is ok for demo purpose.
 
-3. Add this code inside your `MintPage` Component function , every time you have a new token minted, you increment the counter for the next one
+3. Add this code inside the `MintPage` component function. Each time it mints a token, it increments the counter for the next token's ID.
 
-    ```typescript
+```typescript
     useEffect(() => {
       (async () => {
         if (nftContratTokenMetadataMap && nftContratTokenMetadataMap.size > 0) {
@@ -833,13 +834,13 @@ Edit default mint Page on `./src/MintPage.tsx`
         }
       })();
     }, [nftContratTokenMetadataMap?.size]);
-    ```
+```
 
 ### Display all minted bottles
 
 1. Replace the `"//TODO"` keyword with this template
 
-    ```html
+```html
     <Box sx={{ width: "70vw" }}>
               <SwipeableViews
                 axis="x"
@@ -924,11 +925,11 @@ Edit default mint Page on `./src/MintPage.tsx`
                 }
               />
             </Box>
-    ```
+```
 
 Finally, your imports at beginning of the file should be like this :
 
-    ```typescript
+```typescript
     import SwipeableViews from "react-swipeable-views";
     import OpenWithIcon from "@mui/icons-material/OpenWith";
     import {
@@ -962,11 +963,11 @@ Finally, your imports at beginning of the file should be like this :
     import { address, bytes, nat } from "./type-aliases";
     import { char2Bytes } from "@taquito/utils";
     import { TransactionInvalidBeaconError } from "./TransactionInvalidBeaconError";
-    ```
+```
 
-    and some variables inside your `MintPage` Component function
+and some variables inside your `MintPage` Component function
 
-    ```typescript
+```typescript
     const [activeStep, setActiveStep] = React.useState(0);
 
     const handleNext = () => {
@@ -980,7 +981,7 @@ Finally, your imports at beginning of the file should be like this :
     const handleStepChange = (step: number) => {
       setActiveStep(step);
     };
-    ```
+```
 
 ## Let's play
 
@@ -994,7 +995,7 @@ Finally, your imports at beginning of the file should be like this :
 
 ![minting](/images/minting.png)
 
-Your picture is be pushed to IPFS and displayed.
+Your picture is pushed to IPFS and displayed on the page.
 
 Then, Temple Wallet _(or whatever other wallet you choose)_ asks you to sign the operation. Confirm it, and less than 1 minute after the confirmation notification, the page is automatically refreshed to display your wine collection with your first NFT!
 
