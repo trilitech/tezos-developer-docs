@@ -10,8 +10,8 @@ lastUpdated: 11th October 2023
 
 In the third part, the single asset template is employed. This contrasts with the earlier NFT template in the following ways:
 
-- you have a unique `token_id`, so only 1 wine collection
-- you have a certain quantity of items in the same collection
+- You have a unique `token_id`, so only 1 wine collection
+- You have a certain quantity of items in the same collection
 
 In essence, you are producing wine bottles from the same collection with `n` quantity.
 

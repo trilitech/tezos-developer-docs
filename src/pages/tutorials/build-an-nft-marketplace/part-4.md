@@ -10,8 +10,8 @@ lastUpdated: 11th October 2023
 
 In the final part, the multi asset template will be used. With this template:
 
-- you have an unlimited number of NFT collections
-- you have an unlimited quantity of items in each collection
+- You have an unlimited number of NFT collections
+- You have an unlimited quantity of items in each collection
 
 In summary, you can produce any quantity of wine bottles across numerous collections.
 

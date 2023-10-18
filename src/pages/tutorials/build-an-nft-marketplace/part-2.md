@@ -50,7 +50,7 @@ Add the following code sections on your `nft.jsligo` smart contract
 
     Explanation:
 
-    - an `offer` is an NFT _(owned by someone)_ with a price
+    - An `offer` is an NFT _(owned by someone)_ with a price
     - `storage` has a new field to store `offers`: a `map` of offers
 
 3. Update the initial storage on file `nft.storageList.jsligo` to initialize `offers` field using the following code:
@@ -149,7 +149,7 @@ Add the following code sections on your `nft.jsligo` smart contract
     Explanation:
 
     - User must have enough tokens _(wine bottles)_ to place an offer
-    - the seller will set the NFT marketplace smart contract as an operator. When the buyer sends his money to buy the NFT, the smart contract will change the NFT ownership _(it is not interactive with the seller, the martketplace will do it on behalf of the seller based on the offer data)_
+    - The seller will set the NFT marketplace smart contract as an operator. When the buyer sends his money to buy the NFT, the smart contract will change the NFT ownership _(it is not interactive with the seller, the martketplace will do it on behalf of the seller based on the offer data)_
     - `storage` is updated with `offer` field
 
 ### Step 3: Buy a bottle on the marketplace
@@ -205,9 +205,9 @@ const buy = ([token_id, seller]: [nat, address], s: storage): ret => {
 
 Explanation:
 
-- search for the offer based on the `token_id` or return an error if it does not exist
-- check that the amount sent by the buyer is greater than the offer price. If it is ok, transfer the offer price to the seller and transfer the NFT to the buyer
-- remove the offer as it has been executed
+- Search for the offer based on the `token_id` or return an error if it does not exist
+- Check that the amount sent by the buyer is greater than the offer price. If it is ok, transfer the offer price to the seller and transfer the NFT to the buyer
+- Remove the offer as it has been executed
 
 ### Step 4: Compile and deploy
 
@@ -580,9 +580,9 @@ Edit Sale Page on `./src/OffersPage.tsx`
 
     Explanation :
 
-    - the template displays all owned NFTs. Only NFTs belonging to the logged user are selected
-    - for each NFT, there is a form to make an offer at a price
-    - if you do an offer, it calls the `sell` function and the smart contract entrypoint `nftContrat?.methods.sell(BigNumber(token_id) as nat,BigNumber(price * 1000000) as nat).send()`. Multiply the XTZ price by 10^6 because the smart contract manipulates mutez.
+    - The template displays all owned NFTs. Only NFTs belonging to the logged user are selected
+    - For each NFT, there is a form to make an offer at a price
+    - If you do an offer, it calls the `sell` function and the smart contract entrypoint `nftContrat?.methods.sell(BigNumber(token_id) as nat,BigNumber(price * 1000000) as nat).send()`. Multiply the XTZ price by 10^6 because the smart contract manipulates mutez.
 
 ### Let's play : Sell
 
