@@ -15,7 +15,21 @@ In these steps, you optimize the kernel:
 
    You can run this command inside or outside of the Docker container.
 
-   The size of the compiled kernel and its dependencies may be 18MB or more, which is too large to deploy.
+   Because you ran it in debug mode, the size of the compiled kernel and its dependencies may be 18MB or more, which is too large to originate.
+
+1. In a terminal window outside of the Docker container, run this command to create a release build of the kernel:
+
+   ```bash
+   cargo build --release --target wasm32-unknown-unknown
+   ```
+
+1. Check the size of the release build of the kernel:
+
+   ```bash
+   du -h target/wasm32-unknown-unknown/release/hello_world_kernel.wasm
+   ```
+
+   The release build is significantly smaller, but still too large.
 
 1. In a terminal window outside of the Docker container, run the `wasm-strip` command to reduce the size of the kernel:
 
