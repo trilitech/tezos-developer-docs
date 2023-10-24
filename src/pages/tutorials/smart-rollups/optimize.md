@@ -4,7 +4,7 @@ title: "Part 4: Optimizing the kernel"
 lastUpdated: 11th October 2023
 ---
 
-The kernel must be efficient with space and processing power because there is a size limit for kernels.
+To originate the kernel on Tezos, it must fit within the maximum size for a layer 1 operation.
 In these steps, you optimize the kernel:
 
 1. Run this command to print the current size of the kernel:
