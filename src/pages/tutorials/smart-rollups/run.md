@@ -19,7 +19,9 @@ In these steps, you start a smart rollup node, but note that anyone can run a no
 1. In the second terminal window, in the Docker container, start the rollup node:
 
    ```bash
-   octez-smart-rollup-node-alpha run operator for "test_smart_rollup" with operators "bootstrap2" --data-dir ~/.tezos-rollup-node/ --log-kernel-debug --log-kernel-debug-file hello_kernel.debug
+   octez-smart-rollup-node-alpha run operator for "test_smart_rollup" \
+       with operators "bootstrap2" --data-dir ~/.tezos-rollup-node/ \
+       --log-kernel-debug --log-kernel-debug-file hello_kernel.debug
    ```
 
    Now the node is running and writing to the log file `hello_kernel.debug`.
