@@ -132,7 +132,7 @@ TODO Could we install some of the tools in the docker container instead of makin
 
    After you run these commands, run `$CC --version` to verify that you have version 11 or greater installed.
 
-   Also, ensure that your version of Clang `wasm32` target with by running the command `CC -print-targets | grep WebAssembly` and verifying that the results include `wasm32`.
+   Also, ensure that your version of Clang `wasm32` target with by running the command `$CC -print-targets | grep wasm32` and verifying that the results include `wasm32`.
 
 - AR (macOS only)
 
