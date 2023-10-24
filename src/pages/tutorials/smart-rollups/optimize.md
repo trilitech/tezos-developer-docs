@@ -66,4 +66,4 @@ In these steps, you optimize the kernel:
    ```
 
 Now the kernel is small enough to be originated on layer 1.
-In fact, when it is deployed, it will be even smaller than the result of this command because the command is checking the hexadecimal representation and the deployed kernel will be in binary.
+In fact, when it is deployed, it will be even smaller because it is currently hex-encoded and when you deploy it, it will be converted to binary.
