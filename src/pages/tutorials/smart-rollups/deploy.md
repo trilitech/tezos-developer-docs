@@ -11,7 +11,10 @@ This command creates an address for the rollup and stores a small amount of data
 1. In the second terminal window, in the Docker container, in the `hello-world-kernel` folder, run this command to deploy the installer kernel to the Tezos sandbox:
 
    ```bash
-   octez-client originate smart rollup "test_smart_rollup" from "bootstrap1" of kind wasm_2_0_0 of type bytes with kernel file:hello_world_kernel_installer.hex --burn-cap 3
+   octez-client originate smart rollup \
+     "test_smart_rollup" from "bootstrap1" \
+     of kind wasm_2_0_0 of type bytes \
+     with kernel file:hello_world_kernel_installer.hex --burn-cap 3
    ```
 
    If you need to open a new terminal window within the Docker container, run the command `docker exec -it octez-container /bin/sh`.
