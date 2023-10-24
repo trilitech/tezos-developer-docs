@@ -1,7 +1,7 @@
 ---
 id: deploy
 title: "Part 5: Deploying (originating) the rollup"
-lastUpdated: 11th October 2023
+lastUpdated: 24th October 2023
 ---
 
 Smart rollups are originated in a way similar to smart contracts.
@@ -14,7 +14,7 @@ This command creates an address for the rollup and stores a small amount of data
    octez-client originate smart rollup \
      "test_smart_rollup" from "bootstrap1" \
      of kind wasm_2_0_0 of type bytes \
-     with kernel file:hello_world_kernel_installer.hex --burn-cap 3
+     with kernel file:hello_world_kernel_installer.wasm --burn-cap 3
    ```
 
    If you need to open a new terminal window within the Docker container, run the command `docker exec -it octez-container /bin/sh`.
