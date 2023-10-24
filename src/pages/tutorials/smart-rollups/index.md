@@ -5,7 +5,6 @@ lastUpdated: 11th October 2023
 ---
 This tutorial covers how to deploy a smart rollup in a Tezos sandbox.
 To run this tutorial, you should have a basic understanding of how Tezos works and the ability to use the command-line terminal on your computer.
-If you are new to Tezos, try the tutorial [Deploy a smart contract](../deploy-your-first-smart-contract) first.
 
 In this tutorial, you will learn:
 
