@@ -34,7 +34,7 @@ In these steps, you optimize the kernel:
 1. In a terminal window outside of the Docker container, run the `wasm-strip` command to reduce the size of the kernel:
 
    ```bash
-   wasm-strip target/wasm32-unknown-unknown/debug/hello_world_kernel.wasm
+   wasm-strip target/wasm32-unknown-unknown/release/hello_world_kernel.wasm
    ```
 
    This command removes WebAssembly code that is not necessary to run rollups.
@@ -43,7 +43,7 @@ In these steps, you optimize the kernel:
 1. Run the `du` command again to see the new size of the kernel:
 
    ```bash
-   du -h target/wasm32-unknown-unknown/debug/hello_world_kernel.wasm
+   du -h target/wasm32-unknown-unknown/release/hello_world_kernel.wasm
    ```
 
    The size of the kernel is smaller now.
@@ -62,7 +62,7 @@ In these steps, you optimize the kernel:
 1. Outside of the Docker container, run this command to create an installer kernel:
 
    ```bash
-   smart-rollup-installer get-reveal-installer --upgrade-to target/wasm32-unknown-unknown/debug/hello_world_kernel.wasm --output hello_world_kernel_installer.hex --preimages-dir preimages/
+   smart-rollup-installer get-reveal-installer --upgrade-to target/wasm32-unknown-unknown/release/hello_world_kernel.wasm --output hello_world_kernel_installer.hex --preimages-dir preimages/
    ```
 
    This command creates the following files:
