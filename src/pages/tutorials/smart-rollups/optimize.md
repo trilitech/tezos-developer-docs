@@ -36,7 +36,8 @@ In these steps, you optimize the kernel:
    Note that the changes that you make to the kernel outside of the Docker container also appear in the container and vice versa because the folder is mounted with the Docker `--volume` argument.
 
    To optimize the kernel further, you can convert it to an _installer kernel_, which includes only enough information to start the kernel, like an installation program.
-   This installer kernel keeps the rest of its logic and data in separate files called _preimages_.
+   To do this, you store the kernel logic and data in separate files called _preimages_.
+   The installer kernel downloads them and uses them to restore the original kernel.
 
 1. Outside of the Docker container, run this command to install the installer kernel tool:
 
@@ -44,7 +45,7 @@ In these steps, you optimize the kernel:
    cargo install tezos-smart-rollup-installer
    ```
 
-1. Outside of the Docker container, run this command to convert the kernel to an installer kernel:
+1. Outside of the Docker container, run this command to create an installer kernel:
 
    ```bash
    smart-rollup-installer get-reveal-installer --upgrade-to target/wasm32-unknown-unknown/debug/hello_world_kernel.wasm --output hello_world_kernel_installer.hex --preimages-dir preimages/
@@ -53,7 +54,7 @@ In these steps, you optimize the kernel:
    This command creates the following files:
 
    - `hello_world_kernel_installer.hex`: The hexadecimal representation of the installer kernel
-   - `preimages/`: A directory that contains the preimages that allow nodes to restore the installer kernel to the original kernel code
+   - `preimages/`: A directory that contains the preimages that allow nodes to restore the original kernel code
 
    When a node runs the installer kernel, it retrieves the preimages through the reveal data channel, a channel that smart rollups use to communicate outside of layer 1.
    For more information about the reveal data channel, see [reveal data channel](https://tezos.gitlab.io/alpha/smart_rollups.html#reveal-data-channel).
