@@ -62,12 +62,14 @@ In these steps, you optimize the kernel:
 1. Outside of the Docker container, run this command to create an installer kernel:
 
    ```bash
-   smart-rollup-installer get-reveal-installer --upgrade-to target/wasm32-unknown-unknown/release/hello_world_kernel.wasm --output hello_world_kernel_installer.wasm --preimages-dir preimages/
+   smart-rollup-installer get-reveal-installer \
+     --upgrade-to target/wasm32-unknown-unknown/release/hello_world_kernel.wasm \
+     --output hello_world_kernel_installer.wasm --preimages-dir preimages/
    ```
 
    This command creates the following files:
 
-   - `hello_world_kernel_installer.wasm`: The hexadecimal representation of the installer kernel
+   - `hello_world_kernel_installer.wasm`: The installer kernel
    - `preimages/`: A directory that contains the preimages that allow nodes to restore the original kernel code
 
    When a node runs the installer kernel, it retrieves the preimages through the reveal data channel, a channel that smart rollups use to communicate outside of layer 1.
@@ -79,13 +81,24 @@ In these steps, you optimize the kernel:
    du -h hello_world_kernel_installer.wasm
    ```
 
+   Now the kernel is small enough to originate on layer 1.
+
 1. Inside of the Docker container, run the installer kernel in debug mode by running this command:
 
    ```bash
-   octez-smart-rollup-wasm-debugger --kernel hello_world_kernel_installer.wasm --preimage-dir preimages/ --inputs empty_input.json
+   octez-smart-rollup-wasm-debugger --kernel hello_world_kernel_installer.wasm \
+     --preimage-dir preimages/ --inputs empty_input.json
    ```
 
    Then you can use the `step inbox` command to simulate receiving the inbox from layer 1.
+   Press Ctrl + C to end the debugging session.
 
-Now the kernel is small enough to be originated on layer 1.
-In fact, when it is deployed, it will be even smaller because it is currently hex-encoded and when you deploy it, it will be converted to binary.
+1. Create a hexadecimal version of the installer kernel by running this command outside of the Docker container:
+
+   ```bash
+   smart-rollup-installer get-reveal-installer \
+     --upgrade-to target/wasm32-unknown-unknown/release/hello_world_kernel.hex \
+     --output hello_world_kernel_installer.hex --preimages-dir preimages/
+   ```
+
+   In the next section, you originate this hex version of the installer kernel on layer 1.
