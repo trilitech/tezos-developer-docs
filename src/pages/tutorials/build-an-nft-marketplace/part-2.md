@@ -612,7 +612,7 @@ You are the owner of this bottle so you can create an offer to sell it.
 
 Edit the Wine Catalogue page on `./src/WineCataloguePage.tsx`
 
-1. Add the following code inside the file
+1. Add the following code inside the file:
 
     ```typescript
     import { InfoOutlined } from "@mui/icons-material";
