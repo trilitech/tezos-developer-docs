@@ -21,7 +21,7 @@ yarn install
 cd ..
 ```
 
-## Smart Contract Modification
+## Smart contract modification
 
 ### Step 1: Initialize the Smart Contract
 Add the following code sections on your `nft.jsligo` smart contract
