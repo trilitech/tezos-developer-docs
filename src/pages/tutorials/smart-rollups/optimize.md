@@ -97,7 +97,7 @@ In these steps, you optimize the kernel:
 
    ```bash
    smart-rollup-installer get-reveal-installer \
-     --upgrade-to target/wasm32-unknown-unknown/release/hello_world_kernel.hex \
+     --upgrade-to target/wasm32-unknown-unknown/release/hello_world_kernel.wasm \
      --output hello_world_kernel_installer.hex --preimages-dir preimages/
    ```
 
