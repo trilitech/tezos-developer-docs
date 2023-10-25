@@ -49,9 +49,9 @@ In these steps, you optimize the kernel:
    The size of the kernel is smaller now.
    Note that the changes that you make to the kernel outside of the Docker container also appear in the container and vice versa because the folder is mounted with the Docker `--volume` argument.
 
-   To optimize the kernel further, you can convert it to an _installer kernel_, which includes only enough information to start the kernel, like an installation program.
-   To do this, you store the kernel logic and data in separate files called _preimages_.
-   The installer kernel downloads them and uses them to restore the original kernel.
+   To get the kernel running with an even smaller size, you can use the installer kernel, which includes only enough information to install your original kernel.
+   To do this, your kernel is split up and stored in separate files called preimages.
+   Then you run the installer kernel, it requests these files and reconstructs the original kernel.
 
 1. Outside of the Docker container, run this command to install the installer kernel tool:
 
