@@ -26,7 +26,7 @@ cd ..
 ### Step 1: Initialize the smart contract
 Add the following code sections in the `nft.jsligo` smart contract:
 
-1. Add offer type
+1. Add a type to represent the offer to sell an NFT:
 
     ```ligolang
     export type offer = {
