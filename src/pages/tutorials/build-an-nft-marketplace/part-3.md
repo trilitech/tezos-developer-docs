@@ -61,7 +61,7 @@ To adapt to the new template, follow these steps:
     - `offer` requires a quantity, each owner is selling a part of the unique collection
     - `totalSupply` is set while minting in order to track the global quantity of minted items on the collection. It makes it unnecessary to recalculate each time the quantity from each owner's holdings (this value is constant)
 
-4. Edit the `mint` function to add the `quantity` extra param, and finally change the `return`
+4. Edit the `mint` function to add the `quantity` extra param, and finally change the `return`:
 
     ```ligolang
     @entry
@@ -110,7 +110,7 @@ To adapt to the new template, follow these steps:
     };
     ```
 
-5. Edit the `sell` function to replace `token_id` by `quantity`, add/override an offer for the user
+5. Edit the `sell` function to replace `token_id` by `quantity`, add/override an offer for the user:
 
     ```ligolang
     @entry
@@ -150,7 +150,7 @@ To adapt to the new template, follow these steps:
     };
     ```
 
-6. Also edit the `buy` function to replace `token_id` by `quantity`, check quantities, check final price is enough and update the current offer
+6. Also edit the `buy` function to replace `token_id` by `quantity`, check quantities, check final price is enough and update the current offer:
 
     ```ligolang
     @entry
@@ -204,7 +204,7 @@ To adapt to the new template, follow these steps:
     };
     ```
 
-7. Edit the storage file `nft.storageList.jsligo` as it. 
+7. Edit the storage file `nft.storageList.jsligo` as it.
   > Reminder: While editing, you can either modify the administrator address to reflect your own or retain the default alice address.
 
     ```ligolang
@@ -270,7 +270,7 @@ This section guides you step-by-step in setting up an intuitive frontend.
 
 ### Step 1: Initialize Typescript Classes
 
-Generate Typescript classes and go to the frontend to run the server
+Generate Typescript classes and go to the frontend to run the server:
 
 ```bash
 taq generate types ./app/src

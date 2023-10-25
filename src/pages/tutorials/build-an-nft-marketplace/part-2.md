@@ -12,7 +12,7 @@ In this section, you add the feature to buy and sell NFTs.
 
 Keep your code from the previous lesson or get the solution [here](https://github.com/marigold-dev/training-nft-1/tree/main/solution)
 
-> If you clone/fork a repo, rebuild locally
+> If you clone/fork a repo, rebuild locally:
 
 ```bash
 npm i
@@ -35,7 +35,7 @@ Add the following code sections in the `nft.jsligo` smart contract:
     };
     ```
 
-2. Add `offers` field to storage, it should look like this below :
+2. Add `offers` field to storage, it should look like this below:
 
     ```ligolang
     export type storage = {
@@ -94,7 +94,7 @@ Add the following code sections in the `nft.jsligo` smart contract:
     };
     ```
 
-4. Compile the contract
+4. Compile the contract:
 
     ```bash
     TAQ_LIGO_IMAGE=ligolang/ligo:1.0.0 taq compile nft.jsligo
@@ -156,7 +156,7 @@ Add the following code sections in the `nft.jsligo` smart contract:
 
 Now that there are offers available on the marketplace, let's buy bottles!
 
-1. Edit the smart contract to add the `buy` feature
+1. Edit the smart contract to add the `buy` feature:
 
 ```ligolang
 @entry
@@ -234,7 +234,7 @@ This section guides you step-by-step in setting up an intuitive frontend.
 
 ### Step 1: Initialize the Typescript classes
 
-Generate Typescript classes and go to the frontend to run the server
+Generate Typescript classes and go to the frontend to run the server:
 
 ```bash
 taq generate types ./app/src
@@ -245,9 +245,9 @@ yarn dev
 
 ### Step 2: Sale page
 
-Edit Sale Page on `./src/OffersPage.tsx`
+Edit Sale Page on `./src/OffersPage.tsx:
 
-1. Add this code inside the file :
+1. Add this code inside the file:
 
     ```typescript
     import { InfoOutlined } from "@mui/icons-material";
@@ -584,7 +584,7 @@ Edit Sale Page on `./src/OffersPage.tsx`
     - For each NFT, there is a form to make an offer at a price
     - If you do an offer, it calls the `sell` function and the smart contract entrypoint `nftContrat?.methods.sell(BigNumber(token_id) as nat,BigNumber(price * 1000000) as nat).send()`. Multiply the XTZ price by 10^6 because the smart contract manipulates mutez.
 
-### Let's play : Sell
+### Let's play: Sell
 
 - Connect with your wallet and choose **alice** account (or one of the administrators you set on the smart contract earlier). You are redirected to the Administration /mint page as there is no NFT minted yet
 - Enter these values on the form for example :
@@ -598,7 +598,7 @@ Your picture is pushed to IPFS and displayed, then your wallet ask you to sign t
 
 5. Now, go to the **Trading** menu and the **Sell bottles** submenu.
 
-6. Click on the submenu entry
+6. Click the submenu entry:
 
 ![sell.png](/images/sell.png)
 

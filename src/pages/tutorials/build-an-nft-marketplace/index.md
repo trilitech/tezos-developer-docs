@@ -8,7 +8,7 @@ lastUpdated: 11th October 2023
 
 Welcome to the first part of our four-part series on building an NFT Marketplace. This tutorial aims to equip you with the knowledge and tools to create a robust NFT platform.
 
-After this training, you will be able to :
+After this training, you will be able to:
 - Understand the basic concepts about NFTs and collectibles
 - Extend an existing Ligo library
 - Create a marketplace to buy and sell tokens
@@ -67,7 +67,7 @@ The next step is to build a wine marketplace extending the `@ligo/fa` package fr
 
 The goal is to showcase how to extend an existing smart contract and build a frontend on top of it.
 
-The wine marketplace has additional features on top of the generic NFT contract :
+The wine marketplace has additional features on top of the generic NFT contract:
 
 - Mint new wine bottles
 - Update wine bottle metadata details
@@ -98,7 +98,7 @@ Because of web3, buy or sell features are a real payment system using on-chain X
 
 ## Prerequisites
 
-Before building an NFT marketplace, you must install the following tools.
+Before building an NFT marketplace, you must install the following tools:
 
 - [npm](https://nodejs.org/en/download/): for managing and installing dependencies in a TypeScript React application.
 - [taqueria >= v0.40.0](https://github.com/ecadlabs/taqueria) : for Tezos app development and deployment.
@@ -107,7 +107,6 @@ Before building an NFT marketplace, you must install the following tools.
 - [Temple wallet](https://templewallet.com/): A browser-based wallet for managing Tezos tokens and interacting with Tezos dApps.
 - [`VS Code`](https://code.visualstudio.com/download): A code editor for developing and managing your application's codebase.
 - [ligo VS Code extension](https://marketplace.visualstudio.com/items?itemName=ligolang-publish.ligo-vscode): Enhances VS Code with support for the LIGO smart contract language.
-
 
 The following tools are optional:
 
@@ -158,13 +157,13 @@ Next, you need to build the FA2 contract which relies on the Ligo FA library. To
 
 ### Step 3: NFT marketplace contract
 
-1. Create an NFT marketplace contract with `taqueria`
+1. Create an NFT marketplace contract with `taqueria`:
 
    ```bash
    taq create contract nft.jsligo
    ```
 
-2. Remove the default code and paste this code instead
+2. Remove the default code and paste this code instead:
 
     ```ligolang
     #import "@ligo/fa/lib/fa2/nft/nft.impl.jsligo" "FA2Impl"
@@ -344,13 +343,13 @@ Next, you need to build the FA2 contract which relies on the Ligo FA library. To
 
     **Smart contract implementation for this first training is finished, let's prepare the deployment to ghostnet.**
 
-5. Compile the file to create a default taqueria initial storage and parameter file
+5. Compile the file to create a default taqueria initial storage and parameter file:
 
     ```bash
     TAQ_LIGO_IMAGE=ligolang/ligo:1.0.0 taq compile nft.jsligo
     ```
 
-6. Edit the new storage file `nft.storageList.jsligo` as it. 
+6. Edit the new storage file `nft.storageList.jsligo` as it.
 
      > Note: While editing, you have the option to update the administrator address. You can either replace it with your personal address or retain the default Alice address tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb.
 
@@ -393,7 +392,7 @@ Next, you need to build the FA2 contract which relies on the Ligo FA library. To
     };
     ```
 
-7. Compile and deploy to ghostnet
+7. Compile and deploy to ghostnet:
 
     ```bash
     TAQ_LIGO_IMAGE=ligolang/ligo:1.0.0 taq compile nft.jsligo
@@ -444,7 +443,7 @@ This section guides you step-by-step in setting up an intuitive frontend.
 
 To save time, a [boilerplate ready for the UI](https://github.com/marigold-dev/training-nft-1/tree/main/reactboilerplateapp) is ready for you.
 
-1. Copy this code into your folder 
+1. Copy this code into your folder
     > Reminder: Ensure you've cloned the repository and are currently navigating from the `$REPO/training` directory.
 
     ```bash
@@ -457,7 +456,7 @@ To save time, a [boilerplate ready for the UI](https://github.com/marigold-dev/t
 
     Install the plugin, then generate a representation of your smart contract objects that writes these files to your frontend app source code.
 
-2. Run the server
+2. Run the server:
 
     ```bash
     taq install @taqueria/plugin-contract-types
@@ -486,7 +485,7 @@ Edit default mint Page on `./src/MintPage.tsx`
 
 #### Add a form to create the NFT
 
-1. In `MintPage.tsx`, replace the **HTML** template starting with `<Paper>` with this one :
+1. In `MintPage.tsx`, replace the **HTML** template starting with `<Paper>` with this one:
 
     ```html
         <Paper>
@@ -700,7 +699,7 @@ Edit default mint Page on `./src/MintPage.tsx`
       };
     ```
 
-5. Fix the missing imports at the beginning of the file :
+5. Fix the missing imports at the beginning of the file:
 
     ```typescript
     import { AddCircleOutlined, Close } from "@mui/icons-material";
@@ -725,7 +724,7 @@ Edit default mint Page on `./src/MintPage.tsx`
 
 #### Add mint missing function
 
-1. Add the related imports at the beginning of the file :
+1. Add the related imports at the beginning of the file:
 
 ```typescript
     import { useSnackbar } from "notistack";
@@ -810,7 +809,7 @@ Edit default mint Page on `./src/MintPage.tsx`
     };
 ```
 
-> Note : organize/fix duplicated import declarations if necessary
+> Note: organize/fix duplicated import declarations if necessary
 
     ![mint form](/images/mintForm.png)
 
@@ -838,7 +837,7 @@ Edit default mint Page on `./src/MintPage.tsx`
 
 ### Display all minted bottles
 
-1. Replace the `"//TODO"` keyword with this template
+1. Replace the `"//TODO"` keyword with this template:
 
 ```html
     <Box sx={{ width: "70vw" }}>
@@ -927,7 +926,7 @@ Edit default mint Page on `./src/MintPage.tsx`
             </Box>
 ```
 
-Finally, your imports at beginning of the file should be like this :
+Finally, your imports at beginning of the file should be like this:
 
 ```typescript
     import SwipeableViews from "react-swipeable-views";
@@ -965,7 +964,7 @@ Finally, your imports at beginning of the file should be like this :
     import { TransactionInvalidBeaconError } from "./TransactionInvalidBeaconError";
 ```
 
-and some variables inside your `MintPage` Component function
+and some variables inside your `MintPage` Component function:
 
 ```typescript
     const [activeStep, setActiveStep] = React.useState(0);

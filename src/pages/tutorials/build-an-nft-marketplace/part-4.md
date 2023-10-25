@@ -39,7 +39,7 @@ cd ..
 
 4. Omit the `totalSupply` and incorporate two additional key sets: owner_token_ids and token_ids.
 
-5. Change the `storage` definition
+5. Change the `storage` definition:
 
     ```ligolang
     export type offer = {
@@ -58,7 +58,7 @@ cd ..
     };
     ```
 
-6. Update `mint` function
+6. Update the `mint` function:
 
     ```ligolang
     @entry
@@ -110,7 +110,7 @@ cd ..
     };
     ```
 
-7. Update `sell` function
+7. Update `sell` function:
 
     ```ligolang
     @entry
@@ -143,7 +143,7 @@ cd ..
     };
     ```
 
-8. Update the `buy` function
+8. Update the `buy` function:
 
     ```ligolang
     @entry
@@ -194,7 +194,7 @@ cd ..
     };
     ```
 
-9. Change the initial storage to
+9. Change the initial storage to this code:
 
     ```ligolang
     #import "nft.jsligo" "Contract"
@@ -235,7 +235,7 @@ cd ..
     };
     ```
 
-10. Compile again and deploy to ghostnet
+10. Compile again and deploy to ghostnet:
 
     ```bash
     TAQ_LIGO_IMAGE=ligolang/ligo:1.0.0 taq compile nft.jsligo
@@ -252,13 +252,13 @@ cd ..
 
 **The smart contract _(backend)_ is finished**
 
-## NFT Marketplace front
+## NFT Marketplace frontend
 
 This section guides you step-by-step in setting up an intuitive frontend.
 
 ### Step 1: Initialize the Typescript Classes
 
-Generate Typescript classes and go to the frontend to run the server
+Generate Typescript classes and go to the frontend to run the server:
 
     ```bash
     taq generate types ./app/src
@@ -270,7 +270,8 @@ Generate Typescript classes and go to the frontend to run the server
 ### Step 2: Update in `App.tsx`
 
 Forget about `token_id == 0` and fetch back all tokens.
-1. Replace the function `refreshUserContextOnPageReload` with the following content
+
+1. Replace the function `refreshUserContextOnPageReload` with the following content:
 
     ```typescript
     const refreshUserContextOnPageReload = async () => {
@@ -324,7 +325,7 @@ Forget about `token_id == 0` and fetch back all tokens.
 
 ### Step 3: Update in `MintPage.tsx`
 
-Just update the `mint` call and add the missing quantity, and add back the `token_id` counter incrementer
+Just update the `mint` call and add the missing quantity, and add back the `token_id` counter incrementer:
 
 ```typescript
 import {
@@ -1144,7 +1145,7 @@ export default function OffersPage() {
 
 ### Step 5: Update in `WineCataloguePage.tsx`
 
-Copy the content below, and paste it to `WineCataloguePage.tsx`
+Copy the content below, and paste it to `WineCataloguePage.tsx`:
 
 ```typescript
 import { InfoOutlined } from "@mui/icons-material";
