@@ -610,7 +610,7 @@ You are the owner of this bottle so you can create an offer to sell it.
 
 ### Step 3: Wine Catalogue page
 
-Edit the Wine Catalogue page on `./src/WineCataloguePage.tsx`
+Follow these steps to implement the wine catalogue page in the `./src/WineCataloguePage.tsx` file:
 
 1. Add the following code inside the file:
 
