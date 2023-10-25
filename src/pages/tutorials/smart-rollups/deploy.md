@@ -54,13 +54,13 @@ This command creates an address for the rollup and stores a small amount of data
    ```bash
    octez-client originate smart rollup \
      "test_smart_rollup" from "bootstrap1" \
-     of kind wasm_2_0_0 of type bytes \
+     of kind wasm_2_0_0 of type string \
      with kernel file:hello_world_kernel_installer.hex --burn-cap 3
    ```
 
-   If you need to open a new terminal window within the Docker container, run the command `docker exec -it octez-container /bin/sh`.
-
    Like the command to originate a smart contract, this command uses the `--burn-cap` argument to allow the transaction to take fees from the account.
    Also like deploying a smart contract, the response in the terminal shows information about the transaction and the address of the originated smart rollup, which starts with `sr1`.
+
+1. Copy the address of the originated smart rollup, which starts with `sr1`.
 
 Now layer 1 is aware of the rollup and nodes can run the rollup kernel.
