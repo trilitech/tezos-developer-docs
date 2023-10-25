@@ -24,7 +24,7 @@ cd ..
 ## Smart contract modification
 
 ### Step 1: Initialize the smart contract
-Add the following code sections on your `nft.jsligo` smart contract
+Add the following code sections in the `nft.jsligo` smart contract:
 
 1. Add offer type
 
