@@ -368,7 +368,7 @@ const tutorialNavigation = [
             href: '/tutorials/smart-rollups/deploy',
           },
           {
-            title: "Part 5: Running the rollup node",
+            title: "Part 5: Running and interacting with the rollup node",
             href: '/tutorials/smart-rollups/run',
           },
         ],
