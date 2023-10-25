@@ -1,7 +1,7 @@
 ---
 id: optimize
-title: "Part 4: Optimizing the kernel"
-lastUpdated: 24th October 2023
+title: "Part 3: Optimizing the kernel"
+lastUpdated: 25th October 2023
 ---
 
 To originate the kernel on Tezos, it must fit within the maximum size for a layer 1 operation.

@@ -1,7 +1,7 @@
 ---
 id: run
-title: "Part 6: Running the rollup node"
-lastUpdated: 11th October 2023
+title: "Part 5: Running the rollup node"
+lastUpdated: 25th October 2023
 ---
 
 Now that the smart rollup is originated on layer 1, anyone can run a smart rollup node for it.

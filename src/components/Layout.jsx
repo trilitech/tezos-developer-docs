@@ -356,23 +356,19 @@ const tutorialNavigation = [
             href: '/tutorials/smart-rollups/set-up',
           },
           {
-            title: "Part 2: Starting a Tezos sandbox",
-            href: '/tutorials/smart-rollups/start-sandbox',
-          },
-          {
-            title: "Part 3: Running the kernel in debug mode",
+            title: "Part 2: Running the kernel in debug mode",
             href: '/tutorials/smart-rollups/debug',
           },
           {
-            title: "Part 4: Optimizing the kernel",
+            title: "Part 3: Optimizing the kernel",
             href: '/tutorials/smart-rollups/optimize',
           },
           {
-            title: "Part 5: Deploying (originating) the rollup",
+            title: "Part 4: Deploying (originating) the rollup",
             href: '/tutorials/smart-rollups/deploy',
           },
           {
-            title: "Part 6: Running the rollup node",
+            title: "Part 5: Running the rollup node",
             href: '/tutorials/smart-rollups/run',
           },
         ],
