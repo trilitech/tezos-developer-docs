@@ -8,7 +8,7 @@ lastUpdated: 11th October 2023
 
 ![https://img.etimg.com/thumb/msid-71286763,width-1070,height-580,overlay-economictimes/photo.jpg](https://img.etimg.com/thumb/msid-71286763,width-1070,height-580,overlay-economictimes/photo.jpg)
 
-In the second part, you could learn to add the feature to buy and sell an NFT.
+In this section, you add the feature to buy and sell NFTs.
 
 Keep your code from the previous lesson or get the solution [here](https://github.com/marigold-dev/training-nft-1/tree/main/solution)
 
