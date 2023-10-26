@@ -8,7 +8,7 @@ lastUpdated: 11th October 2023
 
 Welcome to the first part of our four-part series on building an NFT Marketplace. This tutorial aims to equip you with the knowledge and tools to create a robust NFT platform.
 
-After this training, you will be able to :
+After this training, you will be able to:
 - Understand the basic concepts about NFTs and collectibles
 - Extend an existing Ligo library
 - Create a marketplace to buy and sell tokens
@@ -67,7 +67,7 @@ The next step is to build a wine marketplace extending the `@ligo/fa` package fr
 
 The goal is to showcase how to extend an existing smart contract and build a frontend on top of it.
 
-The wine marketplace has additional features on top of the generic NFT contract :
+The wine marketplace has additional features on top of the generic NFT contract:
 
 - Mint new wine bottles
 - Update wine bottle metadata details
@@ -101,7 +101,7 @@ Because of web3, buy or sell features are a real payment system using on-chain X
 Before building an NFT marketplace, you must install the following tools.
 
 - [npm](https://nodejs.org/en/download/): for managing and installing dependencies in a TypeScript React application.
-- [taqueria >= v0.40.0](https://github.com/ecadlabs/taqueria) : for Tezos app development and deployment.
+- [taqueria >= v0.40.0](https://github.com/ecadlabs/taqueria): for Tezos app development and deployment.
 - [Docker](https://docs.docker.com/engine/install/): creates containers for consistent app development environments, required by **taqueria**
 - [jq](https://stedolan.github.io/jq/download/): command-line tool to parse and manipulate JSON data from **taqueria**
 - [Temple wallet](https://templewallet.com/): A browser-based wallet for managing Tezos tokens and interacting with Tezos dApps.
@@ -170,7 +170,7 @@ Next, you need to build the FA2 contract which relies on the Ligo FA library. To
     #import "@ligo/fa/lib/fa2/nft/nft.impl.jsligo" "FA2Impl"
 
     /* ERROR MAP FOR UI DISPLAY or TESTS
-        const errorMap : map<string,string> = Map.literal(list([
+        const errorMap: map<string,string> = Map.literal(list([
           ["0", "Enter a positive and not null amount"],
           ["1", "Operation not allowed, you need to be administrator"],
           ["2", "You cannot sell more than your current balance"],
@@ -196,10 +196,10 @@ Next, you need to build the FA2 contract which relies on the Ligo FA library. To
 
     - the first line `#import "@ligo/fa/lib/fa2/nft/nft.impl.jsligo" "FA2Impl"` imports the Ligo FA library implementation that your code is extending. Then, add new entrypoints to the base code.
     - `storage` definition is an extension of the imported library storage. You need to point to the original types keeping the same naming
-      - `FA2Impl.NFT.ledger` : keep/trace ownership of tokens
-      - `FA2Impl.TZIP16.metadata` : tzip-16 compliance
-      - `FA2Impl.TZIP12.tokenMetadata` : tzip-12 compliance
-      - `FA2Impl.NFT.operators` : permissions part of FA2 standard
+      - `FA2Impl.NFT.ledger`: keep/trace ownership of tokens
+      - `FA2Impl.TZIP16.metadata`: tzip-16 compliance
+      - `FA2Impl.TZIP12.tokenMetadata`: tzip-12 compliance
+      - `FA2Impl.NFT.operators`: permissions part of FA2 standard
     - `storage` has more fields to support a set of `administrators`
 
 3. Write `transfer,balance_of,update_operators` entrypoints. You need to do a passthrough call to the underlying library.
@@ -451,7 +451,7 @@ To save time, a [boilerplate ready for the UI](https://github.com/marigold-dev/t
     cp -r ../reactboilerplateapp/ ./app
     ```
 
-    > Note : if you want to understand how it has been made from scratch look at [this training](https://github.com/marigold-dev/training-dapp-1#construction_worker-dapp)
+    > Note: if you want to understand how it has been made from scratch look at [this training](https://github.com/marigold-dev/training-dapp-1#construction_worker-dapp)
 
     It is easier on frontend side to use typed objects. Taqueria provides a plugin to generate Typescript classes from your Michelson code.
 
@@ -467,7 +467,7 @@ To save time, a [boilerplate ready for the UI](https://github.com/marigold-dev/t
     yarn dev
     ```
 
-    > Note : On a **Mac** :green_apple:, sometimes `sed` commands do not work exactly the same as Unix commands. Look at the start script on package.json for Mac below :
+    > Note: On a **Mac**:green_apple:, sometimes `sed` commands do not work exactly the same as Unix commands. Look at the start script on package.json for Mac below:
     > `   "dev": "if test -f .env; then sed -i '' \"s/\\(VITE_CONTRACT_ADDRESS *= *\\).*/\\1$(jq -r 'last(.tasks[]).output[0].address' ../.taq/testing-state.json)/\" .env ; else jq -r '\"VITE_CONTRACT_ADDRESS=\" + last(.tasks[]).output[0].address' ../.taq/testing-state.json > .env ; fi && vite",`
 
     The website is ready! You have:
@@ -486,7 +486,7 @@ Edit default mint Page on `./src/MintPage.tsx`
 
 #### Add a form to create the NFT
 
-1. In `MintPage.tsx`, replace the **HTML** template starting with `<Paper>` with this one :
+1. In `MintPage.tsx`, replace the **HTML** template starting with `<Paper>` with this one:
 
     ```html
         <Paper>
@@ -645,7 +645,7 @@ Edit default mint Page on `./src/MintPage.tsx`
 
 2. Add all following elements inside your `MintPage` Component function:
 
-    - A `formik` form :
+    - A `formik` form:
 
     ```typescript
     const validationSchema = yup.object({
@@ -700,7 +700,7 @@ Edit default mint Page on `./src/MintPage.tsx`
       };
     ```
 
-5. Fix the missing imports at the beginning of the file :
+5. Fix the missing imports at the beginning of the file:
 
     ```typescript
     import { AddCircleOutlined, Close } from "@mui/icons-material";
@@ -725,7 +725,7 @@ Edit default mint Page on `./src/MintPage.tsx`
 
 #### Add mint missing function
 
-1. Add the related imports at the beginning of the file :
+1. Add the related imports at the beginning of the file:
 
 ```typescript
     import { useSnackbar } from "notistack";
@@ -810,19 +810,19 @@ Edit default mint Page on `./src/MintPage.tsx`
     };
 ```
 
-> Note : organize/fix duplicated import declarations if necessary
+> Note: organize/fix duplicated import declarations if necessary
 
     ![mint form](/images/mintForm.png)
 
     Explanations:
 
     - On Mint button click, a file is uploaded and a call to the Pinata API pushes the file to IPFS. It returns the hash of the file.
-    - The hash is used in two different ways :
+    - The hash is used in two different ways:
       - On the UI, to display the picture using the Https pinata gateway url + hash
       - On the smart contract, the IPFS link is stored as artifactUrl field on the toekn definition metadata
     - TZIP standard requires storing data in `bytes`. As there is no Michelson function to convert string to bytes (using Micheline data PACK is not working, as it alters the final bytes), do the conversion using `char2Bytes` on the frontend side
 
-    > Note : Finally, if you remember on the backend, token_id increment management was done in the ui, so you can write this code. It is not a good security practice as it supposes that the counter is managed on frontend side, but it is ok for demo purpose.
+    > Note: Finally, if you remember on the backend, token_id increment management was done in the ui, so you can write this code. It is not a good security practice as it supposes that the counter is managed on frontend side, but it is ok for demo purpose.
 
 3. Add this code inside the `MintPage` component function. Each time it mints a token, it increments the counter for the next token's ID.
 
@@ -927,7 +927,7 @@ Edit default mint Page on `./src/MintPage.tsx`
             </Box>
 ```
 
-Finally, your imports at beginning of the file should be like this :
+Finally, your imports at beginning of the file should be like this:
 
 ```typescript
     import SwipeableViews from "react-swipeable-views";
