@@ -72,7 +72,7 @@ In these steps, you optimize the kernel:
    - `hello_world_kernel_installer.wasm`: The installer kernel
    - `preimages/`: A directory that contains the preimages that allow nodes to restore the original kernel code
 
-   When a node runs the installer kernel, it retrieves the preimages through the reveal data channel, a channel that smart rollups use to communicate outside of layer 1.
+   When a node runs the installer kernel, it retrieves the preimages through the reveal data channel, a channel that smart rollups use to request data from outside of layer 1.
    For more information about the reveal data channel, see [reveal data channel](https://tezos.gitlab.io/alpha/smart_rollups.html#reveal-data-channel).
 
 1. Verify the size of the installer kernel by running this command:
