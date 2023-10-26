@@ -50,6 +50,8 @@ Now the kernel is compiled into a single file that nodes can run.
 Tezos provides a Docker image that contains the Octez client, which allows you to interact with Tezos from the command line.
 Later, you will use this image to run a sandbox Tezos environment for testing the rollup.
 
+1. Make sure that Docker desktop is running.
+
 1. Pull the most recent Tezos Docker image, which contains the most recent version of Octez:
 
    ```bash
