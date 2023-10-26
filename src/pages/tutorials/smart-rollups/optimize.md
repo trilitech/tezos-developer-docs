@@ -102,4 +102,4 @@ In these steps, you optimize the kernel:
      --output hello_world_kernel_installer.hex --preimages-dir preimages/
    ```
 
-   In the next section, you originate this hex version of the installer kernel on layer 1.
+   In the next section, you originate this hex-encoded installer kernel on layer 1.
