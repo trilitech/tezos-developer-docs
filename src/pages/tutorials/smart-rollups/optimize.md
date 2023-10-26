@@ -91,6 +91,7 @@ In these steps, you optimize the kernel:
    ```
 
    Then you can use the `step inbox` command to simulate receiving the inbox from layer 1.
+   You can see the hello world kernel messages in the log, which shows that the upgrade from the installer kernel to the full kernel was successful.
    Press Ctrl + C to end the debugging session.
 
 1. Create a hexadecimal version of the installer kernel by running this command outside of the Docker container:
