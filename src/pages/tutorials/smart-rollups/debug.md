@@ -29,7 +29,7 @@ Later, you will deploy the rollup to the sandbox, but running it in debug mode f
 
    - The message "Hello, kernel" from the `hello_kernel` function
    - The message "Got message: Internal(StartOfLevel)," which represents the start of the message inbox
-   - The message "Got message: Internal(InfoPerLevel(InfoPerLevel ...," which provides the hash of the previous block
+   - The message "Got message: Internal(InfoPerLevel(InfoPerLevel ...," which provides the hash and timestamp of the previous block
    - The message "Got message: Internal(EndOfLevel)," which represents the end of the message inbox
 
 1. Press Ctrl + C to end debugging mode.
