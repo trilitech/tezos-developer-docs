@@ -8,10 +8,10 @@ lastUpdated: 11th October 2023
 
 ![https://vinepair.com/wp-content/uploads/2016/06/Cellar-HEAD.jpg](https://vinepair.com/wp-content/uploads/2016/06/Cellar-HEAD.jpg)
 
-In the third part, the single asset template is employed. This contrasts with the earlier NFT template in the following ways:
+This part of the tutorial uses the single-asset template. Tokens created from this template are different from the NFTs in the previous section in these ways:
 
-- You have a unique `token_id`, so only 1 wine collection
-- You have a certain quantity of items in the same collection
+- There is a single wine collection with a unique `token_id`
+- There is a certain quantity of items in the collection
 
 In essence, you are producing wine bottles from the same collection with `n` quantity.
 
@@ -26,7 +26,7 @@ yarn install
 cd ..
 ```
 
-## Smart Contract Modification
+## Smart Contract modification
 
 To adapt to the new template, follow these steps:
 
@@ -57,9 +57,9 @@ To adapt to the new template, follow these steps:
 
     Explanation:
 
-    - `offers` is now a `map<address,offer>`, because you don't have to store `token_id` as a key, now the key is the owner's address. Each owner can sell a part of the unique collection
-    - `offer` requires a quantity, each owner is selling a part of the unique collection
-    - `totalSupply` is set while minting in order to track the global quantity of minted items on the collection. It makes it unnecessary to recalculate each time the quantity from each owner's holdings (this value is constant)
+    - `offers` is now a `map<address,offer>`. Instead of using the `token_id` as a key, now the key is the owner's address, which allows each other to sell some of the tokens in the collection.
+    - `offer` requires a quantity, which represents the number of tokens that the owner is selling.
+    - `totalSupply` is set while minting in order to track the global quantity of minted items on the collection. It remains constant and makes it unnecessary to recalculate each time the quantity from each owner's holdings.
 
 4. Edit the `mint` function to add the `quantity` extra param, and finally change the `return`:
 
@@ -110,7 +110,7 @@ To adapt to the new template, follow these steps:
     };
     ```
 
-5. Edit the `sell` function to replace `token_id` by `quantity`, add/override an offer for the user:
+5. Edit the `sell` function to replace `token_id` with `quantity`, and add or override an offer for the user:
 
     ```ligolang
     @entry
@@ -150,7 +150,7 @@ To adapt to the new template, follow these steps:
     };
     ```
 
-6. Also edit the `buy` function to replace `token_id` by `quantity`, check quantities, check final price is enough and update the current offer:
+6. Edit the `buy` function to replace `token_id` with `quantity`, check quantities, verify  that the final price is enough, and update the current offer:
 
     ```ligolang
     @entry
@@ -204,8 +204,8 @@ To adapt to the new template, follow these steps:
     };
     ```
 
-7. Edit the storage file `nft.storageList.jsligo` as it.
-  > Reminder: While editing, you can either modify the administrator address to reflect your own or retain the default alice address.
+7. Edit the storage file `nft.storageList.jsligo`:
+    > Reminder: While editing, you can either modify the administrator address to reflect your own or retain the default alice address.
 
     ```ligolang
     #import "nft.jsligo" "Contract"
@@ -262,13 +262,13 @@ To adapt to the new template, follow these steps:
     └──────────┴──────────────────────────────────────┴───────┴──────────────────┴────────────────────────────────┘
     ```
 
-**The smart contract! _(backend)_ is finished**
+**The smart contract _(backend)_ is finished**
 
 ## NFT Marketplace front
 
 This section guides you step-by-step in setting up an intuitive frontend.
 
-### Step 1: Initialize Typescript Classes
+### Step 1: Initialize typescript classes
 
 Generate Typescript classes and go to the frontend to run the server:
 
@@ -279,54 +279,54 @@ yarn install
 yarn dev
 ```
 
-### Step 2: Update in `App.tsx`
+### Step 2: Update `App.tsx`
 
     Fetch the `token_id == 0`.
     Replace the function `refreshUserContextOnPageReload` by
 
-    ```typescript
-    const refreshUserContextOnPageReload = async () => {
-      console.log("refreshUserContext");
-      //CONTRACT
+  ```typescript
+  const refreshUserContextOnPageReload = async () => {
+    console.log("refreshUserContext");
+    //CONTRACT
+    try {
+      let c = await Tezos.contract.at(nftContractAddress, tzip12);
+      console.log("nftContractAddress", nftContractAddress);
+
+      let nftContrat: NftWalletType = await Tezos.wallet.at<NftWalletType>(
+        nftContractAddress
+      );
+      const storage = (await nftContrat.storage()) as Storage;
+
       try {
-        let c = await Tezos.contract.at(nftContractAddress, tzip12);
-        console.log("nftContractAddress", nftContractAddress);
+        let tokenMetadata: TZIP21TokenMetadata = (await c
+          .tzip12()
+          .getTokenMetadata(0)) as TZIP21TokenMetadata;
+        nftContratTokenMetadataMap.set("0", tokenMetadata);
 
-        let nftContrat: NftWalletType = await Tezos.wallet.at<NftWalletType>(
-          nftContractAddress
-        );
-        const storage = (await nftContrat.storage()) as Storage;
-
-        try {
-          let tokenMetadata: TZIP21TokenMetadata = (await c
-            .tzip12()
-            .getTokenMetadata(0)) as TZIP21TokenMetadata;
-          nftContratTokenMetadataMap.set("0", tokenMetadata);
-
-          setNftContratTokenMetadataMap(new Map(nftContratTokenMetadataMap)); //new Map to force refresh
-        } catch (error) {
-          console.log("error refreshing nftContratTokenMetadataMap: ");
-        }
-
-        setNftContrat(nftContrat);
-        setStorage(storage);
+        setNftContratTokenMetadataMap(new Map(nftContratTokenMetadataMap)); //new Map to force refresh
       } catch (error) {
-        console.log("error refreshing nft contract: ", error);
+        console.log("error refreshing nftContratTokenMetadataMap: ");
       }
 
-      //USER
-      const activeAccount = await wallet.client.getActiveAccount();
-      if (activeAccount) {
-        setUserAddress(activeAccount.address);
-        const balance = await Tezos.tz.getBalance(activeAccount.address);
-        setUserBalance(balance.toNumber());
-      }
+      setNftContrat(nftContrat);
+      setStorage(storage);
+    } catch (error) {
+      console.log("error refreshing nft contract: ", error);
+    }
 
-      console.log("refreshUserContext ended.");
-    };
-    ```
+    //USER
+    const activeAccount = await wallet.client.getActiveAccount();
+    if (activeAccount) {
+      setUserAddress(activeAccount.address);
+      const balance = await Tezos.tz.getBalance(activeAccount.address);
+      setUserBalance(balance.toNumber());
+    }
 
-### Step 3: Update in `MintPage.tsx`
+    console.log("refreshUserContext ended.");
+  };
+  ```
+
+### Step 3: Update `MintPage.tsx`
 
     The quantity field is added and the `token_id` field is removed. Replace the full file by the following content:
 
@@ -760,9 +760,9 @@ yarn dev
     }
     ```
 
-### Step 4: Update in `OffersPage.tsx`
+### Step 4: Update `OffersPage.tsx`
 
-The quantity field is added and the `token_id` filed is removed. Replace the full file with the following content:
+The quantity field is added and the `token_id` field is removed. Replace the full file with the following content:
 
 ```typescript
 import { InfoOutlined } from "@mui/icons-material";
@@ -1094,9 +1094,9 @@ export default function OffersPage() {
 }
 ```
 
-### Step 5: Update in `WineCataloguePage.tsx`
+### Step 5: Update `WineCataloguePage.tsx`
 
-The quantity field is added and `token_id` filed is removed. Replace the full file with the following content:
+The quantity field is added and `token_id` field is removed. Replace the full file with the following content:
 
 ```typescript
 import { InfoOutlined } from "@mui/icons-material";

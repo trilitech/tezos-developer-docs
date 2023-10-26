@@ -8,10 +8,10 @@ lastUpdated: 11th October 2023
 
 ![https://france-vins.eu/wp-content/uploads/2018/10/les-meilleures-caves-%C3%A0-vin-image.jpg](https://france-vins.eu/wp-content/uploads/2018/10/les-meilleures-caves-%C3%A0-vin-image.jpg)
 
-In the final part, the multi asset template will be used. With this template:
+This part of the tutorial uses the multi-asset template. Tokens created from this template have these characteristics:
 
-- You have an unlimited number of NFT collections
-- You have an unlimited quantity of items in each collection
+- There are any number of collections of tokens
+- There are any number of tokens in each collection
 
 In summary, you can produce any quantity of wine bottles across numerous collections.
 
@@ -26,18 +26,18 @@ yarn install
 cd ..
 ```
 
-## Smart Contract Modification
+## Smart Contract modification
 
-1. Update the initial import line of the nft.jsligo file to:
+1. Update the initial import line of the `nft.jsligo` file to:
 
     ```ligolang
     #import "@ligo/fa/lib/fa2/asset/multi_asset.impl.jsligo" "FA2Impl"
     ```
 2. Ensure you replace the `SingleAsset` namespace with `MultiAsset` throughout the file. This guarantees that you're referencing the appropriate library.
 
-3. Reintroduce the `token_id` since multiple collections are now in play.
+3. Reintroduce the `token_id` because multiple collections are now in play.
 
-4. Omit the `totalSupply` and incorporate two additional key sets: owner_token_ids and token_ids.
+4. Set two additional keys: owner_token_ids and token_ids.
 
 5. Change the `storage` definition:
 
@@ -110,7 +110,7 @@ cd ..
     };
     ```
 
-7. Update `sell` function:
+7. Update the `sell` function:
 
     ```ligolang
     @entry
@@ -250,15 +250,15 @@ cd ..
     └──────────┴──────────────────────────────────────┴───────┴──────────────────┴────────────────────────────────┘
     ```
 
-**The smart contract _(backend)_ is finished**
+Now the smart contract backend is finished and you can update the frontend to use it.
 
 ## NFT Marketplace frontend
 
 This section guides you step-by-step in setting up an intuitive frontend.
 
-### Step 1: Initialize the Typescript Classes
+### Step 1: Initialize the Typescript classes
 
-Generate Typescript classes and go to the frontend to run the server:
+Generate the TypeScript classes and go to the frontend folder to run the server:
 
     ```bash
     taq generate types ./app/src
@@ -267,11 +267,11 @@ Generate Typescript classes and go to the frontend to run the server:
     yarn dev
     ```
 
-### Step 2: Update in `App.tsx`
+### Step 2: Update `App.tsx`
 
 Forget about `token_id == 0` and fetch back all tokens.
 
-1. Replace the function `refreshUserContextOnPageReload` with the following content:
+1. Replace the function `refreshUserContextOnPageReload` with the following code:
 
     ```typescript
     const refreshUserContextOnPageReload = async () => {
@@ -323,9 +323,9 @@ Forget about `token_id == 0` and fetch back all tokens.
     };
     ```
 
-### Step 3: Update in `MintPage.tsx`
+### Step 3: Update `MintPage.tsx`
 
-Just update the `mint` call and add the missing quantity, and add back the `token_id` counter incrementer:
+Use this code to update the `mint` call, add the missing quantity, and increment the `token_id` counter:
 
 ```typescript
 import {
@@ -767,7 +767,7 @@ export default function MintPage() {
 }
 ```
 
-### Step 4: Update in `OffersPage.tsx`
+### Step 4: Update `OffersPage.tsx`
 
 Copy the content below, and paste it to `OffersPage.tsx`
 
@@ -1143,7 +1143,7 @@ export default function OffersPage() {
 }
 ```
 
-### Step 5: Update in `WineCataloguePage.tsx`
+### Step 5: Update `WineCataloguePage.tsx`
 
 Copy the content below, and paste it to `WineCataloguePage.tsx`:
 
