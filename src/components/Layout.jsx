@@ -286,10 +286,6 @@ const tutorialNavigation = [
         ],
       },
       {
-        title: 'Deploy your own smart rollup',
-        href: '/tutorials/smart-rollups',
-      },
-      {
         title: 'Create an NFT',
         href: '/tutorials/create-an-nft',
         children: [
@@ -348,6 +344,36 @@ const tutorialNavigation = [
           {
             title: 'Part 4: Adding and removing liquidity',
             href: '/tutorials/build-your-first-app/adding-removing-liquidity',
+          },
+        ],
+      },
+      {
+        title: 'Deploy a smart rollup',
+        href: '/tutorials/smart-rollups',
+        children: [
+          {
+            title: "Introduction",
+            href: '/tutorials/smart-rollups',
+          },
+          {
+            title: "Part 1: Setting up the application",
+            href: '/tutorials/smart-rollups/set-up',
+          },
+          {
+            title: "Part 2: Running the kernel in debug mode",
+            href: '/tutorials/smart-rollups/debug',
+          },
+          {
+            title: "Part 3: Optimizing the kernel",
+            href: '/tutorials/smart-rollups/optimize',
+          },
+          {
+            title: "Part 4: Deploying (originating) the rollup",
+            href: '/tutorials/smart-rollups/deploy',
+          },
+          {
+            title: "Part 5: Running and interacting with the rollup node",
+            href: '/tutorials/smart-rollups/run',
           },
         ],
       },

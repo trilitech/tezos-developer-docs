@@ -11,6 +11,19 @@ import CalendlyEmbed from '@/components/CalendlyEmbed';
 // Import the built-in Next.js tags
 import { comment } from '@markdoc/next.js/tags'
 
+// Custom tag to allow embedding HTML elements
+const UnescapedHtml = ({ htmlWrapperTag = 'div', children }) => {
+  const html =
+    typeof children === 'string'
+      ? children
+      : typeof children.props.children === 'string'
+      ? children.props.children
+      : children.props.children.join('')
+
+  const CustomTag = htmlWrapperTag
+  return <CustomTag dangerouslySetInnerHTML={{ __html: html }} />
+}
+
 const tags = {
   callout: {
     attributes: {
@@ -81,6 +94,13 @@ const tags = {
   comment,
   calendlyEmbed: {
     render: CalendlyEmbed,
+  },
+  html: {
+    render: UnescapedHtml,
+    attributes: {
+      htmlWrapperTag: { type: String },
+      children: { type: String },
+    },
   },
   // tabs: {
   //   render: Tabs,
