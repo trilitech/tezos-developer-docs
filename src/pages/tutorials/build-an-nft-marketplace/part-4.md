@@ -1,10 +1,14 @@
 ---
-id: nft-marketplace-part-4
+id: build-an-nft-marketplace
 title: NFT Marketplace Part 4
-lastUpdated: 7th July 2023
+lastUpdated: 11th October 2023
 ---
 
-We finish by using multi asset template.
+## Introduction
+
+![https://france-vins.eu/wp-content/uploads/2018/10/les-meilleures-caves-%C3%A0-vin-image.jpg](https://france-vins.eu/wp-content/uploads/2018/10/les-meilleures-caves-%C3%A0-vin-image.jpg)
+
+Here is the multi asset template :
 
 - you have an unlimited number of NFT collections
 - you have an unlimited quantity of items in each collection
@@ -27,71 +31,189 @@ cd ..
 Point to the new template changing the first import line of `nft.jsligo` file to
 
 ```ligolang
-#import "@ligo/fa/lib/fa2/asset/multi_asset.jsligo" "MULTIASSET"
+#import "@ligo/fa/lib/fa2/asset/multi_asset.impl.jsligo" "FA2Impl"
 ```
 
-It means you will change the namespace from `SINGLEASSET` to `MULTIASSET` everywhere _(like this you are sure to use the correct library)_
+It means you need to change the namespace from `SingleAsset` to `MultiAsset` everywhere _(like this you are sure to use the correct library)_
 
-You will re-introduce the `token_id` as there are several collections now.
+You have to re-introduce the `token_id` as there are several collections now.
 
-We can remove `totalSupply` and add two extra key sets `owner_token_ids` and `token_ids`
+Remove `totalSupply` and add two extra key sets `owner_token_ids` and `token_ids`
 
 Change the `storage` definition
 
 ```ligolang
-type offer = {
-  quantity : nat,
-  price : nat
+export type offer = {
+  quantity: nat,
+  price: nat
 };
 
-type storage =
-  {
-    administrators: set<address>,
-    offers: map<[address,nat],offer>,  //user sells an offer for a token_id
-    ledger: MULTIASSET.Ledger.t,
-    metadata: MULTIASSET.Metadata.t,
-    token_metadata: MULTIASSET.TokenMetadata.t,
-    operators: MULTIASSET.Operators.t,
-    owner_token_ids : set<[MULTIASSET.Storage.owner,MULTIASSET.Storage.token_id]>,
-    token_ids : set<MULTIASSET.Storage.token_id>
-  };
-```
+export type storage = {
+  administrators: set<address>,
+  offers: map<[address, nat], offer>, //user sells an offer for a token_id
 
-Update `parameter` type too
-
-```ligolang
-type parameter =
-  | ["Mint", nat,nat,bytes,bytes,bytes,bytes] //token_id, quantity, name , description ,symbol , bytesipfsUrl
-  | ["AddAdministrator" , address]
-  | ["Buy", nat,nat, address]  //buy token_id,quantity at a seller offer price
-  | ["Sell", nat,nat, nat]  //sell token_id,quantity at a price
-  | ["Transfer", MULTIASSET.transfer]
-  | ["Balance_of", MULTIASSET.balance_of]
-  | ["Update_operators", MULTIASSET.update_operators];
+  ledger: FA2Impl.Datatypes.ledger,
+  metadata: FA2Impl.TZIP16.metadata,
+  token_metadata: FA2Impl.TZIP12.tokenMetadata,
+  operators: FA2Impl.Datatypes.operators,
+};
 ```
 
 Update `mint` function
 
 ```ligolang
-const mint = (token_id : nat, quantity: nat, name : bytes, description : bytes,symbol : bytes, ipfsUrl: bytes, s: storage) : ret => {
+@entry
+const mint = (
+  [token_id, quantity, name, description, symbol, ipfsUrl]: [
+    nat,
+    nat,
+    bytes,
+    bytes,
+    bytes,
+    bytes
+  ],
+  s: storage
+): ret => {
+  if (quantity <= (0 as nat)) return failwith("0");
+  if (! Set.mem(Tezos.get_sender(), s.administrators)) return failwith("1");
+  const token_info: map<string, bytes> =
+    Map.literal(
+      list(
+        [
+          ["name", name],
+          ["description", description],
+          ["interfaces", (bytes `["TZIP-12"]`)],
+          ["artifactUri", ipfsUrl],
+          ["displayUri", ipfsUrl],
+          ["thumbnailUri", ipfsUrl],
+          ["symbol", symbol],
+          ["decimals", (bytes `0`)]
+        ]
+      )
+    ) as map<string, bytes>;
+  return [
+    list([]) as list<operation>,
+    {
+      ...s,
+      ledger: Big_map.add(
+        [Tezos.get_sender(), token_id],
+        quantity as nat,
+        s.ledger
+      ) as FA2Impl.Datatypes.ledger,
+      token_metadata: Big_map.add(
+        token_id,
+        { token_id: token_id, token_info: token_info },
+        s.token_metadata
+      ),
+      operators: Big_map.empty as FA2Impl.Datatypes.operators
+    }
+  ]
+};
+```
 
-   if(quantity <= (0 as nat)) return failwith("0");
+You also need to update `sell` function
 
-   if(! Set.mem(Tezos.get_sender(), s.administrators)) return failwith("1");
+```ligolang
+@entry
+const sell = ([token_id, quantity, price]: [nat, nat, nat], s: storage): ret => {
+  //check balance of seller
 
-   const token_info: map<string, bytes> =
-     Map.literal(list([
-      ["name", name],
-      ["description",description],
-      ["interfaces", (bytes `["TZIP-12"]`)],
-      ["thumbnailUri", ipfsUrl],
-      ["symbol",symbol],
-      ["decimals", (bytes `0`)]
-     ])) as map<string, bytes>;
+  const sellerBalance =
+    FA2Impl.Sidecar.get_for_user([s.ledger, Tezos.get_source(), token_id]);
+  if (quantity > sellerBalance) return failwith("2");
+  //need to allow the contract itself to be an operator on behalf of the seller
 
+  const newOperators =
+    FA2Impl.Sidecar.add_operator(
+      [s.operators, Tezos.get_source(), Tezos.get_self_address(), token_id]
+    );
+  //DECISION CHOICE: if offer already exists, we just override it
 
-    const metadata : bytes = bytes
-  `{
+  return [
+    list([]) as list<operation>,
+    {
+      ...s,
+      offers: Map.add(
+        [Tezos.get_source(), token_id],
+        { quantity: quantity, price: price },
+        s.offers
+      ),
+      operators: newOperators
+    }
+  ]
+};
+```
+
+Same for the `buy` function
+
+```ligolang
+@entry
+const buy = ([token_id, quantity, seller]: [nat, nat, address], s: storage): ret => {
+  //search for the offer
+
+  return match(Map.find_opt([seller, token_id], s.offers)) {
+    when (None()):
+      failwith("3")
+    when (Some(offer)):
+      do {
+        //check if amount have been paid enough
+
+        if (Tezos.get_amount() < offer.price * (1 as mutez)) return failwith(
+          "5"
+        );
+        // prepare transfer of XTZ to seller
+
+        const op =
+          Tezos.transaction(
+            unit,
+            offer.price * (1 as mutez),
+            Tezos.get_contract_with_error(seller, "6")
+          );
+        //transfer tokens from seller to buyer
+
+        let ledger =
+          FA2Impl.Sidecar.decrease_token_amount_for_user(
+            [s.ledger, seller, token_id, quantity]
+          );
+        ledger
+        = FA2Impl.Sidecar.increase_token_amount_for_user(
+            [ledger, Tezos.get_source(), token_id, quantity]
+          );
+        //update new offer
+
+        const newOffer = { ...offer, quantity: abs(offer.quantity - quantity) };
+        return [
+          list([op]) as list<operation>,
+          {
+            ...s,
+            offers: Map.update([seller, token_id], Some(newOffer), s.offers),
+            ledger: ledger
+          }
+        ]
+      }
+  }
+};
+```
+
+Change the initial storage to
+
+```ligolang
+#import "nft.jsligo" "Contract"
+
+const default_storage: Contract.storage = {
+    administrators: Set.literal(
+        list(["tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb" as address])
+    ) as set<address>,
+    offers: Map.empty as map<[address, nat], Contract.offer>,
+    ledger: Big_map.empty as Contract.FA2Impl.MultiAsset.ledger,
+    metadata: Big_map.literal(
+        list(
+            [
+                ["", bytes `tezos-storage:data`],
+                [
+                    "data",
+                    bytes
+                    `{
       "name":"FA2 NFT Marketplace",
       "description":"Example of FA2 implementation",
       "version":"0.0.1",
@@ -104,195 +226,20 @@ const mint = (token_id : nat, quantity: nat, name : bytes, description : bytes,s
       "interfaces":["TZIP-012"],
       "errors": [],
       "views": []
-      }` ;
-
-    return [list([]) as list<operation>,
-          {...s,
-     ledger: Big_map.add([Tezos.get_sender(),token_id],quantity as nat,s.ledger) as MULTIASSET.Ledger.t,
-     metadata : Big_map.literal(list([["",  bytes `tezos-storage:data`],["data", metadata]])),
-     token_metadata: Big_map.add(token_id, {token_id: token_id,token_info:token_info},s.token_metadata),
-     operators: Big_map.empty as MULTIASSET.Operators.t,
-     owner_token_ids : Set.add([Tezos.get_sender(),token_id],s.owner_token_ids),
-     token_ids: Set.add(token_id, s.token_ids)}]};
-```
-
-You also need to update `sell` function
-
-```ligolang
-const sell = (token_id : nat, quantity: nat, price: nat, s: storage) : ret => {
-
-  //check balance of seller
-  const sellerBalance = MULTIASSET.Ledger.get_for_user(s.ledger,Tezos.get_source(),token_id);
-  if(quantity > sellerBalance) return failwith("2");
-
-  //need to allow the contract itself to be an operator on behalf of the seller
-  const newOperators = MULTIASSET.Operators.add_operator(s.operators,Tezos.get_source(),Tezos.get_self_address(),token_id);
-
-  //DECISION CHOICE: if offer already exists, we just override it
-  return [list([]) as list<operation>,{...s,offers:Map.add([Tezos.get_source(),token_id],{quantity : quantity, price : price},s.offers),operators:newOperators}];
+      }`
+                ]
+            ]
+        )
+    ) as Contract.FA2Impl.TZIP16.metadata,
+    token_metadata: Big_map.empty as Contract.FA2Impl.TZIP12.tokenMetadata,
+    operators: Big_map.empty as Contract.FA2Impl.MultiAsset.operators,
 };
-```
-
-Same for the `buy` function
-
-```ligolang
-const buy = (token_id : nat, quantity: nat, seller: address, s: storage) : ret => {
-
-  //search for the offer
-  return match( Map.find_opt([seller,token_id],s.offers) , {
-    None : () => failwith("3"),
-    Some : (offer : offer) => {
-
-      //check if amount have been paid enough
-      if(Tezos.get_amount() < offer.price  * (1 as mutez)) return failwith("5");
-
-      // prepare transfer of XTZ to seller
-      const op = Tezos.transaction(unit,offer.price  * (1 as mutez),Tezos.get_contract_with_error(seller,"6"));
-
-      //transfer tokens from seller to buyer
-      let ledger = MULTIASSET.Ledger.decrease_token_amount_for_user(s.ledger,seller,token_id,quantity);
-      ledger = MULTIASSET.Ledger.increase_token_amount_for_user(ledger,Tezos.get_source(),token_id,quantity);
-
-      //update new offer
-      const newOffer = {...offer,quantity : abs(offer.quantity - quantity)};
-
-      return [list([op]) as list<operation>, {...s, offers : Map.update([seller,token_id],Some(newOffer),s.offers), ledger : ledger, owner_token_ids : Set.add([Tezos.get_source(),token_id],s.owner_token_ids) }];
-    }
-  });
-};
-```
-
-and finally the `main` function
-
-```ligolang
-const main = ([p, s]: [parameter, storage]): ret =>
-  match(
-    p,
-    {
-      Mint: (p: [nat, nat, bytes, bytes, bytes, bytes]) =>
-        mint(p[0], p[1], p[2], p[3], p[4], p[5], s),
-      AddAdministrator: (p: address) => {
-        if (Set.mem(Tezos.get_sender(), s.administrators)) {
-          return [
-            list([]),
-            { ...s, administrators: Set.add(p, s.administrators) }
-          ]
-        } else {
-          return failwith("1")
-        }
-      },
-      Buy: (p: [nat, nat, address]) => buy(p[0], p[1], p[2], s),
-      Sell: (p: [nat, nat, nat]) => sell(p[0], p[1], p[2], s),
-      Transfer: (p: MULTIASSET.transfer) => {
-        const ret2: [list<operation>, MULTIASSET.storage] =
-          MULTIASSET.transfer(
-            [
-              p,
-              {
-                ledger: s.ledger,
-                metadata: s.metadata,
-                token_metadata: s.token_metadata,
-                operators: s.operators,
-                owner_token_ids: s.owner_token_ids,
-                token_ids: s.token_ids
-              }
-            ]
-          );
-        return [
-          ret2[0],
-          {
-            ...s,
-            ledger: ret2[1].ledger,
-            metadata: ret2[1].metadata,
-            token_metadata: ret2[1].token_metadata,
-            operators: ret2[1].operators,
-            owner_token_ids: ret2[1].owner_token_ids,
-            token_ids: ret2[1].token_ids
-          }
-        ]
-      },
-      Balance_of: (p: MULTIASSET.balance_of) => {
-        const ret2: [list<operation>, MULTIASSET.storage] =
-          MULTIASSET.balance_of(
-            [
-              p,
-              {
-                ledger: s.ledger,
-                metadata: s.metadata,
-                token_metadata: s.token_metadata,
-                operators: s.operators,
-                owner_token_ids: s.owner_token_ids,
-                token_ids: s.token_ids
-              }
-            ]
-          );
-        return [
-          ret2[0],
-          {
-            ...s,
-            ledger: ret2[1].ledger,
-            metadata: ret2[1].metadata,
-            token_metadata: ret2[1].token_metadata,
-            operators: ret2[1].operators,
-            owner_token_ids: ret2[1].owner_token_ids,
-            token_ids: ret2[1].token_ids
-          }
-        ]
-      },
-      Update_operators: (p: MULTIASSET.update_operators) => {
-        const ret2: [list<operation>, MULTIASSET.storage] =
-          MULTIASSET.update_ops(
-            [
-              p,
-              {
-                ledger: s.ledger,
-                metadata: s.metadata,
-                token_metadata: s.token_metadata,
-                operators: s.operators,
-                owner_token_ids: s.owner_token_ids,
-                token_ids: s.token_ids
-              }
-            ]
-          );
-        return [
-          ret2[0],
-          {
-            ...s,
-            ledger: ret2[1].ledger,
-            metadata: ret2[1].metadata,
-            token_metadata: ret2[1].token_metadata,
-            operators: ret2[1].operators,
-            owner_token_ids: ret2[1].owner_token_ids,
-            token_ids: ret2[1].token_ids
-          }
-        ]
-      }
-    }
-  );
-```
-
-Change the initial storage to
-
-```ligolang
-#include "nft.jsligo"
-const default_storage =
-{
-    administrators: Set.literal(list(["tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb" as address])) as set<address>,
-    offers: Map.empty as map<[address,nat],offer>,
-    ledger: Big_map.empty as MULTIASSET.Ledger.t,
-    metadata: Big_map.empty as MULTIASSET.Metadata.t,
-    token_metadata: Big_map.empty as MULTIASSET.TokenMetadata.t,
-    operators: Big_map.empty as MULTIASSET.Operators.t,
-    owner_token_ids : Set.empty as set<[MULTIASSET.Storage.owner,MULTIASSET.Storage.token_id]>,
-    token_ids : Set.empty as set<MULTIASSET.Storage.token_id>
-  }
-;
 ```
 
 Compile again and deploy to ghostnet
 
 ```bash
-TAQ_LIGO_IMAGE=ligolang/ligo:0.64.2 taq compile nft.jsligo
+TAQ_LIGO_IMAGE=ligolang/ligo:1.0.0 taq compile nft.jsligo
 taq deploy nft.tz -e "testing"
 ```
 
@@ -300,11 +247,11 @@ taq deploy nft.tz -e "testing"
 ┌──────────┬──────────────────────────────────────┬───────┬──────────────────┬────────────────────────────────┐
 │ Contract │ Address                              │ Alias │ Balance In Mutez │ Destination                    │
 ├──────────┼──────────────────────────────────────┼───────┼──────────────────┼────────────────────────────────┤
-│ nft.tz   │ KT1QfMdyRq56xLBiofFTjLhkq5VCdj9PwC25 │ nft   │ 0                │ https://ghostnet.ecadinfra.com │
+│ nft.tz   │ KT1KAkKJdbx9FGwYhKfWN3pHovX1mb3fQpC4 │ nft   │ 0                │ https://ghostnet.ecadinfra.com │
 └──────────┴──────────────────────────────────────┴───────┴──────────────────┴────────────────────────────────┘
 ```
 
-** Hooray! We have finished the smart contract _(backend)_ **
+**The smart contract _(backend)_ is finished**
 
 ## NFT Marketplace front
 
@@ -314,12 +261,12 @@ Generate Typescript classes and go to the frontend to run the server
 taq generate types ./app/src
 cd ./app
 yarn install
-yarn run start
+yarn dev
 ```
 
 ## Update in `App.tsx`
 
-We forget about `token_id == 0` and fetch back all tokens.
+Forget about `token_id == 0` and fetch back all tokens.
 Replace the function `refreshUserContextOnPageReload` with the following content
 
 ```typescript
@@ -334,12 +281,23 @@ const refreshUserContextOnPageReload = async () => {
       nftContractAddress
     );
     const storage = (await nftContrat.storage()) as Storage;
+
+    const token_metadataBigMapId = (
+      storage.token_metadata as unknown as { id: BigNumber }
+    ).id.toNumber();
+
+    const token_ids = await api.bigMapsGetKeys(token_metadataBigMapId, {
+      micheline: "Json",
+      active: true,
+    });
     await Promise.all(
-      storage.token_ids.map(async (token_id: nat) => {
+      token_ids.map(async (token_idKey) => {
+        const key: string = token_idKey.key;
+
         let tokenMetadata: TZIP21TokenMetadata = (await c
           .tzip12()
-          .getTokenMetadata(token_id.toNumber())) as TZIP21TokenMetadata;
-        nftContratTokenMetadataMap.set(token_id.toNumber(), tokenMetadata);
+          .getTokenMetadata(Number(key))) as TZIP21TokenMetadata;
+        nftContratTokenMetadataMap.set(key, tokenMetadata);
       })
     );
     setNftContratTokenMetadataMap(new Map(nftContratTokenMetadataMap)); //new Map to force refresh
@@ -459,11 +417,11 @@ export default function MintPage() {
 
   useEffect(() => {
     (async () => {
-      if (storage && storage.token_ids.length > 0) {
-        formik.setFieldValue("token_id", storage?.token_ids.length);
+      if (nftContratTokenMetadataMap && nftContratTokenMetadataMap.size > 0) {
+        formik.setFieldValue("token_id", nftContratTokenMetadataMap.size);
       }
     })();
-  }, [storage?.token_ids]);
+  }, [nftContratTokenMetadataMap?.size]);
 
   const mint = async (
     newTokenDefinition: TZIP21TokenMetadata & { quantity: number }
@@ -477,11 +435,11 @@ export default function MintPage() {
         const requestHeaders: HeadersInit = new Headers();
         requestHeaders.set(
           "pinata_api_key",
-          `${process.env.REACT_APP_PINATA_API_KEY}`
+          `${import.meta.env.VITE_PINATA_API_KEY}`
         );
         requestHeaders.set(
           "pinata_secret_api_key",
-          `${process.env.REACT_APP_PINATA_API_SECRET}`
+          `${import.meta.env.VITE_PINATA_API_SECRET}`
         );
 
         const resFile = await fetch(
@@ -812,6 +770,7 @@ Copy the content below, and paste it to `OffersPage.tsx`
 ```typescript
 import { InfoOutlined } from "@mui/icons-material";
 import SellIcon from "@mui/icons-material/Sell";
+import * as api from "@tzkt/sdk-api";
 
 import {
   Box,
@@ -859,15 +818,17 @@ type Offer = {
 };
 
 export default function OffersPage() {
+  api.defaults.baseUrl = "https://api.ghostnet.tzkt.io";
+
   const [selectedTokenId, setSelectedTokenId] = React.useState<number>(0);
   const [currentPageIndex, setCurrentPageIndex] = useState<number>(1);
 
-  let [offersTokenIDMap, setOffersTokenIDMap] = React.useState<Map<nat, Offer>>(
-    new Map()
-  );
-  let [ledgerTokenIDMap, setLedgerTokenIDMap] = React.useState<Map<nat, nat>>(
-    new Map()
-  );
+  let [offersTokenIDMap, setOffersTokenIDMap] = React.useState<
+    Map<number, Offer>
+  >(new Map());
+  let [ledgerTokenIDMap, setLedgerTokenIDMap] = React.useState<
+    Map<number, nat>
+  >(new Map());
 
   const {
     nftContrat,
@@ -901,27 +862,38 @@ export default function OffersPage() {
       ledgerTokenIDMap = new Map();
       offersTokenIDMap = new Map();
 
+      const ledgerBigMapId = (
+        storage.ledger as unknown as { id: BigNumber }
+      ).id.toNumber();
+
+      const owner_token_ids = await api.bigMapsGetKeys(ledgerBigMapId, {
+        micheline: "Json",
+        active: true,
+      });
+
       await Promise.all(
-        storage.owner_token_ids.map(async (element) => {
-          if (element[0] === userAddress) {
+        owner_token_ids.map(async (owner_token_idKey) => {
+          const key: { address: string; nat: string } = owner_token_idKey.key;
+
+          if (key.address === userAddress) {
             const ownerBalance = await storage.ledger.get({
               0: userAddress as address,
-              1: element[1],
+              1: BigNumber(key.nat) as nat,
             });
-            if (ownerBalance != BigNumber(0))
-              ledgerTokenIDMap.set(element[1], ownerBalance);
+            if (ownerBalance.toNumber() !== 0)
+              ledgerTokenIDMap.set(Number(key.nat), ownerBalance);
             const ownerOffers = await storage.offers.get({
               0: userAddress as address,
-              1: element[1],
+              1: BigNumber(key.nat) as nat,
             });
-            if (ownerOffers && ownerOffers.quantity != BigNumber(0))
-              offersTokenIDMap.set(element[1], ownerOffers);
+            if (ownerOffers && ownerOffers.quantity.toNumber() !== 0)
+              offersTokenIDMap.set(Number(key.nat), ownerOffers);
 
             console.log(
               "found for " +
-                element[0] +
+                key.address +
                 " on token_id " +
-                element[1] +
+                key.nat +
                 " with balance " +
                 ownerBalance
             );
@@ -1032,7 +1004,7 @@ export default function OffersPage() {
                             <Typography>
                               {"Description : " +
                                 nftContratTokenMetadataMap.get(
-                                  token_id.toNumber()
+                                  token_id.toString()
                                 )?.description}
                             </Typography>
                           </Box>
@@ -1042,7 +1014,7 @@ export default function OffersPage() {
                       </Tooltip>
                     }
                     title={
-                      nftContratTokenMetadataMap.get(token_id.toNumber())?.name
+                      nftContratTokenMetadataMap.get(token_id.toString())?.name
                     }
                   />
                   <CardMedia
@@ -1050,7 +1022,7 @@ export default function OffersPage() {
                     component="img"
                     height="100px"
                     image={nftContratTokenMetadataMap
-                      .get(token_id.toNumber())
+                      .get(token_id.toString())
                       ?.thumbnailUri?.replace(
                         "ipfs://",
                         "https://gateway.pinata.cloud/ipfs/"
@@ -1093,7 +1065,7 @@ export default function OffersPage() {
                       <form
                         style={{ width: "100%" }}
                         onSubmit={(values) => {
-                          setSelectedTokenId(token_id.toNumber());
+                          setSelectedTokenId(token_id);
                           formik.handleSubmit(values);
                         }}
                       >
@@ -1297,7 +1269,7 @@ export default function WineCataloguePage() {
             page={currentPageIndex}
             onChange={(_, value) => setCurrentPageIndex(value)}
             count={Math.ceil(
-              Array.from(storage?.offers.entries()).filter(([key, offer]) =>
+              Array.from(storage?.offers.entries()).filter(([_, offer]) =>
                 offer.quantity.isGreaterThan(0)
               ).length / itemPerPage
             )}
@@ -1308,7 +1280,7 @@ export default function WineCataloguePage() {
             cols={isDesktop ? itemPerPage / 2 : isTablet ? itemPerPage / 3 : 1}
           >
             {Array.from(storage?.offers.entries())
-              .filter(([key, offer]) => offer.quantity.isGreaterThan(0))
+              .filter(([_, offer]) => offer.quantity.isGreaterThan(0))
               .filter((_, index) =>
                 index >= currentPageIndex * itemPerPage - itemPerPage &&
                 index < currentPageIndex * itemPerPage
@@ -1329,7 +1301,7 @@ export default function WineCataloguePage() {
                             <Typography>
                               {"Description : " +
                                 nftContratTokenMetadataMap.get(
-                                  key[1].toNumber()
+                                  key[1].toString()
                                 )?.description}
                             </Typography>
                             <Typography>{"Seller : " + key[0]} </Typography>
@@ -1340,7 +1312,7 @@ export default function WineCataloguePage() {
                       </Tooltip>
                     }
                     title={
-                      nftContratTokenMetadataMap.get(key[1].toNumber())?.name
+                      nftContratTokenMetadataMap.get(key[1].toString())?.name
                     }
                   />
                   <CardMedia
@@ -1348,7 +1320,7 @@ export default function WineCataloguePage() {
                     component="img"
                     height="100px"
                     image={nftContratTokenMetadataMap
-                      .get(key[1].toNumber())
+                      .get(key[1].toString())
                       ?.thumbnailUri?.replace(
                         "ipfs://",
                         "https://gateway.pinata.cloud/ipfs/"
@@ -1441,27 +1413,25 @@ export default function WineCataloguePage() {
 
 ## Let's play
 
-1. Connect with your wallet and choose `alice` account _(or one of the administrators you set on the smart contract earlier)_. You are redirected to the Administration/mint page as there is no NFT minted yet
-2. Create an asset, for example :
+- Connect with your wallet and choose **alice** account _(or one of the administrators you set on the smart contract earlier)_. You are redirected to the Administration/mint page as there is no NFT minted yet
+- Create an asset, for example :
+  - `name`: Saint Emilion - Franc la Rose
+  - `symbol`: SEMIL
+  - `description`: Grand cru 2007
+  - `quantity`: 1000
+- Click on **Upload an image** and select a bottle picture on your computer
+- Click on the Mint button
 
-- `name`: Saint Emilion - Franc la Rose
-- `symbol`: SEMIL
-- `description`: Grand cru 2007
-- `quantity`: 1000
+![minting.png](./images/minting.png)
 
-3. Click on `Upload an image` and select a bottle picture on your computer
-4. Click on the Mint button
-
-![minting_part4.png](/images/minting_part4.png)
-
-Your picture will be pushed to IPFS and will be displayed, then your wallet will ask you to sign the `mint` operation.
+Your picture is pushed to IPFS and is displayed, then your wallet asks you to sign the `mint` operation.
 
 - Confirm operation
-- Wait less than 1 minute to get the confirmation notification, the page will be automatically refreshed
+- Wait less than 1 minute to get the confirmation notification, the page is automatically refreshed
 
 ![minted_part4.png](/images/minted_part4.png)
 
-Now you can see the `Trading` menu and the `Bottle offers` sub-menu
+Now you can see the **Trading** menu and the **Bottle offers** sub-menu
 
 Click on the sub-menu entry
 
@@ -1469,7 +1439,7 @@ You are the owner of this bottle so you can create an offer on it
 
 - Enter a quantity
 - Enter a price offer
-- Click on `SELL` button
+- Click on **SELL** button
 - Wait a bit for the confirmation, then once automatically refreshed you have an offer attached to your NFT!
 
 ![sell_part4.png](/images/sell_part4.png)
@@ -1478,16 +1448,16 @@ For buying,
 
 - Disconnect from your user and connect with another account _(who has enough XTZ to buy at least 1 bottle)_
 - The buyer will see that Alice is selling some bottles from the unique collection
-- Buy some bottles while clicking on the `BUY` button
+- Buy some bottles while clicking on the **BUY** button
 - Wait for the confirmation, then the offer is updated on the market _(depending on how many bottles you bought)_
-- Click on the `bottle offers` submenu
+- Click on the **bottle offers** submenu
 - You are now the owner of some bottles, you can resell a part of it at your own price, etc ...
 
 ![buy_part4.png](/images/buy_part4.png)
 
 To add more collections, go to the Mint page and repeat the process.
 
-# Conclusion 
+## Conclusion
 
 You are able to use any NFT template from the Ligo library.
 

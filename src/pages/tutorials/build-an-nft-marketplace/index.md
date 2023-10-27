@@ -1,20 +1,65 @@
 ---
 id: build-an-nft-marketplace
-title: Build an NFT Marketplace
-lastUpdated: 10th July 2023
+title: NFT Marketplace Part 1
+lastUpdated: 11th October 2023
 ---
 
 ## Introduction
 
-Business objects managed by a blockchain are called `assets`. On Tezos you will find the term `Financial Asset or FA` with different versions 1, 2, or 2.1.
+Welcome to the first part of our four-part series on building an NFT Marketplace. This tutorial aims to equip you with the knowledge and tools to create a robust NFT platform.
+
+In the first part, you learn:
+
+- The concepts of FA, IPFS, and smart contracts.
+- How to build an NFT Marketplace from the ligo/fa library.
+
+{% callout type="note" %}
+This training course is provided by [Marigold](https://www.marigold.dev/).
+You can find the 4 parts on github (solution + materials to build the UI)
+
+- [NFT 1](https://github.com/marigold-dev/training-nft-1): use FA2 NFT template to understand the basics
+- [NFT 2](https://github.com/marigold-dev/training-nft-2): finish FA2 NFT marketplace to introduce sales
+- [NFT 3](https://github.com/marigold-dev/training-nft-3): use FA2 single asset template to build another kind of marketplace
+- [NFT 4](https://github.com/marigold-dev/training-nft-4): use FA2 multi asset template to build last complex kind of marketplace
+{% /callout %}
+
+## Key Concepts
+
+### What is FA?
+
+Business objects managed by a blockchain are called **assets**. On Tezos you find the term **Financial Asset or FA** with different versions 1, 2, or 2.1.
 
 Here are different categorizations of assets.
 
 ![](http://jingculturecommerce.com/wp-content/uploads/2021/03/nft-assets-1024x614.jpg)
 
+### What is IPFS?
+
+The InterPlanetary File System is a protocol and peer-to-peer network for storing and sharing data in a distributed file system. IPFS uses content-addressing to uniquely identify each file in a global namespace connecting all computing devices. This tutorial is using [Pinata](https://www.pinata.cloud/) (free developer plan) to store the metadata for NFTs. An alternative would be to install a local IPFS node or an API gateway backend with a usage quota.
+
+### Smart Contracts Overview
+
+There are two contracts for the marketplace.
+
+#### 1. The token contract
+
+On Tezos, FA2 is the standard for Non-Fungible Token contracts. The [template provided by Ligo](https://packages.ligolang.org/package/@ligo/fa) will be used to build out the Token Contract. The template contains the basic entrypoints for building a Fungible or Non-fungible token including:
+
+- Transfer
+- Balance_of
+- Update_operators
+
+#### 2. Marketplace unique contract
+
+Next, you need to import the token contract into the marketplace unique contract. The latter is bringing missing features as:
+
+- Mint
+- Buy
+- Sell
+
 ## Wine marketplace
 
-We are going to build a Wine marketplace extending the `@ligo/fa` package from the [Ligo repository](https://packages.ligolang.org/). The goal is to showcase how to extend an existing smart contract and build a frontend on top of it.
+After grasping the key concepts, we'll proceed to build a Wine marketplace extending the `@ligo/fa` package from the [Ligo repository](https://packages.ligolang.org/). The goal is to showcase how to extend an existing smart contract and build a frontend on top of it.
 
 The Wine marketplace is adding these features on top of a generic NFT contract :
 
@@ -27,15 +72,6 @@ You can play with the [final demo](https://demo.winefactory.marigold.dev/).
 
 ![nftfactory.png](/images/nftfactory.png)
 
-{% callout type="note" %} 
-Here we present Part 1 of 4 of a training course by [Marigold](https://www.marigold.dev/). You can find all 4 parts on github.
-- [NFT 1](https://github.com/marigold-dev/training-nft-1): use FA2 NFT template to understand the basics
-- [NFT 2](https://github.com/marigold-dev/training-nft-2): finish FA2 NFT marketplace to introduce sales
-- [NFT 3](https://github.com/marigold-dev/training-nft-3): use FA2 single asset template to build another kind of marketplace
-- [NFT 4](https://github.com/marigold-dev/training-nft-4): use FA2 multi asset template to build last complex kind of marketplace
-{% /callout %} 
-
-
 | Token template | # of token_type | # of item per token_type |
 | -------------- | --------------- | ------------------------ |
 | NFT            | 0..n            | 1                        |
@@ -43,88 +79,59 @@ Here we present Part 1 of 4 of a training course by [Marigold](https://www.marig
 | multi asset    | 0..n            | 1..n                     |
 
 {% callout type="note" %}
-Because we are in web3, buy or sell features are a real payment system using on-chain XTZ tokens as money. This differs from traditional web2 applications where you have to integrate a payment system and so, pay extra fees
+Because of web3, buy or sell features are a real payment system using on-chain XTZ tokens as money. This differs from traditional web2 applications where you have to integrate a payment system and so, pay extra fees
 {% /callout %}
-
-## Glossary
-
-## What is IPFS?
-
-The InterPlanetary File System is a protocol and peer-to-peer network for storing and sharing data in a distributed file system. IPFS uses content-addressing to uniquely identify each file in a global namespace connecting all computing devices. In this tutorial, we will be using [Pinata](https://www.pinata.cloud/) (free developer plan) to store the metadata for NFTs. An alternative would be to install a local IPFS node or an API gateway backend with a usage quota.
-
-## Smart Contracts
-
-We will use two contracts for the marketplace.
-
-### The token contract
-
-On Tezos, FA2 is the standard for Non-Fungible Token contracts. We will be using the [template provided by Ligo](https://packages.ligolang.org/package/@ligo/fa) to build out the Token Contract. The template contains the basic entrypoints for building a Fungible or Non-fungible token including:
-
-- Transfer
-- Balance_of
-- Update_operators
-
-### Marketplace unique contract
-
-On a second time, we will import the token contract into the marketplace unique contract. The latter will bring missing features as:
-
-- Mint
-- Buy
-- Sell
 
 ## Prerequisites
 
-#### Required
+Before building an NFT marketplace, ensure you have the following tools on hand.
+
+### Required
 
 - [npm](https://nodejs.org/en/download/): front-end is a TypeScript React client app
-- [taqueria >= v0.28.5-rc](https://github.com/ecadlabs/taqueria) : Tezos app project tooling
+- [taqueria >= v0.40.0](https://github.com/ecadlabs/taqueria) : Tezos app project tooling
 - [Docker](https://docs.docker.com/engine/install/): needed for `taqueria`
 - [jq](https://stedolan.github.io/jq/download/): extract `taqueria` JSON data
 
-#### Recommended
+### Recommended
 
 - [`VS Code`](https://code.visualstudio.com/download): as code editor
 - [`yarn`](https://classic.yarnpkg.com/lang/en/docs/install/#windows-stable): to build and run the front-end (see this article for more details about [differences between `npm` and `yarn`](https://www.geeksforgeeks.org/difference-between-npm-and-yarn/))
 - [ligo VS Code extension](https://marketplace.visualstudio.com/items?itemName=ligolang-publish.ligo-vscode): for smart contract highlighting, completion, etc.
 - [Temple wallet](https://templewallet.com/): an easy to use Tezos wallet in your browser (or any other one with ghostnet support)
 
-#### Optional
+### Optional
+
 - [taqueria VS Code extension](https://marketplace.visualstudio.com/items?itemName=ecadlabs.taqueria-vscode): visualize your project and execute tasks
 
+## Smart Contract Modification
 
-## Smart contract
+Use **Taqueria** to shape the project structure, then create the NFT marketplace smart contract thanks to the `ligo/fa` library.
 
-We will use `taqueria` to shape the project structure, then create the NFT marketplace smart contract thanks to the `ligo/fa` library.
+{% callout type="note" %}
+You require to copy some code from this git repository later, so you can clone it with:
 
-{% callout type="note" %} 
-You will require to copy some code from this git repository later, so you can clone it with:
+```bash
+git clone https://github.com/marigold-dev/training-nft-1.git
+```
 
- ```bash
- git clone https://github.com/marigold-dev/training-nft-1.git
- ```
 {% /callout %}
 
-### Taq'ify your project
+### Step 1: Taq'ify your project
+
+First, set up our smart contract structure.
 
 ```bash
 taq init training
 cd training
-taq install @taqueria/plugin-ligo@next
-```
-
-{% callout type="warning" %}
-Important hack: create a dummy esy.json file with `{}` content on it. I will be used by the ligo package installer to not override the default package.json file of taqueria
-{% /callout %}
-
-```bash
-echo "{}" > esy.json
+taq install @taqueria/plugin-ligo
 ```
 
 **Your project is ready!**
 
-### FA2 contract
+### Step 2: FA2 contract
 
-We will rely on the Ligo FA library. To understand in detail how assets work on Tezos, please read below notes:
+Next, you need to build the FA2 contract which relies on the Ligo FA library. To understand in detail how assets work on Tezos, please read the notes below.
 
 - [FA2 standard](https://gitlab.com/tezos/tzip/-/blob/master/proposals/tzip-12/tzip-12.md)
 
@@ -135,12 +142,13 @@ We will rely on the Ligo FA library. To understand in detail how assets work on 
 Install the `ligo/fa` library locally:
 
 ```bash
-TAQ_LIGO_IMAGE=ligolang/ligo:0.63.2 taq ligo --command "install @ligo/fa"
+echo '{ "name": "app", "dependencies": { "@ligo/fa": "^1.0.8" } }' >> ligo.json
+TAQ_LIGO_IMAGE=ligolang/ligo:1.0.0 taq ligo --command "install @ligo/fa"
 ```
 
-### NFT marketplace contract
+### Step 3: NFT marketplace contract
 
-Create the NFT marketplace contract with `taqueria`
+Then, create the NFT marketplace contract with `taqueria`
 
 ```bash
 taq create contract nft.jsligo
@@ -149,7 +157,7 @@ taq create contract nft.jsligo
 Remove the default code and paste this code instead
 
 ```ligolang
-#import "@ligo/fa/lib/fa2/nft/NFT.jsligo" "NFT"
+#import "@ligo/fa/lib/fa2/nft/nft.impl.jsligo" "FA2Impl"
 
 /* ERROR MAP FOR UI DISPLAY or TESTS
     const errorMap : map<string,string> = Map.literal(list([
@@ -163,109 +171,193 @@ Remove the default code and paste this code instead
     ]));
 */
 
-type storage =
-  {
-    administrators: set<address>,
-    ledger: NFT.Ledger.t,
-    metadata: NFT.Metadata.t,
-    token_metadata: NFT.TokenMetadata.t,
-    operators: NFT.Operators.t,
-    token_ids : set<NFT.Storage.token_id>
-  };
+export type storage = {
+  administrators: set<address>,
+  ledger: FA2Impl.NFT.ledger,
+  metadata: FA2Impl.TZIP16.metadata,
+  token_metadata: FA2Impl.TZIP12.tokenMetadata,
+  operators: FA2Impl.NFT.operators
+};
 
 type ret = [list<operation>, storage];
-
-type parameter =
-  | ["Mint", nat,bytes,bytes,bytes,bytes] //token_id, name , description  ,symbol , ipfsUrl
-  | ["AddAdministrator" , address]
-  | ["Transfer", NFT.transfer]
-  | ["Balance_of", NFT.balance_of]
-  | ["Update_operators", NFT.update_operators];
-
-
-const main = ([p, s]: [parameter,storage]): ret =>
-    match(p, {
-     Mint: (p: [nat,bytes,bytes,bytes,bytes]) => [list([]),s],
-     AddAdministrator : (p : address) => {if(Set.mem(Tezos.get_sender(), s.administrators)){ return [list([]),{...s,administrators:Set.add(p, s.administrators)}]} else {return failwith("1");}} ,
-     Transfer: (p: NFT.transfer) => [list([]),s],
-     Balance_of: (p: NFT.balance_of) => [list([]),s],
-     Update_operators: (p: NFT.update_operator) => [list([]),s],
-     });
 ```
 
 Explanations:
 
-- the first line `#import "@ligo/fa/lib/fa2/nft/NFT.jsligo" "NFT"` imports the Ligo FA library that we are going to extend. We will add new entrypoints the the base code.
-- `storage` definition is an extension of the imported library storage, we point to the original types keeping the same naming
-  - `NFT.Ledger.t` : keep/trace ownership of tokens
-  - `NFT.Metadata.t` : tzip-16 compliance
-  - `NFT.TokenMetadata.t` : tzip-12 compliance
-  - `NFT.Operators.t` : permissions part of FA2 standard
-  - `NFT.Storage.token_id>` : cache for keys of token_id bigmap
+- the first line `#import "@ligo/fa/lib/fa2/nft/nft.impl.jsligo" "FA2Impl"` imports the Ligo FA library implementation that your code is extending. Then, add new entrypoints to the base code.
+- `storage` definition is an extension of the imported library storage. You need to point to the original types keeping the same naming
+  - `FA2Impl.NFT.ledger` : keep/trace ownership of tokens
+  - `FA2Impl.TZIP16.metadata` : tzip-16 compliance
+  - `FA2Impl.TZIP12.tokenMetadata` : tzip-12 compliance
+  - `FA2Impl.NFT.operators` : permissions part of FA2 standard
 - `storage` has more fields to support a set of `administrators`
-- `parameter` definition is an extension of the imported library entrypoints
-  - `NFT.transfer` : to transfer NFTs
-  - `NFT.balance_of` : to check token balance for a specific user (on this template it will return always 1)
-  - `NFT.update_operators` : to allow other users to manage our NFT
-- `parameter` has more entrypoints to allow to create NFTs `Mint`
-- `parameter` has an entrypoint `AddAdministrator` to add new administrators. Administrators will be allowed to mint NFTs
 
-Compile the contract
+The contract compiles, now let's write `transfer,balance_of,update_operators` entrypoints. You do a passthrough call to the underlying library.
+
+```ligolang
+@entry
+const transfer = (p: FA2Impl.TZIP12.transfer, s: storage): ret => {
+  const ret2: [list<operation>, FA2Impl.NFT.storage] =
+    FA2Impl.NFT.transfer(
+      p,
+      {
+        ledger: s.ledger,
+        metadata: s.metadata,
+        token_metadata: s.token_metadata,
+        operators: s.operators,
+      }
+    );
+  return [
+    ret2[0],
+    {
+      ...s,
+      ledger: ret2[1].ledger,
+      metadata: ret2[1].metadata,
+      token_metadata: ret2[1].token_metadata,
+      operators: ret2[1].operators,
+    }
+  ]
+};
+
+@entry
+const balance_of = (p: FA2Impl.TZIP12.balance_of, s: storage): ret => {
+  const ret2: [list<operation>, FA2Impl.NFT.storage] =
+    FA2Impl.NFT.balance_of(
+      p,
+      {
+        ledger: s.ledger,
+        metadata: s.metadata,
+        token_metadata: s.token_metadata,
+        operators: s.operators,
+      }
+    );
+  return [
+    ret2[0],
+    {
+      ...s,
+      ledger: ret2[1].ledger,
+      metadata: ret2[1].metadata,
+      token_metadata: ret2[1].token_metadata,
+      operators: ret2[1].operators,
+    }
+  ]
+};
+
+@entry
+const update_operators = (p: FA2Impl.TZIP12.update_operators, s: storage): ret => {
+  const ret2: [list<operation>, FA2Impl.NFT.storage] =
+    FA2Impl.NFT.update_operators(
+      p,
+      {
+        ledger: s.ledger,
+        metadata: s.metadata,
+        token_metadata: s.token_metadata,
+        operators: s.operators,
+      }
+    );
+  return [
+    ret2[0],
+    {
+      ...s,
+      ledger: ret2[1].ledger,
+      metadata: ret2[1].metadata,
+      token_metadata: ret2[1].token_metadata,
+      operators: ret2[1].operators,
+    }
+  ]
+};
+```
+
+Explanation:
+
+- every `FA2Impl.NFT.xxx()` called function is taking the storage type of the NFT library, so you need to send a partial object from our storage definition to match the type definition
+- the return type contains also the storage type of the library, so you need to reconstruct the storage by copying the modified fields
+
+{% callout type="note" %}
+The LIGO team is working on merging type definitions, so you then can do **type union** or **merge 2 objects** like in Typescript
+{% /callout %}
+
+Let's add the `Mint` function now. Add the new function
+
+```ligolang
+@entry
+const mint = (
+  [token_id, name, description, symbol, ipfsUrl]: [
+    nat,
+    bytes,
+    bytes,
+    bytes,
+    bytes
+  ],
+  s: storage
+): ret => {
+  if (! Set.mem(Tezos.get_sender(), s.administrators)) return failwith("1");
+  const token_info: map<string, bytes> =
+    Map.literal(
+      list(
+        [
+          ["name", name],
+          ["description", description],
+          ["interfaces", (bytes `["TZIP-12"]`)],
+          ["artifactUri", ipfsUrl],
+          ["displayUri", ipfsUrl],
+          ["thumbnailUri", ipfsUrl],
+          ["symbol", symbol],
+          ["decimals", (bytes `0`)]
+        ]
+      )
+    ) as map<string, bytes>;
+  return [
+    list([]) as list<operation>,
+    {
+      ...s,
+      ledger: Big_map.add(token_id, Tezos.get_sender(), s.ledger) as
+        FA2Impl.NFT.ledger,
+      token_metadata: Big_map.add(
+        token_id,
+        { token_id: token_id, token_info: token_info },
+        s.token_metadata
+      ),
+      operators: Big_map.empty as FA2Impl.NFT.operators,
+    }
+  ]
+};
+```
+
+Explanation:
+
+- `mint` function allows you to create a unique NFT. You have to declare the name, description, symbol, and ipfsUrl for the picture to display
+- to simplify, the code here does not manage the increment of the token_id here it is done by the front end later. You should manage this counter on-chain to avoid overriding an existing NFT. There is no rule to allocate a specific number to the token_id but people increment it from 0. Also, there is no rule if you have a burn function to reallocate the token_id to a removed index and just continue the sequence from the greatest index.
+- most of the fields are optional except `decimals` that is set to `0`. A unique NFT does not have decimals, it is a unit
+- by default, the `quantity` for an NFT is `1`, that is why every bottle is unique and there is no need to set a total supply on each NFT.
+- if you want to know the `size of the NFT collection`, you need an indexer on the frontend side. It is not possible to have this information on the contract (because big_map has not a .keys() function returning the keys) unless you add and additional element on the storage to cache it
+
+Smart contract implementation for this first training is finished, let's prepare the deployment to ghostnet.
+
+Compile the file to create a default taqueria initial storage and parameter file
 
 ```bash
-TAQ_LIGO_IMAGE=ligolang/ligo:0.60.0 taq compile nft.jsligo
+TAQ_LIGO_IMAGE=ligolang/ligo:1.0.0 taq compile nft.jsligo
 ```
 
-{% callout type="note" %}
-To be sure that Taqueria will use a correct version of Ligo containing the Ligo package installer w/ Docker fix, we set the env var `TAQ_LIGO_IMAGE`
-{% /callout %}
-
-The contract compiles, now let's write `Transfer,Balance_of,Update_operators` entrypoints. We will do a passthrough call to the underlying library. On `main` function, **replace the default cases code with this one**
+Edit the new storage file `nft.storageList.jsligo` as it. (:warning: you can change the `administrator` address to your own address or keep alice address `tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb`)
 
 ```ligolang
-     Transfer: (p: NFT.transfer) => {
-      const ret2 : [list<operation>, NFT.storage] = NFT.transfer(p,{ledger:s.ledger,metadata:s.metadata,token_metadata:s.token_metadata,operators:s.operators,token_ids : s.token_ids});
-      return [ret2[0],{...s,ledger:ret2[1].ledger,metadata:ret2[1].metadata,token_metadata:ret2[1].token_metadata,operators:ret2[1].operators,token_ids:ret2[1].token_ids}];
-     },
-     Balance_of: (p: NFT.balance_of) => {
-      const ret2 : [list<operation>, NFT.storage] = NFT.balance_of(p,{ledger:s.ledger,metadata:s.metadata,token_metadata:s.token_metadata,operators:s.operators,token_ids : s.token_ids});
-      return [ret2[0],{...s,ledger:ret2[1].ledger,metadata:ret2[1].metadata,token_metadata:ret2[1].token_metadata,operators:ret2[1].operators,token_ids:ret2[1].token_ids}];
-      },
-     Update_operators: (p: NFT.update_operator) => {
-      const ret2 : [list<operation>, NFT.storage] = NFT.update_ops(p,{ledger:s.ledger,metadata:s.metadata,token_metadata:s.token_metadata,operators:s.operators,token_ids : s.token_ids});
-      return [ret2[0],{...s,ledger:ret2[1].ledger,metadata:ret2[1].metadata,token_metadata:ret2[1].token_metadata,operators:ret2[1].operators,token_ids:ret2[1].token_ids}];
-      }
-```
+#import "nft.jsligo" "Contract"
 
-Explanations:
-
-- every NFT.xxx() called function is taking the storage type of the NFT library, so we send a partial object from our storage definition to match the type definition
-- the return type contains also the storage type of the library, so we need to reconstruct the storage by copying the modified fields
-
-{% callout type="note" %}
-The LIGO team is working on merging type definitions, so you then can do `type union` or `merge 2 objects` like in Typescript
-{% /callout %}
-
-Let's add the `Mint` function now. Add the new function, and update the main function
-
-```ligolang
-const mint = (token_id : nat, name :bytes, description:bytes ,symbol :bytes, ipfsUrl:bytes, s: storage) : ret => {
-
-   if(! Set.mem(Tezos.get_sender(), s.administrators)) return failwith("1");
-
-   const token_info: map<string, bytes> =
-     Map.literal(list([
-      ["name", name],
-      ["description",description],
-      ["interfaces", (bytes `["TZIP-12"]`)],
-      ["thumbnailUri", ipfsUrl],
-      ["symbol",symbol],
-      ["decimals", (bytes `0`)]
-     ])) as map<string, bytes>;
-
-
-    const metadata : bytes = bytes
-  `{
+const default_storage : Contract.storage = {
+    administrators: Set.literal(
+        list(["tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb" as address])
+    ) as set<address>,
+    ledger: Big_map.empty as Contract.FA2Impl.NFT.ledger,
+    metadata: Big_map.literal(
+        list(
+            [
+                ["", bytes `tezos-storage:data`],
+                [
+                    "data",
+                    bytes
+                    `{
       "name":"FA2 NFT Marketplace",
       "description":"Example of FA2 implementation",
       "version":"0.0.1",
@@ -278,63 +370,26 @@ const mint = (token_id : nat, name :bytes, description:bytes ,symbol :bytes, ipf
       "interfaces":["TZIP-012"],
       "errors": [],
       "views": []
-      }` ;
-
-    return [list([]) as list<operation>,
-          {...s,
-     ledger: Big_map.add(token_id,Tezos.get_sender(),s.ledger) as NFT.Ledger.t,
-     metadata : Big_map.literal(list([["",  bytes `tezos-storage:data`],["data", metadata]])),
-     token_metadata: Big_map.add(token_id, {token_id: token_id,token_info:token_info},s.token_metadata),
-     operators: Big_map.empty as NFT.Operators.t,
-     token_ids : Set.add(token_id,s.token_ids)
-     }]};
-
-const main = ([p, s]: [parameter,storage]): ret =>
-    match(p, {
-     Mint: (p: [nat,bytes,bytes,bytes,bytes]) => mint(p[0],p[1],p[2],p[3],p[4],s),
-     AddAdministrator : (p : address) => {if(Set.mem(Tezos.get_sender(), s.administrators)){ return [list([]),{...s,administrators:Set.add(p, s.administrators)}]} else {return failwith("1");}} ,
-     Transfer: (p: NFT.transfer) => [list([]),s],
-     Balance_of: (p: NFT.balance_of) => [list([]),s],
-     Update_operators: (p: NFT.update_operator) => [list([]),s],
-     });
+      }`
+                ]
+            ]
+        )
+    ) as Contract.FA2Impl.TZIP16.metadata,
+    token_metadata: Big_map.empty as Contract.FA2Impl.TZIP12.tokenMetadata,
+    operators: Big_map.empty as Contract.FA2Impl.NFT.operators,
+};
 ```
 
-Explanations:
-
-- `mint` function will allow you to create a unique NFT. You have to declare the name, description, symbol, and ipfsUrl for the picture to display
-- to simplify, we don't manage the increment of the token_id here it will be done by the front end later. We encourage you to manage this counter on-chain to avoid overriding an existing NFT. There is no rule to allocate a specific number to the token_id but people increment it from 0. Also, there is no rule if you have a burn function to reallocate the token_id to a removed index and just continue the sequence from the greatest index.
-- most of the fields are optional except `decimals` that is set to `0`. A unique NFT does not have decimals, it is a unit
-- by default, the `quantity` for an NFT is `1`, that is why every bottle is unique and we don't need to set a total supply on each NFT.
-- if you want to know the `size of the NFT collection`, look at `token_ids` size. This is used as a `cache` key index of the `token_metadata` big_map. By definition, a big map in Tezos can be accessed through a key, but you need to know the key, there is no function to return the keyset. This is why we keep a trace of all token_id in this set, so we can loop and read/update information on NFTs
-
-We have finished the smart contract implementation for this first training, let's prepare the deployment to ghostnet.
-
-Edit the storage file `nft.storageList.jsligo` as it. (:warning: you can change the `administrator` address to your own address or keep `alice`)
-
-```ligolang
-#include "nft.jsligo"
-const default_storage =
-  {administrators: Set.literal(list(["tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb"
-      as address]))
-    as set<address>,
-   ledger: Big_map.empty as NFT.Ledger.t,
-   metadata: Big_map.empty as NFT.Metadata.t,
-   token_metadata: Big_map.empty as NFT.TokenMetadata.t,
-   operators: Big_map.empty as NFT.Operators.t,
-   token_ids: Set.empty as set<NFT.Storage.token_id>
-   };
-```
-
-Compile again and deploy to ghostnet
+Compile and deploy to ghostnet
 
 ```bash
-TAQ_LIGO_IMAGE=ligolang/ligo:0.60.0 taq compile nft.jsligo
-taq install @taqueria/plugin-taquito@next
+TAQ_LIGO_IMAGE=ligolang/ligo:1.0.0 taq compile nft.jsligo
+taq install @taqueria/plugin-taquito
 taq deploy nft.tz -e "testing"
 ```
 
 {% callout type="note" %}
-If this is the first time you're using `taqueria`, you may want to run through [this training](https://github.com/marigold-dev/training-dapp-1#ghostnet-testnet-wallet).
+If this is the first time you're using **taqueria**, you may want to run through [this training](https://github.com/marigold-dev/training-dapp-1#ghostnet-testnet-wallet).
 {% /callout %}
 
 > For advanced users, just go to `.taq/config.local.testing.json` and change the default account by alice one's (publicKey,publicKeyHash,privateKey) and then redeploy:
@@ -362,17 +417,19 @@ taq deploy nft.tz -e "testing"
 ┌──────────┬──────────────────────────────────────┬───────┬──────────────────┬────────────────────────────────┐
 │ Contract │ Address                              │ Alias │ Balance In Mutez │ Destination                    │
 ├──────────┼──────────────────────────────────────┼───────┼──────────────────┼────────────────────────────────┤
-│ nft.tz   │ KT1PLo2zWETRkmqUFEiGqQNVUPorWHVHgHMi │ nft   │ 0                │ https://ghostnet.ecadinfra.com │
+│ nft.tz   │ KT18sgGX5nu4BzwV2JtpQy4KCqc8cZU5MwnN │ nft   │ 0                │ https://ghostnet.ecadinfra.com │
 └──────────┴──────────────────────────────────────┴───────┴──────────────────┴────────────────────────────────┘
 ```
 
-** We have finished the backend! **
+**Backend is finished!**
 
 ## NFT Marketplace frontend
 
-## Get the react boilerplate
+This section guides you step-by-step in setting up an intuitive frontend.
 
-To save time, we have a [boilerplate ready for the UI](https://github.com/marigold-dev/training-nft-1/tree/main/reactboilerplateapp)
+### Step 1: Get the react boilerplate
+
+To save time, a [boilerplate ready for the UI](https://github.com/marigold-dev/training-nft-1/tree/main/reactboilerplateapp) is ready for you.
 
 Copy this code into your folder (:warning: assuming you have cloned this repo and your current path is `$REPO/training`)
 
@@ -389,33 +446,33 @@ Install the plugin, then generate a representation of your smart contract object
 Finally, run the server
 
 ```bash
-taq install @taqueria/plugin-contract-types@next
+taq install @taqueria/plugin-contract-types
 taq generate types ./app/src
 cd app
 yarn install
-yarn run start
+yarn dev
 ```
 
-> Note : On `Mac` :green_apple:, `sed` does not work as Unix, change the start script on package.json to
-> `   "start": "if test -f .env; then sed -i '' \"s/\\(REACT_APP_CONTRACT_ADDRESS *= *\\).*/\\1$(jq -r 'last(.tasks[]).output[0].address' ../.taq/testing-state.json)/\" .env ; else jq -r '\"REACT_APP_CONTRACT_ADDRESS=\" + last(.tasks[]).output[0].address' ../.taq/testing-state.json > .env ; fi && react-app-rewired start",`
+> Note : On a **Mac** :green_apple:, sometimes `sed` commands do not work exactly the same as Unix commands. Look at the start script on package.json for Mac below :
+> `   "dev": "if test -f .env; then sed -i '' \"s/\\(VITE_CONTRACT_ADDRESS *= *\\).*/\\1$(jq -r 'last(.tasks[]).output[0].address' ../.taq/testing-state.json)/\" .env ; else jq -r '\"VITE_CONTRACT_ADDRESS=\" + last(.tasks[]).output[0].address' ../.taq/testing-state.json > .env ; fi && vite",`
 
 The website is ready! You have:
 
-- automatic pull from `taqueria` last deployed contract address at each start
+- last deployed contract address always is refreshed from **taqueria** configuration at each start
 - login/logout
 - the general layout / navigation
 
 If you try to connect you are redirected to `/` path that is also the wine catalog.
 
-There are no bottle collections yet, so we need to create the mint page.
+There are no bottle collections yet, so you have to create the mint page.
 
-## Mint Page
+### Step 2: Mint Page
 
-Edit default Mint Page on `./src/MintPage.tsx`
+Edit default mint Page on `./src/MintPage.tsx`
 
-### Add a form to create the NFT
+#### Add a form to create the NFT
 
-In `MintPage.tsx`, replace the `HTML` template with this one :
+In `MintPage.tsx`, replace the **HTML** template starting with `<Paper>` with this one :
 
 ```html
     <Paper>
@@ -572,7 +629,9 @@ In `MintPage.tsx`, replace the `HTML` template with this one :
     </Paper>
 ```
 
-Add `formik` form to your Component function inside the same `MintPage.tsx` file:
+Inside your `MintPage` Component function, all all following elements :
+
+- A `formik` form :
 
 ```typescript
 const validationSchema = yup.object({
@@ -627,7 +686,7 @@ const toggleDrawer =
   };
 ```
 
-Finally, fix the missing imports:
+Finally, fix the missing imports at the beginning of the file :
 
 ```typescript
 import { AddCircleOutlined, Close } from "@mui/icons-material";
@@ -650,9 +709,9 @@ import { TZIP21TokenMetadata, UserContext, UserContextType } from "./App";
 import { address } from "./type-aliases";
 ```
 
-### Add mint missing function
+#### Add mint missing function
 
-Add the `mint` function and related imports :
+First, add the `mint` function and related imports :
 
 ```typescript
 import { useSnackbar } from "notistack";
@@ -661,6 +720,8 @@ import { address, bytes, nat } from "./type-aliases";
 import { char2Bytes } from "@taquito/utils";
 import { TransactionInvalidBeaconError } from "./TransactionInvalidBeaconError";
 ```
+
+Add the `mint` function inside your `MintPage` Component function
 
 ```typescript
 const { enqueueSnackbar } = useSnackbar();
@@ -675,11 +736,11 @@ const mint = async (newTokenDefinition: TZIP21TokenMetadata) => {
       const requestHeaders: HeadersInit = new Headers();
       requestHeaders.set(
         "pinata_api_key",
-        `${process.env.REACT_APP_PINATA_API_KEY}`
+        `${import.meta.env.VITE_PINATA_API_KEY}`
       );
       requestHeaders.set(
         "pinata_secret_api_key",
-        `${process.env.REACT_APP_PINATA_API_SECRET}`
+        `${import.meta.env.VITE_PINATA_API_SECRET}`
       );
 
       const resFile = await fetch(
@@ -735,28 +796,30 @@ const mint = async (newTokenDefinition: TZIP21TokenMetadata) => {
 };
 ```
 
+> Note : organize/fix duplicated import declarations if necessary
+
 ![mint form](/images/mintForm.png)
 
 Explanations:
 
-- on Mint button click, we upload a file and then we call the `pinata API` to push the file to `IPFS`. It returns the hash
+- on Mint button click, upload a file and then call the **pinata API** to push the file to **IPFS**. It returns the hash
 - hash is used in two different ways
   - https pinata gateway link (or any other ipfs http viewer)
   - ipfs link for the backend thumbnail url
-- TZIP standard requires storing data in `bytes`. As there is no Michelson function to convert string to bytes (using Micheline data PACK will not work as it alters the final bytes), we do the conversion using `char2Bytes` on the frontend side
+- TZIP standard requires storing data in `bytes`. As there is no Michelson function to convert string to bytes (using Micheline data PACK is not working, as it alters the final bytes), do the conversion using `char2Bytes` on the frontend side
 
-> Note : Finally, if you remember on the backend , we said that token_id increment management was done in the ui, so you can write this code. It is not a good security practice as it supposes that the counter is managed on frontend side, but it is ok for demo purpose.
+> Note : Finally, if you remember on the backend, token_id increment management was done in the ui, so you can write this code. It is not a good security practice as it supposes that the counter is managed on frontend side, but it is ok for demo purpose.
 
-Add this code, every time you have a new token minted, you increment the counter for the next one
+Add this code inside your `MintPage` Component function , every time you have a new token minted, you increment the counter for the next one
 
 ```typescript
 useEffect(() => {
   (async () => {
-    if (storage && storage.token_ids.length > 0) {
-      formik.setFieldValue("token_id", storage?.token_ids.length);
+    if (nftContratTokenMetadataMap && nftContratTokenMetadataMap.size > 0) {
+      formik.setFieldValue("token_id", nftContratTokenMetadataMap.size);
     }
   })();
-}, [storage?.token_ids]);
+}, [nftContratTokenMetadataMap?.size]);
 ```
 
 ### Display all minted bottles
@@ -850,7 +913,7 @@ Replace the `"//TODO"` keyword with this template
         </Box>
 ```
 
-Add missing imports and parameters
+Finally, your imports at beginning of the file should be like this :
 
 ```typescript
 import SwipeableViews from "react-swipeable-views";
@@ -875,7 +938,20 @@ import {
   KeyboardArrowLeft,
   KeyboardArrowRight,
 } from "@mui/icons-material";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
+import { useFormik } from "formik";
+import React, { useEffect, useState } from "react";
+import * as yup from "yup";
+import { TZIP21TokenMetadata, UserContext, UserContextType } from "./App";
+import { useSnackbar } from "notistack";
+import { BigNumber } from "bignumber.js";
+import { address, bytes, nat } from "./type-aliases";
+import { char2Bytes } from "@taquito/utils";
+import { TransactionInvalidBeaconError } from "./TransactionInvalidBeaconError";
 ```
+
+and some variables inside your `MintPage` Component function
 
 ```typescript
 const [activeStep, setActiveStep] = React.useState(0);
@@ -895,30 +971,28 @@ const handleStepChange = (step: number) => {
 
 ## Let's play
 
-1. Connect with your wallet and choose `alice` account _(or the administrator you set on the smart contract earlier)_. You are redirected to the Administration /mint page as there is no NFT minted yet.
-
-2. Create your first wine bottle, for example:
-
-- `name`: Saint Emilion - Franc la Rose
-- `symbol`: SEMIL
-- `description`: Grand cru 2007
-
-3. Click on `Upload an image` and select a bottle picture on your computer
-
-4. Click on the Mint button
+- Connect with your wallet and choose **alice** account _(or the administrator you set on the smart contract earlier)_. You are redirected to the Administration /mint page as there is no NFT minted yet.
+- Create your first wine bottle, for example:
+  - `name`: Saint Emilion - Franc la Rose
+  - `symbol`: SEMIL
+  - `description`: Grand cru 2007
+- Click on **Upload an image** and select a bottle picture on your computer
+- Click on the Mint button
 
 ![minting](/images/minting.png)
 
-Your picture will be pushed to IPFS and displayed.
+Your picture is be pushed to IPFS and displayed.
 
-Then, Temple Wallet _(or whatever other wallet you choose)_ will ask you to sign the operation. Confirm it, and less than 1 minute after the confirmation notification, the page will be automatically refreshed to display your wine collection with your first NFT!
+Then, Temple Wallet _(or whatever other wallet you choose)_ asks you to sign the operation. Confirm it, and less than 1 minute after the confirmation notification, the page is automatically refreshed to display your wine collection with your first NFT!
 
 Now you can see all NFTs
 
 ![wine collection](/images/winecollection.png)
 
-## Conclusion
+## Summary
 
 You are able to create an NFT collection marketplace from the `ligo/fa` library.
+
+On next training, you will add the buy and sell functions to your smart contract and update the frontend to allow these actions.
 
 To continue, let's go to [Part 2](/tutorials/build-an-nft-marketplace/part-2).
