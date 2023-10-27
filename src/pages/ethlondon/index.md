@@ -9,7 +9,7 @@ Interested in building on Tezos for ETHLondon 2023?
 ## Support
 
 * We'll be at ETHLondon all weekend, look out for the people in white Tezos t-shirts! We're a friendly bunch, come and talk to us!
-* Join our [Discord](https://discord.gg/etherlink) and use the [#dev-help](https://discord.com/channels/699325006928281720/710095412639432705) channel to ask any questions
+* Join our [Discord](https://discord.gg/tezos) and use the [#dev-help](https://discord.com/channels/699325006928281720/710095412639432705) channel to ask any questions
 * You're on the docs site, so feel free to start at the [beginning](https://docs.tezos.com/tezos-basics/tezos-blockchain-overview/) or head straight over to the [tutorials](https://docs.tezos.com/tutorials/) to get started 🚀
 
 
