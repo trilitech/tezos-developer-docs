@@ -1,5 +1,4 @@
 ---
-id: 1-multisig-specialized-intro
 title: Specialized Multisig Introduction
 sidebar_label: Introduction
 lastUpdated: 29th June 2023
@@ -16,7 +15,7 @@ What is meant by _"arbitrary action"_?  That generic multisig contract
 accepts arbitrary Michelson code as its main input: signers need to
 know what this code is doing to know what they're voting on.
 
-We use another approach: the multisig contract is specialized to the particular contract type you'd like to use with it. That is, the multisig contract's parameters must match those of the contract it is administering. 
+We use another approach: the multisig contract is specialized to the particular contract type you'd like to use with it. That is, the multisig contract's parameters must match those of the contract it is administering.
 
 It will only perform the exact actions your contract expects. This prevents any action that the base contract does not support from
 being executed.
@@ -28,14 +27,13 @@ To set up and interact with a specialized multisig contract:
 
 ## Setting up
 
-Follow instructions in [Client Setup](/docs/setup/1-tezos-client) to set up
-  `tezos-client` and create a test network wallet
+Set up `tezos-client` and create a test network wallet
 
 Clone the [`lorentz-contract-multisig` repository](https://github.com/tqtezos/lorentz-contract-multisig), and follow the [instructions in the README](
   https://github.com/tqtezos/lorentz-contract-multisig/blob/master/README.md) to
   install the dependencies required to use the `lorentz-contract-multisig`
 
-Don't forget to set up an `ALICE_ADDRESS` and `BOB_ADDRESS` on the test network [as described here](/docs/setup/1-tezos-client#createtestwallets:); we will be using these variables throughout this tutorial.
+Don't forget to set up an `ALICE_ADDRESS` and `BOB_ADDRESS` on the test network as described in [Installing Octez](../reference/octez/installing); we will be using these variables throughout this tutorial.
 
 ## Getting your public key
 

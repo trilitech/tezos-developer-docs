@@ -1,5 +1,4 @@
 ---
-id: archetype
 title: Archetype
 lastUpdated: 29th June 2023
 ---
@@ -57,7 +56,7 @@ $ npm install -g @completium/completium-cli
 $ completium-cli init
 ```
 
-Then you can deploy the contract with 
+Then you can deploy the contract with
 
 ```
 completium-cli deploy hello.arl
@@ -69,9 +68,9 @@ Call contract's entrypoint `input` with argument "Archetype":
 completium-cli call hello --entry input --arg '{ "name": "Archetype" }'
 ```
 
-{% callout type="note" %}
+:::note
 The full documentation for Archetype can be found on [archetype-lang.org](https://archetype-lang.org/docs/introduction). Also, see the material on OpenTezos [here](https://opentezos.com/archetype).
-{% /callout %}
+:::
 
 #### Further reading:
 

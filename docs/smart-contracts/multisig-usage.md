@@ -1,12 +1,11 @@
 ---
-id: 2-originate-and-use-multisig-contract
-title: Originate and Use
+title: Using multisig contracts
 lastUpdated: 29th June 2023
 ---
 
 ## Generating the Specialized Multisig Contract Code
 
-Make sure you have already followed the [setup steps](/docs/token-contracts/multisig-specialized/1-multisig-specialized-intro#setting-up) before continuing.
+Make sure you have already followed the [setup steps](./multisig-specialized/#setting-up) before continuing.
 
 To see a list of supported contracts and actions, run:
 `stack exec -- lorentz-contract-multisig --help`
@@ -54,7 +53,7 @@ CallStack (from HasCallStack):
 
 ## Generating the Initial Storage
 Note, this section uses the
-[bash functions defined here](/docs/token-contracts/multisig-specialized/1-multisig-specialized-intro#getting-your-public-key).
+[bash functions defined here](./multisig-specialized/#getting-your-public-key).
 
 The Generic Multisig allows us to set administrators of the contract
 (`signerKeys`) and the number of those administrators required to sign
@@ -269,7 +268,7 @@ $ tezos-client rpc get /chains/main/chain_id
 
 Set a bash variable for the chain ID:
 ```shell
-$ CHAIN_ID="NetXjD3HPJJjmcd"  
+$ CHAIN_ID="NetXjD3HPJJjmcd"
 ```
 
 First, we'll generate the bytes

@@ -1,5 +1,4 @@
 ---
-id: smartpy
 title: SmartPy
 authors: Mathias Hiron and Maxime Sallerin
 lastUpdated: 29th June 2023
@@ -21,11 +20,11 @@ SmartPy is a **Python library**. SmartPy scripts are regular Python scripts that
 
 **Meta-programming** is when we can write a program that writes a program, i.e., constructs a contract. Indeed, the functions of the SmartPy library are used to construct a smart contract.
 
-{% callout type="note" %}
+:::note
 For a complete _SmartPy_ guide please refer to the [manual here](https://smartpy.dev/docs/manual/introduction/overview).
-{% /callout %}
+:::
 
-Smart contracts are executed once they are deployed in the Tezos blockchain (although they can be simulated). 
+Smart contracts are executed once they are deployed in the Tezos blockchain (although they can be simulated).
 
 Like most languages, SmartPy has expressions. For example:
 - `self.data.x` represents the contract storage field `x`
@@ -64,7 +63,7 @@ sp.if self.data.x > 2:
     self.data.x += 1
 ```
 
-If we would have used the `if` native to Python it would not be interpreted and compiled in Michelson. 
+If we would have used the `if` native to Python it would not be interpreted and compiled in Michelson.
 
 ## About the raffle contract
 A raffle is a game of chance that distributes a winning prize.
@@ -73,7 +72,7 @@ The organizer is in charge of defining a jackpot and selling tickets that will e
 
 Fig.3 represents our smart contract.
 
-![](/images/smart-contracts/raffle_schema.svg)
+![](/img/smart-contracts/raffle_schema.svg)
 <small className="figure">FIGURE 3: Raffle contract</small>
 
 Three entrypoints allow interaction with the contract:
@@ -90,7 +89,7 @@ This section illustrates the coding of the smart contract in the [online editor]
 #### Create your contract
 To start, create a new contract in the online editor and name it _Raffle Contract_.
 
-![](/images/smart-contracts/online_editor_create_contract.png)
+![](/img/smart-contracts/online_editor_create_contract.png)
 <small className="figure">FIGURE 4: Online Editor Create Contract</small>
 
 #### Template
@@ -121,7 +120,7 @@ class Raffle(sp.Contract):
 #### A few concepts first
 
 **A _SmartPy_ contract** is a class definition that inherits from the `sp.Contract`.
-- **A class** is a code template for creating objects. Objects have member variables and have a behaviour associated with them. In Python a class is created by the keyword `class`.  
+- **A class** is a code template for creating objects. Objects have member variables and have a behaviour associated with them. In Python a class is created by the keyword `class`.
 - **Inheritance** allows us to define a class that can inherit all the methods and properties of another class.
 
 - **The _SmartPy_ storage** is defined into the constructor `__init__` which makes a call to `self.init()` that initializes the fields and sets up the storage.
@@ -260,7 +259,7 @@ def __init__(self, address):
               )
 ```
 
-The definition of the storage is done in the constructor `__init__` and the different fields of the storage are stated as follows:  
+The definition of the storage is done in the constructor `__init__` and the different fields of the storage are stated as follows:
 `self.init(field1=value1, field2=value2, field3=value3)`
 
 where:
@@ -291,9 +290,9 @@ For the storage of the raffle contract, we have defined five fields for the mome
 - **jackpot** is the amount in `tez` that will be distributed to the winner.
 - **raffle_is_open** is a `boolean` to indicate if the raffle is open or not.
 - **hash_winning_ticket** is the hash of the winning ticket indicated by the admin. It is of type `bytes`.
-  
-  It's not possible to generate a truly random number from a smart contract, so an easy alternative is to use a hash that the admin will reveal the value later. 
-  
+
+  It's not possible to generate a truly random number from a smart contract, so an easy alternative is to use a hash that the admin will reveal the value later.
+
   This example is for educational purposes and is not intended to be deployed on the real Tezos network.
 
 #### Entrypoint implementation
@@ -316,9 +315,9 @@ def open_raffle(self, jackpot_amount, close_date, hash_winning_ticket):
 An entrypoint is a method of the contract class and is always preceded by the keyword `@sp.entry_point`. It can take several parameters. In our case, the first entrypoint we use, is called `open_raffle` and does the following:
 
 - With `sp.verify()` or `sp.verify_equal()`, we check that a statement is true or if it returns an error message (more info at [Checking a Condition](https://smartpy.io/reference.html#_checking_a_condition)). Here we check four statements :
-  
+
   1. The address that calls the entrypoint must be the administrator indicated in the storage. We compare here `sp.source` and `self.data.admin`.
-     > `sp.sender` is the address that calls the current entrypoint.  
+     > `sp.sender` is the address that calls the current entrypoint.
      > `sp.source` is the address that initiates the current transaction. It may or may not be equal to `sp.sender`, but in our case, it is.
 
   2. No raffle must be open. For this, we use the boolean `raffle_is_open` defined in the storage.
@@ -390,7 +389,7 @@ The result is displayed in an HTML document in the output panel of the online ed
 
 Let's run our code:
 
-![](/images/smart-contracts/online_editor_summary_contract.png)
+![](/img/smart-contracts/online_editor_summary_contract.png)
 <small className="figure">FIGURE 4: Online Editor Contract Summary</small>
 
 You can see a summary of our smart contract with the following information:
@@ -401,12 +400,12 @@ You can see a summary of our smart contract with the following information:
 
 By clicking on the _Types_ tab, we have access to the types of the storage elements and the parameters of the entrypoints.
 
-![](/images/smart-contracts/online_editor_Types.png)
+![](/img/smart-contracts/online_editor_Types.png)
 <small className="figure">FIGURE 5: Online Editor Types</small>
 
-> As with Python, most of the time, it is not necessary to specify the type of an object in _SmartPy_.  
-> But it may be required because the target language of SmartPy, Michelson, requires types.  
-> Each _SmartPy_ expression, however, needs a type. This is why _SmartPy_ uses type inference to determine the type of each expression.  
+> As with Python, most of the time, it is not necessary to specify the type of an object in _SmartPy_.
+> But it may be required because the target language of SmartPy, Michelson, requires types.
+> Each _SmartPy_ expression, however, needs a type. This is why _SmartPy_ uses type inference to determine the type of each expression.
 > See doc [Typing](https://smartpy.io/reference.html#_typing).
 
 By clicking on the _Deploy Michelson Contract_ tab, we have access to the codes compiled in Michelson for the storage (_Storage_ tab) and the smart contract (_Code_ tab).
@@ -505,7 +504,7 @@ code
 
 By scrolling down a little, we have access to the results of the test scenario, and within each step a summary of the contract.
 
-![](/images/smart-contracts/online_editor_scenario_output.png)
+![](/img/smart-contracts/online_editor_scenario_output.png)
 <small className="figure">FIGURE 4: Online Editor Scenario Output</small>
 
 ### buy_ticket entrypoint
@@ -570,7 +569,7 @@ class Raffle(sp.Contract):
         alice = sp.test_account("Alice")
         jack = sp.test_account("Jack")
         admin = sp.test_account("Administrator")
-    
+
         r = Raffle(admin.address)
         scenario = sp.test_scenario()
         scenario.h1("Raffle")
@@ -933,7 +932,7 @@ Here are some precisions about the `sp.TBytes` type and its functionality which 
 
 We are getting to the end of our smart contract. Run it one last time and explore the result. Don't hesitate to read the test scenario, to make sure your smart contract is working correctly. You can, of course, modify the scenarios or create new ones.
 
-Check out the final Michelson code generated by SmartPy for this smart contract. Note that you can use this _Michelson_ code to create additional tests with _PyTezos_ as described in the [LIGO Module](/ligo/unit-testing).
+Check out the final Michelson code generated by SmartPy for this smart contract. Note that you can use this _Michelson_ code to create additional tests with PyTezos as described in [Unit Testing](https://opentezos.com/ligo/unit-testing/) on OpenTezos.
 
 ## Conclusion
 
@@ -948,6 +947,6 @@ There is no need for a **main** function like LIGO which dispatches the actions 
 
 SmartPy was designed to help developers build smart contracts by providing them with a syntax familiar to them and a powerful analysis tool.
 
-{% callout type="note" %}
-On SmartPy's website you can find the [manual](https://smartpy.dev/docs/manual/introduction/overview) and [guides](https://smartpy.dev/docs/guides/) and explore contract examples on SmartPy's [online IDE](https://smartpy.dev/ide). In addition, see the [SmartPy material](https://opentezos.com/smartpy) on OpenTezos. 
-{% /callout %}
+:::note
+On SmartPy's website you can find the [manual](https://smartpy.dev/docs/manual/introduction/overview) and [guides](https://smartpy.dev/docs/guides/) and explore contract examples on SmartPy's [online IDE](https://smartpy.dev/ide). In addition, see the [SmartPy material](https://opentezos.com/smartpy) on OpenTezos.
+:::

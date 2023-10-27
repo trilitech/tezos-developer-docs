@@ -1,5 +1,4 @@
 ---
-id: ligo
 title: Ligo
 lastUpdated: 29th June 2023
 ---
@@ -67,7 +66,7 @@ let main = (action: parameter, store: storage) : return_ => {
 
 This LIGO contract accepts the following LIGO expressions: `Increment(n)`, `Decrement(n)` and `Reset`. Those serve as `entrypoint` identification.
 
-{% callout type="note" %}
+:::note
 You can find [documentation](https://ligolang.org/docs/intro/introduction?lang=jsligo) of LIGO on its website along with [tutorials](https://ligolang.org/docs/tutorials/getting-started?lang=jsligo) there. Also, see the material on [OpenTezos](https://opentezos.com/ligo).
-{% /callout %}
+:::
 
