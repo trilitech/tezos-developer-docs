@@ -350,7 +350,7 @@ Next, you need to build the FA2 contract which relies on the Ligo FA library. To
     TAQ_LIGO_IMAGE=ligolang/ligo:1.0.0 taq compile nft.jsligo
     ```
 
-6. Edit the new storage file `nft.storageList.jsligo` as it. 
+6. Edit the new storage file `nft.storageList.jsligo` as it.
 
      > Note: While editing, you have the option to update the administrator address. You can either replace it with your personal address or retain the default Alice address tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb.
 
@@ -444,7 +444,7 @@ This section guides you step-by-step in setting up an intuitive frontend.
 
 To save time, a [boilerplate ready for the UI](https://github.com/marigold-dev/training-nft-1/tree/main/reactboilerplateapp) is ready for you.
 
-1. Copy this code into your folder 
+1. Copy this code into your folder
     > Reminder: Ensure you've cloned the repository and are currently navigating from the `$REPO/training` directory.
 
     ```bash
@@ -810,19 +810,23 @@ Edit default mint Page on `./src/MintPage.tsx`
     };
 ```
 
-> Note: organize/fix duplicated import declarations if necessary
+   {% callout type="note" %}
+   Organize and fix any duplicated import declarations if necessary
+   {% /callout %}
 
-    ![mint form](/images/mintForm.png)
+   ![mint form](/images/mintForm.png)
 
-    Explanations:
+   Explanations:
 
-    - On Mint button click, a file is uploaded and a call to the Pinata API pushes the file to IPFS. It returns the hash of the file.
-    - The hash is used in two different ways:
-      - On the UI, to display the picture using the Https pinata gateway url + hash
-      - On the smart contract, the IPFS link is stored as artifactUrl field on the toekn definition metadata
-    - TZIP standard requires storing data in `bytes`. As there is no Michelson function to convert string to bytes (using Micheline data PACK is not working, as it alters the final bytes), do the conversion using `char2Bytes` on the frontend side
+   - On Mint button click, a file is uploaded and a call to the Pinata API pushes the file to IPFS. It returns the hash of the file.
+   - The hash is used in two different ways:
+     - On the UI, to display the picture using the Https pinata gateway url + hash
+     - On the smart contract, the IPFS link is stored as artifactUrl field on the toekn definition metadata
+   - TZIP standard requires storing data in `bytes`. As there is no Michelson function to convert string to bytes (using Micheline data PACK is not working, as it alters the final bytes), do the conversion using `char2Bytes` on the frontend side
 
-    > Note: Finally, if you remember on the backend, token_id increment management was done in the ui, so you can write this code. It is not a good security practice as it supposes that the counter is managed on frontend side, but it is ok for demo purpose.
+   {% callout type="note" %}
+   Note: Finally, if you remember on the backend, token_id increment management was done in the ui, so you can write this code. It is not a good security practice as it supposes that the counter is managed on frontend side, but it is ok for demo purpose.
+   {% /callout %}
 
 3. Add this code inside the `MintPage` component function. Each time it mints a token, it increments the counter for the next token's ID.
 
