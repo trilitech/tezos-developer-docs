@@ -1,13 +1,12 @@
 ---
-id: test-networks
-title: Test Networks
-authors: 'Mathias Hiron, Nomadic Labs'
-lastUpdated: 5th June 2023
+title: Using sandboxes and testnets
+authors: 'Mathias Hiron, Nomadic Labs, Tim McMackin, TriliTech'
+lastUpdated: 18th October 2023
 ---
 
-{% callout type="note" %}
-The Tezos testnets are overseen and coordinated by [Oxhead Alpha](https://oxheadalpha.com/). The current testnets are [listed here](https://teztnets.xyz/), with an overview of the various testnets [described here](https://teztnets.xyz/).
-{% /callout %}
+:::note
+The Tezos testnets are overseen and coordinated by [Oxhead Alpha](https://oxheadalpha.com/). The current testnets and a description of what each is used for are listed at <https://teztnets.xyz/>.
+:::
 
 ## Testing without a node
 
@@ -21,28 +20,16 @@ To make testing a lot faster, options are available, depending on the language a
 
 - The **mockup mode** of `octez-client` can be used to test contract calls and other features such as some RPC calls, all without running an actual node, saving the time of going through the consensus mechanism and waiting to get blocks created and validated. Tools like **Completium**, built by the team behind the **Archetype** language, use this for their testing framework. Find out more in the [documentation of the mockup mode](https://tezos.gitlab.io/user/mockup.html).
 
-## Testing with local nodes
-
-The **sandboxed mode** of `octez-client` makes it possible to test your contracts or other projects while interacting with actual nodes, but without using a public test network or creating your own private network. In sandboxed mode, `octez-client` can create one or more local nodes for this.
-
-This is convenient if you want to run all your tests locally but in a mode where blocks are actually created through the consensus mechanism. In particular, if your contracts or tests must stay confidential until you decide to put them into production.
-
-In this mode, you can't use public services such as public block explorers or indexers. You may however install your own.
-
-One of the fastest ways to run a sandbox network is to use Docker. The [Flextesa](https://tezos.gitlab.io/flextesa/) Docker image allows you to set up a sandbox quickly with the protocol of your choice and pre-funded accounts.
-
-Find out more in the [documentation of the sandboxed mode](https://tezos.gitlab.io/user/sandbox.html).
-
 ## Testing with public test networks
 
 If you want to test your development in conditions closer to those of Tezos Mainnet, you can use one of several public test networks.
 
-These behave like `Mainnet`, with a few differences:
+These behave like Mainnet, with a few differences:
 
 - You can use faucets to obtain tez for free on these networks, so you don't need to (and can't) spend actual tez.
-- They use different constants than `Mainnet`, for example, reduced block times and shorter cycles for faster testing, reduced windows for inserting rejections in rollups, etc.
+- They use different constants than Mainnet, for example, reduced block times and shorter cycles for faster testing, reduced windows for inserting rejections in rollups, etc.
 - Tools like public block explorers or indexers may or may not be available, depending on the network.
-- They either use a modified version of the amendment process (`Ghostnet` and `Dailynet`) or don't use it at all.
+- They either use a modified version of the amendment process (Ghostnet and Dailynet) or don't use it at all.
 - Different test networks run on different versions of the protocol.
 
 Depending on your needs, you may pick between the three types of networks listed below. The different test networks provide different foresight into the changes brought by upcoming protocol amendments -- from a week to 6 months, under the current policy of [rolling protocol proposal publication](https://research-development.nomadic-labs.com/regular-scheduling-for-our-tezos-proposals.html).
@@ -67,7 +54,7 @@ As the protocol on `Ghostnet` migrates to the newly adopted amendment a few days
 
 #### Getting tez testnet tokens
 
-In order to get Tez tokens to use when testing your application on testnet, you can use a faucet. You 
+In order to get Tez tokens to use when testing your application on testnet, you can use a faucet. You
 can request some tokens from the [Ghostnet faucet](https://faucet.ghostnet.teztnets.xyz/)
 
 
@@ -120,8 +107,5 @@ See the [Private blockchain](https://opentezos.com/private) section on OpenTezos
 
 ## Further reading
 
-- Tezos reference:
-  - [Test networks by Nomadic Labs](https://tezos.gitlab.io/introduction/test_networks.html)
-  - [Mockup mode](https://tezos.gitlab.io/user/mockup.html)
-  - [Sandboxed mode](https://tezos.gitlab.io/user/sandbox.html)
+- [Test networks by Nomadic Labs](https://tezos.gitlab.io/introduction/test_networks.html)
 - Medium post: [Introducing Ghostnet](https://medium.com/the-aleph/introducing-ghostnet-1bf39976e61f)

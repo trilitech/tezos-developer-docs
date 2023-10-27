@@ -3,13 +3,11 @@ title: Block Explorers
 lastUpdated: 10th July 2023
 ---
 
-## Block Explorers
-
 **What is a blockchain explorer?**
 
 A _blockchain explorer_, also known as a _block explorer_, is an app that tracks activity on a blockchain. All transactions ever performed on a network can be viewed using such a tool.
 
-**Blockchain explorers are like search engines for blockchains.** 
+**Blockchain explorers are like search engines for blockchains.**
 
 You can think of it as a window into the blockchain world, allowing you to observe what's happening in it.
 
