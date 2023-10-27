@@ -1,11 +1,10 @@
 ---
-id: history-of-amendments
 title: History of amendments
 authors: 'Thomas Zoughebi, Aymeric Bethencourt, and Maxime Fernandez'
 lastUpdated: 30th June 2023
 ---
 
-As presented in the [Governance on-chain chapter](/tezos-basics/governance-on-chain), the Tezos blockchain is constantly evolving, through new amendments. In this chapter, we will present an overview of past proposals and the reasons for their approval or disapproval.
+As presented in [Governance](../governance), the Tezos blockchain is constantly evolving, through new amendments. In this chapter, we will present an overview of past proposals and the reasons for their approval or disapproval.
 
 ## [Athens](https://tezos.gitlab.io/protocols/004_Pt24m4xi.html) (Pt24m4xiP)
 
@@ -82,7 +81,7 @@ Florence's notable bug fixes and improvements are the:
 * Changing inter-contract calls to a [depth-first search](https://en.wikipedia.org/wiki/Depth-first_search) ordering, as opposed to [breadth-first search](https://en.wikipedia.org/wiki/Breadth-first_search) ordering
 
 * The elimination of the test chain activation
-  
+
 [*Bakings Accounts*](https://midl-dev.medium.com/tezos-in-favor-of-baking-accounts-3886effa370c) was also included in the feature set. However, ongoing testing uncovered some important and previously undocumented breaking changes in the proposal with *Baking Accounts*. Hence, the feature was postponed until a thorough audit of the functionality was completed or an alternative implementation was produced. The version of *Florence* without *Baking Accounts* was considered a [safer choice](https://research-development.nomadic-labs.com/baking-accounts-proposal-contains-unexpected-breaking-changes.html).
 
 For more information, see the blog post from [Nomadic Labs](https://research-development.nomadic-labs.com/florence-our-next-protocol-upgrade-proposal.html) and [Tarides](https://tarides.com/blog/2021-03-04-florence-and-beyond-the-future-of-tezos-storage), as well as the [reference documentation](https://tezos.gitlab.io/protocols/009_florence.html).

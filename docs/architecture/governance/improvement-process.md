@@ -2,14 +2,14 @@
 title: Tezos Improvement Process (TZIP)
 lastUpdated: 10th July 2023
 ---
-As Tezos is a large decentralized project that is constantly evolving, its members need to have a mechanism for proposing improvements to the ecosystem. 
+As Tezos is a large decentralized project that is constantly evolving, its members need to have a mechanism for proposing improvements to the ecosystem.
 
 A Tezos Improvement Proposal (or TZIP, pronounced "tee-zip") is a document that offers ways to improve Tezos via new features, tools, or standards (e.g. smart contract specifications).
 
 Specifically, a TZIP is a design document providing information to the Tezos community, describing a feature for Tezos or its processes or environment, and supporting the formal protocol governance process. The TZIP process complements (but is subsidiary to) Tezos' formal on-chain governance process.
 
-The TZIP document should contain a concise technical specification and rationale that clearly articulates what the proposal is, how it may be implemented, and why the proposal is an improvement. It should also include an FAQ that documents, compares, and answers alternative options, opinions, and objections.  
-  
+The TZIP document should contain a concise technical specification and rationale that clearly articulates what the proposal is, how it may be implemented, and why the proposal is an improvement. It should also include an FAQ that documents, compares, and answers alternative options, opinions, and objections.
+
 An explorer for all of the TZIPs, both past and present, can be found [here](https://tzip.tezosagora.org/).
 
 ## Key TZIP Standards
@@ -18,7 +18,7 @@ An explorer for all of the TZIPs, both past and present, can be found [here](htt
 
 TZIP-7, more commonly referred to as FA1.2, introduced an [ERC20](https://eips.ethereum.org/EIPS/eip-20)-like fungible token standard for Tezos. At its core, FA1.2 contains a ledger that maps identities to token balances, provides a standard API for token transfer operations, as well as providing approval to external contracts (e.g. an auction) or accounts to transfer a user's tokens.
 
-For those coming from [ERC20](https://eips.ethereum.org/EIPS/eip-20), the FA1.2 interface differs from ERC-20 in that it does not contain `transferfrom`, which has instead been merged into a single transfer entrypoint.   
+For those coming from [ERC20](https://eips.ethereum.org/EIPS/eip-20), the FA1.2 interface differs from ERC-20 in that it does not contain `transferfrom`, which has instead been merged into a single transfer entrypoint.
 The FA1.2 specification is described in detail in [TZIP-7](https://gitlab.com/tzip/tzip/blob/master/proposals/tzip-7/tzip-7.md), and several implementations of FA1.2 can be found [here](https://packages.ligolang.org/package/ligo-fa1.2).
 
 
@@ -47,8 +47,8 @@ TZIP-16 defines:
 
 * A basic structure to find some metadata in a contract's storage.
 * A URI scheme to find data: on-chain (contract storage) or off-chain (web services or IPFS).
-* An extensible JSON format (JSON-Schema) to describe the metadata 
-* Optional entrypoints to validate metadata information 
+* An extensible JSON format (JSON-Schema) to describe the metadata
+* Optional entrypoints to validate metadata information
 
 ### [**TZIP-17**](https://tzip.tezosagora.org/proposal/tzip-17/): Permit & Meta-transactions
 
@@ -60,7 +60,7 @@ For instance, a “relayer” can submit a user’s pre-signed (meta) transactio
 
 TZIP-17 enables developers to provide more native experiences for user onboarding and allows users to pay fees using the token (e.g. a stablecoin) used in the transaction. The relayer still pays transaction fees in tez at the protocol level and, because Tezos is Proof-of-Stake, these [transaction fees accrue to stakeholders](http://ex.rs/protocol-level-fees/) rather than just a small group of miners.
 
-Ultimately, this brings the experience of using digital assets on Tezos more in line with that of traditional financial transactions and supports the use of Tezos as a settlement layer.  
+Ultimately, this brings the experience of using digital assets on Tezos more in line with that of traditional financial transactions and supports the use of Tezos as a settlement layer.
 ****
 
 ### [**TZIP-20**](https://tzip.tezosagora.org/proposal/tzip-20/): Off-chain Events
@@ -69,7 +69,7 @@ Off-chain events can be used for various purposes, but one of the most obvious u
 
 However, the indexer can't determine which particular balances have changed if the invoked method is not standardized (e.g. FA2/FA1.2 transfer), or if there was an initial token distribution at the origination.
 
-The current approach is using custom handlers for known contracts. 
+The current approach is using custom handlers for known contracts.
 
 This approach is tied to a specific indexer implementation and is not scalable. Therefore we need a better alternative that is flexible enough to cover the majority of cases, simple enough to implement/integrate with the existing codebase, and not tied to any specific entity or implementation.
 

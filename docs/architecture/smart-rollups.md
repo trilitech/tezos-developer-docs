@@ -1,5 +1,4 @@
 ---
-id: smart-rollups
 title: Smart Optimistic Rollups
 authors: 'Nomadic Labs, TriliTech'
 lastUpdated: 30th June 2023
@@ -9,7 +8,11 @@ Rollups play a crucial part in providing next-generation scaling on Tezos. This 
 
 ## Prerequisites
 
-This page covers an advanced topic at the bleeding edge of Tezos core development. If you are interested in more fundamental reading, a great place to start is [Tezos Protocol and Shell](/tezos-basics/tezos-protocol-and-shell/) and [Smart Contracts](/smart-contracts/smart-contract-languages/).
+This page covers an advanced topic at the bleeding edge of Tezos core development. If you are interested in more fundamental reading, a great place to start is [Tezos Protocol and Shell](./protocol) and [Smart Contracts](../smart-contracts/languages).
+
+## Examples
+
+For examples of smart rollups, see this repository: <https://gitlab.com/tezos/kernel-gallery>.
 
 ## What is a rollup?
 
@@ -111,7 +114,7 @@ Contrary to external messages, which are submitted by the end users,
 internal messages are constructed by layer 1.
 
 At the beginning of every Tezos block, layer 1 pushes two internal
-messages: 
+messages:
 
 - `"Start of level"` - no associated payload
 - `"Info per level"` - provides
@@ -282,7 +285,7 @@ indirectly using the Octez rollup client.
 
 An Octez rollup node needs an Octez node to run. We assume that an Octez node has been launched locally:
 
-``` sh
+```sh
 octez-node config init --data-dir "${ONODE_DIR}" --network "${NETWORK}"
 octez-node run --data-dir "${ONODE_DIR}" --network "${NETWORK}" --rpc-addr 127.0.0.1
 ```
@@ -291,7 +294,7 @@ Finally, you need to check that your balance is greater than 10,000 tez
 to make sure that staking is possible. If your balance is not
 sufficient, you can get test tokens from a faucet.
 
-``` sh
+```sh
 octez-client get balance for "${OPERATOR_ADDR}"
 ```
 
@@ -299,7 +302,7 @@ octez-client get balance for "${OPERATOR_ADDR}"
 
 Anyone can originate a smart rollup with the following invocation of the Octez client:
 
-``` sh
+```sh
 octez-client originate smart rollup "${SOR_ALIAS}" \
   from "${OPERATOR_ADDR}" \
   of kind wasm_2_0_0 \
@@ -308,23 +311,23 @@ octez-client originate smart rollup "${SOR_ALIAS}" \
   --burn-cap 999
 ```
 
-where `${SOR_ALIAS}` is an alias to memorize the smart rollup address in the client. This alias can be used in any command where a smart rollup address is expected. `${KERNEL}` is a hex representation of a WebAssembly bytecode serving as an initial program to boot on. 
+where `${SOR_ALIAS}` is an alias to memorize the smart rollup address in the client. This alias can be used in any command where a smart rollup address is expected. `${KERNEL}` is a hex representation of a WebAssembly bytecode serving as an initial program to boot on.
 
 You can obtain this representation through the WASM bytecode file named `kernel.wasm`:
 
-``` sh
+```sh
 xxd -ps -c 0 <kernel.wasm> | tr -d '\n'
 ```
 
 To experiment, we propose that you use the value `${KERNEL}` defined in the file `sr_boot_kernel.sh`.
 
-``` sh
-source sr_boot_kernel.sh 
+```sh
+source sr_boot_kernel.sh
 ```
 
 If everything went well, the origination command results in:
 
-``` sh
+```sh
     This sequence of operations was run:
       Manager signed operations:
         From: tz1fp5ncDmqYwYC568fREYz9iwQTgGQuKZqX
@@ -375,7 +378,7 @@ First, we need to decide on a directory where the rollup node stores its data. L
 
 The rollup node can be run with:
 
-``` sh
+```sh
 octez-smart-rollup-node-alpha --base-dir "${OCLIENT_DIR}" \
                  run operator for "${SOR_ALIAS_OR_ADDR}" \
                  with operators "${OPERATOR_ADDR}" \
@@ -384,10 +387,10 @@ octez-smart-rollup-node-alpha --base-dir "${OCLIENT_DIR}" \
 
 The log should show that the rollup node follows layer 1 chain and is processing the inbox of each level.
 
-{% callout type="note" title="Distinct layer 1 Addresses" %}
+:::note Distinct layer 1 Addresses
 Distinct layer 1 addresses could be used for layer 1
 operations issued by the rollup node simply by editing the configuration file to set different addresses for `publish` `add_messages` `cement` `refute`.
-{% /callout %}
+:::
 
 
 In addition, a rollup node can run under different modes:
@@ -418,55 +421,24 @@ The following table summarizes the operation modes, focusing on the L1
 operations which are injected by the rollup node in each mode.
 
 
-{% table %}
-* 
-* Add Messages
-* Publish
-* Cement
-* Refute
----
-* Operator
-* Yes
-* Yes
-* Yes
-* Yes
----
-* Batcher
-* Yes
-* No
-* No
-* No
----
-* Observer
-* No
-* No
-* No
-* No
----
-* Maintenance
-* No
-* Yes
-* Yes
-* Yes
----
-* Accuser
-* No
-* Yes* 
-* No
-* Yes
+&nbsp; | Add Messages | Publish | Cement | Refute
+---|---|---|---|---
+Operator | Yes | Yes | Yes | Yes
+Batcher | Yes | No | No | No
+Observer | No | No | No | No
+Maintenance | No | Yes | Yes | Yes
+Accuser | No | Yes* | No | Yes
 
-{% /table %}
-
-{% callout type="note" title="When does an accuser publish commitments?" %}
+:::note When does an accuser publish commitments?
 An accuser node will publish commitments only when it detects conflicts. In this case, it must deposit 10,000 tez.
-{% /callout %}
+:::
 
 ### Configuration file
 
 The rollup node can also be configured with the following command that
 uses the same arguments as the `run` command:
 
-``` sh
+```sh
 octez-smart-rollup-node-alpha --base-dir "${OCLIENT_DIR}" \
                  init operator config for "${SOR_ALIAS_OR_ADDR}" \
                  with operators "${OPERATOR_ADDR}" \
@@ -475,7 +447,7 @@ octez-smart-rollup-node-alpha --base-dir "${OCLIENT_DIR}" \
 
 This creates a configuration file at `${ROLLUP_NODE_DIR}/config.json`:
 
-``` sh
+```sh
 {
 	"data-dir": "${ROLLUP_NODE_DIR}",
 	"smart-rollup-address": "${SOR_ADDR}",
@@ -492,7 +464,7 @@ This creates a configuration file at `${ROLLUP_NODE_DIR}/config.json`:
 
 The rollup node can now be run with:
 
-``` sh
+```sh
 octez-smart-rollup-node-alpha -d "${OCLIENT_DIR}" run --data-dir ${ROLLUP_NODE_DIR}
 ```
 
@@ -504,13 +476,13 @@ The node can also be tested locally with a sandbox environment.
 
 Once you initialized the **sandboxed** client data with:
 
-``` sh
+```sh
 ./src/bin_client/octez-init-sandboxed-client.sh
-``` 
+```
 
 You can run a sandboxed rollup node with:
 
-``` sh
+```sh
 `octez-smart-rollup-node-Pt${CURRENT_PROTOCOL} run`.
 ```
 
@@ -521,19 +493,19 @@ used. However, a specific data directory can be set with the environment variabl
 
 ## Sending an External Inbox Message
 
-The Octez client can be used to send an external message into the rollup inbox. Assuming that `${EMESSAGE}` is the hexadecimal representation of the message payload, to inject an external message, run: 
+The Octez client can be used to send an external message into the rollup inbox. Assuming that `${EMESSAGE}` is the hexadecimal representation of the message payload, to inject an external message, run:
 
-``` sh
+```sh
 octez-client" -d "${OCLIENT_DIR}" -p Pt${CURRENT_PROTOCOL} \
  send smart rollup message "hex:[ \"${EMESSAGE}\" ]" \
  from "${OPERATOR_ADDR}"
 ```
 
-Let's now produce some viable contents for `${EMESSAGE}`. The kernel used previously in our running example is a simple "echo" kernel that copies its input as a new message to its outbox. Therefore, the input must be a valid binary encoding of an outbox message to make this work. 
+Let's now produce some viable contents for `${EMESSAGE}`. The kernel used previously in our running example is a simple "echo" kernel that copies its input as a new message to its outbox. Therefore, the input must be a valid binary encoding of an outbox message to make this work.
 
 Specifically, assuming that we have originated a layer 1 smart contract as follows:
 
-``` sh
+```sh
 octez-client -d "${OCLIENT_DIR}" -p Pt${CURRENT_PROTOCOL} \
   originate contract go transferring 1 from "${OPERATOR_ADDR}" \
   running 'parameter string; storage string; code {CAR; NIL operation; PAIR};' \
@@ -544,7 +516,7 @@ and that this contract is identified by a address `${CONTRACT}`, then
 one can encode an outbox transaction using the Octez rollup client as
 follows:
 
-``` sh
+```sh
 MESSAGE='[ { \
   "destination" : "${CONTRACT}", \
   "parameters" : "\"Hello world\"", \
@@ -563,14 +535,14 @@ weeks long.
 When the commitment is cemented, one can observe that the outbox is
 populated as follows:
 
-``` sh
+```sh
 octez-smart-rollup-client-Pt${CURRENT_PROTOCOL} rpc get \
   /global/block/cemented/outbox/${L}/messages
 ```
 
 Here is the output for this command:
 
-``` 
+```
 [ { "outbox_level": ${L}, "message_index": "0",
  "message":
    { "transactions":
@@ -584,7 +556,7 @@ triggered. This requires precomputing a proof that this outbox message
 is indeed in the outbox. In the case of our running example, this proof
 is retrieved as follows:
 
-``` sh
+```sh
 PROOF=$(octez-smart-rollup-client-Pt${CURRENT_PROTOCOL} get proof for message 0 \
   of outbox at level "${L}" \
   transferring "${MESSAGE}")
@@ -592,19 +564,18 @@ PROOF=$(octez-smart-rollup-client-Pt${CURRENT_PROTOCOL} get proof for message 0 
 
 Finally, the execution of the outbox message is done as follows:
 
-``` sh
+```sh
 "${TEZOS_PATH}/octez-client" -d "${OCLIENT_DIR}" -p Pt${CURRENT_PROTOCOL} \
         execute outbox message of smart rollup "${SOR_ALIAS_OR_ADDR}" \
         from "${OPERATOR_ADDR}" for commitment hash "${LCC}" \
         and output proof "${PROOF}"
 ```
 
-where `${LCC}` is the hash of the latest cemented commitment. 
+where `${LCC}` is the hash of the latest cemented commitment.
 
-{% callout type="note" title="Who can trigger the execution of an outbox message?" %}
+:::note Who can trigger the execution of an outbox message?
 Anyone can trigger the execution of an outbox message (not only an
 operator).
-{% /callout %}
 
 To check the contract has indeed been called with the parameter `Hello World` through an internal operation, we can check the receipt. More complex parameters, typically assets represented as tickets,
 can be used as long as they match the type of the entrypoint of the
@@ -618,7 +589,7 @@ address. The parameter of this transfer must be a value of the Michelson type de
 
 Remember that our running example rollup has been originated with:
 
-``` sh
+```sh
 octez-client originate smart rollup "${SOR_ALIAS}" \
   from "${OPERATOR_ADDR}" \
   of kind wasm_2_0_0 \
@@ -634,7 +605,7 @@ Here is an example of a Michelson script that sends an internal message
 to the rollup of our running example. The payload of the internal
 message is the value passed as parameter of type `bytes` to the rollup.
 
-``` sh
+```sh
 parameter bytes;
 storage unit;
 code
@@ -677,19 +648,10 @@ The performance of the WebAssembly execution is affected primarily by the choice
 
 Here are some compiler options:
 
-{% table %}
-* Compiler
-* `OCTEZ_WASMER_COMPILER` 
-* Description
----
-* Singlepass
-* `singlepass` 
-* [When to use Singlepass](https://github.com/wasmerio/wasmer/tree/master/lib/compiler-singlepass#when-to-use-singlepass)
----
-* Cranelift
-* `cranelift` 
-* [When to use Cranelift](https://github.com/wasmerio/wasmer/tree/master/lib/compiler-cranelift#when-to-use-cranelift)
-{% /table %}
+Compiler | `OCTEZ_WASMER_COMPILER` | Description
+--- | --- | ---
+Singlepass | `singlepass` | [When to use Singlepass](https://github.com/wasmerio/wasmer/tree/master/lib/compiler-singlepass#when-to-use-singlepass) |
+Cranelift | `cranelift` | [When to use Cranelift](https://github.com/wasmerio/wasmer/tree/master/lib/compiler-cranelift#when-to-use-cranelift)
 
 ## Developing WASM Kernels
 
@@ -697,7 +659,7 @@ A rollup is primarily characterized by the semantics given to the
 input messages it processes. These semantics are provided at origination time as a WASM program (i.e. `wasm_2_0_0`) called a
 **kernel**. The kernel is a WASM module encoded in the binary format as defined by the WASM standard.
 
-A key requirement for any web3 technology is determinism. To ensure determinism, the following restrictions are in place: 
+A key requirement for any web3 technology is determinism. To ensure determinism, the following restrictions are in place:
 
 1.  Instructions and types related to floating-point arithmetic are not
     supported. This is because IEEE floats are not deterministic, as the
@@ -716,7 +678,7 @@ Otherwise, we support the full WASM language. A valid kernel is a WASM module th
 For instance, an example of a simple `Hello World` kernel is the
 following WASM program in text format.
 
-``` sh
+```sh
 (module
   (import "smart_rollup_core" "write_debug"
      (func $write_debug (param i32 i32) (result i32)))
@@ -735,7 +697,7 @@ following WASM program in text format.
 This program can be compiled to the WASM binary format with
 general-purpose tool like [WABT](https://github.com/WebAssembly/wabt).
 
-``` sh
+```sh
 wat2wasm hello.wat -o hello.wasm
 ```
 
@@ -759,27 +721,27 @@ of fetching inputs from layer 1, and executing the `kernel_run` function exposed
 The smart rollup carries two states:
 
 1.  A transient state, that is reset after each call to the `kernel_run` function, similar to RAM.
-2.  A persistent state, that is preserved across `kernel_run` calls. 
+2.  A persistent state, that is preserved across `kernel_run` calls.
        - The **inbox** possesses this persistent state which is regularly populated with the inputs coming from layer 1.
        -  The **outbox** which the kernel can populate with contract calls targeting smart contracts in layer 1. This can be thought of as durable storage similar to a file system.
 
 
-The durable storage is a persistent tree, whose contents is addressed by path-like keys. 
+The durable storage is a persistent tree, whose contents is addressed by path-like keys.
 
-A path in the storage may contain: 
+A path in the storage may contain:
 - a value (also called file) consisting of a sequence of raw bytes
-- and/or any number of subtrees (also called directories) i.e. the paths in the storage prefixed by the current path. 
+- and/or any number of subtrees (also called directories) i.e. the paths in the storage prefixed by the current path.
 
 Thus, unlike most file systems, a path in the durable storage may be at the same time a file and a directory (a set of sub-paths).
 
 The WASM kernel can write and read the raw bytes stored under a given
 path (the file), but can also interact (delete, copy, move, etc.) with
-subtrees (directories). 
+subtrees (directories).
 
-{% callout type="note" title="Read-only values and subtrees" %}
+:::note Read-only values and subtrees
 The values and subtrees under the key `/readonly` are not writable by a
 kernel, but can be used by the PVM to give information to the kernel.
-{% /callout %}
+:::
 
 ### Control Flow
 
@@ -792,13 +754,13 @@ the `kernel_run` function is called, from a clean `transient` state.
 More precisely, the WASM kernel is re-initialized, then `kernel_run` is
 called.
 
-By default, the WASM kernel yields when `kernel_run` returns. In this case: 
+By default, the WASM kernel yields when `kernel_run` returns. In this case:
 
-- The WASM kernel execution is put on hold while the inputs of the next inbox are loaded. 
+- The WASM kernel execution is put on hold while the inputs of the next inbox are loaded.
 - The inputs that were not consumed by `kernel_run` are dropped
 - `kernel_run` can prevent the WASM kernel from yielding by writing arbitrary data under the path `/kernel/env/reboot`
 in its durable storage.
--  In such a case (known as `reboot`), `kernel_run` is called again, without dropping unread inputs. 
+-  In such a case (known as `reboot`), `kernel_run` is called again, without dropping unread inputs.
 - The value at `/kernel/env/reboot` is removed between each call of `kernel_run`, and the `kernel_run` function can maximally postpone yielding 1,000 reboots for each Tezos level.
 
 A call to `kernel_run` cannot take an arbitrary amount of time to
@@ -807,7 +769,7 @@ optimistic rollup infrastructure of Tezos. To dodge the halting problem, the ref
 
 The current bound is set to 11,000,000,000 ticks.
 `octez-smart-rollup-wasm-debugger` is the best tool available
-to verify the `kernel_run` function does not go over this tick limit. 
+to verify the `kernel_run` function does not go over this tick limit.
 
 The direct consequence of this setup is that it might be necessary for a WASM kernel to span a long computation across several calls to
 `kernel_run`, requiring serialization of any data it needs in the
@@ -842,11 +804,11 @@ it to interact with the components of persistent state:
 
 - `store_read` - loads at most 2048 bytes from a file in the durable storage to a buffer in the memory of the WASM kernel.
 
-- `store_write` - writes at most 2048 bytes from a buffer in the memory of the WASM kernel to a file of the durable storage, increasing its size if necessary. Note that files in the durable storage cannot exceed {% math inline=true %} 2^{31} - 1 {% /math %} bytes, (i.e. 2GB - 1).
+- `store_write` - writes at most 2048 bytes from a buffer in the memory of the WASM kernel to a file of the durable storage, increasing its size if necessary. Note that files in the durable storage cannot exceed $$2^{31} - 1$$ bytes, (i.e. 2GB - 1).
 
 - `store_value_size` - returns the size (in bytes) of a file under a given key in the durable storage.
 
-- `store_list_size` - returns the number of child objects (either directories or files) under a given key. 
+- `store_list_size` - returns the number of child objects (either directories or files) under a given key.
 
 `reveal_preimage` - loads in memory the preimage of a hash. The size of the hash in bytes must be specified as an input to the function.
 
@@ -856,51 +818,28 @@ These host functions use a "C-like" API. In particular, most of them
 return a signed 32bit integer, where negative values are reserved for
 conveying errors, as shown in the next table.
 
-{% table %}
-* Code 
-* Description
----
-* ` > -1`
-* Input is too large to be a valid key of the durable storage 
----
-* ` > -2`
-* Input cannot be parsed as a valid key of the durable storage 
----
-* ` > -3`
-* There is no file under the requested key  
----
-* ` > -4`
-* The host functions tried to read or write an invalid section (determined by an offset and a length) of the value stored under a given key 
----
-* ` > -5`
-* Cannot write a value beyond the 2GB size limit  
----
-* ` > -6`
-* Invalid memory access (segmentation fault)
----
-* ` > -7`
-* Tried to read from the inbox or write to the outbox more than 4,096 bytes
----
-* ` > -8`
-* Unknown error due to an invalid access 
----
-* ` > -9`
-* Attempt to modify a readonly value  
----
-* ` > -10`
-* Key has no tree in the storage 
----
-* ` > -11`
-* Outbox is full, no new message can be appended 
----
-{% /table %}
+
+Code | Description
+--- | ---
+` > -1` | Input is too large to be a valid key of the durable storage
+` > -2` | Input cannot be parsed as a valid key of the durable storage
+` > -3` | There is no file under the requested key
+` > -4` | The host functions tried to read or write an invalid section (determined by an offset and a length) of the value stored under a given key
+` > -5` | Cannot write a value beyond the 2GB size limit
+` > -6` | Invalid memory access (segmentation fault)
+` > -7` | Tried to read from the inbox or write to the outbox more than 4,096 bytes
+` > -8` | Unknown error due to an invalid access
+` > -9` | Attempt to modify a readonly value
+` > -10` | Key has no tree in the storage
+` > -11` | Outbox is full, no new message can be appended
+
 
 ## Implementing a WASM Kernel in Rust
 
-{% callout type="note" title="Rust Familiarity" %}
+:::note Rust Familiarity
 This document is not a tutorial about Rust. Familiarity with the
 language and its ecosystem (in particular, how Rust crates are structured) is assumed.
-{% /callout %}
+:::
 
 Though WASM is a good fit for efficiently executing computation-intensive, arbitrary programs, it is a low-level,
 stack-based, memory unsafe language. Fortunately, it was designed to be
@@ -917,7 +856,7 @@ vulnerabilities that arbitrary WASM programs may suffer from.
 `rustup` is installed, enabling WASM as a compilation target is as
 simple as running the following command.
 
-``` sh
+```sh
 rustup target add wasm32-unknown-unknown
 ```
 
@@ -926,7 +865,7 @@ provides a 32bit address space.
 
 The simplest kernel one can implement in Rust (the one that returns directly after being called, without specification) is the following Rust file (by convention named `lib.rs` in Rust).
 
-``` rust
+```rust
 #[no_mangle]
 pub extern "C" fn kernel_run() {
 }
@@ -935,7 +874,7 @@ pub extern "C" fn kernel_run() {
 This code can be easily computed with `cargo` with the following
 `Cargo.toml`.
 
-``` toml
+```toml
 [package]
 name = 'noop'
 version = '0.1.0'
@@ -947,21 +886,21 @@ crate-type = ["cdylib"]
 
 The key line to spot is the `crate-type` definition to `cdylib`. When writing a library that will eventually be consumed by a Kernel WASM crate, this line must be modified to:
 
-``` toml
+```toml
 crate-type = ["cdylib", "rlib"]
 ```
 
 Compiling our "noop" kernel is done by calling `cargo` with the correct
 argument:
 
-``` sh
+```sh
 cargo build --target wasm32-unknown-unknown
 ```
 
 It is also possible to use the `--release` CLI flag to tell `cargo` to
 optimize the kernel. To make the use of the `target` optional, it is possible to create a `.cargo/config.toml` file, containing the following line.
 
-``` toml
+```toml
 [build]
 target = "wasm32-unknown-unknown"
 
@@ -971,7 +910,7 @@ lld = true%
 
 The resulting project looks as follows.
 
-``` sh
+```sh
 .
 ├── .cargo
 │   └── config.toml
@@ -993,7 +932,7 @@ The host functions exported by the WASM runtime to Rust programs are
 exposed by the API below. The `link` pragma is used to specify the
 module that exports them (in our case, `smart_rollup_core`).
 
-``` rust
+```rust
 #[repr(C)]
 pub struct ReadInputMessageInfo {
     pub level: i32,
@@ -1087,7 +1026,7 @@ provide a safe API on top of them. For instance, the `read_input` host
 function can be used to declare a safe function which allocates a fresh
 Rust Vector to receive the input.
 
-``` rust
+```rust
 // Assuming the host functions are defined in a module `host`.
 
 pub const MAX_MESSAGE_SIZE: u32 = 4096u32;
@@ -1130,15 +1069,15 @@ is a good approach to avoid initializing the 4,096 bytes of memory every time yo
 
 ### Testing your Kernel
 
-{% callout type="note" title="Smart Rollup WASM Debugger" %}
+:::note Smart Rollup WASM Debugger
 `octez-smart-rollup-wasm-debugger` is available in the Octez
 distribution starting with `/releases/version-16`.
-{% /callout %}
+:::
 
 
 Testing a kernel without having to start a rollup node on a test network is very convenient. We provide a debugger as a means to evaluate the WASM PVM without relying on any node and network:
 
-``` sh
+```sh
 octez-smart-rollup-wasm-debugger "${WASM_FILE}" --inputs "${JSON_INPUTS}" --rollup "${SOR_ADDR}"
 ```
 
@@ -1148,7 +1087,7 @@ Beside the kernel file, the debugger can optionally take an input file
 containing inboxes and a rollup address. The expected contents of the
 inboxes is a JSON value, with the following schema:
 
-``` json
+```json
 [
   [ { "payload" : <Michelson data>,
       "sender" : <Contract hash of the originated contract for the rollup, optional>,
@@ -1164,11 +1103,11 @@ inboxes is a JSON value, with the following schema:
 
 The contents of the input file is a JSON array of arrays of inputs,
 which encodes a sequence of inboxes, where an inbox is a set of
-messages. These inboxes are read in the same order as they appear in the JSON file. 
+messages. These inboxes are read in the same order as they appear in the JSON file.
 
 For example, here is a valid input file that defines two inboxes: the first array encodes an inbox containing only an external message, while the second array encodes an inbox containing two messages:
 
-``` json
+```json
 [
   [
     {
@@ -1191,8 +1130,8 @@ For example, here is a valid input file that defines two inboxes: the first arra
 Note that the `sender`, `source` and `destination` fields are optional
 and will be given default values by the debugger, respectively:
 
-- `KT18amZmM5W7qDWVt2pH6uj7sCEd3kbzLrHT` 
-- `tz1Ke2h7sDdakHJQh8WX4Z372du1KChsksyU` 
+- `KT18amZmM5W7qDWVt2pH6uj7sCEd3kbzLrHT`
+- `tz1Ke2h7sDdakHJQh8WX4Z372du1KChsksyU`
 - `sr163Lv22CdE8QagCwf48PWDTquk6isQwv57`
 
 If no input file is given, the inbox will be assumed empty. If the option `--rollup` is given, it replaces the default value for the rollup address.
@@ -1202,7 +1141,7 @@ user inputs to continue its execution. Its initial state is exactly the
 same as right after its origination. Its current state can be inspected
 with the command `show status`:
 
-```  sh
+```sh
 > show status
 Status: Waiting for inputs
 Internal state: Collect
@@ -1213,7 +1152,7 @@ that it is not executing any WASM code, and is waiting for inputs in
 order to proceed. The command `load inputs` will load the first inbox
 from the file given with the option `--inputs`, putting `Start_of_level` and `Info_per_level` before these inputs and `End_of_level` after the inputs.
 
-``` sh 
+```sh
 > load inputs
 Loaded 3 inputs at level 0
 
@@ -1224,7 +1163,7 @@ Internal state: Snapshot
 
 The internal input buffer can be inspected with `show inbox`:
 
-``` sh
+```sh
 > show inbox
 Inbox has 3 messages:
 { raw_level: 0;
@@ -1242,7 +1181,7 @@ The first input of an inbox at the beginning of a level is
 `Start_of_level`, and is represented by the message `\000\001` on the
 kernel side. We can now start a `kernel_run` evaluation:
 
-``` sh
+```sh
 > step kernel_run
 Evaluation took 11000000000 ticks so far
 Status: Waiting for inputs
@@ -1254,7 +1193,7 @@ The memory of the interpreter is flushed between two `kernel_run` calls
 storage can be used as a persistent memory. Let's assume this kernel
 wrote data at key `/store/key`:
 
-``` sh
+```sh
 > show key /store/key
 `<hexadecimal value of the key>`
 ```
@@ -1264,7 +1203,7 @@ debugger can only return its raw value. Please note that the command
 `show keys <path>` will return the keys for the given path. This can
 help you navigate in the durable storage.
 
-``` sh
+```sh
 > show keys /store
 /key
 /another_key
@@ -1273,7 +1212,7 @@ help you navigate in the durable storage.
 
 It is also possible to inspect the memory by stopping the PVM before its snapshot internal state, with `step result`, and inspect the memory at pointer `n` and length `l`, and finally evaluate until the next `kernel_run`:
 
-``` sh
+```sh
 > step result
 Evaluation took 2500 ticks so far
 Status: Evaluating
@@ -1295,7 +1234,7 @@ It will take care of the possible reboots asked by the kernel (through
 the usage of the `/kernel/env/reboot_flag` flag) and stop at the next
 collection phase:
 
-``` sh
+```sh
 > step inbox
 Evaluation took 44000000000 ticks
 Status: Waiting for inputs
@@ -1304,7 +1243,7 @@ Internal state: Collect
 
 It is also possible to show the outbox for any given level:
 
-``` sh
+```sh
 > show outbox at level 0
 Outbox has N messages:
 { unparsed_parameters: ..;
@@ -1314,11 +1253,11 @@ Outbox has N messages:
 ```
 
 The reveal channel described previously is available in the debugger,
-either automatically or through specific commands. The debugger can automatically fill preimages from files in a specific directory on the disk, by default in the `preimage` subdirectory of the working directory. It can be configured with the option `--preimage-dir <directory>`. 
+either automatically or through specific commands. The debugger can automatically fill preimages from files in a specific directory on the disk, by default in the `preimage` subdirectory of the working directory. It can be configured with the option `--preimage-dir <directory>`.
 
 In case there is no corresponding file found for the requested preimage, the debugger will ask for the hexadecimal value of the preimage:
 
-``` sh
+```sh
 > step inbox
 Preimage for hash 0000[..] not found.
 > 48656c6c6f207468657265210a

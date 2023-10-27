@@ -1,5 +1,4 @@
 ---
-id: tezos-protocol-and-shell
 title: Tezos Protocol and Shell
 lastUpdated: 29th June 2023
 ---
@@ -18,7 +17,7 @@ The rest of the shell includes the peer-to-peer layer, the disk storage of block
 
 Protocols are compiled using a tweaked OCaml compiler that does two things. First, it checks that the protocol’s main module has the right type. A good analogy is to see protocol as plug-ins, and in this case, it means that it respects the common plugin interface. Then, it restricts the typing environment of the protocol’s code so that it only calls authorized modules and functions. Seeing protocols as plug-ins, it means that the code only called primitives from the plug-in API. It is a form of statically enforced sandboxing.
 
-Note that the economic protocol on the chain is subject to an amendment procedure. On-chain operations can be used to switch from one protocol to another. 
+Note that the economic protocol on the chain is subject to an amendment procedure. On-chain operations can be used to switch from one protocol to another.
 
 Finally, the RPC layer is an important part of the node. It is how the client, third-party applications, and daemons can interact with the node and introspect its state. This component uses the mainstream JSON format and HTTP protocol. It uses the library resto. It is fully interoperable, and auto-descriptive, using JSON schema.
 
@@ -45,29 +44,28 @@ As previously stated, Tezos is a self-amending blockchain. In large part of Tezo
 
 The economic protocol provides the rules for checking the validity of the blocks and operations, and for updating the blockchain state accordingly, by applying new valid blocks and operations on the current blockchain state. It defines under which conditions a block is a valid extension of the current blockchain, and defines an ordering on blocks to arbitrate between concurrent extensions.
 
-The rules it uses for recognizing and applying valid blocks can be changed through voting. Thus, the economic protocol represents the amendable part of Tezos. To learn about the voting and amendment process see [Tezos Agora's overview](https://www.tezosagora.org/learn) of Tezos Governance. 
+The rules it uses for recognizing and applying valid blocks can be changed through voting. Thus, the economic protocol represents the amendable part of Tezos. To learn about the voting and amendment process see [Tezos Agora's overview](https://www.tezosagora.org/learn) of Tezos Governance.
 
-Each Tezos protocol is named after a (usually ancient) city, with the first one named Athens. Each successive name follows the previous alphabetically, continuing to Babylon, Carthage, Delphi, and so on. At the time of writing this article, the network is on the Mumbai protocol, with Nairobi planned for June 2023. There is a protocol upgrade roughly every 3 months. 
+Each Tezos protocol is named after a (usually ancient) city, with the first one named Athens. Each successive name follows the previous alphabetically, continuing to Babylon, Carthage, Delphi, and so on. At the time of writing this article, the network is on the Mumbai protocol, with Nairobi planned for June 2023. There is a protocol upgrade roughly every 3 months.
 
-## Shell-protocol interaction 
+## Shell-protocol interaction
 
-The economic protocol and the shell interact in order to ensure that the blocks being appended to the blockchain are valid. The shell does not accept a branch whose fork point is some number of cycles in the past--anything before is deemed immutable. Also, when receiving a new block the shell determines if the block is valid and its fitness is higher than the current head. 
+The economic protocol and the shell interact in order to ensure that the blocks being appended to the blockchain are valid. The shell does not accept a branch whose fork point is some number of cycles in the past--anything before is deemed immutable. Also, when receiving a new block the shell determines if the block is valid and its fitness is higher than the current head.
 
 The protocol provides support for validating blocks which can be modulated by different "validation modes".
 
 
-## The Shell 
+## The Shell
 
-The shell contains everything that is not part of the economic protocol. It includes: 
+The shell contains everything that is not part of the economic protocol. It includes:
 
 - The Validator: the component responsible for checking that blocks coming from the network or a baker are valid, w.r.t. the rules defined by the economic protocol.
 - The Prevalidator: responsible for determining which operations to propagate for this chain over the peer-to-peer network.
 - The Storage Layer: responsible for aggregating blocks (along with their respective ledger state) and operations within blocks (along with their associated metadata).
-- Synchronization heuristic: Process to bootstrap a node when first joining the network, and knowing when it's synced with the network. 
+- Synchronization heuristic: Process to bootstrap a node when first joining the network, and knowing when it's synced with the network.
 - The peer-to-peer layer: this part is in charge of establishing and maintaining network connections with other nodes (via a gossip protocol).
 - Protocol Environment: a restricted API that may be used by the Octez code to interact with the protocol, and vice versa.
 
 
-{% callout type="note" %}
-In-depth documentation on the [shell](https://tezos.gitlab.io/shell/the_big_picture.html) and [protocol](https://tezos.gitlab.io/active/protocol.html) and the semantics of [operations and blocks](https://tezos.gitlab.io/active/blocks_ops.html) can be found in Tezos' [technical documentation](https://tezos.gitlab.io/index.html). 
-{% /callout %}
+:::note
+In-depth documentation on the [shell](https://tezos.gitlab.io/shell/the_big_picture.html) and [protocol](https://tezos.gitlab.io/active/protocol.html) and the semantics of [operations and blocks](https://tezos.gitlab.io/active/blocks_ops.html) can be found in Tezos' [technical documentation](https://tezos.gitlab.io/index.html).
