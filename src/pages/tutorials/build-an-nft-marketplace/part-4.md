@@ -1426,7 +1426,7 @@ export default function WineCataloguePage() {
 - Click on **Upload an image** and select a bottle picture on your computer
 - Click on the Mint button
 
-![minting.png](./images/minting.png)
+![minting.png](/images/minting.png)
 
 Your picture is pushed to IPFS and is displayed, then your wallet asks you to sign the `mint` operation.
 
