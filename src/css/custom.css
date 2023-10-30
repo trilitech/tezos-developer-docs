@@ -197,6 +197,5 @@ nav.navbar {
 
 /* Get code blocks closer to site theme */
 .theme-code-block {
-  --prism-color: #393A34;
   --prism-background-color: #EEF9FD!important;
 }
