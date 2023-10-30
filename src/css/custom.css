@@ -106,53 +106,6 @@ nav.navbar {
   color: #fff;
 }
 
-/* For grids on the tutorials home page */
-[data-theme='dark'] .grid-container {
-  color: white;
-  display: grid;
-  grid-template-columns: auto auto;
-}
-
-[data-theme='light'] .grid-container {
-  color: black;
-  display: grid;
-  grid-template-columns: auto auto;
-}
-
-.grid-container circle {
-  display: none;
-}
-
-.grid-icon {
-  width: 48px;
-  height: 48px;
-}
-
-.grid-container a {
-  text-decoration: none;
-  color: inherit;
-  border-style: solid;
-  margin: 15px;
-  padding: 15px;
-  border-radius: 10px;
-}
-
-.navbar-sidebar {
-  background-color: #030405;
-}
-
-.grid-container a:hover {
-  text-decoration: none;
-  color: inherit;
-}
-
-.grid-title {
-  font-size: large;
-  font-weight: bold;
-  padding-bottom: 10px;
-  padding-top: 10px;
-}
-
 /* Sidebar menu */
 .menu__link {
   font-family: 'GT Eesti Display', sans-serif;

@@ -1,0 +1,64 @@
+/* Taken from ../HomepageFeatures/styles.module.css */
+.tutorialcard {
+  /* flex: 0 0 calc(50% - 30px); */
+  /* Adjust the width based on the number of cards */
+  /* max-width: calc(50% - 30px); */
+  /* Adjust the width based on the number of cards */
+  height: auto;
+  padding: 30px;
+  border-radius: 10px;
+  border: 1px solid #E6E8EE;
+  background: #FFFFFF;
+  box-shadow: 1px 2px 8px 0px #0000001A;
+  margin-bottom: 20px;
+  margin-right: 30px;
+}
+
+@media (max-width: 1000px) {
+  .tutorialcard {
+    width: 80%;
+  }
+}
+
+.title {
+  font-family: 'GT Eesti Display', sans-serif;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 24px;
+  text-align: left;
+  color: #030405;
+}
+
+.emoji {
+  font-size: 24px;
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+.description {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 26px;
+  text-align: left;
+  color: #4A4E52;
+}
+
+.link {
+  font-family: 'GT Eesti Display', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 26px;
+  text-align: left;
+  color: #0D61FF;
+  margin-top: auto;
+}
+
+/* Adjust font sizes for mobile screens */
+@media screen and (max-width: 768px) {
+  .tutorialcard {
+    padding: 20px;
+    height: 320px;
+  }
+}
+

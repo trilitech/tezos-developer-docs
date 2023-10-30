@@ -1,0 +1,10 @@
+.tutorialcardcontainer {
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+@media (max-width: 1000px) {
+  .tutorialcardcontainer {
+    grid-template-columns: auto;
+  }
+}
