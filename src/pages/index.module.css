@@ -19,7 +19,7 @@
 
 .hero__title,
 .hero__subtitle {
-  color: white; 
+  color: white;
   max-width: 600px;
   margin: 0 auto;
 }
@@ -52,7 +52,7 @@
 }
 
 .customHeader {
-  background-image: url('../../static//img/cover.png');
+  background-image: url('../../static/img/cover.png');
   background-size: cover;
   background-position: center;
 }
