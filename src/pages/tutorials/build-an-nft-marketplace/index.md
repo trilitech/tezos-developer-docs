@@ -51,9 +51,9 @@ On Tezos, FA2 is the standard for non-fungible token contracts. The [template pr
 - Balance_of
 - Update_operators
 
-#### Marketplace unique contract
+#### Marketplace contract
 
-Next, you need to import the token contract into the unique marketplace contract. The latter is bringing missing features as:
+Next, you need to import the token contract into the marketplace contract. The latter is bringing missing features as:
 
 - Mint
 - Buy
@@ -119,11 +119,11 @@ The following tools are optional:
 Use **Taqueria** to shape the project structure, then create the NFT marketplace smart contract thanks to the `ligo/fa` library.
 
 {% callout type="note" %}
-You require to copy some code from this git repository later, so you can clone it with:
-
+Copy some code from this git repository later, so you can clone it with:
 ```bash
 git clone https://github.com/marigold-dev/training-nft-1.git
 ```
+
 
 {% /callout %}
 
@@ -136,14 +136,13 @@ git clone https://github.com/marigold-dev/training-nft-1.git
     cd training
     taq install @taqueria/plugin-ligo
     ```
+  The `taq init training` sets up a new workspace named "training" for smart contract development. Then, `cd training` navigates into this new directory. Lastly, `taq install @taqueria/plugin-ligo` installs `taqueria`.
 
 **Your project is ready!**
 
 ### Step 2: FA2 contract
 
 Next, you need to build the FA2 contract which relies on the Ligo FA library. To understand in detail how assets work on Tezos, please read the notes below.
-
-- [FA2 standard](https://gitlab.com/tezos/tzip/-/blob/master/proposals/tzip-12/tzip-12.md)
 
 - Additional contract metadata can be added to ease displaying token pictures, etc., this is described in the [TZIP-21 standard](https://gitlab.com/tezos/tzip/-/blob/master/proposals/tzip-21/tzip-21.md)
 
@@ -164,7 +163,7 @@ Next, you need to build the FA2 contract which relies on the Ligo FA library. To
    taq create contract nft.jsligo
    ```
 
-2. Remove the default code and paste this code instead
+1. Remove the default code and paste this code instead
 
     ```ligolang
     #import "@ligo/fa/lib/fa2/nft/nft.impl.jsligo" "FA2Impl"
@@ -194,7 +193,7 @@ Next, you need to build the FA2 contract which relies on the Ligo FA library. To
 
     Explanations:
 
-    - the first line `#import "@ligo/fa/lib/fa2/nft/nft.impl.jsligo" "FA2Impl"` imports the Ligo FA library implementation that your code is extending. Then, add new entrypoints to the base code.
+    - The first line `#import "@ligo/fa/lib/fa2/nft/nft.impl.jsligo" "FA2Impl"` imports the Ligo FA library implementation that your code is extending. Then, add new entrypoints to the base code.
     - `storage` definition is an extension of the imported library storage. You need to point to the original types keeping the same naming
       - `FA2Impl.NFT.ledger`: keep/trace ownership of tokens
       - `FA2Impl.TZIP16.metadata`: tzip-16 compliance
@@ -202,7 +201,7 @@ Next, you need to build the FA2 contract which relies on the Ligo FA library. To
       - `FA2Impl.NFT.operators`: permissions part of FA2 standard
     - `storage` has more fields to support a set of `administrators`
 
-3. Write `transfer,balance_of,update_operators` entrypoints. You need to do a passthrough call to the underlying library.
+1. Write `transfer,balance_of,update_operators` entrypoints. You need to do a passthrough call to the underlying library.
 
     ```ligolang
     @entry
@@ -280,14 +279,14 @@ Next, you need to build the FA2 contract which relies on the Ligo FA library. To
 
     Explanation:
 
-    - every `FA2Impl.NFT.xxx()` called function is taking the storage type of the NFT library, so you need to send a partial object from our storage definition to match the type definition
-    - the return type contains also the storage type of the library, so you need to reconstruct the storage by copying the modified fields
+    - Every `FA2Impl.NFT.xxx()` called function is taking the storage type of the NFT library, so you need to send a partial object from our storage definition to match the type definition
+    - The return type contains also the storage type of the library, so you need to reconstruct the storage by copying the modified fields
 
     {% callout type="note" %}
     The LIGO team is working on merging type definitions, so you then can do **type union** or **merge 2 objects** like in Typescript
     {% /callout %}
 
-4. Add the `Mint` function by running the following code:
+1. Add the `Mint` function by adding the following code:
 
     ```ligolang
     @entry
@@ -337,22 +336,28 @@ Next, you need to build the FA2 contract which relies on the Ligo FA library. To
     Explanation:
 
     - `mint` function allows you to create a unique NFT. You have to declare the name, description, symbol, and ipfsUrl for the picture to display
-    - to simplify, the code here does not manage the increment of the token_id here it is done by the front end later. You should manage this counter on-chain to avoid overriding an existing NFT. There is no rule to allocate a specific number to the token_id but people increment it from 0. Also, there is no rule if you have a burn function to reallocate the token_id to a removed index and just continue the sequence from the greatest index.
-    - most of the fields are optional except `decimals` that is set to `0`. A unique NFT does not have decimals, it is a unit
-    - by default, the `quantity` for an NFT is `1`, that is why every bottle is unique and there is no need to set a total supply on each NFT.
-    - if you want to know the `size of the NFT collection`, you need an indexer on the frontend side. It is not possible to have this information on the contract (because big_map has not a .keys() function returning the keys) unless you add and additional element on the storage to cache it
+    - To simplify the contract it does not store a counter for the token ID and assumes that the front-end application will keep track of the next ID. Ideally, the contract should manage this ID to avoid conflicts. It is up to you what ID to start at, but usually NFTs start with the ID 0. Optionally, you can also add code to reuse the IDs from burned NFTs.
+    - Most of the fields are optional except `decimals` that is set to `0`. A unique NFT does not have decimals, it is a unit
+    - By default, the `quantity` for an NFT is `1`, that is why every bottle is unique and there is no need to set a total supply on each NFT.
+    - There is no way to tell how many NFTs are in the collection from the contract because the big_map data type does not have a function to return its length. You could add an additional element in the storage to remember the number of NFTs. Another way to get the size of the collection is to index it on the front end.
 
     **Smart contract implementation for this first training is finished, let's prepare the deployment to ghostnet.**
 
-5. Compile the file to create a default taqueria initial storage and parameter file
+1. Compile the `nft.jsligo` file to create a default taqueria initial storage and parameter file
 
     ```bash
     TAQ_LIGO_IMAGE=ligolang/ligo:1.0.0 taq compile nft.jsligo
     ```
 
-6. Edit the new storage file `nft.storageList.jsligo` as it.
+1. Get the address of the account you want to use.
 
-     > Note: While editing, you have the option to update the administrator address. You can either replace it with your personal address or retain the default Alice address tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb.
+    Set the address of the account that will mint NFTs. 
+    
+    You have the option to update the administrator address. You can either replace it with your personal address or retain the default Alice address tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb. 
+    
+    Paste the address of the account and be ready to input it in the following step.
+
+1. Edit the new storage file `nft.storageList.jsligo` as it.
 
 
     ```ligolang
@@ -392,8 +397,22 @@ Next, you need to build the FA2 contract which relies on the Ligo FA library. To
         operators: Big_map.empty as Contract.FA2Impl.NFT.operators,
     };
     ```
-
-7. Compile and deploy to ghostnet
+    > For advanced users, just go to `.taq/config.local.testing.json` and change the default account by alice one's (publicKey,publicKeyHash,privateKey) and then redeploy:
+      >
+      > ```json
+      > {
+      >   "networkName": "ghostnet",
+      >   "accounts": {
+      >     "taqOperatorAccount": {
+      >       "publicKey": "edpkvGfYw3LyB1UcCahKQk4rF2tvbMUk8GFiTuMjL75uGXrpvKXhjn",
+      >       "publicKeyHash": "tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb",
+      >       "privateKey": "edsk3QoqBuvdamxouPhin7swCvkQNgq4jP5KZPbwWNnwdZpSpJiEbq"
+      >     }
+      >   }
+      > }
+      > ```
+      
+1. Compile and deploy to ghostnet
 
     ```bash
     TAQ_LIGO_IMAGE=ligolang/ligo:1.0.0 taq compile nft.jsligo
@@ -405,26 +424,8 @@ Next, you need to build the FA2 contract which relies on the Ligo FA library. To
     If this is the first time you're using **taqueria**, you may want to run through [this training](https://github.com/marigold-dev/training-dapp-1#ghostnet-testnet-wallet).
     {% /callout %}
 
-    > For advanced users, just go to `.taq/config.local.testing.json` and change the default account by alice one's (publicKey,publicKeyHash,privateKey) and then redeploy:
-    >
-    > ```json
-    > {
-    >   "networkName": "ghostnet",
-    >   "accounts": {
-    >     "taqOperatorAccount": {
-    >       "publicKey": "edpkvGfYw3LyB1UcCahKQk4rF2tvbMUk8GFiTuMjL75uGXrpvKXhjn",
-    >       "publicKeyHash": "tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb",
-    >       "privateKey": "edsk3QoqBuvdamxouPhin7swCvkQNgq4jP5KZPbwWNnwdZpSpJiEbq"
-    >     }
-    >   }
-    > }
-    > ```
 
-8. Deploy again
-
-    ```bash
-    taq deploy nft.tz -e "testing"
-    ```
+    The following response includes the address of the deployed contract and Taqueria records this address automatically.
 
     ```logs
     ┌──────────┬──────────────────────────────────────┬───────┬──────────────────┬────────────────────────────────┐
@@ -455,7 +456,7 @@ To save time, a [boilerplate ready for the UI](https://github.com/marigold-dev/t
 
     It is easier on frontend side to use typed objects. Taqueria provides a plugin to generate Typescript classes from your Michelson code.
 
-    Install the plugin, then generate a representation of your smart contract objects that writes these files to your frontend app source code.
+    Install the plugin in the next step, then generate a representation of your smart contract objects that writes these files to your frontend app source code.
 
 2. Run the server
 
@@ -470,21 +471,17 @@ To save time, a [boilerplate ready for the UI](https://github.com/marigold-dev/t
     > Note: On a **Mac**:green_apple:, sometimes `sed` commands do not work exactly the same as Unix commands. Look at the start script on package.json for Mac below:
     > `   "dev": "if test -f .env; then sed -i '' \"s/\\(VITE_CONTRACT_ADDRESS *= *\\).*/\\1$(jq -r 'last(.tasks[]).output[0].address' ../.taq/testing-state.json)/\" .env ; else jq -r '\"VITE_CONTRACT_ADDRESS=\" + last(.tasks[]).output[0].address' ../.taq/testing-state.json > .env ; fi && vite",`
 
-    The website is ready! You have:
+    The website is ready! Now, it:
 
-    - last deployed contract address always is refreshed from **taqueria** configuration at each start
-    - login/logout
-    - the general layout / navigation
+    - Automatically updats itself to recognize the most recently deployed contract address from the taqueria configuration. 
+    - Provides users to connect and disconnect their wallets.
+    - Offers a structured user interface and navigation system
 
     If you try to connect you are redirected to `/` path that is also the wine catalog.
 
     There are no bottle collections yet, so you have to create the mint page.
 
 ### Step 2: Mint Page
-
-Edit default mint Page on `./src/MintPage.tsx`
-
-#### Add a form to create the NFT
 
 1. In `MintPage.tsx`, replace the **HTML** template starting with `<Paper>` with this one:
 
@@ -643,7 +640,7 @@ Edit default mint Page on `./src/MintPage.tsx`
         </Paper>
     ```
 
-2. Add all following elements inside your `MintPage` Component function:
+2. Add the following element inside your `MintPage` Component function:
 
     - A `formik` form:
 
@@ -723,7 +720,6 @@ Edit default mint Page on `./src/MintPage.tsx`
     import { address } from "./type-aliases";
     ```
 
-#### Add mint missing function
 
 1. Add the related imports at the beginning of the file:
 
