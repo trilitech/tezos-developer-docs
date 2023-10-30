@@ -1,6 +1,5 @@
 ---
-id: taquito
-title: Taquito
+title: Taquito dApp SDK for TypeScript
 authors: Claude Barde
 lastUpdated: 10th July 2023
 ---
@@ -66,7 +65,7 @@ First, download the `@taquito/beacon-wallet` package from NPM:
 npm install @taquito/beacon-wallet
 ```
 
-Next, import the `BeaconWallet` class and create a new instance by passing an object with the different options required by the Beacon SDK.  
+Next, import the `BeaconWallet` class and create a new instance by passing an object with the different options required by the Beacon SDK.
 After creating the instance of the wallet, you can request permission from the user to connect their wallet before passing the wallet instance to the wallet provider in the TezosToolkit provided by Taquito:
 
 ```typescript
@@ -137,7 +136,7 @@ const storage = await contract.storage()
 
 ### Getting token metadata
 
-Taquito also provides a library to get token metadata, which can be very useful when you build a dapp that handles NFTs.  
+Taquito also provides a library to get token metadata, which can be very useful when you build a dapp that handles NFTs.
 Without Taquito, you would have to fetch the location of the metadata from the contract, understand where the metadata is stored, fetch it and parse it. Taquito does all of that for you:
 
 ```typescript
@@ -239,23 +238,22 @@ try {
 
 ### One single TezosToolkit instance
 
-You should make sure that you only have one instance of the `TezosToolkit` at all times in your app to avoid using the wrong one, which can have negative financial consequences for your users.  
+You should make sure that you only have one instance of the `TezosToolkit` at all times in your app to avoid using the wrong one, which can have negative financial consequences for your users.
 Even if your app requires a change in the network or Tezos node, it is better to create a new instance of the `TezosToolkit` and stop using the previous one to prevent unexpected behaviours.
 
 ### Contract API vs Wallet API
 
-The Contract API is better suited for backend applications that don't require the manual signing of transactions, while the Wallet API is better suited for frontend applications that will interact with the users' wallets.  
+The Contract API is better suited for backend applications that don't require the manual signing of transactions, while the Wallet API is better suited for frontend applications that will interact with the users' wallets.
 The use of one or the other should be consistent within the same app to prevent unexpected behaviours.
 
 ### `methods` vs `methodsObject`
 
-The `methodsObject` property is better used in cases when the parameter for a contract call is a complex pair.  
+The `methodsObject` property is better used in cases when the parameter for a contract call is a complex pair.
 You can use `methods` to pass single parameters or simple pairs.
 
 ### Catching transaction errors
 
 It is important to wrap contract calls and other transactions sent from the app inside a `try... catch` in order to handle transaction failures. Transactions fail more often than you think and you must handle it to provide visual feedback to your users and prevent unwanted behaviours like users clicking a button again even if the transaction already failed before.
 
-{% callout title="More information" %}
+:::note More information
 You can find more information about Taquito on the official website: [Taquito](https://tezostaquito.io/docs/quick_start)
-{% /callout%}

@@ -1,5 +1,4 @@
 ---
-id: tezos-sdk-for-unity
 title: Tezos SDK for Unity
 authors: John Joubert
 lastUpdated: 5th June 2023
@@ -20,32 +19,32 @@ This Getting Started guide covers the following five steps essential for using t
 
 1. Installation of the Unity Editor (if not already installed)
 2. Installation of the Tezos Integration SDK in the Unity Editor within a new project
-3. Obtaining a Tezos-compatible wallet as an app or browser plugin (we'll use the **Temple** wallet for our [Inventory Sample Game](/gaming/unity-sdk/inventory-sample-game))
+3. Obtaining a Tezos-compatible wallet as an app or browser plugin (we'll use the **Temple** wallet for our [Inventory Sample Game](https://opentezos.com/gaming/unity-sdk/inventory-sample-game))
 4. Creating a wallet account for a test network (`ghostnet`) and acquiring test currency from an appropriate faucet
 5. Linking this wallet account with the new Unity project
 
-By following these steps, your Unity app will be connected to the Tezos GhostNet test network via your specific wallet address. This allows you to invoke specific functionality on smart contracts you've created and deployed to GhostNet, as demonstrated in our [Inventory Sample Game](/gaming/unity-sdk/inventory-sample-game). 
+By following these steps, your Unity app will be connected to the Tezos GhostNet test network via your specific wallet address. This allows you to invoke specific functionality on smart contracts you've created and deployed to GhostNet, as demonstrated in our [Inventory Sample Game](https://opentezos.com/gaming/unity-sdk/inventory-sample-game).
 
-Explore the [Inventory Sample Game](/gaming/unity-sdk/inventory-sample-game) project and consult our [API Documentation](https://opentezos.com/gaming/unity-sdk/api-documentation/) to learn more about the exposed methods of our SDK, both for establishing wallet connections and for calling specific smart-contract entrypoints and Tezos data-view functions.
+Explore the [Inventory Sample Game](https://opentezos.com/gaming/unity-sdk/inventory-sample-game) project and consult our [API Documentation](https://opentezos.com/gaming/unity-sdk/api-documentation/) to learn more about the exposed methods of our SDK, both for establishing wallet connections and for calling specific smart-contract entrypoints and Tezos data-view functions.
 
-This SDK documentation is designed for users with some familiarity with Unity game development but may have little to no experience with Web3 or Tezos blockchain. If you're well-versed in both domains, you might want to skip "Getting Started" and proceed directly to the [API documentation](https://opentezos.com/gaming/unity-sdk/api-documentation/). Nonetheless, the [Inventory Sample Game](/gaming/unity-sdk/inventory-sample-game) can still be valuable for visualizing potential SDK applications in your own game development.
+This SDK documentation is designed for users with some familiarity with Unity game development but may have little to no experience with Web3 or Tezos blockchain. If you're well-versed in both domains, you might want to skip "Getting Started" and proceed directly to the [API documentation](https://opentezos.com/gaming/unity-sdk/api-documentation/). Nonetheless, the [Inventory Sample Game](https://opentezos.com/gaming/unity-sdk/inventory-sample-game) can still be valuable for visualizing potential SDK applications in your own game development.
 
 ## Installing the Unity Editor
 
-{% callout title="Note" %}
+:::note
 - Install Unity Editor version 2021.3.13 or above
 - Enable iOS Build Support, even if you don't plan to build for iOS
-{% /callout %}
+:::
 
-The Tezos SDK has been developed and tested primarily in Unity 2021.3.13. If you're using an earlier version, you must install version 2021.3.13 or above. 
+The Tezos SDK has been developed and tested primarily in Unity 2021.3.13. If you're using an earlier version, you must install version 2021.3.13 or above.
 
 Newer Unity versions can coexist with older ones, allowing you to maintain older games built in previous editor versions. Manage different Unity installations through the **Installs** tab of your **Unity Hub**. This tool helps you track installations, projects, and required **modules** for publishing games or dApps to platforms like Windows, iOS, Android, WebGL, and others.
 
 If you're new to Unity, download the [Unity editor for free.](https://unity.com/download) The free "personal" Unity editor offers a comprehensive core feature set for creating 2D and 3D games, apps, and environments, including AR, VR, and Web3 development.
 
-{% callout type="warning" title="Warning" %}
+:::warning
 The current SDK version requires iOS Build Support, even if you don't plan to build for iOS. This will be fixed in a future update. In the meantime, enable iOS Build Support in the "Installs" tab of your Unity Hub.
-{% /callout %}
+:::
 
 ## Installing the Tezos SDK for Unity (Latest)
 
@@ -130,6 +129,6 @@ The Tezos SDK utilizes modified versions of the following libraries for communic
 
 The SDK supports Windows, Linux, MacOS, iOS, Android, and WebGL platforms.
 
-{% callout title="More information"%}
+:::note More information
 For more information you can read detailed [documentation](https://opentezos.com/gaming/unity-sdk/api-documentation/) on OpenTezos.
-{% /callout %}
+:::

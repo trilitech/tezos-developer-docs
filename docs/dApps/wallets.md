@@ -1,6 +1,5 @@
 ---
-id: wallets-and-beacon-sdk
-title: Wallets and Beacon SDK
+title: Connecting to wallets
 authors: Claude Barde
 lastUpdated: 10th July 2023
 ---
@@ -155,6 +154,6 @@ In case your dapp is focussed around a specific time (eg. NFT drop or a countdow
 
 ---
 
-{% callout title="More information"%}
+:::note
 You can find more details about Beacon by visiting [https://docs.walletbeacon.io/](https://docs.walletbeacon.io/)
-{% /callout%}
+:::

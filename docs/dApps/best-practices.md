@@ -1,6 +1,5 @@
 ---
-id: framework-best-practices
-title: Framework Best Practices
+title: Best practices and avoiding flaws
 authors: Claude Barde
 lastUpdated: 10th July 2023
 ---
