@@ -16,7 +16,7 @@ This example requires Docker, available for Linux, Mac, or Windows at [https://w
 
 ### Starting and Using a Sandbox
 
-Start the sandbox _in the background_ \(will run with baking enabled\):
+Start the sandbox _in the background_ (will run with baking enabled):
 
 ```sh
 docker run --rm --name my-sandbox --detach -p 20000:20000 \
@@ -99,7 +99,7 @@ One can see the configuration of the protocol running in the sandbox with:
 tezos-client rpc get /chains/main/blocks/head/context/constants
 ```
 
-One important field is `"time_between_blocks": [ "5" ],` which means that blocks are baked every 5 seconds \(as opposed to 60 seconds on mainnet\).
+One important field is `"time_between_blocks": [ "5" ],` which means that blocks are baked every 5 seconds (as opposed to 60 seconds on mainnet).
 
 This constant can be configured with the `block_time` environment variable, see the example below:
 
@@ -145,5 +145,5 @@ or that there are new constants like the one related to liquidity baking:
 
 ### Further Reading
 
-For more issues or questions, see the [Flextesa](https://gitlab.com/tezos/flextesa) repository, and for even more advanced usage, see the [documentation](https://tezos.gitlab.io/flextesa/) \(esp. for the [`mini-net` command](https://tezos.gitlab.io/flextesa/mini-net.html)\).
+For more issues or questions, see the [Flextesa](https://gitlab.com/tezos/flextesa) repository, and for even more advanced usage, see the [documentation](https://tezos.gitlab.io/flextesa/) (esp. for the [`mini-net` command](https://tezos.gitlab.io/flextesa/mini-net.html)).
 

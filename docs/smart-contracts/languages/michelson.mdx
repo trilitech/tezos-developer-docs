@@ -19,11 +19,11 @@ Michelson is the domain-specific language used to write smart contracts on the T
 
 Michelson is a low-level, stack-based programming language used to write smart contracts on the Tezos blockchain. Michelson was designed to facilitate formal verification, allowing users to prove the properties of their contracts.
 
-It uses a stack rewriting paradigm, whereby each function rewrites an input stack into an output stack. \(The meaning of this will be fully explained below.\) This runs in a purely functional way and does not modify the inputs at all. Thus, all data structures are **immutable**.
+It uses a stack rewriting paradigm, whereby each function rewrites an input stack into an output stack. (The meaning of this will be fully explained below.) This runs in a purely functional way and does not modify the inputs at all. Thus, all data structures are **immutable**.
 
 ### What is a stack?
 
-A stack is an abstract data type that serves as a collection of elements, with two principal operations: push \(adds an element to the collection\) and pop \(removes the most recently added element that has not yet been removed\). The order in which elements come off a stack gives rise to its alternative name, LIFO \(last in, first out\). Additionally, a peek operation may give access to the top without modifying the stack.
+A stack is an abstract data type that serves as a collection of elements, with two principal operations: push (adds an element to the collection) and pop (removes the most recently added element that has not yet been removed). The order in which elements come off a stack gives rise to its alternative name, LIFO (last in, first out). Additionally, a peek operation may give access to the top without modifying the stack.
 
 ![](https://upload.wikimedia.org/wikipedia/commons/9/9f/Stack_data_structure.gif)
 

@@ -7,7 +7,7 @@ To start, we'll download and install tezos-client and create a couple of test wa
 
 ## Installation
 
-### Linux \(64-bit\)
+### Linux (64-bit)
 
 A quick and easy way to get tezos-client running on Linux is to download the latest `tezos-client` binary, make it executable, and put it somewhere in your path. Alternatively, you can add a package repository for your distribution, and install it from there. Using a package is a good idea for production systems as it automates the installation and allows easy updates.
 
@@ -178,7 +178,7 @@ sudo apt-get install -y tezos-accuser-010-ptgranad
 
 ### Windows
 
-Install one of Linux distributions using [Windows Subsystem for Linux \(WSL\)](https://docs.microsoft.com/en-us/windows/wsl/about) \(e.g. Ubuntu 18.04 LTS\) and follow instructions for Linux.
+Install one of Linux distributions using [Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/about) (e.g. Ubuntu 18.04 LTS) and follow instructions for Linux.
 
 ### Mac OS
 
@@ -254,7 +254,7 @@ $ export TEZOS_CLIENT_UNSAFE_DISABLE_DISCLAIMER=yes
 
 * Go to the [faucet](https://faucet.tzalpha.net/).
 * Complete the captcha and download the wallet in the form of a .json file.
-* The file name is the wallet address \(also known as the public key hash, or PKH\) with a .json extension.
+* The file name is the wallet address (also known as the public key hash, or PKH) with a .json extension.
 * If you look inside the file you will see a property called *pkh* which contains the address.
 * The public key hash is used to identify the account on the Tezos blockchain and can be thought of as an address or account number.
 * Next, we'll activate the account, passing it the path to the `.json` wallet we just downloaded
@@ -271,9 +271,9 @@ Error:
 
 ```
 
-> Note empty `Error:` message at the end of the output. `tezos-client` attempts to wait for operation inclusion but the public Tezos node we are using disallows access \(as a security measure\) to the part of node api that is necessary for this functionality. We use `--wait none` throughout these tutorials to avoid this error. If you use your own local Tezos node you can omit `--wait none`, the error won't happen.
+> Note empty `Error:` message at the end of the output. `tezos-client` attempts to wait for operation inclusion but the public Tezos node we are using disallows access (as a security measure) to the part of node api that is necessary for this functionality. We use `--wait none` throughout these tutorials to avoid this error. If you use your own local Tezos node you can omit `--wait none`, the error won't happen.
 
-Make a variable for Alice's account address \(PKH\) \(notice that the address is the same as the name of your faucet `.json` file\):
+Make a variable for Alice's account address (PKH) (notice that the address is the same as the name of your faucet `.json` file):
 
 ```sh
 $ ALICE_ADDRESS="tz1QLne6uZFxPRdRfJG8msx5RouENpJoRsfP"
