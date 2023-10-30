@@ -81,7 +81,7 @@ const sidebars = {
                 'developing/information/block-explorers/inspect-contract-tzstats',
               ],
             },
-            // 'developing/information/indexers', // TODO
+            'developing/information/indexers',
             'developing/information/custom-indexers',
           ],
         },
