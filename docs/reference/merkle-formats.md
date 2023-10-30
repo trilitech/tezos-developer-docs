@@ -1,1 +1,0 @@
-# Merkle proof encoding formats
