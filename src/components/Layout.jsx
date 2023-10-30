@@ -501,7 +501,7 @@ export function Layout({ children, title, tableOfContents, lastUpdated }) {
   let router = useRouter()
   let isHomePage = router.pathname === '/'
 
-  let tabPaths = ['tutorials', 'office-hours', 'ethlondon']
+  let tabPaths = ['tutorials', 'office-hours']
   let isTabHomePage =
     tabPaths.some((basePath) => router.pathname.endsWith(basePath)) ||
     isHomePage

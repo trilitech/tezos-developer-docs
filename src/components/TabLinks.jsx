@@ -29,7 +29,6 @@ export function TabLinks({ isHomePage }) {
         className={`px-4 py-2 ${
           !router.pathname.includes('tutorials') &&
           !router.pathname.includes('office-hours') &&
-          !router.pathname.includes('ethlondon') &&
           !isHomePage
             ? 'text-blue-400'
             : 'text-white'
@@ -87,27 +86,6 @@ export function TabLinks({ isHomePage }) {
             style={{ fontSize: '1.3em' }}
           >
             Office Hours
-          </h2>
-        )}
-      </Link>
-      <Link
-        href="/ethlondon"
-        className={`px-4 py-2 ${
-          router.pathname.includes('/ethlondon')
-            ? 'text-blue-400'
-            : 'text-white'
-        }`}
-      >
-        {isLargeScreen ? (
-          <div className="hover:text-gray-300 dark:hover:text-gray-500">
-            ETHLondon
-          </div>
-        ) : (
-          <h2
-            className="font-display font-medium text-slate-900 hover:text-blue-400 dark:text-white"
-            style={{ fontSize: '1.3em' }}
-          >
-            ETHLondon
           </h2>
         )}
       </Link>
