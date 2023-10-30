@@ -527,6 +527,6 @@ commands:
   alias john has been deleted
   ```
 
-{% callout type="note" %}
+:::note
 This guide was created by Oxhead Alpha and can be found [here](https://github.com/oxheadalpha/nft-tutorial/blob/master/packages/tznft/README.md).
-{% /callout %}
+:::note

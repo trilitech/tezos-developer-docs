@@ -77,9 +77,9 @@ You can play with the [final demo](https://demo.winefactory.marigold.dev/).
 | single asset   | 0..1            | 1..n                     |
 | multi asset    | 0..n            | 1..n                     |
 
-{% callout type="note" %}
+:::note
 Because of web3, buy or sell features are a real payment system using on-chain XTZ tokens as money. This differs from traditional web2 applications where you have to integrate a payment system and so, pay extra fees
-{% /callout %}
+:::
 
 ## Prerequisites
 
@@ -107,14 +107,14 @@ Before building an NFT marketplace, ensure you have the following tools on hand.
 
 Use **Taqueria** to shape the project structure, then create the NFT marketplace smart contract thanks to the `ligo/fa` library.
 
-{% callout type="note" %}
+:::note
 You require to copy some code from this git repository later, so you can clone it with:
 
 ```bash
 git clone https://github.com/marigold-dev/training-nft-1.git
 ```
 
-{% /callout %}
+:::
 
 ### Step 1: Taq'ify your project
 
@@ -272,9 +272,9 @@ Explanation:
 - every `FA2Impl.NFT.xxx()` called function is taking the storage type of the NFT library, so you need to send a partial object from our storage definition to match the type definition
 - the return type contains also the storage type of the library, so you need to reconstruct the storage by copying the modified fields
 
-{% callout type="note" %}
+:::note
 The LIGO team is working on merging type definitions, so you then can do **type union** or **merge 2 objects** like in Typescript
-{% /callout %}
+:::
 
 Let's add the `Mint` function now. Add the new function
 
@@ -387,9 +387,9 @@ taq install @taqueria/plugin-taquito
 taq deploy nft.tz -e "testing"
 ```
 
-{% callout type="note" %}
+:::note
 If this is the first time you're using **taqueria**, you may want to run through [this training](https://github.com/marigold-dev/training-dapp-1#ghostnet-testnet-wallet).
-{% /callout %}
+:::
 
 > For advanced users, just go to `.taq/config.local.testing.json` and change the default account by alice one's (publicKey,publicKeyHash,privateKey) and then redeploy:
 >

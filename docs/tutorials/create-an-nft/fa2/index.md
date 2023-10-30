@@ -274,9 +274,9 @@ Two environment variables can be used to configure
 
 See command `fatoo show-client-uri-documentation`:
 
-{% comment %}
+<!--
 output of fatoo show-client-uri-doc
-{% /comment %}
+-->
 
 <blockquote>
 
