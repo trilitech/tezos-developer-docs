@@ -193,7 +193,7 @@ const sidebars = {
         },
         // 'reference/rpc', // TODO
         // 'reference/encoding', // TODO
-        'reference/merkle-formats',
+        // 'reference/merkle-formats', // TODO
         // 'reference/ocaml-apis', // TODO
         {
           type: 'category',
