@@ -1,0 +1,199 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+ @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap');
+ @font-face {
+  font-family: 'GT Eesti Display';
+  src: url('/fonts/GT-Eesti-Display-Regular-7b2c45500bd08f6d098ad934759b7bb0.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'GT Eesti Display Light';
+  src: url('/fonts/GT-Eesti-Display-Light-a728f2a4f92e840beb1cc388caaea938.woff') format('woff');
+  font-style: normal;
+}
+
+/* You can override the default Infima variables here. */
+:root {
+  --ifm-color-primary: #3835d9;
+  --ifm-color-primary-dark: #7a7eeb;
+  --ifm-color-primary-darker: #277148;
+  --ifm-color-primary-darkest: #205d3b;
+  --ifm-color-primary-light: #33925d;
+  --ifm-color-primary-lighter: #359962;
+  --ifm-color-primary-lightest: #3cad6e;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+}
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+[data-theme='dark'] {
+  --ifm-color-primary: #7b9efc;
+  --ifm-color-primary-dark: #21af90;
+  --ifm-color-primary-darker: #1fa588;
+  --ifm-color-primary-darkest: #1a8870;
+  --ifm-color-primary-light: #29d5b0;
+  --ifm-color-primary-lighter: #32d8b4;
+  --ifm-color-primary-lightest: #4fddbf;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'GT Eesti Display Light', sans-serif;
+}
+
+body {
+  font-family: 'Roboto', sans-serif; 
+}
+
+a {
+  color: #0D61FF;
+}
+
+a:hover {
+  color: #0D61FF;
+}
+
+nav.navbar {
+  background-color: #030405;
+  font-family: 'GT Eesti Display Light', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+.navbar a {
+  color: #FFFFFF; 
+  text-decoration: none; 
+  transition: color 0.3s; 
+}
+
+.navbar a:hover {
+  color: #CFD1D9;
+}
+
+.navbar__title {
+  font-size: 20px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 22px;
+  font-weight: 300;
+  line-height: 26px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+.dropdown__menu {
+  background-color: #030405;
+  width: 170px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #787d82;
+  font-size: 16px;
+}
+
+.dropdown__menu a:hover {
+  background-color: #4A4E52;
+  color: #fff;
+}
+
+.dropdown__link {
+  color: #fff;
+}
+
+/* For grids on the tutorials home page */
+[data-theme='dark'] .grid-container {
+  color: white;
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+[data-theme='light'] .grid-container {
+  color: black;
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+.grid-container circle {
+  display: none;
+}
+
+.grid-icon {
+  width: 48px;
+  height: 48px;
+}
+
+.grid-container a {
+  text-decoration: none;
+  color: inherit;
+  border-style: solid;
+  margin: 15px;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.navbar-sidebar {
+  background-color: #030405;
+}
+
+.grid-container a:hover {
+  text-decoration: none;
+  color: inherit;
+}
+
+.grid-title {
+  font-size: large;
+  font-weight: bold;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+/* Sidebar menu */
+.menu__link {
+  font-family: 'GT Eesti Display', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 26px;
+  color: #4A4E52;
+  transition: color 0.3s; 
+}
+
+.menu__link:hover,
+.menu__link:focus {
+  color: #0D61FF !important;
+}
+
+.menu__link.active {
+  color: #0D61FF;
+}
+
+/* breadcrumbs menu */
+.breadcrumbs__item--active .breadcrumbs__link {
+  color: #0D61FF;
+}
+
+.table-of-contents__link:hover, .table-of-contents__link:hover code, .table-of-contents__link--active {
+  color: #0D61FF;
+}
+
+/* breadcrumbs menu */
+.pagination-nav__label {
+  font-family: 'GT Eesti Display', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 26px;
+}
+
+/* button nav next/prev */
+.pagination-nav__link:hover {
+  color: #0D61FF;
+  border: 1px solid #0D61FF
+}
+
+
+

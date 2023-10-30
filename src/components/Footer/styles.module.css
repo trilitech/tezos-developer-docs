@@ -1,0 +1,244 @@
+
+.container {
+  max-width: 1800px !important;
+  margin: 0 auto;
+}
+
+footer {
+  background-color: #030405;
+  padding-top: 80px;
+  padding-bottom: 101px;
+  padding-left: 81px;
+  padding-right: 81px;
+}
+
+.footerLinks a {
+  color: #FFFFFF; 
+  text-decoration: none; 
+  transition: color 0.3s; 
+}
+
+.footerLinks a:hover {
+  text-decoration: underline; 
+}
+
+.footerColumns {
+  display: flex;
+}
+
+.footerColumn {
+  flex: auto;
+}
+
+.footerColumn2 {
+  flex: auto;
+}
+
+.footerColumn2 img {
+  max-width: 100%;
+}
+
+.footerColumn img {
+  max-width: 100%;
+}
+
+.logoText {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  font-size: 29px;
+  line-height: 33.98px;
+  color: #fff;
+}
+
+.follow {
+  font-family: 'GT Eesti Display', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 26px;
+  color: #fff;
+  margin-top: 60px;
+  margin-bottom: 20px;
+}
+
+.subtitle {
+  font-family: 'GT Eesti Display', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 26px;
+  color: #fff;
+}
+
+.contact {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 23px;
+  color: #fff;
+  margin-top: 60px;
+  margin-bottom: 80px;
+}
+
+.contactBold {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 23px;
+  color: #fff;
+}
+
+.emailLink {
+  text-decoration: underline;
+  color: #fff;
+}
+
+.emailLink:hover {
+  color: #0D61FF;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+}
+
+.logoText {
+  margin: 0;
+  margin-left: 10px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.logoText:hover {
+  text-decoration: underline;
+}
+
+.footerLinks {
+  list-style: none;
+  padding: 0;
+  line-height: 26px;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.footerLinks li {
+  margin-bottom: 8px; 
+}
+
+.footerLinks a {
+  text-decoration: none;
+  color: #fff;
+  font-family: 'GT Eesti Display', sans-serif;
+}
+
+.footerSeparator {
+  border-top: 1px solid #4A4E52;
+  margin: 20px 0;
+}
+
+.footerLinksContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footerLeftLinks {
+  flex: 1;
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 23px;
+}
+
+.footerRightLinks {
+  display: flex;
+  align-items: center;
+}
+
+.footerRightLinks ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footerRightLinks li {
+  display: inline;
+}
+
+.footerRightLinks a {
+  text-decoration: none;
+}
+
+.socialLink {
+  margin-right: 20px; 
+}
+
+.footerCopyright {
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 23px;
+}
+
+.footerCopyrightLine {
+  color: #4A4E52;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.additionalLink {
+  font-family: 'GT Eesti Display', sans-serif;
+  color: #fff;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 26px;
+  margin-left: 30px;
+}
+
+@media screen and (max-width: 768px) {
+  footer {
+    padding-top: 30px;
+    padding-bottom: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .footerColumns {
+    flex-direction: column;
+  }
+
+  .follow {
+    margin-top: 30px;
+  }
+
+  .contact {
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+
+  .footerColumn2 {
+    flex: auto;
+    margin-top: 30px;
+    margin-bottom: 60px;
+  }
+
+  .footerLinksContainer {
+    display: block;
+  }
+
+  .footerRightLinks ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-top: 30px;
+  }
+  
+  .footerRightLinks li {
+    display: block; 
+    margin-bottom: 8px; 
+  }
+  
+  .additionalLink {
+    margin-left: 0px;
+  }
+}

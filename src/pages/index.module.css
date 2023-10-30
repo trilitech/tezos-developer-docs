@@ -1,0 +1,128 @@
+/**
+ * CSS files with the .module.css suffix will be treated as CSS modules
+ * and scoped locally.
+ */
+
+.heroBanner {
+  position: relative;
+  height: 544px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+}
+
+.container {
+  margin-bottom: 10rem;
+}
+
+.hero__title,
+.hero__subtitle {
+  color: white; 
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.hero__title  {
+  font-size: 60px;
+  line-height: 60px;
+  margin-bottom: 20px;
+  font-family: 'GT Eesti Display Light', sans-serif;
+}
+
+.hero__subtitle {
+  font-size: 20px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  line-height: 28px;
+  color: #BEDFFF;
+}
+
+@media screen and (max-width: 996px) {
+  .heroBanner {
+    padding: 2rem;
+  }
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.customHeader {
+  background-image: url('../../static//img/cover.png');
+  background-size: cover;
+  background-position: center;
+}
+
+.text__booking {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+.homeTitle {
+  font-family: 'GT Eesti Display', sans-serif;
+  font-weight: 400;
+  font-size: 48px;
+  line-height: 60px;
+  text-align: center;
+  color: #030405;
+}
+
+.homeContent {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 28px;
+  text-align: center;
+  color: #4A4E52;
+}
+
+.homeTitleBlue {
+  color: #0D61FF;
+}
+
+/* Adjust font sizes for mobile screens */
+@media screen and (max-width: 768px) {
+  .heroBanner {
+    height: auto;
+  }
+
+  .hero__title  {
+    font-size: 32px;
+    line-height: 40px;
+    text-align: left;
+  }
+
+  .hero__subtitle {
+    text-align: left;
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .homeTitle {
+    font-size: 24px;
+    line-height: 24px;
+    text-align: left;
+  }
+
+  .homeContent {
+    font-size: 14px;
+    line-height: 20px;
+    text-align: left;
+  }
+
+  .text__booking {
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 30px;
+  }
+
+  .container {
+    margin-bottom: 11rem;
+  }
+}
