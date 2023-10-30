@@ -1,6 +1,5 @@
 ---
-id: upgrade
-title: Node upgrade
+title: Upgrading nodes
 authors: Nomadic Labs
 lastUpdated: 29th June 2023
 ---
@@ -20,7 +19,7 @@ The following commands help to upgrade your node to the latest Octez version.
 
 To upgrade your node to the latest Octez version, run the lastest image. Note that if you run the latest image, restarting your container is sufficient.
 
-See the [list of releases](https://tezos.gitlab.io/releases/releases.html) for the latest version number, and replace v17 below with that. 
+See the [list of releases](https://tezos.gitlab.io/releases/releases.html) for the latest version number, and replace v17 below with that.
 
 To upgrade to version 17 for instance, run:
 
@@ -55,9 +54,8 @@ eval $(opam env)
 make
 ```
 
-{% callout type="warning" title="Opam switch remove" %}
+:::warning Opam switch remove
 `opam switch remove .` is only needed if you are updating an already compiled repository, not if you are compiling from a freshly cloned repository.
-{% /callout %}
 
 #### Upgrade using opam packages
 
@@ -69,10 +67,8 @@ opam depext
 opam upgrade
 ```
 
-{% callout type="warning" title="Closing terminal" %}
+:::warning Closing terminal
 Be careful when closing terminal windows because this stops the node.
-{% /callout %}
 
-{% callout type="note" title="Using screen" %}
+:::note Using screen
 Use [screen](https://doc.ubuntu-fr.org/screen), or [nohup](https://www.computerhope.com/unix/unohup.htm) to keep the node running in the background.
-{% /callout %}

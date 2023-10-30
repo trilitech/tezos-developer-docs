@@ -1,6 +1,5 @@
 ---
-id: monitor-a-node
-title: Monitor a Node
+title: Monitoring nodes
 authors: Jean-Baptiste Col
 lastUpdated: 29th June 2023
 ---
@@ -30,14 +29,14 @@ Netdata is a light and open-source software that collects and exposes hardware m
 
 Grafana is software that takes JSON in input and makes dashboards that you can display using your browser (the high-level web interface that displays all the metrics). In our case, JSONs are provided by Grafazos.
 
-### [Grafazos](https://gitlab.com/nomadic-labs/grafazos) 
+### [Grafazos](https://gitlab.com/nomadic-labs/grafazos)
 Grafazos is a jsonnet library written by Nomadic Labs, which uses itself [grafonet-lib](https://github.com/grafana/grafonnet-lib), which is a jsonnet library to write Grafana dashboards as code.
 
 ### [jsonnet](https://jsonnet.org/)
 
 Jsonnet is a programming language that allows to create JSONs easily.
 
-### [Prometheus](https://prometheus.io/docs/introduction/overview/#what-is-prometheus) 
+### [Prometheus](https://prometheus.io/docs/introduction/overview/#what-is-prometheus)
 
 Prometheus server is a toolkit that scrapes and stores time series data by making requests to the nodes. Basically, prometheus is fed by both netdata and tezos-metrics (which is deprecated and not used), and then, grafana displays the data gathered by prometheus.
 
@@ -193,7 +192,7 @@ You can also monitor relevant hardware data (metrics names may differ depending 
 Plenty of others metrics  are available, depending on your machine and needs.
 
 This is an example of a Demo Dashboard with the following metrics:
-- `octez_version` 
+- `octez_version`
 - `octez_validator_chain_is_bootstrapped`
 - `Disk Space Usage`
 - `CPU Usage`
@@ -202,7 +201,7 @@ This is an example of a Demo Dashboard with the following metrics:
 - `octez_p2p_peers_running`
 - `octez_store_last_written_block_size`
 
-![Example of a light monitoring dashboard](/images/monitor-a-node/netdata_dashboard.png)
+![Example of a light monitoring dashboard](/img/reference/netdata_dashboard.png)
 
 ### Monitoring several nodes
 
@@ -244,7 +243,7 @@ template: 10min_cpu_usage #Name of the alarm/template.(required)
    units: %
    every: 1m #The frequency of the alarm.
    #"warn" and "crit" expressions evaluating to true or false, and when true, will trigger the alarm.
-    warn: $this > (($status >= $WARNING)  ? (75) : (85)) 
+    warn: $this > (($status >= $WARNING)  ? (75) : (85))
     crit: $this > (($status == $CRITICAL) ? (85) : (95))
    delay: down 15m multiplier 1.5 max 1h #Optional hysteresis settings to prevent floods of notifications.
     info: average cpu utilization for the last 10 minutes (excluding iowait, nice and steal)
@@ -262,8 +261,8 @@ As an example, here is a warning alert if the metric octez_p2p_connections_activ
 ```
 alarm: tezos_node_p2p_connections_active (cannot be chart name, dimension name, family name, or chart variables names.)
       on: octez_p2p_connections_active
-   hosts: * 
-  lookup: average -10m unaligned of user,system,softirq,irq,guest 
+   hosts: *
+  lookup: average -10m unaligned of user,system,softirq,irq,guest
     warn: $this<3
     crit: $this==0
     info:  "tezos_node_p2p_connections_actives" represents the current number of active p2p connections with your node.
@@ -304,7 +303,7 @@ To calculate the space needed to store your metrics you will need:
 
 For 2000 metrics, collected every second and retained for a month, Tier 0 needs: 1 byte x 2,000 metrics x 3,600 secs per hour x 24 hours per day x 30 days per month = 5,184MB.
 
-![Number of metrics location in the dashboard](/images/monitor-a-node/number-of-metrics.jpeg)
+![Number of metrics location in the dashboard](/img/reference/number-of-metrics.jpeg)
 
 #### Modify netdata.conf file
 
@@ -344,11 +343,11 @@ Now you just have to change the value of "dbengine multihost disk space" in [db]
 
 Here is the global picture of a monitoring system, connecting all these tools together:
 
-![](/images/monitor-a-node/all-in-all.png)
+![](/img/reference/all-in-all.png)
 
 A Grafazos dashboard looks like this:
 
-![](/images/monitor-a-node/octez-metrics-dashboard.gif)
+![](/img/reference/octez-metrics-dashboard.gif)
 
 Table 1: Grafana dashboard of a Tezos node
 
@@ -395,9 +394,8 @@ For each RPC called, two metrics are associated: `octez_rpc_calls_sum{endpoint="
 2. The block validator validates blocks and notifies the corresponding chain validator.
 3. Each peer validator treats new head proposals from its associated peer, retrieving all the operations, and if valid, triggers a validation of the new head.
 
-{% callout title="Octez version" %}
+:::note Octez version
 Note that the metrics described here are those available with Octez v14--it is likely to evolve with future Octez versions.
-{% /callout %}
 
 ### Dashboards
 
@@ -433,7 +431,7 @@ Some metrics are self-explanatory, such as *P2P total connections*, which shows 
 
 Another useful metric is the *Block validation time*, which measures the time between when a request is registered in the worker till the worker pops the request and marks it complete. This should generally be under 1 second. If it's persistently longer, that could indicate trouble too.
 
-![](/images/monitor-a-node/metrics-block-validation-time.png)
+![](/img/reference/metrics-block-validation-time.png)
 
 Graph 2: Block validation time
 
@@ -442,7 +440,7 @@ The *P2P connections* graph will show you immediately if your node is having tro
 A healthy node should typically have a few dozen peer connections (depending on how it was configured).
 
 
-![](/images/monitor-a-node/metrics-p2p-connections.png)
+![](/img/reference/metrics-p2p-connections.png)
 
 Graph 3: P2P connections
 
@@ -461,5 +459,5 @@ Grafana is a relatively user-friendly tool, so play with creating a custom one a
 
 ## Conclusion
 
-Octez Metrics gives Tezos users insight into how their node is performing, and ability to observe the overall network health. The best way to keep your node healthy and keep the entire Tezos network healthy is with monitoring tools to gain insite into network health. 
+Octez Metrics gives Tezos users insight into how their node is performing, and ability to observe the overall network health. The best way to keep your node healthy and keep the entire Tezos network healthy is with monitoring tools to gain insite into network health.
 

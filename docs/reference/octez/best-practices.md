@@ -1,6 +1,5 @@
 ---
-id: best-practices
-title: Best practices
+title: Octez best practices
 authors: Nomadic Labs
 lastUpdated: 27th June 2023
 ---
@@ -25,7 +24,7 @@ The rest of this document is structured around different aspects of the Octez no
 
 ## RPC interface
 
-The Tezos node offers an [RPC programming interface](https://tezos.gitlab.io/shell/rpc.html), that is used by clients such as a wallet or a baker. This is a rich API providing many features. 
+The Tezos node offers an [RPC programming interface](https://tezos.gitlab.io/shell/rpc.html), that is used by clients such as a wallet or a baker. This is a rich API providing many features.
 
 Some of these RPC are sensitive in terms of security:
 
@@ -49,9 +48,9 @@ Advanced users may also establish more complex configurations using the [proxy s
 
 Based on these protection mechanisms, the recommended practice is to enable the RPC interface only on the localhost interface, thus only serving local binaries such as octez-client and octez-baker.
 
-{% callout type="warning" title="Caution" %}
+:::warning
 Advanced users choosing to open the RPC interface for remote hosts do this at their own risks, and should carefully use the ACL mechanism for fine-grain configuration.
-{% /callout %}
+:::
 
 
 ## History modes
@@ -61,7 +60,7 @@ The Rolling mode is also compatible with baking, when used with caution. Specifi
 
 These history modes also exhibit different CPU performance characteristics, which are worth taking into account. Specifically, nodes in Full mode are quicker in validating blocks than nodes in Archive mode (because in the latter case, data are searched in a larger file). This is especially true when nodes in Full mode have been restarted recently from a snapshot, and keep thus a limited history.
 
-It is a recommended practice to use the Full mode for baking, and to regularly restart the baker from a recent snapshot, in order to ensure quick block validation. 
+It is a recommended practice to use the Full mode for baking, and to regularly restart the baker from a recent snapshot, in order to ensure quick block validation.
 
 It is not advised to set bakers in Archive mode, unless you have specific reasons to do so, as this typically slows down block validation. It is not advised to set bakers in Rolling mode either (even when it is not required to help other nodes to bootstrap), to always be able to reveal the nonce of the blocks they produced.
 
@@ -81,9 +80,9 @@ The disk space consumed by a node depends on its history mode, as explained abov
 
 Prior to running a node, make sure that it has not only enough disk space for its regular functioning (which may depend on its history mode and other options), but also extra available space for a copy of its index (typically around 20G extra space).
 
-{% callout type="warning" title="Disk space" %}
+:::warning Disk space
 Not allocating enough disk space for a node, including for its dynamic variations, incurs the risk of seeing the node regularly stopped.
-{% /callout %}
+:::
 
 
 ## Memory space
@@ -92,9 +91,9 @@ Running a Tezos node requires providing enough memory space (RAM) for its functi
 
 The memory consumption of the node varies in time for the same reason as its disk space consumption: the node regularly reorganizes its storage (about every 8 hours). During normal operation, a node can typically work with 4G of RAM. During the storage reorganization operation, the node can consume twice as memory (up to 8G), but as each such operation is rather short-lived, it is safe to allocate the extra space as swap space on the disk.
 
-{% callout type="warning" title="RAM" %}
+:::warning RAM
 Prior to running a node, make sure that enough RAM is available (typically 4GB), and also enough swap space on disk (typically 4GB).
-{% /callout %}
+:::
 
 
 ## Performance
@@ -103,9 +102,9 @@ Ensuring a good performance level for a node requires allocating enough resource
 
 When dimensioning machines for running Tezos nodes, it is advised to ensure a good disk bandwidth, such as those offered by SSD disks (and ideally, SSD/NVE disks). Running several nodes on the same machine should be considered with caution: pay attention not to saturate the disk bandwidth.
 
-{% callout type="warning" title="multi-CPU machine" %}
+:::warning multi-CPU machine
 Running several nodes on a multi-CPU machine will likely lead to suboptimal performance, because the disk bandwith will probably constitute the main bottleneck.
-{% /callout %}
+:::
 
 
 ## Delayed endorsement
@@ -115,7 +114,7 @@ One possible reason for missing an endorsement opportunity is when the endorseme
 
 Make sure that your baker process is not patched to delay endorsements, in order to avoid missed endorsements. So, if you are running an endorser with `--endorsement-delay <seconds>`, we suggest that you restart your endorser without it.
 
-{% callout type="warning" title="Delaying endorsements" %}
+:::warning Delaying endorsements
 Delaying endorsements, for historical reasons or for any reasons, incurs the risk of the endorsements arriving too late to be considered by block creators, hence resulting in missed reward opportunities.
-{% /callout %}
+:::
 

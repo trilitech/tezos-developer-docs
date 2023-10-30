@@ -1,9 +1,5 @@
 ---
-hide_table_of_contents: true
-title: Tezos Clients
-hide_title: true
-sidebar_label: Introduction
-sidebar_position: 1
+title: CLI and RPC
 lastUpdated: 30th June 2023
 ---
 ## Connecting to the network
@@ -67,14 +63,14 @@ $ brew install tezos-client
 * On Ubuntu with binaries:
 
 ```bash
-$ sudo add-apt-repository ppa:serokell/tezos && sudo apt-get update  
+$ sudo add-apt-repository ppa:serokell/tezos && sudo apt-get update
 $ sudo apt-get install -y tezos-client
 ```
 
 * On Fedora with binaries:
 
 ```bash
-$ dnf copr enable -y @Serokell/Tezos && dnf update -y  
+$ dnf copr enable -y @Serokell/Tezos && dnf update -y
 $ dnf install -y tezos-client
 ```
 

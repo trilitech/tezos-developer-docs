@@ -1,5 +1,5 @@
 ---
-title: Installation and Setup
+title: Installing Octez
 lastUpdated: 30th June 2023
 ---
 
@@ -13,7 +13,7 @@ A quick and easy way to get tezos-client running on Linux is to download the lat
 
 #### Option 1: Install the binary
 
-``` sh
+```sh
 $ wget https://github.com/serokell/tezos-packaging/releases/latest/download/tezos-client
 $ chmod +x tezos-client
 $ mkdir -p $HOME/.local/bin
@@ -27,16 +27,16 @@ This information is based on documentation from: [Get Tezos](https://tezos.gitla
 
 Tips:
 
-* Use ```tab``` to autocomplete partial commands previously entered
+* Use ```tab```to autocomplete partial commands previously entered
 * Use the up and down arrows to cycle through previously entered commands
 
 **1.** Make sure your system is up to date.
 
-``` sh
+```sh
 sudo apt-get update
 ```
 
-``` sh
+```sh
 sudo apt-get upgrade
 ```
 
@@ -45,79 +45,79 @@ sudo apt-get upgrade
 
 **2.** Install rust.
 
-``` sh
+```sh
 sudo apt install -y rsync git m4 build-essential patch unzip wget pkg-config libgmp-dev libev-dev libhidapi-dev libffi-dev opam jq zlib1g-dev
 ```
 
-``` sh
+```sh
 wget https://sh.rustup.rs/rustup-init.sh
 ```
 
-``` sh
+```sh
 chmod +x rustup-init.sh
 ```
 
-``` sh
+```sh
 ./rustup-init.sh --profile minimal --default-toolchain 1.52.1 -y
 ```
 
 **3.**  Loading the cargo environment variable
 
-``` sh
+```sh
 source $HOME/.cargo/env
 ```
 
 **4.** Get the sources
 
-``` sh
+```sh
 git clone https://gitlab.com/tezos/tezos.git
 ```
 
-``` sh
+```sh
 cd tezos
 ```
 
-``` sh
+```sh
 git checkout latest-release
 ```
 **5.** Install the Tezos dependencies.
 
-``` sh
+```sh
 opam init --bare
 ```
 
-* You will be asked: ```do you want to modify ~/.profile? [N/y/f]``` press ```n```.
-* You will then be asked: ```A hook can be added to opam's init scripts to ensure that the shell remains in sync with the opam environment when they are loaded. Set that up? [y/N]``` press ```n```.
+* You will be asked: ```do you want to modify ~/.profile? [N/y/f]```press ```n```.
+* You will then be asked: ```A hook can be added to opam's init scripts to ensure that the shell remains in sync with the opam environment when they are loaded. Set that up? [y/N]```press ```n```.
 
-``` sh
+```sh
 make build-deps
 ```
 
 **6.** Compile sources ( This step can take a long time depending on your hardware )
 
-``` sh
+```sh
 eval $(opam env)
 ```
 
-``` sh
+```sh
 make
 ```
 
 **7.** Get rolling snapshot
 
-``` sh
+```sh
 wget https://mainnet.xtz-shots.io/rolling -O tezos-mainnet.rolling
 ```
 
 **8.** Import the snapshot (This step can take a long time depending on your hardware)
 
-``` sh
+```sh
 ./tezos-node snapshot import tezos-mainnet.rolling
 ```
 
 **9.** Run the node
 
-``` sh
+```sh
 ./tezos-node run --allow-all-rpc localhost:8732 --rpc-addr localhost:8732 --history-mode experimental-rolling
 ```
 
@@ -125,7 +125,7 @@ wget https://mainnet.xtz-shots.io/rolling -O tezos-mainnet.rolling
 
 * How do I stop the node?
 
-  * Press ```Ctrl-c``` from within the terminal tab it is running in. Give it a minute or two, if it still does not work press it again.
+  * Press ```Ctrl-c```from within the terminal tab it is running in. Give it a minute or two, if it still does not work press it again.
 
 * Where is Tezos installed?
 
@@ -135,17 +135,17 @@ wget https://mainnet.xtz-shots.io/rolling -O tezos-mainnet.rolling
 
     * ```~/.tezos-node```
 
-      * Note that the period in front of the directory denotes a hidden directory. Use ```ls -a``` to show all files and directories including hidden directories.
+      * Note that the period in front of the directory denotes a hidden directory. Use ```ls -a```to show all files and directories including hidden directories.
 * What do I do if my node data becomes corrupted and I need to re-import a new snapshot?
 
-  * You will need to first remove the old data. To do that run ```rm -rf .tezos-node``` from your home directory.
-  * Then from the ```tezos``` directory use the same commands above to re-import new snapshots.
+  * You will need to first remove the old data. To do that run ```rm -rf .tezos-node```from your home directory.
+  * Then from the ```tezos```directory use the same commands above to re-import new snapshots.
 
 **Updating the node**
 
 **1.** Pull updates from the git repo
 
-``` sh
+```sh
 git pull
 ```
 
@@ -153,21 +153,21 @@ git pull
 
 **2.** Install the latest dependencies and compile the sources
 
-``` sh
+```sh
 make build-deps
 ```
 
-``` sh
+```sh
 eval $(opam env)
 ```
 
-``` sh
+```sh
 make
 ```
 
 #### Option 3: Using packages on Ubuntu or Fedora
 
-``` sh
+```sh
 sudo add-apt-repository ppa:serokell/tezos && sudo apt-get update
 sudo apt-get install -y tezos-client
 sudo apt-get install -y tezos-node
@@ -184,7 +184,7 @@ Install one of Linux distributions using [Windows Subsystem for Linux \(WSL\)](h
 
 With [Homebrew](https://brew.sh/):
 
-``` sh
+```sh
 $ brew tap serokell/tezos-packaging https://github.com/serokell/tezos-packaging.git
 $ brew install tezos-client
 ```
@@ -195,19 +195,19 @@ $ brew install tezos-client
 
 We'll configure `tezos-client` to use a public test network Tezos node:
 
-``` sh
+```sh
 $ tezos-client --endpoint https://rpcalpha.tzbeta.net config update
 ```
 
 `--endpoint` parameter specifies the address of the server, `config update` writes it to `tezos-client`'s configuration filed at `$HOME/.tezos-client/config`.
 
-Alternatively, one can use an isolated sandboxed network instead of using a public test-network, which we'll do in the [“Sandbox”](run-a-sandbox.md) section.
+Alternatively, one can use an isolated sandboxed network instead of using a public test-network, which we'll do in the [“Sandbox”](./sandbox.md) section.
 
 ### Try it out
 
 Verify that you can run tezos-client and that it points to test network:
 
-``` sh
+```sh
 $ tezos-client
 Warning:
 
@@ -244,7 +244,7 @@ Global options (must come before the command):
 
 Now that we know we are on a test network we can temporarily disable this warning so that we don't see it with each command.
 
-``` sh
+```sh
 $ export TEZOS_CLIENT_UNSAFE_DISABLE_DISCLAIMER=yes
 ```
 
@@ -261,7 +261,7 @@ $ export TEZOS_CLIENT_UNSAFE_DISABLE_DISCLAIMER=yes
 * We'll first create an account for Alice, then Bob, so we can perform some test transactions.
 * Don't be alarmed by the blank `Error:` we'll explain why shortly.
 
-``` sh
+```sh
 $ tezos-client activate account alice with ~/Downloads/tz1QLne6uZFxPRdRfJG8msx5RouENpJoRsfP.json
 Node is bootstrapped, ready for injecting operations.
 Operation successfully injected in the node.
@@ -275,13 +275,13 @@ Error:
 
 Make a variable for Alice's account address \(PKH\) \(notice that the address is the same as the name of your faucet `.json` file\):
 
-``` sh
+```sh
 $ ALICE_ADDRESS="tz1QLne6uZFxPRdRfJG8msx5RouENpJoRsfP"
 ```
 
 Ensure that the activation was successful:
 
-``` sh
+```sh
 $ tezos-client get balance for $ALICE_ADDRESS
 56828.546322 ꜩ
 ```
@@ -290,7 +290,7 @@ Now, we'll create a new wallet for Bob so we can do some test transactions in th
 
 * Go back to the [faucet](https://faucet.tzalpha.net/) and download a second wallet
 
-``` sh
+```sh
 $ tezos-client activate account bob with tz1ZQYMDETodNBAc2XVbhZFGme8KniuPqrSw.json
 $ BOB_ADDRESS="tz1ZQYMDETodNBAc2XVbhZFGme8KniuPqrSw"
 $ tezos-client get balance for $BOB_ADDRESS

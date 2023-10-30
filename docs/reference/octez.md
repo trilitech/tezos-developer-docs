@@ -1,11 +1,11 @@
 ---
-id: get-started-with-octez
+id: octez
 title: Getting Started with Octez
 authors: 'Thomas Zoughebi, Aymeric Bethencourt, and Maxime Fernandez'
 lastUpdated: 5th June 2023
 ---
 
-## Octez - The Tezos Client 
+## Octez - The Tezos Client
 
 _Octez_ is the official client to interact with a Tezos node via RPC (remote procedural calls). In theory, there can be multiple implementations of the Tezos protocol, but currently, there is only Octez. Octez consists of several binaries (i.e., executable files), including a client, a node, and a baker.
 
@@ -45,9 +45,9 @@ The result should look like this:
 
 ```bash
 Warning:
-  
+
                  This is NOT the Tezos Mainnet.
-  
+
            Do NOT use your fundraiser keys on this network.
 ```
 
@@ -73,9 +73,9 @@ The result should look like this:
 
 ```bash
 Warning:
-  
+
                  This is NOT the Tezos Mainnet.
-  
+
            Do NOT use your fundraiser keys on this network.
 
 Hash: tz1VvyNvPUdypHaTgznTLSkumj9YMZxpmB9p
@@ -86,9 +86,9 @@ You can now go to [the testnets website](https://teztnets.xyz/), select your tes
 
 ### Octez Client user manual and version
 
-{% callout type="note" %}
+:::note
 The full command list for *Octez client* is available [here](https://tezos.gitlab.io/shell/cli-commands.html).
-{% /callout %}
+:::
 
 ## Octez Client examples
 
@@ -110,9 +110,9 @@ The response:
 
 ```bash
 Warning:
-  
+
                  This is NOT the Tezos Mainnet.
-  
+
            Do NOT use your fundraiser keys on this network.
 
 1 ꜩ
@@ -132,9 +132,9 @@ Result example:
 
 ```bash
 Warning:
-  
+
                  This is NOT the Tezos Mainnet.
-  
+
            Do NOT use your fundraiser keys on this network.
 
 2022-10-04T13:34:00Z
@@ -152,9 +152,9 @@ Example response:
 
 ```bash
 Warning:
-  
+
                  This is NOT the Tezos Mainnet.
-  
+
            Do NOT use your fundraiser keys on this network.
 
 my_account: tz1VvyNvPUdypHaTgznTLSkumj9YMZxpmB9p (unencrypted sk known)
@@ -172,9 +172,9 @@ Our example:
 
 ```bash
 Warning:
-  
+
                  This is NOT the Tezos Mainnet.
-  
+
            Do NOT use your fundraiser keys on this network.
 
 my_account: tz1VvyNvPUdypHaTgznTLSkumj9YMZxpmB9p
@@ -202,7 +202,7 @@ For our example, let's generate another account and feed it with tez from [the f
 
 ```bash
 $ octez-client gen keys my_account_2
-$ octez-client show address my_account_2 
+$ octez-client show address my_account_2
 Hash: tz1M9Snt3Sdcv9YkTrergj3ar6FuQ2g4T9y3
 Public Key: edpktfqbZHfRRSRcJ86hqxQZvgfFMLwR6zMZAXA5UgE81L7WqHt579
 ```
@@ -293,11 +293,11 @@ You can observe your actions on explorers like *tzkt* or *tzstats*:
 
 * Mainnet: [TzKT](https://tzkt.io/), [TzStats](https://tzstats.com)
 * Ghostnet: [TzKT](https://ghostnet.tzkt.io/), [TzStats](https://edo.tzstats.com)
-  
+
 OpenTezos has a guide on [how to use an explorer](https://opentezos.com/explorer).
 
-{% callout type="note" %}
-For a more comprehensive guide on how to install Octez, including via Docker images, see the [docs](https://tezos.gitlab.io/introduction/howtoget.html) by Nomadic Labs. 
+:::note
+For a more comprehensive guide on how to install Octez, including via Docker images, see the [docs](https://tezos.gitlab.io/introduction/howtoget.html) by Nomadic Labs.
 
 The above is an abridged version of the [Octez guide](https://opentezos.france-ioi.org/en/a/1332828229711949831;p=1,3556096645042535892;pa=0) found on OpenTezos.
-{% /callout %}
+:::
