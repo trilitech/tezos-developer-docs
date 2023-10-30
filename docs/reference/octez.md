@@ -1,5 +1,4 @@
 ---
-id: octez
 title: Getting Started with Octez
 authors: 'Thomas Zoughebi, Aymeric Bethencourt, and Maxime Fernandez'
 lastUpdated: 5th June 2023

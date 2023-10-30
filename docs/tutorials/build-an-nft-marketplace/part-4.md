@@ -1,5 +1,4 @@
 ---
-id: build-an-nft-marketplace
 title: NFT Marketplace Part 4
 lastUpdated: 11th October 2023
 ---

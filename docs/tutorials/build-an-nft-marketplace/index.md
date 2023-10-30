@@ -1,5 +1,4 @@
 ---
-id: build-an-nft-marketplace
 title: NFT Marketplace Part 1
 lastUpdated: 11th October 2023
 ---
@@ -13,7 +12,7 @@ In the first part, you learn:
 - The concepts of FA, IPFS, and smart contracts.
 - How to build an NFT Marketplace from the ligo/fa library.
 
-{% callout type="note" %}
+:::note
 This training course is provided by [Marigold](https://www.marigold.dev/).
 You can find the 4 parts on github (solution + materials to build the UI)
 
@@ -21,7 +20,7 @@ You can find the 4 parts on github (solution + materials to build the UI)
 - [NFT 2](https://github.com/marigold-dev/training-nft-2): finish FA2 NFT marketplace to introduce sales
 - [NFT 3](https://github.com/marigold-dev/training-nft-3): use FA2 single asset template to build another kind of marketplace
 - [NFT 4](https://github.com/marigold-dev/training-nft-4): use FA2 multi asset template to build last complex kind of marketplace
-{% /callout %}
+:::
 
 ## Key Concepts
 
