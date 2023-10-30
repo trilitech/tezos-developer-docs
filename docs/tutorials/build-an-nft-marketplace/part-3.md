@@ -1360,14 +1360,14 @@ export default function WineCataloguePage() {
 - Click on **Upload an image** and select a bottle picture on your computer
 - Click on the Mint button
 
-![minting.png](/images/minting.png)
+![minting.png](/img/tutorials/minting.png)
 
 Your picture is pushed to IPFS and displayed, then your wallet asks you to sign the `mint` operation.
 
 - Confirm operation
 - Wait less than 1 minute to get the confirmation notification, the page is automatically refreshed.
 
-![minted.png](/images/minted.png)
+![minted.png](/img/tutorials/minted.png)
 
 Now you can see the **Trading** menu and the **Bottle offers** sub menu
 
@@ -1380,7 +1380,7 @@ You are the owner of this bottle so you can make an offer on it
 - Click on the **SELL** button
 - Wait a bit for the confirmation, then once automatically refreshed you have an offer attached to your NFT
 
-![offer.png](/images/offer.png)
+![offer.png](/img/tutorials/offer.png)
 
 For buying,
 
@@ -1391,7 +1391,7 @@ For buying,
 - Click on **bottle offers** sub menu
 - You are now the owner of some bottles, you can resell a part of it at your own price, etc ...
 
-![buy.png](/images/buy_part3.png)
+![buy.png](/img/tutorials/buy_part3.png)
 
 ## Conclusion
 
@@ -1399,4 +1399,4 @@ You are now able to play with a unique NFT collection from the Ligo library.
 
 In the next lesson, you will use the last template **multi-asset** that will allow multiple NFT collections on the same contract
 
-To continue, let's go to [Part 4](/tutorials/build-an-nft-marketplace/part-4).
+To continue, let's go to [Part 4](./part-4).

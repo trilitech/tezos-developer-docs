@@ -594,7 +594,7 @@ Your picture is pushed to IPFS and displayed, then your wallet ask you to sign t
 
 6. Click on the submenu entry
 
-![sell.png](/images/sell.png)
+![sell.png](/img/tutorials/sell.png)
 
 You are the owner of this bottle so you can create an offer to sell it.
 
@@ -839,7 +839,7 @@ export default function WineCataloguePage() {
 
 Now you can see on **Trading** menu the **Wine catalogue** submenu, click on it.
 
-![buy.png](/images/buy.png)
+![buy.png](/img/tutorials/buy.png)
 
 As you are connected with the default administrator you can see your own unique offer on the market
 
@@ -857,4 +857,4 @@ This concludes the NFT training!
 
 In the next lesson, you will see another kind of NFT called **single asset**. Instead of creating _X_ token types, you will be allowed to create only 1 token*id 0, on the other side, you can mint a quantity \_n* of this token.
 
-To continue, let's go to [Part 3](/tutorials/build-an-nft-marketplace/part-3).
+To continue, let's go to [Part 3](./part-3).

@@ -69,7 +69,7 @@ The Wine marketplace is adding these features on top of a generic NFT contract :
 
 You can play with the [final demo](https://demo.winefactory.marigold.dev/).
 
-![nftfactory.png](/images/nftfactory.png)
+![nftfactory.png](/img/tutorials/nftfactory.png)
 
 | Token template | # of token_type | # of item per token_type |
 | -------------- | --------------- | ------------------------ |
@@ -797,7 +797,7 @@ const mint = async (newTokenDefinition: TZIP21TokenMetadata) => {
 
 > Note : organize/fix duplicated import declarations if necessary
 
-![mint form](/images/mintForm.png)
+![mint form](/img/tutorials/mintForm.png)
 
 Explanations:
 
@@ -978,7 +978,7 @@ const handleStepChange = (step: number) => {
 - Click on **Upload an image** and select a bottle picture on your computer
 - Click on the Mint button
 
-![minting](/images/minting.png)
+![minting](/img/tutorials/minting.png)
 
 Your picture is be pushed to IPFS and displayed.
 
@@ -986,7 +986,7 @@ Then, Temple Wallet _(or whatever other wallet you choose)_ asks you to sign the
 
 Now you can see all NFTs
 
-![wine collection](/images/winecollection.png)
+![wine collection](/img/tutorials/winecollection.png)
 
 ## Summary
 
@@ -994,4 +994,4 @@ You are able to create an NFT collection marketplace from the `ligo/fa` library.
 
 On next training, you will add the buy and sell functions to your smart contract and update the frontend to allow these actions.
 
-To continue, let's go to [Part 2](/tutorials/build-an-nft-marketplace/part-2).
+To continue, let's go to [Part 2](./part-2).
