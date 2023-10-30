@@ -3,8 +3,7 @@ title: Archetype
 lastUpdated: 29th June 2023
 ---
 
-## Introduction
-Archetype is an elegant generic-purpose language to develop smart contracts on the Tezos blockchain. It's a DSL (domain-specific language ) for Tezos that facilitates formal verification and transcodes contracts to SmartPy and LIGO.
+Archetype is an elegant generic-purpose language to develop smart contracts on the Tezos blockchain. It's a DSL (domain-specific language) for Tezos that facilitates formal verification and transcodes contracts to SmartPy and LIGO.
 
 It supports all [Michelson](https://tezos.gitlab.io/michelson-reference/) features but also provides exclusive high-level features for a precise and concise source code, that make contracts easier to develop, read and maintain.
 
@@ -31,7 +30,7 @@ archetype escrow
 /* ... */
 ```
 
-#### Parameters
+### Parameters
 
 A contract may have parameters. A parameter value is not in the source code and is provided at deployment (origination) time. For example, the address of the contract owner is typically a contract parameter.
 
@@ -68,11 +67,9 @@ Call contract's entrypoint `input` with argument "Archetype":
 completium-cli call hello --entry input --arg '{ "name": "Archetype" }'
 ```
 
-:::note
-The full documentation for Archetype can be found on [archetype-lang.org](https://archetype-lang.org/docs/introduction). Also, see the material on OpenTezos [here](https://opentezos.com/archetype).
-:::
+## Further reading
 
-#### Further reading:
-
+* [Archetype documentation](https://archetype-lang.org/docs/introduction)
+* [OpenTezos](https://opentezos.com/archetype)
 * [Medium article](https://medium.com/coinmonks/archetype-a-dsl-for-tezos-6f55c92d1035%20)
 * [How To Verify a smart contract with Archetype](https://medium.com/coinmonks/verify-a-smart-contract-with-archetype-6e0ea548e2da%20)

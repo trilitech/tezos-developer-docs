@@ -3,25 +3,24 @@ title: Ligo
 lastUpdated: 29th June 2023
 ---
 
-## Introduction to LIGO
+LIGO is a functional programming language that is intended to be both user-friendly and to avoid patterns that make formal verification difficult.
 
-The LIGO design philosophy can be described as follows:
+LIGO offers two syntaxes:
 
-1. Create a clean simple language with no unnecessary parts.
-2. Offer multiple familiar syntaxes so users can get up and running quickly.
-3. Encourage people to write simple code, so that it's easy to formally verify the compiled output using a project like Mi-Cho-Coq.
-4. Significantly reduce the risk that your smart contract will lose its balance to an avoidable exploit.
+- JsLIGO, a sytax that is inspired by TypeScript/JavaScript
+- CameLIGO, a syntax that is inspired by OCaml
 
-LIGO is a functional language designed to include the features you need while avoiding patterns that make formal verification hard. Most useful smart contracts can express their core functionality in under a thousand lines of code. This makes them a good target for formal methods, and what can't be easily proven can at least be extensively tested. The simplicity of LIGO also keeps its compiled output unbloated. We hope to have a simple, strongly typed language with a low footprint.
+You can use either syntax and compile to Michelson to run on Tezos.
 
-LIGO currently offers two syntaxes:
+To learn LIGO, see these tutorials:
 
- - JsLIGO, a TypeScript/JavaScript-inspired syntax that aims to be familiar to those coming from TypeScript/JavaScript
- - CameLIGO, an OCaml-inspired syntax that allows you to write in a functional style
+- [Deploy a smart contract with CameLIGO](../../tutorials/smart-contract/cameligo)
+- [Deploy a smart contract with jsLIGO](../../tutorials/smart-contract/jsligo)
 
 Let's define a LIGO contract in the two flavours above.
 
-### CameLIGO
+## CameLIGO
+
 ```
 type storage = int
 
@@ -40,7 +39,7 @@ let main (action, store : parameter * storage) : return =
    | Reset       -> 0)
 ```
 
-### JsLIGO
+## JsLIGO
 
 ```
 type storage = int;
@@ -66,7 +65,9 @@ let main = (action: parameter, store: storage) : return_ => {
 
 This LIGO contract accepts the following LIGO expressions: `Increment(n)`, `Decrement(n)` and `Reset`. Those serve as `entrypoint` identification.
 
-:::note
-You can find [documentation](https://ligolang.org/docs/intro/introduction?lang=jsligo) of LIGO on its website along with [tutorials](https://ligolang.org/docs/tutorials/getting-started?lang=jsligo) there. Also, see the material on [OpenTezos](https://opentezos.com/ligo).
-:::
+## Further reading
+
+- [LIGO documentation](https://ligolang.org/docs/intro/introduction?lang=jsligo)
+- [LIGO tutorials](https://ligolang.org/docs/tutorials/getting-started?lang=jsligo)
+- [OpenTezos](https://opentezos.com/ligo)
 
