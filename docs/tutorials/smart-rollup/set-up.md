@@ -1,5 +1,4 @@
 ---
-id: set-up
 title: "Part 1: Setting up the application"
 lastUpdated: 25th October 2023
 ---

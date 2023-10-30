@@ -1,5 +1,4 @@
 ---
-id: optimize
 title: "Part 3: Optimizing the kernel"
 lastUpdated: 25th October 2023
 ---

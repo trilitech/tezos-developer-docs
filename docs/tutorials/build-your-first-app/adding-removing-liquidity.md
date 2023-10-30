@@ -1,5 +1,4 @@
 ---
-id: adding-removing-liquidity
 title: "Part 4: Adding and removing liquidity"
 authors: 'Claude Barde, Tim McMackin'
 lastUpdated: 12th September 2023
@@ -19,7 +18,7 @@ The interface for staking tokens looks similar to the interface for swapping, bu
 The user enters a token amount in one of the fields and the app calculates the amount of the other token in the other field.
 Then, it displays the amount of SIRS tokens that the user receives, as in this picture:
 
-![The interface for adding liquidity](/images/build-your-first-app/add-liquidity-ui.png "Add liquidity UI")
+![The interface for adding liquidity](/img/tutorials/add-liquidity-ui.png "Add liquidity UI")
 
 ## Calculating token amounts
 
@@ -185,7 +184,7 @@ Now the app uses can add liquidity to the Liquidity Baking contract and invest t
 The transaction to remove liquidity requires only the amount of SIRS that the user wants to exchange for tzBTC and XTZ.
 Therefore, the UI shows only one input field:
 
-![RemoveLiquidity UI](/images/build-your-first-app/remove-liquidity-ui.png "Remove liquidity UI")
+![RemoveLiquidity UI](/img/tutorials/remove-liquidity-ui.png "Remove liquidity UI")
 
 The app uses the `removeLiquidityXtzTzbtcOut` function in the `src/lbUtils.ts` file to calculate the amount of XTZ and tzBTC that the user receives:
 

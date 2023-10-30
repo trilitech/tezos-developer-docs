@@ -1,25 +1,37 @@
 ---
-title: Tezos Documentation Tutorials
-pageTitle: Tezos Developer Documentation and Reference
-description: >-
-  Get started building on Tezos today. This collection of guides will take you
-  through writing your first smart contract, using the Unity SDK, and building
-  an NFT Marketplace.
+title: Tutorials
 ---
 
-Welcome to the Tezos Documentation Tutorials Portal. We're currently in _beta_. Please share your [feedback](https://github.com/trilitech/tezos-developer-docs/issues/new/choose) to help us improve. {% .lead %}
+These tutorials can help you get started developing different kinds of applications on Tezos in as little as 15 minutes.
 
-{% lg-links %}
+import GridContainer from '@site/src/components/GridContainer';
+import GridItem from '@site/src/components/GridItem';
 
-{% lg-link title="Deploy your first smart contract" icon="deploy" href="/tutorials/deploy-your-first-smart-contract/" description="In 15 minutes, go from zero to hero and deploy your first smart contract with SmartPy/LIGO" /%}
+## Beginner
 
-{% lg-link title="Smart Rollups" icon="quickstart" href="/tutorials/smart-rollups" description="Get started by deploying your own smart rollup with our onboarding tutorial" /%}
+These tutorials are intended for developers who are starting work with Tezos:
 
-{% lg-link title="Create an NFT" icon="token" href="/tutorials/create-an-nft" description="Learn how to originate your own NFT FA2 contract and mint NFTs" /%}
+<GridContainer>
 
-{% lg-link title="Build an NFT marketplace" icon="marketplace" href="/tutorials/build-an-nft-marketplace" description="Learn how to build your own NFT marketplace, with LIGO smart contracts and frontend, in 4 parts" /%}
+  <GridItem title="Deploy a smart contract" icon="deploy" href="./tutorials/smart-contract" description="In 15 minutes, go from zero to hero and deploy your first smart contract with your choice of JavaScript, OCaml, or Python-like languages" />
 
-{% lg-link title="Build your First App on Tezos" icon="app" href="/tutorials/build-your-first-app/" description="Learn how to set up and create a decentralized web application on Tezos using TypeScript, Taquito and Svelte" /%}
+  <GridItem title="Create an NFT from the command line" icon="token" href="./tutorials/create-an-nft/nft-tznft" description="Learn about NFTs and how to create them from files on your computer" />
 
+  <GridItem title="Create a web app that mints NFTs" icon="token" href="./tutorials/create-an-nft/nft-tznft" description="Learn about NFTs and how to create them with a web application" />
 
-{% /lg-links %}
+  <GridItem title="Build your first app on Tezos" icon="app" href="./tutorials/build-your-first-app/" description="Learn how to set up and create a decentralized web application on Tezos using TypeScript, Taquito, and Svelte" />
+
+</GridContainer>
+
+## Advanced
+
+These tutorials are intended for developers who are familiar with Tezos and want to get into more powerful applications:
+
+<GridContainer>
+
+  <GridItem title="Build an NFT marketplace" icon="marketplace" href="#" description="Learn how to build a marketplace to buy and sell different kinds of tokens with LIGO smart contract templates" />
+
+  <GridItem title="Deploy a smart rollup" icon="quickstart" href="./tutorials/smart-rollup" description="Learn how to deploy a smart rollup to handle large amounts of processing off the main chain" />
+
+</GridContainer>
+

@@ -1,5 +1,4 @@
 ---
-id: nft-taquito
 title: Create a web app that mints NFTs
 authors: 'Sol Lederer, Tim McMackin'
 lastUpdated: 20th September 2023
@@ -41,11 +40,11 @@ The application that you set up in this tutorial has three parts:
 This diagram shows what happens when the user creates an NFT with the application.
 The rest of this tutorial covers these steps in detail:
 
-![Flow diagram of the tutorial application and interaction between the user and the parts of the application](/images/nft-create/taquito-application-flow.png)
+![Flow diagram of the tutorial application and interaction between the user and the parts of the application](/img/tutorials/taquito-application-flow.png)
 
 The frontend application looks like this, with fields for the image to represent the NFT and for its metadata:
 
-![The home page of the frontend application](/images/nft-create/taquito-application-home.png)
+![The home page of the frontend application](/img/tutorials/taquito-application-home.png)
 
 ## Prerequisites
 
@@ -75,7 +74,7 @@ IPFS requires authentication just like blockchain transactions, so in this secti
 
 1. On the Create New API Key page, expand **API Endpoint Access > Pinning** and enable the `pinFileToIPFS` and `pinJSONToIPFS` permissions, as in this picture:
 
-   ![Selecting the permissions for the Pinata key](/images/nft-create/pinata-key-permissions.png)
+   ![Selecting the permissions for the Pinata key](/img/tutorials/pinata-key-permissions.png)
 
 1. In the **Key Name** field, give the key a name, such as "My Key."
 
@@ -88,7 +87,7 @@ You need these values in the next section.
 
    You can see the new API key on the API Keys tab:
 
-   ![The new Pinata API key in the Pinata web app](/images/nft-create/created-pinata-key.png)
+   ![The new Pinata API key in the Pinata web app](/img/tutorials/created-pinata-key.png)
 
 Now your applications can use your Pinata account to pin NFT data to IPFS.
 
@@ -271,7 +270,7 @@ For this contract, the initial storage state is in the comment at the end of the
 ## Originate (deploy) the smart contract to the testnet
 
 There are many ways to originate a contract on Tezos.
-For a tutorial on using the command line, see [Deploy a smart contract](../../deploy-your-first-smart-contract/).
+For a tutorial on using the command line, see [Deploy a smart contract](../smart-contract/).
 
 Before you originate your contract to the main Tezos network (referred to as *mainnet*), you can originate it to a testnet.
 Testnets are useful for testing Tezos operations because testnets provide tokens for free so you can work with Tezos without spending real tokens.
@@ -285,7 +284,7 @@ Follow these steps to originate the smart contract to Tezos:
 1. At the top right, click the **Network** drop-down list and next to **Tezos**, select the **Ghostnet** testnet.
 The network changes to the Ghostnet testnet, as in this picture:
 
-   ![The IDE menu, showing the Ghostnet testnet selected](/images/nft-create/web-ligo-ide-ghostnet.png)
+   ![The IDE menu, showing the Ghostnet testnet selected](/img/tutorials/web-ligo-ide-ghostnet.png)
 
 1. Create an account to use to originate the contract:
 
@@ -311,7 +310,7 @@ The network changes to the Ghostnet testnet, as in this picture:
 
    1. When you see a message that the tokens are sent to your address, go back to the web IDE, open the "Keypair Manager" window and verify that the account has tokens, as in this example:
 
-      ![The IDE Keypair Manager window, showing an account with funds](/images/nft-create/web-ligo-ide-account.png)
+      ![The IDE Keypair Manager window, showing an account with funds](/img/tutorials/web-ligo-ide-account.png)
 
 1. In the IDE, Click the **New** button.
 
@@ -354,7 +353,7 @@ If you see an error, make sure that you copied the entire contract file.
    1. Leave the other fields blank and click **Estimate**.
    The IDE calculates the fees for the deployment.
 
-   1. Click **Deploy** and leave the window open to wait for the contract to be originated.
+   1. Click **Deploy** and leave the window open to wait for the contract to be originate.
 
       Originating the contract can take a few minutes.
       When the transaction completes, the window shows a message that the contract was deployed.
@@ -669,7 +668,7 @@ To test the application, you must have a Tezos wallet and a small amount of XTZ 
 1. Wait for the transaction to complete.
 When it completes, the screen changes to a success message with links to the NFT information, as in this picture:
 
-   ![The success message, with links to the NFT information](/images/nft-create/taquito-application-created-nft.png)
+   ![The success message, with links to the NFT information](/img/tutorials/taquito-application-created-nft.png)
 
    In the "Your NFTs" list, you can click on a number (starting at 0) to see the information that is in the NFT, which includes the name and description that you added and links to data on IPFS.
    The page also shows a link to a block explorer where you can see technical information about the minting transaction.

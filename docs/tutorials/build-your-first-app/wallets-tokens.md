@@ -1,5 +1,4 @@
 ---
-id: wallets-tokens
 title: "Part 2: Accessing wallets and tokens"
 authors: 'Claude Barde, Tim McMackin'
 lastUpdated: 8th September 2023

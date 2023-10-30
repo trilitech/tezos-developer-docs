@@ -1,5 +1,4 @@
 ---
-id: debug
 title: "Part 2: Running the kernel in debug mode"
 lastUpdated: 25th October 2023
 ---

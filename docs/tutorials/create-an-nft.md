@@ -1,13 +1,9 @@
 ---
-id: create-an-nft
 title: Create an NFT
-authors: 'Tim McMackin'
-lastUpdated: 20th September 2023
 ---
 
-These tutorials cover how you can create NFTs on Tezos.
-There are two tutorials that show different ways of creating NFTS:
+There are many ways to create (or "mint") NFTs; in particular, you can create all of the NFTs in a collection at once or set up an application that can create NFTs as users request them.
+Try one of these tutorials to see different ways of minting NFTs:
 
-- The tutorial [Create an NFT with the `tznft` tool](./nft-tznft/) covers how to create NFTs on the command line with the `tznft` tool, a tool that helps you create, test, and manipulate NFTs in a local sandbox before you mint them on the live network.
-
-- The tutorial [Create a web app that mints NFTs](./nft-taquito/) covers how to create a web application that allows users to mint their own NFTs using the [Taquito](https://tezostaquito.io/) JavaScript/TypeScript SDK for Tezos.
+- [Create NFTs with the `tznft` tool](./create-an-nft/nft-tznft): Create metadata files to describe NFTs and then use a command-line tool to mint them and manipulate them
+- [Create a web app that mints NFTs](./create-an-nft/nft-taquito): Set up a web application that authorized users can use to create NFTs and all users can use to see the NFTs in a collection

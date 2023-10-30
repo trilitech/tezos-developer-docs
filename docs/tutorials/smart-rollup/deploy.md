@@ -1,5 +1,4 @@
 ---
-id: deploy
 title: "Part 4: Deploying (originating) the rollup"
 lastUpdated: 25th October 2023
 ---

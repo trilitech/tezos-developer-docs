@@ -1,5 +1,4 @@
 ---
-id: swapping-tokens
 title: "Part 3: Swapping tokens"
 authors: 'Claude Barde, Tim McMackin'
 lastUpdated: 11th September 2023
@@ -12,7 +11,7 @@ Your application must make several calculations to create a valid swap request.
 
 When complete, the app UI will look like this:
 
-![The swap user interface section, showing fields for the input and output amounts](/images/build-your-first-app/swap-ui.png "Swap UI")
+![The swap user interface section, showing fields for the input and output amounts](/img/tutorials/swap-ui.png "Swap UI")
 
 The text field on the left is editable; the user can enter the amount of XTZ or tzBTC to exchange or click the "Max" button to set the field to the total amount of that token in the wallet.
 The field on the right is not editable; it shows the corresponding amount that they will get of the other token.

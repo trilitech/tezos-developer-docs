@@ -1,6 +1,5 @@
 ---
-id: nft-tznft
-title: Create an NFT with the `tznft` tool
+title: Create NFTs with the `tznft` tool
 authors: 'Sol Lederer, Tim McMackin'
 lastUpdated: 18th September 2023
 ---
@@ -13,7 +12,7 @@ In this tutorial, you will learn:
 - What NFTs are
 - How to install and start a local Tezos sandbox environment
 - How to create metadata files to describe NFT collections and individual NFTs
-- How to create (or _mint_) the NFTs in the sandbox
+- How to deploy (or _mint_) the NFTs to the sandbox
 - How to transfer NFTs and change operator permissions for them
 - How to mint NFTs to a testnet
 
@@ -26,7 +25,6 @@ NFTs can represent ownership over digital or physical assets like virtual collec
 
 Like other types of Tezos tokens, a collection of NFTs is managed by a smart contract.
 The smart contract defines what information is in each token and how the tokens behave, such as what happens when a user transfers an NFT to another user.
-It also keeps a ledger that records which account owns each NFT.
 
 In this tutorial, you create NFTs that comply with the FA2 standard (formally known as the [TZIP-12](https://gitlab.com/tezos/tzip/-/blob/master/proposals/tzip-12/tzip-12.md) standard), the current standard for tokens on Tezos.
 The FA2 standard creates a framework for how tokens behave on Tezos, including fungible, non-fungible, and other types of tokens.
@@ -106,7 +104,7 @@ Make sure to start Docker Desktop after you install it.
    You can verify that the sandbox is running by running the command `docker ps` and looking for a container named `flextesa-sandbox`.
    To stop the container, run the command `tznft kill-sandbox`, but beware that stopping the container sets the sandbox back to its initial state, which removes any changes you made or contracts or tokens that you created.
 
-   Unlike the live Tezos networks, this sandbox bakes a new block every 5 seconds, by default.
+   Unlike the live Tezos networks, this sandbox bakes a new block every 5 seconds.
    Therefore, commands that you run on the sandbox can take a few seconds to complete.
 
 ## Create NFT metadata
@@ -225,29 +223,28 @@ Because storage space on blockchains is expensive, developers don't put entire t
 Instead, they configure decentralized storage for the NFT data and put only the link to that data on Tezos itself.
 In this section, you set up storage for the NFT metadata using the InterPlanetary File System (IPFS) protocol.
 
-There are many services that provide access to IPFS, but in this tutorial you use the [Pinata](https://www.pinata.cloud/) IPFS provider.
-Pinata requires authentication, so in this section you set up an account with Pinata and use it to upload (or _pin_) the NFT data to IPFS.
+IPFS requires authentication just like blockchain transactions, so in this section you set up an account with the Pinata IPFS provider and use it to upload (or _pin_) the NFT data to IPFS.
 
 1. Create a free Pinata account at <https://app.pinata.cloud/developers/api-keys>.
 
 1. Go to the API Keys tab and click **New Key**.
 
-1. On the Create New API Key page, expand **API Endpoint Access > Pinning,** and enable the `pinFileToIPFS` permission, as in this picture:
+1. On the Create New API Key page, expand API Endpoint Access and enable the `pinFileToIPFS` permission, as in this picture:
 
-   ![Selecting the permissions for the Pinata key](/images/nft-create/pinata-key-permissions.png)
+   ![Selecting the permissions for the Pinata key](/img/tutorials/pinata-key-permissions.png)
 
 1. In the **Key Name** field, give the key a name, such as "My Key."
 
 1. Click **Create Key**.
 
-   The API Key Info window shows the API key and secret, which you must copy immediately, because they are not shown again.
+   The API Key Info window shows the API key and secret, which you must copy immediately, because it is not shown again.
 
 1. Copy the API Key and API Secret fields and save the values on your computer.
 You need these values in the next section.
 
    You can see the new API key on the API Keys tab:
 
-   ![The new Pinata API key in the Pinata web app](/images/nft-create/created-pinata-key.png)
+   ![The new Pinata API key in the Pinata web app](/img/tutorials/created-pinata-key.png)
 
 1. Add the API key and secret to your local `tznft` configuration by running this command, replacing `$PINATA_KEY` and `$PINATA_SECRET` with your API key and secret:
 
@@ -271,7 +268,7 @@ You need these values in the next section.
 
 1. Optional: Verify that the files are pinned successfully by opening the Pinata app to the Files page, as in this picture:
 
-   ![The Files tab on Pinata, showing three NFT metadata files](/images/nft-create/pinned-nft-meta.png)
+   ![The Files tab on Pinata, showing three NFT metadata files](/img/tutorials/pinned-nft-meta.png)
 
 Now that the metadata is pinned to IPFS, you can create NFTs that link to this metadata.
 
@@ -348,7 +345,7 @@ This command takes the alias or address of the collection, the signer of the tra
 
    Because NFTs are unique, the response shows a balance of 1 if the account owns the token and 0 if it does not, as in this picture:
 
-   ![THe results of the `show-balance` command, with two NFTs in Bob's account](/images/nft-create/show-balance-bob.png)
+   ![THe results of the `show-balance` command, with two NFTs in Bob's account](/img/tutorials/show-balance-bob.png)
 
 1. Use the `tznft show-balance` command to print information about Alice's NFTs:
 
@@ -459,7 +456,7 @@ You can do this in either of these two ways:
          The response includes the hash, public key, and secret key for the wallet.
          For example, in this response, the secret key starts with "edsk3WR":
 
-         ![The keys for the new account](/images/nft-create/new-key-output.png)
+         ![The keys for the new account](/img/tutorials/new-key-output.png)
 
       1. Add the secret key as an alias with the `tznft` command, replacing `$TEZOS_PRIVATE_KEY` with the value of the secret key from the previous command:
 
@@ -520,4 +517,7 @@ tznft transfer --nft my_collection --signer my-account --batch 'my-account, othe
 Now you can create, test, and deploy NFTs locally and to testnets.
 The process for minting NFTs to Tezos mainnet is the same, but you must use an account with real XTZ in it to pay the transaction fees.
 
+<!-- TODO link when this tutorial is migrated
+
 If you want to continue working with these NFTs, try creating a marketplace for them as described in the tutorial [Build an NFT Marketplace](../build-an-nft-marketplace).
+-->

@@ -1,16 +1,16 @@
 ---
-id: first-smart-contract-smartpy
 title: Deploy a smart contract with SmartPy
 authors: 'John Joubert, Sasha Aldrick, Tim McMackin'
-lastUpdated: 13th September 2023
+lastUpdated: 9th October 2023
 ---
 
 This tutorial covers using the Octez command-line client to deploy a smart contract to Tezos.
 The tutorial uses the SmartPy programming language, which is one of the languages that you can write Tezos smart contracts in.
 SmartPy has syntax similar to Python, but you don't need any experience with Python or SmartPy to do this tutorial.
 
-- If you are more familiar with OCaml, try [Deploy a smart contract with CameLIGO](/tutorials/deploy-your-first-smart-contract/ligo).
-- If you are more familiar with JavaScript, try [Deploy a smart contract with jsLIGO](/tutorials/deploy-your-first-smart-contract/jsligo).
+- If you are more familiar with OCaml, try [Deploy a smart contract with CameLIGO](./cameligo).
+- If you are more familiar with JavaScript, try [Deploy a smart contract with jsLIGO](./jsligo).
+- To learn the Archetype language, try [Deploy a smart contract with Archetype](./archetype).
 
 In this tutorial, you will learn how to:
 
@@ -39,62 +39,34 @@ After you deploy the contract, you or any other user can call it through Octez o
 
 To run this tutorial, you need the Octez client, Docker, and SmartPy.
 
-- SmartPy requires Docker, so see <https://www.docker.com/> to install Docker.
-
-- To install the SmartPy programming language, see <https://smartpy.io/manual/introduction/installation>.
-
-- To install the Octez client, which allows you to send transactions to the Tezos blockchain, follow the instructions to install the `tezos-client` package on your system on this site: <http://tezos.gitlab.io/index.html>.
-You need only the `tezos-client` packages, not the other Octez packages such as `tezos-node`.
-
-   You can verify that the Octez client is installed by running this command:
-
-   ```bash
-   octez-client --version
-   ```
-
-   If you see a message with the version of Octez that you have installed, the Octez client is installed correctly.
-   For help on Octez, run `octez-client --help` or see <http://tezos.gitlab.io/index.html>.
-
-## Prerequisites
-
-To run this tutorial, you need the Octez client, Docker, and SmartPy.
-
-- SmartPy requires Docker, so see <https://www.docker.com/> to install Docker.
-
-- To install the SmartPy programming language, see <https://smartpy.io/manual/introduction/installation>.
-
-- To install the Octez client, which allows you to send transactions to the Tezos blockchain, follow the instructions to install the `tezos-client` package on your system on this site: <http://tezos.gitlab.io/index.html>.
-You need only the `tezos-client` packages, not the other Octez packages such as `tezos-node`.
-
-   You can verify that the Octez client is installed by running this command:
-
-   ```bash
-   octez-client --version
-   ```
-
-   If you see a message with the version of Octez that you have installed, the Octez client is installed correctly.
-   For help on Octez, run `octez-client --help` or see <http://tezos.gitlab.io/index.html>.
-
-## Tutorial contract
-
-The contract that you deploy in this tutorial stores a string value.
-It provides entrypoints that clients can call to change the value of that string:
-
-- The `replace` endpoint accepts a new string as a parameter and stores that string, replacing the existing string.
-- The `append` endpoint accepts a new string as a parameter and appends it to the existing string.
-
-After you deploy the contract, you or any other user can call it through Octez or a distributed application (dApp).
-
-## Prerequisites
-
-To run this tutorial, you need the Octez client, Docker, and SmartPy.
-
 - SmartPy requires Docker Desktop, so see <https://www.docker.com/> to install Docker Desktop.
 
 - To install the SmartPy programming language, see <https://smartpy.io/manual/introduction/installation>.
 
-- To install the Octez client, which allows you to send transactions to the Tezos blockchain, follow the instructions to install the `tezos-client` package on your system on this site: <http://tezos.gitlab.io/index.html>.
-You need only the `tezos-client` packages, not the other Octez packages such as `tezos-node`.
+- To install the Octez client, which allows you to send transactions to the Tezos blockchain, use your operating system's package manager:
+
+   - For MacOS, run these commands:
+
+   ```bash
+   brew tap serokell/tezos-packaging-stable https://github.com/serokell/tezos-packaging-stable.git
+   brew install tezos-client
+   ```
+
+   - For Ubuntu, Windows WSL, and Linux distributions that use `apt`, run these commands:
+
+   ```bash
+   REPO="ppa:serokell/tezos"
+   sudo add-apt-repository -y $REPO && sudo apt-get update
+   sudo apt-get install -y tezos-client
+   ```
+
+   - For Fedora and Linux distributions that use Copr, run these commands:
+
+   ```bash
+   REPO="@Serokell/Tezos"
+   dnf copr enable -y $REPO && dnf update -y
+   dnf install -y tezos-client
+   ```
 
    You can verify that the Octez client is installed by running this command:
 
@@ -104,6 +76,8 @@ You need only the `tezos-client` packages, not the other Octez packages such as 
 
    If you see a message with the version of Octez that you have installed, the Octez client is installed correctly.
    For help on Octez, run `octez-client --help` or see <http://tezos.gitlab.io/index.html>.
+
+   For more detailed installation instructions, see [How to get Tezos](http://tezos.gitlab.io/introduction/howtoget.html).
 
 SmartPy is a high-level programming language that you can use to write smart contracts for the Tezos blockchain.
 
@@ -141,7 +115,7 @@ Follow these steps to set your Octez client to use a testnet instead of the main
 
 1. On <https://teztnets.xyz/>, click the testnet to use, such as Ghostnet.
 
-1. Copy the one of the testnets' public RPC endpoints, such as `https://rpc.ghostnet.teztnets.xyz`.
+1. Copy the one of the testnet's public RPC endpoints, such as `https://rpc.ghostnet.teztnets.xyz`.
 
 1. Set your Octez client to use this testnet by running this command on the command line, replacing the testnet RPC URL with the URL that you copied:
 
@@ -200,7 +174,7 @@ It may take a few minutes for the faucet to send the tokens and for those tokens
 
    You can use the faucet as much as you need to get tokens on the testnet, but those tokens are worthless and cannot be used on mainnet.
 
-   ![Fund your wallet using the Ghostnet Faucet](/images/wallet-funding.png)
+   ![Fund your wallet using the Ghostnet Faucet](/img/tutorials/wallet-funding.png)
 
 1. Run this command to check the balance of your wallet:
 
@@ -260,7 +234,7 @@ Follow these steps to create the code for the contract:
    The contract has an `__init__` function, which runs when the contract is deployed.
    In this case, the function sets the initial value of the storage to a parameter that you pass when you deploy the contract.
    This storage value is a string, but the storage can be another primitive type such as an integer or timestamp, or a complex data type that contains multiple values.
-   For more information on contract data types, see [Smart contract concepts](../../../smart-contracts/smart-contracts-concepts/).
+   For more information on contract data types, see [Data types](../../smart-contracts/data-types).
 
 1. Add this code that creates the tests:
 
@@ -283,7 +257,7 @@ Follow these steps to create the code for the contract:
    These tests run automatically on compilation to verify that the replace and append endpoints work.
    For more information about SmartPy and tests, see the [SmartPy documentation](https://smartpy.io/).
 
-## Test and compile the contract
+## Testing and compiling the contract
 
 Before you can deploy the contract to Tezos, you must compile it to Michelson, the base language of Tezos contracts.
 The compilation process automatically runs the tests in the `store_greeting.py` file.
@@ -349,7 +323,7 @@ Originating the contract requires a small amount of Tezos tokens as a fee.
 
   1. Go to the Storage tab to see that the initial value of the storage is "Hello".
 
-![Confirmation that all worked correctly](/images/storage_success.png)
+![Confirmation that all worked correctly](/img/tutorials/storage_success.png)
 
 ## Calling the contract
 
@@ -375,5 +349,5 @@ octez-client --wait none transfer 0 from $MY_TZ_ADDRESS to storeGreeting --entry
 Now the contract is running on the Tezos blockchain.
 You or any other user can call it from any source that can send transactions to Tezos, including Octez, dApps, and other contracts.
 
-If you want to continue working with this contract, try creating a dApp to call it from a web application, similar to the dApp that you create in the tutorial [Build your first app on Tezos](../../build-your-first-app/).
+If you want to continue working with this contract, try creating a dApp to call it from a web application, similar to the dApp that you create in the tutorial [Build your first app on Tezos](../build-your-first-app/).
 You can also try adding your own endpoints and originating a new contract, but you cannot update the existing contract after it is deployed.

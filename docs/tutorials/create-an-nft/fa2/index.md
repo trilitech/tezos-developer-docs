@@ -88,9 +88,9 @@ Let's originate such an unpaused empty contract while setting the
 ┃ Operation hash is 'opa4ZVgJGkXzeRypcnqso1CF8LrgVEYq4R2QwGkFT2kzw2L9Tqp'
 ┃ Waiting for the operation to be included...
 ┃ Operation found in block: BM2FVXcXeYxBaDPkt1X2etZrnkJTG19pazm6wd5FVCrxGm6tS2o (pass: 3, offset: 0)
-┃ 
+┃
 ┃ ...
-┃ 
+┃
 ┃           tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb ... -ꜩ0.257
 ┃ New contract KT1FQrHRqqqZ23Md9Ec5KJ3WK66fNxi9izZJ originated.
 ┃ The operation has only been included 0 blocks ago.
@@ -132,9 +132,9 @@ For instance, let's, as `administrator`, mint 100 `TK0` tokens to `alice`:
 ┃ Operation hash is 'ooL9T4cK1RyYz4HxjfyixPW3n5iJf2hX6G47iQToa7sDTb6fjHr'
 ┃ Waiting for the operation to be included...
 ┃ Operation found in block: BMGWJeRyTtUL2Pi9xgAi3MU7kkgMCr4pUeYALaVhQAi4uJS37ae (pass: 3, offset: 0)
-┃ 
+┃
 ┃ ...
-┃ 
+┃
 ┃       Consumed gas: 117731
 ┃       Balance updates:
 ┃         tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb ... -ꜩ0.163
@@ -174,9 +174,9 @@ Here we, as `alice`, transfer 5 of our 100 TK0 to `bob`:
 ┃ Waiting for the operation to be included...
 ┃ Operation found in block: BM2yNL1kjRJvrSeuzX2P6iid4f5Fx7JBjn2K2MYYsYTF3eFcVQ4 (pass: 3, offset: 0)
 ┃ This sequence of operations was run:
-┃ 
+┃
 ┃ ...
-┃ 
+┃
 ┃       Consumed gas: 119800
 ┃       Balance updates:
 ┃         tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb ... -ꜩ0.067
@@ -232,9 +232,9 @@ read the error message:
  $ tezos-client run script get-balance.tz on storage Unit \
                 and input \
                 "$(tezos-client get contract storage for myfa2)"
-‖ 
+‖
 ‖ ...
-‖ 
+‖
 ‖   22:     GET ; # Get the value in the ledger at the above key
 ‖   23:     FAILWITH
 ‖   24:  };
@@ -275,7 +275,11 @@ Two environment variables can be used to configure
 
 See command `fatoo show-client-uri-documentation`:
 
-<!-- output of fatoo show-client-uri-doc --><blockquote>
+{% comment %}
+output of fatoo show-client-uri-doc
+{% /comment %}
+
+<blockquote>
 
 The URI follows the usual pattern:
 `<scheme>://<host>:<port>/<path>?<options>`:
@@ -690,9 +694,9 @@ a few XTZ as amount:
                 to "$(cat kt1_mutran_contract.txt)" \
                 --entrypoint transfer \
                 --arg '{}' --burn-cap 1
-┃ 
+┃
 ┃ ...
-┃ 
+┃
 ┃       Balance updates:
 ┃         tz1NkpWhHsBSZHPg2Ljz2hycRiZvcYdcyu85 ... -ꜩ1000
 ┃         KT1Qmqtc6pYnivEkR1Pedt684XSH4RjmoU6w ... +ꜩ1000
@@ -731,9 +735,9 @@ called `mutez_transfer` and takes a pair `mutez × address`:
                 --entrypoint mutez_transfer \
                 --arg "Pair 1000000000 \"${admin_pkh}\"" \
                 --burn-cap 1
-┃ 
+┃
 ┃ ...
-┃ 
+┃
 ┃         Balance updates:
 ┃           KT1Qmqtc6pYnivEkR1Pedt684XSH4RjmoU6w ... -ꜩ1000
 ┃           tz1ZnxqPNMXyiZLTANYJLJ9ZTBpQ5Qu16BXe ... +ꜩ1000

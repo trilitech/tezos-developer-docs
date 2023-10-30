@@ -1,5 +1,4 @@
 ---
-id: run
 title: "Part 5: Running and interacting with the rollup node"
 lastUpdated: 25th October 2023
 ---
@@ -88,7 +87,7 @@ Now you can send messages to this rollup via Tezos layer 1 and act on them in th
 
 ## Next steps
 
-{% comment %}
+<!--
 Commenting this out because there's not enough info for a tutorial user to do this without further information; consider adding this because it would be good to be able to send messages (that is, call contracts) from the rollup, and I don't know how you'd do that in the sandbox.
 
 Currently, your rollup and kernel are running in sandbox mode.
@@ -101,7 +100,7 @@ The workflow for deploying to a testnet is similar to the workflow that you used
 1. Originate the rollup to the testnet
 1. Start the rollup node
 1. Check the log file
-{% /comment %}
+-->
 
 To continue your work with smart rollups, you can you can explore examples from the [kernel gallery](https://gitlab.com/tezos/kernel-gallery/-/tree/main/) or create your own.
 

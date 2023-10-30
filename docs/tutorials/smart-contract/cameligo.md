@@ -1,5 +1,4 @@
 ---
-id: first-smart-contract-ligo
 title: Deploy a smart contract with CameLIGO
 authors: 'John Joubert, Sasha Aldrick, Claude Barde, Tim McMackin'
 lastUpdated: 13th September 2023
@@ -9,8 +8,9 @@ This tutorial covers using the Octez command-line client to deploy a smart contr
 The tutorial uses the LIGO programming language, which is one of the languages that you can write Tezos smart contracts in.
 Specifically, this tutorial uses the CameLIGO version of LIGO, which has syntax similar to OCaml, but you don't need any experience with OCaml or LIGO to do this tutorial.
 
-- If you are more familiar with JavaScript, try [Deploy a smart contract with jsLIGO](/tutorials/deploy-your-first-smart-contract/jsligo).
-- If you are more familiar with Python, try [Deploy a smart contract with SmartPy](/tutorials/deploy-your-first-smart-contract/smartpy).
+- If you are more familiar with JavaScript, try [Deploy a smart contract with jsLIGO](./jsligo).
+- If you are more familiar with Python, try [Deploy a smart contract with SmartPy](./smartpy).
+- To learn the Archetype language, try [Deploy a smart contract with Archetype](./archetype).
 
 In this tutorial, you will learn how to:
 
@@ -49,8 +49,30 @@ You can verify that LIGO is installed by running this command:
 
    If you see a message with the version of LIGO you have installed, LIGO is installed correctly.
 
-- To install the Octez client, which allows you to send transactions to the Tezos blockchain, follow the instructions to install the `tezos-client` package on your system on this site: <http://tezos.gitlab.io/index.html>.
-You need only the `tezos-client` packages, not the other Octez packages such as `tezos-node`.
+- To install the Octez client, which allows you to send transactions to the Tezos blockchain, use your operating system's package manager:
+
+   - For MacOS, run these commands:
+
+   ```bash
+   brew tap serokell/tezos-packaging-stable https://github.com/serokell/tezos-packaging-stable.git
+   brew install tezos-client
+   ```
+
+   - For Ubuntu, Windows WSL, and Linux distributions that use `apt`, run these commands:
+
+   ```bash
+   REPO="ppa:serokell/tezos"
+   sudo add-apt-repository -y $REPO && sudo apt-get update
+   sudo apt-get install -y tezos-client
+   ```
+
+   - For Fedora and Linux distributions that use Copr, run these commands:
+
+   ```bash
+   REPO="@Serokell/Tezos"
+   dnf copr enable -y $REPO && dnf update -y
+   dnf install -y tezos-client
+   ```
 
    You can verify that the Octez client is installed by running this command:
 
@@ -60,6 +82,8 @@ You need only the `tezos-client` packages, not the other Octez packages such as 
 
    If you see a message with the version of Octez that you have installed, the Octez client is installed correctly.
    For help on Octez, run `octez-client --help` or see <http://tezos.gitlab.io/index.html>.
+
+   For more detailed installation instructions, see [How to get Tezos](http://tezos.gitlab.io/introduction/howtoget.html).
 
 LIGO is a high-level programming language created by Marigold to write smart contracts for the Tezos blockchain.
 
@@ -100,7 +124,7 @@ Follow these steps to set your Octez client to use a testnet instead of the main
 
 1. On <https://teztnets.xyz/>, click the testnet to use, such as Ghostnet.
 
-1. Copy the one of the testnets' public RPC endpoints, such as `https://rpc.ghostnet.teztnets.xyz`.
+1. Copy the one of the testnet's public RPC endpoints, such as `https://rpc.ghostnet.teztnets.xyz`.
 
 1. Set your Octez client to use this testnet by running this command on the command line, replacing the testnet RPC URL with the URL that you copied:
 
@@ -159,7 +183,7 @@ It may take a few minutes for the faucet to send the tokens and for those tokens
 
    You can use the faucet as much as you need to get tokens on the testnet, but those tokens are worthless and cannot be used on mainnet.
 
-   ![Fund your wallet using the Ghostnet Faucet](/images/wallet-funding.png)
+   ![Fund your wallet using the Ghostnet Faucet](/img/tutorials/wallet-funding.png)
 
 1. Run this command to check the balance of your wallet:
 
@@ -179,7 +203,7 @@ The contract that you will create has these basic parts:
 
 - A type that describes the contract's storage, in this case an integer.
 The storage can be a primitive type such as an integer, string, or timestamp, or a complex data type that contains multiple values.
-For more information on contract data types, see [Smart contract concepts](../../../smart-contracts/smart-contracts-concepts/).
+For more information on contract data types, see [Data types](../../smart-contracts/data-types).
 
 - Internal functions called entrypoints that run code when clients call the contract.
 
@@ -251,7 +275,7 @@ type returnValue = operation list * storage
   [], 0
 ```
 
-## Test and compile the contract
+## Testing and compiling the contract
 
 Before you can deploy the contract to Tezos, you must compile it to Michelson, the base language of Tezos contracts.
 
@@ -352,5 +376,5 @@ You can go back to the block explorer to verify that the storage of the contract
 Now the contract is running on the Tezos blockchain.
 You or any other user can call it from any source that can send transactions to Tezos, including Octez, dApps, and other contracts.
 
-If you want to continue working with this contract, try creating a dApp to call it from a web application, similar to the dApp that you create in the tutorial [Build your first app on Tezos](../../build-your-first-app/).
+If you want to continue working with this contract, try creating a dApp to call it from a web application, similar to the dApp that you create in the tutorial [Build your first app on Tezos](../build-your-first-app/).
 You can also try adding your own endpoints and originating a new contract, but you cannot update the existing contract after it is deployed.

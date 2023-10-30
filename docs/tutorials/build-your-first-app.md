@@ -1,5 +1,4 @@
 ---
-id: build-your-first-app
 title: Build your first app on Tezos
 authors: 'Claude Barde, Tim McMackin'
 lastUpdated: 12th September 2023
@@ -42,7 +41,7 @@ Later, users can return the SIRS and withdraw their XTZ and tzBTC with interest.
 In this tutorial, you build a web application that allows users to swap tokens via the LB contract and to add and withdraw tokens from its liquidity pool.
 The token swap portion of the application looks like this:
 
-![Swap UI](/images/build-your-first-app/swap-ui.png "Swap UI")
+![Swap UI](/img/tutorials/swap-ui.png "Swap UI")
 
 The application can perform many individual actions, including:
 

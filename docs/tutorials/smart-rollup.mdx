@@ -1,8 +1,10 @@
 ---
-id: smart-rollups
-title: Introduction
+title: Deploy a smart rollup
 lastUpdated: 11th October 2023
 ---
+
+import LucidDiagram from '@site/src/components/LucidDiagram';
+
 This tutorial covers how to deploy a smart rollup in a Tezos sandbox.
 To run this tutorial, you should have a basic understanding of how Tezos works and the ability to use the command-line terminal on your computer.
 
@@ -12,11 +14,6 @@ In this tutorial, you will learn:
 - How information passes between Tezos and smart rollups
 - How to respond to messages from Tezos in a smart rollup
 
-{% comment %}
-It would be good to add:
-- How to send messages from a smart rollup to Tezos
-{% /comment %}
-
 ## What is a smart rollup?
 
 Smart rollups are processing units that run outside the Tezos network but communicate with Tezos on a regular basis.
@@ -25,7 +22,7 @@ Smart rollups use Tezos for information and transactions but can run large appli
 
 In this way, smart rollups allow Tezos to scale to support large, complex applications without slowing Tezos itself.
 The processing that runs on Tezos itself via smart contracts is referred to as _layer 1_ and the processing that smart rollups run is referred to as _layer 2_.
-To learn about running code in smart contracts, see the tutorial [Deploy a smart contract](../deploy-your-first-smart-contract).
+To learn about running code in smart contracts, see the tutorial [Deploy a smart contract](./smart-contract).
 
 Rollups also have an outbox, which consists of calls to smart contracts on layer 1.
 These calls are how rollups send messages back to Tezos.
@@ -37,21 +34,17 @@ Smart rollups can run any kind of applications that they want, such as:
 - Applications that run complex logic on NFTs or other types of tokens
 - Applications that communicate with other blockchains
 
-{% comment %}
+<!--
 TODO Should this intro discuss the reveal data channel?
-{% /comment %}
+-->
 
 Rollups maintain consensus by publishing the hash of their state to Tezos, which other nodes can use to verify the rollup's behavior.
 The specific way that rollups publish their states and maintain consensus is beyond the scope of this tutorial.
-For more information about rollups and their consensus mechanism, see [Smart Optimistic Rollups](../../advanced-topics/smart-rollups/).
+For more information about rollups and their consensus mechanism, see [Smart Optimistic Rollups](../architecture/smart-rollups).
 
 This diagram shows a smart rollup interacting with layer 1 by receiving a message, running processing based on that message, and sending a transaction to layer 1:
 
-{% html htmlWrapperTag="div" %}
-
-<div style="width: 640px; height: 480px; margin: 10px; position: relative;"><iframe allowfullscreen frameborder="0" style="width:640px; height:480px" src="https://lucid.app/documents/embedded/74fd884e-9c71-409e-b7d3-c3a871a17178" id="KYtBl2woQVuV"></iframe></div>
-
-{% /html %}
+<LucidDiagram width="640px" height="480px" src="https://lucid.app/documents/embedded/74fd884e-9c71-409e-b7d3-c3a871a17178" id="KYtBl2woQVuV" />
 
 Smart rollups stay in sync with Tezos by passing messages to Tezos and receiving messages from Tezos and other rollups.
 Each Tezos block contains a global rollups inbox that contains messages from Tezos layer 1 to all rollups.
@@ -75,9 +68,9 @@ Smart rollups are like separate horizontally scaled teams, with Tezos layer 1 as
 
 To run this tutorial, make sure that the following tools are installed:
 
-{% comment %}
+<!--
 TODO Could we install some of the tools in the docker container instead of making them install them locally?
-{% /comment %}
+-->
 
 - [Docker](https://www.docker.com/)
 
@@ -182,7 +175,7 @@ TODO Could we install some of the tools in the docker container instead of makin
 Despite the number of command-line tools needed, the code for the core of the rollup itself is relatively simple.
 This core is called the _kernel_ and is responsible for accepting messages from layer 1 and sending messages to layer 1.
 
-The code for the tutorial application is here: <https://gitlab.com/trili/hello-world-kernel>.
+The code for the tutorial application is here: https://gitlab.com/trili/hello-world-kernel.
 
 The code for the kernel is in the `src/lib.rs` file.
 It is written in the Rust programming language and looks like this:
