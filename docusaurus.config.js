@@ -82,6 +82,9 @@ const config = {
           },
         ],
       },
+      prism: {
+        theme: require('prism-react-renderer/themes/github'),
+      },
       // https://github.com/flexanalytics/plugin-image-zoom
       // Enable click to zoom in to large images
       imageZoom: {

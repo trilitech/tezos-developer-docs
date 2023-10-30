@@ -47,7 +47,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 body {
-  font-family: 'Roboto', sans-serif; 
+  font-family: 'Roboto', sans-serif;
 }
 
 a {
@@ -69,9 +69,9 @@ nav.navbar {
 }
 
 .navbar a {
-  color: #FFFFFF; 
-  text-decoration: none; 
-  transition: color 0.3s; 
+  color: #FFFFFF;
+  text-decoration: none;
+  transition: color 0.3s;
 }
 
 .navbar a:hover {
@@ -160,7 +160,7 @@ nav.navbar {
   font-size: 16px;
   line-height: 26px;
   color: #4A4E52;
-  transition: color 0.3s; 
+  transition: color 0.3s;
 }
 
 .menu__link:hover,
@@ -195,5 +195,8 @@ nav.navbar {
   border: 1px solid #0D61FF
 }
 
-
-
+/* Get code blocks closer to site theme */
+.theme-code-block {
+  --prism-color: #393A34;
+  --prism-background-color: #EEF9FD!important;
+}
