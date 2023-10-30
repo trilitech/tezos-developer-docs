@@ -284,6 +284,20 @@ const sidebars = {
             'tutorials/smart-rollup/run',
           ],
         },
+        {
+          type: 'category',
+          label: 'Build an NFT marketplace',
+          link: {
+            type: 'doc',
+            id: 'tutorials/build-an-nft-marketplace/index',
+          },
+          items: [
+            'tutorials/build-an-nft-marketplace/index',
+            'tutorials/build-an-nft-marketplace/part-2',
+            'tutorials/build-an-nft-marketplace/part-3',
+            'tutorials/build-an-nft-marketplace/part-4',
+          ],
+        },
       ],
     }
   ],
