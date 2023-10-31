@@ -5,19 +5,14 @@
   /* max-width: calc(50% - 30px); */
   /* Adjust the width based on the number of cards */
   height: auto;
-  padding: 30px;
+  width: 350px;
+  padding: 20px;
   border-radius: 10px;
   border: 1px solid #E6E8EE;
   background: #FFFFFF;
   box-shadow: 1px 2px 8px 0px #0000001A;
   margin-bottom: 20px;
   margin-right: 30px;
-}
-
-@media (max-width: 1000px) {
-  .tutorialcard {
-    width: 80%;
-  }
 }
 
 .title {
@@ -53,12 +48,3 @@
   color: #0D61FF;
   margin-top: auto;
 }
-
-/* Adjust font sizes for mobile screens */
-@media screen and (max-width: 768px) {
-  .tutorialcard {
-    padding: 20px;
-    height: 320px;
-  }
-}
-
