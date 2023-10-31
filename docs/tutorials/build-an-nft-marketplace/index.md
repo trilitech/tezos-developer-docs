@@ -453,7 +453,7 @@ yarn dev
 ```
 
 > Note : On a **Mac** :green_apple:, sometimes `sed` commands do not work exactly the same as Unix commands. Look at the start script on package.json for Mac below :
-> `   "dev": "if test -f .env; then sed -i '' \"s/\(VITE_CONTRACT_ADDRESS *= *\).*/\\1$(jq -r 'last(.tasks[]).output[0].address' ../.taq/testing-state.json)/\" .env ; else jq -r '\"VITE_CONTRACT_ADDRESS=\" + last(.tasks[]).output[0].address' ../.taq/testing-state.json > .env ; fi && vite",`
+> `   "dev": "if test -f .env; then sed -i '' \"s/\\(VITE_CONTRACT_ADDRESS *= *\\).*/\\1$(jq -r 'last(.tasks[]).output[0].address' ../.taq/testing-state.json)/\" .env ; else jq -r '\"VITE_CONTRACT_ADDRESS=\" + last(.tasks[]).output[0].address' ../.taq/testing-state.json > .env ; fi && vite",`
 
 The website is ready! You have:
 
