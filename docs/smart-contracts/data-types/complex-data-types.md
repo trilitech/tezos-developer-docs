@@ -208,7 +208,7 @@ If you choose to use a map, take precautions and optimize your code.
 
 Here is a table representing an example of a contract that uses two big-maps:
 
-<table>
+{<table>
   <thead>
     <tr>
       <th>Storage</th>
@@ -268,7 +268,7 @@ Here is a table representing an example of a contract that uses two big-maps:
       </td>
     </tr>
   </tbody>
-</table>
+</table>}
 
 ### Implementation details
 

@@ -42,7 +42,7 @@ Contract A also has an entrypoint named "Add," which adds text to the storage st
 
 This table shows the logic of the entrypoints:
 
-<table>
+{<table>
   <caption>Entrypoint Logic</caption>
   <tbody>
     <tr>
@@ -86,7 +86,7 @@ This table shows the logic of the entrypoints:
       </td>
     </tr>
   </tbody>
-</table>
+</table>}
 
 ## Operation Walkthrough
 

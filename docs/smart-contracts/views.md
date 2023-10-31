@@ -20,7 +20,7 @@ In particular, it doesn't modify the storage of its contract and doesn't generat
 Here is an example that uses a view.
 The following contract is a ledger that handles a fungible token and keeps track of how many tokens are owned by each user.
 
-<table>
+{<table>
   <caption>Ledger contract</caption>
   <thead>
     <tr>
@@ -65,7 +65,7 @@ The following contract is a ledger that handles a fungible token and keeps track
       </td>
     </tr>
   </tbody>
-</table>
+</table>}
 
 Another contract might provide an `equalizeWith` entrypoint such that if they have more tokens than another user, they can make their balances equal (plus or minus one if the total amount is odd).
 The following example code for this contract takes advantage of the `getBalance(user)` view of the first contract: to determine the balance of each user:
