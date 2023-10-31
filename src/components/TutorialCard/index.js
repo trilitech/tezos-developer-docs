@@ -5,7 +5,7 @@ import styles from './styles.module.css';
 export default function TutorialCard({ title, href, description, link, emoji }) {
   return (
     <div className={clsx(styles.tutorialcard)}>
-      <div className="text-title">
+      <div>
         <p className={clsx(styles.emoji)}>{emoji}</p>
         <h3 className={clsx(styles.title)}>{title}</h3>
         <p className={clsx(styles.description)}>{description}</p>
