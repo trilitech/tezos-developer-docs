@@ -12,7 +12,7 @@ This page covers an advanced topic at the bleeding edge of Tezos core developmen
 
 ## Examples
 
-For examples of smart rollups, see this repository: <https://gitlab.com/tezos/kernel-gallery>.
+For examples of smart rollups, see this repository: https://gitlab.com/tezos/kernel-gallery.
 
 ## What is a rollup?
 

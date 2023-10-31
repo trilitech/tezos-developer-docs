@@ -35,7 +35,7 @@ It provides a standard API to transfer tokens, check token balances, manage oper
 To run this tutorial you need Node.JS, NPM, and Docker Desktop to install and use the `tznft` CLI tool, which helps you create and test NFT collections on Tezos.
 
 - Install Node.JS version 18 (not 20) and NPM.
-See <https://nodejs.org/>.
+See https://nodejs.org/.
 You can verify that they are installed by running these commands:
 
    ```bash
@@ -45,7 +45,7 @@ You can verify that they are installed by running these commands:
 
    If you see a message with the versions of Node.JS and NPM, they are installed correctly.
 
-- To install Docker Desktop, see <https://www.docker.com>.
+- To install Docker Desktop, see https://www.docker.com.
 Make sure to start Docker Desktop after you install it.
 
 - To install the `tznft` tool, run this command:
@@ -140,7 +140,7 @@ The first step in creating NFTs is to create local metadata files that describe 
 
    This command creates a metadata file named `Token1.json` with default information about the NFT.
    It includes the minter's account address and URIs to pictures that represent the NFT.
-   In this case, the `ipfs` URI links to a picture of the Tezos logo, which you can see at this link: <https://ipfs.io/ipfs/QmRyTc9KbD7ZSkmEf4e7fk6A44RPciW5pM4iyqRGrhbyvj>.
+   In this case, the `ipfs` URI links to a picture of the Tezos logo, which you can see at this link: https://ipfs.io/ipfs/QmRyTc9KbD7ZSkmEf4e7fk6A44RPciW5pM4iyqRGrhbyvj.
 
 1. Optional: Edit the metadata such as the name and description fields in the `Token1.json` file.
 
@@ -225,7 +225,7 @@ In this section, you set up storage for the NFT metadata using the InterPlanetar
 
 IPFS requires authentication just like blockchain transactions, so in this section you set up an account with the Pinata IPFS provider and use it to upload (or _pin_) the NFT data to IPFS.
 
-1. Create a free Pinata account at <https://app.pinata.cloud/developers/api-keys>.
+1. Create a free Pinata account at https://app.pinata.cloud/developers/api-keys.
 
 1. Go to the API Keys tab and click **New Key**.
 
@@ -464,7 +464,7 @@ You can do this in either of these two ways:
          tznft add-alias my-account $TEZOS_PRIVATE_KEY
          ```
 
-      1. Add funds to the new wallet by going to the Ghostnet faucet at <https://faucet.ghostnet.teztnets.xyz/>, pasting the wallet's hash in the "Or fund any address" field, and clicking a button to request tokens.
+      1. Add funds to the new wallet by going to the Ghostnet faucet at https://faucet.ghostnet.teztnets.xyz/, pasting the wallet's hash in the "Or fund any address" field, and clicking a button to request tokens.
       The wallet needs tokens to pay the fees to create the collection and mint the tokens on Ghostnet.
 
 1. Create the collection on the testnet.
@@ -496,7 +496,7 @@ The command is the same as for the sandbox:
    1. Get the address of the collection on the testnet from the `testnet` section of the `tznft.json` file.
    The address starts with "KT1".
 
-   1. Go to a block explorer, such as <https://tzkt.io>.
+   1. Go to a block explorer, such as https://tzkt.io.
 
    1. Set the block explorer to use testnet instead of Tezos mainnet.
 

@@ -50,8 +50,8 @@ Follow these steps to set up the application to send transactions to the deposit
    ```
 
    The address of the deployed smart contract for this tutorial is `KT1R4i4qEaxF7v3zg1M8nTeyrqk8JFmdGLuu`.
-   You can use this address to look up the status of the contract and see its storage and recent transactions on a block explorer such as <https://better-call.dev/>.
-   For example, this is a link to information about the tutorial contract: <https://better-call.dev/ghostnet/KT1R4i4qEaxF7v3zg1M8nTeyrqk8JFmdGLuu/operations>.
+   You can use this address to look up the status of the contract and see its storage and recent transactions on a block explorer such as https://better-call.dev/.
+   For example, this is a link to information about the tutorial contract: https://better-call.dev/ghostnet/KT1R4i4qEaxF7v3zg1M8nTeyrqk8JFmdGLuu/operations.
 
 1. Add variables to represent the amount that the user is depositing and the state of the UI button for the deposit:
 

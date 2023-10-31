@@ -77,7 +77,7 @@ Now you have an application that can:
 - Send transactions to Tezos
 - Retrieve information about Tezos
 
-The code for the completed application is in this GitHub repository: <https://github.com/trilitech/tutorial-applications/tree/main/bank-tutorial>.
+The code for the completed application is in this GitHub repository: https://github.com/trilitech/tutorial-applications/tree/main/bank-tutorial.
 
 If you want to continue with the application, you can try creating a better UI.
 Here are some ideas:

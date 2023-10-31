@@ -23,7 +23,7 @@ The proof-of-stake consensus model eliminates the need for high energy use, maki
 
 The proof-of-stake model improves scalability and encourages incentive alignment. It also increases the cost of 51% attacks and avoids environmentally wasteful proof-of-work. Tezos launched in June 2018 as one of the first major proof-of-stake networks.
 
-For more information about how Tezos handles proof of stake, see <https://tezos.gitlab.io/alpha/proof_of_stake.html>.
+For more information about how Tezos handles proof of stake, see https://tezos.gitlab.io/alpha/proof_of_stake.html.
 
 ## Tezos accepts multiple languages
 

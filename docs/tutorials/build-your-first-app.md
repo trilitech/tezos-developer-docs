@@ -42,6 +42,6 @@ To access the user's wallet and run transactions on Tezos, the application uses 
 - **[Taquito](https://tezostaquito.io/)** to interact with the Tezos blockchain
 - **[Beacon](https://docs.walletbeacon.io/)** to access users' wallets
 
-The code for the completed application is in this GitHub repository: <https://github.com/trilitech/tutorial-applications/tree/main/bank-tutorial>.
+The code for the completed application is in this GitHub repository: https://github.com/trilitech/tutorial-applications/tree/main/bank-tutorial.
 
 When you're ready, move to the next section to begin setting up the application.

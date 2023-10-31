@@ -40,7 +40,7 @@ After you deploy the contract, you or any other user can call it through Octez o
 
 To run this tutorial, you need the Octez client and LIGO.
 
-- To install the LIGO programming language, see <https://ligolang.org/docs/intro/installation>.
+- To install the LIGO programming language, see https://ligolang.org/docs/intro/installation.
 You can verify that LIGO is installed by running this command:
 
    ```bash
@@ -81,7 +81,7 @@ You can verify that LIGO is installed by running this command:
    ```
 
    If you see a message with the version of Octez that you have installed, the Octez client is installed correctly.
-   For help on Octez, run `octez-client --help` or see <http://tezos.gitlab.io/index.html>.
+   For help on Octez, run `octez-client --help` or see http://tezos.gitlab.io/index.html.
 
    For more detailed installation instructions, see [How to get Tezos](http://tezos.gitlab.io/introduction/howtoget.html).
 
@@ -116,13 +116,13 @@ This is where the contract code goes.
 Before you deploy your contract to the main Tezos network (referred to as *mainnet*), you can deploy it to a testnet.
 Testnets are useful for testing Tezos operations because testnets provide tokens for free so you can work with them without spending real tokens.
 
-Tezos testnets are listed on this site: <https://teztnets.xyz/>.
+Tezos testnets are listed on this site: https://teztnets.xyz/.
 
 The [Ghostnet](https://teztnets.xyz/ghostnet-about) testnet is a good choice for testing because it is intended to be long-lived, as opposed to shorter-term testnets that allow people to test new Tezos features.
 
 Follow these steps to set your Octez client to use a testnet instead of the main network:
 
-1. On <https://teztnets.xyz/>, click the testnet to use, such as Ghostnet.
+1. On https://teztnets.xyz/, click the testnet to use, such as Ghostnet.
 
 1. Copy the one of the testnet's public RPC endpoints, such as `https://rpc.ghostnet.teztnets.xyz`.
 
@@ -175,8 +175,8 @@ The Octez client can manage a local wallet for you, and you can get XTZ tokens o
 
    You need the wallet address to send funds to the wallet, to deploy the contract, and to send transactions to the contract.
 
-1. On the testnets page at <https://teztnets.xyz/>, click the faucet link for the testnet you are using.
-For example, the Ghostnet faucet is at <https://faucet.ghostnet.teztnets.xyz>.
+1. On the testnets page at https://teztnets.xyz/, click the faucet link for the testnet you are using.
+For example, the Ghostnet faucet is at https://faucet.ghostnet.teztnets.xyz.
 
 1. On the faucet page, paste your wallet address into the input field labeled "Or fund any address" and click the button for the amount of XTZ to add to your wallet.
 It may take a few minutes for the faucet to send the tokens and for those tokens to appear in your wallet.

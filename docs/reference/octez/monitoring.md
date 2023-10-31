@@ -159,7 +159,7 @@ sudo systemctl restart netdata
 
 You have in fact two ways to [open your dashboard](https://learn.netdata.cloud/docs/dashboard/how-dashboard-works#open-the-dashboard):
 
-- You can access Netdata's dashboard by navigating to <http://NODE:19999> in your browser (replace NODE by either localhost or the hostname/IP address of a remote node)
+- You can access Netdata's dashboard by navigating to http://NODE:19999 in your browser (replace NODE by either localhost or the hostname/IP address of a remote node)
 
 - You can also use [Netdata Cloud](https://app.netdata.cloud/) to create custom dashboards, monitor several nodes, and invite users to watch your dashboard... It's free of charges and your data are never stored in a remote cloud server, but rather in the local disk of your machines.
 

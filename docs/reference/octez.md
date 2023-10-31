@@ -35,7 +35,7 @@ dnf install -y tezos-client
 
 ### Connecting to a node
 
-Below we'll connect to a community node (<https://ghostnet.tezos.marigold.dev>) on the Ghostnet **testnet**. We'll use the `--endpoint` parameter to update the configuration of the Octez Client on a Ubuntu system:
+Below we'll connect to a community node (https://ghostnet.tezos.marigold.dev) on the Ghostnet **testnet**. We'll use the `--endpoint` parameter to update the configuration of the Octez Client on a Ubuntu system:
 
 `octez-client --endpoint https://ghostnet.tezos.marigold.dev config update`
 

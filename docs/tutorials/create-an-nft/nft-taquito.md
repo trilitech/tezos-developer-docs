@@ -49,7 +49,7 @@ The frontend application looks like this, with fields for the image to represent
 ## Prerequisites
 
 To run this tutorial you need Node.JS and NPM installed.
-See <https://nodejs.org/>.
+See https://nodejs.org/.
 You can verify that they are installed by running these commands:
 
    ```bash
@@ -68,7 +68,7 @@ In this section, you set up storage for the NFT metadata using the InterPlanetar
 
 IPFS requires authentication just like blockchain transactions, so in this section you set up an account with the Pinata IPFS provider and use it to upload (or _pin_) the NFT data to IPFS.
 
-1. Create a free Pinata account at <https://app.pinata.cloud/developers/api-keys>.
+1. Create a free Pinata account at https://app.pinata.cloud/developers/api-keys.
 
 1. Go to the API Keys tab and click **New Key**.
 
@@ -99,7 +99,7 @@ The tutorial application has three parts:
 - The backend application that handles uploading data to IPFS
 - The frontend application that connects to the user's wallet, sends the data to the backend application, and sends the transactions to the smart contract to mint the NFTs
 
-The tutorial application files are in this GiHub repository: <https://github.com/trilitech/tutorial-applications/tree/main/nft-taquito>.
+The tutorial application files are in this GiHub repository: https://github.com/trilitech/tutorial-applications/tree/main/nft-taquito.
 
 If you have the `git` program installed, you can clone the repository with this command:
 
@@ -107,7 +107,7 @@ If you have the `git` program installed, you can clone the repository with this 
 git clone https://github.com/trilitech/tutorial-applications.git
 ```
 
-If you don't have git installed, go to <https://github.com/trilitech/tutorial-applications/tree/main/nft-taquito> and click "Code > Download ZIP" and extra the ZIP file on your computer.
+If you don't have git installed, go to https://github.com/trilitech/tutorial-applications/tree/main/nft-taquito> and click "Code  Download ZIP" and extra the ZIP file on your computer.
 
 Then, go to the application in the `nft-taquito` folder.
 
@@ -275,11 +275,11 @@ For a tutorial on using the command line, see [Deploy a smart contract](../smart
 Before you originate your contract to the main Tezos network (referred to as *mainnet*), you can originate it to a testnet.
 Testnets are useful for testing Tezos operations because testnets provide tokens for free so you can work with Tezos without spending real tokens.
 
-This tutorial uses the online LIGO IDE at <https://ide.ligolang.org/> because you don't have to install any tools to use it.
+This tutorial uses the online LIGO IDE at https://ide.ligolang.org/ because you don't have to install any tools to use it.
 
 Follow these steps to originate the smart contract to Tezos:
 
-1. In a web browser, open the IDE at <https://ide.ligolang.org/>.
+1. In a web browser, open the IDE at https://ide.ligolang.org/.
 
 1. At the top right, click the **Network** drop-down list and next to **Tezos**, select the **Ghostnet** testnet.
 The network changes to the Ghostnet testnet, as in this picture:
@@ -302,7 +302,7 @@ The network changes to the Ghostnet testnet, as in this picture:
 
 1. Send funds to the account from the testnet faucet:
 
-   1. Go to the Ghostnet faucet at <https://faucet.ghostnet.teztnets.xyz/>.
+   1. Go to the Ghostnet faucet at https://faucet.ghostnet.teztnets.xyz/.
 
    1. Put the new account address in the **Or fund any address** field.
 
@@ -644,7 +644,7 @@ To test the application, you must have a Tezos wallet and a small amount of XTZ 
 
 1. Send funds to the wallet from the testnet faucet:
 
-   1. Go to the Ghostnet faucet at <https://faucet.ghostnet.teztnets.xyz/>.
+   1. Go to the Ghostnet faucet at https://faucet.ghostnet.teztnets.xyz/.
 
    1. Put the wallet account address in the **Or fund any address** field.
 
@@ -653,7 +653,7 @@ To test the application, you must have a Tezos wallet and a small amount of XTZ 
    1. When you see a message that the tokens are sent to your address, open your wallet and verify that the tokens are there.
    It can take a few minutes for them to appear.
 
-1. When the frontend application starts, open the web browser to <http://localhost:5173/>.
+1. When the frontend application starts, open the web browser to http://localhost:5173/.
 
 1. Click **Connect your wallet** and approve the connection in your wallet.
 
@@ -673,7 +673,7 @@ When it completes, the screen changes to a success message with links to the NFT
    In the "Your NFTs" list, you can click on a number (starting at 0) to see the information that is in the NFT, which includes the name and description that you added and links to data on IPFS.
    The page also shows a link to a block explorer where you can see technical information about the minting transaction.
 
-To see information about the smart contract and NFT collection, go to a block explorer such as <https://tzkt.io/>, set it to Ghostnet, and enter the address of the smart contract.
+To see information about the smart contract and NFT collection, go to a block explorer such as https://tzkt.io/, set it to Ghostnet, and enter the address of the smart contract.
 The explorer shows information such a list of the tokens in the collection and who owns them.
 You can also see the current state of the storage for the contract.
 

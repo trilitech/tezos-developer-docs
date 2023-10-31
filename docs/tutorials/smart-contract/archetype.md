@@ -36,7 +36,7 @@ It has features that help you write smart contracts, including:
 
 Like the other languages that Tezos accepts, Archetype code is compiled to Michelson to run on the blockchain.
 
-For more information about Archetype, see <https://archetype-lang.org/>.
+For more information about Archetype, see https://archetype-lang.org/.
 
 ## Tutorial contract
 
@@ -59,7 +59,7 @@ To run this tutorial, you need the completium-cli program:
    npm --version
    ```
 
-   If NPM is not installed, install Node.JS on your computer, which includes NPM, from this link: <https://nodejs.org/en>.
+   If NPM is not installed, install Node.JS on your computer, which includes NPM, from this link: https://nodejs.org/en.
 
 1. Install completium-cli by running this command:
 
@@ -91,7 +91,7 @@ https://github.com/completium/completium-cli/issues/45
 Before you deploy your contract to the main Tezos network (referred to as *mainnet*), you can deploy it to a testnet.
 Testnets are useful for testing Tezos operations because testnets provide tokens for free so you can work with them without spending real tokens.
 
-Tezos testnets are listed on this site: <https://teztnets.xyz/>.
+Tezos testnets are listed on this site: https://teztnets.xyz/.
 
 The [Ghostnet](https://teztnets.xyz/ghostnet-about) testnet is a good choice for testing because it is intended to be long-lived, as opposed to shorter-term testnets that allow people to test new Tezos features.
 
@@ -142,7 +142,7 @@ You could use the default accounts that are included in completium-cli, but foll
 1. Copy the address for the account, which is labeled as the "public key hash" in the response to the previous command.
 The address starts with "tz1".
 
-1. On the testnets page at <https://teztnets.xyz/>, click the faucet link for the Ghostnet testnet, which is at <https://faucet.ghostnet.teztnets.xyz>.
+1. On the testnets page at https://teztnets.xyz/>, click the faucet link for the Ghostnet testnet, which is at <https://faucet.ghostnet.teztnets.xyz.
 
 1. On the faucet page, paste your wallet address into the input field labeled "Or fund any address" and click the button for the amount of XTZ to add to your wallet.
 1 XTZ is enough for the tutorial.

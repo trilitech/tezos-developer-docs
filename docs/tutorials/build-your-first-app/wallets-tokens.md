@@ -34,7 +34,7 @@ Ghostnet is a network for testing Tezos applications where tokens are free so yo
 1. From your wallet, get the address of your account, which starts with `tz1`.
 This is the address that applications use to work with your wallet.
 
-1. Go to the Ghostnet faucet page at <https://faucet.ghostnet.teztnets.xyz>.
+1. Go to the Ghostnet faucet page at https://faucet.ghostnet.teztnets.xyz.
 
 1. On the faucet page, paste your wallet address into the input field labeled "Or fund any address" and click the button for the amount of tez to add to your wallet.
 20 tez is enough to work with the tutorial application, and you can return to the faucet later if you need more tez.
@@ -228,7 +228,7 @@ The complete `App.svelte` file looks like this:
 
 ## Using the application
 
-To try the application, run `npm run dev` and open the page <http://localhost:4000/> in a web browser.
+To try the application, run `npm run dev` and open the page http://localhost:4000/ in a web browser.
 
 Because no wallet is connected, the app shows the "Connect wallet" button, as in this picture:
 

@@ -5,7 +5,7 @@ lastUpdated: 18th October 2023
 ---
 
 :::note
-The Tezos testnets are overseen and coordinated by [Oxhead Alpha](https://oxheadalpha.com/). The current testnets and a description of what each is used for are listed at <https://teztnets.xyz/>.
+The Tezos testnets are overseen and coordinated by [Oxhead Alpha](https://oxheadalpha.com/). The current testnets and a description of what each is used for are listed at https://teztnets.xyz/.
 :::
 
 ## Testing without a node
