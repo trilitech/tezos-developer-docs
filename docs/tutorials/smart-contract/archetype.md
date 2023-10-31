@@ -142,7 +142,7 @@ You could use the default accounts that are included in completium-cli, but foll
 1. Copy the address for the account, which is labeled as the "public key hash" in the response to the previous command.
 The address starts with "tz1".
 
-1. On the testnets page at https://teztnets.xyz/>, click the faucet link for the Ghostnet testnet, which is at <https://faucet.ghostnet.teztnets.xyz.
+1. On the testnets page at https://teztnets.xyz/, click the faucet link for the Ghostnet testnet, which is at https://faucet.ghostnet.teztnets.xyz.
 
 1. On the faucet page, paste your wallet address into the input field labeled "Or fund any address" and click the button for the amount of XTZ to add to your wallet.
 1 XTZ is enough for the tutorial.
