@@ -253,6 +253,19 @@ const sidebars = {
           items: [
             'tutorials/create-an-nft/nft-tznft',
             'tutorials/create-an-nft/nft-taquito',
+            {
+              type: 'category',
+              label: 'Mint NFTs from a Web App',
+              link: {
+                type: 'doc',
+                id: 'tutorials/create-an-nft/nft-web-app',
+              },
+              items: [
+                'tutorials/create-an-nft/nft-web-app/setting-up-app',
+                'tutorials/create-an-nft/nft-web-app/defining-functions',
+                'tutorials/create-an-nft/nft-web-app/lets-play',
+              ],
+            },
           ],
         },
         {
