@@ -1,5 +1,5 @@
 ---
-title: Mint NFTs from a Web app
+title: Mint NFTs from a web app
 authors: 'Yuxin'
 lastUpdated: 19th October 2023
 ---

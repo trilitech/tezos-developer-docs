@@ -1,5 +1,5 @@
 ---
-title: "Part 2: Accessing wallets and Minting NFTs"
+title: "Part 2: Accessing wallets and minting NFTs"
 authors: 'Yuxin Li'
 lastUpdated: 20th October 2023
 ---

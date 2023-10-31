@@ -255,7 +255,7 @@ const sidebars = {
             'tutorials/create-an-nft/nft-taquito',
             {
               type: 'category',
-              label: 'Mint NFTs from a Web App',
+              label: 'Mint NFTs from a web app',
               link: {
                 type: 'doc',
                 id: 'tutorials/create-an-nft/nft-web-app',

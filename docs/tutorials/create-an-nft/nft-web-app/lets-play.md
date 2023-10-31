@@ -1,5 +1,5 @@
 ---
-title: "Part 3: Let's Play"
+title: "Part 3: Let's play"
 authors: 'Yuxin Li'
 lastUpdated: 11th September 2023
 ---
