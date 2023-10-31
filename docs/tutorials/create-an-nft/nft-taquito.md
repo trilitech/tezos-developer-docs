@@ -1,5 +1,5 @@
 ---
-title: Create a web app that mints NFTs
+title: Create a contract and web app that mints NFTs
 authors: 'Sol Lederer, Tim McMackin'
 lastUpdated: 20th September 2023
 ---
