@@ -154,10 +154,10 @@ Alternatively (but harder to understand without comments), you can use the speci
 
 ### Implementation details
 
-- Michelson: [Operations on optional values](https://tezos.gitlab.io/active/michelson.html#operations-on-optional-values).
-- LIGO: [Optional values](https://ligolang.org/docs/language-basics/unit-option-pattern-matching#optional-values).
-- SmartPy: [Options](https://smartpy.io/docs/types/options/).
-- Archetype: [Options](https://archetype-lang.org/docs/reference/types#option%3CT%3E).
+- Michelson: [Operations on optional values](https://tezos.gitlab.io/active/michelson.html#operations-on-optional-values)
+- LIGO: [Optional values](https://ligolang.org/docs/language-basics/unit-option-pattern-matching#optional-values)
+- SmartPy: [Options](https://smartpy.io/docs/types/options/)
+- Archetype: [Options](https://archetype-lang.org/docs/reference/types#option%3CT%3E)
 
 ## Big-maps and maps {#big-maps}
 

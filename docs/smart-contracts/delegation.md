@@ -17,6 +17,6 @@ In practice, both the voting power of a contract and the total voting power of a
 
 ## Implementation details
 
-- Michelson: [Operations on contracts](https://tezos.gitlab.io/active/michelson.html#operations-on-contracts).
-- Archetype: [Total voting power](https://archetype-lang.org/docs/reference/expressions/constants#total_voting_power), [Voting power](https://archetype-lang.org/docs/reference/expressions/builtins#voting_power%28k%20:%20key_hash%29), [set_delegate](https://archetype-lang.org/docs/reference/expressions/builtins#set_delegate%28opkh%20:%20option%3Ckey_hash%3E%29).
-- SmartPy: [Operations](https://smartpy.io/manual/syntax/operations).
+- Michelson: [Operations on contracts](https://tezos.gitlab.io/active/michelson.html#operations-on-contracts)
+- Archetype: [Total voting power](https://archetype-lang.org/docs/reference/expressions/constants#total_voting_power), [Voting power](https://archetype-lang.org/docs/reference/expressions/builtins#voting_power%28k%20:%20key_hash%29), [set_delegate](https://archetype-lang.org/docs/reference/expressions/builtins#set_delegate%28opkh%20:%20option%3Ckey_hash%3E%29)
+- SmartPy: [Operations](https://smartpy.io/manual/syntax/operations)

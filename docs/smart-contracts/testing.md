@@ -59,7 +59,7 @@ For more information about avoiding flaws in contracts, see [Avoiding flaws](htt
 
 ## Implementation details
 
-- Michelson: [Mockup mode](https://tezos.gitlab.io/user/mockup.html).
-- Archetype: [Completium test scenario](https://completium.com/docs/contract/test-scenario).
-- SmartPy: [Tests and scenarios](https://smartpy.io/manual/scenarios/overview).
-- LIGO: [Testing LIGO](https://ligolang.org/docs/advanced/testing).
+- Michelson: [Mockup mode](https://tezos.gitlab.io/user/mockup.html)
+- Archetype: [Completium test scenario](https://completium.com/docs/contract/test-scenario)
+- SmartPy: [Tests and scenarios](https://smartpy.io/manual/scenarios/overview)
+- LIGO: [Testing LIGO](https://ligolang.org/docs/advanced/testing)
