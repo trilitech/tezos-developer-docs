@@ -278,8 +278,8 @@ const sidebars = {
           items: [
             'tutorials/build-your-first-app/setting-up-app',
             'tutorials/build-your-first-app/wallets-tokens',
-            'tutorials/build-your-first-app/swapping-tokens',
-            'tutorials/build-your-first-app/adding-removing-liquidity',
+            'tutorials/build-your-first-app/sending-transactions',
+            'tutorials/build-your-first-app/getting-information',
           ],
         },
         {

@@ -1,206 +1,258 @@
 ---
-title: "Part 2: Accessing wallets and tokens"
+title: "Part 2: Accessing wallets"
 authors: 'Claude Barde, Tim McMackin'
-lastUpdated: 8th September 2023
+lastUpdated: 17th October 2023
 ---
 
 Accessing the user's wallet is a prerequisite for interacting with the Tezos blockchain.
 Accessing the wallet allows your app to see the tokens in it and to prompt the user to submit transactions, but it does not give your app direct control over the wallet.
+Users must still confirm all transactions in their wallet application.
+
+Using a wallet application in this way saves you from having to implement payment processing and security in your application.
+As you see in this section, it takes only a few lines of code to connect to a user's wallet.
+
+## Creating and funding a wallet
+
+To use the application, you need a wallet and some tez tokens.
+
+1. Install a Tezos-compatible wallet.
+Which wallet you install is up to you and whether you want to install a wallet on your computer, in a browser extension, or as a mobile app.
+
+   If you don't know which one to choose, try the [Temple](https://templewallet.com/) browser extension, because then you can use it in the same browser that you are using to view the web app.
+
+   Desktop wallets for Tezos include the [Temple](https://templewallet.com/) browser extension, [Kukai](https://wallet.kukai.app/), and [Umami](https://umamiwallet.com/).
+
+   Mobile apps include [Temple](https://templewallet.com/), [Kukai](https://wallet.kukai.app/), and [Umami](https://umamiwallet.com/).
+
+1. Switch the wallet to use the Ghostnet testnet instead of Tezos Mainnet.
+Ghostnet is a network for testing Tezos applications where tokens are free so you don't have to spend real currency to work with your applications.
+
+   For example, for the Temple browser wallet, click **Tezos Mainnet** at the top and then click **Ghostnet Testnet**, as in this picture:
+
+   ![Selecting the Ghostnet testnet in the Temple wallet](/img/tutorials/temple-switch-network.png)
+
+1. From your wallet, get the address of your account, which starts with `tz1`.
+This is the address that applications use to work with your wallet.
+
+1. Go to the Ghostnet faucet page at <https://faucet.ghostnet.teztnets.xyz>.
+
+1. On the faucet page, paste your wallet address into the input field labeled "Or fund any address" and click the button for the amount of tez to add to your wallet.
+20 tez is enough to work with the tutorial application, and you can return to the faucet later if you need more tez.
+
+   It may take a few minutes for the faucet to send the tokens and for those tokens to appear in your wallet.
+
+   You can use the faucet as much as you need to get tokens on the testnet, but those tokens are worthless and cannot be used on mainnet.
+
+   ![Fund your wallet using the Ghostnet Faucet](/img/tutorials/wallet-funding.png)
+
+1. If you created a new account, initialize the account by sending any amount of tez to any other account.
+
+   Before the new account can use dApps, it must send at least one transaction to Tezos.
+   This first transaction reveals the public key that provesthat transactions came from this account.
+
+   If your account is new, you can send 1 tez to any other account, including your own account, via your wallet application to reveal the account.
+
+Now you have an account and funds that you can use in dApps.
 
 ## Connecting to the user's wallet
 
-In this section, you add code to connect to the user's wallet with the `TezosToolkit` and `BeaconWallet` objects.
+In this section, you add code to connect to the user's wallet with the Taquito `TezosToolkit` and Beacon `BeaconWallet` objects.
+Taquito accesses Tezos and Beacon accesses wallets.
 
 IMPORTANT: however you design your app, it is essential to use a single instance of the `BeaconWallet` object.
 It is also highly recommended use a single instance of the `TezosToolkit` object.
 Creating multiple instances can cause problems in your app and with Taquito in general.
 
-For this reason, this application isolates wallet-related code in a single component in the `src/lib/Wallet.svelte` file.
+This application keeps these objects in the `App.svelte` file because this is the only component in the application.
+If you add more components, you should move these objects to a separate file to maintain a single instance of them.
 
-1. Create a file named `src/lib/Wallet.svelte` and add this code:
+1. In the `App.svelte` file, add these imports to the `<script>` section:
 
-   ```typescript
-   <script lang="ts">
-     import { onMount } from "svelte";
-     import { BeaconWallet } from "@taquito/beacon-wallet";
-     import store, { type TezosAccountAddress } from "../store";
-     import { rpcUrl, network } from "../config";
-     import { shortenHash, fetchBalances } from "../utils";
-
-     let connectedNetwork = "";
-     let walletIcon = "";
-     let walletName = "";
-
-     const connectWallet = async () => {
-       if (!$store.wallet) {
-         const wallet = new BeaconWallet({
-           name: "Tezos dev portal app tutorial",
-           preferredNetwork: network
-         });
-         store.updateWallet(wallet);
-       }
-
-       await $store.wallet.requestPermissions({
-         network: { type: network, rpcUrl }
-       });
-       const userAddress = (await $store.wallet.getPKH()) as TezosAccountAddress;
-       store.updateUserAddress(userAddress);
-       $store.Tezos.setWalletProvider($store.wallet);
-       // Get account info
-       await getWalletInfo($store.wallet);
-       // Fetch the user's XTZ, tzBTC and SIRS balances
-       const res = await fetchBalances($store.Tezos, userAddress);
-       if (res) {
-         store.updateUserBalance("XTZ", res.xtzBalance);
-         store.updateUserBalance("tzBTC", res.tzbtcBalance);
-         store.updateUserBalance("SIRS", res.sirsBalance);
-       } else {
-         store.updateUserBalance("XTZ", null);
-         store.updateUserBalance("tzBTC", null);
-         store.updateUserBalance("SIRS", null);
-       }
-     };
-   </script>
+   ```javascript
+   import { BeaconWallet } from "@taquito/beacon-wallet";
+   import { NetworkType } from "@airgap/beacon-sdk";
+   import { TezosToolkit } from "@taquito/taquito";
    ```
 
-   The `connectWallet` function creates a `BeaconWallet` object that represents the user's wallet or if the wallet is already connected, retrieves the connection from the store.
-   It provides a name for the app, which appears in the wallet UI when it asks the user to allow the connection.
-   It also includes the network to use, such as the Tezos main network or test network.
-   Then it stores or updates the wallet object in the Svelte store so other parts of the application can use it.
+1. Under those imports, create these constants that represent the Taquito toolkit's access to Tezos:
 
-   The Beacon SDK keeps track of live connections in the store, so if a user has connected to your app before and returns later, their wallet is connected automatically.
-
-   The wallet object also provides a `client` property, which allows you to retrieve the wallet address and token balances and save them to the store so the app can display them on the interface.
-
-   This code uses a custom type named `TezosAccountAddress`, which validates Tezos addresses for implicit accounts.
-   Tezos addresses start with `tz1`, `tz2`, or `tz3`, so the type checks addresses for these strings.
-   Its code looks like this:
-
-   ```typescript
-   type TezosAccountAddress = tz${"1" | "2" | "3"}${string}
+   ```javascript
+   const rpcUrl = "https://ghostnet.ecadinfra.com";
+   const Tezos = new TezosToolkit(rpcUrl);
+   const network = NetworkType.GHOSTNET;
    ```
 
-   TypeScript raises a warning if you try to use a string that doesn't match this pattern.
+1. Create variables to represent the wallet itself, its account address, and its balance:
 
-1. Add the following code to the `<script lang="ts">` section:
+   ```javascript
+   let wallet;
+   let address;
+   let balance;
+   ```
 
-   ```typescript
-   onMount(async () => {
-     const wallet = new BeaconWallet({
-       name: "Tezos dev portal app tutorial",
-       preferredNetwork: network
+1. Still within the `<script>` section, add this function to connect to the user's wallet:
+
+   ```javascript
+   const connectWallet = async () => {
+     const newWallet = new BeaconWallet({
+       name: "Simple dApp tutorial",
+       preferredNetwork: network,
      });
-     store.updateWallet(wallet);
-     const activeAccount = await wallet.client.getActiveAccount();
-     if (activeAccount) {
-       const userAddress = (await wallet.getPKH()) as TezosAccountAddress;
-       store.updateUserAddress(userAddress);
-       $store.Tezos.setWalletProvider(wallet);
-       await getWalletInfo(wallet);
-       // fetches user's XTZ, tzBTC and SIRS balances
-       const res = await fetchBalances($store.Tezos, userAddress);
-       if (res) {
-         store.updateUserBalance("XTZ", res.xtzBalance);
-         store.updateUserBalance("tzBTC", res.tzbtcBalance);
-         store.updateUserBalance("SIRS", res.sirsBalance);
-       } else {
-         store.updateUserBalance("XTZ", null);
-         store.updateUserBalance("tzBTC", null);
-         store.updateUserBalance("SIRS", null);
-       }
-     }
-   });
-   ```
-
-   This code runs when the component mounts, checks if the user has already connected a wallet, and if so, it updates information in the store.
-
-   Now the wallet is connected so the app can show the connection status and token balances.
-
-1. Add the following code to disconnect the wallet:
-
-   ```typescript
-   const disconnectWallet = async () => {
-     $store.wallet.client.clearActiveAccount();
-     store.updateWallet(undefined);
-     store.updateUserAddress(undefined);
-     connectedNetwork = "";
-     walletIcon = "";
+     await newWallet.requestPermissions({
+       network: { type: network, rpcUrl },
+     });
+     address = await newWallet.getPKH();
+     getWalletBalance(address);
+     wallet = newWallet;
    };
    ```
 
-   Disconnecting the wallet is as important as connecting it.
-   There is nothing more frustrating than looking for how to disconnect your wallet for hours when it is not made explicit.
-   Also, many users have multiple wallets (such as Temple or Kukai) and even multiple addresses within the same wallet, so you must make it easy to connect and disconnect wallets.
+   This function creates an instance of the Beacon wallet toolkit, uses the `requestPermissions()` function to ask the user's permission to connect to it, and retrieves its address and balance.
+   It provides a name for the app, which appears in the wallet UI when it asks the user to allow the connection.
+   It also includes the network to use, such as the Tezos main network or test network.
 
-   The `disconnectWallet` function runs these steps to disconnect the wallet and reset the state of the app:
+1. Add this function to disconnect from the user's wallet:
 
-   1. It closes the connection to the Beacon SDK with the `$store.wallet.client.clearActiveAccount()` command.
-   1. It removes the wallet from the store with the `store.updateWallet(undefined)` command, which triggers an update of the interface.
-   1. It removes the user's address from the state with the `store.updateUserAddress(undefined)` command, which also updates the UI.
-   1. It resets the local variables for the network and wallet icon.
+   ```javascript
+   const disconnectWallet = () => {
+     wallet.client.clearActiveAccount();
+     wallet = undefined;
+   };
+   ```
 
-1. At the end of the file, add this code, which creates a button that the user can click to connect or disconnect their wallet:
+1. Add this function to get the wallet's balance:
+
+   ```javascript
+   const getWalletBalance = async (walletAddress) => {
+     const balanceMutez = await Tezos.tz.getBalance(walletAddress);
+     balance = balanceMutez.div(1000000).toFormat(2);
+   };
+   ```
+
+1. Update the `<main>` section to have this code:
 
    ```html
-   <style lang="scss">
-     .wallet {
-       display: flex;
-       flex-direction: column;
-       justify-content: flex-start;
-       align-items: center;
+   <h1>Tezos bank dApp</h1>
 
-       .wallet__info {
-         padding-bottom: 20px;
-         text-align: center;
-
-         p {
-           margin: 0px;
-           padding: 5px;
-           display: flex;
-           justify-content: center;
-           align-items: center;
-
-           img.wallet-icon {
-             width: 32px;
-             height: 32px;
-           }
-         }
-       }
-     }
-   </style>
-
-   <div class="wallet">
-     {#if $store.wallet && $store.userAddress}
-       <div class="wallet__info">
-         <p>
-           {#if walletIcon}
-             <img src={walletIcon} alt="wallet-icon" class="wallet-icon" />
-           {/if}
-           <span>{shortenHash($store.userAddress)}</span>
-         </p>
-         {#if !walletIcon && walletName}
-           <p style="font-size:0.7rem">({walletName})</p>
-         {/if}
-         <p>
-           {#if connectedNetwork}
-             On {connectedNetwork}
-           {:else}
-             No network data
-           {/if}
-         </p>
-       </div>
-       <button class="wallet-button" on:click={disconnectWallet}>
-         Disconnect
-       </button>
-     {:else}
-       <button class="wallet-button" on:click={connectWallet}>
-         Connect wallet
-       </button>
-     {/if}
+   <div class="card">
+      {#if wallet}
+       <p>The address of the connected wallet is {address}.</p>
+       <p>Its balance in tez is {balance}.</p>
+       <p>To get tez, go to <a href="https://faucet.ghostnet.teztnets.xyz/" target="_blank">
+          https://faucet.ghostnet.teztnets.xyz/
+         </a>.
+       </p>
+       <p>
+         <button on:click={disconnectWallet}> Disconnect wallet </button>
+       </p>
+      {:else}
+       <button on:click={connectWallet}> Connect wallet </button>
+      {/if}
    </div>
    ```
 
-   Now you have functions that allow your application to connect and disconnect wallets.
+   The `if` condition in this code shows a button to connect to a wallet if there is no connected wallet.
+   If there is a connected wallet, it shows the address and balance of the wallet in tez.
+
+   The application could connect immediately when the page loads, but it's better user experience to let the page load first and allow the user to connect the wallet when they trust the application.
+   Connecting the wallet is harmless because it does not give the application any control over the user's account, but it is still better user experience to keep the user in control.
+   For this reason, dApps should have prominent buttons to connect and disconnect wallets.
+
+The complete `App.svelte` file looks like this:
+
+```html
+<script>
+  import { BeaconWallet } from "@taquito/beacon-wallet";
+  import { NetworkType } from "@airgap/beacon-sdk";
+  import { TezosToolkit } from "@taquito/taquito";
+
+  const rpcUrl = "https://ghostnet.ecadinfra.com";
+  const Tezos = new TezosToolkit(rpcUrl);
+  const network = NetworkType.GHOSTNET;
+
+  let wallet;
+  let address;
+  let balance;
+
+  const connectWallet = async () => {
+    const newWallet = new BeaconWallet({
+      name: "Simple dApp tutorial",
+      preferredNetwork: network,
+    });
+    await newWallet.requestPermissions({
+      network: { type: network, rpcUrl },
+    });
+    address = await newWallet.getPKH();
+    getWalletBalance(address);
+    wallet = newWallet;
+  };
+
+  const disconnectWallet = () => {
+    wallet.client.clearActiveAccount();
+    wallet = undefined;
+  };
+
+  const getWalletBalance = async (walletAddress) => {
+    const balanceMutez = await Tezos.tz.getBalance(walletAddress);
+    balance = balanceMutez.div(1000000).toFormat(2);
+  };
+</script>
+
+<main>
+  <h1>Tezos bank dApp</h1>
+
+  <div class="card">
+    {#if wallet}
+      <p>The address of the connected wallet is {address}.</p>
+      <p>Its balance in tez is {balance}.</p>
+      <p>
+        To get tez, go to <a
+          href="https://faucet.ghostnet.teztnets.xyz/"
+          target="_blank"
+        >
+          https://faucet.ghostnet.teztnets.xyz/
+        </a>.
+      </p>
+      <p>
+        <button on:click={disconnectWallet}> Disconnect wallet </button>
+      </p>
+    {:else}
+      <button on:click={connectWallet}> Connect wallet </button>
+    {/if}
+  </div>
+</main>
+
+<style>
+</style>
+```
+
+## Using the application
+
+To try the application, run `npm run dev` and open the page <http://localhost:4000/> in a web browser.
+
+Because no wallet is connected, the app shows the "Connect wallet" button, as in this picture:
+
+![The initial page of the bank dApp, showing a title and the button that connects to the user's wallet](/img/tutorials/bank-app-connect-button.png)
+
+When you click **Connect wallet**, the `connectWallet` function runs and the Beacon toolkit opens, showing some of the types of wallets it can connect to:
+
+![The Beacon wallet connection popup](/img/tutorials/beacon-connect-wallet-options.png)
+
+The procedure for connecting each type of wallet is different.
+For example, if you are using the Temple browser extension, you click **Temple** and then **Connect now**.
+Then the Temple wallet shows a popup that allows you to confirm that you want to connect your wallet to the application, as in this picture:
+
+![Connecting to the application in the Temple wallet](/img/tutorials/temple-connect-wallet.png)
+
+Then the application runs the `getWalletBalance` function, which gets the wallet's balance in tez tokens.
+Because the Svelte component's variables changed, the application refreshes automatically and shows the wallet address, balance, and "Disconnect wallet" button:
+
+![The application showing information about the connected wallet](/img/tutorials/bank-app-first-connection.png)
+
+If you click **Disconnect wallet**, the application goes back to its initial state.
+
+Now the application can connect to user wallets.
+In the next section, you add code to use the wallet to get the user's approval to send transactions to Tezos.
 
 ## Design considerations
 
@@ -211,11 +263,11 @@ Follow these practices to make the process easier for users:
 Getting a wallet pop-up window before the user can see the page is annoying.
 Also, users may hesitate to connect a wallet before they have had time to look at and trust the application, even though connecting the wallet is harmless.
 
-- Provide a prominent button to connect or disconnect wallets.
+- Provide a prominent button to connect and disconnect wallets.
 
 - Put the button in a predictable position, typically at the top right or left corner of the interface.
 
-- Use **Connect** as the label for the button.
+- Use "Connect" as the label for the button.
 Avoid words like "sync" because they can have different meanings in dApps.
 
 - Display the status of the wallet clearly in the UI.
@@ -224,75 +276,4 @@ Showing information about the tokens and updating it after transactions allows t
 
 - Enable and disable functions of the application based on the status of the wallet connection.
 For example, if the wallet is not connected, disable buttons for transactions that require a wallet connection.
-
-## Fetching token balances
-
-Taquito can fetch the user's XTZ balance from the connected wallet.
-To get the tzBTC and SIRS balances, the app uses the [TzKT API](https://api.tzkt.io/).
-This API has many features that provide information about Tezos.
-
-1. Add this `fetchBalances` function to the `src/utils.ts` file:
-
-   ```typescript
-   export const fetchBalances = async (
-     Tezos: TezosToolkit,
-     userAddress: TezosAccountAddress
-   ): Promise<{
-     xtzBalance: number;
-     tzbtcBalance: number;
-     sirsBalance: number;
-   } | null> => {
-     try {
-       // Add code here in the next step
-     } catch (error) {
-       console.error(error);
-       return null;
-     }
-   }
-   ```
-
-   This function takes two parameters: an instance of the `TezosToolkit` and the user's wallet address.
-   It returns an object with the token balances or `null` if any error occurs.
-
-1. Replace the comment `// Add code here in the next step` with this code, which fetches the XTZ balance:
-
-   ```typescript
-   const xtzBalance = await Tezos.tz.getBalance(userAddress);
-   if (!xtzBalance) throw "Unable to fetch XTZ balance";
-   ```
-
-   In this case, as in most of the time, Taquito returns numeric values from the blockchain in the `BigNumber` type, which makes it safer for JavaScript to handle large numbers.
-
-1. After this code, add the following code, which fetches the tzBTC and SIRS balances:
-
-   ```typescript
-   const res = await fetch(
-     `https://api.tzkt.io/v1/tokens/balances?account=${userAddress}&token.contract.in=${tzbtcAddress},${sirsAddress}`
-   );
-   if (res.status === 200) {
-     const data = await res.json();
-     console.log(data)
-     if (Array.isArray(data)) {
-       const tzbtcBalance = +data[0]?.balance || 0;
-       const sirsBalance = +data[1]?.balance || 0;
-       return {
-         xtzBalance: xtzBalance.toNumber(),
-         tzbtcBalance,
-         sirsBalance
-       }
-     } else {
-       // Wallet has no tzBTC or SIRS
-       return {
-         xtzBalance: xtzBalance.toNumber(),
-         tzbtcBalance: 0,
-         sirsBalance: 0
-       };
-     }
-   } else {
-     throw "Unable to fetch tzBTC and SIRS balances";
-   }
-   ```
-
-   For more information about the call to the TzKT API in this code, see the API reference for the [GET /v1/tokens/balances](https://api.tzkt.io/#operation/Tokens_GetTokenBalances) endpoint.
-
-Now other components can fetch and store the user's token balances at any time.
+Also, disable transaction buttons while transactions are pending to prevent users from making duplicate transactions.
