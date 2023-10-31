@@ -1,18 +1,24 @@
 /* Taken from ../HomepageFeatures/styles.module.css */
 .tutorialcard {
-  /* flex: 0 0 calc(50% - 30px); */
-  /* Adjust the width based on the number of cards */
-  /* max-width: calc(50% - 30px); */
-  /* Adjust the width based on the number of cards */
+  width: calc(50% - 20px);
   height: auto;
-  width: 350px;
   padding: 20px;
   border-radius: 10px;
   border: 1px solid #E6E8EE;
   background: #FFFFFF;
   box-shadow: 1px 2px 8px 0px #0000001A;
-  margin-bottom: 20px;
-  margin-right: 30px;
+  margin: 10px;
+}
+
+.tutorialcard:hover {
+  border: 1px solid #787D82;
+}
+
+@media (max-width: 767px) {
+  .tutorialcard {
+    width: calc(100% - 20px); 
+    margin: 10px 0; 
+  }
 }
 
 .title {
