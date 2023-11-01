@@ -14,6 +14,12 @@ They also have views that provide information such as the total amount of tokens
 
 For the full details of the FA1.2 standard, see [Tezos Improvement Proposal 7 (TZIP-7)](https://gitlab.com/tezos/tzip/-/blob/master/proposals/tzip-7/tzip-7.md), which defines the standard.
 
+You can verify that a contact follows the FA1.2 standard by running the following Octez client command and replacing `$CONTRACT_ADDRESS` with the address of the contract:
+
+```bash
+octez-client check contract $CONTRACT_ADDRESS implements fa1.2
+```
+
 ## Allowances
 
 FA1.2 contracts keep track of how many tokens an account permits another account to transfer out of its account, known as its _allowance_.
