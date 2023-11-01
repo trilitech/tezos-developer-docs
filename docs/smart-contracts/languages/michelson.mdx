@@ -1,0 +1,57 @@
+---
+title: Michelson
+lastUpdated: 30th June 2023
+---
+
+import Figure from '@site/src/components/Figure';
+
+Michelson is the domain-specific language used to write smart contracts on the Tezos blockchain. Michelson is a stack-based language and does not have variables. Stack-oriented languages operate on one or more stacks, each of which may serve a different purpose.
+
+Michelson is a low-level, stack-based programming language used to write smart contracts on the Tezos blockchain. Michelson was designed to facilitate formal verification, allowing users to prove the properties of their contracts.
+
+It uses a stack rewriting paradigm, whereby each function rewrites an input stack into an output stack. (The meaning of this will be fully explained below.) This runs in a purely functional way and does not modify the inputs at all. Thus, all data structures are **immutable**.
+
+## What is a stack?
+
+A stack is an abstract data type that serves as a collection of elements, with two principal operations: push (adds an element to the collection) and pop (removes the most recently added element that has not yet been removed). The order in which elements come off a stack gives rise to its alternative name, LIFO (last in, first out). Additionally, a peek operation may give access to the top without modifying the stack.
+
+![](https://upload.wikimedia.org/wikipedia/commons/9/9f/Stack_data_structure.gif)
+
+Source: Wikipedia.
+
+### Rewriting Stacks
+
+To see what mean it means to rewrite stacks, we will run through a transaction in Michelson. First, before a transaction runs, the blockchain state at a certain hash is deserialized and put onto the stack as the variable `storage`. We have a `from` function that receives the transaction data `amount`, the amount of attached tez, and the `parameter`, the function's parameters.
+
+```sh
+from [ (Pair (Pair amount parameter) storage) ]
+```
+
+After running the function, without any updates to the stack, the program will call a `to` function that has the parameters `result`, which is the result of the function, and the output `storage` that is serialized and stored on the blockchain.
+
+```sh
+to [ (Pair result storage) ]
+```
+
+In the example, Michelson only manipulates the stack functionally and a new stack is passed from function to function.
+
+## Entrypoints
+
+Depending on the high-level language used, a smart contract deployment also defines its *entrypoints* using the complex **Parameter Type**. These are special functions used to dispatch invocations of the smart contract. Each entrypoint is in charge of triggering an instruction. Below is the same example as before, abstracting the complex Parameter Type:
+
+<Figure src="/img/invoke_smart_contract.svg" caption="Figure 1: Call of a smart contract triggering its entrypoints, code, and modifying its storage's state" />
+
+Each type and position of a parameter in the list (or pair) allows you to define an entrypoint (a function). For instance, in our example, there are two parameters, hence two types. Both types are integers (to increase or decrease a value). Because the type is the same, its position (left, right, or index number) determines which entrypoint is correct.
+It could be:
+- Left type: "Increment" entrypoint
+- Right type: "Decrement" entrypoint
+
+Below is another illustration of this process:
+
+<Figure src="/img/tezos_smart_contract_deploy_invoke.svg" caption="Figure 2: Deployment and call of a Tezos smart contract with high-level languages" />
+
+## Further reading
+
+* [Michelson documentation](http://tezos.gitlab.io/007/michelson.html)
+* [Michelson Reference](https://tezos.gitlab.io/michelson-reference/)
+* [Michelson tutorial series](https://gitlab.com/camlcase-dev/michelson-tutorial/tree/master)
