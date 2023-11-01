@@ -185,6 +185,7 @@ const sidebars = {
         'dApps/samples',
         // 'dApps/creating', //TODO
         'dApps/wallets',
+        'dApps/sending-transactions',
         'dApps/taquito',
         'dApps/unity',
         // 'dApps/frameworks', // TODO

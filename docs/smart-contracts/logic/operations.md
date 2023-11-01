@@ -19,12 +19,6 @@ These operations can include:
 Only the first type is technically a transaction, but the terms "operation" and "transaction" are often used interchangeably in courses, documentation, and tools.
 Don't worry too much about the difference.
 
-:::note Sending tez
-Sending tez to an address is just a special case of calling a smart contract (via the `default` entrypoint).
-However, some languages have a specific syntax for simply sending tez to a contract that is different from the syntax to call an entrypoint.
-A call to a smart contract always includes a transfer of a certain amount of tez, even if that amount is zero.
-:::
-
 ## Order of execution
 
 The code of a contract never directly executes an operation or a transfer of tez.
