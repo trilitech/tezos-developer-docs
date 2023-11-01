@@ -65,7 +65,7 @@ const result = await dAppClient.requestOperation({
 })
 ```
 
-For more information about Beacon, see <https://walletbeacon.io/>.
+For more information about Beacon, see https://walletbeacon.io/.
 
 ## Taquito
 
