@@ -12,7 +12,7 @@ Tezos supports many types of tokens, including:
 - Non-fungible tokens (NFTs), which are unique digital assets that can represent ownership of something
 - Stablecoins, which are tied to the price of fiat currencies such as USD and EUR
 - Wrapped tokens, which represent tokens from another blockchain or another standard; see [Wrapped tokens](#wrapped-tokens)
-- Non-transferable tokens, also known as soulbound tokens, which cannot be transferred
+- Non-transferable tokens, also known as soulbound tokens, which cannot be transferred to another account after they are created
 
 It's important to remember that Tezos tokens are managed by smart contracts.
 Tokens are not stored directly in accounts; instead, smart contracts keep a ledger of how many tokens different accounts hold.
@@ -81,9 +81,10 @@ While you can create tokens that behave in any way that you want them to behave,
 Token standards in a blockchain ecosystem are important many reasons, including:
 
 - They enforce best practices that improve the safety of the code that the tokens depend on
-- They provide an interface that makes it easier for applications to work with them
+- They provide an interface that makes it easier for applications to work with them, such as a consistent way of transferring tokens from one account to another
 
-For example, when a project issues a new token that is compatible with a standard, existing decentralized exchanges, wallets, applications, and block explorers can work with it and display it appropriately.
+When a project issues a new token that is compatible with a standard, existing decentralized exchanges, tools, wallets, applications, and block explorers can work with it and display it appropriately.
+For example, block explorers can detect a standard-compliant contract and automatically show the tokens in the contract.
 
 A token standard is an interface and set of rules that smart contracts must follow to be compatible with the standard.
 In Tezos, smart contracts define how tokens behave, such as how to transfer them between accounts, so it's the smart contract that actually follows the standard, but people often refer to tokens that are compatible with a certain standard.
