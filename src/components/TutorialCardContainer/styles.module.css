@@ -1,0 +1,4 @@
+.tutorialcardcontainer {
+  display: flex;
+  flex-wrap: wrap;
+}

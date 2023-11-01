@@ -1,0 +1,243 @@
+
+/* build section home page */
+
+.buildSection {
+  width: 100%; 
+  height: auto; 
+  padding: 100px 81px; 
+  background: #F2F3F7;
+  margin-top: 90px;
+}
+
+.container {
+  align-items: center; 
+  height: 100%;
+}
+
+.masonryContainer {
+  column-count: 3;
+  column-gap: 30px;
+  max-width: 1800px;
+  margin: 0 auto;
+}
+
+@media (min-width: 1700px) {
+  .masonryContainer {
+    text-align: right;
+    column-gap: 30px;
+  }
+
+  .card {
+    display: inline-block;
+    width: 100% !important;
+  }
+}
+
+.masonryContainerMobile  {
+  column-count: 3;
+  column-gap: 0px;
+  display: flex; 
+  justify-content: center; 
+  align-items: center;
+}
+
+.card {
+  display: inline-block;
+  width: 100%;
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 0 0 30px;
+  text-align: left;
+  transform: translateZ(0);
+}
+
+.sectionTitle {
+  font-family: 'GT Eesti Display', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 26px;
+  text-align: center;
+  color: #787D82;
+}
+
+.cardHeading {
+  font-family: 'GT Eesti Display', sans-serif;
+  font-weight: 400;
+  font-size: 48px;
+  line-height: 60px;
+  text-align: center;
+  color: #030405;
+  margin: 0;
+}
+
+.cardHeadingBlue {
+  font-family: 'GT Eesti Display', sans-serif;
+  font-weight: 400;
+  font-size: 48px;
+  line-height: 60px;
+  text-align: center;
+  color: #0D61FF;
+  margin: 0;
+  margin-bottom: 80px;
+}
+
+.cardDescription {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 26px;
+  text-align: left;
+  color: #4A4E52;
+  margin: 0;
+}
+
+.cardTitle {
+  font-family: 'GT Eesti Display', sans-serif;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 30px;
+  text-align: left;
+  color: #030405;
+}
+
+.mainTitle {
+  font-family: 'GT Eesti Display', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 26px;
+  text-align: center;
+  color: #787D82;
+}
+
+.slider-container {
+  overflow: hidden; 
+}
+
+.slider-wrapper {
+  display: flex; 
+  transition: transform 0.3s ease; 
+  padding-right: 20px; 
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 40px;
+}
+
+button.featureButton {
+  display: inline-flex;
+  align-items: center;
+  background: none;
+  border: none;
+  border-radius: 100%;
+  cursor: pointer;
+  position: relative;
+  margin-right: 35px;
+  margin-top: 30px;
+  margin-bottom: 40px;
+  transition: background-color 0.3s;
+}
+
+button.featureButton::before {
+  content: '';
+  width: 40px;
+  height: 0px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-top: 4px solid var(--grey-grey, #CFD1D9);
+  border-radius: 10px;
+}
+
+button.featureButton:hover {
+  background-color: #787D82;
+}
+
+button.featureButton:hover::before,
+button.featureButton:focus::before {
+  border-top: 4px solid var(--grey-grey, #787D82); 
+}
+
+
+button.featureButton:focus {
+  outline: none;
+}
+
+button.featureButton span {
+  z-index: 1;
+}
+
+button.featureButton.selected {
+  background-color: #787D82;
+}
+
+button.featureButton.selected::before {
+  border-top-color: #787D82;
+}
+
+@media (max-width: 767px) {
+  .masonryContainerMobile {
+    margin-top: 30px;
+  }
+
+  .card {
+    height: 340px;
+    padding: 20px;
+    margin: 0;
+  }
+
+  .cardDescription {
+    line-height: 23px !important;
+  }
+
+  .cardTitle {
+    font-size: 20px !important;
+    line-height: 25px;
+  }
+
+  .cardHeading {
+    font-size: 24px !important;
+    line-height: 30px !important;
+    text-align: left;
+  }
+
+  .cardHeadingBlue {
+    font-size: 24px !important;
+    line-height: 30px !important;
+    text-align: left;
+  }
+
+  .buildSection {
+    padding: 20px; 
+  }
+
+  .mainTitle {
+    font-size: 14px;
+    line-height: 18px;
+    text-align: left;
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .masonryContainerMobile  {
+    margin-top: 30px;
+  }
+
+  .buildSection {
+    padding: 20px; 
+  }
+}
+
+
+
+
+
+
+
+

@@ -1,0 +1,117 @@
+---
+title: An introduction to smart contracts
+authors: 'Thomas Zoughebi, Aymeric Bethencourt, Maxime Fernandez, and Tim McMackin'
+lastUpdated: 18th October 2023
+---
+
+import Figure from '@site/src/components/Figure';
+
+A smart contract is a piece of code stored on the blockchain. It contains a set of instructions and rules to trigger them. Once deployed, it becomes immutable, but a user can trigger the execution of the code without modifying it.
+
+## Smart contract metaphor
+
+Smart contracts can achieve different kinds of operations with coins and other smart contracts. They're comparable to snack vending machines:
+- Each machine has a contract saying "Give me cryptocurrency, then I give you a food item or drink."
+- Each machine can have a different smart contract for various food or drink items.
+- Other smart contracts can work with the machines behind the scenes, such as a contract that represents an employee gathering the money from the machines.
+
+Each machine doesn't operate until enough currency is delivered (*Gas*). Note that the quantities of foods or drinks change while their *types* can't (ever).
+
+Of course, smart contracts go beyond this metaphor. Thanks to *transparency* and *immutability*, they allow an **agreement** to be secured between two or more parties.
+
+For example, it is common to create financial instruments like various *tokens* (usually worth a fraction of the blockchain's *coin*) with different usability and characteristics inside a multiple smart contracts system. Other more or less complex projects can propose *lending*, *stablecoins*, or *crowdfunding*.
+
+In most cases, smart contracts remove intermediates and drastically reduce costs compared to classic paper contracts and their validations.
+
+Notice that a smart contract can only run and interact with the blockchain it's stored on. It can't interact with the outside world. That's where *decentralized applications* or "dApps" come in ,because they provide interfaces for the outside world.
+
+## Components of a smart contract
+
+A smart contract is composed of three elements:
+
+- Its balance: a contract is a kind of account, and can receive and send tez
+- Its [storage](./smart-contracts/storage): data that is dedicated to and can be read and written by the contract
+- Its code: one or more [entrypoints](./smart-contracts/entrypoints), which are a kind of function that can be called either from outside the chain or from other contracts
+
+:::note VisualTez
+[VisualTez](https://visualtez.com/editor) allows you to visualize the fundamental logic of a smart contract without relying on any specific syntax.
+:::
+
+## Limitations of smart contracts
+
+All a contract can do can be summarized as:
+
+- Performing computations
+- Reading or updating the value of its own storage
+- Generating a list of operations, such as calls to other contracts (see [Operations](./smart-contracts/logic/operations))
+
+Smart contracts can't do these things:
+
+- Access programs outside the blockchain, including calling external APIs
+- Access other contracts' storage
+- Change their code
+- Catch and respond to errors (see [Handling errors](./smart-contracts/logic/errors))
+
+## Smart contract languages
+
+The code of smart contracts is written in Michelson, a Turing-complete stack-based language that includes common features as well as some very specific blockchain-related features:
+
+- It doesn’t have variables but can manipulate data directly on a stack, through a set of stack manipulation instructions. For example, the _ADD_ instruction consumes two elements from the top of the stack and puts their sum on top of the stack.
+- It is strongly typed, with basic types such as integers, amounts of tez, strings, account addresses, as well as pairs, lists, key-value stores (big-maps), or pieces of code (lambdas).
+- It has limited access to data, and can only read data from its own storage, data passed as parameters during calls to its entrypoints, and a few special values such as the balance of the contract, the amount of tez sent to it during a call, and the creation time of the current block. It can also access a table of constants.
+
+Tezos has several popular high-level languages which offer more approachable syntaxes and a more familiar developer experience (e.g. local variables) compared to writing Michelson directly. While Michelson is the domain-specific smart contract language that was developed for Tezos, SmartPy and LIGO are the most popular and widely-supported languages for writing Tezos smart contracts.
+
+For more information about smart contract languages, see [Languages](./smart-contracts/languages).
+
+## Features of Tezos smart contracts
+
+Tezos smart contracts support these features:
+
+- [Storage](./smart-contracts/storage) of data that the contract can read and write to
+- [Entrypoints](./smart-contracts/entrypoints) that users can call
+- [Data types](./smart-contracts/data-types) from simple to complex and logic that can be used on them, including [Comparing values](./smart-contracts/logic/comparing) and [Loops](./smart-contracts/logic/loops)
+- [Operations](./smart-contracts/logic/operations), which are calls to other smart contracts
+- [Views](./smart-contracts/views), which expose data to other contracts
+- [Handling errors](./smart-contracts/logic/errors), although error handling in Tezos is very different from other platforms
+- [Constants](./smart-contracts/constants) that are available to all contracts
+- [Sapling](./smart-contracts/sapling), a way to run private transactions
+
+## Lifecycle of a Tezos smart contract
+
+Tezos contracts have a two-step lifecycle:
+
+1. Deployment
+2. Interactions through calls
+
+### Deployment of a Tezos smart contract
+
+The deployment of a Tezos smart contract is called _origination_.
+
+When a smart contract is originated, an address and a corresponding persistent storage are allocated to it. The smart contract address is like its identity and where it lives on the ledger.
+
+After it is deployed, anyone or anything can call the smart contract, including contracts on the chain and applications off the chain, by submitting an operation to its address with arguments. This call triggers the execution of the pre-defined instructions in the contract's code.
+
+The origination of a Tezos smart contract must define:
+* A complex parameter type in the low-level Michelson language, which is a list or tuple of each parameter type (see more below with high-level languages)
+* The storage type
+* The initial value of the storage
+* A set of instructions in Michelson
+
+<Figure src="/img/tezos_smart_contract_content.svg" caption="Figure 1: The contents of a Tezos smart contract" />
+
+After the contract is deployed, it cannot be changed or removed from the blockchain.
+
+<!-- TODO link to ./smart-contracts/deploying -->
+
+### Call of a Tezos smart contract
+
+A smart contract can be called by a classic account or by a smart contract account. The operation or transaction specifies one or more arguments. In the below example, we increase or decrease a value in the storage:
+
+<Figure src="/img/invoke_smart_contract_wo_entrypoint.svg" caption="Figure 2: Call of a smart contract triggering its code and modifying its storage's state" />
+
+Users can call smart contracts from different platforms, including:
+
+- The Octez command-line program, which is provided by Tezos to send transactions to Tezos and interact with the chain in other ways, including hosting a node. For more information about the Octez client, see https://tezos.gitlab.io/.
+- Remote Procedure Calls (RPCs) via HTTP.
+- SDKs such as [Taquito](https://tezostaquito.io/).
