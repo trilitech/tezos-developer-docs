@@ -20,6 +20,16 @@ const config = {
     locales: ['en'],
   },
 
+  headTags: [
+    {
+      tagName: 'meta',
+      attributes: {
+        'http-equiv': "Content-Security-Policy",
+        content: "default-src 'self' jsdelivr.net googleapis.com",
+      },
+    },
+  ],
+
   presets: [
     [
       'classic',
