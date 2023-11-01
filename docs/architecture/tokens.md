@@ -85,6 +85,7 @@ Token standards in a blockchain ecosystem are important many reasons, including:
 
 When a project issues a new token that is compatible with a standard, existing decentralized exchanges, tools, wallets, applications, and block explorers can work with it and display it appropriately.
 For example, block explorers can detect a standard-compliant contract and automatically show the tokens in the contract.
+Also, the Octez client has dedicated commands for working with FA1.2 tokens, including transferring them and checking account balances.
 
 A token standard is an interface and set of rules that smart contracts must follow to be compatible with the standard.
 In Tezos, smart contracts define how tokens behave, such as how to transfer them between accounts, so it's the smart contract that actually follows the standard, but people often refer to tokens that are compatible with a certain standard.
