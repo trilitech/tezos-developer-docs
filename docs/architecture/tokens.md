@@ -112,7 +112,10 @@ Therefore, Stove Labs created wXTZ, which is a token that represents a tez token
 Then they can use the wXTZ in FA1.2 applications and exchange it for tez later.
 For more information about wXTZ, see [The Wrapped Tezos (wXTZ) beta Guide](https://medium.com/stakerdao/the-wrapped-tezos-wxtz-beta-guide-6917fa70116e).
 
+
+:::danger
 You might imagine that the wrapped version of a token is the token with a wrapper around it that lets it operate in a new location or according to a new standard.
 However, the original token and the wrapped version are distinct tokens with no formal relationship between them.
 Instead, smart contracts and other systems allow users to exchange tokens for wrapped tokens and back.
 Like all tokens, you must use caution when using a wrapped token.
+:::
