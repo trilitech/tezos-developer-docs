@@ -28,10 +28,6 @@ You can find the 4 parts on github (solution + materials to build the UI)
 
 Business objects managed by a blockchain are called **assets**. On Tezos you find the term **Financial Asset or FA** with different versions 1, 2, or 2.1.
 
-Here are different categorizations of assets.
-
-![](http://jingculturecommerce.com/wp-content/uploads/2021/03/nft-assets-1024x614.jpg)
-
 ### What is IPFS?
 
 The InterPlanetary File System is a protocol and peer-to-peer network for storing and sharing data in a distributed file system. IPFS uses content-addressing to uniquely identify each file in a global namespace connecting all computing devices. This tutorial is using [Pinata](https://www.pinata.cloud/) (free developer plan) to store the metadata for NFTs. An alternative would be to install a local IPFS node or an API gateway backend with a usage quota.
