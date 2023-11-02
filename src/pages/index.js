@@ -32,7 +32,7 @@ export default function Home() {
         <HomepageFeatures />
         <div className={clsx(styles.text__booking)}>
           <h1 className={clsx(styles.homeTitle)}>We are here <span className={clsx(styles.homeTitleBlue)}>for you</span></h1>
-          <p className={clsx(styles.homeContent)}>Book a 15 min, 1 to 1 session hosted by the Tezos Developer Success team to discuss and answer your technical questions.</p>
+          <p className={clsx(styles.homeContent)}>Book a 15 min, 1 to 1 session hosted by the TriliTech Developer Success team to discuss and answer your technical questions.</p>
         </div>
         <CalendlyEmbed />
         <BuildSection />
