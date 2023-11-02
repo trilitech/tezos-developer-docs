@@ -101,6 +101,7 @@ Because of web3, buy or sell features are a real payment system using on-chain X
 Before building an NFT marketplace, you must install the following tools.
 
 - [npm](https://nodejs.org/en/download/): for managing and installing dependencies in a TypeScript React application.
+- [`yarn`](https://classic.yarnpkg.com/lang/en/docs/install/#windows-stable): to build and run the front-end (see this article for more details about [differences between `npm` and `yarn`](https://www.geeksforgeeks.org/difference-between-npm-and-yarn/))
 - [taqueria >= v0.40.0](https://github.com/ecadlabs/taqueria): for Tezos app development and deployment.
 - [Docker](https://docs.docker.com/engine/install/): creates containers for consistent app development environments, required by **taqueria**
 - [jq](https://stedolan.github.io/jq/download/): command-line tool to parse and manipulate JSON data from **taqueria**
@@ -108,10 +109,8 @@ Before building an NFT marketplace, you must install the following tools.
 - [`VS Code`](https://code.visualstudio.com/download): A code editor for developing and managing your application's codebase.
 - [ligo VS Code extension](https://marketplace.visualstudio.com/items?itemName=ligolang-publish.ligo-vscode): Enhances VS Code with support for the LIGO smart contract language.
 
+The following tool is optional:
 
-The following tools are optional:
-
-- [`yarn`](https://classic.yarnpkg.com/lang/en/docs/install/#windows-stable): to build and run the front-end (see this article for more details about [differences between `npm` and `yarn`](https://www.geeksforgeeks.org/difference-between-npm-and-yarn/))
 - [taqueria VS Code extension](https://marketplace.visualstudio.com/items?itemName=ecadlabs.taqueria-vscode): A VS Code extension to visualize Tezos projects and execute related tasks.
 
 ## Smart Contract Modification
@@ -343,6 +342,8 @@ Next, you need to build the FA2 contract which relies on the Ligo FA library. To
 
     **Smart contract implementation for this first training is finished, let's prepare the deployment to ghostnet.**
 
+1. Make sure that Docker Desktop is running.
+
 1. Compile the `nft.jsligo` file to create a default taqueria initial storage and parameter file
 
     ```bash
@@ -351,10 +352,10 @@ Next, you need to build the FA2 contract which relies on the Ligo FA library. To
 
 1. Get the address of the account you want to use.
 
-    Set the address of the account that will mint NFTs. 
-    
-    You have the option to update the administrator address. You can either replace it with your personal address or retain the default Alice address tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb. 
-    
+    Set the address of the account that will mint NFTs.
+
+    You have the option to update the administrator address. You can either replace it with your personal address or retain the default Alice address tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb.
+
     Paste the address of the account and be ready to input it in the following step.
 
 1. Edit the new storage file `nft.storageList.jsligo` as it.
@@ -411,7 +412,7 @@ Next, you need to build the FA2 contract which relies on the Ligo FA library. To
       >   }
       > }
       > ```
-      
+
 1. Compile and deploy to ghostnet
 
     ```bash
@@ -473,7 +474,7 @@ To save time, a [boilerplate ready for the UI](https://github.com/marigold-dev/t
 
     The website is ready! Now, it:
 
-    - Automatically updats itself to recognize the most recently deployed contract address from the taqueria configuration. 
+    - Automatically updats itself to recognize the most recently deployed contract address from the taqueria configuration.
     - Provides users to connect and disconnect their wallets.
     - Offers a structured user interface and navigation system
 
