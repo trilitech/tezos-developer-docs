@@ -1361,7 +1361,7 @@ export default function WineCataloguePage() {
 - Click on **Upload an image** and select a bottle picture on your computer
 - Click on the Mint button
 
-![minting.png](/img/tutorials/minting.png)
+![minting.png](/img/tutorials/nft-marketplace-1-minting.png)
 
 Your picture is pushed to IPFS and displayed, then your wallet asks you to sign the `mint` operation.
 
