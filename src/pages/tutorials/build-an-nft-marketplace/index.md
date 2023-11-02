@@ -37,7 +37,7 @@ The diagram visually presents the classification of different types of assets ba
 
 ### What is IPFS?
 
-The InterPlanetary File System is a protocol and peer-to-peer network for storing and sharing data in a distributed file system. IPFS uses content-addressing to uniquely identify each file in a global namespace connecting all computing devices. While Tezos is a blockchain optimized for transactions and smart contracts, it isn't ideal for storing large data, which is where IPFS comes into play. It complements blockchains like Tezos by efficiently handling large file storage. In this tutorial, using the [Pinata](https://www.pinata.cloud/) (free developer plan) , you'll learn to store NFT metadata on IPFS and reference it on Tezos, offering a scalable and cost-effective solution for handling extensive data associated with NFTs. An alternative would be to install a local IPFS node or an API gateway backend with a usage quota.
+The InterPlanetary File System is a protocol and peer-to-peer network for storing and sharing data in a distributed file system. IPFS uses content-addressing to uniquely identify each file in a global namespace connecting all computing devices. It complements blockchains like Tezos by efficiently handling large file storage. In this tutorial, you use [Pinata](https://www.pinata.cloud/)'s free developer plan to store your NFT metadata on IPFS and reference it on Tezos, demonstrating a scalable and cost-effective solution for handling extensive data associated with NFTs.
 
 ### Smart Contracts Overview
 
