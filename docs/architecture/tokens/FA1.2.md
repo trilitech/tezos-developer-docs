@@ -52,17 +52,15 @@ FA1.2 contracts must have these entrypoints:
   The transaction sender must be an address that has been authorized to transfer the tokens via the `approve` endpoint, even if the transaction sender and address that owns the tokens is the same address.
   After the transfer, the sender's allowance is decrease by the amount of tokens transferred.
 
-FA1.2 contracts can add any other entrypoints in addition to the required entrypoints.
-
-## Views
-
-FA1.2 contracts must have these views:
+FA1.2 contracts must also have entrypoints that behave like views but run on the chain.
+These entrypoints accept a contract address as a parameter and send a callback transaction to that address with information about the current state of the contract.
+They must not change the storage or generate any operations other than the callback transaction.
 
 - `getAllowance`: Returns the allowance that the specified sender can transfer out of the specified source account
 - `getBalance`: Returns the amount of tokens that the specified account owns
 - `getTotalSupply`: Returns the total amount of tokens in the contract
 
-FA1.2 contracts can add any other views in addition to the required views.
+FA1.2 contracts can add any other entrypoints in addition to the required entrypoints.
 
 ## Storage
 
