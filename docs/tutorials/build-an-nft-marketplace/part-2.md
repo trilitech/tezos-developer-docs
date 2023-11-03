@@ -8,7 +8,7 @@ In this section, you give users the ability to list a bottle for sale and buy bo
 
 You can continue from your code from part 1 or start from the completed version here: https://github.com/marigold-dev/training-nft-1/tree/main/solution.
 
-If you start from the completed version, run these commands install dependencies for the web application:
+If you start from the completed version, run these commands to install dependencies for the web application:
 
    ```bash
    npm i

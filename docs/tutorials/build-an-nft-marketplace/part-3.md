@@ -1,267 +1,270 @@
 ---
-title: NFT Marketplace Part 3
+title: "Part 3: Managing tokens with quantities"
 last_update:
-  date: 11 October 2023
+  date: 3 November 2023
 ---
 
-## Introduction
+Because NFTs can have only one quantity, they are not the right token type to represent wine bottles, which have a type and a quantity of bottles of that type.
+So in this part, you change the application to use a single-asset template, which lets you create a single token ID with a quantity that you define.
 
-![https://vinepair.com/wp-content/uploads/2016/06/Cellar-HEAD.jpg](https://vinepair.com/wp-content/uploads/2016/06/Cellar-HEAD.jpg)
+Of course, a wine store has many different bottles of wine with different quantities, so in the next part you use a multi-asset template to represent bottles in that situation.
 
-This time, let's use the single asset template. It is the opposite of the previous NFT template because:
+You can continue from your code from part 2 or start from the completed version here: https://github.com/marigold-dev/training-nft-2/tree/main/solution.
 
-- you have a unique `token_id`, so only 1 wine collection
-- you have a certain quantity of items in the same collection
+If you start from the completed version, run these commands to install dependencies for the web application:
 
-To sum up, you are producing wine bottles from the same collection with `n` quantity.
+   ```bash
+   npm i
+   cd ./app
+   yarn install
+   cd ..
+   ```
 
-Keep your code from previous training or get the solution [here](https://github.com/marigold-dev/training-nft-2/tree/main/solution)
+## Updating the smart contract
 
-> If you clone/fork a repo, rebuild in local
+To use the single-asset template, you must change the code that your smart contract imports from the NFT template the single-asset template:
 
-```bash
-npm i
-cd ./app
-yarn install
-cd ..
-```
+1. In the `nft.jsligo` file, change the first line to this code:
 
-## Smart Contract
+   ```jsligo
+   #import "@ligo/fa/lib/fa2/asset/single_asset.impl.jsligo" "FA2Impl"
+   ```
 
-Point to the new template changing the first import line of your `nft.jsligo` file to
+1. Change the offer type to store a quantity and a price, as in this code:
 
-```ligolang
-#import "@ligo/fa/lib/fa2/asset/single_asset.impl.jsligo" "FA2Impl"
-```
+   ```ligolang
+   export type offer = { quantity: nat, price: nat };
+   ```
 
-On nft.jsligo file, query/replace any reference to `NFT` namespace by `SingleAsset` one
+1. Change the storage type to use the data types from the single-asset template instead of the NFT template:
 
-Change the `offer` and `storage` definitions
+   ```ligolang
+   export type storage = {
+     administrators: set<address>,
+     totalSupply: nat,
+     offers: map<address, offer>, //user sells an offer
 
-```ligolang
-export type offer = { quantity: nat, price: nat };
+     ledger: FA2Impl.Datatypes.ledger,
+     metadata: FA2Impl.TZIP16.metadata,
+     token_metadata: FA2Impl.TZIP12.tokenMetadata,
+     operators: FA2Impl.Datatypes.operators,
+   };
+   ```
 
-export type storage = {
-  administrators: set<address>,
-  totalSupply: nat,
-  offers: map<address, offer>, //user sells an offer
+   Now the offers value is indexed on the address of the seller instead of the token ID because there is only one token ID.
+   Also, the storage now keeps track of the total number of tokens in the `totalSupply` value.
 
-  ledger: FA2Impl.Datatypes.ledger,
-  metadata: FA2Impl.TZIP16.metadata,
-  token_metadata: FA2Impl.TZIP12.tokenMetadata,
-  operators: FA2Impl.Datatypes.operators,
-};
-```
+1. Replace all other references to `FA2Impl.NFT` in the contract with `FA2Impl.SingleAsset`.
+You can do a find-replace in the contract to change these values.
 
-Explanation:
+1. Replace the `mint` entrypoint with this code:
 
-- `offers` is now a `map<address,offer>`, because you don't have to store `token_id` as a key, now the key is the owner's address. Each owner can sell a part of the unique collection
-- `offer` requires a quantity, each owner is selling a part of the unique collection
-- `totalSupply` is set while minting in order to track the global quantity of minted items on the collection. It makes it unnecessary to recalculate each time the quantity from each owner's holdings (this value is constant)
+   ```ligolang
+   @entry
+   const mint = (
+     [quantity, name, description, symbol, ipfsUrl]: [
+       nat,
+       bytes,
+       bytes,
+       bytes,
+       bytes
+     ],
+     s: storage
+   ): ret => {
+     if (quantity <= (0 as nat)) return failwith("0");
+     if (! Set.mem(Tezos.get_sender(), s.administrators)) return failwith("1");
+     const token_info: map<string, bytes> =
+       Map.literal(
+         list(
+           [
+             ["name", name],
+             ["description", description],
+             ["interfaces", (bytes `["TZIP-12"]`)],
+             ["artifactUri", ipfsUrl],
+             ["displayUri", ipfsUrl],
+             ["thumbnailUri", ipfsUrl],
+             ["symbol", symbol],
+             ["decimals", (bytes `0`)]
+           ]
+         )
+       ) as map<string, bytes>;
+     return [
+       list([]) as list<operation>,
+       {
+         ...s,
+         totalSupply: quantity,
+         ledger: Big_map.literal(list([[Tezos.get_sender(), quantity as nat]])) as
+           FA2Impl.SingleAsset.ledger,
+         token_metadata: Big_map.add(
+           0 as nat,
+           { token_id: 0 as nat, token_info: token_info },
+           s.token_metadata
+         ),
+         operators: Big_map.empty as FA2Impl.SingleAsset.operators,
+       }
+     ]
+   };
+   ```
 
-Edit the `mint` function to add the `quantity` extra param, and finally change the `return`
+   This updated entrypoint accepts a parameter for the number of tokens to mint and returns that number as the `totalSupply` value.
 
-```ligolang
-@entry
-const mint = (
-  [quantity, name, description, symbol, ipfsUrl]: [
-    nat,
-    bytes,
-    bytes,
-    bytes,
-    bytes
-  ],
-  s: storage
-): ret => {
-  if (quantity <= (0 as nat)) return failwith("0");
-  if (! Set.mem(Tezos.get_sender(), s.administrators)) return failwith("1");
-  const token_info: map<string, bytes> =
-    Map.literal(
-      list(
-        [
-          ["name", name],
-          ["description", description],
-          ["interfaces", (bytes `["TZIP-12"]`)],
-          ["artifactUri", ipfsUrl],
-          ["displayUri", ipfsUrl],
-          ["thumbnailUri", ipfsUrl],
-          ["symbol", symbol],
-          ["decimals", (bytes `0`)]
-        ]
-      )
-    ) as map<string, bytes>;
-  return [
-    list([]) as list<operation>,
-    {
-      ...s,
-      totalSupply: quantity,
-      ledger: Big_map.literal(list([[Tezos.get_sender(), quantity as nat]])) as
-        FA2Impl.SingleAsset.ledger,
-      token_metadata: Big_map.add(
-        0 as nat,
-        { token_id: 0 as nat, token_info: token_info },
-        s.token_metadata
-      ),
-      operators: Big_map.empty as FA2Impl.SingleAsset.operators,
-    }
-  ]
-};
-```
+1. Replace the `sell` entrypoint with this code:
 
-Edit the `sell` function to replace `token_id` by `quantity`, add/override an offer for the user
+   ```ligolang
+   @entry
+   const sell = ([quantity, price]: [nat, nat], s: storage): ret => {
+     //check balance of seller
 
-```ligolang
-@entry
-const sell = ([quantity, price]: [nat, nat], s: storage): ret => {
-  //check balance of seller
+     const sellerBalance =
+       FA2Impl.Sidecar.get_amount_for_owner(
+         {
+           ledger: s.ledger,
+           metadata: s.metadata,
+           operators: s.operators,
+           token_metadata: s.token_metadata,
+         }
+       )(Tezos.get_source());
+     if (quantity > sellerBalance) return failwith("2");
+     //need to allow the contract itself to be an operator on behalf of the seller
 
-  const sellerBalance =
-    FA2Impl.Sidecar.get_amount_for_owner(
-      {
-        ledger: s.ledger,
-        metadata: s.metadata,
-        operators: s.operators,
-        token_metadata: s.token_metadata,
-      }
-    )(Tezos.get_source());
-  if (quantity > sellerBalance) return failwith("2");
-  //need to allow the contract itself to be an operator on behalf of the seller
+     const newOperators =
+       FA2Impl.Sidecar.add_operator(s.operators)(Tezos.get_source())(
+         Tezos.get_self_address()
+       );
+     //DECISION CHOICE: if offer already exists, we just override it
 
-  const newOperators =
-    FA2Impl.Sidecar.add_operator(s.operators)(Tezos.get_source())(
-      Tezos.get_self_address()
-    );
-  //DECISION CHOICE: if offer already exists, we just override it
+     return [
+       list([]) as list<operation>,
+       {
+         ...s,
+         offers: Map.add(
+           Tezos.get_source(),
+           { quantity: quantity, price: price },
+           s.offers
+         ),
+         operators: newOperators
+       }
+     ]
+   };
+   ```
 
-  return [
-    list([]) as list<operation>,
-    {
-      ...s,
-      offers: Map.add(
-        Tezos.get_source(),
-        { quantity: quantity, price: price },
-        s.offers
-      ),
-      operators: newOperators
-    }
-  ]
-};
-```
+   This updated entrypoint accepts a quantity to offer for sale instead of a token ID.
+   It also overrides any existing offers for the token.
 
-Also edit the `buy` function to replace `token_id` by `quantity`, check quantities, check final price is enough and update the current offer
+1. Replace the `buy` entrypoint with this code:
 
-```ligolang
-@entry
-const buy = ([quantity, seller]: [nat, address], s: storage): ret => {
-  //search for the offer
+   ```ligolang
+   @entry
+   const buy = ([quantity, seller]: [nat, address], s: storage): ret => {
+     //search for the offer
 
-  return match(Map.find_opt(seller, s.offers)) {
-    when (None()):
-      failwith("3")
-    when (Some(offer)):
-      do {
-        //check if quantity is enough
+     return match(Map.find_opt(seller, s.offers)) {
+       when (None()):
+         failwith("3")
+       when (Some(offer)):
+         do {
+           //check if quantity is enough
 
-        if (quantity > offer.quantity) return failwith("4");
-        //check if amount have been paid enough
+           if (quantity > offer.quantity) return failwith("4");
+           //check if amount have been paid enough
 
-        if (Tezos.get_amount() < (offer.price * quantity) * (1 as mutez)) return failwith(
-          "5"
-        );
-        // prepare transfer of XTZ to seller
+           if (Tezos.get_amount() < (offer.price * quantity) * (1 as mutez)) return failwith(
+             "5"
+           );
+           // prepare transfer of XTZ to seller
 
-        const op =
-          Tezos.transaction(
-            unit,
-            (offer.price * quantity) * (1 as mutez),
-            Tezos.get_contract_with_error(seller, "6")
-          );
-        //transfer tokens from seller to buyer
+           const op =
+             Tezos.transaction(
+               unit,
+               (offer.price * quantity) * (1 as mutez),
+               Tezos.get_contract_with_error(seller, "6")
+             );
+           //transfer tokens from seller to buyer
 
-        let ledger =
-          FA2Impl.Sidecar.decrease_token_amount_for_user(s.ledger)(seller)(
-            quantity
-          );
-        ledger
-        = FA2Impl.Sidecar.increase_token_amount_for_user(ledger)(
-            Tezos.get_source()
-          )(quantity);
-        //update new offer
+           let ledger =
+             FA2Impl.Sidecar.decrease_token_amount_for_user(s.ledger)(seller)(
+               quantity
+             );
+           ledger
+           = FA2Impl.Sidecar.increase_token_amount_for_user(ledger)(
+               Tezos.get_source()
+             )(quantity);
+           //update new offer
 
-        const newOffer = { ...offer, quantity: abs(offer.quantity - quantity) };
-        return [
-          list([op]) as list<operation>,
-          {
-            ...s,
-            offers: Map.update(seller, Some(newOffer), s.offers),
-            ledger: ledger,
-          }
-        ]
-      }
-  }
-};
-```
+           const newOffer = { ...offer, quantity: abs(offer.quantity - quantity) };
+           return [
+             list([op]) as list<operation>,
+             {
+               ...s,
+               offers: Map.update(seller, Some(newOffer), s.offers),
+               ledger: ledger,
+             }
+           ]
+         }
+     }
+   };
+   ```
 
-Edit the storage file `nft.storageList.jsligo` as it. (:warning: you can change the `administrator` address to your own address or keep `alice`)
+   This updated entrypoint accepts the quantity of tokens to buy, verifies that the quantity is less than or equal to the quantity offered for sale, verifies the sale price, and updates the offer.
+   It allows a buyer to buy the full amount of tokens for sale or fewer than the offered amount.
 
-```ligolang
-#import "nft.jsligo" "Contract"
+1. Replace the content of the `nft.storageList.jsligo` file with this code:
 
-const default_storage: Contract.storage = {
-    administrators: Set.literal(
-        list(["tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb" as address])
-    ) as set<address>,
-    totalSupply: 0 as nat,
-    offers: Map.empty as map<address, Contract.offer>,
-    ledger: Big_map.empty as Contract.FA2Impl.SingleAsset.ledger,
-    metadata: Big_map.literal(
-        list(
-            [
-                ["", bytes `tezos-storage:data`],
-                [
-                    "data",
-                    bytes
-                    `{
-      "name":"FA2 NFT Marketplace",
-      "description":"Example of FA2 implementation",
-      "version":"0.0.1",
-      "license":{"name":"MIT"},
-      "authors":["Marigold<contact@marigold.dev>"],
-      "homepage":"https://marigold.dev",
-      "source":{
-        "tools":["Ligo"],
-        "location":"https://github.com/ligolang/contract-catalogue/tree/main/lib/fa2"},
-      "interfaces":["TZIP-012"],
-      "errors": [],
-      "views": []
-      }`
-                ]
-            ]
-        )
-    ) as Contract.FA2Impl.TZIP16.metadata,
-    token_metadata: Big_map.empty as Contract.FA2Impl.TZIP12.tokenMetadata,
-    operators: Big_map.empty as Contract.FA2Impl.SingleAsset.operators,
-};
-```
+   ```ligolang
+   #import "nft.jsligo" "Contract"
 
-Compile again and deploy to ghostnet.
+   const default_storage: Contract.storage = {
+       administrators: Set.literal(
+           list(["tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb" as address])
+       ) as set<address>,
+       totalSupply: 0 as nat,
+       offers: Map.empty as map<address, Contract.offer>,
+       ledger: Big_map.empty as Contract.FA2Impl.SingleAsset.ledger,
+       metadata: Big_map.literal(
+           list(
+               [
+                   ["", bytes `tezos-storage:data`],
+                   [
+                       "data",
+                       bytes
+                       `{
+         "name":"FA2 NFT Marketplace",
+         "description":"Example of FA2 implementation",
+         "version":"0.0.1",
+         "license":{"name":"MIT"},
+         "authors":["Marigold<contact@marigold.dev>"],
+         "homepage":"https://marigold.dev",
+         "source":{
+           "tools":["Ligo"],
+           "location":"https://github.com/ligolang/contract-catalogue/tree/main/lib/fa2"},
+         "interfaces":["TZIP-012"],
+         "errors": [],
+         "views": []
+         }`
+                   ]
+               ]
+           )
+       ) as Contract.FA2Impl.TZIP16.metadata,
+       token_metadata: Big_map.empty as Contract.FA2Impl.TZIP12.tokenMetadata,
+       operators: Big_map.empty as Contract.FA2Impl.SingleAsset.operators,
+   };
+   ```
 
-```bash
-TAQ_LIGO_IMAGE=ligolang/ligo:1.0.0 taq compile nft.jsligo
-taq deploy nft.tz -e "testing"
-```
+1. As in the previous parts, update the administrators to include addresses that you have access to.
 
-```logs
-┌──────────┬──────────────────────────────────────┬───────┬──────────────────┬────────────────────────────────┐
-│ Contract │ Address                              │ Alias │ Balance In Mutez │ Destination                    │
-├──────────┼──────────────────────────────────────┼───────┼──────────────────┼────────────────────────────────┤
-│ nft.tz   │ KT1EUWEeR9RHMb5q5jeW5jbhxBFHbLTqQgiZ │ nft   │ 0                │ https://ghostnet.ecadinfra.com │
-└──────────┴──────────────────────────────────────┴───────┴──────────────────┴────────────────────────────────┘
-```
+1. Compile and deploy the new contract:
 
-**The smart contract! _(backend)_ is finished**
+   ```bash
+   TAQ_LIGO_IMAGE=ligolang/ligo:1.0.0 taq compile nft.jsligo
+   taq deploy nft.tz -e "testing"
+   ```
 
-## NFT Marketplace front
+## Updating the frontend
+
+
+
+
+
 
 Generate Typescript classes and go to the frontend to run the server
 
