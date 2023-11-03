@@ -81,4 +81,4 @@ You can see a running version of this application here: https://demo.winefactory
 This application is made up of a smart contract that handles the tokens and a frontend web application that handles the user interface and sends transactions to the backend.
 As you work through the tutorial, you will use different smart contracts and upgrade the web application to work with them.
 
-When you're ready, go to [part 1](./build-an-nft-marketplace/part-1) to begin.
+When you're ready, go to [Part 1: Minting tokens](./build-an-nft-marketplace/part-1) to begin.

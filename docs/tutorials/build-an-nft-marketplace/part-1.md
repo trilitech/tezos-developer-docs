@@ -34,7 +34,7 @@ Follow these steps to set up a Taqueria project:
 ## Creating an FA2 contract from a template
 
 The `ligo/fa` library provides a template that saves you from having to implement all of the FA2 standard yourself.
-Follow these steps to create a contract that is based on the template and implement the required endpoints:
+Follow these steps to create a contract that is based on the template and implements the required endpoints:
 
 1. Create a contract to manage your NFTs:
 
@@ -323,8 +323,6 @@ Note that only the addresses in the `administrators` list will be able to create
       The response includes the address of an account that Taqueria generated for you and added to the `.taq/config.local.testing.json` file automatically.
 
       1. Fund the account from the faucet at https://faucet.ghostnet.teztnets.xyz.
-
-      1. Using the information in the `.taq/config.local.testing.json` file, import the private key into a wallet application.
 
 1. Compile and deploy the contract to Ghostnet by running this command:
 
@@ -939,6 +937,6 @@ Follow these steps to show the tokens that you have minted:
 
 Now you can create NFTs with the `@ligo/fa` library and show them on a web page.
 
-In the next section, you will add the buy and sell functions to smart contract and update the frontend application to allow these actions.
+In the next section, you add the buy and sell functions to smart contract and update the frontend application to allow these actions.
 
 When you are ready, continue to [Part 2: Buying and selling tokens](./part-2).

@@ -261,8 +261,6 @@ You can do a find-replace in the contract to change these values.
 
 ## Updating the frontend
 
-1. Start the web application if it is not running:
-
 1. Generate the TypeScript classes and start the server:
 
    ```bash

@@ -553,10 +553,10 @@ The contract storage must store the tokens that are offered for sale and their p
    nftContrat?.methods.sell(BigNumber(token_id) as nat,BigNumber(price * 1000000) as nat).send()
    ```
 
-   This code multiplies the price by 1000000 because the UI shows prices in tez but the contract records prices in mutez.
+   This code multiplies the price by 1,000,000 because the UI shows prices in tez but the contract records prices in mutez.
    Then the contract creates an offer for the selected token.
 
-1. As you did in the previous section, connect an administrator's wallet to the application and create at least one NFT.
+1. As you did in the previous part, connect an administrator's wallet to the application and create at least one NFT.
 The new contract that you deployed in this section has no NFTs to start with.
 
 1. Offer a bottle for sale:
