@@ -14,8 +14,9 @@ Tezos supports many types of tokens, including:
 - Wrapped tokens, which represent tokens from another blockchain or another standard; see [Wrapped tokens](#wrapped-tokens)
 - Non-transferable tokens, also known as soulbound tokens, which cannot be transferred to another account after they are created
 
-It's important to remember that Tezos tokens are managed by smart contracts.
+It's important to remember that in most cases, Tezos tokens are managed by smart contracts.
 Tokens are not stored directly in accounts; instead, smart contracts keep a ledger of how many tokens different accounts hold.
+One exception is tickets, which are directly stored and managed by smart contracts.
 
 To learn about tokens, see these tutorials:
 
@@ -45,13 +46,13 @@ When an account transfers tokens to another account, it sends the transaction to
 
 A non-fungible token represents something unique, and therefore it is not interchangeable with any other token.
 An NFT can represent a specific piece of art, a specific seat at a specific event, or a role that can be held by only one person.
-Therefore, a contract that manages NFTs has a ledger that shows the owner's account, the token ID, and either 0 or 1 for the amount of that token, as in this example:
+Therefore, a contract that manages NFTs has a ledger that shows the token ID and the owner's account, as in this example:
 
-Account address | Token ID | Balance
---- | --- | ---
-tz1QCVQinE8iVj1H2fckqx6oiM85CNJSK9Sx | 0 | 1
-tz1QCVQinE8iVj1H2fckqx6oiM85CNJSK9Sx | 1 | 1
-tz1Z2iXBaFTd1PKhEUxCpXj7LzY7W7nRouqf | 2 | 1
+Token ID | Account address
+--- | ---
+0 | tz1QCVQinE8iVj1H2fckqx6oiM85CNJSK9Sx
+1 | tz1QCVQinE8iVj1H2fckqx6oiM85CNJSK9Sx
+2 | tz1Z2iXBaFTd1PKhEUxCpXj7LzY7W7nRouqf
 
 When an account transfers an NFT to another account, it sends the transaction to the smart contract, which removes it as the owner of the token and adds the target account as the owner of the token.
 
@@ -72,7 +73,7 @@ Consider these things:
 - Is there a limit on the number of tokens or can the contract create any number of tokens?
 - What are the rules for creating or transferring tokens?
 
-Remember that holding a token means that the contract's ledger has a record that connects an account address with a balance of tokens.
+Remember that holding a token usually means that the contract's ledger has a record that connects an account address with a balance of tokens.
 Therefore, if the smart contract is malicious or has flaws, the ledger could be changed, erased, or frozen and the tokens could be stolen, destroyed, or made unusable.
 
 ## Token standards
@@ -98,8 +99,10 @@ These standards are named with the prefix FA, which stands for _financial applic
 - [FA2](./tokens/FA2) tokens can be multiple types of tokens, including fungible and non-fungible tokens, and a single smart contract that follows this standard can create multiple types of tokens
 
 You can use templates for smart contracts with these standards instead of writing your own.
-For example, SmartPy provides resources for creating standard-compliant contracts: see [Tokens](https://smartpy.io/guides/tokens/) in the SmartPy documentation.
-For LIGO templates, see the [`@ligo/fa package`](https://packages.ligolang.org/package/@ligo/fa).
+
+- For SmartPy resources, see [Tokens](https://smartpy.io/guides/tokens/) in the SmartPy documentation.
+- For LIGO templates, see the [`@ligo/fa package`](https://packages.ligolang.org/package/@ligo/fa).
+- For Archetype templates, see [Templates](https://archetype-lang.org/docs/templates/overview/) in the Archetype documentation.
 
 ## Wrapped tokens
 
