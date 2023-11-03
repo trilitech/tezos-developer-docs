@@ -738,7 +738,8 @@ The mint page uses a form that accepts information and an image and sends a tran
 1. In the file `app/.env`, replace the default `VITE_PINATA_API_KEY` and `VITE_PINATA_API_SECRET` values with your Pinata API key and API secret.
 If you don't have a Pinata API key, see the [Configure IPFS storage](./create-an-nft/nft-taquito#configure-ipfs-storage) section of the tutorial [Create a contract and web app that mints NFTs](./create-an-nft/nft-taquito).
 
-Now the form has a working mint page, though it does not have a page that shows the current tokens.
+Now the form has a working mint page.
+In the next section, you use it to mint NFTs.
 
 ## Minting NFTs
 
@@ -940,4 +941,4 @@ Now you can create NFTs with the `@ligo/fa` library and show them on a web page.
 
 In the next section, you will add the buy and sell functions to smart contract and update the frontend application to allow these actions.
 
-When you are ready, continue to [Part 2](./part-2).
+When you are ready, continue to [Part 2: Buying and selling tokens](./part-2).

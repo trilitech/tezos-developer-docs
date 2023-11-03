@@ -28,7 +28,7 @@ You will learn:
    - [`yarn`](https://yarnpkg.com/): The frontend application uses yarn to build and run (see this article for details about [differences between `npm` and `yarn`](https://www.geeksforgeeks.org/difference-between-npm-and-yarn/))
    - Any Tezos-compatible wallet that supports Ghostnet, such as [Temple wallet](https://templewallet.com/)
 
-1. Optionally, you can install [`VS Code`](https://code.visualstudio.com/download) to edit your application code in and the [ligo VS Code extension](https://marketplace.visualstudio.com/items?itemName=ligolang-publish.ligo-vscode) for LIGO editing features such as code highlighting and completion.
+1. Optionally, you can install [`VS Code`](https://code.visualstudio.com/download) to edit your application code in and the [LIGO VS Code extension](https://marketplace.visualstudio.com/items?itemName=ligolang-publish.ligo-vscode) for LIGO editing features such as code highlighting and completion.
 Taqueria also provides a [Taqueria VS Code extension](https://marketplace.visualstudio.com/items?itemName=ecadlabs.taqueria-vscode) that helps visualize your project and run tasks.
 
 1. Optional: If this is your first time using Taqueria, you may want to run through [this Taqueria training](https://github.com/marigold-dev/training-dapp-1#ghostnet-testnet-wallet).
