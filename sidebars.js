@@ -134,6 +134,19 @@ const sidebars = {
             'smart-contracts/logic/errors',
           ],
         },
+        {
+          type: 'category',
+          label: 'Creating, Testing, Deploying smart contract',
+          link: {
+            type: 'doc',
+            id: 'smart-contracts/creating-testing-deploying-smart-contract/creating',
+          },
+          items: [
+            'smart-contracts/creating-testing-deploying-smart-contract/creating',
+            'smart-contracts/creating-testing-deploying-smart-contract/testing',
+            'smart-contracts/creating-testing-deploying-smart-contract/deploying',
+          ],
+        },
         'smart-contracts/entrypoints',
         'smart-contracts/storage',
         'smart-contracts/special-values',

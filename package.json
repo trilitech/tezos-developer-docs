@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
-    "start": "docusaurus start",
+    "staryt": "docusaurus start",
     "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
@@ -18,6 +18,7 @@
     "@docusaurus/preset-classic": "3.0.0",
     "@mdx-js/react": "^3.0.0",
     "clsx": "^1.2.1",
+    "docusaurus": "^1.14.7",
     "plugin-image-zoom": "github:flexanalytics/plugin-image-zoom",
     "prism-react-renderer": "^1.3.5",
     "react": "^18.2",
