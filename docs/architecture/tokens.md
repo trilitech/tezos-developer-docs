@@ -115,8 +115,8 @@ For more information about wXTZ, see [The Wrapped Tezos (wXTZ) beta Guide](https
 
 
 :::danger
-You might imagine that the wrapped version of a token is the token with a wrapper around it that lets it operate in a new location or according to a new standard.
-However, the original token and the wrapped version are distinct tokens with no formal relationship between them.
-Instead, smart contracts and other systems allow users to exchange tokens for wrapped tokens and back.
+The wrapped version of a token has no formal or official relationship to the original token.
+Instead, users create tokens that they call wrapped tokens and provide smart contracts to allow users to exchange the tokens for the wrapped tokens and vice versa.
+You might imagine that the wrapped version of a token is the token with a wrapper around it that lets it operate in a new location or according to a new standard, but it is really an entirely different token.
 Like all tokens, you must use caution when using a wrapped token.
 :::
