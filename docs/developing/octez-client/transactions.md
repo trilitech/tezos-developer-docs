@@ -4,7 +4,7 @@ authors: Tim McMackin
 lastUpdated: 27 October 2023
 ---
 
-Before sending transactions with the Octez client, make sure that you are connected to an RPC node for the network that you want to use.
+Before sending transactions with the Octez client, make sure that your client is configured to use an RPC node for the network that you want to use.
 To verify the RPC node that you are using, run `octez-client config show` and look at the value in the `entrypoint` field.
 
 ## Sending tez
