@@ -153,6 +153,12 @@ const dAppClient = new DAppClient({ name: "My dApp" });
 await dAppClient.clearActiveAccount();
 ```
 
+## Other tools
+
+Some specific wallets provide toolkits to connect dApps to them.
+For example, the Temple wallet provides the [@temple-wallet/dapp](https://www.npmjs.com/package/@temple-wallet/dapp) NPM package.
+For more information, see https://github.com/madfish-solutions/templewallet-dapp.
+
 ## Best practices
 
 ### Keep tools up to date
