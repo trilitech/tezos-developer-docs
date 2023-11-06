@@ -7,19 +7,84 @@ last_update:
 
 dApps must connect to user wallets to view the tokens in the account and to submit transactions on behalf of the wallet's owner.
 
-## Beacon
+The primary tools that dApps use to connect to wallets are:
 
-Beacon is an SDK that allows dApps to connect to wallets and sign transactions.
-It implements the [tzip-10 proposal](https://gitlab.com/tezos/tzip/-/tree/master/proposals/tzip-10), which describes an interaction standard between wallets and dApps.
-By using this standard, a dApp that uses Beacon can send messages over a peer-to-peer communication layer to a wallet, such as allowing a user to connect with an app on one platform, such as a mobile app, and then use the dApp on another platform, such as a desktop browser.
+- Beacon: A JavaScript/TypeScript SDK for connecting to wallets, signing transactions, and sending information about this connection between connected apps
 
-Beacon can remember the connections that have been established and the accounts that have connected to the app.
-It also includes default UI elements for pairing wallets and showing the status of a transaction.
+  Beacon implements the [tzip-10 proposal](https://gitlab.com/tezos/tzip/-/tree/master/proposals/tzip-10), which describes an interaction standard between wallets and dApps.
+  By using this standard, a dApp that uses Beacon can send messages over a peer-to-peer communication layer to a wallet, such as allowing a user to connect with an app on one platform, such as by scanning a QR code on a mobile app, and then use the dApp with the connected wallet on another platform, such as a desktop browser.
 
-:::note
-While you can use Beacon on its own, most of the time applications use Beacon with Taquito.
-See [Taquito and Beacon](#taquito-and-beacon) for details for using Beacon with Taquito.
-:::
+  Beacon can remember the connections that have been established and the accounts that have connected to the app.
+  It also includes default UI elements for connecting wallets and showing the status of a transaction.
+
+  For more information about Beacon, see https://www.walletbeacon.io.
+
+- Taquito: A JavaScript/TypeScript SDK for sending transactions
+
+  Taquito allows dApps to get information from Tezos and send transactions to Tezos.
+  It integrates with Beacon to handle interactions with the user's wallet.
+
+  For more information about Taquito, see [Taquito](./taquito).
+
+## Beacon and Taquito
+
+Most of the time, dApps use Beacon and Taquito together for a straightforward way to connect to wallets and submit transactions.
+For an example, see the tutorial [Build your first app on Tezos](../tutorials/build-your-first-app).
+
+### Connecting to wallets
+
+That tutorial connects to the wallet using the Taquito `BeaconWallet` object, which is a wrapper around Beacon's wallet functionality, with code like this example:
+
+```javascript
+import { BeaconWallet } from "@taquito/beacon-wallet";
+
+const wallet = new BeaconWallet({
+  name: "My dApp",
+  preferredNetwork: network,
+});
+await wallet.requestPermissions({
+  network: { type: network, rpcUrl },
+});
+const address = await wallet.getPKH();
+```
+
+When this code runs, Beacon opens a popup window that guides the user through connecting their wallet.
+
+Then the application can send transactions to Tezos as described in [Sending transactions](./sending-transactions).
+
+### Reconnecting to wallets
+
+As with using Beacon on its own, you can detect whether a user has previously connected their wallet and reconnect automatically.
+For example, this code checks to see if the user has connected and if so, it automatically reconnects to the wallet:
+
+```javascript
+import { BeaconWallet } from "@taquito/beacon-wallet";
+
+const newWallet = new BeaconWallet({
+  name: "My dApp",
+  preferredNetwork: network
+});
+const activeAccount = await newWallet.client.getActiveAccount();
+if (activeAccount) {
+  wallet = newWallet;
+  console.log("Reconnected to wallet:", await newWallet.getPKH());
+}
+```
+
+### Disconnecting wallets
+
+It's good programming practice to allow a user to disconnect their wallet, such as if they want to connect with a different wallet.
+
+To disconnect the active wallet, call the `clearActiveAccount` method, as in this example:
+
+```javascript
+wallet.client.clearActiveAccount();
+wallet = undefined;
+```
+
+## Beacon by itself
+
+You can also use Beacon without Taquito.
 
 ### Connecting to wallets
 
@@ -85,64 +150,6 @@ const dAppClient = new DAppClient({ name: "My dApp" });
 
 await dAppClient.clearActiveAccount();
 ```
-
-For more information about Beacon, see https://walletbeacon.io/.
-
-## Taquito and Beacon
-
-Using Taquito and Beacon together is a straightforward way to connect to wallets and submit transactions.
-For an example, see the tutorial [Build your first app on Tezos](../tutorials/build-your-first-app).
-
-### Connecting to wallets
-
-That tutorial connects to the wallet using the Taquito `BeaconWallet` object, which is a wrapper around Beacon, with code like this example:
-
-```javascript
-import { BeaconWallet } from "@taquito/beacon-wallet";
-
-const wallet = new BeaconWallet({
-  name: "My dApp",
-  preferredNetwork: network,
-});
-await wallet.requestPermissions({
-  network: { type: network, rpcUrl },
-});
-const address = await wallet.getPKH();
-```
-
-When this code runs, Beacon opens a popup window that guides the user through connecting their wallet.
-
-Then the application can send transactions to Tezos as described in [Sending transactions](./sending-transactions).
-
-### Reconnecting to wallets
-
-As with using Beacon on its own, you can detect whether a user has previously connected their wallet and reconnect automatically.
-For example, this code checks to see if the user has connected and if so, it automatically reconnects to the wallet:
-
-```javascript
-const newWallet = new BeaconWallet({
-  name: "My dApp",
-  preferredNetwork: network
-});
-const activeAccount = await newWallet.client.getActiveAccount();
-if (activeAccount) {
-  wallet = newWallet;
-  console.log("Reconnected to wallet:", await newWallet.getPKH());
-}
-```
-
-### Disconnecting wallets
-
-It's good programming practice to allow a user to disconnect their wallet, such as if they want to connect with a different wallet.
-
-To disconnect the active wallet, call the `clearActiveAccount` method, as in this example:
-
-```javascript
-wallet.client.clearActiveAccount();
-wallet = undefined;
-```
-
-For more information about Taquito, see [Taquito](./taquito).
 
 ## Best practices
 
