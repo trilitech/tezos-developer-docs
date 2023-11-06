@@ -41,7 +41,7 @@ Taqueria also provides a [Taqueria VS Code extension](https://marketplace.visual
 If you've gone through the tutorials under [Create an NFT](./create-an-nft) you know that NFTs are blockchain tokens that represent unique assets, usually created under the FA2 token standard.
 However, the Tezos FA2 token standard allows you to create multiple types of tokens, and even more than one kind of token within the same smart contract.
 When you create tokens, it's important to follow one of the token standards because then tools like wallets and block explorers can automatically work with those tokens.
-For more information about Tezos token standards, see [Token standards](../reference/token-standards).
+For more information about Tezos token standards, see [Token standards](../architecture/tokens).
 
 In this tutorial, you use the LIGO template for FA2 tokens to create these types of tokens:
 
