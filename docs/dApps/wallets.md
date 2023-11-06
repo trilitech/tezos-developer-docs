@@ -90,13 +90,16 @@ You can also use Beacon without Taquito.
 
 ### Connecting to wallets
 
-To connect to a wallet with Beacon, import the Beacon package and create an instance of the `DAppClient` object.
+To connect to a wallet with Beacon, import the Beacon package and use the `getDAppClientInstance` function to get an instance of the Beacon `DAppClient` object.
+Using this function ensures that you have only instance of the Beacon client because it returns an instance if one already exists or creates one if it does not.
+Creating multiple instances or copies of the Beacon `DAppClient` object can lead to unexpected behavior.
+
 Then, use this object to send a permission request to prompt the user to connect a wallet:
 
 ```javascript
-import { DAppClient } from '@airgap/beacon-sdk'
+import { getDAppClientInstance } from '@airgap/beacon-sdk'
 
-const dAppClient = new DAppClient({ name: 'My dApp' })
+const dAppClient = getDAppClientInstance({ name: 'My dApp' })
 
 try {
   console.log('Requesting permissions...')
@@ -108,10 +111,6 @@ try {
 ```
 
 When this code runs, Beacon opens a popup window that guides the user through connecting their wallet.
-
-:::note
-The `DAppClient` instance should be a singleton. Creating multiple instances or copies can lead to unexpected behavior.
-:::
 
 ### Reconnecting to wallets
 
