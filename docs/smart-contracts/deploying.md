@@ -1,12 +1,12 @@
 ---
 title: Deploying smart contracts
 author: 'Yuxin Li'
-lastUpdated: 2nd November 2023
+lastUpdated: 6th November 2023
 ---
 ## Introduction
 The last part will introduce how to deploy smart contracts. In Tezos, deploying a smart contract is often referred to as “origination”. This process essentially creates a new account that holds the smart contract's script. Contracts initiated in this manner have addresses that start with `KT1` (known as originated accounts), which distinguishes them from the implicit accounts with addresses beginning with `tz1`, `tz2`, or `tz3`.
 
-## Deploying a Smart Contract
+## Deploying a smart contract
 Here is the syntax for the Tezos command line to deploy a smart contract:
 ```bash
 octez-client originate contract CONTRACT_NAME transferring AMOUNT_TEZ from FROM_USER \
@@ -26,14 +26,14 @@ Note that you must replace `<CONTRACT_NAME>` with the address of the deployed co
 Obtaining the Tezos Client:
 :::
 
-### Obtaining the Tezos Client:
+### Obtaining the Tezos client:
 - **GNU/Linux**: the simplest way to get octez-client is through opam using opam install tezos. alternatives are available here
 - **MacOsX**: the software is distributed through a brew formula with brew install tezos.
 
-## Interacting with the Devloped Contract
+## Interacting with the devloped contract
 
 ### Invocation
-After the smart contract has successfully been originated and included in a baked block, interaction with the contract's entrypoints is possible via command lines.
+Once you have successfully originated the smart contract and a baked block includes it, you can interact with the contract's entrypoints using command lines.
 
 For example, suppose you have a smart contract with an entrypoint called `update_data`, which takes an integer as an argument to update some data in its storage. Here's how you might invoke this entrypoint:
 
