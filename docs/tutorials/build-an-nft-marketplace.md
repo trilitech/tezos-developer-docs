@@ -59,7 +59,7 @@ In most cases, developers don't store token metadata such as image files directl
 Instead, they configure decentralized storage for the NFT data and put only the link to that data on Tezos itself.
 
 The InterPlanetary File System (IPFS) is a protocol and peer-to-peer network for storing and sharing data in a distributed file system.
-IPFS uses content-addressing to uniquely identify each file in a global namespace connecting all computing devices.
+IPFS uses content-addressable storage to uniquely identify each file in a global namespace connecting all computing devices.
 In this tutorial, you use [Pinata](https://www.pinata.cloud/)'s free developer plan to store your NFT metadata on IPFS and reference it on Tezos, demonstrating a scalable and cost-effective solution for handling NFT data.
 
 ## Tutorial application

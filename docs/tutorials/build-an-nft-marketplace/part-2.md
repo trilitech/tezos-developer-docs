@@ -580,7 +580,7 @@ In this section, you add a catalog page to show the bottles that are on sale and
 
 1. Open the file `./src/WineCataloguePage.tsx` and replace it with this code:
 
-   ```ligolang
+   ```typescript
    import { InfoOutlined } from "@mui/icons-material";
    import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
    import {
@@ -824,5 +824,7 @@ Now you and other users can buy and sell NFTs from the marketplace dApp.
 
 In the next part, you create a different type of token, called a single-asset token.
 Instead of creating multiple token types with a quantity of exactly 1 as with the NFTs in this part, you create a single token type with any quantity you want.
+
+For the complete content of the contract and web app at the end of this part, see the completed part 2 app at https://github.com/marigold-dev/training-nft-2.
 
 To continue, go to [Part 3: Managing tokens with quantities](./part-3).

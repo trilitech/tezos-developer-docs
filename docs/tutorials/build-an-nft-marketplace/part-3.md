@@ -1381,6 +1381,8 @@ For example, you can use this information:
 
 Now you can manage tokens that have a quantity, but the app can manage only one type of token.
 
+For the complete content of the contract and web app at the end of this part, see the completed part 3 app at https://github.com/marigold-dev/training-nft-3.
+
 In the next part, you update the application to create a multi-asset contract that can handle multiple types of tokens with different quantities.
 
 To continue, go to [Part 4: Handling multi-asset tokens](./part-4).

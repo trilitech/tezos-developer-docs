@@ -1403,6 +1403,8 @@ Then you can connect a different account and buy bottles from the different type
 Now you can create token collections from the different templates that are available in the `@ligo/fa` library, including NFTs, single-asset tokens, and multi-asset tokens.
 You can create web applications that manage token transactions and show information about tokens.
 
+For the complete content of the contract and web app at the end of the tutorial, see the completed part 4 app at https://github.com/marigold-dev/training-nft-4.
+
 If you want to continue with the application, you can extend the contract or application.
 Here are some ideas:
 

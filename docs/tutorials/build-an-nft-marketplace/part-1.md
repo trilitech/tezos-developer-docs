@@ -733,6 +733,8 @@ The mint page uses a form that accepts information and an image and sends a tran
 
 1. Save the file.
 
+   For the complete content of the mint page, see the completed part 1 app at https://github.com/marigold-dev/training-nft-1.
+
 1. In the file `app/.env`, replace the default `VITE_PINATA_API_KEY` and `VITE_PINATA_API_SECRET` values with your Pinata API key and API secret.
 If you don't have a Pinata API key, see the [Configure IPFS storage](./create-an-nft/nft-taquito#configure-ipfs-storage) section of the tutorial [Create a contract and web app that mints NFTs](./create-an-nft/nft-taquito).
 
@@ -935,7 +937,7 @@ Follow these steps to show the tokens that you have minted:
 
 ## Summary
 
-Now you can create NFTs with the `@ligo/fa` library and show them on a web page.
+Now you can create FA2-compatible NFTs with the `@ligo/fa` library and show them on a web page.
 
 In the next section, you add the buy and sell functions to smart contract and update the frontend application to allow these actions.
 
