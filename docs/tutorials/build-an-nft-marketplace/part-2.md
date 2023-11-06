@@ -564,7 +564,7 @@ The new contract that you deployed in this section has no NFTs to start with.
    1. Open the application and click **Trading > Sell bottles**.
    The sale page opens and shows the bottles that you own, as in this picture:
 
-   ![The Sell bottles page, showing the bottles that you can offer for sale](/img/tutorials/nft-marketplace-2-sell.png)
+      ![The Sell bottles page, showing the bottles that you can offer for sale](/img/tutorials/nft-marketplace-2-sell.png)
 
    1. Set the price for a bottle and then click **Sell**.
 

@@ -4,7 +4,7 @@ last_update:
   date: 3 November 2023
 ---
 
-Because NFTs can have only one quantity, they are not the right token type to represent wine bottles, which have a type and a quantity of bottles of that type.
+Because only one of each NFT can exist, they are not the right token type to represent wine bottles, which have a type and a quantity of bottles of that type.
 So in this part, you change the application to use a single-asset template, which lets you create a single token ID with a quantity that you define.
 
 Of course, a wine store has many different bottles of wine with different quantities, so in the next part you use a multi-asset template to represent bottles in that situation.
@@ -272,7 +272,7 @@ You can do a find-replace in the contract to change these values.
 1. In the file `src/App.tsx`, replace the function `refreshUserContextOnPageReload` with this code:
 
    ```typescript
-      const refreshUserContextOnPageReload = async () => {
+   const refreshUserContextOnPageReload = async () => {
      console.log("refreshUserContext");
      //CONTRACT
      try {

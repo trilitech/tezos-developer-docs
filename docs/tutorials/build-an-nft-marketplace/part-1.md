@@ -3,14 +3,15 @@ title: 'Part 1: Minting tokens'
 lastUpdated: 2 November 2023
 ---
 
-To start working with the application, you will create a Taqueria project and use it to deploy an FA2 contract.
+To start working with the application, you create a Taqueria project and use it to deploy an FA2 contract.
 Then you set up a web application to mint NFTs by calling the contract's mint endpoint and uploading an image and metadata to IPFS.
 
 Before you begin, make sure that you have installed the tools in the [Prerequisites](../build-an-nft-marketplace#prerequisites) section.
 
 ## Creating a Taqueria project
 
-Taqueria manages the project structure and keeps it up to date, such as updating the frontend application when you deploy a new smart contract.
+Taqueria manages the project structure and keeps it up to date.
+For example, when you deploy a new smart contract, Taqueria automatically updates the web app to send transactions to that new smart contract.
 Follow these steps to set up a Taqueria project:
 
 1. On the command-line terminal, run these commands to set up a Taqueria project and install the LIGO and Taquito plugins:
@@ -219,8 +220,9 @@ Follow these steps to create a contract that is based on the template and implem
    };
    ```
 
-   The FA2 standard does not require a `mint` entrypoint, but you can add one if you want to allow the contract to create more tokens after it is originated.
-   This `mint` entrypoint accepts a name, description, symbol, and IPFS URL to an image.
+   The FA2 standard does not require a mint entrypoint, but you can add one if you want to allow the contract to create more tokens after it is originated.
+   If you don't include a mint entrypoint or a way to create tokens, you must initialize the storage with all of the token information when you originate the contract.
+   This mint entrypoint accepts a name, description, symbol, and IPFS URL to an image.
    It also accepts an ID number for the token, which the front end will manage; you could also set up the contract to remember the ID number for the next token.
 
    First, this code verifies that the transaction sender is one of the administrators.
@@ -228,7 +230,7 @@ Follow these steps to create a contract that is based on the template and implem
    Note that the `decimals` metadata field is set to 0 because the token is an NFT and therefore has only one unit.
 
    Note that there is no built-in way to get the number of tokens in the contract code; the big-map does not have a function such as `keys()` or `length()`.
-   If you want to keep track of the number of tokens, you must add an additional element in the storage and increment it when new tokens are created or destroyed.
+   If you want to keep track of the number of tokens, you must add an additional element in the storage and increment it when tokens are created or destroyed.
    You can also get the number of tokens by analyzing the contract's storage from an off-chain application.
 
 1. Run one of these commands to accept or decline LIGO's analytics policy:
@@ -285,7 +287,8 @@ Follow these steps to create a contract that is based on the template and implem
    };
    ```
 
-   The initial value of the storage includes metadata about the contract and empty big-maps for the ledger, token metadata, and operators.
+   This code sets the initial value of the storage.
+   In this case, the storage includes metadata about the contract and empty big-maps for the ledger, token metadata, and operators.
    It sets the test account Alice as the administrator, which is the only account that can mint tokens.
 
 1. Optional: Add your address as an administrator or replace Alice's address with your own.
@@ -773,7 +776,8 @@ If the site isn't running, go to the `app` folder and run `yarn dev`.
 When the NFT has been minted, the application updates the UI but it does not have code to show the NFTs yet.
 You can see the NFT by getting the contract address, which starts with `KT1`, from the `config.local.testing.json` file and looking it up in a block explorer.
 
-For example, this is how `https://ghostnet.tzkt.io/` shows the tokens in the contract, on the "Tokens" tab:
+For example, this is how https://ghostnet.tzkt.io/ shows the tokens in the contract, on the "Tokens" tab.
+Because the contract is FA2-compatible, the block explorer automatically shows information about the tokens:
 
 ![The TzKT block explorer, showing the token in the contract](/img/tutorials/nft-marketplace-1-tzkt-token.png)
 

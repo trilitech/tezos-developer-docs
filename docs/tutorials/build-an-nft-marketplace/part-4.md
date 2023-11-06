@@ -188,7 +188,7 @@ You can do a find-replace in the contract to change these values.
    };
    ```
 
-1. Update the `nft.storegeList.jsligo` with this code:
+1. Update the `nft.storageList.jsligo` with this code:
 
    ```ligolang
    #import "nft.jsligo" "Contract"
