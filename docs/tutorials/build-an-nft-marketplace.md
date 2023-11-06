@@ -53,7 +53,7 @@ In this tutorial, you use the LIGO template for FA2 tokens to create these types
 
 When you create your own applications, you can choose the token type that is appropriate for your use case.
 
-### What is IPFS?
+## What is IPFS?
 
 In most cases, developers don't store token metadata such as image files directly on Tezos.
 Instead, they configure decentralized storage for the NFT data and put only the link to that data on Tezos itself.
