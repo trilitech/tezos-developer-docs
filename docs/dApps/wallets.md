@@ -2,7 +2,7 @@
 title: Connecting to wallets
 authors: "Claude Barde, Tim McMackin"
 last_update:
-  date: 23 October 2023
+  date: 6 November 2023
 ---
 
 dApps must connect to user wallets to view the tokens in the account and to submit transactions on behalf of the wallet's owner.
