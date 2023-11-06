@@ -26,6 +26,18 @@ const sidebars = {
       items: [
         'architecture/protocol',
         'architecture/accounts',
+        {
+          type: 'category',
+          label: 'Tokens',
+          link: {
+            id: 'architecture/tokens',
+            type: 'doc',
+          },
+          items: [
+            'architecture/tokens/FA1.2',
+            'architecture/tokens/FA2',
+          ],
+        },
         // { // TODO
         //   type: 'category',
         //   label: 'Baking',
@@ -195,17 +207,6 @@ const sidebars = {
         // 'reference/encoding', // TODO
         // 'reference/merkle-formats', // TODO
         // 'reference/ocaml-apis', // TODO
-        {
-          type: 'category',
-          label: 'Token standards',
-          link: {
-            id: 'reference/token-standards',
-            type: 'doc',
-          },
-          items: [
-            'reference/fa12-fa2-standards',
-          ],
-        },
         {
           type: 'link',
           label: 'Whitepaper',
