@@ -158,12 +158,15 @@ In this case, you can replace the "Connect" and "Sync" buttons with "Disconnect"
 
 ### Connect to multiple RPCs
 
-If a high number of users are using your dapp at the same time, the load on the RPC can spike. Ideally, the server infrastructure should be using a load balancer and caching to handle the load. If no such infrastructure is available, it is a good idea to provide an array of nodes and randomly select one on pageload. In case one of the nodes goes down, a user can connect to a different one by refreshing.
+If a high number of users are using your dApp at the same time, the load on the RPC can spike.
+Ideally, the server infrastructure should be using a load balancer and caching to handle the load.
+If no such infrastructure is available, it is a good idea to provide an array of nodes and randomly select one when the page loads.
+In case one of the nodes goes down, a user can connect to a different one by refreshing.
 
-An even better approach is to add a node selection to your dapp, including a way for users to provide their own RPC.
-See the documentation for your platform for information on changing the RPC.
+An even better approach is to add a node selection to your dApp, including a way for users to provide their own RPC node.
+See the documentation for your platform for information on changing the RPC node.
 
 ### Allow users to connect their wallet early
 
-If your dApp is focused around a specific time, such as an NFT drop or a countdown, you can provide a way for users to connect their wallet tot he dApp prior to that time.
+If your dApp is focused around a specific time, such as an NFT drop or a countdown, you can provide a way for users to connect their wallet to the dApp prior to that time.
 Connecting early reduces the load on the Beacon peer-to-peer communication layer so users don't experience delays by connecting at the same time when the time arrives.
