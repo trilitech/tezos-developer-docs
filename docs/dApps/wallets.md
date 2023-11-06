@@ -86,7 +86,7 @@ const dAppClient = new DAppClient({ name: "My dApp" });
 await dAppClient.clearActiveAccount();
 ```
 
-For more information about Beacon, see <https://walletbeacon.io/>.
+For more information about Beacon, see https://walletbeacon.io/.
 
 ## Taquito and Beacon
 
