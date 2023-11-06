@@ -175,3 +175,8 @@ nav.navbar {
 .theme-code-block {
   --prism-background-color: #EEF9FD!important;
 }
+
+/* Footer with last update time */
+.theme-doc-footer {
+  background-color: inherit;
+}
