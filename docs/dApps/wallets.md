@@ -50,7 +50,8 @@ const address = await wallet.getPKH();
 
 When this code runs, Beacon opens a popup window that guides the user through connecting their wallet.
 
-Then the application can send transactions to Tezos as described in [Sending transactions](./sending-transactions).
+Then the application can send transactions to Tezos.
+See [Part 3: Sending transactions](../tutorials/build-your-first-app/sending-transactions) in the tutorial [Build your first app on Tezos](../tutorials/build-your-first-app).
 
 ### Reconnecting to wallets
 
