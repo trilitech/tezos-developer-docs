@@ -12,10 +12,10 @@ This documentation outlines the fundamental steps you need to create a smart con
 ### Choosing a smart contract language
 Tezos supports a variety of smart contract languages:
 
-- [Michelson](../languages/michelson.mdx):  Tezos' native language, which is stack-based and can be challenging for beginners.
-- [SmartPy](../languages/smartpy.mdx): A Python-inspired language that compiles into Michelson, suitable for those familiar with Python.
-- [LIGO](../languages/ligo.md): Offers a statically-typed paradigm, compiling into Michelson, with syntax variations akin to JavaScript.
-- [Archetype]((../languages/archetype.md)): A domain-specific language with formal specification features for safer smart contracts.
+- [Michelson](languages/michelson.mdx):  Tezos' native language, which is stack-based and can be challenging for beginners.
+- [SmartPy](languages/smartpy.mdx): A Python-inspired language that compiles into Michelson, suitable for those familiar with Python.
+- [LIGO](languages/ligo.md): Offers a statically-typed paradigm, compiling into Michelson, with syntax variations akin to JavaScript.
+- [Archetype]((languages/archetype.md)): A domain-specific language with formal specification features for safer smart contracts.
 
 For beginners, we recommand SmartPy or LIGO for their higher-level more abstracted approach.
 
