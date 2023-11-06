@@ -2,7 +2,7 @@
 title: Taquito dApp SDK for TypeScript
 authors: Claude Barde
 last_update:
-  date: 10 July 2023
+  date: 6 November 2023
 ---
 
 ## Introduction
@@ -87,9 +87,7 @@ const options = {
   },
 }
 const wallet = new BeaconWallet(options)
-await wallet.requestPermissions({
-  network: { type: NetworkType.GHOSTNET },
-})
+await wallet.requestPermissions()
 Tezos.setWalletProvider(wallet)
 ```
 
@@ -112,7 +110,7 @@ import type { BigNumber } from 'bignumber.js'
 
 const Tezos = new TezosToolkit('https://ghostnet.ecadinfra.com')
 const wallet = new BeaconWallet(OPTIONS)
-await wallet.requestPermissions({ network: { type: NetworkType.GHOSTNET } })
+await wallet.requestPermissions()
 Tezos.setWalletProvider(wallet)
 // gets the user's address
 const userAddress = await wallet.getPKH()

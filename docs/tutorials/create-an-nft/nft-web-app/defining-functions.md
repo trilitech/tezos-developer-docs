@@ -32,9 +32,7 @@ Creating multiple instances can cause problems in your app and with Taquito in g
          name: "Simple NFT app tutorial",
          preferredNetwork: network,
        });
-       await newWallet.requestPermissions({
-         network: { type: network, rpcUrl },
-       });
+       await newWallet.requestPermissions();
        address = await newWallet.getPKH();
        const balanceMutez = await Tezos.tz.getBalance(address);
        balance = balanceMutez.div(1000000).toFormat(2);
