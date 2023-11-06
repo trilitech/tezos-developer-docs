@@ -702,3 +702,5 @@ const op = await contract.methods
 You can also optimize the application by generating the IPFS hashes on the client side before pinning them.
 If the mint transaction fails, it may leave unused metadata in your IPFS account.
 To avoid this problem, you can start an IPFS node in the browser, pin the metadata there, mint the NFT, and pin the metadata to your Pinata account only if the mint transaction succeeds.
+
+If you want to continue working with NFTs in a more complex way, try creating a marketplace for tokens as described in the tutorial [Build an NFT Marketplace](../build-an-nft-marketplace).

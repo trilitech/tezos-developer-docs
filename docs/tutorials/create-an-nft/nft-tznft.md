@@ -518,7 +518,4 @@ tznft transfer --nft my_collection --signer my-account --batch 'my-account, othe
 Now you can create, test, and deploy NFTs locally and to testnets.
 The process for minting NFTs to Tezos Mainnet is the same, but you must use an account with real XTZ in it to pay the transaction fees.
 
-<!-- TODO link when this tutorial is migrated
-
-If you want to continue working with these NFTs, try creating a marketplace for them as described in the tutorial [Build an NFT Marketplace](../build-an-nft-marketplace).
--->
+If you want to continue working with NFTs, try creating a marketplace for tokens as described in the tutorial [Build an NFT Marketplace](../build-an-nft-marketplace).
