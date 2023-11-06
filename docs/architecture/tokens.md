@@ -101,7 +101,7 @@ These standards are named with the prefix FA, which stands for _financial applic
 You can use templates for smart contracts with these standards instead of writing your own.
 
 - For SmartPy resources, see [Tokens](https://smartpy.io/guides/tokens/) in the SmartPy documentation.
-- For LIGO templates, see the [`@ligo/fa package`](https://packages.ligolang.org/package/@ligo/fa).
+- For LIGO templates, see the [`@ligo/fa`](https://packages.ligolang.org/package/@ligo/fa) package.
 - For Archetype templates, see [Templates](https://archetype-lang.org/docs/templates/overview/) in the Archetype documentation.
 
 ## Wrapped tokens
