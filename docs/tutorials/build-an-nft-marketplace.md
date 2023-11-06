@@ -19,6 +19,9 @@ You will learn:
 
 1. Optional: If you haven't worked with Tezos NFTs before, consider doing the tutorial [Create an NFT](./create-an-nft) first.
 
+1. Set up an account with Pinata if you don't have one already and get an API key and API secret.
+For instructions, see the [Configure IPFS storage](./create-an-nft/nft-taquito#configure-ipfs-storage) section of the tutorial [Create a contract and web app that mints NFTs](./create-an-nft/nft-taquito).
+
 1. Make sure that you have installed these tools:
 
    - [npm](https://nodejs.org/en/download/): NPM is required to install the web application's dependencies
@@ -32,9 +35,6 @@ You will learn:
 Taqueria also provides a [Taqueria VS Code extension](https://marketplace.visualstudio.com/items?itemName=ecadlabs.taqueria-vscode) that helps visualize your project and run tasks.
 
 1. Optional: If this is your first time using Taqueria, you may want to run through [this Taqueria training](https://github.com/marigold-dev/training-dapp-1#ghostnet-testnet-wallet).
-
-1. Set up an account with Pinata if you don't have one already and get an API key and API secret.
-For instructions, see the [Configure IPFS storage](./create-an-nft/nft-taquito#configure-ipfs-storage) section of the tutorial [Create a contract and web app that mints NFTs](./create-an-nft/nft-taquito).
 
 ## What are FA2 tokens?
 
