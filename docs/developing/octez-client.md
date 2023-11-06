@@ -8,7 +8,7 @@ The Octez command-line client is part of the Octez suite of tools for interactin
 Developers use the Octez client for many tasks, including:
 
 - Working with accounts
-- Sending transactions
+- Sending transactions and interacting with contracts
 - Originating smart contracts and smart rollups
 
 Other parts of Octez allow you to host, manage, and monitor nodes, bake blocks, and host RPC nodes.
