@@ -41,11 +41,9 @@ import { BeaconWallet } from "@taquito/beacon-wallet";
 
 const wallet = new BeaconWallet({
   name: "My dApp",
-  preferredNetwork: network,
+  preferredNetwork: network
 });
-await wallet.requestPermissions({
-  network: { type: network, rpcUrl },
-});
+await wallet.requestPermissions();
 const address = await wallet.getPKH();
 ```
 
