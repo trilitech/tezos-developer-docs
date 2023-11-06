@@ -11,7 +11,8 @@ The primary tools that dApps use to connect to wallets are:
 
 - Beacon: A JavaScript/TypeScript SDK for connecting to wallets, signing transactions, and sending information about this connection between connected apps
 
-  Beacon implements the [tzip-10 proposal](https://gitlab.com/tezos/tzip/-/tree/master/proposals/tzip-10), which describes an interaction standard between wallets and dApps.
+  Beacon supports many Tezos wallets seamlessly, so you don't have to write different code for each wallet that you want to support.
+  Beacon also implements the [tzip-10 proposal](https://gitlab.com/tezos/tzip/-/tree/master/proposals/tzip-10), which describes an interaction standard between wallets and dApps.
   By using this standard, a dApp that uses Beacon can send messages over a peer-to-peer communication layer to a wallet, such as allowing a user to connect with an app on one platform, such as by scanning a QR code on a mobile app, and then use the dApp with the connected wallet on another platform, such as a desktop browser.
 
   Beacon can remember the connections that have been established and the accounts that have connected to the app.
