@@ -1,7 +1,8 @@
 ---
 title: "Using\_FA2-SmartPy"
 sidebar_label: FA2-SmartPy
-lastUpdated: 30th June 2023
+last_update:
+  date: 30 June 2023
 ---
 
 This tutorial shows how to interact with the “FA2-SmartPy” implementation

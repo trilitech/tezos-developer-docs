@@ -1,7 +1,8 @@
 ---
 title: Using sandboxes and testnets
 authors: 'Mathias Hiron, Nomadic Labs, Tim McMackin, TriliTech'
-lastUpdated: 18th October 2023
+last_update:
+  date: 18 October 2023
 ---
 
 :::note

@@ -1,7 +1,8 @@
 ---
 title: Create NFTs with the `tznft` tool
 authors: 'Sol Lederer, Tim McMackin'
-lastUpdated: 18th September 2023
+last_update:
+  date: 18 September 2023
 ---
 
 This tutorial covers how to create a collection of NFTs on Tezos and manipulate them using the `tznft` command-line tool.

@@ -1,6 +1,7 @@
 ---
 title: Using multisig contracts
-lastUpdated: 29th June 2023
+last_update:
+  date: 29 June 2023
 ---
 
 ## Generating the Specialized Multisig Contract Code

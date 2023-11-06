@@ -1,7 +1,8 @@
 ---
 title: Loops and iterations
 authors: 'Mathias Hiron (Nomadic Labs), Sasha Aldrick (TriliTech), Tim McMackin (TriliTech)'
-lastUpdated: 5th October 2023
+last_update:
+  date: 5 October 2023
 ---
 
 A smart contract can contain loops, which take two general forms:

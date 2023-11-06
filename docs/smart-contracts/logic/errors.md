@@ -1,7 +1,8 @@
 ---
 title: Handling errors
 authors: 'Mathias Hiron (Nomadic Labs), Sasha Aldrick (TriliTech), Tim McMackin (TriliTech)'
-lastUpdated: 5th October 2023
+last_update:
+  date: 5 October 2023
 ---
 
 Unlike in many programming languages, there is no exception management on Tezos.

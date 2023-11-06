@@ -1,7 +1,8 @@
 ---
 title: "Part 1: Setting up the application"
 authors: 'Claude Barde, Tim McMackin'
-lastUpdated: 17th October 2023
+last_update:
+  date: 17 October 2023
 ---
 
 You can access Tezos through any JavaScript framework.

@@ -1,7 +1,8 @@
 ---
 title: Setting up developer environments
 authors: "Tim McMackin"
-lastUpdated: 24 October 2023
+last_update:
+  date: 24 October 2023
 ---
 
 Working with Tezos usually includes setting up an IDE to write code in and connecting to a test network or sandbox to test applications on.

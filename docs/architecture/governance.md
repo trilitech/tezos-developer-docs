@@ -1,6 +1,7 @@
 ---
 title: Governance
-lastUpdated: 3rd July 2023
+last_update:
+  date: 3 July 2023
 ---
 
 ## What is Self Amendment?

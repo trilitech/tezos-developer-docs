@@ -1,7 +1,8 @@
 ---
 title: The Octez client
 authors: 'Thomas Zoughebi, Aymeric Bethencourt, Maxime Fernandez, Tim McMackin'
-lastUpdated: 27th October 2023
+last_update:
+  date: 27 October 2023
 ---
 
 The Octez command-line client is part of the Octez suite of tools for interacting with Tezos and running nodes.

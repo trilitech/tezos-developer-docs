@@ -1,7 +1,8 @@
 ---
 title: Deploy a smart contract with SmartPy
 authors: 'John Joubert, Sasha Aldrick, Tim McMackin'
-lastUpdated: 9th October 2023
+last_update:
+  date: 9 October 2023
 ---
 
 This tutorial covers using the Octez command-line client to deploy a smart contract to Tezos.

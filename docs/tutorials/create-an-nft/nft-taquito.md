@@ -1,7 +1,8 @@
 ---
 title: Create a contract and web app that mints NFTs
 authors: 'Sol Lederer, Tim McMackin'
-lastUpdated: 20th September 2023
+last_update:
+  date: 20 September 2023
 ---
 
 This tutorial covers how to set up a decentralized web application (dApp) that allows users to create NFTs on Tezos.

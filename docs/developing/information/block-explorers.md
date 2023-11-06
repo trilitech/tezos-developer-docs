@@ -1,6 +1,7 @@
 ---
 title: Block Explorers
-lastUpdated: 10th July 2023
+last_update:
+  date: 10 July 2023
 ---
 
 **What is a blockchain explorer?**

@@ -1,7 +1,8 @@
 ---
 title: Operations
 authors: 'Mathias Hiron (Nomadic Labs), Sasha Aldrick (TriliTech), Tim McMackin (TriliTech)'
-lastUpdated: 5th October 2023
+last_update:
+  date: 5 October 2023
 ---
 
 The execution of the code of an entrypoint can have only two effects:

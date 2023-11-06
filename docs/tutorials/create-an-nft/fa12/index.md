@@ -1,7 +1,8 @@
 ---
 title: Working with FA1.2 using LIGO and Taquito
 sidebar_label: FA1.2 LIGO
-lastUpdated: 29th June 2023
+last_update:
+  date: 29 June 2023
 ---
 
 ## What is FA1.2?

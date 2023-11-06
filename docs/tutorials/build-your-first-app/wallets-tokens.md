@@ -1,7 +1,8 @@
 ---
 title: "Part 2: Accessing wallets"
 authors: 'Claude Barde, Tim McMackin'
-lastUpdated: 17th October 2023
+last_update:
+  date: 17 October 2023
 ---
 
 Accessing the user's wallet is a prerequisite for interacting with the Tezos blockchain.

@@ -1,6 +1,7 @@
 ---
 title: "Part 1: Setting up the application"
-lastUpdated: 25th October 2023
+last_update:
+  date: 25 October 2023
 ---
 
 To set up the application for the tutorial, you must configure Rust to build the kernel and start a Docker container that has resources that are needed to debug and deploy it.
