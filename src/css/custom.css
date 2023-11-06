@@ -184,3 +184,12 @@ nav.navbar {
 .theme-last-updated b {
   font-weight: inherit;
 }
+
+/* Set numbering for nested lists */
+ol li ol {
+  list-style-type: lower-alpha;
+}
+
+ol li ol li ol {
+  list-style-type: lower-roman;
+}
