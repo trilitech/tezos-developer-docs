@@ -21,52 +21,6 @@ A call to a smart contract always includes a transfer of a certain amount of tez
 
 For information about calling contracts from other contracts, see [Operations](../smart-contracts/logic/operations).
 
-## Beacon
-
-You can use the Beacon SDK to send transactions from JavaScript/TypeScript code.
-
-### Sending tez with Beacon
-
-To send tez with Beacon, use the `requestOperation` method, as in this example:
-
-```javascript
-const response = await dAppClient.requestOperation({
-  operationDetails: [
-    {
-      kind: TezosOperationType.TRANSACTION,
-      destination: targetAddress, // Address of the target account
-      amount: sendAmount, // Amount to send in mutez
-    },
-  ],
-})
-```
-
-### Calling contracts with Beacon
-
-To call contracts with Beacon, use the `requestOperation` method and pass the address of the contract, the entrypoint to call, and the parameters to include, as in this example:
-
-```javascript
-import { TezosOperationType } from '@airgap/beacon-sdk'
-
-const result = await dAppClient.requestOperation({
-  operationDetails: [
-    {
-      kind: TezosOperationType.TRANSACTION,
-      amount: '0',
-      destination: CONTRACT_ADDRESS,
-      parameters: {
-        entrypoint: 'mint',
-        value: {
-          int: 3,
-        },
-      },
-    },
-  ],
-})
-```
-
-For more information about Beacon, see https://walletbeacon.io/.
-
 ## Taquito
 
 You can use the Taquito SDK to send transactions from JavaScript/TypeScript applications.
@@ -123,6 +77,50 @@ await contract.methods.doSomething('Param 1', 25)
 For examples of calling smart contracts, see the [tutorials](../tutorials).
 
 For more information, see [Smart contracts](https://tezostaquito.io/docs/smartcontracts) in the Taquito documentation.
+
+## Beacon
+
+You can use the Beacon SDK to send transactions from JavaScript/TypeScript code.
+
+### Sending tez with Beacon
+
+To send tez with Beacon, use the `requestOperation` method, as in this example:
+
+```javascript
+const response = await dAppClient.requestOperation({
+  operationDetails: [
+    {
+      kind: TezosOperationType.TRANSACTION,
+      destination: targetAddress, // Address of the target account
+      amount: sendAmount, // Amount to send in mutez
+    },
+  ],
+})
+```
+
+### Calling contracts with Beacon
+
+To call contracts with Beacon, use the `requestOperation` method and pass the address of the contract, the entrypoint to call, and the parameters to include, as in this example:
+
+```javascript
+import { TezosOperationType } from '@airgap/beacon-sdk'
+
+const result = await dAppClient.requestOperation({
+  operationDetails: [
+    {
+      kind: TezosOperationType.TRANSACTION,
+      amount: '0',
+      destination: CONTRACT_ADDRESS,
+      parameters: {
+        entrypoint: 'mint',
+        value: {
+          int: 3,
+        },
+      },
+    },
+  ],
+})
+```
 
 ## Octez
 
