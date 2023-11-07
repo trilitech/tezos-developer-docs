@@ -125,30 +125,4 @@ const result = await dAppClient.requestOperation({
 ## Octez
 
 The Octez command-line client can send tez and call contracts from the command line.
-For more information about Octez, see [Getting started with Octez](../reference/octez).
-
-### Sending tez with Octez
-
-To send tez with Octez, make sure you have imported the private key for the account that you are using.
-Then, use the `transfer` command to send tez, replacing the account alias `local_wallet` with the alias for your account and `target_account` with the alias or address of the account to send tez to:
-
-```bash
-octez-client --wait none transfer 5 from local_wallet to target_account
-```
-
-:::note Sending tez
-Sending tez to an address is a special case of calling a smart contract via the `default` entrypoint.
-However, some languages have a specific syntax for sending tez to a contract that is different from the syntax to call an entrypoint.
-A call to a smart contract always includes a transfer of a certain amount of tez, even if that amount is zero.
-:::
-
-### Calling contracts with Octez
-
-To call a contract with Octez, make sure that you have imported the private key for the account that you are using.
-Then, use the `transfer` command to call the contract.
-For example, this command calls the entrypoint `increment` on a contract with the alias `my_contract` and passes the parameter `12`:
-
-```bash
-octez-client --wait none transfer 0 from local_wallet to my_contract \
-  --entrypoint "increment" --arg "12" --burn-cap 0.1
-```
+See [Interacting with contracts](../developing/octez-client/transactions).
