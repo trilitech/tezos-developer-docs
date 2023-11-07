@@ -5,7 +5,7 @@ lastUpdated: 10th July 2023
 ---
 
 :::note
-If you're just looking for API docs for a hosted indexer, [here is the one from TzKT](https://api.tzkt.io/), and [here is the one from TzStats](https://tzstats.com/docs/api/index.html)
+If you're just looking for API docs for a hosted indexer, [here is the one from TzKT](https://api.tzkt.io/), and [here is the one from TzPro](https://docs.tzpro.io/)
 :::
 
 ## What is an indexer ?
@@ -146,7 +146,7 @@ There are two types of blockchain indexers: full and selective.
 
 Full indexers process and write all data from blocks, from simple transactions to validator's node software versions. Blockchain explorers commonly use them to provide users with advanced blockchain analytics and allow them to search for any type of on-chain data. Also, those who host full indexers often offer public APIs that other projects can use without hosting the indexer themselves.
 
-The best examples of full indexers with public APIs are [TzKT](https://tzkt.io/) and [TzStats](https://tzstats.com/). They allow you to find almost any information that once got into the Tezos blockchain.
+The best examples of full indexers with APIs are [TzKT](https://tzkt.io/) and [TzPro](https://tzpro.io/). They allow you to find almost any information that once got into the Tezos blockchain.
 
 Selective indexers store only selected data. Usually, they find their use in projects requiring only specific on-chain data: active user balances, balances of their smart contracts, and NFT metadata. A custom selective indexer can be optimized for fast execution of specific project queries and also needs less space and resources to maintain.
 
