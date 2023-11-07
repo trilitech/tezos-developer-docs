@@ -3,13 +3,12 @@ title: Creating smart contracts
 author: 'Yuxin Li'
 lastUpdated: 6th November 2023
 ---
-
 ## Introduction
-This documentation outlines the fundamental steps you need to create a smart contract on the Tezos blockchain. Subsequent chapters will guide you through testing and deploying your smart contract.
+This guide provides step-by-step instructions for creating smart contracts on the Tezos blockchain. Tailored for developers, it outlines the process from choosing a programming language to implementing the contract’s core features. You can find additional resources on testing and deploying your smart contract in subsequent chapters.
 
-## Creating smart contract
+## Create smart contracts
 
-### Choosing a smart contract language
+### Choosing your smart contract language
 Tezos supports a variety of smart contract languages:
 
 - [Michelson](languages/michelson.mdx):  Tezos' native language, which is stack-based and can be challenging for beginners.
@@ -19,17 +18,27 @@ Tezos supports a variety of smart contract languages:
 
 For beginners, we recommand SmartPy or LIGO for their higher-level more abstracted approach.
 
-### Install the language/IDE that you use
-To compile and test your contract, the corresponding command-line interface (CLI) must be installed. Once you install the CLI, start writing your contract by creating a new file in your preferred editor.
+### Making a strategic choice
+Before writing your code, take some time to consider whether your project is suitable for starting with a pre-existing template or if it would be better to start from scratch. Essentially, this depends on the type of contract you are building. For example:
+- FA2 contract: it’s better to use a template to start.
+- Others: build it from scratch.
 
-### Writing the contract
-Before you dive into the syntax and intricacies of your chosen language, you should outline what your smart contract is intended to do. Define the problem it solves, the functions it will carry out, and any external interactions or transactions it must handle.
+### Setting up your environment
+To compile and test your contract, you need to set up your development environment. 
+- For smartpy user, we recommend to use the [online IDE](https://smartpy.io/)
+- For Ligo user, we recommend to install the LIGO CLI by following commend:
+    ```bash
+    v1-public-pool.ligo
+    ```
+    Once you install the CLI, start writing your contract by creating a new file in your preferred editor.
 
-#### Initialize a new file
-Initiate a new file with the suitable extension. For instance, a .py extension is required for SmartPy.
+
+### Coding your contract
+Before coding, you should clearly outline the purpose of your smart contract, define the problem it addresses, detail the functions it will perform, and specify any external interactions or transactions it will manage.
 
 #### Define contract storage.
-Contract storage holds the persistent state of your smart contract. It’s important to carefully design your storage to efficiently manage the data your contract will maintain.
+Contract storage holds the persistent state of your smart contract. It’s important to carefully design your storage since storage is expensive on-chain. You should avoid storing any data that the contract will not use.
+
 - For SmartPy: Use Pythonic classes and types to represent storage. SmartPy provides a straightforward way to map these into Michelson storage requirements.
 - For LIGO: Choose the most suitable syntax flavor and use the type definitions to lay out the storage structure.
 
