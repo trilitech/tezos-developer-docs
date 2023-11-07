@@ -528,7 +528,7 @@ EMESSAGE=$(octez-smart-rollup-client-Pt${CURRENT_PROTOCOL} encode outbox message
 ## Triggering Execution of an Outbox Message
 
 Once an outbox message has been pushed to the outbox by the kernel at
-some level `${L}`, the user needs to wait for the commitment that includes this level to be cemented. On dailynet, the cementation process
+some level `${L}`, the user needs to wait for the commitment that includes this level to be cemented. On Dailynet, the cementation process
 of a non-disputed commitment is 40 blocks long while on Mainnet, it is 2
 weeks long.
 
