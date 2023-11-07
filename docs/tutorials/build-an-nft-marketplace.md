@@ -25,7 +25,7 @@ For instructions, see the [Configure IPFS storage](./create-an-nft/nft-taquito#c
 1. Make sure that you have installed these tools:
 
    - [npm](https://nodejs.org/en/download/): NPM is required to install the web application's dependencies
-   - [taqueria >= v0.40.0](https://github.com/ecadlabs/taqueria): Taqueria is a platform that manages the contracts and front ends for Tezos dApps
+   - [Taqueria](https://taqueria.io/), version 0.48.0 or later: Taqueria is a platform that manages the contracts and front ends for Tezos dApps
    - [Docker](https://docs.docker.com/engine/install/): Docker is required to run Taqueria
    - [jq](https://stedolan.github.io/jq/download/): Some commands use the `jq` program to extract JSON data
    - [`yarn`](https://yarnpkg.com/): The frontend application uses yarn to build and run (see this article for details about [differences between `npm` and `yarn`](https://www.geeksforgeeks.org/difference-between-npm-and-yarn/))
