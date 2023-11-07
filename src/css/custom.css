@@ -180,3 +180,7 @@ nav.navbar {
 .theme-doc-footer {
   background-color: inherit;
 }
+
+.theme-last-updated b {
+  font-weight: inherit;
+}
