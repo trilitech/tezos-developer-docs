@@ -189,7 +189,7 @@ For more information, see the blog post from [Nomadic Labs](https://research-dev
 
 Mumbai's main changes are:
 
-* Smart rollups: Tezos enshrined rollups are enabled and provide a powerful scaling solution allowing anyone to deploy decentralized WebAssembly applications with dedicated computational and networking resources.
+* Smart Rollups: Tezos enshrined rollups are enabled and provide a powerful scaling solution allowing anyone to deploy decentralized WebAssembly applications with dedicated computational and networking resources.
 * Minimal block time reduction from 30s to 15s.
 * Ticket transfers between user accounts.
 
