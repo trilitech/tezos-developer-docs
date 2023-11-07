@@ -1,7 +1,7 @@
 ---
 title: Sending transactions
 authors: "Tim McMackin"
-lastUpdated: 6 November 2023
+lastUpdated: 7 November 2023
 ---
 <!-- TODO originating contracts: https://tezostaquito.io/docs/originate -->
 
@@ -14,8 +14,8 @@ These calls can include:
 - Originating a smart contract
 
 :::note Sending tez
-Sending tez to an address is just a special case of calling a smart contract (via the `default` entrypoint).
-However, some languages have a specific syntax for simply sending tez to a contract that is different from the syntax to call an entrypoint.
+Sending tez to an address is a special case of calling a smart contract via the `default` entrypoint.
+However, some tools have a specific syntax for sending tez to a contract that is different from the syntax to call an entrypoint.
 A call to a smart contract always includes a transfer of a certain amount of tez, even if that amount is zero.
 :::
 
@@ -26,7 +26,7 @@ For information about calling contracts from other contracts, see [Operations](.
 You can use the Taquito SDK to send transactions from JavaScript/TypeScript applications.
 For more information about Taquito, see [Taquito](./taquito).
 
-### Sending tez with Taquito
+### Sending tez
 
 To send tez with Taquito, connect to the user's wallet and use the `Tezos.wallet.transfer` method, as in this example:
 
@@ -43,14 +43,14 @@ await Tezos.wallet.transfer({
   .send()
   .then((op) => {
     console.log(`Waiting for ${op.opHash} to be confirmed...`);
-    return op.confirmation(3).then(() => op.opHash);
+    return op.confirmation(2).then(() => op.opHash);
   })
   .catch((error) => console.log(`Error: ${JSON.stringify(error, null, 2)}`));
 ```
 
 For more information, see [Transfers](https://tezostaquito.io/docs/making_transfers) in the Taquito documentation.
 
-### Calling contracts with Taquito
+### Calling contracts
 
 Taquito offers several different ways to send transactions from JavaScript/TypeScript code.
 One way is to create a Taquito object that represents the contract.
@@ -69,14 +69,16 @@ await contract.methods.doSomething('Param 1', 25)
   .send()
   .then((op) => {
     console.log(`Waiting for ${op.opHash} to be confirmed...`);
-    return op.confirmation(3).then(() => op.opHash);
+    return op.confirmation(2).then(() => op.opHash);
   })
   .catch((error) => console.log(`Error: ${JSON.stringify(error, null, 2)}`));
 ```
 
-For examples of calling smart contracts, see the [tutorials](../tutorials).
+IDEs may warn that the method does not exist because they are not aware of the entrypoints on the contract.
 
-For more information, see [Smart contracts](https://tezostaquito.io/docs/smartcontracts) in the Taquito documentation.
+For examples of calling smart contracts, see tutorials such as [Build your first app on Tezos](../tutorials/build-your-first-app) or [Create a contract and web app that mints NFTs](../tutorials/create-an-nft/nft-taquito).
+
+For more information about using Taquito, see [Smart contracts](https://tezostaquito.io/docs/smartcontracts) in the Taquito documentation.
 
 ## Beacon
 
