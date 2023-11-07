@@ -214,9 +214,9 @@ Follow these steps to set up the `src/App.svelte` file, which is the container f
 
    - `BeaconWallet`: The class provides a user interface for transaction requests, ensuring that users can securely and easily sign transactions or execute contract calls.
    - `TezosToolkit`: The class that gives you access to all the features of Taquito
-   - `NetworkType`: The class represents the different types of networks on the Tezos blockchain. Developers can ensure that their applications communicate with the desired network version or testnet such as ghostnet,
+   - `NetworkType`: The class represents the different types of networks on the Tezos blockchain. Developers can ensure that their applications communicate with the desired network version or testnet such as Ghostnet.
    - `MichelsonMap`: The class helps developers work with Michelson's native map data type.
-  
+
 1. In the `<script lang="ts">` section, add the following code to initialize the Tezos toolkit, set your RPC URL to the Ghostnet endpoint, and define the network type:
 
    ```javascript

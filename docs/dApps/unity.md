@@ -20,10 +20,10 @@ This Getting Started guide covers the following five steps essential for using t
 1. Installation of the Unity Editor (if not already installed)
 2. Installation of the Tezos Integration SDK in the Unity Editor within a new project
 3. Obtaining a Tezos-compatible wallet as an app or browser plugin (we'll use the **Temple** wallet for our [Inventory Sample Game](https://opentezos.com/gaming/unity-sdk/inventory-sample-game))
-4. Creating a wallet account for a test network (`ghostnet`) and acquiring test currency from an appropriate faucet
+4. Creating a wallet account for the Ghostnet test network and acquiring test currency from an appropriate faucet
 5. Linking this wallet account with the new Unity project
 
-By following these steps, your Unity app will be connected to the Tezos GhostNet test network via your specific wallet address. This allows you to invoke specific functionality on smart contracts you've created and deployed to GhostNet, as demonstrated in our [Inventory Sample Game](https://opentezos.com/gaming/unity-sdk/inventory-sample-game).
+By following these steps, your Unity app will be connected to the Tezos Ghostnet test network via your specific wallet address. This allows you to invoke specific functionality on smart contracts you've created and deployed to GhostNet, as demonstrated in our [Inventory Sample Game](https://opentezos.com/gaming/unity-sdk/inventory-sample-game).
 
 Explore the [Inventory Sample Game](https://opentezos.com/gaming/unity-sdk/inventory-sample-game) project and consult our [API Documentation](https://opentezos.com/gaming/unity-sdk/api-documentation/) to learn more about the exposed methods of our SDK, both for establishing wallet connections and for calling specific smart-contract entrypoints and Tezos data-view functions.
 
