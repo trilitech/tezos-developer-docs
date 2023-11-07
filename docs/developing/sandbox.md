@@ -4,7 +4,7 @@ authors: 'Mathias Hiron, Nomadic Labs, Tim McMackin, TriliTech'
 lastUpdated: 18th October 2023
 ---
 
-Local sandboxes allow you to test your work without sending any transactions to Tezos mainnet or testnets.
+Local sandboxes allow you to test your work without sending any transactions to Tezos Mainnet or testnets.
 
 The **sandboxed mode** of `octez-client` makes it possible to test your contracts or other projects while interacting with actual nodes, but without using a public test network or creating your own private network. In sandboxed mode, `octez-client` can create one or more local nodes for this.
 

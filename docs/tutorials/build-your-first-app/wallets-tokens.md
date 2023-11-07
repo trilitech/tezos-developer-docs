@@ -41,7 +41,7 @@ This is the address that applications use to work with your wallet.
 
    It may take a few minutes for the faucet to send the tokens and for those tokens to appear in your wallet.
 
-   You can use the faucet as much as you need to get tokens on the testnet, but those tokens are worthless and cannot be used on mainnet.
+   You can use the faucet as much as you need to get tokens on the testnet, but those tokens are worthless and cannot be used on Mainnet.
 
    ![Fund your wallet using the Ghostnet Faucet](/img/tutorials/wallet-funding.png)
 

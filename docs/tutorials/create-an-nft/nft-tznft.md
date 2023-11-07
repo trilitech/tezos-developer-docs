@@ -498,7 +498,7 @@ The command is the same as for the sandbox:
 
    1. Go to a block explorer, such as https://tzkt.io.
 
-   1. Set the block explorer to use testnet instead of Tezos mainnet.
+   1. Set the block explorer to use testnet instead of Tezos Mainnet.
 
    1. In the search field, paste the address of the collection and press Enter.
 
@@ -515,7 +515,7 @@ tznft transfer --nft my_collection --signer my-account --batch 'my-account, othe
 ## Summary
 
 Now you can create, test, and deploy NFTs locally and to testnets.
-The process for minting NFTs to Tezos mainnet is the same, but you must use an account with real XTZ in it to pay the transaction fees.
+The process for minting NFTs to Tezos Mainnet is the same, but you must use an account with real XTZ in it to pay the transaction fees.
 
 <!-- TODO link when this tutorial is migrated
 

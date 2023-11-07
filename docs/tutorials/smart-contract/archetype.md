@@ -88,7 +88,7 @@ https://github.com/completium/completium-cli/issues/45
 
 ## Using a testnet
 
-Before you deploy your contract to the main Tezos network (referred to as *mainnet*), you can deploy it to a testnet.
+Before you deploy your contract to the main Tezos network (referred to as *Mainnet*), you can deploy it to a testnet.
 Testnets are useful for testing Tezos operations because testnets provide tokens for free so you can work with them without spending real tokens.
 
 Tezos testnets are listed on this site: https://teztnets.xyz/.
@@ -148,7 +148,7 @@ The address starts with "tz1".
 1 XTZ is enough for the tutorial.
 It may take a few minutes for the faucet to send the tokens and for those tokens to appear in your wallet.
 
-   You can use the faucet as much as you need to get tokens on the testnet, but those tokens are worthless and cannot be used on mainnet.
+   You can use the faucet as much as you need to get tokens on the testnet, but those tokens are worthless and cannot be used on Mainnet.
 
    ![Fund your wallet using the Ghostnet Faucet](/img/tutorials/wallet-funding.png)
 
@@ -282,7 +282,7 @@ Originating the contract requires a small amount of Tezos tokens as a fee.
 
    1. Open a Tezos block explorer such as [TzKT](https://tzkt.io) or [Better Call Dev](https://better-call.dev/).
 
-   1. Set the explorer to Ghostnet instead of mainnet.
+   1. Set the explorer to Ghostnet instead of Mainnet.
 
    1. Paste the contract address, which starts with `KT1`, into the search field and press Enter.
 
