@@ -1,0 +1,101 @@
+---
+title: Architecture
+authors: Tim McMackin
+last_update:
+  date: 7 November 2023
+---
+
+import LucidDiagram from '@site/src/components/LucidDiagram';
+
+## Tezos components
+
+These are the main components of Tezos:
+
+- The data of the chain itself
+- The nodes that store the chain data, accept transactions to add to the chain, and verify transactions that other nodes add to the chain
+- The clients that send transactions to the nodes
+
+### The blockchain itself
+
+Although people often use the word "blockchain" to mean the entire system, strictly speaking, a Tezos blockchain is a series of blocks of data, each connected to the previous block and next block in the chain.
+Tezos has a primary blockchain, referred to as Mainnet, and a group of blockchains used for testing, referred to as testnets.
+Anyone can create a new blockchain in the Tezos system, so it is by consensus that nodes agree on which blockchain is the primary one and which block should be the next block in any specific blockchain.
+
+Technically speaking, there can be many slightly different copies of each blockchain.
+When one node adds a block, its copy of the blockchain becomes slightly different from that of other nodes that haven't heard about the new block yet.
+Also, a node might add an invalid block that other nodes would challenge and refuse to add to their copies of the blockchain.
+In this way, the Tezos consensus mechanism keeps nodes in long-term agreement about the state of the blockchain.
+
+The data inside a Tezos block includes operations such as transferring tez between accounts, calling smart contracts, and adding messages to the smart rollup inbox.
+
+### Nodes
+
+Tezos nodes are computers that store and manage the state of a blockchain.
+
+Tezos nodes consist of multiple independent programs/daemons:
+
+- The node itself
+
+  The node itself is responsible for storing a copy of the current state of the blockchain data, known as the _context_.
+  When it receives a new block from another node, it runs each operation in the block and computes the new state of the context.
+
+  It is also responsible for communication with other nodes via a peer-to-peer network.
+  Nodes communicate over this P2P network, also called the _gossip network_, to exchange new blocks and operations.
+
+- The baker
+
+  The baker selects operations and creates blocks to contain them.
+  It also verifies that the blocks other nodes create are valid.
+  When it verifies a valid block, it submits attestations to other nodes in support of that block, which helps build consensus about the current state of the blockchain.
+
+- The accuser
+
+  The accuser monitors new blocks and looks for problems, such as when bakers try to add more than one block at a time.
+  When it finds a problem, it submits a denunciation to other nodes to refuse the new blocks and punish the offending node.
+
+Anyone can run a node and choose which node functions to run.
+Because different programs control functions such as baking blocks and challenging other nodes' blocks, your nodes can choose which programs to run.
+
+### Clients
+
+Many clients can add operations to the network of nodes, including:
+
+- Command-line applications such as the [Octez client](./developing/octez-client/)
+- Wallet applications
+- Applications that use SDKs such as [Taquito](./dApps/taquito)
+
+When a client adds an operation, that new operation becomes part of the _mempool_, which is a list of available operations.
+Nodes share operations with each other, so the node that bakes an operation into a block may not be the node that the client sent the operation to.
+
+### Diagram
+
+This diagram shows a high-level view of how the components of Tezos interact:
+
+<LucidDiagram width="640px" height="480px" src="https://lucid.app/documents/embedded/d778aa2a-ad0a-4324-b235-ed3b35742c58" id="Uz-K28y3R8gJ" />
+
+
+## Layers
+
+
+- Who created it and who is in charge of it
+- What entities participate in it
+- How it is built (architecture, with diagrams)
+
+## Decentralization
+## p2p network (introducting nodes, baking)
+## smart contracts and dapps
+## governance and roadmap for scaling
+
+## goals/inspiration, tiny bit of history
+need for decentralization, smart contracts, then for Tezos, need for blockchains to evolve, be environmental friendly, secure
+## p2p network, DOS protection, etc.
+Idea: to make it more active, create an interactive experience where people simulate playing different roles, through the path of a transaction
+## accounts, cryptocurrency, transactions
+Here the animation would let people play with transactions ana d simulated wallet
+## chain of blocks
+idea that for people to agree on a sequence of transactions, they need to be grouped in block, and we create an append-only structure
+## baking, consensus mechanism
+"someone needs to propose a new block, so we have a system involving bakers, then a mechanism to pick the baker, confirm the block through attestations, and finality
+you could have a small interface where you try to create the best block"
+## recap: path of a transaction
+wallet, simulation, propagation through the nodes, mempool, accepted by a baker, block is propagated and validated, then becomes final, shown as validated on the wallet, and visible by everyone

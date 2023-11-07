@@ -19,10 +19,10 @@ const sidebars = {
     {
       type: 'category',
       label: 'Architecture',
-      // link: { // TODO
-      //   id: 'architecture',
-      //   type: 'doc',
-      // },
+      link: {
+        id: 'architecture',
+        type: 'doc',
+      },
       items: [
         'architecture/protocol',
         'architecture/accounts',
