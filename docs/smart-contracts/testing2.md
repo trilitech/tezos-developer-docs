@@ -7,32 +7,57 @@ lastUpdated: 6th November 2023
 ## Introduction
 Because Tezos blockchain smart contracts are immutable after deployment, you must rigorously test to ensure functionality, prevent errors, and avoid potential financial losses. Importantly, contract testing doesn't require any tokens or a wallet account to execute.
 
-## Testing smart contracts
-### Setting up a testing environment
-SmartPy features an integrated testing framework that emulates the Tezos blockchain environment, enabling comprehensive testing without spending real tokens.
+High-level languages come with tools to help write tests, and some testing tools can be used independently of the language used to write the smart contract.
+For example, [SmartPy](https://smartpy.io/manual/scenarios/overview) includes syntax dedicated to testing.
 
-We recommend LIGO developers use `ligo-mockup` to simulate contract execution and test the contract's logic.
+# Structure of a test scenario
 
-### Writing automated tests
-Verifying the correctness and security of your smart contract is crucial through automated testing. Your test suite must include:
-- Functionality Tests: Verifying that all contract functions perform as intended under normal conditions.
-- Edge Cases: Testing how the contract deals with unexpected or extreme inputs to ensure robustness.
-- Security Tests: Checking for common security issues, such as reentrancy attacks, integer overflows, and underflows to ensure the contract is not vulnerable to exploits.
-- Gas Optimization: Ensuring that the contract operations are gas-efficient, conserving resources and minimizing transaction fees.
+A test scenario usually consists of the following steps:
 
-### Runing tests
-To run the tests:
+1. Decide the smart contract's initial storage and `balance`
+1. Valid calls to entrypoints, with different parameters and context information such as:
+    - the address of the `caller`
+    - the amount of `tez` sent
+    - the `timestamp` of the block (value of `now` during the call)
+    - the `level` of the block
+1. Verify the contract's storage or `balance` changed the way you expected.
+1. Try some invalid calls that should fail, and they are expected to fail.
+1. Verification of the error caused by these invalid calls, making sure the error messages are the ones you thought would come up.
 
-1. Set up your preferred testing framework according to the documentation.
-1. Write test scripts that systematically work through each function and potential interaction with the contract.
-1. Execute these tests in your local environment or using a testnet to avoid incurring real-world transaction costs.
+When executed, the test scenario is successful if all verifications are correct, and all invalid calls fail with the expected errors.
 
-### Compiling the smart contract to Michelson
-Before deploying the smart contract, you need to compile it into a form that the Tezos blockchain can execute.
-Steps for compilation are as follows:
+More advanced scenarios may involve a local sandbox deployment and calls to multiple contracts to test interactions.
 
-1. Syntax Validation: Checking the syntax is the first step in compilation. Your chosen IDE or text editor might highlight syntax errors as you write the code.
-1. Static Analysis: Some languages, like LIGO, offer tools you can use to perform static analysis. This analysis helps you catch common mistakes before you compile.
-1. Compilation Command: Use the compiler or CLI tool associated with your smart contract language to compile the code. For example, for SmartPy, you would use the [SmartPy online IDE](https://smartpy.io/ide) to compile your .py file into Michelson.
+## Programming languages for testing
 
-Upon successful compilation, you can deploy your smart contract! 
+The test scenarios are usually written using a full classical programming language, such as `JavaScript` or `Python`, with a library that gives you access to special features to:
+
+- Deploy contracts
+- Make calls to entrypoints
+- Manipulate all the types/values supported by Tezos
+- Generate testing accounts, to simulate calls from multiple accounts
+- Perform cryptographic computations similar to the ones available in the contract
+
+## Rules for testing
+
+Testing a contract thoroughly is not easy and requires experience.
+Here are some tips to follow when getting started:
+
+- Write tests without looking at the implementation of the contract to avoid copying mistakes.
+- If possible, have another developer write the test to avoid testing semantic errors incorrectly.
+- Make sure to cover every possible execution path, whether it's valid or invalid.
+- Create many small tests, each checking something very specific, rather than a long test that tries to do many things at once.
+- Test around the limits
+For example, if a value should be always above 10, include a call with the value 10 that should fail and a call with the value 11 that should succeed.
+- Test extremes
+
+For more information about avoiding flaws in contracts, see [Avoiding flaws](https://opentezos.com/smart-contracts/avoiding-flaws/) on opentezos.com.
+
+## Implementation details
+
+- Michelson: [Mockup mode](https://tezos.gitlab.io/user/mockup.html)
+- Archetype: [Completium test scenario](https://completium.com/docs/contract/test-scenario)
+- SmartPy: [Tests and scenarios](https://smartpy.io/manual/scenarios/overview)
+- LIGO: [Testing LIGO](https://ligolang.org/docs/advanced/testing)
+
+Upon test successful, you can deploy your smart contract! 
