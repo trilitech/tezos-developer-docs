@@ -5,7 +5,7 @@ lastUpdated: 6th November 2023
 ---
 
 ## Introduction
-Because Tezos blockchain smart contracts are immutable after deployment, you must rigorously test to ensure functionality, prevent errors, and avoid potential financial losses. Importantly, contract testing doesn't require any tokens or a wallet account to execute.
+Tezos blockchain smart contracts are immutable after deployment, so you must rigorously test to ensure functionality, prevent errors, and avoid potential financial losses. Importantly, contract testing doesn't require any tokens or a wallet account to execute.
 
 High-level languages come with tools to help write tests, and some testing tools can be used independently of the language used to write the smart contract.
 For example, [SmartPy](https://smartpy.io/manual/scenarios/overview) includes syntax dedicated to testing.
@@ -21,7 +21,7 @@ A test scenario usually consists of the following steps:
     - the `timestamp` of the block (value of `now` during the call)
     - the `level` of the block
 1. Verify the contract's storage or `balance` changed the way you expected.
-1. Try some invalid calls that should fail, and they are expected to fail.
+1. Invalid calls to entrypoints, and they are expected to fail.
 1. Verification of the error caused by these invalid calls, making sure the error messages are the ones you thought would come up.
 
 When executed, the test scenario is successful if all verifications are correct, and all invalid calls fail with the expected errors.
