@@ -79,7 +79,7 @@ Therefore, if the smart contract is malicious or has flaws, the ledger could be 
 ## Token standards
 
 While you can create tokens that behave in any way that you want them to behave, it's best to create tokens that follow a standard.
-Token standards in a blockchain ecosystem are important many reasons, including:
+Token standards in a blockchain ecosystem are important for many reasons, including:
 
 - They enforce best practices that improve the safety of the code that the tokens depend on
 - They provide an interface that makes it easier for applications to work with them, such as a consistent way of transferring tokens from one account to another
