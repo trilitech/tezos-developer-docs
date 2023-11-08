@@ -1,6 +1,6 @@
 ---
-title: 'Part 1: Minting tokens'
-lastUpdated: 2 November 2023
+title: "Part 1: Minting tokens"
+lastUpdated: 8th November 2023
 ---
 
 To start working with the application, you create a Taqueria project and use it to deploy an FA2 contract.
@@ -26,11 +26,11 @@ Follow these steps to set up a Taqueria project:
 1. Install the `ligo/fa` library, which provides templates for creating FA2 tokens:
 
    ```bash
-   echo '{ "name": "app", "dependencies": { "@ligo/fa": "^1.0.8" } }' >> ligo.json
-   TAQ_LIGO_IMAGE=ligolang/ligo:1.0.0 taq ligo --command "install @ligo/fa"
+   echo '{ "name": "app", "dependencies": { "@ligo/fa": "^1.0.9" } }' >> ligo.json
+   TAQ_LIGO_IMAGE=ligolang/ligo:1.1.0 taq ligo --command "install @ligo/fa"
    ```
 
-   This command can take some time because it downloads and installs the `@ligo/fa` package.
+This command can take some time because it downloads and installs the `@ligo/fa` package.
 
 ## Creating an FA2 contract from a template
 
@@ -71,18 +71,18 @@ Follow these steps to create a contract that is based on the template and implem
    type ret = [list<operation>, storage];
    ```
 
-   The first line of this code imports the FA2 template as the `FA2Impl` object.
-   Then, the code defines error messages for the contract.
+The first line of this code imports the FA2 template as the `FA2Impl` object.
+Then, the code defines error messages for the contract.
 
-   The code defines a type for the contract storage, which contains these values:
+The code defines a type for the contract storage, which contains these values:
 
-     - `administrators`: A list of accounts that are authorized to mint NFTs
-     - `ledger`: The ledger that keeps track of token ownership
-     - `metadata`: The metadata for the contract itself, based on the TZIP-16 standard for contract metadata
-     - `token_metadata`: The metadata for the tokens, based on the TZIP-12 standard for token metadata
-     - `operators`: Information about _operators_, accounts that are authorized to transfer tokens on behalf of the owners
+- `administrators`: A list of accounts that are authorized to mint NFTs
+- `ledger`: The ledger that keeps track of token ownership
+- `metadata`: The metadata for the contract itself, based on the TZIP-16 standard for contract metadata
+- `token_metadata`: The metadata for the tokens, based on the TZIP-12 standard for token metadata
+- `operators`: Information about _operators_, accounts that are authorized to transfer tokens on behalf of the owners
 
-   The code also defines the type for the value that entrypoints return: a list of operations and the new value of the storage.
+The code also defines the type for the value that entrypoints return: a list of operations and the new value of the storage.
 
 1. Add code to implement the required `transfer`, `balance_of`, and `update_operators` entrypoints:
 
@@ -165,13 +165,13 @@ Follow these steps to create a contract that is based on the template and implem
    For example, the `FA2Impl.TZIP12.transfer` type represents the parameters for transferring tokens, including a source account and a list of target accounts, token types, and amounts.
 
    - The `transfer` entrypoint accepts information about the tokens to transfer.
-   This implementation uses the `FA2Impl.NFT.transfer` function from the template to avoid having to re-implement what happens when tokens are transferred.
+     This implementation uses the `FA2Impl.NFT.transfer` function from the template to avoid having to re-implement what happens when tokens are transferred.
 
    - The `balance_of` entrypoint sends information about an owner's token balance to another contract.
-   This implementation re-uses the `FA2Impl.nft.balance_of` function.
+     This implementation re-uses the `FA2Impl.NFT.balance_of` function.
 
    - The `update_operators` entrypoint updates the operators for a specified account.
-   This implementation re-uses the `FA2Impl.nft.update_operators` function.
+     This implementation re-uses the `FA2Impl.NFT.update_operators` function.
 
 1. After those entrypoints, add code for the `mint` entrypoint:
 
@@ -235,19 +235,19 @@ Follow these steps to create a contract that is based on the template and implem
 
 1. Run one of these commands to accept or decline LIGO's analytics policy:
 
-     - `ligo analytics accept` to send analytics data to LIGO
-     - `ligo analytics deny` to not send analytics data to LIGO
+   - `ligo analytics accept` to send analytics data to LIGO
+   - `ligo analytics deny` to not send analytics data to LIGO
 
 1. Save the contract and compile it by running this command:
 
    ```bash
-   TAQ_LIGO_IMAGE=ligolang/ligo:1.0.0 taq compile nft.jsligo
+   TAQ_LIGO_IMAGE=ligolang/ligo:1.1.0 taq compile nft.jsligo
    ```
 
    Taqueria compiles the contract to the file `artifacts/nft.tz`.
    It also creates the file `nft.storageList.jsligo`, which contains the starting value of the contract storage.
 
-1. Open the file `contracts/nft.storageList.jsligo` and replace it with this code:
+1. Open the file `contracts/nft.storageList.jsligo` and replace it with this code :
 
    ```ligolang
    #import "nft.jsligo" "Contract"
@@ -292,12 +292,12 @@ Follow these steps to create a contract that is based on the template and implem
    It sets the test account Alice as the administrator, which is the only account that can mint tokens.
 
 1. Optional: Add your address as an administrator or replace Alice's address with your own.
-Note that only the addresses in the `administrators` list will be able to create tokens.
+   Note that only the addresses in the `administrators` list will be able to create tokens.
 
 1. Compile the contract:
 
    ```bash
-   TAQ_LIGO_IMAGE=ligolang/ligo:1.0.0 taq compile nft.jsligo
+   TAQ_LIGO_IMAGE=ligolang/ligo:1.1.0 taq compile nft.jsligo
    ```
 
 1. Use one of these options to set up a Ghostnet account to use to deploy (originate) the contract:
@@ -309,9 +309,9 @@ Note that only the addresses in the `administrators` list will be able to create
        "networkName": "ghostnet",
        "accounts": {
          "taqOperatorAccount": {
-           "publicKey": "edpkvSY7Po2QDaTG25L6QU3sjin7tJgZ9bFTctVTur9NH4rkX5vcP4",
-           "publicKeyHash": "tz1czbSKhM2DLeUZmnSb9V83sZz8M54DBATh",
-           "privateKey": "edskS73riM6jBC14nzY6rKdVuUeyWRgZ2LyoFKTf2DHQPMrr2c4ZKBjD23kH5wxPAJHdKWN5P5LYYEKVWr1WAQ4bDfgditE1u2"
+           "publicKey": "edpkvGfYw3LyB1UcCahKQk4rF2tvbMUk8GFiTuMjL75uGXrpvKXhjn",
+           "publicKeyHash": "tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb",
+           "privateKey": "edsk3QoqBuvdamxouPhin7swCvkQNgq4jP5KZPbwWNnwdZpSpJiEbq"
          }
        }
      }
@@ -322,10 +322,10 @@ Note that only the addresses in the `administrators` list will be able to create
 
    - To let Taqueria generate an account for you, follow these steps:
 
-      1. Run the command `taq deploy nft.tz -e "testing"`, which will fail because you do not have an account configured in Taqueria.
-      The response includes the address of an account that Taqueria generated for you and added to the `.taq/config.local.testing.json` file automatically.
+     1. Run the command `taq deploy nft.tz -e "testing"`, which will fail because you do not have an account configured in Taqueria.
+        The response includes the address of an account that Taqueria generated for you and added to the `.taq/config.local.testing.json` file automatically.
 
-      1. Fund the account from the faucet at https://faucet.ghostnet.teztnets.xyz.
+     1. Fund the account from the faucet at https://faucet.ghostnet.teztnets.xyz.
 
 1. Compile and deploy the contract to Ghostnet by running this command:
 
@@ -368,9 +368,9 @@ To save time, this tutorial provides a starter React application.
 
    ```json
    {
-    "scripts": {
-      "dev": "if test -f .env; then sed -i '' \"s/\\(VITE_CONTRACT_ADDRESS *= *\\).*/\\1$(jq -r 'last(.tasks[]).output[0].address' ../.taq/testing-state.json)/\" .env ; else jq -r '\"VITE_CONTRACT_ADDRESS=\" + last(.tasks[]).output[0].address' ../.taq/testing-state.json > .env ; fi && vite"
-    }
+     "scripts": {
+       "dev": "if test -f .env; then sed -i '' \"s/\\(VITE_CONTRACT_ADDRESS *= *\\).*/\\1$(jq -r 'last(.tasks[]).output[0].address' ../.taq/testing-state.json)/\" .env ; else jq -r '\"VITE_CONTRACT_ADDRESS=\" + last(.tasks[]).output[0].address' ../.taq/testing-state.json > .env ; fi && vite"
+     }
    }
    ```
 
@@ -555,10 +555,10 @@ The mint page uses a form that accepts information and an image and sends a tran
    </Paper>
    ```
 
-    You may see errors in your IDE for missing code and imports that you will add later.
+   You may see errors in your IDE for missing code and imports that you will add later.
 
-    This code shows an HTML form if the connected wallet is an administrator.
-    The form includes fields for a new NFT, including a button to upload an image.
+   This code shows an HTML form if the connected wallet is an administrator.
+   The form includes fields for a new NFT, including a button to upload an image.
 
 1. Inside the `MintPage` function, immediately before the `return` statement, add this [Formik](https://formik.org/) form to manage the form:
 
@@ -679,9 +679,8 @@ The mint page uses a form that accepts information and an image and sends a tran
        }
      } catch (error) {
        console.table(`Error: ${JSON.stringify(error, null, 2)}`);
-       let tibe: TransactionInvalidBeaconError = new TransactionInvalidBeaconError(
-         error
-       );
+       let tibe: TransactionInvalidBeaconError =
+         new TransactionInvalidBeaconError(error);
        enqueueSnackbar(tibe.data_message, {
          variant: "error",
          autoHideDuration: 10000,
@@ -739,7 +738,7 @@ The mint page uses a form that accepts information and an image and sends a tran
    For the complete content of the mint page, see the completed part 1 app at https://github.com/marigold-dev/training-nft-1.
 
 1. In the file `app/.env`, replace the default `VITE_PINATA_API_KEY` and `VITE_PINATA_API_SECRET` values with your Pinata API key and API secret.
-If you don't have a Pinata API key, see the [Configure IPFS storage](../create-an-nft/nft-taquito#configure-ipfs-storage) section of the tutorial [Create a contract and web app that mints NFTs](../create-an-nft/nft-taquito).
+   If you don't have a Pinata API key, see the [Configure IPFS storage](../create-an-nft/nft-taquito#configure-ipfs-storage) section of the tutorial [Create a contract and web app that mints NFTs](../create-an-nft/nft-taquito).
 
 Now the form has a working mint page.
 In the next section, you use it to mint NFTs.
@@ -749,7 +748,7 @@ In the next section, you use it to mint NFTs.
 Mint at least one NFT so you can see it in the site and contract:
 
 1. Open the site by going to http://localhost:5173 in your web browser.
-If the site isn't running, go to the `app` folder and run `yarn dev`.
+   If the site isn't running, go to the `app` folder and run `yarn dev`.
 
 1. Connect the administrator's wallet to the application.
 
@@ -761,9 +760,9 @@ If the site isn't running, go to the `app` folder and run `yarn dev`.
 
    For example, you can use this information:
 
-     - `name`: Saint Emilion - Franc la Rose
-     - `symbol`: SEMIL
-     - `description`: Grand cru 2007
+   - `name`: Saint Emilion - Franc la Rose
+   - `symbol`: SEMIL
+   - `description`: Grand cru 2007
 
 1. Upload a picture to represent a bottle of wine.
 
@@ -819,10 +818,10 @@ Follow these steps to show the tokens that you have minted:
                sx={
                  isTablet
                    ? {
-                     width: "auto",
-                     marginLeft: "33%",
-                     maxHeight: "50vh",
-                   }
+                       width: "auto",
+                       marginLeft: "33%",
+                       maxHeight: "50vh",
+                     }
                    : { width: "100%", maxHeight: "40vh" }
                }
                component="img"
@@ -836,9 +835,7 @@ Follow these steps to show the tokens that you have minted:
                <Box>
                  <Typography>{"ID : " + token_id}</Typography>
                  <Typography>{"Symbol : " + token.symbol}</Typography>
-                 <Typography>
-                   {"Description : " + token.description}
-                 </Typography>
+                 <Typography>{"Description : " + token.description}</Typography>
                </Box>
              </CardContent>
            </Card>
@@ -864,11 +861,7 @@ Follow these steps to show the tokens that you have minted:
          </Button>
        }
        backButton={
-         <Button
-           size="small"
-           onClick={handleBack}
-           disabled={activeStep === 0}
-         >
+         <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
            <KeyboardArrowLeft />
            Back
          </Button>

@@ -1,6 +1,6 @@
 ---
 title: Build an NFT marketplace
-lastUpdated: 2nd November 2023
+lastUpdated: 8nd November 2023
 ---
 
 This tutorial guides you through creating a web application that allows users to buy and sell NFTs of different types.
@@ -20,19 +20,19 @@ You will learn:
 1. Optional: If you haven't worked with Tezos NFTs before, consider doing the tutorial [Create an NFT](./create-an-nft) first.
 
 1. Set up an account with Pinata if you don't have one already and get an API key and API secret.
-For instructions, see the [Configure IPFS storage](./create-an-nft/nft-taquito#configure-ipfs-storage) section of the tutorial [Create a contract and web app that mints NFTs](./create-an-nft/nft-taquito).
+   For instructions, see the [Configure IPFS storage](./create-an-nft/nft-taquito#configure-ipfs-storage) section of the tutorial [Create a contract and web app that mints NFTs](./create-an-nft/nft-taquito).
 
 1. Make sure that you have installed these tools:
 
    - [npm](https://nodejs.org/en/download/): NPM is required to install the web application's dependencies
-   - [Taqueria](https://taqueria.io/), version 0.48.0 or later: Taqueria is a platform that manages the contracts and front ends for Tezos dApps
+   - [Taqueria](https://taqueria.io/), version 0.43.0 or later: Taqueria is a platform that manages the contracts and front ends for Tezos dApps
    - [Docker](https://docs.docker.com/engine/install/): Docker is required to run Taqueria
    - [jq](https://stedolan.github.io/jq/download/): Some commands use the `jq` program to extract JSON data
    - [`yarn`](https://yarnpkg.com/): The frontend application uses yarn to build and run (see this article for details about [differences between `npm` and `yarn`](https://www.geeksforgeeks.org/difference-between-npm-and-yarn/))
    - Any Tezos-compatible wallet that supports Ghostnet, such as [Temple wallet](https://templewallet.com/)
 
 1. Optionally, you can install [`VS Code`](https://code.visualstudio.com/download) to edit your application code in and the [LIGO VS Code extension](https://marketplace.visualstudio.com/items?itemName=ligolang-publish.ligo-vscode) for LIGO editing features such as code highlighting and completion.
-Taqueria also provides a [Taqueria VS Code extension](https://marketplace.visualstudio.com/items?itemName=ecadlabs.taqueria-vscode) that helps visualize your project and run tasks.
+   Taqueria also provides a [Taqueria VS Code extension](https://marketplace.visualstudio.com/items?itemName=ecadlabs.taqueria-vscode) that helps visualize your project and run tasks.
 
 1. Optional: If this is your first time using Taqueria, you may want to run through [this Taqueria training](https://github.com/marigold-dev/training-dapp-1#ghostnet-testnet-wallet).
 
@@ -46,10 +46,10 @@ For more information about Tezos token standards, see [Token standards](../archi
 In this tutorial, you use the LIGO template for FA2 tokens to create these types of tokens:
 
 | Token template | Number of token types | Number of tokens of each type |
-| -------------- | --------------- | ------------------------ |
-| NFT            | Any number      | 1                        |
-| Single-asset   | 1               | Any number               |
-| Multi-asset    | Any number      | Any number               |
+| -------------- | --------------------- | ----------------------------- |
+| NFT            | Any number            | 1                             |
+| Single-asset   | 1                     | Any number                    |
+| Multi-asset    | Any number            | Any number                    |
 
 When you create your own applications, you can choose the token type that is appropriate for your use case.
 

@@ -1,7 +1,7 @@
 ---
 title: "Part 4: Handling multi-asset tokens"
 last_update:
-  date: 3 November 2023
+  date: 8 November 2023
 ---
 
 Because a wine store can have many bottles of many different types, the appropriate template to use is the multi-asset template.
@@ -11,12 +11,12 @@ You can continue from your code from part 3 or start from the completed version 
 
 If you start from the completed version, run these commands to install dependencies for the web application:
 
-   ```bash
-   npm i
-   cd ./app
-   yarn install
-   cd ..
-   ```
+```bash
+npm i
+cd ./app
+yarn install
+cd ..
+```
 
 ## Updating the smart contract
 
@@ -29,24 +29,24 @@ To use the multi-asset template, you must change the code that your smart contra
    ```
 
 1. In the storage type, change the `offers` value to `map<[address, nat], offer>` and remove the `totalSupply` field.
-The storage type looks like this:
+   The storage type looks like this:
 
    ```ligolang
    export type storage = {
      administrators: set<address>,
      offers: map<[address, nat], offer>, //user sells an offer for a token_id
 
-     ledger: FA2Impl.Datatypes.ledger,
+     ledger: FA2Impl.MultiAsset.ledger,
      metadata: FA2Impl.TZIP16.metadata,
      token_metadata: FA2Impl.TZIP12.tokenMetadata,
-     operators: FA2Impl.Datatypes.operators,
+     operators: FA2Impl.MultiAsset.operators,
    };
    ```
 
-   Now the offers map is indexed on the address of the seller and the ID of the token for sale.
+Now the offers map is indexed on the address of the seller and the ID of the token for sale.
 
 1. Replace all references to `FA2Impl.SingleAsset` in the contract with `FA2Impl.MultiAsset`.
-You can do a find-replace in the contract to change these values.
+   You can do a find-replace in the contract to change these values.
 
 1. Replace the `mint` entrypoint with this code:
 
@@ -88,13 +88,13 @@ You can do a find-replace in the contract to change these values.
            [Tezos.get_sender(), token_id],
            quantity as nat,
            s.ledger
-         ) as FA2Impl.Datatypes.ledger,
+         ) as FA2Impl.MultiAsset.ledger,
          token_metadata: Big_map.add(
            token_id,
            { token_id: token_id, token_info: token_info },
            s.token_metadata
          ),
-         operators: Big_map.empty as FA2Impl.Datatypes.operators
+         operators: Big_map.empty as FA2Impl.MultiAsset.operators
        }
      ]
    };
@@ -110,12 +110,12 @@ You can do a find-replace in the contract to change these values.
      //check balance of seller
 
      const sellerBalance =
-       FA2Impl.Sidecar.get_for_user([s.ledger, Tezos.get_source(), token_id]);
+       FA2Impl.MultiAsset.get_for_user([s.ledger, Tezos.get_source(), token_id]);
      if (quantity > sellerBalance) return failwith("2");
      //need to allow the contract itself to be an operator on behalf of the seller
 
      const newOperators =
-       FA2Impl.Sidecar.add_operator(
+       FA2Impl.MultiAsset.add_operator(
          [s.operators, Tezos.get_source(), Tezos.get_self_address(), token_id]
        );
      //DECISION CHOICE: if offer already exists, we just override it
@@ -165,11 +165,11 @@ You can do a find-replace in the contract to change these values.
            //transfer tokens from seller to buyer
 
            let ledger =
-             FA2Impl.Sidecar.decrease_token_amount_for_user(
+             FA2Impl.MultiAsset.decrease_token_amount_for_user(
                [s.ledger, seller, token_id, quantity]
              );
            ledger
-           = FA2Impl.Sidecar.increase_token_amount_for_user(
+           = FA2Impl.MultiAsset.increase_token_amount_for_user(
                [ledger, Tezos.get_source(), token_id, quantity]
              );
            //update new offer
@@ -234,7 +234,7 @@ You can do a find-replace in the contract to change these values.
 1. Compile and deploy the new contract:
 
    ```bash
-   TAQ_LIGO_IMAGE=ligolang/ligo:1.0.0 taq compile nft.jsligo
+   TAQ_LIGO_IMAGE=ligolang/ligo:1.1.0 taq compile nft.jsligo
    taq deploy nft.tz -e "testing"
    ```
 
@@ -393,14 +393,20 @@ Now that the contract handles both token IDs and quantities, you must update the
 
      //open mint drawer if admin
      useEffect(() => {
-       if (storage && storage!.administrators.indexOf(userAddress! as address) < 0)
+       if (
+         storage &&
+         storage!.administrators.indexOf(userAddress! as address) < 0
+       )
          setFormOpen(false);
        else setFormOpen(true);
      }, [userAddress]);
 
      useEffect(() => {
        (async () => {
-         if (nftContratTokenMetadataMap && nftContratTokenMetadataMap.size > 0) {
+         if (
+           nftContratTokenMetadataMap &&
+           nftContratTokenMetadataMap.size > 0
+         ) {
            formik.setFieldValue("token_id", nftContratTokenMetadataMap.size);
          }
        })();
@@ -497,7 +503,9 @@ Now that the contract handles both token IDs and quantities, you must update the
        <Paper>
          {storage ? (
            <Button
-             disabled={storage.administrators.indexOf(userAddress! as address) < 0}
+             disabled={
+               storage.administrators.indexOf(userAddress! as address) < 0
+             }
              sx={{
                p: 1,
                position: "absolute",
@@ -581,7 +589,9 @@ Now that the contract handles both token IDs and quantities, you must update the
                    required
                    value={formik.values.symbol}
                    onChange={formik.handleChange}
-                   error={formik.touched.symbol && Boolean(formik.errors.symbol)}
+                   error={
+                     formik.touched.symbol && Boolean(formik.errors.symbol)
+                   }
                    helperText={formik.touched.symbol && formik.errors.symbol}
                    variant="filled"
                  />
@@ -615,7 +625,9 @@ Now that the contract handles both token IDs and quantities, you must update the
                    error={
                      formik.touched.quantity && Boolean(formik.errors.quantity)
                    }
-                   helperText={formik.touched.quantity && formik.errors.quantity}
+                   helperText={
+                     formik.touched.quantity && formik.errors.quantity
+                   }
                    variant="filled"
                  />
 
@@ -717,7 +729,8 @@ Now that the contract handles both token IDs and quantities, you must update the
                    onClick={handleNext}
                    disabled={
                      activeStep ===
-                     Array.from(nftContratTokenMetadataMap!.entries()).length - 1
+                     Array.from(nftContratTokenMetadataMap!.entries()).length -
+                       1
                    }
                  >
                    Next
@@ -854,7 +867,8 @@ Now that the contract handles both token IDs and quantities, you must update the
 
          await Promise.all(
            owner_token_ids.map(async (owner_token_idKey) => {
-             const key: { address: string; nat: string } = owner_token_idKey.key;
+             const key: { address: string; nat: string } =
+               owner_token_idKey.key;
 
              if (key.address === userAddress) {
                const ownerBalance = await storage.ledger.get({
@@ -962,7 +976,9 @@ Now that the contract handles both token IDs and quantities, you must update the
              />
 
              <ImageList
-               cols={isDesktop ? itemPerPage / 2 : isTablet ? itemPerPage / 3 : 1}
+               cols={
+                 isDesktop ? itemPerPage / 2 : isTablet ? itemPerPage / 3 : 1
+               }
              >
                {Array.from(ledgerTokenIDMap.entries())
                  .filter((_, index) =>
@@ -995,7 +1011,8 @@ Now that the contract handles both token IDs and quantities, you must update the
                          </Tooltip>
                        }
                        title={
-                         nftContratTokenMetadataMap.get(token_id.toString())?.name
+                         nftContratTokenMetadataMap.get(token_id.toString())
+                           ?.name
                        }
                      />
                      <CardMedia
@@ -1086,10 +1103,14 @@ Now that the contract handles both token IDs and quantities, you must update the
                                  Boolean(formik.errors.quantity)
                                }
                                helperText={
-                                 formik.touched.quantity && formik.errors.quantity
+                                 formik.touched.quantity &&
+                                 formik.errors.quantity
                                }
                                InputProps={{
-                                 inputProps: { min: 0, max: balance.toNumber() },
+                                 inputProps: {
+                                   min: 0,
+                                   max: balance.toNumber(),
+                                 },
                                  endAdornment: (
                                    <InputAdornment position="end">
                                      <Button
@@ -1256,7 +1277,9 @@ Now that the contract handles both token IDs and quantities, you must update the
                showLastButton
              />
              <ImageList
-               cols={isDesktop ? itemPerPage / 2 : isTablet ? itemPerPage / 3 : 1}
+               cols={
+                 isDesktop ? itemPerPage / 2 : isTablet ? itemPerPage / 3 : 1
+               }
              >
                {Array.from(storage?.offers.entries())
                  .filter(([_, offer]) => offer.quantity.isGreaterThan(0))
@@ -1381,8 +1404,8 @@ Now that the contract handles both token IDs and quantities, you must update the
            </Fragment>
          ) : (
            <Typography sx={{ py: "2em" }} variant="h4">
-             Sorry, there is not NFT to buy yet, you need to mint or sell bottles
-             first
+             Sorry, there is not NFT to buy yet, you need to mint or sell
+             bottles first
            </Typography>
          )}
        </Paper>
@@ -1396,7 +1419,7 @@ Now you can create, buy, and sell bottles of wine as in the applications in the 
 For example, if you connect an administrator account you can create types of wine with quantities and offer them for sale.
 Then you can connect a different account and buy bottles from the different types that are available, as in this picture:
 
-   ![Buying bottles from the different types that are available](/img/tutorials/nft-marketplace-4-buy.png)
+![Buying bottles from the different types that are available](/img/tutorials/nft-marketplace-4-buy.png)
 
 ## Summary
 

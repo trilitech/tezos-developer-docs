@@ -1,7 +1,7 @@
 ---
 title: "Part 3: Managing tokens with quantities"
 last_update:
-  date: 3 November 2023
+  date: 8 November 2023
 ---
 
 Because only one of each NFT can exist, they are not the right token type to represent wine bottles, which have a type and a quantity of bottles of that type.
@@ -13,12 +13,12 @@ You can continue from your code from part 2 or start from the completed version 
 
 If you start from the completed version, run these commands to install dependencies for the web application:
 
-   ```bash
-   npm i
-   cd ./app
-   yarn install
-   cd ..
-   ```
+```bash
+npm i
+cd ./app
+yarn install
+cd ..
+```
 
 ## Updating the smart contract
 
@@ -44,10 +44,10 @@ To use the single-asset template, you must change the code that your smart contr
      totalSupply: nat,
      offers: map<address, offer>, //user sells an offer
 
-     ledger: FA2Impl.Datatypes.ledger,
+     ledger: FA2Impl.SingleAsset.ledger,
      metadata: FA2Impl.TZIP16.metadata,
      token_metadata: FA2Impl.TZIP12.tokenMetadata,
-     operators: FA2Impl.Datatypes.operators,
+     operators: FA2Impl.SingleAsset.operators,
    };
    ```
 
@@ -55,7 +55,7 @@ To use the single-asset template, you must change the code that your smart contr
    Also, the storage now keeps track of the total number of tokens in the `totalSupply` value.
 
 1. Replace all other references to `FA2Impl.NFT` in the contract with `FA2Impl.SingleAsset`.
-You can do a find-replace in the contract to change these values.
+   You can do a find-replace in the contract to change these values.
 
 1. Replace the `mint` entrypoint with this code:
 
@@ -116,7 +116,7 @@ You can do a find-replace in the contract to change these values.
      //check balance of seller
 
      const sellerBalance =
-       FA2Impl.Sidecar.get_amount_for_owner(
+       FA2Impl.SingleAsset.get_amount_for_owner(
          {
            ledger: s.ledger,
            metadata: s.metadata,
@@ -128,7 +128,7 @@ You can do a find-replace in the contract to change these values.
      //need to allow the contract itself to be an operator on behalf of the seller
 
      const newOperators =
-       FA2Impl.Sidecar.add_operator(s.operators)(Tezos.get_source())(
+       FA2Impl.SingleAsset.add_operator(s.operators)(Tezos.get_source())(
          Tezos.get_self_address()
        );
      //DECISION CHOICE: if offer already exists, we just override it
@@ -182,11 +182,11 @@ You can do a find-replace in the contract to change these values.
            //transfer tokens from seller to buyer
 
            let ledger =
-             FA2Impl.Sidecar.decrease_token_amount_for_user(s.ledger)(seller)(
+             FA2Impl.SingleAsset.decrease_token_amount_for_user(s.ledger)(seller)(
                quantity
              );
            ledger
-           = FA2Impl.Sidecar.increase_token_amount_for_user(ledger)(
+           = FA2Impl.SingleAsset.increase_token_amount_for_user(ledger)(
                Tezos.get_source()
              )(quantity);
            //update new offer
@@ -255,7 +255,7 @@ You can do a find-replace in the contract to change these values.
 1. Compile and deploy the new contract:
 
    ```bash
-   TAQ_LIGO_IMAGE=ligolang/ligo:1.0.0 taq compile nft.jsligo
+   TAQ_LIGO_IMAGE=ligolang/ligo:1.1.0 taq compile nft.jsligo
    taq deploy nft.tz -e "testing"
    ```
 
@@ -403,7 +403,10 @@ You can do a find-replace in the contract to change these values.
 
      //open mint drawer if admin
      useEffect(() => {
-       if (storage && storage!.administrators.indexOf(userAddress! as address) < 0)
+       if (
+         storage &&
+         storage!.administrators.indexOf(userAddress! as address) < 0
+       )
          setFormOpen(false);
        else setFormOpen(true);
      }, [userAddress]);
@@ -498,7 +501,9 @@ You can do a find-replace in the contract to change these values.
        <Paper>
          {storage ? (
            <Button
-             disabled={storage.administrators.indexOf(userAddress! as address) < 0}
+             disabled={
+               storage.administrators.indexOf(userAddress! as address) < 0
+             }
              sx={{
                p: 1,
                position: "absolute",
@@ -582,7 +587,9 @@ You can do a find-replace in the contract to change these values.
                    required
                    value={formik.values.symbol}
                    onChange={formik.handleChange}
-                   error={formik.touched.symbol && Boolean(formik.errors.symbol)}
+                   error={
+                     formik.touched.symbol && Boolean(formik.errors.symbol)
+                   }
                    helperText={formik.touched.symbol && formik.errors.symbol}
                    variant="filled"
                  />
@@ -616,7 +623,9 @@ You can do a find-replace in the contract to change these values.
                    error={
                      formik.touched.quantity && Boolean(formik.errors.quantity)
                    }
-                   helperText={formik.touched.quantity && formik.errors.quantity}
+                   helperText={
+                     formik.touched.quantity && formik.errors.quantity
+                   }
                    variant="filled"
                  />
 
@@ -718,7 +727,8 @@ You can do a find-replace in the contract to change these values.
                    onClick={handleNext}
                    disabled={
                      activeStep ===
-                     Array.from(nftContratTokenMetadataMap!.entries()).length - 1
+                     Array.from(nftContratTokenMetadataMap!.entries()).length -
+                       1
                    }
                  >
                    Next
@@ -752,7 +762,7 @@ You can do a find-replace in the contract to change these values.
 1. Replace the content of the `src/OffersPage.tsx` file with this code:
 
    ```typescript
-      import { InfoOutlined } from "@mui/icons-material";
+   import { InfoOutlined } from "@mui/icons-material";
    import SellIcon from "@mui/icons-material/Sell";
    import * as api from "@tzkt/sdk-api";
 
@@ -946,7 +956,9 @@ You can do a find-replace in the contract to change these values.
              />
 
              <ImageList
-               cols={isDesktop ? itemPerPage / 2 : isTablet ? itemPerPage / 3 : 1}
+               cols={
+                 isDesktop ? itemPerPage / 2 : isTablet ? itemPerPage / 3 : 1
+               }
              >
                <Card key={userAddress + "-" + 0}>
                  <CardHeader
@@ -1026,9 +1038,12 @@ You can do a find-replace in the contract to change these values.
                            value={formik.values.price}
                            onChange={formik.handleChange}
                            error={
-                             formik.touched.price && Boolean(formik.errors.price)
+                             formik.touched.price &&
+                             Boolean(formik.errors.price)
                            }
-                           helperText={formik.touched.price && formik.errors.price}
+                           helperText={
+                             formik.touched.price && formik.errors.price
+                           }
                          />
                          <TextField
                            sx={{
@@ -1217,7 +1232,9 @@ You can do a find-replace in the contract to change these values.
                showLastButton
              />
              <ImageList
-               cols={isDesktop ? itemPerPage / 2 : isTablet ? itemPerPage / 3 : 1}
+               cols={
+                 isDesktop ? itemPerPage / 2 : isTablet ? itemPerPage / 3 : 1
+               }
              >
                {Array.from(storage?.offers.entries())
                  .filter(([_, offer]) => offer.quantity.isGreaterThan(0))
@@ -1335,8 +1352,8 @@ You can do a find-replace in the contract to change these values.
            </Fragment>
          ) : (
            <Typography sx={{ py: "2em" }} variant="h4">
-             Sorry, there is not NFT to buy yet, you need to mint or sell bottles
-             first
+             Sorry, there is not NFT to buy yet, you need to mint or sell
+             bottles first
            </Typography>
          )}
        </Paper>
@@ -1349,7 +1366,7 @@ You can do a find-replace in the contract to change these values.
 1. As you did in the previous part, connect an administrator's wallet to the application.
 
 1. Create a token and specify a quantity to mint.
-For example, you can use this information:
+   For example, you can use this information:
 
    - `name`: Saint Emilion - Franc la Rose
    - `symbol`: SEMIL

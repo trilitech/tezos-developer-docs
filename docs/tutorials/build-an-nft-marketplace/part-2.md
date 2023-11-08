@@ -1,7 +1,7 @@
 ---
 title: "Part 2: Buying and selling tokens"
 last_update:
-  date: 3 November 2023
+  date: 8 November 2023
 ---
 
 In this section, you give users the ability to list a bottle for sale and buy bottles that are listed for sale.
@@ -10,12 +10,12 @@ You can continue from your code from part 1 or start from the completed version 
 
 If you start from the completed version, run these commands to install dependencies for the web application:
 
-   ```bash
-   npm i
-   cd ./app
-   yarn install
-   cd ..
-   ```
+```bash
+npm i
+cd ./app
+yarn install
+cd ..
+```
 
 ## Updating the smart contract
 
@@ -34,7 +34,7 @@ The contract storage must store the tokens that are offered for sale and their p
       ```
 
    1. Add a map named `offers` that maps token IDs to their offer prices to the `storage` type.
-   Now the `storage` type looks like this:
+      Now the `storage` type looks like this:
 
       ```ligolang
       export type storage = {
@@ -117,7 +117,7 @@ The contract storage must store the tokens that are offered for sale and their p
      //need to allow the contract itself to be an operator on behalf of the seller
 
      const newOperators =
-       FA2Impl.Sidecar.add_operator(
+       FA2Impl.NFT.add_operator(
          s.operators,
          Tezos.get_source(),
          Tezos.get_self_address(),
@@ -173,7 +173,7 @@ The contract storage must store the tokens that are offered for sale and their p
            //transfer tokens from seller to buyer
 
            const ledger =
-             FA2Impl.Sidecar.transfer_token_from_user_to_user(
+             FA2Impl.NFT.transfer_token_from_user_to_user(
                s.ledger,
                token_id,
                seller,
@@ -199,7 +199,7 @@ The contract storage must store the tokens that are offered for sale and their p
 1. Compile and deploy the new contract:
 
    ```bash
-   TAQ_LIGO_IMAGE=ligolang/ligo:1.0.0 taq compile nft.jsligo
+   TAQ_LIGO_IMAGE=ligolang/ligo:1.1.0 taq compile nft.jsligo
    taq deploy nft.tz -e "testing"
    ```
 
@@ -326,7 +326,8 @@ The contract storage must store the tokens that are offered for sale and their p
                ownerTokenIds.add(token_idKey.key);
 
                const ownerOffers = await storage.offers.get(token_idNat);
-               if (ownerOffers) offersTokenIDMap.set(token_idKey.key, ownerOffers);
+               if (ownerOffers)
+                 offersTokenIDMap.set(token_idKey.key, ownerOffers);
 
                console.log(
                  "found for " +
@@ -417,7 +418,9 @@ The contract storage must store the tokens that are offered for sale and their p
              />
 
              <ImageList
-               cols={isDesktop ? itemPerPage / 2 : isTablet ? itemPerPage / 3 : 1}
+               cols={
+                 isDesktop ? itemPerPage / 2 : isTablet ? itemPerPage / 3 : 1
+               }
              >
                {Array.from(ownerTokenIds.entries())
                  .filter((_, index) =>
@@ -550,19 +553,21 @@ The contract storage must store the tokens that are offered for sale and their p
    When the user selects bottles and adds a sale price, the page calls the `sell` entrypoint with this code:
 
    ```typescript
-   nftContrat?.methods.sell(BigNumber(token_id) as nat,BigNumber(price * 1000000) as nat).send()
+   nftContrat?.methods
+     .sell(BigNumber(token_id) as nat, BigNumber(price * 1000000) as nat)
+     .send();
    ```
 
    This code multiplies the price by 1,000,000 because the UI shows prices in tez but the contract records prices in mutez.
    Then the contract creates an offer for the selected token.
 
 1. As you did in the previous part, connect an administrator's wallet to the application and create at least one NFT.
-The new contract that you deployed in this section has no NFTs to start with.
+   The new contract that you deployed in this section has no NFTs to start with.
 
 1. Offer a bottle for sale:
 
    1. Open the application and click **Trading > Sell bottles**.
-   The sale page opens and shows the bottles that you own, as in this picture:
+      The sale page opens and shows the bottles that you own, as in this picture:
 
       ![The Sell bottles page, showing the bottles that you can offer for sale](/img/tutorials/nft-marketplace-2-sell.png)
 
@@ -704,7 +709,9 @@ In this section, you add a catalog page to show the bottles that are on sale and
                showLastButton
              />
              <ImageList
-               cols={isDesktop ? itemPerPage / 2 : isTablet ? itemPerPage / 3 : 1}
+               cols={
+                 isDesktop ? itemPerPage / 2 : isTablet ? itemPerPage / 3 : 1
+               }
              >
                {Array.from(storage?.offers.entries())
 
@@ -741,7 +748,8 @@ In this section, you add a catalog page to show the bottles that are on sale and
                          </Tooltip>
                        }
                        title={
-                         nftContratTokenMetadataMap.get(token_id.toString())?.name
+                         nftContratTokenMetadataMap.get(token_id.toString())
+                           ?.name
                        }
                      />
                      <CardMedia
@@ -760,7 +768,9 @@ In this section, you add a catalog page to show the bottles that are on sale and
                        <Box>
                          <Typography variant="body2">
                            {" "}
-                           {"Price : " + offer.price.dividedBy(1000000) + " XTZ"}
+                           {"Price : " +
+                             offer.price.dividedBy(1000000) +
+                             " XTZ"}
                          </Typography>
                        </Box>
                      </CardContent>
@@ -798,8 +808,8 @@ In this section, you add a catalog page to show the bottles that are on sale and
            </Fragment>
          ) : (
            <Typography sx={{ py: "2em" }} variant="h4">
-             Sorry, there is not NFT to buy yet, you need to mint or sell bottles
-             first
+             Sorry, there is not NFT to buy yet, you need to mint or sell
+             bottles first
            </Typography>
          )}
        </Paper>
@@ -810,7 +820,7 @@ In this section, you add a catalog page to show the bottles that are on sale and
 1. Disconnect your administrator account from the application and connect with a different account that has enough tez to buy a bottle.
 
 1. In the web application, click **Trading > Wine catalogue**.
-The page looks like this:
+   The page looks like this:
 
    ![The catalog page, showing one bottle for sale](/img/tutorials/nft-marketplace-2-buy.png)
 
