@@ -4,36 +4,45 @@ author: 'Yuxin Li'
 lastUpdated: 6th November 2023
 ---
 ## Introduction
-The last part will introduce how to deploy smart contracts. In Tezos, deploying a smart contract is often referred to as “origination”. This process essentially creates a new account that holds the smart contract's script. Contracts initiated in this manner have addresses that start with `KT1` (known as originated accounts), which distinguishes them from the implicit accounts with addresses beginning with `tz1`, `tz2`, or `tz3`.
+In Tezos, deploying a smart contract is often referred to as “origination”. This process essentially creates a new account that holds the smart contract's script. Contracts initiated in this manner have addresses that start with `KT1` (known as originated accounts), which distinguishes them from the implicit accounts with addresses beginning with `tz1`, `tz2`, or `tz3`.
 
 ## Deploying a smart contract
-Here is the syntax for the Tezos command line to deploy a smart contract:
+Generally, there are two methods for deploying your smart contracts: either using the command line in your terminal or deploying through an online IDE.
+
+### Deploying via terminal
+The first one is to deploy through your terminal. Here is the syntax for the Tezos command line to deploy a smart contract:
 ```bash
 octez-client originate contract CONTRACT_NAME transferring AMOUNT_TEZ from FROM_USER \
              running MICHELSON_FILE \
              --init 'INITIAL_STORAGE' --burn-cap GAZ_FEE
 ```             
 where:
-- CONTRACT_NAME is the name given to the contract.
-- MICHELSON_FILE is the path for the Michelson smart contract code (.tz file).
-- AMOUNT_TEZ is the quantity of Tez being transferred to the newly deployed contract. If a contract balance reaches 0 then it is deactivated.
-- FROM_USER account from which the Tez are taken (and transferred to the new contract).
-- INITIAL_STORAGE is a Michelson expression. The --init parameter is used to specify the initial state of the storage.
-- GAZ_FEE is a specified maximal fee the user is willing to pay for this operation (using the --burn-cap parameter).
+- `CONTRACT_NAME` is the name given to the contract.
+- `MICHELSON_FILE` is the path for the Michelson smart contract code (.tz file).
+- `AMOUNT_TEZ` is the quantity of Tez being transferred to the newly deployed contract. If a contract balance reaches 0 then it is deactivated.
+- `FROM_USER` account from which the Tez are taken (and transferred to the new contract).
+- `INITIAL_STORAGE` is a Michelson expression. The --init parameter is used to specify the initial state of the storage.
+- `GAZ_FEE` is a specified maximal fee the user is willing to pay for this operation (using the --burn-cap parameter).
 
 :::note
 Note that you must replace `<CONTRACT_NAME>` with the address of the deployed contract before running the command.
 Obtaining the Tezos Client:
 :::
 
-### Obtaining the Tezos client:
+Obtaining the Tezos client:
 - GNU/Linux: the simplest way to get octez-client is through opam using opam install tezos. alternatives are available here
 - MacOsX: the software is distributed through a brew formula with brew install tezos.
 
-## Interacting with the devloped contract
+### Deploying via online IDE
+As for deploying through your online IDE, if you are using Ligo or SmartPy programming languages, you can simply deploy your smart contracts through their respective online IDEs.
+- [SmartPy online IDE](https://smartpy.io/)
+- [Ligo online IDE](https://ligolang.org/?lang=jsligo)
 
-### Invocation
-Once you have successfully originated the smart contract and a baked block includes it, you can interact with the contract's entrypoints using command lines.
+## Interacting with the devloped contract
+Once you have successfully originated the smart contract and it is included in a baked block, there are two ways to interact with it: through command lines or through a block explorer.
+
+### Interacting through command lines
+The first method involves interacting with the contract's entry points using command lines.
 
 For example, suppose you have a smart contract with an entrypoint called `update_data`, which takes an integer as an argument to update some data in its storage. Here's how you might invoke this entrypoint:
 
@@ -70,6 +79,15 @@ Where:
 Always ensure that you check the documentation specific to the smart contract you are interacting with, as the expected arguments (`--arg`) and the name of the entrypoint (`--entrypoint`) can vary widely depending on the contract's design and purpose.
 :::
 
+### Interacting via blockchain explorers
 
+A blockchain explorer is an efficient and user-friendly tool that enables you to interact with deployed contracts. In the Tezos ecosystem, there are two main blockchain explorers:
+
+- [Better Call Dev](https://better-call.dev/)
+- [TzKT](https://tzkt.io/)
+
+To interact with a contract, simply copy its address into one of these blockchain explorers. Below is the user interface for interacting with a contract through Better Call Dev:
+
+![UI for better call](/img/tutorials/better-call.png)
 
 
