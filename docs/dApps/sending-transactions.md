@@ -1,7 +1,8 @@
 ---
 title: Sending transactions
 authors: "Tim McMackin"
-lastUpdated: 7 November 2023
+last_update:
+  date: 7 November 2023
 ---
 <!-- TODO originating contracts: https://tezostaquito.io/docs/originate -->
 
