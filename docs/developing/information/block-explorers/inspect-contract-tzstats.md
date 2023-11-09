@@ -75,6 +75,8 @@ Here you have the content of your big_map.
 
 ## API Calls
 
+<!-- TODO the tzstats API is no longer available; update this section with a different way of doing things. -->
+
 The same pieces of information can be retrieved by API calls, without using the frontend.
 A full documentation is available [here](https://tzstats.com/docs/api#tezos-api).
 
