@@ -5,10 +5,10 @@ last_update:
   date: 14 September 2023
 ---
 
-This tutorial covers using the Octez command-line client to deploy a smart contract to Tezos.
+This tutorial covers deploying a smart contract to Tezos.
 It covers how to:
 
-- Connect the Octez client to a testnet
+- Connect to a testnet
 - Create a wallet
 - Get tokens from a faucet
 - Code a contract, including:
