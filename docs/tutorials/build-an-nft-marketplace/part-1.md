@@ -247,7 +247,7 @@ Follow these steps to create a contract that is based on the template and implem
    Taqueria compiles the contract to the file `artifacts/nft.tz`.
    It also creates the file `nft.storageList.jsligo`, which contains the starting value of the contract storage.
 
-1. Open the file `contracts/nft.storageList.jsligo` and replace it with this code :
+1. Open the file `contracts/nft.storageList.jsligo` and replace it with this code:
 
    ```ligolang
    #import "nft.jsligo" "Contract"
