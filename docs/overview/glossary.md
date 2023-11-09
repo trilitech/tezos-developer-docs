@@ -1,6 +1,7 @@
 ---
 title: Glossary
-lastUpdated: 24th October 2023
+last_update:
+  date: 24 October 2023
 ---
 
 ## Tezos and tez

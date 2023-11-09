@@ -1,7 +1,8 @@
 ---
 title: Data types
 authors: 'Tim McMackin'
-lastUpdated: 12 October 2023
+last_update:
+  date: 12 October 2023
 ---
 
 See these pages for information about the data types that Tezos supports:

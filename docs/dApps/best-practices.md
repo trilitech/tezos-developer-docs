@@ -1,7 +1,8 @@
 ---
 title: Best practices and avoiding flaws
 authors: Claude Barde
-lastUpdated: 10th July 2023
+last_update:
+  date: 10 July 2023
 ---
 
 When creating a frontend application that uses the Tezos blockchain, you will most probably use a JavaScript framework, may it be React, Vue, Svelte, or another one.
@@ -24,7 +25,7 @@ Connecting and interacting with a wallet is an experience specific to web3 apps 
 
 1. **Do not force wallet connection**: the request to connect a user's wallet must come from the user interacting with your dapp, not appear out of nowhere, for example, when the dapp loads. Let the user get some details about your dapp before they decide to connect their wallet.
 2. **Choose the right position for the wallet button**: the users visiting your dapp will expect to find the button to connect or interact with their wallet in the upper part of the interface, on the left or right side. The button must be clearly visible and discoverable in one second.
-3. **Display wallet information**: the minimal information to display is the address of the connected account to let the users know which account they are using. A lot of dapps on Tezos also display the XTZ balance, as well as the network the dapp is connected to (mainnet/testnet) or the wallet used for the connection.
+3. **Display wallet information**: the minimal information to display is the address of the connected account to let the users know which account they are using. A lot of dapps on Tezos also display the XTZ balance, as well as the network the dapp is connected to (Mainnet/testnet) or the wallet used for the connection.
 4. **Offer the option to select the RPC node**: network traffic can get busy on Tezos, but you can provide a better UX by adding a switch for a different Tezos node if the one selected by default becomes too slow. Some power users may also like having the choice to enter the address of their favourite node!
 5. **Add an option to disconnect the wallet**: some users want to switch wallets while using your dapp, so there must be a way to disconnect their wallet and connect a new one effortlessly.
 

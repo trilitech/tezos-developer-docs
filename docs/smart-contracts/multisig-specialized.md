@@ -1,7 +1,8 @@
 ---
 title: Specialized Multisig Introduction
 sidebar_label: Introduction
-lastUpdated: 29th June 2023
+last_update:
+  date: 29 June 2023
 ---
 
 ## What is a Specialized Multisig?
@@ -33,7 +34,7 @@ Clone the [`lorentz-contract-multisig` repository](https://github.com/tqtezos/lo
   https://github.com/tqtezos/lorentz-contract-multisig/blob/master/README.md) to
   install the dependencies required to use the `lorentz-contract-multisig`
 
-Don't forget to set up an `ALICE_ADDRESS` and `BOB_ADDRESS` on the test network as described in [Installing Octez](../reference/octez/installing); we will be using these variables throughout this tutorial.
+Set up an `ALICE_ADDRESS` and `BOB_ADDRESS` on the test network for the Alice and Bob accounts; we will be using these variables throughout this tutorial.
 
 ## Getting your public key
 

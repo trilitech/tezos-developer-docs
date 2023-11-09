@@ -1,7 +1,8 @@
 ---
 title: Primitive data types
 authors: 'Mathias Hiron (Nomadic Labs), Sasha Aldrick (TriliTech), Tim McMackin (TriliTech)'
-lastUpdated: 4th October 2023
+last_update:
+  date: 4 October 2023
 ---
 
 Tezos contracts support these primitive data types.

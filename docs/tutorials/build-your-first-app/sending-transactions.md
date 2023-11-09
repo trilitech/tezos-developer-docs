@@ -1,7 +1,8 @@
 ---
 title: 'Part 3: Sending transactions'
 authors: 'Tim McMackin'
-lastUpdated: 17th October 2023
+last_update:
+  date: 17 October 2023
 ---
 
 Now that the application can connect to the user's wallet, it can get the user's approval to send transactions to Tezos with that wallet.

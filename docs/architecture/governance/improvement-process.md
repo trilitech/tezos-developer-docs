@@ -1,6 +1,7 @@
 ---
 title: Tezos Improvement Process (TZIP)
-lastUpdated: 10th July 2023
+last_update:
+  date: 10 July 2023
 ---
 As Tezos is a large decentralized project that is constantly evolving, its members need to have a mechanism for proposing improvements to the ecosystem.
 

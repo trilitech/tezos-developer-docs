@@ -1,7 +1,8 @@
 ---
 title: History of amendments
 authors: 'Thomas Zoughebi, Aymeric Bethencourt, and Maxime Fernandez'
-lastUpdated: 30th June 2023
+last_update:
+  date: 30 June 2023
 ---
 
 As presented in [Governance](../governance), the Tezos blockchain is constantly evolving, through new amendments. In this chapter, we will present an overview of past proposals and the reasons for their approval or disapproval.
@@ -189,7 +190,7 @@ For more information, see the blog post from [Nomadic Labs](https://research-dev
 
 Mumbai's main changes are:
 
-* Smart rollups: Tezos enshrined rollups are enabled and provide a powerful scaling solution allowing anyone to deploy decentralized WebAssembly applications with dedicated computational and networking resources.
+* Smart Rollups: Tezos enshrined rollups are enabled and provide a powerful scaling solution allowing anyone to deploy decentralized WebAssembly applications with dedicated computational and networking resources.
 * Minimal block time reduction from 30s to 15s.
 * Ticket transfers between user accounts.
 

@@ -1,7 +1,8 @@
 ---
 title: Setting up developer environments
 authors: "Tim McMackin"
-lastUpdated: 24 October 2023
+last_update:
+  date: 24 October 2023
 ---
 
 Working with Tezos usually includes setting up an IDE to write code in and connecting to a test network or sandbox to test applications on.
@@ -44,7 +45,7 @@ See https://taqueria.io/.
 
 To test smart contracts and dApps, you can use these test environments:
 
-- Test networks behave like Tezos mainnet but have differences that make it easier to test on them, such as faucets that provide free tokens and reduced block times for faster testing.
+- Test networks behave like Tezos Mainnet but have differences that make it easier to test on them, such as faucets that provide free tokens and reduced block times for faster testing.
 - Sandbox environments like [Flextesa](https://tezos.gitlab.io/flextesa/) run Tezos nodes locally on your computer in a sandbox mode.
 
 For more information about test environments, see [Using sandboxes and testnets](./testnets).

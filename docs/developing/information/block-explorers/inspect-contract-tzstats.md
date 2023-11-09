@@ -1,7 +1,8 @@
 ---
 title: Inspecting deployed contracts
 authors: Benjamin Pila
-lastUpdated: 28th June 2023
+last_update:
+  date: 28 June 2023
 ---
 
 As a developer, you will often want to check the state of your deployed smart contracts. Using a blockchain explorer is a fast and easy way to do so. In this section, we will find a smart contract and check it out on _TzStats_.
@@ -74,6 +75,8 @@ Here you have the content of your big_map.
 ![](/img/developing/tzStats_smart_contract_bigmap.png)
 
 ## API Calls
+
+<!-- TODO the tzstats API is no longer available; update this section with a different way of doing things. -->
 
 The same pieces of information can be retrieved by API calls, without using the frontend.
 A full documentation is available [here](https://tzstats.com/docs/api#tezos-api).
@@ -236,7 +239,7 @@ All these API calls can of course be made from any libraries and thus can be aut
 
 # Conclusion
 
-tzstats.com is extremely useful to monitor what is happening on the mainnet and public testnets.
+tzstats.com is extremely useful to monitor what is happening on Mainnet and public testnets.
 All the pieces of information regarding the cycles, the blocks, the transactions, the smart contracts, etc... can quickly be found, thanks to a user-friendly interface.
 
 In addition, _TzStats_ provides a complete and free REST API (for non-commercial use), without any authentication or enforcement of rate limits (as long as it remains reasonable). See the introduction of the [Tzstats API](https://tzstats.com/docs/api#tezos-api).

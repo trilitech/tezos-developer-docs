@@ -1,7 +1,8 @@
 ---
 title: "Part 2: Accessing wallets"
 authors: 'Claude Barde, Tim McMackin'
-lastUpdated: 17th October 2023
+last_update:
+  date: 17 October 2023
 ---
 
 Accessing the user's wallet is a prerequisite for interacting with the Tezos blockchain.
@@ -41,14 +42,14 @@ This is the address that applications use to work with your wallet.
 
    It may take a few minutes for the faucet to send the tokens and for those tokens to appear in your wallet.
 
-   You can use the faucet as much as you need to get tokens on the testnet, but those tokens are worthless and cannot be used on mainnet.
+   You can use the faucet as much as you need to get tokens on the testnet, but those tokens are worthless and cannot be used on Mainnet.
 
    ![Fund your wallet using the Ghostnet Faucet](/img/tutorials/wallet-funding.png)
 
 1. If you created a new account, initialize the account by sending any amount of tez to any other account.
 
    Before the new account can use dApps, it must send at least one transaction to Tezos.
-   This first transaction reveals the public key that provesthat transactions came from this account.
+   This first transaction reveals the public key that proves that transactions came from this account.
 
    If your account is new, you can send 1 tez to any other account, including your own account, via your wallet application to reveal the account.
 

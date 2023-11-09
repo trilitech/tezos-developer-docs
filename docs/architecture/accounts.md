@@ -1,7 +1,8 @@
 ---
 title: Accounts
 authors: "Tim McMackin"
-lastUpdated: 18th October 2023
+last_update:
+  date: 18 October 2023
 ---
 
 Tezos uses two types of accounts:

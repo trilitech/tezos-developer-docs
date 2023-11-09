@@ -1,7 +1,8 @@
 ---
 title: Languages
 authors: 'Tim McMackin'
-lastUpdated: 4th October 2023
+last_update:
+  date: 4 October 2023
 ---
 
 You can write Tezos smart contracts in any of these languages:

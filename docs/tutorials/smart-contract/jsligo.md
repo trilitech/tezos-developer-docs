@@ -1,7 +1,8 @@
 ---
 title: Deploy a smart contract with jsLIGO
 authors: 'John Joubert, Sasha Aldrick, Claude Barde, Tim McMackin'
-lastUpdated: 14th September 2023
+last_update:
+  date: 20 October 2023
 ---
 
 This tutorial covers using the Octez command-line client to deploy a smart contract to Tezos.
@@ -40,14 +41,14 @@ After you deploy the contract, you or any other user can call it through Octez o
 
 To run this tutorial, you need the Octez client and LIGO.
 
-- To install the LIGO programming language, see https://ligolang.org/docs/intro/installation.
+- To install the LIGO programming language, version 1.0.0 or later, see https://ligolang.org/docs/intro/installation.
 You can verify that LIGO is installed by running this command:
 
    ```bash
    ligo version
    ```
 
-   If you see a message with the version of LIGO you have installed, LIGO is installed correctly.
+   If you see a message with a version 1.0.0 or later, LIGO is installed correctly.
 
 - To install the Octez client, which allows you to send transactions to the Tezos blockchain, use your operating system's package manager:
 
@@ -113,7 +114,7 @@ This is where the contract code goes.
 
 ## Switch to a testnet
 
-Before you deploy your contract to the main Tezos network (referred to as *mainnet*), you can deploy it to a testnet.
+Before you deploy your contract to the main Tezos network (referred to as *Mainnet*), you can deploy it to a testnet.
 Testnets are useful for testing Tezos operations because testnets provide tokens for free so you can work with them without spending real tokens.
 
 Tezos testnets are listed on this site: https://teztnets.xyz/.
@@ -132,7 +133,7 @@ Follow these steps to set your Octez client to use a testnet instead of the main
    octez-client --endpoint https://rpc.ghostnet.teztnets.xyz config update
    ```
 
-   Octez shows a warning that you are using a testnet instead of mainnet.
+   Octez shows a warning that you are using a testnet instead of Mainnet.
 
 1. Verify that you are using a testnet by running this command:
 
@@ -144,8 +145,8 @@ Follow these steps to set your Octez client to use a testnet instead of the main
 
 ## Create a local wallet
 
-Deploying and using a smart contract costs fees, so you need a local wallet and XTZ tokens.
-The Octez client can manage a local wallet for you, and you can get XTZ tokens on testnets from faucets.
+Deploying and using a smart contract costs fees, so you need a local wallet and tez tokens.
+The Octez client can manage a local wallet for you, and you can get tez tokens on testnets from faucets.
 
 1. Run the following command to generate a local wallet, replacing `local_wallet` with a name for your wallet:
 
@@ -178,10 +179,11 @@ The Octez client can manage a local wallet for you, and you can get XTZ tokens o
 1. On the testnets page at https://teztnets.xyz/, click the faucet link for the testnet you are using.
 For example, the Ghostnet faucet is at https://faucet.ghostnet.teztnets.xyz.
 
-1. On the faucet page, paste your wallet address into the input field labeled "Or fund any address" and click the button for the amount of XTZ to add to your wallet.
+1. On the faucet page, paste your wallet address into the input field labeled "Or fund any address" and click the button for the amount of tez to add to your wallet.
+20 tez is enough to work with the tutorial application, and you can return to the faucet later if you need more tez.
 It may take a few minutes for the faucet to send the tokens and for those tokens to appear in your wallet.
 
-   You can use the faucet as much as you need to get tokens on the testnet, but those tokens are worthless and cannot be used on mainnet.
+   You can use the faucet as much as you need to get tokens on the testnet, but those tokens are worthless and cannot be used on Mainnet.
 
    ![Fund your wallet using the Ghostnet Faucet](/img/tutorials/wallet-funding.png)
 
@@ -194,7 +196,7 @@ It may take a few minutes for the faucet to send the tokens and for those tokens
 If your wallet is set up correctly and the faucet has sent tokens to it, the Octez client prints the balance of your wallet, as in this example:
 
 ```
-100 ꜩ
+20 ꜩ
 ```
 
 ## Create the contract
@@ -259,7 +261,7 @@ Tezos entrypoints return two values: a list of other operations to call and the 
    ```ts
    // Reset entrypoint
    @entry
-   const reset = (_ : unit, _ : storage) : returnValue =>
+   const reset = (_p : unit, _s : storage) : returnValue =>
      [list([]), 0];
    ```
 
@@ -285,7 +287,7 @@ namespace Counter {
 
   // Reset entrypoint
   @entry
-  const reset = (_ : unit, _ : storage) : returnValue =>
+  const reset = (_p : unit, _s : storage) : returnValue =>
     [list([]), 0];
 }
 ```
@@ -298,7 +300,7 @@ Before you can deploy the contract to Tezos, you must compile it to Michelson, t
 For example, this command sets the storage at 10 and increments it by 32:
 
    ```bash
-   ligo run dry-run increment.jsligo -m Counter -e increment "32" "10"
+   ligo run dry-run increment.jsligo -m Counter "Increment(32)" "10"
    ```
 
    The terminal should show the response `(LIST_EMPTY(), 42)`.
@@ -334,7 +336,7 @@ Originating the contract requires a small amount of Tezos tokens as a fee.
    This command includes these parts:
 
      - It uses the Octez client `originate contract` command to originate the contract and assigns the local name `my-counter` to the contract
-     - It includes 0 tokens from your wallet with the transaction, but the `--burn-cap` argument allows the transaction to take up to 0.1 XTZ from your wallet for fees.
+     - It includes 0 tokens from your wallet with the transaction, but the `--burn-cap` argument allows the transaction to take up to 0.1 tez from your wallet for fees.
      - It sets the initial value of the contract storage to 10 with the `--init` argument.
 
    If the contract deploys successfully, Octez shows the address of the new contract, as in this example:
@@ -353,7 +355,7 @@ Originating the contract requires a small amount of Tezos tokens as a fee.
 
   1. Open a Tezos block explorer such as [TzKT](https://tzkt.io) or [Better Call Dev](https://better-call.dev/).
 
-  1. Set the explorer to Ghostnet instead of mainnet.
+  1. Set the explorer to Ghostnet instead of Mainnet.
 
   1. Paste the contract address, which starts with `KT1`, into the search field and press Enter.
 

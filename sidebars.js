@@ -26,6 +26,18 @@ const sidebars = {
       items: [
         'architecture/protocol',
         'architecture/accounts',
+        {
+          type: 'category',
+          label: 'Tokens',
+          link: {
+            id: 'architecture/tokens',
+            type: 'doc',
+          },
+          items: [
+            'architecture/tokens/FA1.2',
+            'architecture/tokens/FA2',
+          ],
+        },
         // { // TODO
         //   type: 'category',
         //   label: 'Baking',
@@ -63,6 +75,19 @@ const sidebars = {
         // 'developing/sandbox', // TODO
         {
           type: 'category',
+          label: 'The Octez client',
+          link: {
+            id: 'developing/octez-client',
+            type: 'doc',
+          },
+          items: [
+            'developing/octez-client/installing',
+            'developing/octez-client/accounts',
+            'developing/octez-client/transactions',
+          ],
+        },
+        {
+          type: 'category',
           label: 'Getting information about the blockchain',
           // link: { // TODO
           //   id: 'developing/information',
@@ -78,7 +103,7 @@ const sidebars = {
               },
               items: [
                 'developing/information/block-explorers/tzstats',
-                'developing/information/block-explorers/inspect-contract-tzstats',
+                // 'developing/information/block-explorers/inspect-contract-tzstats',
               ],
             },
             'developing/information/indexers',
@@ -178,37 +203,10 @@ const sidebars = {
       type: 'category',
       label: 'Reference',
       items: [
-        {
-          type: 'category',
-          label: 'The Octez client',
-          link: {
-            id: 'reference/octez',
-            type: 'doc',
-          },
-          items: [
-            'reference/octez/cli-rpc',
-            'reference/octez/installing',
-            'reference/octez/upgrading',
-            'reference/octez/monitoring',
-            'reference/octez/sandbox',
-            'reference/octez/best-practices',
-          ],
-        },
         // 'reference/rpc', // TODO
         // 'reference/encoding', // TODO
         // 'reference/merkle-formats', // TODO
         // 'reference/ocaml-apis', // TODO
-        {
-          type: 'category',
-          label: 'Token standards',
-          link: {
-            id: 'reference/token-standards',
-            type: 'doc',
-          },
-          items: [
-            'reference/fa12-fa2-standards',
-          ],
-        },
         {
           type: 'link',
           label: 'Whitepaper',

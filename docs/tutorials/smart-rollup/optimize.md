@@ -1,6 +1,7 @@
 ---
 title: "Part 3: Optimizing the kernel"
-lastUpdated: 25th October 2023
+last_update:
+  date: 25 October 2023
 ---
 
 To originate the kernel on Tezos, it must fit within the maximum size for a layer 1 operation (32KB).
@@ -71,7 +72,7 @@ In these steps, you reduce the size of the kernel:
    - `hello_world_kernel_installer.wasm`: The installer kernel
    - `preimages/`: A directory that contains the preimages that allow nodes to restore the original kernel code
 
-   When a node runs the installer kernel, it retrieves the preimages through the reveal data channel, a channel that smart rollups use to request data from outside of layer 1.
+   When a node runs the installer kernel, it retrieves the preimages through the reveal data channel, a channel that Smart Rollups use to request data from outside of layer 1.
    For more information about the reveal data channel, see [reveal data channel](https://tezos.gitlab.io/alpha/smart_rollups.html#reveal-data-channel).
 
 1. Verify the size of the installer kernel by running this command:

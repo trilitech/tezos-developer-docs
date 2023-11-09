@@ -1,7 +1,8 @@
 ---
 title: "Part 4: Getting information"
 authors: "Tim McMackin"
-lastUpdated: 17 October 2023
+last_update:
+  date: 17 October 2023
 ---
 
 In this section, you improve the user experience of the application by providing information from Tezos on the page.

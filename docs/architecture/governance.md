@@ -1,6 +1,7 @@
 ---
 title: Governance
-lastUpdated: 3rd July 2023
+last_update:
+  date: 3 July 2023
 ---
 
 ## What is Self Amendment?
@@ -33,13 +34,13 @@ The voting participation target tries to match the exponential moving average of
 
 Previously, during the voting process, a test chain would be spun up during the “testing period” which took place between the exploration and promotion voting periods. The intent was that this test chain be used to verify that the new proposal worked correctly, but in practice, the test chain has never been used in this manner and has caused significant operational problems to node operators.
 
-The Florence upgrade eliminates the test chain activation, the testing period has been retained but is now named the “cooldown period”. Instead, testing the protocol continues by using test chains that operate outside of the mainnet voting process.
+The Florence upgrade eliminates the test chain activation, the testing period has been retained but is now named the “cooldown period”. Instead, testing the protocol continues by using test chains that operate outside of the Mainnet voting process.
 
 #### 4. Promotion Vote Period
 
 At the end of the Testing Period, the Promotion Vote Period begins. In this period, the network decides whether to adopt the amendment based on off-chain discussions and its behavior during the Testing Period. As in the Exploration Vote Period, bakers submit their votes using the ballot operation, with their votes weighted proportionally to the number of rolls in their staking balance.
 
-At the end of the Promotion Vote Period, the network counts the number of votes. If the participation rate reaches the minimum quorum and an 80% supermajority of non-abstaining bakers votes “Yea,” then the proposal is activated as the new mainnet. Otherwise, the process once more reverts to the Proposal Period. The minimum vote participation rate is set based on past participation rates.
+At the end of the Promotion Vote Period, the network counts the number of votes. If the participation rate reaches the minimum quorum and an 80% supermajority of non-abstaining bakers votes “Yea,” then the proposal is activated as the new Mainnet. Otherwise, the process once more reverts to the Proposal Period. The minimum vote participation rate is set based on past participation rates.
 
 See [the full details of the governance process](https://medium.com/tezos/amending-tezos-b77949d97e1e).
 

@@ -1,6 +1,7 @@
 ---
 title: NFT Marketplace Part 1
-lastUpdated: 11th October 2023
+last_update:
+  date: 11 October 2023
 ---
 
 ## Introduction

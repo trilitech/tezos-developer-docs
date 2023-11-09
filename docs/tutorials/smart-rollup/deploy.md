@@ -1,9 +1,10 @@
 ---
 title: "Part 4: Deploying (originating) the rollup"
-lastUpdated: 25th October 2023
+last_update:
+  date: 25 October 2023
 ---
 
-Smart rollups are originated in a way similar to smart contracts.
+Smart Rollups are originated in a way similar to smart contracts.
 Instead of running the `octez-client originate contract` command, you run the `octez-client originate smart rollup` command.
 This command creates an address for the rollup and stores a small amount of data about it on layer 1.
 

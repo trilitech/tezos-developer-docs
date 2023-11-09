@@ -1,6 +1,7 @@
 ---
 title: Ligo
-lastUpdated: 29th June 2023
+last_update:
+  date: 29 June 2023
 ---
 
 LIGO is a functional programming language that is intended to be both user-friendly and to avoid patterns that make formal verification difficult.

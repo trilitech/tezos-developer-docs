@@ -1,7 +1,8 @@
 ---
 title: Taquito dApp SDK for TypeScript
 authors: Claude Barde
-lastUpdated: 10th July 2023
+last_update:
+  date: 10 July 2023
 ---
 
 ## Introduction

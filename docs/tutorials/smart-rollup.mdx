@@ -1,6 +1,7 @@
 ---
 title: Deploy a smart rollup
-lastUpdated: 11th October 2023
+last_update:
+  date: 11 October 2023
 ---
 
 import LucidDiagram from '@site/src/components/LucidDiagram';
@@ -11,23 +12,23 @@ To run this tutorial, you should have a basic understanding of how Tezos works a
 In this tutorial, you will learn:
 
 - What a smart rollup is and how they help scale Tezos
-- How information passes between Tezos and smart rollups
+- How information passes between Tezos and Smart Rollups
 - How to respond to messages from Tezos in a smart rollup
 
 ## What is a smart rollup?
 
-Smart rollups are processing units that run outside the Tezos network but communicate with Tezos on a regular basis.
+Smart Rollups are processing units that run outside the Tezos network but communicate with Tezos on a regular basis.
 These processing units can run arbitrarily large amounts of code without waiting for Tezos baking nodes to run and verify that code.
-Smart rollups use Tezos for information and transactions but can run large applications at their own speed, independently of the Tezos baking system.
+Smart Rollups use Tezos for information and transactions but can run large applications at their own speed, independently of the Tezos baking system.
 
-In this way, smart rollups allow Tezos to scale to support large, complex applications without slowing Tezos itself.
-The processing that runs on Tezos itself via smart contracts is referred to as _layer 1_ and the processing that smart rollups run is referred to as _layer 2_.
+In this way, Smart Rollups allow Tezos to scale to support large, complex applications without slowing Tezos itself.
+The processing that runs on Tezos itself via smart contracts is referred to as _layer 1_ and the processing that Smart Rollups run is referred to as _layer 2_.
 To learn about running code in smart contracts, see the tutorial [Deploy a smart contract](./smart-contract).
 
 Rollups also have an outbox, which consists of calls to smart contracts on layer 1.
 These calls are how rollups send messages back to Tezos.
 
-Smart rollups can run any kind of applications that they want, such as:
+Smart Rollups can run any kind of applications that they want, such as:
 
 - Financial applications that use information and transactions from Tezos
 - Gaming applications that manipulate assets and keep them in sync with Tezos
@@ -46,7 +47,7 @@ This diagram shows a smart rollup interacting with layer 1 by receiving a messag
 
 <LucidDiagram width="640px" height="480px" src="https://lucid.app/documents/embedded/74fd884e-9c71-409e-b7d3-c3a871a17178" id="KYtBl2woQVuV" />
 
-Smart rollups stay in sync with Tezos by passing messages to Tezos and receiving messages from Tezos and other rollups.
+Smart Rollups stay in sync with Tezos by passing messages to Tezos and receiving messages from Tezos and other rollups.
 Each Tezos block contains a global rollups inbox that contains messages from Tezos layer 1 to all rollups.
 Anyone can add a message to this inbox and all messages are visible to all rollups.
 Rollups receive this inbox, filter it to the messages that they are interested in, and act on them accordingly.
@@ -58,11 +59,11 @@ If a business is growing and its employees are being overworked, the business co
 Scaling Tezos in this way would mean using more processing power to process each new block, which would increase the cost to run baking nodes.
 Also, if the business hires more employees, the amount of communication between employees increases because, for example, they have to make sure that they are working in the same way and not doing duplicate jobs.
 
-By contrast, smart rollups behave like horizontal scaling.
+By contrast, Smart Rollups behave like horizontal scaling.
 In horizontal scaling, businesses create specialized teams that work on different portions of the workload.
 These teams can work independently of other teams and take advantage of efficiencies of being focused on a specific task.
 They also need to communicate less with other teams, which speeds up their work.
-Smart rollups are like separate horizontally scaled teams, with Tezos layer 1 as the source of communication between teams.
+Smart Rollups are like separate horizontally scaled teams, with Tezos layer 1 as the source of communication between teams.
 
 ## Prerequisites
 
@@ -76,7 +77,7 @@ TODO Could we install some of the tools in the docker container instead of makin
 
 - Rust
 
-   The application in this tutorial uses Rust because of its support for WebAssembly (WASM), the language that smart rollups use to communicate.
+   The application in this tutorial uses Rust because of its support for WebAssembly (WASM), the language that Smart Rollups use to communicate.
    Rollups can use any language that has WASM compilation support.
 
    To install Rust via the `rustup` command, run this command:

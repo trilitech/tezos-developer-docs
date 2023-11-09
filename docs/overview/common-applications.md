@@ -1,6 +1,7 @@
 ---
 title: Common applications of Tezos
-lastUpdated: 13 September 2023
+last_update:
+  date: 13 September 2023
 ---
 
 Here are some of the ways that people use Tezos:
