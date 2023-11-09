@@ -3,7 +3,7 @@ title: "Part 2: Running the kernel in debug mode"
 lastUpdated: 25th October 2023
 ---
 
-Octez provides a command named `octez-smart-rollup-wasm-debugger` that runs smart rollups in debug mode to make it easier to test and observe them.
+Octez provides a command named `octez-smart-rollup-wasm-debugger` that runs Smart Rollups in debug mode to make it easier to test and observe them.
 Later, you will deploy the rollup to the sandbox, but running it in debug mode first verifies that it built correctly.
 
 1. In the terminal window inside the Docker container, go to the `hello_world_kernel` folder.

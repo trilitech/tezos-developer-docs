@@ -4,7 +4,7 @@ title: Creating accounts
 
 You can create or import accounts into the Octez client just like you do so in wallet applications.
 
-Octez keeps a local list of aliases for addresses, including user accounts, smart contracts, and smart rollups.
+Octez keeps a local list of aliases for addresses, including user accounts, smart contracts, and Smart Rollups.
 You can list the aliases that the Octez client is aware of by running the command `octez-client list known addresses`.
 When you run transactions with Octez, you can use the alias in place of the account address.
 

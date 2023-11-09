@@ -272,7 +272,7 @@ For this contract, the initial storage state is in the comment at the end of the
 There are many ways to originate a contract on Tezos.
 For a tutorial on using the command line, see [Deploy a smart contract](../smart-contract/).
 
-Before you originate your contract to the main Tezos network (referred to as *mainnet*), you can originate it to a testnet.
+Before you originate your contract to the main Tezos network (referred to as *Mainnet*), you can originate it to a testnet.
 Testnets are useful for testing Tezos operations because testnets provide tokens for free so you can work with Tezos without spending real tokens.
 
 This tutorial uses the online LIGO IDE at https://ide.ligolang.org/ because you don't have to install any tools to use it.
@@ -364,7 +364,7 @@ If you see an error, make sure that you copied the entire contract file.
 
    1. Open a Tezos block explorer such as [TzKT](https://tzkt.io) or [Better Call Dev](https://better-call.dev/).
 
-   1. Set the explorer to Ghostnet instead of mainnet.
+   1. Set the explorer to Ghostnet instead of Mainnet.
 
    1. Paste the contract address into the search field and press Enter.
 

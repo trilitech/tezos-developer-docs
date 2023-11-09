@@ -113,7 +113,7 @@ This is where the contract code goes.
 
 ## Switch to a testnet
 
-Before you deploy your contract to the main Tezos network (referred to as *mainnet*), you can deploy it to a testnet.
+Before you deploy your contract to the main Tezos network (referred to as *Mainnet*), you can deploy it to a testnet.
 Testnets are useful for testing Tezos operations because testnets provide tokens for free so you can work with them without spending real tokens.
 
 Tezos testnets are listed on this site: https://teztnets.xyz/.
@@ -132,7 +132,7 @@ Follow these steps to set your Octez client to use a testnet instead of the main
    octez-client --endpoint https://rpc.ghostnet.teztnets.xyz config update
    ```
 
-   Octez shows a warning that you are using a testnet instead of mainnet.
+   Octez shows a warning that you are using a testnet instead of Mainnet.
 
 1. Verify that you are using a testnet by running this command:
 
@@ -181,7 +181,7 @@ For example, the Ghostnet faucet is at https://faucet.ghostnet.teztnets.xyz.
 1. On the faucet page, paste your wallet address into the input field labeled "Or fund any address" and click the button for the amount of XTZ to add to your wallet.
 It may take a few minutes for the faucet to send the tokens and for those tokens to appear in your wallet.
 
-   You can use the faucet as much as you need to get tokens on the testnet, but those tokens are worthless and cannot be used on mainnet.
+   You can use the faucet as much as you need to get tokens on the testnet, but those tokens are worthless and cannot be used on Mainnet.
 
    ![Fund your wallet using the Ghostnet Faucet](/img/tutorials/wallet-funding.png)
 
@@ -353,7 +353,7 @@ Originating the contract requires a small amount of Tezos tokens as a fee.
 
   1. Open a Tezos block explorer such as [TzKT](https://tzkt.io) or [Better Call Dev](https://better-call.dev/).
 
-  1. Set the explorer to Ghostnet instead of mainnet.
+  1. Set the explorer to Ghostnet instead of Mainnet.
 
   1. Paste the contract address, which starts with `KT1`, into the search field and press Enter.
 

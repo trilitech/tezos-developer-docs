@@ -4,7 +4,7 @@ authors: 'Nomadic Labs, TriliTech'
 lastUpdated: 30th June 2023
 ---
 
-Rollups play a crucial part in providing next-generation scaling on Tezos. This page gives a technical introduction to smart rollups, their optimistic nature, and an intro to developing your own WASM kernel.
+Rollups play a crucial part in providing next-generation scaling on Tezos. This page gives a technical introduction to Smart Rollups, their optimistic nature, and an intro to developing your own WASM kernel.
 
 ## Prerequisites
 
@@ -12,7 +12,7 @@ This page covers an advanced topic at the bleeding edge of Tezos core developmen
 
 ## Examples
 
-For examples of smart rollups, see this repository: https://gitlab.com/tezos/kernel-gallery.
+For examples of Smart Rollups, see this repository: https://gitlab.com/tezos/kernel-gallery.
 
 ## What is a rollup?
 
@@ -35,7 +35,7 @@ published an invalid claim. Therefore, thanks to the refutation
 mechanism, a single honest participant is enough to guarantee that the
 input messages are correctly interpreted.
 
-In the Tezos protocol, the subsystem of smart rollups is generic with
+In the Tezos protocol, the subsystem of Smart Rollups is generic with
 respect to the syntax and the semantics of the input messages. More
 precisely, the originator of a smart rollup provides a program (in one
 of the languages supported by Tezos) responsible for interpreting input
@@ -60,13 +60,13 @@ terms of expressiveness.
 
 The purpose of this documentation is to give:
 
-- an overview of the terminology and basic principles of smart rollups
-- a complete tour of smart rollups related workflows
+- an overview of the terminology and basic principles of Smart Rollups
+- a complete tour of Smart Rollups related workflows
 - a reference documentation for the development of a WASM kernel.
 
 # Overview
 
-Just like smart contracts, smart rollups are decentralized software
+Just like smart contracts, Smart Rollups are decentralized software
 components. However, contrary to smart contracts that are processed by
 the network validators automatically, a smart rollup requires a
 dedicated *rollup node* to function.
@@ -86,7 +86,7 @@ the prefix `sr1`.
 
 ## Inputs
 
-There are two channels of communication to interact with smart rollups:
+There are two channels of communication to interact with Smart Rollups:
 
 1.  a global **rollups inbox** allows layer 1 to transmit
     information to all the rollups. This unique inbox contains two kinds
@@ -186,7 +186,7 @@ A **commitment** claims that the interpretation of all inbox messages
 published during a given commitment period and applied on the state of a
 parent commitment leads to a given new state by performing a given number
 of execution steps of the PVM. Execution steps are called **ticks** in
-the smart rollups terminology. A commitment must be published on the
+the Smart Rollups terminology. A commitment must be published on the
 layer 1 after each commitment period to have the rollup progress. A
 commitment is always based on a parent commitment (except for the
 genesis commitment that is automatically published at origination time).
@@ -269,7 +269,7 @@ all concurrent stakers to avoid the rollup being stuck.
 
 ## Tools
 
-Smart rollups come with two new executable programs: the Octez rollup
+Smart Rollups come with two new executable programs: the Octez rollup
 node and the Octez rollup client.
 
 The Octez rollup node is used by a rollup operator to deploy a rollup.
@@ -528,7 +528,7 @@ EMESSAGE=$(octez-smart-rollup-client-Pt${CURRENT_PROTOCOL} encode outbox message
 ## Triggering Execution of an Outbox Message
 
 Once an outbox message has been pushed to the outbox by the kernel at
-some level `${L}`, the user needs to wait for the commitment that includes this level to be cemented. On dailynet, the cementation process
+some level `${L}`, the user needs to wait for the commitment that includes this level to be cemented. On Dailynet, the cementation process
 of a non-disputed commitment is 40 blocks long while on Mainnet, it is 2
 weeks long.
 
@@ -701,9 +701,9 @@ general-purpose tool like [WABT](https://github.com/WebAssembly/wabt).
 wat2wasm hello.wat -o hello.wasm
 ```
 
-The contents of the resulting `hello.wasm` file is a valid WASM kernel. One of the benefits of choosing WASM as the programming language for smart rollups is that WASM has gradually become a ubiquitous compilation target over the years. Its popularity has grown to the point where mainstream, industrial languages like Go or Rust now natively compile to WASM. For example, `cargo`, the official Rust package manager, provides an official target to compile Rust to `.wasm` binary files, which are valid WASM kernels. This means that, for this particular example, one can build a WASM kernel while enjoying the strengths and convenience of the Rust language and the Rust ecosystem.
+The contents of the resulting `hello.wasm` file is a valid WASM kernel. One of the benefits of choosing WASM as the programming language for Smart Rollups is that WASM has gradually become a ubiquitous compilation target over the years. Its popularity has grown to the point where mainstream, industrial languages like Go or Rust now natively compile to WASM. For example, `cargo`, the official Rust package manager, provides an official target to compile Rust to `.wasm` binary files, which are valid WASM kernels. This means that, for this particular example, one can build a WASM kernel while enjoying the strengths and convenience of the Rust language and the Rust ecosystem.
 
-In the context of smart rollups, Rust has become the primary language where the WASM backend has been tested extensively. However, the WASM VM has not been modified in any way to favor this language. We fully expect that other mainstream languages, such as Go, are also great candidates for implementing WASM kernels.
+In the context of Smart Rollups, Rust has become the primary language where the WASM backend has been tested extensively. However, the WASM VM has not been modified in any way to favor this language. We fully expect that other mainstream languages, such as Go, are also great candidates for implementing WASM kernels.
 
 Let's move on and continue by:
 
@@ -747,7 +747,7 @@ kernel, but can be used by the PVM to give information to the kernel.
 
 When a new block is published on Tezos, the inbox exposed to the smart
 rollup is populated with all the inputs published on Tezos in this
-block. Keep in mind that all smart rollups which are originated on Tezos share the same inbox. As a consequence, a WASM kernel has to filter the inputs that are relevant for its purpose from the ones it does not need to process.
+block. Keep in mind that all Smart Rollups which are originated on Tezos share the same inbox. As a consequence, a WASM kernel has to filter the inputs that are relevant for its purpose from the ones it does not need to process.
 
 Once the inbox has been populated with the inputs of the Tezos block,
 the `kernel_run` function is called, from a clean `transient` state.
@@ -785,7 +785,7 @@ evolved arithmetic machine. It needs to be enriched with so-called
 "host" functions to be used for greater purposes. The host
 functions provide an API to the WASM program to interact externally.
 
-For smart rollups, the host functions exposed to a WASM kernel allow
+For Smart Rollups, the host functions exposed to a WASM kernel allow
 it to interact with the components of persistent state:
 
  - `read_input` - loads the oldest input still present in the inbox of the smart rollup in the transient memory of the WASM kernel. This means that the input is lost at the next invocation of `kernel_run` if it is not written in the durable storage
@@ -860,7 +860,7 @@ simple as running the following command.
 rustup target add wasm32-unknown-unknown
 ```
 
-Rust also proposes the `wasm64-unknown-unknown` compilation target. This target is **not** compatible with Tezos smart rollups, which only
+Rust also proposes the `wasm64-unknown-unknown` compilation target. This target is **not** compatible with Tezos Smart Rollups, which only
 provides a 32bit address space.
 
 The simplest kernel one can implement in Rust (the one that returns directly after being called, without specification) is the following Rust file (by convention named `lib.rs` in Rust).
@@ -1288,7 +1288,7 @@ solutions:
     protocol and is the unique source of truth regarding the semantics
     of rollups. The PVM is able to produce proofs enforcing this truth.
     This ability is used during the final step of refutation games.
--  **Inbox**: A sequence of messages from layer 1 to smart rollups.
+-  **Inbox**: A sequence of messages from layer 1 to Smart Rollups.
     The contents of the inbox is determined by the consensus of the
     Tezos protocol.
 -  **Outbox**: A sequence of messages from a smart rollup to

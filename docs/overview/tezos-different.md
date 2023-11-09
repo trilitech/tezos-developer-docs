@@ -11,7 +11,7 @@ Tezos has a built-in capability to upgrade itself, which allows the network to e
 
 ## Stakeholders participate in governance
 
-Anyone who holds XTZ — the chain's native token — can propose changes to how Tezos works, such as changes to gas fees and block times, new features such as smart rollups, or even major changes like how the consensus mechanism works.
+Anyone who holds XTZ — the chain's native token — can propose changes to how Tezos works, such as changes to gas fees and block times, new features such as Smart Rollups, or even major changes like how the consensus mechanism works.
 
 ## Formal verification ensures trust and code quality
 

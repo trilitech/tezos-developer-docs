@@ -9,7 +9,7 @@ Developers use the Octez client for many tasks, including:
 
 - Working with accounts
 - Sending transactions and interacting with contracts
-- Originating smart contracts and smart rollups
+- Originating smart contracts and Smart Rollups
 
 Other parts of Octez allow you to host, manage, and monitor nodes, bake blocks, and host RPC nodes.
 

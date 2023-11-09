@@ -102,14 +102,14 @@ The workflow for deploying to a testnet is similar to the workflow that you used
 1. Check the log file
 -->
 
-To continue your work with smart rollups, you can you can explore examples from the [kernel gallery](https://gitlab.com/tezos/kernel-gallery/-/tree/main/) or create your own.
+To continue your work with Smart Rollups, you can you can explore examples from the [kernel gallery](https://gitlab.com/tezos/kernel-gallery/-/tree/main/) or create your own.
 
 ## References
 
 - [Smart rollup documentation](https://tezos.gitlab.io/alpha/smart_rollups.html)
 - [Smart rollup kernel SDK](https://gitlab.com/tezos/tezos/-/tree/master/src/kernel_sdk)
 - [Smart rollup kernel examples](https://gitlab.com/tezos/kernel-gallery/-/tree/main/)
-- [Tezos smart rollups resources](https://airtable.com/shrvwpb63rhHMiDg9/tbl2GNV1AZL4dkGgq)
+- [Tezos Smart Rollups resources](https://airtable.com/shrvwpb63rhHMiDg9/tbl2GNV1AZL4dkGgq)
 - [Tezos testnets](https://teztnets.xyz/)
 - [Originating the installer kernel](https://tezos.stackexchange.com/questions/4784/how-to-originating-a-smart-rollup-with-an-installer-kernel/5794#5794)
 - [Docker documentation](https://docs.docker.com/get-started/)

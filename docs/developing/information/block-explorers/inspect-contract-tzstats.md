@@ -236,7 +236,7 @@ All these API calls can of course be made from any libraries and thus can be aut
 
 # Conclusion
 
-tzstats.com is extremely useful to monitor what is happening on the mainnet and public testnets.
+tzstats.com is extremely useful to monitor what is happening on Mainnet and public testnets.
 All the pieces of information regarding the cycles, the blocks, the transactions, the smart contracts, etc... can quickly be found, thanks to a user-friendly interface.
 
 In addition, _TzStats_ provides a complete and free REST API (for non-commercial use), without any authentication or enforcement of rate limits (as long as it remains reasonable). See the introduction of the [Tzstats API](https://tzstats.com/docs/api#tezos-api).
