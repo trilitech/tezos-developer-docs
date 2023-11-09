@@ -10,7 +10,7 @@ In Tezos, deploying a smart contract is often referred to as “origination”. 
 ## Prerequisites
 - Compile your contract and its initial storage
 - Set up an wallet account on Tezos with some tez to pay the fees
-- Ensure that you have obtained the [Tezos client](docs/developing/octez-client/installing)
+- Ensure that you have obtained the [Tezos client](../developing/octez-client/installing)
 
 ## Deploying a smart contract
 Generally, there are two methods for deploying your smart contracts: either using the command line in your terminal or deploying through an online IDE.
