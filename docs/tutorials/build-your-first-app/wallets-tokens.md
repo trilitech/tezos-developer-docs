@@ -49,7 +49,7 @@ This is the address that applications use to work with your wallet.
 1. If you created a new account, initialize the account by sending any amount of tez to any other account.
 
    Before the new account can use dApps, it must send at least one transaction to Tezos.
-   This first transaction reveals the public key that provesthat transactions came from this account.
+   This first transaction reveals the public key that proves that transactions came from this account.
 
    If your account is new, you can send 1 tez to any other account, including your own account, via your wallet application to reveal the account.
 
