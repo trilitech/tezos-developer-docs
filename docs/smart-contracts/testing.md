@@ -57,7 +57,7 @@ More advanced scenarios may involve a local sandbox deployment and calls to mult
 
 ## Programming languages for testing
 
-The test scenarios are usually written using a full classical programming language, such as `JavaScript` or `Python`, with a library that gives you access to special features to:
+The test scenarios are usually written using a full classical programming language, such as JavaScript or Python, with a library that gives you access to special features to:
 
 - Deploy contracts
 - Make calls to entrypoints
