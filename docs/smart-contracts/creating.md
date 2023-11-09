@@ -1,7 +1,8 @@
 ---
 title: Creating smart contracts
 author: 'Yuxin Li'
-lastUpdated: 6th November 2023
+last_update:
+  date: 6 November 2023
 ---
 ## Introduction
  This documentation provides step-by-step instructions for creating smart contracts on Tezos. After creating the contract, you can find the resources on [testing](testing.md) and [deploying](deploying.md).

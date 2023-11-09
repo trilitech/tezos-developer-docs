@@ -1,7 +1,8 @@
 ---
 title: Deploying smart contracts
 author: 'Yuxin Li'
-lastUpdated: 6th November 2023
+last_update:
+  date: 6 November 2023
 ---
 ## Introduction
 In Tezos, deploying a smart contract is often referred to as “origination”. This process essentially creates a new account that holds the smart contract's script. Contracts originated in this manner have addresses that start with `KT1` (known as originated accounts), which distinguishes them from the implicit accounts with addresses beginning with `tz1`, `tz2`, or `tz3`.
