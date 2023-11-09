@@ -1,7 +1,8 @@
 ---
 title: The RPC protocol
 authors: "Tim McMackin"
-lastUpdated: 6 November 2023
+last_update:
+  date: 6 November 2023
 ---
 
 The Tezos RPC (Remote Procedure Call) protocol is a specification for a REST API that clients use to interact with Tezos nodes and nodes use to communicate with each other.
