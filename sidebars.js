@@ -135,7 +135,7 @@ const sidebars = {
           ],
         },
         'smart-contracts/creating',
-        'smart-contracts/testing2',
+        'smart-contracts/testing',
         'smart-contracts/deploying',
         'smart-contracts/entrypoints',
         'smart-contracts/storage',
@@ -147,7 +147,7 @@ const sidebars = {
         'smart-contracts/delegation',
         // 'smart-contracts/multisig-specialized',
         // 'smart-contracts/multisig-usage',
-        'smart-contracts/testing',
+        
         // 'smart-contracts/deploying',
       ],
     },

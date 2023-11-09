@@ -4,7 +4,12 @@ author: 'Yuxin Li'
 lastUpdated: 6th November 2023
 ---
 ## Introduction
-In Tezos, deploying a smart contract is often referred to as “origination”. This process essentially creates a new account that holds the smart contract's script. Contracts initiated in this manner have addresses that start with `KT1` (known as originated accounts), which distinguishes them from the implicit accounts with addresses beginning with `tz1`, `tz2`, or `tz3`.
+In Tezos, deploying a smart contract is often referred to as “origination”. This process essentially creates a new account that holds the smart contract's script. Contracts originated in this manner have addresses that start with `KT1` (known as originated accounts), which distinguishes them from the implicit accounts with addresses beginning with `tz1`, `tz2`, or `tz3`.
+
+## Prerequisites
+- Compile your contract and its initial storage
+- Set up an wallet account on Tezos with some tez to pay the fees
+- Ensure that you have obtained the [Tezos client](docs/developing/octez-client/installing)
 
 ## Deploying a smart contract
 Generally, there are two methods for deploying your smart contracts: either using the command line in your terminal or deploying through an online IDE.
@@ -23,15 +28,6 @@ where:
 - `FROM_USER` account from which the Tez are taken (and transferred to the new contract).
 - `INITIAL_STORAGE` is a Michelson expression. The --init parameter is used to specify the initial state of the storage.
 - `GAZ_FEE` is a specified maximal fee the user is willing to pay for this operation (using the --burn-cap parameter).
-
-:::note
-Note that you must replace `<CONTRACT_NAME>` with the address of the deployed contract before running the command.
-Obtaining the Tezos Client:
-:::
-
-Obtaining the Tezos client:
-- GNU/Linux: the simplest way to get octez-client is through opam using opam install tezos. alternatives are available here
-- MacOsX: the software is distributed through a brew formula with brew install tezos.
 
 ### Deploying via online IDE
 As for deploying through your online IDE, if you are using Ligo or SmartPy programming languages, you can simply deploy your smart contracts through their respective online IDEs.
