@@ -1,7 +1,8 @@
 ---
 title: "Part 2: Accessing wallets and minting NFTs"
 authors: 'Yuxin Li'
-lastUpdated: 20th October 2023
+last_update:
+  date: 20 October 2023
 ---
 
 Accessing the user's wallet is essential before your application can engage with the Tezos blockchain. It enables your app to view the tokens within the wallet and request the user to initiate transactions. However, it's important to note that accessing the wallet doesn't grant your app direct control over it.

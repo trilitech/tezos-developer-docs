@@ -1,6 +1,7 @@
 ---
 title: "Part 2: Running the kernel in debug mode"
-lastUpdated: 25th October 2023
+last_update:
+  date: 25 October 2023
 ---
 
 Octez provides a command named `octez-smart-rollup-wasm-debugger` that runs Smart Rollups in debug mode to make it easier to test and observe them.

@@ -1,7 +1,8 @@
 ---
 title: Deploy a smart contract with Archetype
 authors: 'Tim McMackin'
-lastUpdated: 12th October 2023
+last_update:
+  date: 12 October 2023
 ---
 
 This tutorial covers writing a smart contract and deploying it to Tezos in the Archetype programming language.

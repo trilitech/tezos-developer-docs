@@ -1,6 +1,7 @@
 ---
 title: Archetype
-lastUpdated: 29th June 2023
+last_update:
+  date: 29 June 2023
 ---
 
 Archetype is an elegant generic-purpose language to develop smart contracts on the Tezos blockchain. It's a DSL (domain-specific language) for Tezos that facilitates formal verification and transcodes contracts to SmartPy and LIGO.

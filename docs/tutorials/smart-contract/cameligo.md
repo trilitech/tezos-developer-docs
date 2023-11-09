@@ -1,7 +1,8 @@
 ---
 title: Deploy a smart contract with CameLIGO
 authors: 'John Joubert, Sasha Aldrick, Claude Barde, Tim McMackin'
-lastUpdated: 13th September 2023
+last_update:
+  date: 13 September 2023
 ---
 
 This tutorial covers using the Octez command-line client to deploy a smart contract to Tezos.

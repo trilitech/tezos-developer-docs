@@ -1,6 +1,7 @@
 ---
 title: "Part 4: Deploying (originating) the rollup"
-lastUpdated: 25th October 2023
+last_update:
+  date: 25 October 2023
 ---
 
 Smart Rollups are originated in a way similar to smart contracts.

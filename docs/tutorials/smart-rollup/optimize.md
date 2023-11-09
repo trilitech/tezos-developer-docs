@@ -1,6 +1,7 @@
 ---
 title: "Part 3: Optimizing the kernel"
-lastUpdated: 25th October 2023
+last_update:
+  date: 25 October 2023
 ---
 
 To originate the kernel on Tezos, it must fit within the maximum size for a layer 1 operation (32KB).

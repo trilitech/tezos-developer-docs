@@ -1,7 +1,8 @@
 ---
 title: Sample smart contracts
 author: "Tim McMackin"
-lastUpdated: 19 October 2023
+last_update:
+  date: 19 October 2023
 ---
 
 Here are some places to find sample smart contacts:

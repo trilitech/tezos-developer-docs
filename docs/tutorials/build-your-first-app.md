@@ -1,7 +1,8 @@
 ---
 title: Build your first app on Tezos
 authors: 'Claude Barde, Tim McMackin'
-lastUpdated: 17th October 2023
+last_update:
+  date: 17 October 2023
 ---
 
 This tutorial shows you how to create a simple web application that uses Tezos.

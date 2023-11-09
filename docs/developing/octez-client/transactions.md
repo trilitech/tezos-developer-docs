@@ -1,7 +1,8 @@
 ---
 title: Interacting with contracts
 authors: Tim McMackin
-lastUpdated: 27 October 2023
+last_update:
+  date: 27 October 2023
 ---
 
 Before sending transactions to contracts with the Octez client, make sure that your client is configured to use an RPC node for the network that you want to use.

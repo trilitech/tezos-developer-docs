@@ -1,7 +1,8 @@
 ---
 title: Tezos SDK for Unity
 authors: John Joubert
-lastUpdated: 5th June 2023
+last_update:
+  date: 5 June 2023
 ---
 
 The Tezos SDK for Unity offers a comprehensive toolkit designed to facilitate Web3 gaming development. This SDK provides game developers with the necessary tools to:

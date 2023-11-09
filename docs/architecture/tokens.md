@@ -1,7 +1,8 @@
 ---
 title: Tokens
 authors: "Claude Barde, Aymeric Bethencourt, Tim McMackin"
-lastUpdated: 1st November 2023
+last_update:
+  date: 1 November 2023
 ---
 
 In a blockchain ecosystem, a digital asset that can be transferred between accounts is called a _token_.

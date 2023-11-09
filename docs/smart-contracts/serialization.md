@@ -1,7 +1,8 @@
 ---
 title: Serialization
 authors: 'Mathias Hiron (Nomadic Labs), Sasha Aldrick (TriliTech), Tim McMackin (TriliTech)'
-lastUpdated: 4th October 2023
+last_update:
+  date: 4 October 2023
 ---
 
 Between contract calls, the code of a contract, as well as its storage, are stored as a serialized sequence of bytes, for efficiency purposes.

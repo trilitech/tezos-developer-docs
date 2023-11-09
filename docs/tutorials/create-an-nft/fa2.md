@@ -1,6 +1,7 @@
 ---
 title: Create an NFT
-lastUpdated: 5th June 2023
+last_update:
+  date: 5 June 2023
 ---
 
 This guide shows how to originate and interact with the FA2 NFT contract

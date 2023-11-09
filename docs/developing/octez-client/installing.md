@@ -1,6 +1,7 @@
 ---
 title: Installing the Octez client
-lastUpdated: 27th October 2023
+last_update:
+  date: 27 October 2023
 ---
 
 You can install the Octez client directly on your computer or use a Docker image that has the most recent version of the Octez tools installed.

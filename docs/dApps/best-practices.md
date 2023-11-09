@@ -1,7 +1,8 @@
 ---
 title: Best practices and avoiding flaws
 authors: Claude Barde
-lastUpdated: 10th July 2023
+last_update:
+  date: 10 July 2023
 ---
 
 When creating a frontend application that uses the Tezos blockchain, you will most probably use a JavaScript framework, may it be React, Vue, Svelte, or another one.

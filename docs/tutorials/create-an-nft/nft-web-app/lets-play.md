@@ -1,7 +1,8 @@
 ---
 title: "Part 3: Let's play"
 authors: 'Yuxin Li'
-lastUpdated: 11th September 2023
+last_update:
+  date: 11 September 2023
 ---
 
 Now that the app is complete, you are able to connect to your wallets and mint NFTs.

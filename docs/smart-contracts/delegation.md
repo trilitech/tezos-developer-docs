@@ -1,7 +1,8 @@
 ---
 title: Delegation
 authors: 'Mathias Hiron (Nomadic Labs), Sasha Aldrick (TriliTech), Tim McMackin (TriliTech)'
-lastUpdated: 5th October 2023
+last_update:
+  date: 5 October 2023
 ---
 
 Placing your tez in a smart contract means you can't stake them towards baking or delegate them to get rewards.

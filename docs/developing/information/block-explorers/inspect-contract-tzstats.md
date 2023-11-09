@@ -1,7 +1,8 @@
 ---
 title: Inspecting deployed contracts
 authors: Benjamin Pila
-lastUpdated: 28th June 2023
+last_update:
+  date: 28 June 2023
 ---
 
 As a developer, you will often want to check the state of your deployed smart contracts. Using a blockchain explorer is a fast and easy way to do so. In this section, we will find a smart contract and check it out on _TzStats_.

@@ -1,7 +1,8 @@
 ---
 title: Smart Optimistic Rollups
 authors: 'Nomadic Labs, TriliTech'
-lastUpdated: 30th June 2023
+last_update:
+  date: 30 June 2023
 ---
 
 Rollups play a crucial part in providing next-generation scaling on Tezos. This page gives a technical introduction to Smart Rollups, their optimistic nature, and an intro to developing your own WASM kernel.
