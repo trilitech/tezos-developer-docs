@@ -35,7 +35,7 @@ The test scenario runs these operations sequentially and would check if all oper
 
 ## Prerequisites
 - Set up an wallet account on Tezos with some tez to pay the fees
-- Ensure that you have obtained the [Tezos client](docs/developing/octez-client/installing)
+- Ensure that you have obtained the [Tezos client](../developing/octez-client/installing)
 
 # Structure of a test scenario
 
