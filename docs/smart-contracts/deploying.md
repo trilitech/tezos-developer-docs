@@ -85,6 +85,6 @@ A blockchain explorer is an efficient and user-friendly tool that enables you to
 
 To interact with a contract, simply copy its address into one of these blockchain explorers. Below is the user interface for interacting with a contract through Better Call Dev:
 
-![UI for better call](/img/tutorials/better-call.png)
+![UI for Better Call Dev](/img/tutorials/better-call.png)
 
 
