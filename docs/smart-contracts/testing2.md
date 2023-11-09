@@ -1,7 +1,8 @@
 ---
 title: Testing smart contracts
 author: 'Yuxin Li'
-lastUpdated: 6th November 2023
+last_update:
+  date: 6 November 2023
 ---
 
 ## Introduction

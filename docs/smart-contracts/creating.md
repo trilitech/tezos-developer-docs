@@ -1,7 +1,8 @@
 ---
 title: Creating smart contracts
 author: 'Yuxin Li'
-lastUpdated: 6th November 2023
+last_update:
+  date: 6 November 2023
 ---
 ## Introduction
 Creating smart contracts on blockchain making sure faster execution and reduced costs by eliminating the need for intermediaries. This guide provides step-by-step instructions for creating smart contracts on the Tezos blockchain. You can find additional resources on testing and deploying your smart contract in subsequent chapters.
