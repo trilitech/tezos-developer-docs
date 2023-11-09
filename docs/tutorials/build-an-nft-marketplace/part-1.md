@@ -71,18 +71,18 @@ Follow these steps to create a contract that is based on the template and implem
    type ret = [list<operation>, storage];
    ```
 
-The first line of this code imports the FA2 template as the `FA2Impl` object.
-Then, the code defines error messages for the contract.
+   The first line of this code imports the FA2 template as the `FA2Impl` object.
+   Then, the code defines error messages for the contract.
 
-The code defines a type for the contract storage, which contains these values:
+   The code defines a type for the contract storage, which contains these values:
 
-- `administrators`: A list of accounts that are authorized to mint NFTs
-- `ledger`: The ledger that keeps track of token ownership
-- `metadata`: The metadata for the contract itself, based on the TZIP-16 standard for contract metadata
-- `token_metadata`: The metadata for the tokens, based on the TZIP-12 standard for token metadata
-- `operators`: Information about _operators_, accounts that are authorized to transfer tokens on behalf of the owners
+   - `administrators`: A list of accounts that are authorized to mint NFTs
+   - `ledger`: The ledger that keeps track of token ownership
+   - `metadata`: The metadata for the contract itself, based on the TZIP-16 standard for contract metadata
+   - `token_metadata`: The metadata for the tokens, based on the TZIP-12 standard for token metadata
+   - `operators`: Information about _operators_, accounts that are authorized to transfer tokens on behalf of the owners
 
-The code also defines the type for the value that entrypoints return: a list of operations and the new value of the storage.
+   The code also defines the type for the value that entrypoints return: a list of operations and the new value of the storage.
 
 1. Add code to implement the required `transfer`, `balance_of`, and `update_operators` entrypoints:
 
