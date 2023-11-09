@@ -17,7 +17,7 @@ It covers how to:
   - Writing code to run when the entrypoints are called
 - Deploy (or originate) the contract to Tezos and set its starting storage value
 - Look up the current state of the contract
-- Call the contract from the command line
+- Call the contract
 
 This tutorial has different versions for different programming languages.
 You can run the tutorial with the version of the language you are most familiar with or want to learn.
