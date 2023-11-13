@@ -227,7 +227,7 @@ Follow these steps to create a contract that is based on the template and implem
 
    First, this code verifies that the transaction sender is one of the administrators.
    Then it creates a token metadata object with information from the parameters and adds it to the `token_metadata` big-map in the storage.
-   Note that the `decimals` metadata field is set to 0 because the token is an NFT and therefore has only one unit.
+   Note that the `decimals` metadata field is set to 0 because the token is an NFT and therefore doesn't need any decimal places in its quantity.
 
    Note that there is no built-in way to get the number of tokens in the contract code; the big-map does not have a function such as `keys()` or `length()`.
    If you want to keep track of the number of tokens, you must add an additional element in the storage and increment it when tokens are created or destroyed.
@@ -690,7 +690,7 @@ The mint page uses a form that accepts information and an image and sends a tran
    ```
 
    This function accepts the data that the user puts in the form.
-   It uploads the image to IPFS via Pinata and gets the IPFS hash, which is the basis for the link to the published file.
+   It uploads the image to IPFS via Pinata and gets the IPFS hash, which identifies the published file and allows clients to request it later.
 
    Then it calls the contract's `mint` entrypoint and passes the NFT data as bytes, as the TZIP-12 standard requires for NFT metadata.
 
