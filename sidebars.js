@@ -24,6 +24,8 @@ const sidebars = {
         type: 'doc',
       },
       items: [
+        'architecture/components',
+        'architecture/layers',
         'architecture/protocol',
         'architecture/accounts',
         {

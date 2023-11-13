@@ -1,5 +1,5 @@
 ---
-title: Tezos Protocol and Shell
+title: Protocol and shell
 last_update:
   date: 29 June 2023
 ---
