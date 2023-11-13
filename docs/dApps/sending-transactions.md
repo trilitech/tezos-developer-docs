@@ -55,6 +55,7 @@ await Tezos.wallet.transfer({
   .catch((error) => console.log(`Error: ${JSON.stringify(error, null, 2)}`));
 ```
 
+You can also use the Taquito Contract API to send tez in a similar way.
 For more information, see [Transfers](https://tezostaquito.io/docs/making_transfers) in the Taquito documentation.
 
 ### Calling contracts
