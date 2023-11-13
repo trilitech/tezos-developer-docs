@@ -3,7 +3,7 @@ title: Build an NFT marketplace
 lastUpdated: 8nd November 2023
 ---
 
-This tutorial guides you through creating a web application that allows users to buy and sell NFTs of different types.
+This tutorial guides you through creating a web application that allows users to buy and sell tokens of different types.
 You will use the Taqueria platform to manage smart contracts and a distributed web application (dApp) to handle the backend and frontend of the project.
 
 You will learn:
