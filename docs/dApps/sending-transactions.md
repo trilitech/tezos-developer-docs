@@ -82,8 +82,6 @@ await contract.methods.doSomething('Param 1', 25)
   .catch((error) => console.log(`Error: ${JSON.stringify(error, null, 2)}`));
 ```
 
-IDEs may warn that the method does not exist because they are not aware of the entrypoints on the contract.
-
 For examples of calling smart contracts, see tutorials such as [Build your first app on Tezos](../tutorials/build-your-first-app) or [Create a contract and web app that mints NFTs](../tutorials/create-an-nft/nft-taquito).
 
 For more information about using Taquito, see [Smart contracts](https://tezostaquito.io/docs/smartcontracts) in the Taquito documentation.
