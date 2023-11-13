@@ -11,14 +11,20 @@ After connecting to a wallet, dApps can call smart contract entrypoints and make
 These calls can include:
 
 - Sending tez to an account or smart contract
+
+  When a dApp sends tez, it removes the tez from the source account and adds it to the target account.
+  When you send tez to a smart contract's address without calling an entrypoint, the smart contract behaves as though you called its `default` entrypoint.
+  Some tools have a specific syntax for sending tez to a contract that is different from the syntax to call an entrypoint, so check your tool's documentation for how to send tez to a contract.
+
 - Calling a smart contract entrypoint
+
+  When a dApp calls a smart contract, it passes an argument in Michelson format that includes the name of the entrypoint and the parameters to pass to it.
+  Most tools compile this argument for you, so you can call the entrypoint and pass parameters as though you were calling a function.
+  A call to a smart contract entrypoint always includes a transfer of tez, even if the amount is zero.
+
 - Originating a smart contract
 
-:::note Sending tez
-Sending tez to an address is a special case of calling a smart contract via the `default` entrypoint.
-However, some tools have a specific syntax for sending tez to a contract that is different from the syntax to call an entrypoint.
-A call to a smart contract always includes a transfer of a certain amount of tez, even if that amount is zero.
-:::
+  Tools can originate a smart contract from source code.
 
 For information about calling contracts from other contracts, see [Operations](../smart-contracts/logic/operations).
 
