@@ -22,8 +22,7 @@ The primary tools that dApps use to connect to wallets are:
 
 - Taquito: A JavaScript/TypeScript SDK for sending transactions
 
-  Taquito allows dApps to get information from Tezos and send transactions to Tezos.
-  It integrates with Beacon to handle interactions with the user's wallet.
+  Taquito provides a wrapper for Beacon so dApps can interact with wallets and with Tezos with the same code.
 
   For more information about Taquito, see [Taquito](./taquito).
 
