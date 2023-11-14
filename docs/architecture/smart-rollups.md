@@ -1,9 +1,188 @@
 ---
-title: Smart Optimistic Rollups
-authors: 'Nomadic Labs, TriliTech'
+title: Smart Rollups
+authors: 'Nomadic Labs, TriliTech, Tim McMackin'
 last_update:
-  date: 30 June 2023
+  date: 14 November 2023
 ---
+
+As described in [Layers](./layers), Smart Rollups handle transactions and logic in a separate environment that doesn't need to follow all of the same rules as layer 1.
+The transactions and logic that Smart Rollups run is called layer 2.
+
+The code of a Smart Rollup is public, and anyone can run a Smart Rollup node to run that code and verify that other nodes are running it correctly, just like anyone can run baking nodes and accuser nodes on layer 1.
+
+For an introduction to Smart Rollups, see the tutorial [Deploy a Smart Rollup](../tutorials/smart-rollup).
+
+## Uses for Smart Rollups
+
+Smart Rollups allow you to run large amounts of processing that would be impractical on layer 1.
+For example, Smart Rollups are not constrained to the layer 1 block baking rate and therefore can run far more transactions per second than layer 1.
+Smart Rollups can also manipulate large amounts of data without needing to store it on layer 1.
+
+Smart Rollups also enable [Etherlink](https://www.etherlink.com/), which connects Tezos to Ethereum.
+
+## Limitations of Smart Rollups
+
+Smart Rollup nodes must behave in a deterministic manner, which allows multiple nodes to run the same rollup and for nodes to verify the state of the rollup.
+Therefore, Smart Rollups have some of the same limitations that smart contracts do, such as not being able to use information from outside the blockchain like external APIs.
+Smart Rollups can use data from the smart rollup inbox in each block and from the reveal data channel.
+
+## Communication
+
+Smart Rollups have access to two sources of information: a rollup inbox in each block and the reveal data channel.
+These are the only sources of information that rollups can use.
+Smart Rollups nodes cannot communicate directly with each other.
+
+### Rollup inbox
+
+Each Tezos block has a _rollup inbox_, which contains messages from layer 1 to all rollups.
+Anyone can add a message to this inbox and all messages are visible to all rollups.
+Rollups receive this inbox, filter it to the messages that they are interested in, and act on them accordingly.
+
+The messages that users add to the rollup inbox are called _external messages_.
+For example, users can add messages to the inbox with an Octez client `send smart rollup message` command.
+Smart contracts can add messages in a way similar to calling a smart contract entrypoint, by using the Michelson `TRANSFER_TOKENS` instruction.
+
+Each block also contains these _internal messages_, which are created by the protocol:
+
+- `Start of level`, which indicates the beginning of the block
+- `Info per level`, which includes the timestamp and block hash of the preceding block
+- `End of level`, which indicates the end of the block
+
+Smart Rollup nodes can use these internal messages to know when blocks begin and end.
+
+### Reveal data channel
+
+Smart Rollups can request and provide information through the _reveal data channel_, which can include information about layer 1 or information that comes from outside layer 1.
+Importantly, the information that passes through the reveal data channel does not pass through layer 1, so it is not limited by the bandwidth of layer 1 and can include large amounts of data.
+
+The reveal data channel supports these requests:
+
+- A rollup node can request arbitrary data up to 4KB at a time if it knows the blake2b hash of the data, known as _preimage requests_.
+The node that has the data must provide it when another node requests it.
+To transfer more than 4KB of data, rollups must use multiple files, such as a single file that contains hashes that point to other files.
+
+- A rollup node can request information about the rollup, including the address and origination level of the rollup, known as _metadata requests_.
+
+  TODO Is this correct? Original text said "The rollup can request information from the protocol, namely the address and the origination level of the rollup node itself. The rollup node retrieves this information through RPCs to answer the rollup." but the rollup node doesn't have an address, does it? Doesn't seem very useful on the surface.
+
+## Smart Rollup lifecycle
+
+The general flow of a Smart Rollup goes through these steps:
+
+1. A user originates the Smart Rollup to layer 1.
+1. One or more users start Smart Rollup nodes based on that Smart Rollup.
+1. A commitment period begins.
+1. During the commitment period, the Smart Rollup nodes receive the messages in each block's inbox, filter them to the messages that they are interested in, and run processing based on those messages.
+1. The nodes add outgoing messages to their outboxes in the form of calls to smart contracts.
+1. At the end of the commitment period, the nodes publish their commitments to layer 1 and a new commitment period begins.
+1. The refutation period for the commitment period begins, during which time other nodes can verify the commitment and publish a concurrent commitment to confirm or refute it.
+If necessary, the nodes play a refutation game to determine the correct commitment.
+1. At end of the refutation period, the correct commitment is said to be _cemented_ and therefore final and unchangeable.
+1. After the commitment is cemented, any client, including the rollup operator or ordinary layer 1 user, can trigger one of the outbox messages to run the smart contract call.
+
+### Origination
+
+Like smart contracts, users deploy Smart Rollups to layer 1 in a process called _origination_.
+
+The origination process stores data about the rollup on layer 1, including:
+
+- An address for the rollup, which starts with `sr1`
+- The proof-generating virtual machine (PVM) for the rollup, which generates a proof based on the state of the rollup
+- The source code of the rollup, referred to as its _kernel_
+- The Michelson data type of the messages it receives from layer 1
+- Optionally, an allowlist of accounts that can send messages to the rollup, which makes the rollup private
+
+TODO: Later docs mention the genesis commitment -- is that a different thing or is it implied by other things in the origination?
+
+After it is originated, anyone can run a Smart Rollup node based on this information.
+
+### Commitment periods
+
+Starting from the rollup origination level, levels are partitioned into
+_commitment periods_ of 60 consecutive blocks.
+During each commitment period, the rollup receives the messages in the rollup inbox and processes them.
+
+At the end of the commitment period, the rollup node must use its PVM to publish its state to layer 1, which is called its _commitment_.
+Each commitment builds on the previous commitment, going back to the genesis commitment from when the Smart Rollup was originated.
+This commitment asserts that the rollup node has responded to every message in every block in the commitment period and updated its state according to the code for the Smart Rollup.
+
+Each node must stake 10,000 tez along with its commitment.
+When another node makes an identical commitment, its stake is added to the stake of the first commitment.
+
+Then a refutation period for the commitment period begins, and a new commitment period begins.
+
+### Refutation periods
+
+Because the PVM is deterministic and all of the inputs are the same for all nodes, any honest node that runs the same Smart Rollup produces the same commitment.
+As long as nodes publish matching commitments, they continue running normally.
+
+During the refutation period for a commitment period, if two or more nodes publish different commitments, two of them play a _refutation game_ to identify the correct commitment.
+The nodes automatically play the refutation game by stepping through their logic to identify the point at which they differ.
+From this point, the PVM stored on layer 1 identifies the correct commitment.
+Then the protocol gives half of the incorrect commitment's stake to the correct commitment's stake, and burns the other half.
+Then the protocol eliminates the incorrect commitment because it has no stake.
+
+This refutation game happens as many times as is necessary to eliminate incorrect commitments.
+Because the node that ran the PVM correctly is guaranteed to win the refutation game, a single honest node is enough to ensure that the Smart Rollup is running correctly.
+For this reason, Smart Rollups are sometimes called Smart Optimistic Rollups.
+
+At the end of the refutation period, the correct commitment is said to be _cemented_ and therefore final and unchangeable.
+A commitment can't be cemented until the end of the refutation period and until all previous commitments are cemented.
+
+The refutation period lasts 2 weeks on Mainnet; it can be different on other networks.
+
+### Running outbox messages
+
+After a commitment is cemented, clients can trigger the transactions in its outbox with the Octez `execute outbox message` command.
+When they trigger the transaction, it runs like any other call to a smart contract.
+For more information, se [Triggering the execution of an outbox message](https://tezos.gitlab.io/shell/smart_rollup_node.html?highlight=triggering) in the Octez documentation.
+
+## Examples
+
+For examples of Smart Rollups, see this repository: https://gitlab.com/tezos/kernel-gallery.
+
+
+<!--
+
+
+
+Things to cover:
+
+- Examples
+- Uses for smart rollups
+- Limitations of smart rollups
+- What can and can't be done in a rollup
+- Why would you want to use a rollup
+- What does a rollup do
+- What does "optimistic" mean
+- They have an address
+- Flow of data, inbox, outbox, publish commitment, wait for cementing, then execution
+- Use of reveal data channel
+- Scheduling: when to they publish state and when do outbox messages get run?
+- They are deterministic, so other nodes can verify their activity
+- Commitment periods: rollups must ensure that they act on all inbox messages in the commitment period and publish their commitment so other nodes can verify them
+- Publishing a commitment requires a stake of 10k tez
+- Like accusers, rollup nodes can refute other smart rollup nodes' commitments
+- Sending messages to smart rollups
+- Triggering smart rollup outbox messages?
+- Smart Rollup consensus -- PVM and stuff
+
+
+- SRs can't receive transactions directly; they get only the message inbox
+- SRs don't communicate with each other like l1 baking nodes do; they have the reveal data channel, which can include:
+  - full kernel data that the installer kernel uses
+  - import data from a DAC certificate (which can contain anything ultimately, including a kernel to upgrade to)
+  - reveal data from the (WIP) DAL
+
+
+
+
+
+
+
+
+
+
 
 Rollups play a crucial part in providing next-generation scaling on Tezos. This page gives a technical introduction to Smart Rollups, their optimistic nature, and an intro to developing your own WASM kernel.
 
@@ -1304,3 +1483,5 @@ solutions:
     commitment.
 -  **Refutation game**: A process by which the Tezos protocol solves a
     conflict between two stakers.
+
+-->
