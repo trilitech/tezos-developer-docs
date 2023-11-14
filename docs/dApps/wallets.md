@@ -88,7 +88,7 @@ You can also use Beacon without Taquito.
 ### Connecting to wallets
 
 To connect to a wallet with Beacon, import the Beacon package and use the `getDAppClientInstance` function to get an instance of the Beacon `DAppClient` object.
-Using this function ensures that you have only instance of the Beacon client because it returns an instance if one already exists or creates one if it does not.
+Using this function ensures that you have only one instance of the Beacon client because it returns an instance if one already exists or creates one if it does not.
 Creating multiple instances or copies of the Beacon `DAppClient` object can lead to unexpected behavior.
 
 Then, use this object to send a permission request to prompt the user to connect a wallet:
