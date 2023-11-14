@@ -47,6 +47,7 @@ Once finished, if you wish to mint another NFT, simply click the "Mint another N
 
 ![The mint-another-NFT interface section ](/img/tutorials/mint_another.png "mint another UI")
 
+## Summary
 
-
-
+Now you can use a web application to connect to a user's wallet, call a smart contract, and mint NFTs.
+If you want to expand your knowledge of NFTs, try the tutorial [Build an NFT marketplace](../../build-an-nft-marketplace).
