@@ -4,11 +4,11 @@ last_update:
   date: 25 October 2023
 ---
 
-Now that the smart rollup is originated on layer 1, anyone can run a smart rollup node for it.
-Smart rollup nodes are similar to baking nodes, but they run the smart rollup kernel instead of baking Tezos blocks.
-In these steps, you start a smart rollup node, but note that anyone can run a node based on your kernel, including people who want to verify the rollup's behavior.
+Now that the Smart Rollup is originated on layer 1, anyone can run a Smart Rollup node for it.
+Smart Rollup nodes are similar to baking nodes, but they run the Smart Rollup kernel instead of baking Tezos blocks.
+In these steps, you start a Smart Rollup node, but note that anyone can run a node based on your kernel, including people who want to verify the rollup's behavior.
 
-## Running a smart rollup node
+## Running a Smart Rollup node
 
 1. Copy the contents of the `preimages` folder to a folder that the rollup node can access by running these commands:
 
@@ -47,7 +47,7 @@ Now you can add messages to the inbox and see the rollup node receive and respon
    tail -f hello_kernel.debug
    ```
 
-   Now, each time a block is baked, the smart rollup node prints the contents of the messages in the smart rollup inbox, as in this example:
+   Now, each time a block is baked, the Smart Rollup node prints the contents of the messages in the Smart Rollup inbox, as in this example:
 
    ```
    # Hello, kernel!
@@ -70,7 +70,7 @@ Now you can add messages to the inbox and see the rollup node receive and respon
 
 1. Open a fourth terminal window, enter the Docker container with the command `docker exec -it octez-container /bin/sh`, and go to the `hello_world_kernel` folder.
 
-1. In this fourth terminal window, run this command to simulate adding a message to the smart rollup inbox:
+1. In this fourth terminal window, run this command to simulate adding a message to the Smart Rollup inbox:
 
    ```bash
    octez-client send smart rollup message '[ "test" ]' from "bootstrap3"
@@ -107,9 +107,9 @@ To continue your work with Smart Rollups, you can you can explore examples from 
 
 ## References
 
-- [Smart rollup documentation](https://tezos.gitlab.io/alpha/smart_rollups.html)
-- [Smart rollup kernel SDK](https://gitlab.com/tezos/tezos/-/tree/master/src/kernel_sdk)
-- [Smart rollup kernel examples](https://gitlab.com/tezos/kernel-gallery/-/tree/main/)
+- [Smart Rollup documentation](https://tezos.gitlab.io/alpha/smart_rollups.html)
+- [Smart Rollup kernel SDK](https://gitlab.com/tezos/tezos/-/tree/master/src/kernel_sdk)
+- [Smart Rollup kernel examples](https://gitlab.com/tezos/kernel-gallery/-/tree/main/)
 - [Tezos Smart Rollups resources](https://airtable.com/shrvwpb63rhHMiDg9/tbl2GNV1AZL4dkGgq)
 - [Tezos testnets](https://teztnets.xyz/)
 - [Originating the installer kernel](https://tezos.stackexchange.com/questions/4784/how-to-originating-a-smart-rollup-with-an-installer-kernel/5794#5794)

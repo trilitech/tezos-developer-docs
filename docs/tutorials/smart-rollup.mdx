@@ -1,21 +1,21 @@
 ---
-title: Deploy a smart rollup
+title: Deploy a Smart Rollup
 last_update:
   date: 11 October 2023
 ---
 
 import LucidDiagram from '@site/src/components/LucidDiagram';
 
-This tutorial covers how to deploy a smart rollup in a Tezos sandbox.
+This tutorial covers how to deploy a Smart Rollup in a Tezos sandbox.
 To run this tutorial, you should have a basic understanding of how Tezos works and the ability to use the command-line terminal on your computer.
 
 In this tutorial, you will learn:
 
-- What a smart rollup is and how they help scale Tezos
+- What a Smart Rollup is and how they help scale Tezos
 - How information passes between Tezos and Smart Rollups
-- How to respond to messages from Tezos in a smart rollup
+- How to respond to messages from Tezos in a Smart Rollup
 
-## What is a smart rollup?
+## What is a Smart Rollup?
 
 Smart Rollups are processing units that run outside the Tezos network but communicate with Tezos on a regular basis.
 These processing units can run arbitrarily large amounts of code without waiting for Tezos baking nodes to run and verify that code.
@@ -43,7 +43,7 @@ Rollups maintain consensus by publishing the hash of their state to Tezos, which
 The specific way that rollups publish their states and maintain consensus is beyond the scope of this tutorial.
 For more information about rollups and their consensus mechanism, see [Smart Optimistic Rollups](../architecture/smart-rollups).
 
-This diagram shows a smart rollup interacting with layer 1 by receiving a message, running processing based on that message, and sending a transaction to layer 1:
+This diagram shows a Smart Rollup interacting with layer 1 by receiving a message, running processing based on that message, and sending a transaction to layer 1:
 
 <LucidDiagram width="640px" height="480px" src="https://lucid.app/documents/embedded/74fd884e-9c71-409e-b7d3-c3a871a17178" id="KYtBl2woQVuV" />
 
@@ -52,7 +52,7 @@ Each Tezos block contains a global rollups inbox that contains messages from Tez
 Anyone can add a message to this inbox and all messages are visible to all rollups.
 Rollups receive this inbox, filter it to the messages that they are interested in, and act on them accordingly.
 
-## Smart rollup analogy
+## Smart Rollup analogy
 
 Businesses talk about _horizontal scaling_ versus _vertical scaling_.
 If a business is growing and its employees are being overworked, the business could use vertical scaling to hire more employees or use better tools to improve the productivity of each employee.
