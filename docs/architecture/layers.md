@@ -2,7 +2,7 @@
 title: Layers
 authors: Tim McMackin
 last_update:
-  date: 13 November 2023
+  date: 14 November 2023
 ---
 
 Tezos runs transactions on two layers:
@@ -17,7 +17,7 @@ Also, they can run large amounts of processing and handle large amounts of data 
 Smart Rollups regularly publish their state to layer 1 for nodes to verify.
 
 Separating logic into layers like this allows Tezos to scale to run large amounts of transactions.
-Some Tezos users can use layer 1 for ordinary transactions while other users that need high transaction throughput or complex calculations can use Smart Rollups.
+Smart Rollups can receive messages from layer 1 and use the information in the messages to run large processing operations independently of layer 1.
 
 For more information about Smart Rollups, see [Smart Optimistic Rollups](./smart-rollups) and the tutorial [Deploy a smart rollup](../tutorials/smart-rollup).
 
