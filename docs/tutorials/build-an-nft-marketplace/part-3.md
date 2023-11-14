@@ -4,10 +4,11 @@ last_update:
   date: 8 November 2023
 ---
 
-Because only one of each NFT can exist, they are not the right token type to represent wine bottles, which have a type and a quantity of bottles of that type.
+In the previous sections, you created unique, non-interchangeable tokens.
+These are not the right kind of token to represent wine bottles, which have a type and a quantity of bottles of that type.
 So in this part, you change the application to use a single-asset template, which lets you create a single token ID with a quantity that you define.
 
-Of course, a wine store has many different bottles of wine with different quantities, so in the next part you use a multi-asset template to represent bottles in that situation.
+Of course, a wine store has many different bottles of wine with different quantities, so later you will use a multi-asset template to represent bottles in that situation.
 
 You can continue from your code from part 2 or start from the completed version here: https://github.com/marigold-dev/training-nft-2/tree/main/solution.
 
