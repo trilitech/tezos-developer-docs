@@ -1,6 +1,7 @@
 :root {
   --docsearch-primary-color: none !important;
   --docsearch-text-color: var(--ifm-font-color-base);
+  --docsearch-hit-active-color: inherit;
 }
 
 .DocSearch-Button {
