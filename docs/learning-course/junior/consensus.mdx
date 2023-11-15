@@ -2,6 +2,8 @@
 title: "Consensus: Proof of work vs proof of stake"
 ---
 
+import QuizQuestion from '@site/src/components/QuizQuestion';
+
 One problem all blockchains face is how to determine what transactions go in the next block.
 Each node has a copy of the current state of the blockchain, and if more than one node tries to add a block at the same time, the nodes wouldn't agree on which chain is the correct one.
 
@@ -43,12 +45,14 @@ Both bakers and delegators retain control of the tez that they stake, and they c
 
 ## Quiz: Consensus
 
-In Tezos, what determines a baker's likelihood of creating the next block?
-
-A: How many baking nodes they are running
-B: How much processing power their baking node has
-C: How much tez they stake
-D: How many people delegate tez to them
+<QuizQuestion
+  questionText="In Tezos, what determines a baker's likelihood of creating the next block?"
+  q0="How many baking nodes they are running"
+  q1="How much processing power their baking node has"
+  q2="How much tez they stake"
+  q3="How many people delegate tez to them"
+  correctAnswerIndex="2"
+/>
 
 As a developer, you may not deal with baking directly, but you should know how the system works, how people participate, and how consensus is achieved among nodes.
 For more information about how Tezos handles proof-of-stake, see these resources:
