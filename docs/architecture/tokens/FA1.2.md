@@ -24,9 +24,11 @@ octez-client check contract $CONTRACT_ADDRESS implements fa1.2
 ## Allowances
 
 FA1.2 contracts keep track of how many tokens an account permits another account to transfer out of its account, known as its _allowance_.
-For example, you might authorize an application to take a certain amount of your tokens as part of a transaction.
+For example, you might authorize an application to take a certain amount of your tokens as part of a transaction by setting the application's allowance for your tokens to the amount of the transaction.
+
 Allowances also apply to the token owner, which means that if you want to transfer some of your tokens, you must first set your account's allowance to the amount to transfer.
 This feature allows an account to authorize another account to transfer a certain amount of tokens on its behalf.
+The account that sends the transaction must have an allowance for the owner of the tokens and the number of their tokens to transfer.
 
 An account cannot transfer more tokens than its allowance, even if it has enough tokens and it sent the request itself.
 For security reasons, an allowance cannot be changed from a non-zero amount to another non-zero amount.
