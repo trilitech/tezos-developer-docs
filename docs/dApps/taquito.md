@@ -2,7 +2,7 @@
 title: Taquito dApp SDK for TypeScript
 authors: Claude Barde
 last_update:
-  date: 6 November 2023
+  date: 15 November 2023
 ---
 
 ## Introduction
@@ -171,7 +171,7 @@ import { TezosToolkit } from '@taquito/taquito'
 const Tezos = new TezosToolkit('https://ghostnet.ecadinfra.com')
 const initialStorage = {
     counter: 1,
-    admin: "tz1Me1MGhK7taay748h4gPnX2cXvbgL6xsYL
+    admin: "tz1Me1MGhK7taay748h4gPnX2cXvbgL6xsYL"
 }
 const op = await Tezos
     .contract
