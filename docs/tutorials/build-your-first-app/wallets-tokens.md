@@ -2,7 +2,7 @@
 title: "Part 2: Accessing wallets"
 authors: 'Claude Barde, Tim McMackin'
 last_update:
-  date: 17 October 2023
+  date: 6 November 2023
 ---
 
 Accessing the user's wallet is a prerequisite for interacting with the Tezos blockchain.
@@ -67,7 +67,7 @@ Creating multiple instances can cause problems in your app and with Taquito in g
 This application keeps these objects in the `App.svelte` file because this is the only component in the application.
 If you add more components, you should move these objects to a separate file to maintain a single instance of them.
 
-1. In the `App.svelte` file, add these imports to the `<script>` section:
+1. In the `src/App.svelte` file, add these imports to the `<script>` section:
 
    ```javascript
    import { BeaconWallet } from "@taquito/beacon-wallet";
@@ -99,9 +99,7 @@ If you add more components, you should move these objects to a separate file to 
        name: "Simple dApp tutorial",
        preferredNetwork: network,
      });
-     await newWallet.requestPermissions({
-       network: { type: network, rpcUrl },
-     });
+     await newWallet.requestPermissions();
      address = await newWallet.getPKH();
      getWalletBalance(address);
      wallet = newWallet;
@@ -180,9 +178,7 @@ The complete `App.svelte` file looks like this:
       name: "Simple dApp tutorial",
       preferredNetwork: network,
     });
-    await newWallet.requestPermissions({
-      network: { type: network, rpcUrl },
-    });
+    await newWallet.requestPermissions();
     address = await newWallet.getPKH();
     getWalletBalance(address);
     wallet = newWallet;

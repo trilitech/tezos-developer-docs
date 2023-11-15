@@ -127,9 +127,7 @@ Follow these steps to set up the application to send transactions to the deposit
        name: "Simple dApp tutorial",
        preferredNetwork: network,
      });
-     await newWallet.requestPermissions({
-       network: { type: network, rpcUrl },
-     });
+     await newWallet.requestPermissions();
      address = await newWallet.getPKH();
      await getWalletBalance(address);
      wallet = newWallet;
@@ -276,9 +274,7 @@ Here is the completed code of the `App.svelte` file at the end of this section:
       name: "Simple dApp tutorial",
       preferredNetwork: network,
     });
-    await newWallet.requestPermissions({
-      network: { type: network, rpcUrl },
-    });
+    await newWallet.requestPermissions();
     address = await newWallet.getPKH();
     await getWalletBalance(address);
     wallet = newWallet;

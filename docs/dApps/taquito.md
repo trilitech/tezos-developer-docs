@@ -2,7 +2,7 @@
 title: Taquito dApp SDK for TypeScript
 authors: Claude Barde
 last_update:
-  date: 10 July 2023
+  date: 6 November 2023
 ---
 
 ## Introduction
@@ -60,36 +60,30 @@ const Tezos = new TezosToolkit('https://ghostnet.ecadinfra.com')
 
 ### Wallet setup
 
-First, download the `@taquito/beacon-wallet` package from NPM:
+First, download the `@taquito/beacon-wallet` and `@airgap/beacon-types` packages from NPM:
 
 ```
-npm install @taquito/beacon-wallet
+npm install @taquito/beacon-wallet @airgap/beacon-types
 ```
 
 Next, import the `BeaconWallet` class and create a new instance by passing an object with the different options required by the Beacon SDK.
 After creating the instance of the wallet, you can request permission from the user to connect their wallet before passing the wallet instance to the wallet provider in the TezosToolkit provided by Taquito:
 
 ```typescript
-import { TezosToolkit } from '@taquito/taquito'
-import { BeaconWallet, NetworkType } from '@taquito/beacon-wallet'
+import { BeaconWallet } from "@taquito/beacon-wallet";
+import { NetworkType } from "@airgap/beacon-types";
+import { TezosToolkit } from "@taquito/taquito";
 
 const Tezos = new TezosToolkit('https://ghostnet.ecadinfra.com')
 const options = {
   name: 'MyAwesomeDapp',
   iconUrl: 'https://tezostaquito.io/img/favicon.svg',
-  preferredNetwork: 'ghostnet',
-  eventHandlers: {
-    PERMISSION_REQUEST_SUCCESS: {
-      handler: async (data) => {
-        console.log('permission data:', data)
-      },
-    },
+  network: {
+    type: NetworkType.GHOSTNET,
   },
 }
 const wallet = new BeaconWallet(options)
-await wallet.requestPermissions({
-  network: { type: NetworkType.GHOSTNET },
-})
+await wallet.requestPermissions()
 Tezos.setWalletProvider(wallet)
 ```
 
@@ -112,7 +106,7 @@ import type { BigNumber } from 'bignumber.js'
 
 const Tezos = new TezosToolkit('https://ghostnet.ecadinfra.com')
 const wallet = new BeaconWallet(OPTIONS)
-await wallet.requestPermissions({ network: { type: NetworkType.GHOSTNET } })
+await wallet.requestPermissions()
 Tezos.setWalletProvider(wallet)
 // gets the user's address
 const userAddress = await wallet.getPKH()

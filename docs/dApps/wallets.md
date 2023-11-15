@@ -1,68 +1,124 @@
 ---
 title: Connecting to wallets
-authors: Claude Barde
+authors: "Claude Barde, Tim McMackin"
 last_update:
-  date: 10 July 2023
+  date: 6 November 2023
 ---
 
-## Overview of wallets
+dApps must connect to user wallets to view the tokens in the account and to submit transactions on behalf of the wallet's owner.
 
-Wallets are an essential component of using blockchain services. They allow users to see their balances, find the NFTs they own, and interact with the Tezos blockchain and its smart contracts.
+The primary tools that dApps use to connect to wallets are:
 
-### Desktop wallets
+- Beacon: A JavaScript/TypeScript SDK for connecting to wallets, signing transactions, and sending information about this connection between connected apps
 
-- [Temple](https://templewallet.com/) (browser extension)
-- [Kukai](https://wallet.kukai.app/) (website)
-- [Umami](https://umamiwallet.com/) (app)
+  Beacon supports many Tezos wallets seamlessly, including TZIP-10 and WalletConnect2.0 wallets, so you don't have to write different code for each wallet that you want to support.
+  Beacon also implements the [TZIP-10 proposal](https://gitlab.com/tezos/tzip/-/tree/master/proposals/tzip-10), which describes an interaction standard between wallets and dApps.
+  By using this standard, a dApp that uses Beacon can send messages over a peer-to-peer communication layer to a wallet, such as allowing a user to connect with an app on one platform, such as by scanning a QR code on a mobile app, and then use the dApp with the connected wallet on another platform, such as a desktop browser.
 
-### Mobile wallets
+  Beacon can remember the connections that have been established and the accounts that have connected to the app.
+  It also includes default UI elements for connecting wallets and showing the status of a transaction.
 
-- [Naan](https://www.naan.app/)
-- [Temple](https://templewallet.com/)
-- [Kukai](https://wallet.kukai.app/)
-- [Umami](https://umamiwallet.com/)
+  For more information about Beacon, see https://www.walletbeacon.io.
 
-## Introduction to the Beacon SDK
+- Taquito: A JavaScript/TypeScript SDK for sending transactions
 
-Beacon is the implementation of the [tzip-10 proposal](https://gitlab.com/tezos/tzip/-/tree/master/proposals/tzip-10), which describes an interaction standard between a wallet and a dapp.
+  Taquito provides a wrapper for Beacon so dApps can interact with wallets and with Tezos with the same code.
 
-A dapp implementing the Beacon SDK can build up a channel and send messages over a peer-to-peer communication layer to a wallet. This allows for communication for example of a mobile wallet with a desktop application. The requests of the dapp are sent to the wallet, signed, and returned to the application. The Beacon SDK can also communicate to Chrome extensions if compatible ones are installed.
+  For more information about Taquito, see [Taquito](./taquito).
 
-The Beacon SDK handles almost everything for you but is still customizable if needed. It detects whether or not a browser extension is installed, and tracks what connections have been established and the accounts that have been shared with the dapp.
+## Beacon and Taquito
 
-The Beacon SDK also includes default UI elements for pairing wallets and showing the status of a request.
+Most of the time, dApps use Beacon and Taquito together for a straightforward way to connect to wallets and submit transactions.
+For an example, see the tutorial [Build your first app on Tezos](../tutorials/build-your-first-app).
 
-> The Beacon SDK is generally used with Taquito. If you plan to interact with smart contracts, you can check the section about Taquito to see how to use Beacon with Taquito.
+### Connecting to wallets
 
-## Setting up the Beacon SDK
-
-The Beacon SDK can be installed with NPM:
-`npm install --save @airgap/beacon-sdk`
-
-You can then import the Beacon SDK package and create a `DAppClient` instance. This instance will be used throughout your dapp to interact with the user's wallet. Once created, you can send a permission request to prompt the user to connect to his wallet.
+That tutorial connects to the wallet using the Taquito `BeaconWallet` object, which is a wrapper around Beacon's wallet functionality, with code like this example:
 
 ```javascript
-import { DAppClient } from '@airgap/beacon-sdk'
+import { BeaconWallet } from "@taquito/beacon-wallet";
 
-const dAppClient = new DAppClient({ name: 'Beacon Docs' })
+const wallet = new BeaconWallet({
+  name: "My dApp",
+  preferredNetwork: network
+});
+await wallet.requestPermissions();
+const address = await wallet.getPKH();
+```
+
+When this code runs, Beacon opens a popup window that guides the user through connecting their wallet.
+
+Then the application can send transactions to Tezos.
+See [Part 3: Sending transactions](../tutorials/build-your-first-app/sending-transactions) in the tutorial [Build your first app on Tezos](../tutorials/build-your-first-app).
+
+### Reconnecting to wallets
+
+As with using Beacon on its own, you can detect whether a user has previously connected their wallet and reconnect automatically.
+For example, this code checks to see if the user has connected and if so, it automatically reconnects to the wallet:
+
+```javascript
+import { BeaconWallet } from "@taquito/beacon-wallet";
+
+const newWallet = new BeaconWallet({
+  name: "My dApp",
+  preferredNetwork: network
+});
+const activeAccount = await newWallet.client.getActiveAccount();
+if (activeAccount) {
+  wallet = newWallet;
+  console.log("Reconnected to wallet:", await newWallet.getPKH());
+}
+```
+
+### Disconnecting wallets
+
+It's good programming practice to allow a user to disconnect their wallet, such as if they want to connect with a different wallet.
+
+To disconnect the active wallet, call the `clearActiveAccount` method, as in this example:
+
+```javascript
+wallet.client.clearActiveAccount();
+wallet = undefined;
+```
+
+## Beacon by itself
+
+You can also use Beacon without Taquito.
+
+### Connecting to wallets
+
+To connect to a wallet with Beacon, import the Beacon package and use the `getDAppClientInstance` function to get an instance of the Beacon `DAppClient` object.
+Using this function ensures that you have only one instance of the Beacon client because it returns an instance if one already exists or creates one if it does not.
+Creating multiple instances or copies of the Beacon `DAppClient` object can lead to unexpected behavior.
+
+Then, use this object to send a permission request to prompt the user to connect a wallet:
+
+```javascript
+import { getDAppClientInstance } from '@airgap/beacon-sdk'
+
+const dAppClient = getDAppClientInstance({ name: 'My dApp' })
 
 try {
   console.log('Requesting permissions...')
   const permissions = await dAppClient.requestPermissions()
-  console.log('Got permissions:', permissions.address)
+  console.log('Got permissions for the wallet with this address:', permissions.address)
 } catch (error) {
   console.log('Got error:', error)
 }
 ```
 
-> The `DAppClient` instance should be a singleton. Avoid creating multiple instances or copies of it, which could lead to unexpected behaviour.
+When this code runs, Beacon opens a popup window that guides the user through connecting their wallet.
 
-Now let's check if the SDK is already connected to the dapp. This code should be run after the page is loaded to get the user's address and show it in your UI. If the following code returns an address, there is no need to send another permission request, unless you want to pair a different account.
+### Reconnecting to wallets
+
+Beacon can detect users that return to the dApp after connecting previously.
+The `getActiveAccount` method returns an address if the user has previously connected a wallet.
+You can run this code when the page loads and if it finds a connection, you can skip calling the `requestPermissions` method unless the user wants to connect a different account:
 
 ```javascript
 import { DAppClient } from '@airgap/beacon-sdk'
 
-const dAppClient = new DAppClient({ name: 'Beacon Docs' })
+const dAppClient = new DAppClient({ name: 'My dApp' })
 
 // The following code should always be run during pageload if you want to show if the user is connected.
 const activeAccount = await dAppClient.getActiveAccount()
@@ -77,84 +133,51 @@ if (activeAccount) {
 }
 ```
 
-You should also give your users the option to disconnect their wallet, for example, to connect a different one:
+### Disconnecting wallets
+
+It's good programming practice to allow a user to disconnect their wallet, such as if they want to connect with a different wallet.
+
+To disconnect the active wallet, call the `clearActiveAccount` method, as in this example:
 
 ```javascript
 import { DAppClient } from "@airgap/beacon-sdk";
 
-const dAppClient = new DAppClient({ name: "My dope dapp" });
+const dAppClient = new DAppClient({ name: "My dApp" });
 
 [...]
 
 await dAppClient.clearActiveAccount();
 ```
 
-## Interacting with Tezos
+## Other tools
 
-### Sending tez
-
-Let's send a simple transaction to the wallet that sends 1 tez to ourselves:
-
-```javascript
-const response = await dAppClient.requestOperation({
-  operationDetails: [
-    {
-      kind: TezosOperationType.TRANSACTION,
-      destination: myAddress, // Send to ourselves
-      amount: '1000000', // Amount in tez
-    },
-  ],
-})
-```
-
-### Making a contract call
-
-Let's call an entrypoint called `mint` with a value of `3` and an amount of 0 tez:
-
-```javascript
-import { TezosOperationType } from '@airgap/beacon-sdk'
-
-const result = await dAppClient.requestOperation({
-  operationDetails: [
-    {
-      kind: TezosOperationType.TRANSACTION,
-      amount: '0',
-      destination: CONTRACT_ADDRESS,
-      parameters: {
-        entrypoint: 'mint',
-        value: {
-          int: 3,
-        },
-      },
-    },
-  ],
-})
-```
+Some specific wallets provide toolkits to connect dApps to them.
+For example, the Temple wallet provides the [@temple-wallet/dapp](https://www.npmjs.com/package/@temple-wallet/dapp) NPM package.
+For more information, see https://github.com/madfish-solutions/templewallet-dapp.
 
 ## Best practices
 
-### Make sure the Beacon SDK is up to date
+### Keep tools up to date
 
-The Beacon SDK receives frequent updates with small bug fixes and performance improvements. We keep breaking changes to a minimum, so updating is usually as easy as increasing the version number.
+It's important to keep the SDKs that you use to connect to wallets up to date for the best user experience and performance.
 
-### Reusing connected accounts
+### Reuse connected accounts
 
-This one is a basic concept of Beacon, but still very important.
-
-Every time a user connects their wallet and shares permission to use an account, that account is persisted on the dapp side. At this point, the UI should reflect that the user is connected and display the address that was shared. The "Connect" or "Sync" button should be replaced by a "Disconnect" or "Unsync" button. Even when the user refreshes, the account is still present and can be retrieved by calling `dAppClient.getActiveAccount()`.
+For the best user experience, use the reconnection feature of Beacon described above to persist user accounts.
+The UI can reflect that the user is connected and display the account address.
+In this case, you can replace the "Connect" and "Sync" buttons with "Disconnect" and "Unsync" button.
 
 ### Connect to multiple RPCs
 
-If a high number of users are using your dapp at the same time, the load on the RPC can spike. Ideally, the server infrastructure should be using a load balancer and caching to handle the load. If no such infrastructure is available, it is a good idea to provide an array of nodes and randomly select one on pageload. In case one of the nodes goes down, a user can connect to a different one by refreshing.
+If a high number of users are using your dApp at the same time, the load on the RPC can spike.
+Ideally, the server infrastructure should be using a load balancer and caching to handle the load.
+If no such infrastructure is available, it is a good idea to provide an array of nodes and randomly select one when the page loads.
+In case one of the nodes goes down, a user can connect to a different one by refreshing.
 
-An even better approach is to add a node selection to your dapp, including a way for users to provide their own RPC.
+An even better approach is to add a node selection to your dApp, including a way for users to provide their own RPC node.
+See the documentation for your platform for information on changing the RPC node.
 
-### Allow users to connect their wallet early on
+### Allow users to connect their wallet early
 
-In case your dapp is focussed around a specific time (eg. NFT drop or a countdown of some sort), you should already provide a way for users to pair their wallet with the dapp. This will reduce the load on the Beacon Network once the countdown hits 0.
-
----
-
-:::note
-You can find more details about Beacon by visiting [https://docs.walletbeacon.io/](https://docs.walletbeacon.io/)
-:::
+If your dApp is focused around a specific time, such as an NFT drop or a countdown, you can provide a way for users to connect their wallet to the dApp prior to that time.
+Connecting early reduces the load on the Beacon peer-to-peer communication layer so users don't experience delays by connecting at the same time when the time arrives.

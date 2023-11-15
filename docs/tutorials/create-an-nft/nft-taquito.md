@@ -530,15 +530,10 @@ Follow these steps to configure and start the frontend application:
    }
    ```
 
-   Then, it requests permission to swap to the Ghostnet testnet:
+   Then, it requests permission from the user:
 
    ```typescript
-   await wallet.requestPermissions({
-     network: {
-       type: NetworkType.GHOSTNET,
-       rpcUrl
-     }
-   });
+   await wallet.requestPermissions();
    ```
 
    Finally, it retrieves the user's current NFTs with the `getUserNfts` function:
