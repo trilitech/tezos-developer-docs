@@ -1,0 +1,14 @@
+.quizquestion {
+  border-style: solid;
+  padding: 10px;
+}
+
+.quizheading {
+  font-weight: bold;
+}
+
+.answersection {
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+}
