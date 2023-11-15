@@ -22,7 +22,8 @@ Smart Rollups also enable [Etherlink](https://www.etherlink.com/), which connect
 
 ## Limitations of Smart Rollups
 
-Smart Rollup nodes must behave in a deterministic manner, which allows multiple nodes to run the same rollup and for nodes to verify the state of the rollup.
+Smart Rollup nodes must behave in a deterministic manner by using a proof-generating virtual machine (PVM) to generate a proof of its state.
+In this way, multiple nodes can run the same rollup and other nodes can verify the state of the rollup.
 Therefore, Smart Rollups have some of the same limitations that smart contracts do, such as not being able to use information from outside the blockchain like external APIs.
 Smart Rollups can use data from the smart rollup inbox in each block and from the reveal data channel.
 
@@ -87,7 +88,7 @@ Like smart contracts, users deploy Smart Rollups to layer 1 in a process called 
 The origination process stores data about the rollup on layer 1, including:
 
 - An address for the rollup, which starts with `sr1`
-- The proof-generating virtual machine (PVM) for the rollup, which generates a proof based on the state of the rollup
+- The type of proof-generating virtual machine (PVM) for the rollup, which generates a proof based on the state of the rollup; currently only the `wasm_2_0_0` PVM is supported
 - The source code of the rollup, referred to as its _kernel_
 - The Michelson data type of the messages it receives from layer 1
 - Optionally, an allowlist of accounts that can send messages to the rollup, which makes the rollup private
@@ -102,7 +103,7 @@ Starting from the rollup origination level, levels are partitioned into
 _commitment periods_ of 60 consecutive blocks.
 During each commitment period, the rollup receives the messages in the rollup inbox and processes them.
 
-At the end of the commitment period, the rollup node must use its PVM to publish its state to layer 1, which is called its _commitment_.
+At the end of the commitment period, the rollup node must use the PVM to publish its state to layer 1, which is called its _commitment_.
 Each commitment builds on the previous commitment, going back to the genesis commitment from when the Smart Rollup was originated.
 This commitment asserts that the rollup node has responded to every message in every block in the commitment period and updated its state according to the code for the Smart Rollup.
 
@@ -118,7 +119,7 @@ As long as nodes publish matching commitments, they continue running normally.
 
 During the refutation period for a commitment period, if two or more nodes publish different commitments, two of them play a _refutation game_ to identify the correct commitment.
 The nodes automatically play the refutation game by stepping through their logic to identify the point at which they differ.
-From this point, the PVM stored on layer 1 identifies the correct commitment.
+From this point, layer 1 uses the PVM to identify the correct commitment.
 Then the protocol gives half of the incorrect commitment's stake to the correct commitment's stake, and burns the other half.
 Then the protocol eliminates the incorrect commitment because it has no stake.
 
