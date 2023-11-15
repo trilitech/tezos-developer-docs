@@ -2,7 +2,7 @@
 title: Smart Rollups
 authors: 'Nomadic Labs, TriliTech, Tim McMackin'
 last_update:
-  date: 14 November 2023
+  date: 15 November 2023
 ---
 
 As described in [Layers](./layers), Smart Rollups handle transactions and logic in a separate environment that doesn't need to follow all of the same rules as layer 1.
@@ -63,8 +63,6 @@ The node that has the data must provide it when another node requests it.
 To transfer more than 4KB of data, rollups must use multiple files, such as a single file that contains hashes that point to other files.
 
 - A rollup node can request information about the rollup, including the address and origination level of the rollup, known as _metadata requests_.
-
-  TODO Is this correct? Original text said "The rollup can request information from the protocol, namely the address and the origination level of the rollup node itself. The rollup node retrieves this information through RPCs to answer the rollup." but the rollup node doesn't have an address, does it? Doesn't seem very useful on the surface.
 
 ## Smart Rollup lifecycle
 
