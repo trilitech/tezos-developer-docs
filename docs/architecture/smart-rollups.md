@@ -91,7 +91,6 @@ The origination process stores data about the rollup on layer 1, including:
 - The type of proof-generating virtual machine (PVM) for the rollup, which generates a proof based on the state of the rollup; currently only the `wasm_2_0_0` PVM is supported
 - The source code of the rollup, referred to as its _kernel_
 - The Michelson data type of the messages it receives from layer 1
-- Optionally, an allowlist of accounts that can send messages to the rollup, which makes the rollup private
 
 TODO: Later docs mention the genesis commitment -- is that a different thing or is it implied by other things in the origination?
 
