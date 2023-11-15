@@ -2,7 +2,7 @@
 title: "Part 1: Setting up the application"
 authors: 'Yuxin Li'
 last_update:
-  date: 19 October 2023
+  date: 15 November 2023
 ---
 
 You can access Tezos through any JavaScript framework.
@@ -22,7 +22,7 @@ If you are familiar with Svelte, note that this application includes its own Sve
 1. Install the Tezos-related dependencies:
 
    ```bash
-   npm install @taquito/taquito @taquito/beacon-wallet @airgap/beacon-sdk
+   npm install @taquito/taquito @taquito/beacon-wallet @airgap/beacon-types
    ```
 
 1. Install the `buffer`, `events`, and `vite-compatible-readable-stream` libraries:
@@ -57,9 +57,9 @@ If you are familiar with Svelte, note that this application includes its own Sve
         },
       resolve: {
         alias: {
-         "@airgap/beacon-sdk": path.resolve(
+         "@airgap/beacon-types": path.resolve(
            path.resolve(),
-           `./node_modules/@airgap/beacon-sdk/dist/${
+           `./node_modules/@airgap/beacon-types/dist/${
            isBuild ? "esm" : "cjs"
            }/index.js`
           ),
@@ -206,7 +206,7 @@ Follow these steps to set up the `src/App.svelte` file, which is the container f
    ```html
    <script lang="ts">
     import { BeaconWallet } from "@taquito/beacon-wallet";
-    import { NetworkType } from "@airgap/beacon-sdk";
+    import { NetworkType } from "@airgap/beacon-types";
     import { TezosToolkit, MichelsonMap} from "@taquito/taquito";
    </script>
    ```
@@ -218,12 +218,11 @@ Follow these steps to set up the `src/App.svelte` file, which is the container f
    - `NetworkType`: The class represents the different types of networks on the Tezos blockchain. Developers can ensure that their applications communicate with the desired network version or testnet such as Ghostnet.
    - `MichelsonMap`: The class helps developers work with Michelson's native map data type.
 
-1. In the `<script lang="ts">` section, add the following code to initialize the Tezos toolkit, set your RPC URL to the Ghostnet endpoint, and define the network type:
+1. In the `<script lang="ts">` section, add the following code to initialize the Tezos toolkit and set your RPC URL to the Ghostnet endpoint:
 
    ```javascript
      const rpcUrl = "https://ghostnet.ecadinfra.com";
      const Tezos = new TezosToolkit(rpcUrl);
-     const network = NetworkType.GHOSTNET;
    ```
 
    This code creates an instance of the `TezosToolkit` object, which provides access to the Tezos chain itself.

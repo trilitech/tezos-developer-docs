@@ -2,7 +2,7 @@
 title: "Part 2: Accessing wallets and minting NFTs"
 authors: 'Yuxin Li'
 last_update:
-  date: 20 October 2023
+  date: 15 November 2023
 ---
 
 Accessing the user's wallet is essential before your application can engage with the Tezos blockchain. It enables your app to view the tokens within the wallet and request the user to initiate transactions. However, it's important to note that accessing the wallet doesn't grant your app direct control over it.
@@ -30,7 +30,9 @@ Creating multiple instances can cause problems in your app and with Taquito in g
      try {
        const newWallet = new BeaconWallet({
          name: "Simple NFT app tutorial",
-         preferredNetwork: network,
+         network: {
+          type: NetworkType.GHOSTNET,
+        },
        });
        await newWallet.requestPermissions();
        address = await newWallet.getPKH();
