@@ -31,8 +31,8 @@ For examples of working with metadata, see the NFT-related tutorials at [Create 
 
 Similar to allowances in FA1.2 tokens, FA2 token owners can allow other accounts to transfer tokens on their behalf.
 Accounts that are authorized to transfer other accounts' tokens in this way are called _operators_.
-For example, you might authorize a smart contract to transfer your tokens as part of a transaction.
-Unlike allowances in FA1.2 tokens, operators can transfer any number of the owner's tokens.
+For example, a user might want to sell a token on a marketplace, so they set the marketplace as an operator of that token type, which allows the marketplace to sell the token without getting further approval from the owner.
+Unlike allowances in FA1.2 tokens, operators can transfer any number of the owner's tokens of the specified type.
 
 ## Minting and burning
 
