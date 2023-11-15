@@ -1,0 +1,21 @@
+---
+title: "Interactive: Creating tokens"
+---
+
+It's time for you to create your own tokens on Tezos.
+The tutorial [Build an NFT marketplace](https://docs.tezos.com/docs/tutorials/build-an-nft-marketplace/) guides you through creating different kinds of tokens that are compatible with the FA2 standard, including:
+
+- NFTs
+- Fungible tokens
+- Multiple collections of fungible tokens in the same contract
+
+In the tutorial, you will use what you have learned about tokens and data storage to create a marketplace that allows people to create, buy, and sell tokens on a web application.
+The tutorial uses a template for the tokens so all tokens you create are FA2-compliant.
+
+At the end of the tutorial, you will have a complete dApp, including a smart contract and a web application:
+
+![Completed web application at the end of the tutorial](/img/learning-course/nftfactory.png)
+
+When you're ready, start the tutorial:
+
+[Build an NFT marketplace](https://docs.tezos.com/docs/tutorials/build-an-nft-marketplace/)

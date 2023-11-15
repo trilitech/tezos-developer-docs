@@ -312,6 +312,82 @@ const sidebars = {
       ],
     }
   ],
+  learningSidebar: [
+    'learning-course',
+    {
+      type: 'category',
+      label: 'Freshman',
+      items: [
+        {
+          type: 'link',
+          label: 'TODO',
+          href: '#',
+        },
+        {
+          type: 'link',
+          label: 'TODO',
+          href: '#',
+        },
+        {
+          type: 'link',
+          label: 'TODO',
+          href: '#',
+        },
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Sophomore',
+      items: [
+        {
+          type: 'link',
+          label: 'TODO',
+          href: '#',
+        },
+        {
+          type: 'link',
+          label: 'TODO',
+          href: '#',
+        },
+        {
+          type: 'link',
+          label: 'TODO',
+          href: '#',
+        },
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Junior',
+      items: [
+        'learning-course/junior/consensus',
+        'learning-course/junior/tokens',
+        'learning-course/junior/data-storage',
+        'learning-course/junior/creating-tokens',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Senior',
+      items: [
+        {
+          type: 'link',
+          label: 'TODO',
+          href: '#',
+        },
+        {
+          type: 'link',
+          label: 'TODO',
+          href: '#',
+        },
+        {
+          type: 'link',
+          label: 'TODO',
+          href: '#',
+        },
+      ],
+    },
+  ],
 }
 
 module.exports = sidebars;

@@ -1,0 +1,210 @@
+---
+title: Tokens
+---
+
+Tokens are a critical part of the blockchain ecosystem, and not just as the cryptocurrencies that people use as digital money; they can represent almost anything that the creator wants them to represent.
+Here are some examples of things that tokens can represent:
+
+- Artifacts in games
+- Ownership over something like a piece of art
+- Tickets to events
+- Membership in an organization, a role in an organization, or voting power within an organization
+- A detail about the owner's identity, like a professional certification
+
+## Fungible and non-fungible tokens
+
+Tokens often fit into one of two major categories: fungible and non-fungible.
+
+### Fungible tokens
+
+Fungible tokens are collections of identical, interchangeable tokens.
+For example, tez tokens are fungible, just like one US dollar or Euro is the same as any other US dollar or Euro.
+
+A contract that manages fungible tokens has a ledger that maps account IDs to a balance of tokens, as in this example:
+
+Account address | Balance
+--- | ---
+tz1QCVQinE8iVj1H2fckqx6oiM85CNJSK9Sx | 5
+tz1hQKqRPHmxET8du3fNACGyCG8kZRsXm2zD | 12
+tz1Z2iXBaFTd1PKhEUxCpXj7LzY7W7nRouqf | 3
+
+When an account transfers tokens to another account, it sends the transaction to the smart contract, which deducts the amount of tokens from its balance in the ledger and adds it to the target account's balance.
+
+### Quiz
+
+You're making a video game and creating tokens to represent game objects.
+Which of these things is NOT appropriate to represent in a fungible token?
+
+A: A character's in-game currency
+B: A character's skill or experience points
+C: The amount of ammunition a character has
+D: A character's title as the top character in a category
+
+### Non-fungible tokens (NFTs)
+
+A non-fungible token represents something unique, and therefore it is not interchangeable with any other token.
+An NFT can represent a specific piece of art, a specific seat at a specific event, or a role that can be held by only one person.
+Therefore, a contract that manages NFTs has a ledger that shows the token ID and the owner's account, as in this example:
+
+Token ID | Account address
+--- | ---
+0 | tz1QCVQinE8iVj1H2fckqx6oiM85CNJSK9Sx
+1 | tz1QCVQinE8iVj1H2fckqx6oiM85CNJSK9Sx
+2 | tz1Z2iXBaFTd1PKhEUxCpXj7LzY7W7nRouqf
+
+When an account transfers an NFT to another account, it sends the transaction to the smart contract, which removes it as the owner of the token and adds the target account as the owner of the token.
+
+### Quiz: Fungible tokens
+
+You're making a video game and creating tokens to represent game objects.
+Which of these things is NOT appropriate to represent in a non-fungible token?
+
+A: Items that characters can have
+B: In-game currency
+C: Roles like the leader of a group
+D: Cars in a racing game
+
+## Be careful with tokens!
+
+It's important to remember that in most cases, Tezos tokens are managed by smart contracts.
+Tokens are not stored directly in accounts; instead, smart contracts keep a ledger of how many tokens different accounts hold.
+One exception is tickets, which are directly stored and managed by smart contracts.
+
+Anyone can create smart contracts that create tokens and define the logic for how those tokens behave, such as what happens when users try to transfer tokens from one account to another.
+Therefore, you must be cautious creating, working with, and buying tokens.
+If the smart contract is malicious or has flaws, the ledger could be changed, erased, or frozen and the tokens could be stolen, destroyed, or made unusable.
+
+## Token standards
+
+While you can create tokens that behave in any way that you want them to behave, it's best to create tokens that follow a standard.
+Token standards in a blockchain ecosystem are important for many reasons, including:
+
+- They enforce best practices that improve the safety of the code that the tokens depend on
+- They provide an interface that makes it easier for applications to work with them, such as a consistent way of transferring tokens from one account to another
+
+When a project issues a new token that is compatible with a standard, existing decentralized exchanges, tools, wallets, applications, and block explorers can work with it and display it appropriately.
+For example, block explorers can detect a standard-compliant contract and automatically show the tokens in the contract.
+Tools can have built-in ways of interacting with tokens, like simple commands to transfer tokens and check account balances, which saves you from having to look up how to kens behave before using them.
+
+### How do I follow a token standard?
+
+A token standard is a set of rules that smart contracts must follow.
+Because smart contracts define how tokens behave, it's the smart contract that actually follows the standard, but people often refer to tokens that are compatible with a certain standard.
+
+Token standards have some similarities to interfaces in other programming languages.
+Interfaces in object-oriented programming languages like C++ and Java specify methods or functions that classes must have to be compatible with the interface.
+In the same way, Tezos token standards have a list of entrypoints that smart contracts must have and what parameters those entrypoints must accept.
+
+For example, the FA2 standard requires contracts to have entrypoints named `transfer`, `balance_of`, and `update_operators`.
+It also requires these entrypoints to accept certain parameters.
+For example, the `transfer` entrypoint must accept the address of the source account and a list of destination accounts, each with the token ID and amount to transfer.
+
+This way, tools like block explorers and token marketplaces can work seamlessly with the contract because they know how to transfer tokens with it.
+
+Unlike interfaces in many other programming languages, Tezos token standards also require the entrypoints to do certain things.
+For example, the `transfer` entrypoint must actually transfer the tokens.
+However, you can decide what else happens during the transfer.
+For example, you can require a fee for the transfer or take a percentage of the sale price.
+You can cause side effects to happen, such as updates to indexes or calls to other contracts.
+
+Token standards also specify how permissions for transferring tokens work and the errors that problems must create.
+They do not specify how tokens are created and distributed.
+You can create contracts that have all of their tokens set from the beginning or you can create contracts that can mint and burn tokens.
+You can also add any entrypoints that you want in addition to the required entrypoints.
+
+Tezos provides two standards for tokens.
+The standard that you use for your tokens depends on the kind of tokens that you want to create.
+These standards are named with the prefix FA, which stands for _financial application_.
+
+### Current Tezos token standards
+
+Currently, Tezos has two token standards:
+
+- FA1.2 tokens are fungible tokens, and you can create only one type of token in a smart contract
+- FA2 tokens can be multiple types of tokens, including fungible and non-fungible tokens, and a single smart contract that follows this standard can create multiple types of tokens
+
+Aside from the types of tokens that you can create with these standards, the main difference between them is how permissions are handled.
+
+### FA1.2 token permissions: Allowances
+
+FA1.2 contracts keep track of how many tokens an account permits another account to transfer out of its account, known as its _allowance_.
+For example, you might authorize an application to take a certain amount of your tokens as part of a transaction by setting the application's allowance for your tokens to the amount of the transaction.
+
+Allowances also apply to the token owner, which means that if a user wants to transfer some of their tokens, they must first set their own account's allowance to the amount to transfer.
+This feature allows an account to authorize another account to transfer a certain amount of tokens on its behalf.
+The account that sends the transaction must have an allowance for the owner of the tokens and the number of their tokens to transfer.
+
+This means that FA1.2 contracts must have a table of token owners, the transaction senders that can transfer the tokens, and the amount of tokens that they can transfer, as in this example:
+
+Token owner | Transaction sender | Amount of tokens
+--- | --- | ---
+tz1QCVQinE8iVj1H2fckqx6oiM85CNJSK9Sx | tz1hQKqRPHmxET8du3fNACGyCG8kZRsXm2zD | 4
+tz1QCVQinE8iVj1H2fckqx6oiM85CNJSK9Sx | tz1XipkJMVemdeeDajCdTQMiZSNRQ5PWVKnu | 20
+tz1Z2iXBaFTd1PKhEUxCpXj7LzY7W7nRouqf | tz1XipkJMVemdeeDajCdTQMiZSNRQ5PWVKnu | 14
+
+An account cannot transfer more tokens than its allowance, even if it has enough tokens and it sent the request itself.
+For security reasons, an allowance cannot be changed from a non-zero amount to another non-zero amount.
+Therefore, transferring FA1.2 tokens from a source account to a destination account often involves these steps:
+
+1. Set the transaction sender account's allowance for the source account to 0.
+1. Set the transaction sender account's allowance for the source account to the amount of tokens to transfer.
+1. Transfer the tokens from the source account to the destination account.
+1. Set the transaction sender account's allowance for the source account to 0 to prevent errors if a future change in allowance doesn't set the allowance to 0 first.
+
+### FA2 token permissions: Operators
+
+Similar to allowances in FA1.2 tokens, FA2 token owners can allow other accounts to transfer tokens on their behalf.
+Accounts that are authorized to transfer other accounts' tokens in this way are called _operators_.
+For example, a user might want to sell a token on a marketplace, so they set the marketplace as an operator of that token type, which allows the marketplace to sell the token without getting further approval from the owner.
+Unlike allowances in FA1.2 tokens, operators can transfer any number of the owner's tokens of the specified type.
+
+### Templates
+
+You can use templates for smart contracts with these standards instead of writing your own:
+
+- For SmartPy resources, see [Tokens](https://smartpy.io/guides/tokens/) in the SmartPy documentation.
+- For LIGO templates, see the [`@ligo/fa`](https://packages.ligolang.org/package/@ligo/fa) package.
+- For Archetype templates, see [Templates](https://archetype-lang.org/docs/templates/overview/) in the Archetype documentation.
+
+## Quiz: Token standards
+
+Which of these things does a token standard NOT require?
+
+A: Entrypoints that the contract must have
+B: The parameters for the entrypoints
+C: A way to create tokens
+D: The errors that the contract creates
+
+What information do you need to set an allowance for FA1.2 tokens?
+
+A: The transaction sender and the token owner
+B: The transaction sender, the token owner, and the amount of tokens
+C: The token owner and the amount of tokens
+D: The transaction sender and the amount of tokens
+
+What do you have to do before you can transfer FA2 tokens?
+
+A: Set the operator for the owner's tokens
+B: Set the operator and amount of tokens to transfer
+C: Set the allowance for the token type
+D: None of the above
+
+Which type of token can you NOT create with the FA2 standard?
+
+A: Fungible tokens
+B: Non-fungible tokens
+C: Multiple types of tokens
+D: Soulbound tokens (tokens that cannot be transferred)
+
+Based on the following table of FA1.2 tokens, how many tokens can the account that ends in `WVKnu` transfer out of the account that ends in `K9Sx`?
+
+Token owner | Transaction sender | Amount of tokens
+--- | --- | ---
+tz1QCVQinE8iVj1H2fckqx6oiM85CNJSK9Sx | tz1hQKqRPHmxET8du3fNACGyCG8kZRsXm2zD | 4
+tz1QCVQinE8iVj1H2fckqx6oiM85CNJSK9Sx | tz1XipkJMVemdeeDajCdTQMiZSNRQ5PWVKnu | 20
+tz1Z2iXBaFTd1PKhEUxCpXj7LzY7W7nRouqf | tz1XipkJMVemdeeDajCdTQMiZSNRQ5PWVKnu | 14
+
+A: 4
+B: 20
+C: 14
+D: 0
