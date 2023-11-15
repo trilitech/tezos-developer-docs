@@ -2,7 +2,7 @@
 title: "Part 1: Setting up the application"
 authors: 'Claude Barde, Tim McMackin'
 last_update:
-  date: 17 October 2023
+  date: 15 November 2023
 ---
 
 You can access Tezos through any JavaScript framework.
@@ -21,7 +21,7 @@ This tutorial uses the Svelte framework, and the following steps show you how to
 1. Install the Tezos-related dependencies:
 
    ```bash
-   npm install @taquito/taquito @taquito/beacon-wallet @airgap/beacon-sdk
+   npm install @taquito/taquito @taquito/beacon-wallet @airgap/beacon-types
    ```
 
 1. Install the `buffer`, `events`, and `vite-compatible-readable-stream` libraries:
@@ -56,9 +56,9 @@ This tutorial uses the Svelte framework, and the following steps show you how to
        },
        resolve: {
          alias: {
-           "@airgap/beacon-sdk": path.resolve(
+           "@airgap/beacon-types": path.resolve(
              path.resolve(),
-             `./node_modules/@airgap/beacon-sdk/dist/${
+             `./node_modules/@airgap/beacon-types/dist/${
              isBuild ? "esm" : "cjs"
              }/index.js`
            ),
