@@ -27,13 +27,12 @@ const config = {
       ({
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
+          routeBasePath: '/', // Serve the docs at the site's root
           remarkPlugins: [math],
           rehypePlugins: [katex],
           showLastUpdateTime: true,
         },
-        blog: {
-          showReadingTime: true,
-        },
+        blog: false,
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
