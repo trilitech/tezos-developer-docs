@@ -11,6 +11,8 @@ Tezos nodes act as servers and accept HTTP requests from clients and other nodes
 
 Tezos RPC uses JSON to send and receive data, but it does not adhere to the JSON-RPC specification.
 
+For a list of the endpoints in the Tezos RPC protocol, see [Shell RPCs - Reference](https://tezos.gitlab.io/shell/rpc.html#rpc-index-shell) in the Octez documentation.
+
 ## Public and private RPC nodes
 
 All Tezos nodes run RPC servers, but the RPC interface is subject to an access policy.
