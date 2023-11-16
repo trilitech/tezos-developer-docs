@@ -173,8 +173,6 @@ const sidebars = {
         'smart-contracts/delegation',
         // 'smart-contracts/multisig-specialized',
         // 'smart-contracts/multisig-usage',
-        
-        // 'smart-contracts/deploying',
       ],
     },
     {
