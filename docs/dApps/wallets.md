@@ -167,7 +167,7 @@ For the best user experience, use the reconnection feature of Beacon described a
 The UI can reflect that the user is connected and display the account address.
 In this case, you can replace the "Connect" and "Sync" buttons with "Disconnect" and "Unsync" button.
 
-### Connect to multiple RPCs
+### Connect to multiple RPC nodes
 
 If a high number of users are using your dApp at the same time, the load on the RPC can spike.
 Ideally, the server infrastructure should be using a load balancer and caching to handle the load.

@@ -50,6 +50,7 @@ const sidebars = {
         //     'architecture/baking/delegating',
         //   ],
         // },
+        'architecture/rpc',
         'architecture/smart-rollups',
         // 'architecture/data-availability', // TODO
         {
