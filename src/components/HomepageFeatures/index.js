@@ -6,7 +6,7 @@ const FeatureList = [
   {
     emoji: '💡',
     title: 'Tezos overview',
-    href: 'docs/overview',
+    href: 'overview',
     description: (
       <>
         Read about how Tezos works, what distinguishes it from other blockchains, what developers use it for, and how it hosts decentralized applications that run independently of any authority.
@@ -17,7 +17,7 @@ const FeatureList = [
   {
     emoji: '📚',
     title: 'Tutorials',
-    href: 'docs/tutorials',
+    href: 'tutorials',
     description: (
       <>
         Work through tutorials that cover coding smart contracts and applications that use those smart contracts, from simple to complex, in multiple languages.
@@ -28,7 +28,7 @@ const FeatureList = [
   {
     emoji: '🧑‍💻️',
     title: 'Development environments',
-    href: 'docs/developing/dev-environments',
+    href: 'developing/dev-environments',
     description: (
       <>
         Set up a development environment for your language of choice and its related tools. Use a local environment with a sandbox or a web-based IDE for development work.
