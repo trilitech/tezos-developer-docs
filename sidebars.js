@@ -160,6 +160,9 @@ const sidebars = {
             'smart-contracts/logic/errors',
           ],
         },
+        'smart-contracts/creating',
+        'smart-contracts/testing',
+        'smart-contracts/deploying',
         'smart-contracts/entrypoints',
         'smart-contracts/storage',
         'smart-contracts/special-values',
@@ -170,7 +173,7 @@ const sidebars = {
         'smart-contracts/delegation',
         // 'smart-contracts/multisig-specialized',
         // 'smart-contracts/multisig-usage',
-        'smart-contracts/testing',
+        
         // 'smart-contracts/deploying',
       ],
     },
