@@ -2,7 +2,7 @@
 title: "Part 2: Accessing wallets"
 authors: 'Claude Barde, Tim McMackin'
 last_update:
-  date: 6 November 2023
+  date: 15 November 2023
 ---
 
 Accessing the user's wallet is a prerequisite for interacting with the Tezos blockchain.
@@ -71,7 +71,7 @@ If you add more components, you should move these objects to a separate file to 
 
    ```javascript
    import { BeaconWallet } from "@taquito/beacon-wallet";
-   import { NetworkType } from "@airgap/beacon-sdk";
+   import { NetworkType } from "@airgap/beacon-types";
    import { TezosToolkit } from "@taquito/taquito";
    ```
 
@@ -80,7 +80,6 @@ If you add more components, you should move these objects to a separate file to 
    ```javascript
    const rpcUrl = "https://ghostnet.ecadinfra.com";
    const Tezos = new TezosToolkit(rpcUrl);
-   const network = NetworkType.GHOSTNET;
    ```
 
 1. Create variables to represent the wallet itself, its account address, and its balance:
@@ -97,7 +96,9 @@ If you add more components, you should move these objects to a separate file to 
    const connectWallet = async () => {
      const newWallet = new BeaconWallet({
        name: "Simple dApp tutorial",
-       preferredNetwork: network,
+       network: {
+        type: NetworkType.GHOSTNET,
+      },
      });
      await newWallet.requestPermissions();
      address = await newWallet.getPKH();
@@ -162,12 +163,11 @@ The complete `App.svelte` file looks like this:
 ```html
 <script>
   import { BeaconWallet } from "@taquito/beacon-wallet";
-  import { NetworkType } from "@airgap/beacon-sdk";
+  import { NetworkType } from "@airgap/beacon-types";
   import { TezosToolkit } from "@taquito/taquito";
 
   const rpcUrl = "https://ghostnet.ecadinfra.com";
   const Tezos = new TezosToolkit(rpcUrl);
-  const network = NetworkType.GHOSTNET;
 
   let wallet;
   let address;
@@ -176,7 +176,9 @@ The complete `App.svelte` file looks like this:
   const connectWallet = async () => {
     const newWallet = new BeaconWallet({
       name: "Simple dApp tutorial",
-      preferredNetwork: network,
+      network: {
+        type: NetworkType.GHOSTNET,
+      },
     });
     await newWallet.requestPermissions();
     address = await newWallet.getPKH();
