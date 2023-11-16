@@ -2,10 +2,10 @@
 title: Smart Rollups
 authors: 'Nomadic Labs, TriliTech, Tim McMackin'
 last_update:
-  date: 15 November 2023
+  date: 16 November 2023
 ---
 
-As described in [Layers](./layers), Smart Rollups handle transactions and logic in a separate environment that doesn't need to follow all of the same rules as layer 1.
+Smart Rollups handle transactions and logic in a separate environment that doesn't need to follow all of the same rules as layer 1.
 The transactions and logic that Smart Rollups run is called layer 2.
 
 The code of a Smart Rollup is public, and anyone can run a Smart Rollup node to run that code and verify that other nodes are running it correctly, just like anyone can run baking nodes and accuser nodes on layer 1.
@@ -73,11 +73,16 @@ The general flow of a Smart Rollup goes through these steps:
 1. A commitment period begins.
 1. During the commitment period, the Smart Rollup nodes receive the messages in each block's inbox, filter them to the messages that they are interested in, and run processing based on those messages.
 1. The nodes add outgoing messages to their outboxes in the form of calls to smart contracts.
-1. At the end of the commitment period, the nodes publish their commitments to layer 1 and a new commitment period begins.
-1. The refutation period for the commitment period begins, during which time other nodes can verify the commitment and publish a concurrent commitment to confirm or refute it.
-If necessary, the nodes play a refutation game to determine the correct commitment.
+1. At the end of the commitment period, the nodes publish their commitments to layer 1.
+These commitments are proofs generated from the state of the Smart Rollup node, which means that if all of the nodes run the Smart Rollup correctly, the commitments are all the same.
+1. A new commitment period begins.
+1. At the same time as the new commitment period, a refutation period for the previous commitment period begins, during which time other nodes can verify the commitment and publish a concurrent commitment to confirm or refute it.
+Because commitment periods are shorter than refutation periods, many overlapping refutation periods can be active at the same time, but only one commitment period is active at a time.
+If there are two or more different commitments, the nodes play a refutation game to determine the correct commitment.
 1. At end of the refutation period, the correct commitment is said to be _cemented_ and therefore final and unchangeable.
 1. After the commitment is cemented, any client, including the rollup operator or ordinary layer 1 user, can trigger one of the outbox messages to run the smart contract call.
+
+<!-- TODO diagram of commitment periods and refutation periods -->
 
 ### Origination
 
@@ -87,7 +92,7 @@ The origination process stores data about the rollup on layer 1, including:
 
 - An address for the rollup, which starts with `sr1`
 - The type of proof-generating virtual machine (PVM) for the rollup, which generates a proof based on the state of the rollup; currently only the `wasm_2_0_0` PVM is supported
-- The source code of the rollup, referred to as its _kernel_
+- The source code of the rollup, which is a WebAssembly program referred to as the rollup's _kernel_
 - The Michelson data type of the messages it receives from layer 1
 
 TODO: Later docs mention the genesis commitment -- is that a different thing or is it implied by other things in the origination?
@@ -116,7 +121,7 @@ As long as nodes publish matching commitments, they continue running normally.
 
 During the refutation period for a commitment period, if two or more nodes publish different commitments, two of them play a _refutation game_ to identify the correct commitment.
 The nodes automatically play the refutation game by stepping through their logic to identify the point at which they differ.
-From this point, layer 1 uses the PVM to identify the correct commitment.
+At this point, layer 1 uses the PVM to identify the correct commitment.
 Then the protocol gives half of the incorrect commitment's stake to the correct commitment's stake, and burns the other half.
 Then the protocol eliminates the incorrect commitment because it has no stake.
 
@@ -131,7 +136,7 @@ The refutation period lasts 2 weeks on Mainnet; it can be different on other net
 
 ### Running outbox messages
 
-After a commitment is cemented, clients can trigger the transactions in its outbox with the Octez `execute outbox message` command.
+After a commitment is cemented, clients can trigger the transactions in that commitment's outbox with the Octez `execute outbox message` command.
 When they trigger the transaction, it runs like any other call to a smart contract.
 For more information, se [Triggering the execution of an outbox message](https://tezos.gitlab.io/shell/smart_rollup_node.html?highlight=triggering) in the Octez documentation.
 
