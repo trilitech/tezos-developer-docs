@@ -21,7 +21,7 @@ The first one is to deploy through your terminal. Here is the syntax for the Tez
 octez-client originate contract CONTRACT_NAME transferring AMOUNT_TEZ from FROM_USER \
              running MICHELSON_FILE \
              --init 'INITIAL_STORAGE' --burn-cap GAZ_FEE
-```             
+```
 where:
 - `CONTRACT_NAME` is the name given to the contract.
 - `MICHELSON_FILE` is the path for the Michelson smart contract code (.tz file).
@@ -35,7 +35,7 @@ As for deploying through your online IDE, if you are using Ligo or SmartPy progr
 - [SmartPy online IDE](https://smartpy.io/)
 - [Ligo online IDE](https://ligolang.org/?lang=jsligo)
 
-## Interacting with the devloped contract
+## Interacting with the contract
 Once you have successfully originated the smart contract and it is included in a baked block, there are two ways to interact with it: through command lines or through a block explorer.
 
 ### Interacting through command lines
