@@ -1,6 +1,6 @@
 ---
 title: Creating smart contracts
-author: 'Yuxin Li'
+authors: 'Yuxin Li'
 last_update:
   date: 6 November 2023
 ---
@@ -43,7 +43,7 @@ Contract storage holds the persistent state of your smart contract. It’s impor
 - SmartPy: Use Pythonic classes and types to represent storage. SmartPy provides a straightforward way to map these into Michelson storage requirements.
 - LIGO: Choose the most suitable syntax flavor and use the type definitions to lay out the storage structure.
 
-In Tezos, big maps are a storage optimization feature for large sets of data, , especially when handling large datasets that don't need to be fully loaded into memory at once. Big maps are ideal for ledger applications with numerous accounts, as they load data lazily, fetching only necessary parts on demand. In contrast to regular maps, suitable for smaller collections, and lists, which order data, big maps save costs when the dataset is large. 
+In Tezos, big maps are a storage optimization feature for large sets of data, especially when handling large datasets that don't need to be fully loaded into memory at once. Big maps are ideal for ledger applications with numerous accounts, as they load data lazily, fetching only necessary parts on demand. In contrast to regular maps, suitable for smaller collections, and lists, which order data, big maps save costs when the dataset is large.
 
 In SmartPy, you can define a big map using `sp.big_map`, and in LIGO, you use `big_map` keyword for the type declaration.
 
@@ -59,4 +59,4 @@ You should clearly define the parameters and storage interaction for both langua
 - The contract **storage** is usually passed as an argument to the entrypoints. In SmartPy, the storage is accessed through the self.data attribute inside the entrypoint methods. In LIGO, storage is a parameter of the function, and it's often the last parameter by convention.
 
 
- 
+

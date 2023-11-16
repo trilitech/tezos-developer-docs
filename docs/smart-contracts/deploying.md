@@ -1,6 +1,6 @@
 ---
 title: Deploying smart contracts
-author: 'Yuxin Li'
+authors: 'Yuxin Li'
 last_update:
   date: 6 November 2023
 ---

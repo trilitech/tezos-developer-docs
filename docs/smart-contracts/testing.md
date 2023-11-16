@@ -1,6 +1,6 @@
 ---
 title: Testing smart contracts
-author: 'Yuxin Li'
+authors: 'Yuxin Li'
 last_update:
   date: 6 November 2023
 ---
@@ -9,7 +9,7 @@ last_update:
 Tezos blockchain smart contracts are immutable after deployment, so you must rigorously test to ensure functionality, prevent errors, and avoid potential financial losses. Importantly, contract testing doesn't require any tokens or a wallet account to execute.
 
 High-level languages come with tools to help write tests, and some testing tools can be used independently of the language used to write the smart contract.
-For example, [SmartPy](https://smartpy.io/manual/scenarios/overview) includes syntax dedicated to testing. 
+For example, [SmartPy](https://smartpy.io/manual/scenarios/overview) includes syntax dedicated to testing.
 
 The following SmartPy test code snippet is for a Tezos smart contract that acts like a calculator. The code defines a series of tests to check the functionality of the calculator contract.
 
@@ -88,4 +88,4 @@ For more information about avoiding flaws in contracts, see [Avoiding flaws](htt
 - SmartPy: [Tests and scenarios](https://smartpy.io/manual/scenarios/overview)
 - LIGO: [Testing LIGO](https://ligolang.org/docs/advanced/testing)
 
-Upon test successful, you can deploy your smart contract! 
+Upon test successful, you can deploy your smart contract!
