@@ -73,13 +73,13 @@ const Tezos = new TezosToolkit(rpcUrl);
 
 Tezos.setWalletProvider(wallet);
 const contract = await Tezos.wallet.at(contractAddress);
-await contract.methods.doSomething('Param 1', 25)
-  .send()
-  .then((op) => {
-    console.log(`Waiting for ${op.opHash} to be confirmed...`);
-    return op.confirmation(2).then(() => op.opHash);
-  })
-  .catch((error) => console.log(`Error: ${JSON.stringify(error, null, 2)}`));
+try {
+  const op = await contract.methods.doSomething('Param 1', 25).send();
+  console.log(`Waiting for ${op.opHash} to be confirmed...`);
+  await op.confirmation(2);
+} catch (error) {
+  console.log(`Error: ${JSON.stringify(error, null, 2)}`)
+}
 ```
 
 For examples of calling smart contracts, see tutorials such as [Build your first app on Tezos](../tutorials/build-your-first-app) or [Create a contract and web app that mints NFTs](../tutorials/create-an-nft/nft-taquito).
