@@ -2,7 +2,7 @@
 title: Architecture
 authors: Tim McMackin
 last_update:
-  date: 13 November 2023
+  date: 16 November 2023
 ---
 
 import LucidDiagram from '@site/src/components/LucidDiagram';
@@ -13,15 +13,103 @@ This diagram shows a high-level view of the Tezos system:
 
 <LucidDiagram width="640px" height="480px" src="https://lucid.app/documents/embedded/d778aa2a-ad0a-4324-b235-ed3b35742c58" id="Uz-K28y3R8gJ" />
 
+## Components
+
+These are the main components of Tezos:
+
+- The data of the chain itself
+- The nodes that store the chain data, accept transactions to add to the chain, and verify transactions that other nodes add to the chain
+- The clients that send transactions to the nodes
+
+### The blockchain data
+
+Although people often use the word "blockchain" to mean the entire system, strictly speaking, a Tezos blockchain is a series of blocks of data, each connected to a previous block in the chain.
+Tezos has a primary blockchain, referred to as Mainnet, and a group of blockchains used for testing, referred to as testnets.
+Anyone can create a new blockchain in the Tezos system, so nodes reach consensus on which blockchain is the primary one and which block should be the next block in any specific blockchain.
+
+Technically speaking, there can be many slightly different copies of each blockchain.
+When one node adds a block, its copy of the blockchain becomes slightly different from that of other nodes that haven't heard about the new block yet.
+Also, a node might add an invalid block that other nodes would challenge and refuse to add to their copies of the blockchain.
+In this way, the Tezos consensus mechanism resolves short-term differences and keeps nodes in long-term agreement about the state of the blockchain.
+
+The data inside a Tezos block includes operations such as transferring tez between accounts, calling smart contracts, and adding messages to the smart rollup inbox.
+
+### Nodes
+
+Tezos nodes are computers that store and manage the state of a blockchain.
+
+The main types of Tezos nodes are:
+
+- Baking nodes, which bake new blocks and send them to other nodes
+
+  In addition to baking new blocks, baking nodes are responsible for storing a copy of the current state of the blockchain data, known as the _context_.
+  When they receive a new block from another node, they run each operation in the block, such as tez transfers and calls to smart contracts,  and compute the new state of the context.
+
+  Baking nodes are also responsible for communication with other nodes via a peer-to-peer network.
+  Nodes communicate over this P2P network, also called the _gossip network_, to exchange new blocks and operations.
+
+- Accuser nodes, which verify the blocks that other nodes bake and challenge blocks that have problems
+
+  The accuser monitors new blocks and looks for problems, such as when bakers try to add more than one block at a time.
+  When it finds a problem, it submits a denunciation to other nodes to refuse the new blocks and punish the offending node.
+
+- Smart Rollup nodes, which run logic on a layer that is separate from the main Tezos baking process
+
+Anyone can run a node and choose which node functions to run.
+Because different programs control functions such as baking blocks and challenging other nodes' blocks, your nodes can choose which programs to run.
+
+### Clients
+
+Many clients can add operations to the network of nodes, including:
+
+- Web applications
+- Command-line applications such as the [Octez client](../developing/octez-client/)
+- Wallet applications
+- Applications that use SDKs such as [Taquito](../dApps/taquito)
+
+When a client adds an operation, that new operation becomes part of the _mempool_, which is a list of available operations.
+Nodes share operations with each other, so the node that bakes an operation into a block may not be the node that the client sent the operation to.
+
+## Layers
+
+Tezos runs transactions on two layers:
+
+- Baking nodes run transactions on Tezos layer 1, which is the primary layer and the layer that most people mean when they talk about Tezos and transactions.
+
+- Smart Rollup nodes run transactions and logic in a separate environment that doesn't need to follow all of the same rules as layer 1.
+The transactions and logic that Smart Rollups run is called layer 2.
+
+For example, Smart Rollups can run transactions at a much higher rate than layer 1 does.
+Also, they can run large amounts of processing and handle large amounts of data that would be impractical on layer 1.
+Smart Rollups regularly publish their state to layer 1 for nodes to verify.
+
+Separating logic into layers like this allows Tezos to scale to run large amounts of transactions.
+Smart Rollups can receive messages from layer 1 and use the information in the messages to run large processing operations independently of layer 1.
+
+For more information about Smart Rollups, see [Smart Optimistic Rollups](./architecture/smart-rollups) and the tutorial [Deploy a smart rollup](./tutorials/smart-rollup).
+
+### Communication between layers
+
+As shown in the diagram above, each layer 1 block has a global rollups inbox that contains messages from layer 1 to all rollups.
+Anyone can add a message to this inbox and all messages are available to all rollups.
+Rollups receive this inbox, filter it to the messages that they are interested in, and act on them accordingly.
+
+Smart Rollups can send messages back to layer 1 by adding them to their outbox, which consists of calls to smart contracts on layer 1.
+
+Smart Rollups also have access to the _reveal data channel_, which lets them request data from sources outside the inbox.
+This channel lets rollups access large amounts of data without having to store it on layer 1.
+
+## References
+
 For more information about the architecture of Tezos, see:
 
 - [Components](./architecture/components)
-- [Layers](./architecture/layers)
 - [Protocol and shell](./architecture/protocol)
 - [Accounts](./architecture/accounts)
 - [Tokens](./architecture/tokens)
 - [Smart Optimistic Rollups](./architecture/smart-rollups)
 - [Governance](./architecture/governance)
+
 
 
 <!--
