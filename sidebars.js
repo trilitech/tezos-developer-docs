@@ -167,7 +167,7 @@ const sidebars = {
         'smart-contracts/storage',
         'smart-contracts/special-values',
         'smart-contracts/constants',
-        'smart-contracts/serialization',
+        // 'smart-contracts/serialization',
         'smart-contracts/sapling',
         'smart-contracts/views',
         'smart-contracts/delegation',
