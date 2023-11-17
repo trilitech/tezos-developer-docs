@@ -13,7 +13,7 @@ The relationship between the shell and the protocol is like the relationship bet
 The operating system stays stable while the application can update itself.
 In this way, Tezos can update how it works (its protocol) without requiring nodes to accept major changes to the software that they run (the shell).
 
-There are many other parts of a node, such as the tools that bake blocks and RPC layer that allows it to accept requests, but these two parts are the basis for all node functions.
+There are many other parts of a node, such as the tools that bake blocks and the RPC layer that allows it to accept requests, but these two parts are the basis for all node functions.
 
 ## The Tezos self-amending protocol
 
@@ -22,7 +22,7 @@ Its nodes can update the protocol that controls how transactions are processed w
 The nodes do this by running the protocol on top of a shell that does not change.
 
 This protocol is responsible for interpreting the transactions in each block.
-It also has provides the logic that identifies erroneous blocks.
+It also provides the logic that identifies erroneous blocks.
 
 Updates to the protocol can change this logic through the voting process.
 For information about the voting process, see [Governance](./governance).
