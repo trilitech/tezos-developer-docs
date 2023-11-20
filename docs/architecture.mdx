@@ -119,13 +119,25 @@ The baker daemon is associated with an account, which means that it has access t
 The accuser daemon is an Octez program that monitors new blocks and looks for problems, such as when bakers try to add more than one block at a time.
 When it finds a problem, it submits a denunciation to other nodes to refuse the new blocks and punish the offending node.
 
+### The Octez client
+
+The Octez client is a command-line tool that developers can use for many Tezos-related tasks, including:
+
+- Deploying, calling, testing, and interacting with contracts
+- Deploying and interacting with Smart Rollups
+- Working with accounts
+- Getting contract balances and data
+- Calling RPC endpoints directly
+- Running sapling transactions
+
+For more information about the Octez client, see the [Octez documentation](https://tezos.gitlab.io/).
+
 ### External clients
 
 Many external clients can add operations to the network of nodes or use nodes to inspect the state of the blockchain, including:
 
 - Web applications that use SDKs such as Taquito to send and receive information from Tezos
 - Indexer websites that monitor the state of the network and allow users to search its history
-- Command-line applications such as the Octez client
 - Wallet applications
 
 Nodes share operations with each other, so the node that includes an operation in a block may not be the node that the client originally sent the operation to.
