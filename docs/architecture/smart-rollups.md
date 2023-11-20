@@ -7,10 +7,6 @@ last_update:
 
 Rollups play a crucial part in providing next-generation scaling on Tezos. This page gives a technical introduction to Smart Rollups, their optimistic nature, and an intro to developing your own WASM kernel.
 
-## Prerequisites
-
-This page covers an advanced topic at the bleeding edge of Tezos core development. If you are interested in more fundamental reading, a great place to start is [Tezos Protocol and Shell](./protocol) and [Smart Contracts](../smart-contracts/languages).
-
 ## Examples
 
 For examples of Smart Rollups, see this repository: https://gitlab.com/tezos/kernel-gallery.
