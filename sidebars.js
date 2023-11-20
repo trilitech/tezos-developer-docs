@@ -24,7 +24,6 @@ const sidebars = {
         type: 'doc',
       },
       items: [
-        'architecture/protocol',
         'architecture/accounts',
         {
           type: 'category',
