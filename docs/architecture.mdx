@@ -100,7 +100,7 @@ A client can query the chain’s state and can inject blocks and operations into
 Tezos uses this client-server architecture for these main reasons:
 
 - It improves security by separating the node, which is exposed to the internet, from the baker, which has access to the client keys.
-The node and the baker can be on different computers, which allows the node to manage communication and shield bakers from network attacks.
+The node and the baker can be on different computers, which allows the node to manage communication and shields bakers from network attacks.
 - It allows bakers to have different implementations.
 For example, different bakers may implement different transaction selection strategies.
 - It allows clients and other tools to interact with the node and inspect its state.
