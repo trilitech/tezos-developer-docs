@@ -187,6 +187,17 @@ const sidebars = {
         'dApps/wallets',
         'dApps/sending-transactions',
         'dApps/taquito',
+        {
+          type: 'category',
+          label: 'Tezos SDK for Unity',
+          // link: { // TODO new overview
+          //   id: 'dApps/unity',
+          //   type: 'doc',
+          // },
+          items: [
+            'dApps/unity/quickstart',
+          ],
+        },
         // 'dApps/frameworks', // TODO
         // Hide defi for now because the content is very outdated
         // 'dApps/defi',
