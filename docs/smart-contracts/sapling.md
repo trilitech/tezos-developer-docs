@@ -1,5 +1,5 @@
 ---
-title: Private transactions (sapling)
+title: Private transactions (Sapling)
 authors: 'Mathias Hiron (Nomadic Labs), Sasha Aldrick (TriliTech), Tim McMackin (TriliTech)'
 last_update:
   date: 4 October 2023
@@ -20,7 +20,7 @@ Information about these transactions is public.
 
 If a regulator needs access to the transactions of a user, this user may share a _viewing key_, which gives access to all the transactions made by this user.
 
-Note that using the sapling protocol in a _shielded pool_ and expecting a high degree of privacy requires taking a number of precautions, including:
+Note that using the Sapling protocol in a _shielded pool_ and expecting a high degree of privacy requires taking a number of precautions, including:
 
 - Making sure there are enough members in the pool to ensure anonymity.
 For example, if there are only two members, it becomes very easy to identify the source and destination of transactions.
@@ -29,7 +29,7 @@ For example, if there are only two members, it becomes very easy to identify the
 For example, if a user shields exactly 16.32 tokens and another user later unshields exactly 16.32 tokens, the transaction may be traceable.
 - Being careful about information that can be deduced from the timing of transactions.
 
-The internals of sapling are quite technical.
+The internals of Sapling are quite technical.
 The system is based on an UTXO (bitcoin-like) transaction system, where each transaction consumes some unspent output and produces new unspent outputs.
 It uses a system of cryptographic commitments in place of public amounts and addresses, that can then be "consumed" using a system of nullifiers.
 The process uses a mix of cryptographic tools including SNARKs, incremental Merkle trees, and Diffie-Hellman key exchanges.
