@@ -295,20 +295,6 @@ It has these functions:
 
   - `OriginateContract`: Creates a smart contract based on the code that you pass to the function.
 
-## API Summary
-
-The [SDK's API](https://opentezos.com/gaming/unity-sdk/api-documentation/) includes seven methods, which, together with the BeaconSDK and Netezos libraries, provide comprehensive access to the Tezos Blockchain for your games:
-
-1. **ConnectWallet**: Handles wallet pairings using QRCode scans, deep links, or injections, depending on the platform. Supports various Tezos wallets such as Kukai, Umami, or Temple.
-2. **DisconnectWallet**: Disconnects the app from the user's wallet.
-3. **GetActiveWalletAddress**: Retrieves the Tezos address of the currently active wallet account.
-4. **ReadBalance**: Returns the tez balance of the current user.
-5. **ReadView**: Calls an off-chain view to obtain data from a smart contract and its storage.
-6. **CallContract**: Enables calls to any Tezos contract by specifying the entrypoint, input parameters, and tez amount sent to the contract.
-7. **RequestSignPayload**: Requests the user to digitally sign data with their wallet.
-
-Additional features and data retrieval options from the Netezos SDK are included in this SDK.
-
 ## Dependencies
 
 The Tezos SDK utilizes modified versions of the following libraries for communication:
