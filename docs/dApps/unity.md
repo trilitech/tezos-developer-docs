@@ -14,6 +14,19 @@ You can use Tezos via the SDK to:
 - Verify that users own specific game assets and allow them to sell or share them to other players
 - Use Tezos smart contracts as backend logic for games
 
+For a walkthrough of setting up and using the SDK in an existing Unity project, see [Quickstart](./unity/quickstart).
+
+## Installing the Tezos SDK for Unity
+
+The SDK requires Unity Editor version 2021.3.23f1 or later.
+
+1. In the Unity asset store, find the [Tezos SDK for Unity](https://assetstore.unity.com/packages/decentralization/infrastructure/tezos-sdk-for-unity-239001).
+1. Click **Add to My Assets**.
+1. In the Unity Editor, in the Package Manager panel, find the Tezos SDK for Unity and click the **Download** button.
+1. Verify that the SDK is installed by opening the Project panel and expanding the **Assets > TezosSDK** folder.
+
+If you see the TezosSDK folder with sub-folders including Editor, Examples, Resources, and Runtime, the SDK is installed correctly.
+
 ## WebGL Support
 
 * Open Unity Editor.
