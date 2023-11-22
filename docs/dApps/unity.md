@@ -225,6 +225,32 @@ public void HandleMint()
 In your projects, you can set the metadata to store information about what the token represents.
 For more information about creating tokens with Tezos, see [Tokens](../architecture/tokens) and the tutorials [Create an NFT](../tutorials/create-an-nft) and [Build an NFT marketplace](../tutorials/build-an-nft-marketplace).
 
+### Transfer scene
+
+This scene shows how to transfer tokens between accounts.
+To open the scene, go to the Project panel, expand **TezosSDK > Examples > Transfer**, and double-click `_Transfer`.
+
+To try the scene, click the **Play** button and then go to the Simulator tab.
+Like the other scenes, it shows a QR code to connect to, but it can reuse the connection from other scenes.
+
+By default, the scene uses the contract that you deployed with the Contract scene.
+It also shows the IDs of the tokens that you created with that contract, starting with 0.
+
+To transfer a token, make sure that the scene shows the address of the contract.
+Then, fill in the fields and click the Transfer button.
+The Simulator panel looks like this:
+
+<img src="/img/dApps/unity-transfer-scene-address.png" alt="The Transfer scene, showing information about the token to transfer" style={{width: 500}} />
+
+After you approve the transaction in your wallet app, the contract transfers the token to the new owner.
+You can see the token owners by looking at the contract storage in a block explorer.
+For example, in [Better Call Dev](https://better-call.dev/), go to the Storage tab, expand the `ledger` object, and look at the entries.
+For example, this entry shows that the account that ends in `2zD` owns 9 of the token with the ID 1:
+
+<img src="/img/dApps/unity-transfer-scene-block-explorer-token-ownership.png" alt="The block explorer's Storage tab, showing the account address and the quantity of a token it owns" style={{width: 500}} />
+
+This ledger of token ownership is stored in a big-map data type, which is serialized on Tezos to save space.
+
 ## WebGL Support
 
 * Open Unity Editor.
