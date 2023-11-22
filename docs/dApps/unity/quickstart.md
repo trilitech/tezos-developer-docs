@@ -251,8 +251,11 @@ If you don't have a wallet on a mobile device, follow these steps:
       Now you can bind objects to variables in the code and use listeners to respond to Tezos SDK events.
       For the complete list of listeners, see the file `Assets/TezosSDK/Runtime/Scripts/Beacon/WalletEventManager.cs` in the SDK.
 
+Now that your project can connect to a user's account, you can use this connection to identify a user's account, because Tezos addresses are unique.
+You can also use this connection to send transactions to Tezos on behalf of the user, such as manipulating Tezos tokens as game assets.
+For examples, see the scenes in the `TezosSDK/Examples` folder.
 
-
+<!--
 TODOs:
 
 - Deploy contract
@@ -260,5 +263,4 @@ TODOs:
 - Send tez transaction?
 - What else to get started?
 
-Now that your project can connect to a user's account, you can use this connection to identify a user's account, because Tezos addresses are unique.
-You can also use this connection to send transactions to Tezos on behalf of the user, such as manipulating Tezos tokens as game assets.
+-->
