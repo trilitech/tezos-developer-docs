@@ -27,6 +27,64 @@ The SDK requires Unity Editor version 2021.3.23f1 or later.
 
 If you see the TezosSDK folder with sub-folders including Editor, Examples, Resources, and Runtime, the SDK is installed correctly.
 
+## Sample scenes
+
+The SDK includes sample scenes that demonstrate how to use the SDK.
+To open the scenes, install the SDK and in the Project panel, expand **TezosSDK > Examples**.
+The sample scenes are in sub-folders:
+
+### WalletConnection scene
+
+This scene shows how to connect to a user's wallet and get information about their account.
+To open the scene, go to the Project panel, expand **TezosSDK > Examples > WalletConnection**, and double-click `_WalletConnection`.
+
+To try the scene, click the **Play** button and then go to the Simulator tab.
+The scene shows that no account is connected and a QR code:
+
+<img src="/img/dApps/unity-walletconnection-scene-unconnected.png" alt="The start of the WalletConnection scene, with no account information" style={{width: 300}} />
+
+To connect, scan the QR code in any Tezos-compatible wallet app.
+Mobile wallet apps for Tezos include [Temple](https://templewallet.com/), [Kukai](https://wallet.kukai.app/), and [Umami](https://umamiwallet.com/).
+Then, approve  the connection in the wallet app.
+
+Then, the scene shows the address of the connected account and a logout button that closes the connection:
+
+<img src="/img/dApps/unity-walletconnection-scene-connected.png" alt="The WalletConnection scene with a connected account" style={{width: 300}} />
+
+To see the code that runs the objects in the scene, stop the scene and expand the Canvas object in the Hierarchy panel.
+Then, select an object, go to the Inspector panel, and double-click the script component.
+For example, to open the code for the object that shows the address of the account, select the AccountAddress object in the Hierarchy panel and double-click `AccountInfoUI` in the Inspector panel, as shown in this image:
+
+<img src="/img/dApps/unity-walletconnection-scene-accountinfoui.png" alt="Opening the AccountInfoUI script" style={{width: 600}} />
+
+The `AccountInfoUI` script opens in your IDE.
+This script defines a variable named addressText, which is bound to the Unity object.
+
+In the `Start` function, it sets listeners for the Tezos SDK events that happen when accounts connect and disconnect:
+
+```csharp
+private void Start()
+{
+  addressText.text = notConnectedText;
+  TezosManager.Instance.MessageReceiver.AccountConnected += OnAccountConnected;
+  TezosManager.Instance.MessageReceiver.AccountDisconnected += OnAccountDisconnected;
+}
+
+private void OnAccountDisconnected(AccountInfo account_info)
+{
+  addressText.text = notConnectedText;
+}
+
+private void OnAccountConnected(AccountInfo account_info)
+{
+  addressText.text = TezosManager.Instance.Wallet.GetActiveAddress();
+  // OR
+  addressText.text = account_info.Address;
+}
+```
+
+For the complete list of listeners, see the file `Assets/TezosSDK/Runtime/Scripts/Beacon/WalletEventManager.cs` in the SDK.
+
 ## WebGL Support
 
 * Open Unity Editor.
