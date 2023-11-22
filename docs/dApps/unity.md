@@ -162,11 +162,6 @@ When the contract is deployed, the project updates to show the address of the co
 You can get the address by opening the Scene panel, selecting the Address object in the Hierarchy panel, and copying the address from the Inspector panel.
 To see information about the deployed contract, copy this address and put it into a block explorer such as [Better Call Dev](https://better-call.dev/).
 
-:::note
-Before you stop the scene, make sure that you save the contract address, because you need it to use the Transfer scene.
-The scene does not remember the contract address when you restart the scene.
-:::
-
 The block explorer shows information about the contract, including recent transactions, its source code, and the tokens it controls and their owners.
 Currently, the block explorer shows only the origination transaction, which deployed the contract:
 
@@ -178,7 +173,6 @@ When you approve it, the wallet app sends a transaction to the smart contract to
 Like the deployment operation, it can take time for the transaction to complete and be confirmed on Tezos.
 
 When the mint transaction is complete, the "Tokens Count" text in the scene updates to show the number of tokens that have been minted with this contract.
-Note that this number resets when you restart the scene because it does not remember the address of the contract.
 
 You can also see the mint transaction on the block explorer.
 Because the contract follows the FA2 standard for tokens, the block explorer also shows the tokens and information about them, as in this picture:
