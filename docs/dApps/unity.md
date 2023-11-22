@@ -127,6 +127,108 @@ private void OnAccountConnected(AccountInfo account_info)
 
 For the complete list of listeners, see the file `Assets/TezosSDK/Runtime/Scripts/Beacon/WalletEventManager.cs` in the SDK.
 
+### Contract scene
+
+This scene shows how to deploy a smart contract to Tezos and create tokens with it.
+
+A _smart contract_ is a program stored on the blockchain.
+Smart contracts can do many things, but the main thing that game developers use them for is to manage _tokens_, which are assets that are stored on Tezos.
+In this case, the smart contract keeps track of tokens, their metadata, and who owns them.
+
+The SDK comes with a sample smart contract that allows a Unity project to create tokens.
+You can customize these tokens, give them to users, and treat them like the players' in-game inventories.
+
+To open the scene, go to the Project panel, expand **TezosSDK > Examples > WalletConnection**, and double-click `_WalletConnection`.
+Then, click the **Play** button and then go to the Simulator tab.
+
+Like the WalletConnection scene, you must first scan the barcode with a Tezos wallet app and approve the connection in the app.
+Then the scene shows the address of the connected account and enables the "Deploy Contract" and "Mint Token" buttons:
+
+<img src="/img/dApps/unity-contract-scene-connected.png" alt="The start of the WalletConnection scene with an account connected" style={{width: 500}} />
+
+When you click "Deploy Contract," your connected wallet prompts you to confirm the transaction and pay the transaction fees.
+Because you are connected to the test network, these are worthless testnet tokens and not real currency.
+This process can take time because the project has to send the code for the smart contract to your wallet app.
+
+When you confirm the transaction in the wallet app, you must wait for the contract to be deployed on Tezos.
+The log in the Console panel shows a message that looks like `Received operation with hash oopFjLYGTbZTEFsTh4p1YPnHR1Up1SNnvE5xk2SRaGH6PZ4ry56`, which is the address of the Tezos operation that deployed the contract.
+This process can take a few minutes.
+
+For example, this is what the transaction looks like in the Temple wallet:
+
+<img src="/img/dApps/unity-contract-scene-origination-temple.png" alt="Approving the contract deployment transaction in the wallet app" style={{width: 300}} />
+
+When the contract is deployed, the project updates to show the address of the contract, which starts with `KT1`.
+You can get the address by opening the Scene panel, selecting the Address object in the Hierarchy panel, and copying the address from the Inspector panel.
+To see information about the deployed contract, copy this address and put it into a block explorer such as [Better Call Dev](https://better-call.dev/).
+
+:::note
+Before you stop the scene, make sure that you save the contract address, because you need it to use the Transfer scene.
+The scene does not remember the contract address when you restart the scene.
+:::
+
+The block explorer shows information about the contract, including recent transactions, its source code, and the tokens it controls and their owners.
+Currently, the block explorer shows only the origination transaction, which deployed the contract:
+
+<img src="/img/dApps/unity-contract-scene-origination.png" alt="The newly originated contract on the block explorer" style={{width: 500}} />
+
+Now you can go back to the Simulation panel in the Unity Editor and click "Mint Token."
+The project sends another transaction to your wallet app.
+When you approve it, the wallet app sends a transaction to the smart contract to create (mint) a token.
+Like the deployment operation, it can take time for the transaction to complete and be confirmed on Tezos.
+
+When the mint transaction is complete, the "Tokens Count" text in the scene updates to show the number of tokens that have been minted with this contract.
+Note that this number resets when you restart the scene because it does not remember the address of the contract.
+
+You can also see the mint transaction on the block explorer.
+Because the contract follows the FA2 standard for tokens, the block explorer also shows the tokens and information about them, as in this picture:
+
+<img src="/img/dApps/unity-contract-scene-token.png" alt="The new token on the block explorer" style={{width: 300}} />
+
+The tokens that this scene creates have randomly generated metadata.
+To change the metadata, open the `TezosSDK/Examples/Contract/Scripts/MintToken.cs` file.
+The file's `HandleMint` function creates the token by generating random numbers, creating a metadata object for the token, and using the `TokenContract.Mint` function to send the mint transaction to the contract:
+
+```csharp
+public void HandleMint()
+{
+    var rnd = new Random();
+    var randomInt = rnd.Next(1, int.MaxValue);
+    var randomAmount = rnd.Next(1, 1024);
+
+    var destinationAddress = TezosManager
+        .Instance
+        .Wallet
+        .GetActiveAddress();
+
+    const string imageAddress = "ipfs://QmX4t8ikQgjvLdqTtL51v6iVun9tNE7y7Txiw4piGQVNgK";
+
+    var tokenMetadata = new TokenMetadata
+    {
+        Name = $"testName_{randomInt}",
+        Description = $"testDescription_{randomInt}",
+        Symbol = $"TST_{randomInt}",
+        Decimals = "0",
+        DisplayUri = imageAddress,
+        ArtifactUri = imageAddress,
+        ThumbnailUri = imageAddress
+    };
+
+    TezosManager
+        .Instance
+        .Tezos
+        .TokenContract
+        .Mint(
+            completedCallback: OnTokenMinted,
+            tokenMetadata: tokenMetadata,
+            destination: destinationAddress,
+            amount: randomAmount);
+}
+```
+
+In your projects, you can set the metadata to store information about what the token represents.
+For more information about creating tokens with Tezos, see [Tokens](../architecture/tokens) and the tutorials [Create an NFT](../tutorials/create-an-nft) and [Build an NFT marketplace](../tutorials/build-an-nft-marketplace).
+
 ## WebGL Support
 
 * Open Unity Editor.
