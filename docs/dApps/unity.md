@@ -172,7 +172,9 @@ The project sends another transaction to your wallet app.
 When you approve it, the wallet app sends a transaction to the smart contract to create (mint) a token.
 Like the deployment operation, it can take time for the transaction to complete and be confirmed on Tezos.
 
-When the mint transaction is complete, the "Tokens Count" text in the scene updates to show the number of tokens that have been minted with this contract.
+When the mint transaction is complete, the "Tokens Count" text in the scene updates to show the number of token types that have been minted with this contract.
+The mint process creates a random number of tokens with this type.
+Your tokens can have a quantity of 1 to make them unique or a larger quantity to represent an amount of something.
 
 You can also see the mint transaction on the block explorer.
 Because the contract follows the FA2 standard for tokens, the block explorer also shows the tokens and information about them, as in this picture:
