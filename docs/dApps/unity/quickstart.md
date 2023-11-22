@@ -255,6 +255,9 @@ Now that your project can connect to a user's account, you can use this connecti
 You can also use this connection to send transactions to Tezos on behalf of the user, such as manipulating Tezos tokens as game assets.
 For examples, see the scenes in the `TezosSDK/Examples` folder.
 
+Note that if you stop the project while your wallet is connected and restart the project later, it remembers that your wallet is connected.
+The SDK uses the [Beacon](https://docs.walletbeacon.io/) SDK to connect to wallets and remember connections.
+
 <!--
 TODOs:
 
