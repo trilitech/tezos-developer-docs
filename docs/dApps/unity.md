@@ -31,6 +31,48 @@ If you see the TezosSDK folder with sub-folders including Editor, Examples, Reso
 
 The SDK includes sample scenes that demonstrate how to use the SDK.
 To open the scenes, install the SDK and in the Project panel, expand **TezosSDK > Examples**.
+
+Before using any of the scenes, install a Tezos-compatible wallet on a mobile device that has a camera and can scan QR codes and get some test tez tokens that you can use to pay transaction fees.
+If you don't have a wallet on a mobile device, follow these steps:
+
+   1. Install a Tezos-compatible wallet app on a mobile device.
+   Mobile wallet apps for Tezos include [Temple](https://templewallet.com/), [Kukai](https://wallet.kukai.app/), and [Umami](https://umamiwallet.com/).
+   1. Switch the wallet to use Ghostnet testnet instead of Tezos Mainnet.
+   Ghostnet is a network for testing Tezos applications where tokens are free so you don't have to spend real currency to work with your applications.
+
+      The process for changing the network is different for each wallet type.
+      These steps are for the Temple wallet:
+
+      1. Go to https://teztnets.xyz/, which lists Tezos testnets.
+      1. Click **Ghostnet**.
+      1. Copy one of the public RPC endpoints for Ghostnet, such as `https://rpc.ghostnet.teztnets.xyz`.
+      These URLs accept Tezos transactions from wallets and other applications.
+      1. In the Temple app, open the settings and then click **Default node (RPC)**.
+      1. Click the plus `+` symbol to add an RPC node.
+      1. On the Add RPC screen, enter the URL that you copied and give the connection a name, such as "Ghostnet," as shown in this picture:
+
+         <img src="/img/dApps/temple-wallet-new-rpc.png" alt="Entering information for the new RPC node" style={{width: 300}} />
+      1. Click Add.
+      1. Make sure that the new RPC node is selected, as in this image:
+
+         <img src="/img/dApps/temple-wallet-selected-rpc.png" alt="The new RPC node selected in the Temple wallet" style={{width: 300}} />
+
+   1. From your wallet, get the address of your account, which starts with `tz1`.
+   This is the address that applications use to work with your wallet.
+
+   1. Get some testnet tez for the wallet:
+
+      1. Go to the Ghostnet faucet at https://faucet.ghostnet.teztnets.xyz.
+      This faucet provides tez for free to use on the testnet.
+      1. On the faucet page, paste your wallet address into the input field labeled "Or fund any address" and click the button for the amount of tez to add to your wallet.
+      20 tez is enough to work with, and you can return to the faucet later if you need more tez.
+
+         It may take a few minutes for the faucet to send the tokens and for those tokens to appear in your wallet.
+
+         You can use the faucet as much as you need to get tokens on the testnet, but those tokens are worthless and cannot be used on Mainnet.
+
+         ![Fund your wallet using the Ghostnet Faucet](/img/tutorials/wallet-funding.png)
+
 The sample scenes are in sub-folders:
 
 ### WalletConnection scene
