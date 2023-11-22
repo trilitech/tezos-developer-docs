@@ -270,6 +270,31 @@ This ledger of token ownership is stored in a big-map data type, which is serial
   folder. Each template subfolder contains an index.html file along with any other resources the page needs, such as
   images or stylesheets.
 
+## SDK objects
+
+The SDK provides these objects:
+
+- `TezosManager.Instance.DAppMetadata`: Read-only metadata about the project, including the Name, Url, Icon, and Description fields that you set on the TezosManager prefab in the Unity Editor.
+
+- `TezosManager.Instance.Wallet`: An object that represents the connection to the user's wallet and allows you to send transactions to the wallet.
+It has these functions:
+
+  - `Connect`: Connect to a wallet.
+  This function accepts the type of wallet, such as `WalletProviderType.beacon`, as a parameter.
+
+  - `Disconnect`: Disconnect from the currently-connected wallet.
+
+  - `GetActiveAddress`: Get the address of the currently connected account.
+
+  - `RequestSignPayload`: Sends a request to the connected wallet to sign a payload string, such as to verify ownership of a token.
+
+  - `VerifySignedPayload`: Returns true if the specified signed payload is valid.
+
+  - `CallContract`: Calls a smart contract entrypoint.
+  This function accepts the address of the contract, the name of the entrypoint, the parameters to pass, and the amount of tez to send with the transaction.
+
+  - `OriginateContract`: Creates a smart contract based on the code that you pass to the function.
+
 ## API Summary
 
 The [SDK's API](https://opentezos.com/gaming/unity-sdk/api-documentation/) includes seven methods, which, together with the BeaconSDK and Netezos libraries, provide comprehensive access to the Tezos Blockchain for your games:
