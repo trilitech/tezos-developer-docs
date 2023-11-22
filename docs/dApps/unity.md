@@ -295,6 +295,15 @@ It has these functions:
 
   - `OriginateContract`: Creates a smart contract based on the code that you pass to the function.
 
+<!-- TODO:
+TezosManager.Instance.Tezos.TokenContract
+TezosManager.Instance.API
+TezosManager.Awake()?
+TezosManager.InitializeTezos()?
+Tezos.GetCurrentWalletBalance?
+Tezos.GetOriginatedContracts?
+-->
+
 ## Dependencies
 
 The Tezos SDK utilizes modified versions of the following libraries for communication:
