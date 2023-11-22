@@ -189,10 +189,10 @@ const sidebars = {
         {
           type: 'category',
           label: 'Tezos SDK for Unity',
-          // link: { // TODO new overview
-          //   id: 'dApps/unity',
-          //   type: 'doc',
-          // },
+          link: {
+            id: 'dApps/unity',
+            type: 'doc',
+          },
           items: [
             'dApps/unity/quickstart',
           ],
