@@ -24,8 +24,17 @@ The SDK requires Unity Editor version 2021.3.23f1 or later.
 1. Click **Add to My Assets**.
 1. In the Unity Editor, in the Package Manager panel, find the Tezos SDK for Unity and click the **Download** button.
 1. Verify that the SDK is installed by opening the Project panel and expanding the **Assets > TezosSDK** folder.
+1. Add the prerequisite SDK components to your scene:
 
-If you see the TezosSDK folder with sub-folders including Editor, Examples, Resources, and Runtime, the SDK is installed correctly.
+   1. Open a scene in your project or create a scene.
+   1. In the Project panel, expand **Assets > TezosSDK > Runtime > Prefabs**.
+   1. From the Prefabs folder in the Project panel, drag the MainThreadExecutor prefab to the Hierarchy panel.
+   1. In the same way, drag the TezosManager prefab to the Hierarchy panel.
+   The TezosManager prefab opens in the Inspector panel.
+   1. In the Inspector panel, set the information for your project, including its name and URL.
+
+      This prefab provides prerequisites to use Tezos in a scene.
+      Its fields control what users see in their wallet applications before connecting to the project.
 
 ## Sample scenes
 
