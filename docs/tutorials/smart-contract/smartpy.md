@@ -39,7 +39,7 @@ A smart contract has these parts:
 
 - It has persistent storage, data that the contract can read and write
 - It has one or more entrypoints, which are a kind of function that clients can call, like endpoints in an API or functions or methods in many programming languages
-- It has a Tezos account and can store tez
+- It has a Tezos account and can store tez (technically, the contract is itself a type of Tezos account, but you can think of it as a program with a Tezos account)
 
 ## Tutorial contract
 
