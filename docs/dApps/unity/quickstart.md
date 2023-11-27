@@ -40,47 +40,76 @@ Game developers can also use the wallet and its account as a unique account iden
 
 1. Verify that the SDK works in your project by running the WalletConnection example scene, which demonstrates how to connect to a Tezos wallet in a Unity project:
 
-   1. In the Project panel, expand **Assets > TezosSDK > Examples > WalletConnection** and open the _WalletConnection scene.
+   1. In the Project panel, expand **Assets > TezosSDK > Examples > WalletConnection** and open the `_WalletConnection` scene.
    1. Run the scene, which shows a QR code.
    1. Use your wallet app to scan the barcode and confirm the connection to the Unity project.
    The project UI shows the address of the connected account, as in this picture:
 
       <img src="/img/dApps/unity-wallet-connection-scene-connected.png" alt="The new RPC node selected in the Temple wallet" style={{width: 500}} />
 
-1. Copy the MainThreadExecutor and TezosManager prefabs to your scene.
+1. Copy the `MainThreadExecutor` and `TezosManager` prefabs to your scene.
 These prefabs provide prerequisites to use Tezos in a scene.
-The TezosManager fields control what users see in their wallet applications before connecting to the project, as shown in this picture of the Inspector panel:
+The `TezosManager` fields control what users see in their wallet applications before connecting to the project, as shown in this picture of the Inspector panel:
 
    ![The Inspector panel, showing information about the project](/img/dApps/unity-inspector-tezosmanager.png)
 
-1. Copy the necessary objects to the scene:
+1. Add features to your project that connect to users' wallets.
+You can copy objects from the `_WalletConnection` scene, including the QRCode, LogoutButton, and AccountAddress objects.
 
-   1. Open the _WalletConnection scene again.
-   1. In the Hierarchy panel, expand the Canvas object.
-   1. Under Canvas, select the following objects by holding Ctrl or Cmd and clicking them:
+   The `TezosSDK/Examples/WalletConnection/Scripts/QRImageGenerator.cs` file receives a handshake from the `TezosManager` object and uses the handshake information to generate a URI and encode that URI to a QR code image:
 
-      - ConnectedText
-      - QRCode
-      - LogoutButton
-      - MetadataInfo
-      - AccountAddress
+   ```csharp
+   private void SetQrCode(HandshakeData handshake_data)
+   {
+     if (encoded)
+     {
+       return;
+     }
 
-   1. Right-click the elements and then click **Copy**.
-   1. Go back to your scene and paste the objects into the scene's canvas in the Hierarchy panel.
-   The Hierarchy panel looks like this:
+     var uri = "tezos://?type=tzip10&data=" + handshake_data.PairingData;
+     EncodeTextToQrCode(uri);
+   }
+   ```
 
-      ![The Hierarchy panel, showing the Tezos-related objects](/img/dApps/unity-hierarchy-panel-quickstart.png)
+   You can adjust this code and the Unity object to control when and where the QR code appears.
 
-   1. If the objects appear outside the border of your scene, reposition them on the canvas.
-   1. Save the scene.
-   1. Click the **Play** button to run the scene.
-   1. Open the Simulator panel, which shows a QR code.
-   1. Use your wallet app to scan the barcode and confirm the connection to the Unity project.
-   Note that the wallet app shows the name of the project that you set on the TezosManager prefab.
+1. Add features to your project to use the connected account.
+For example the `TezosSDK/Examples/Common/Scripts/AccountInfoUI.cs` file responds to the `AccountConnected` event, which runs when the user scans the QR code and approves the connection in their wallet app.
+When the event runs, it uses the `TezosManager.Instance.Wallet` object to get information about the connected account, such as its address:
 
-      The project shows the address that you used to connect.
+   ```csharp
+   private void Start()
+   {
+     addressText.text = notConnectedText;
+     TezosManager.Instance.MessageReceiver.AccountConnected += OnAccountConnected;
+     TezosManager.Instance.MessageReceiver.AccountDisconnected += OnAccountDisconnected;
+   }
 
-   1. Click the **Logout** button and then click the **Play** button to stop the scene.
+   private void OnAccountDisconnected(AccountInfo account_info)
+   {
+     addressText.text = notConnectedText;
+   }
+
+   private void OnAccountConnected(AccountInfo account_info)
+   {
+     addressText.text = TezosManager.Instance.Wallet.GetActiveAddress();
+     // OR
+     addressText.text = account_info.Address;
+   }
+   ```
+
+   You can use this address as a user's account ID, because Tezos account addresses are unique.
+
+1. Get the tokens that the connected account owns:
+
+
+1. Send transactions to the user's wallet:
+
+
+
+
+
+
 
 1. Add text to show the account's balance in tez:
 
@@ -95,10 +124,6 @@ The TezosManager fields control what users see in their wallet applications befo
    1. In the Hierarchy pane, select the AccountBalance object, not the Label or Balance sub-objects.
    1. At the bottom of the Inspector pane, click **Add Component**.
    1. Click **New Script**, name the script "AccountBalance," and click **Create and Add**.
-
-      The new script appears in the Inspector pane, as in this image:
-
-         <img src="/img/dApps/unity-account-balance-script.png" alt="The new script in the Inspector pane" style={{width: 300}} />
 
    1. Double-click the AccountBalance script to open the script file in your IDE.
    1. At the top of the file, add these imports:
@@ -197,9 +222,6 @@ The TezosManager fields control what users see in their wallet applications befo
 
       1. Save the file.
       1. In the Unity Editor, in the Hierarchy pane, drag the Balance object to the `Balance` field of the Account Balance script in the Inspector pane.
-      Now the Balance object on the canvas is bound to the `balance` variable in the script, as shown in this picture:
-
-         <img src="/img/dApps/unity-account-balance-bound.png" alt="The script in the Inspector pane, showing that the Balance object is bound to the `balance` variable" style={{width: 300}} />
 
       1. Run the project, connect your wallet, and see that the UI shows the account's balance in tez.
 
