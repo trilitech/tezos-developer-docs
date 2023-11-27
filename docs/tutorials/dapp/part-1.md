@@ -232,7 +232,7 @@ Your smart contract is deployed on the Ghostnet
 yarn create vite
 ```
 
-Then follow the prompts. Choose React and then Typescript:
+Then follow the prompts. Choose React and then Typescript+SWC:
 
 ```shell
 ? Project name: › app #Enter your project name
@@ -251,8 +251,6 @@ Then follow the prompts. Choose React and then Typescript:
 ❯   TypeScript + SWC
     JavaScript
     JavaScript + SWC
-
-cd app
 ```
 
 [More information about SWC here](https://swc.rs/).
@@ -260,6 +258,7 @@ cd app
 Add taquito and tzkt indexer libraries
 
 ```bash
+cd app
 yarn add @taquito/taquito @taquito/beacon-wallet @airgap/beacon-sdk  @tzkt/sdk-api
 yarn add -D @airgap/beacon-types
 ```
