@@ -244,6 +244,7 @@ This example prints information about the tokens that the account owns to the lo
    using TezosSDK.Helpers;
    using TezosSDK.Tezos.API.Models.Tokens;
    using TezosSDK.Tezos.API.Models.Filters;
+   using System.Linq;
 
    // ...
 
@@ -270,22 +271,20 @@ This example prints information about the tokens that the account owns to the lo
        var address = TezosManager.Instance.Wallet.GetActiveAddress();
 
        List<TokenBalance> tokens = new List<TokenBalance>(tokenBalances);
-       if (tokens.Count > 0)
+      // Filter to the tokens in the active contract
+       List<TokenBalance> filteredTokens = tokens.Where(tb => tb.TokenContract.Address == TezosManager.Instance.Tezos.TokenContract.Address).ToList();
+       if (filteredTokens.Count > 0)
        {
-           foreach (var tb in tokens)
+           foreach (var tb in filteredTokens)
            {
-               // Filter to the tokens in the active contract
-               if (tb.TokenContract.Address == TezosManager.Instance.Tezos.TokenContract.Address)
-               {
-                   Debug.Log(
-                      $"{address} has {tb.Balance} tokens on contract {tb.TokenContract.Address}");
-                   Debug.Log(tb.TokenMetadata);
-               }
+               Debug.Log(
+                  $"{address} has {tb.Balance} tokens on contract {tb.TokenContract.Address}");
+               Debug.Log(tb.TokenMetadata);
            }
        }
        else
        {
-           Debug.Log($"{address} has no tokens");
+           Debug.Log($"{address} has no tokens in the active contract");
        }
    }
    ```
