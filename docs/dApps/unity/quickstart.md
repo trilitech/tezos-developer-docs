@@ -2,7 +2,7 @@
 title: Quickstart
 authors: Tim McMackin
 last_update:
-  date: 21 November 2023
+  date: 27 November 2023
 ---
 
 Follow these steps to install the Tezos SDK for Unity in an existing Unity project and start using it.
@@ -23,45 +23,8 @@ Game developers can also use the wallet and its account as a unique account iden
 1. Make sure that you have Unity Editor version 2021.3.23f1 or later.
 
 1. Install a Tezos-compatible wallet on a mobile device that has a camera and can scan QR codes.
-If you don't have a wallet on a mobile device, follow these steps:
 
-   1. Install a Tezos-compatible wallet app on a mobile device.
-   Mobile wallet apps for Tezos include [Temple](https://templewallet.com/), [Kukai](https://wallet.kukai.app/), and [Umami](https://umamiwallet.com/).
-   1. Switch the wallet to use Ghostnet testnet instead of Tezos Mainnet.
-   Ghostnet is a network for testing Tezos applications where tokens are free so you don't have to spend real currency to work with your applications.
-
-      The process for changing the network is different for each wallet type.
-      These steps are for the Temple wallet:
-
-      1. Go to https://teztnets.xyz/, which lists Tezos testnets.
-      1. Click **Ghostnet**.
-      1. Copy one of the public RPC endpoints for Ghostnet, such as `https://rpc.ghostnet.teztnets.xyz`.
-      These URLs accept Tezos transactions from wallets and other applications.
-      1. In the Temple app, open the settings and then click **Default node (RPC)**.
-      1. Click the plus `+` symbol to add an RPC node.
-      1. On the Add RPC screen, enter the URL that you copied and give the connection a name, such as "Ghostnet," as shown in this picture:
-
-         <img src="/img/dApps/temple-wallet-new-rpc.png" alt="Entering information for the new RPC node" style={{width: 300}} />
-      1. Click Add.
-      1. Make sure that the new RPC node is selected, as in this image:
-
-         <img src="/img/dApps/temple-wallet-selected-rpc.png" alt="The new RPC node selected in the Temple wallet" style={{width: 300}} />
-
-   1. From your wallet, get the address of your account, which starts with `tz1`.
-   This is the address that applications use to work with your wallet.
-
-   1. Get some testnet tez for the wallet:
-
-      1. Go to the Ghostnet faucet at https://faucet.ghostnet.teztnets.xyz.
-      This faucet provides tez for free to use on the testnet.
-      1. On the faucet page, paste your wallet address into the input field labeled "Or fund any address" and click the button for the amount of tez to add to your wallet.
-      20 tez is enough to work with, and you can return to the faucet later if you need more tez.
-
-         It may take a few minutes for the faucet to send the tokens and for those tokens to appear in your wallet.
-
-         You can use the faucet as much as you need to get tokens on the testnet, but those tokens are worthless and cannot be used on Mainnet.
-
-         ![Fund your wallet using the Ghostnet Faucet](/img/tutorials/wallet-funding.png)
+1. Switch the wallet to Ghostnet and use the [Ghostnet faucet](https://faucet.ghostnet.teztnets.xyz/) to get some tez that you can use to send transactions to your Unity projects.
 
 1. Install the SDK through the Unity asset store:
 
