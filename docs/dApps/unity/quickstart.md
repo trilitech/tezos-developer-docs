@@ -100,7 +100,7 @@ When the event runs, it uses the `TezosManager.Instance.Wallet` object to get in
 
    You can use this address as a user's account ID, because Tezos account addresses are unique.
 
-1. You can get the tokens that the connected account owns by calling the `TezosManager.Instance.Tezos.API.GetTokensForOwner` method in a coroutine:
+1. You can get the tokens that the connected account owns by calling the `TezosManager.Instance.Tezos.API.GetTokensForOwner` method in a coroutine.
 This example prints information about the tokens that the account owns to the log:
 
    ```csharp
