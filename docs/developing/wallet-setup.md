@@ -5,7 +5,8 @@ last_update:
   date: 27 November 2023
 ---
 
-To work with Tezos, you need a wallet, which is an application that maintains your accounts and sends transactions to Tezos on your behalf.
+To work with Tezos, you need a wallet, which is an application that maintains your accounts and signs Tezos transactions on your behalf.
+Wallets allow you to interact with dApps without exposing your account's private key.
 
 ## Choosing a wallet
 
