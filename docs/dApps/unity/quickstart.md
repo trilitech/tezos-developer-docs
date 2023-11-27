@@ -61,13 +61,13 @@ You can copy objects from the `_WalletConnection` scene, including the QRCode, L
    ```csharp
    private void SetQrCode(HandshakeData handshake_data)
    {
-     if (encoded)
-     {
-       return;
-     }
+       if (encoded)
+       {
+           return;
+       }
 
-     var uri = "tezos://?type=tzip10&data=" + handshake_data.PairingData;
-     EncodeTextToQrCode(uri);
+       var uri = "tezos://?type=tzip10&data=" + handshake_data.PairingData;
+       EncodeTextToQrCode(uri);
    }
    ```
 
@@ -80,21 +80,21 @@ When the event runs, it uses the `TezosManager.Instance.Wallet` object to get in
    ```csharp
    private void Start()
    {
-     addressText.text = notConnectedText;
-     TezosManager.Instance.MessageReceiver.AccountConnected += OnAccountConnected;
-     TezosManager.Instance.MessageReceiver.AccountDisconnected += OnAccountDisconnected;
+       addressText.text = notConnectedText;
+       TezosManager.Instance.MessageReceiver.AccountConnected += OnAccountConnected;
+       TezosManager.Instance.MessageReceiver.AccountDisconnected += OnAccountDisconnected;
    }
 
    private void OnAccountDisconnected(AccountInfo account_info)
    {
-     addressText.text = notConnectedText;
+       addressText.text = notConnectedText;
    }
 
    private void OnAccountConnected(AccountInfo account_info)
    {
-     addressText.text = TezosManager.Instance.Wallet.GetActiveAddress();
-     // OR
-     addressText.text = account_info.Address;
+       addressText.text = TezosManager.Instance.Wallet.GetActiveAddress();
+       // OR
+       addressText.text = account_info.Address;
    }
    ```
 
