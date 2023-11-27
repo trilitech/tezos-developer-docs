@@ -12,6 +12,7 @@ These instructions cover:
 - Installing the SDK into an existing Unity project
 - Testing that the SDK works in your project
 - Adding objects that connect to a user's Tezos wallet
+- Creating and managing tokens
 
 ## Installing the SDK
 
@@ -117,58 +118,6 @@ You can see these events and their return values in the `WalletEventManager.cs` 
    - `pairingCompleted`: Runs when the user's wallet is connected to the project but before the user has approved the connection in the wallet app
    - `payloadSigned`: Runs when the user signs a payload and returns the signature information
 
-1. You can get the tokens that the connected account owns by calling the `TezosManager.Instance.Tezos.API.GetTokensForOwner` method in a coroutine.
-This example prints information about the tokens that the account owns to the log:
-
-   ```csharp
-   using Beacon.Sdk.Beacon;
-   using TezosSDK.Beacon;
-   using TezosSDK.Tezos;
-   using TezosSDK.Helpers;
-   using TezosSDK.Tezos.API.Models.Tokens;
-   using TezosSDK.Tezos.API.Models.Filters;
-
-   // ...
-
-   void Start()
-   {
-       TezosManager.Instance.MessageReceiver.AccountConnected += OnAccountConnected;
-   }
-
-   private void OnAccountConnected(AccountInfo account_info)
-   {
-       var address = TezosManager.Instance.Wallet.GetActiveAddress();
-       var routine = TezosManager.Instance.Tezos.API.GetTokensForOwner(
-           callback: onTokenBalances,
-           owner: address,
-           withMetadata: true,
-           maxItems: 10_000,
-           orderBy: new TokensForOwnerOrder.ByLastTimeAsc(0)
-       );
-       StartCoroutine(routine);
-   }
-
-   private void onTokenBalances(IEnumerable<TokenBalance> tokenBalances)
-   {
-       var address = TezosManager.Instance.Wallet.GetActiveAddress();
-
-       List<TokenBalance> tokens = new List<TokenBalance>(tokenBalances);
-       if (tokens.Count > 0)
-       {
-           foreach (var tb in tokens)
-           {
-               Debug.Log(
-                   $"{address} has {tb.Balance} tokens on contract {tb.TokenContract.Address}");
-               Debug.Log(tb.TokenMetadata);
-           }
-       }
-       else
-       {
-           Debug.Log($"{address} has no tokens");
-       }
-   }
-   ```
-
 ## Managing tokens
 
 To create and work with tokens in your project, you need a smart contract to manage them.
@@ -253,7 +202,7 @@ For more information about smart contracts, see [Smart contracts](../../smart-co
    }
    ```
 
-   For a complete example of creating tokens, see the file `TezosSDK/Examples/Contract/Scripts/MintToken.cs`.
+   For a complete example of creating tokens, see the file `TezosSDK/Examples/Contract/Scripts/MintToken.cs` and the Contract example scene.
 
    Note that developers usually don't store large files such as images or large metadata files directly on the blockchain.
    Instead, they set up distributed storage for the file with the InterPlanetary File System (IPFS).
@@ -261,7 +210,85 @@ For more information about smart contracts, see [Smart contracts](../../smart-co
    The tutorial [Create a contract and web app that mints NFTs](../../tutorials/create-an-nft/nft-taquito) covers setting up an IPFS account and storing files on IPFS.
    The code in the previous example assumes that the image that represents the token is already stored on IPFS.
 
+1. To transfer tokens, call the contract's `Transfer` entrypoint and pass the callback function, the account to transfer the tokens to, the ID of the token, and the amount of tokens to transfer, as in this example:
 
+   ```csharp
+   public void HandleTransfer()
+   {
+       TezosManager
+           .Instance
+           .Tezos
+           .TokenContract
+           .Transfer(
+               completedCallback: TransferCompleted,
+               destination: destinationAccountAddress,
+               tokenId: 5,
+               amount: 12);
+   }
+
+   private void TransferCompleted(string txHash)
+   {
+       Logger.LogDebug($"Transfer complete with transaction hash {txHash}");
+   }
+   ```
+
+   For a complete example, see the Transfer example scene.
+
+1. To get the tokens that the connected account owns, call the `TezosManager.Instance.Tezos.API.GetTokensForOwner` method in a coroutine.
+This example prints information about the tokens that the account owns to the log:
+
+   ```csharp
+   using Beacon.Sdk.Beacon;
+   using TezosSDK.Beacon;
+   using TezosSDK.Tezos;
+   using TezosSDK.Helpers;
+   using TezosSDK.Tezos.API.Models.Tokens;
+   using TezosSDK.Tezos.API.Models.Filters;
+
+   // ...
+
+   void Start()
+   {
+       TezosManager.Instance.MessageReceiver.AccountConnected += OnAccountConnected;
+   }
+
+   private void OnAccountConnected(AccountInfo account_info)
+   {
+       var address = TezosManager.Instance.Wallet.GetActiveAddress();
+       var routine = TezosManager.Instance.Tezos.API.GetTokensForOwner(
+           callback: onTokenBalances,
+           owner: address,
+           withMetadata: true,
+           maxItems: 10_000,
+           orderBy: new TokensForOwnerOrder.ByLastTimeAsc(0)
+       );
+       StartCoroutine(routine);
+   }
+
+   private void onTokenBalances(IEnumerable<TokenBalance> tokenBalances)
+   {
+       var address = TezosManager.Instance.Wallet.GetActiveAddress();
+
+       List<TokenBalance> tokens = new List<TokenBalance>(tokenBalances);
+       if (tokens.Count > 0)
+       {
+           foreach (var tb in tokens)
+           {
+               // Filter to the tokens in the active contract
+               if (tb.TokenContract.Address == TezosManager.Instance.Tezos.TokenContract.Address)
+               {
+                   Debug.Log(
+                      $"{address} has {tb.Balance} tokens on contract {tb.TokenContract.Address}");
+                   Debug.Log(tb.TokenMetadata);
+               }
+           }
+       }
+       else
+       {
+           Debug.Log($"{address} has no tokens");
+       }
+   }
+   ```
 
 For more examples of how to work with the SDK, see the scenes in the `TezosSDK/Examples` folder.
 
