@@ -100,6 +100,19 @@ When the event runs, it uses the `TezosManager.Instance.Wallet` object to get in
 
    You can use this address as a user's account ID because Tezos account addresses are unique.
 
+1. To respond to other events, add listeners for the events that the SDK provides.
+You can see these events and their return values in the `WalletEventManager.cs` file:
+
+   - `accountConnected`: Runs when an account connects
+   - `accountConnectionFailed`: Runs when an attempt to connect to an account fails and provides error information
+   - `accountDisconnected`: Runs when an account disconnects
+   - `contractCallCompleted`: Runs when a call to a smart contract is confirmed on the blockchain and provides the hash of the transaction
+   - `contractCallFailed`: Runs when a call to a smart contract fails and provides error information
+   - `contractCallInjected`: Runs when the SDK sends a transaction to a smart contract but before it is confirmed on the blockchain
+   - `handshakeReceived`: Runs when the handshake with a user's wallet application is received and provides the information necessary to connect the wallet to the dApp
+   - `pairingCompleted`: Runs when the user's wallet is connected to the project but before the user has approved the connection in the wallet app
+   - `payloadSigned`: Runs when the user signs a payload and returns the signature information
+
 1. You can get the tokens that the connected account owns by calling the `TezosManager.Instance.Tezos.API.GetTokensForOwner` method in a coroutine.
 This example prints information about the tokens that the account owns to the log:
 
