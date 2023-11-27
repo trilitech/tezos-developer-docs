@@ -289,6 +289,11 @@ This example prints information about the tokens that the account owns to the lo
    }
    ```
 
+1. To see all of the tokens that the contract contains, copy the contract address, which starts with `KT1`, and search for that address on a block explorer such as [Better Call Dev](https://better-call.dev/).
+For example, this image shows the Tokens tab of Better Call Dev and the three types of tokens in the contract:
+
+   <img src="/img/dApps/unity-bcd-tokens.png" alt="Three types of tokens on the Tokens tab of the block explorer" style={{width: 500}} />
+
 For more examples of how to work with the SDK, see the scenes in the `TezosSDK/Examples` folder.
 
 Note that if you stop the project while your wallet is connected and restart the project later, it remembers that your wallet is connected.
