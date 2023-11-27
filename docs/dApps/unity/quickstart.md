@@ -34,32 +34,24 @@ Game developers can also use the wallet and its account as a unique account iden
    1. TODO double-check these instructions when the new package is available on the asset store.
    1. Verify that the SDK is installed by opening the Project panel and expanding the **Assets > TezosSDK** folder.
 
-     If you see the TezosSDK folder with sub-folders including Editor, Examples, Resources, and Runtime, the SDK is installed correctly.
+     If you see the TezosSDK folder with sub-folders including Editor, Examples, Resources, and Runtime, the SDK is installed correctly, as in this picture:
+
+     <img src="/img/dApps/unity-installed-project-panel.png" alt="The SDK assets in the Project panel" style={{width: 200}} />
 
 1. Verify that the SDK works in your project by running the WalletConnection example scene, which demonstrates how to connect to a Tezos wallet in a Unity project:
 
-   1. In the Unity Editor, in the Project panel, open the **Assets > TezosSDK > Examples** folder and click the **WalletConnection** folder.
-   1. In the WalletConnection folder, double-click the _WalletConnection scene to open it in the editor.
-   1. Click the **Play** button to run the scene.
-   1. Open the Simulator panel, which shows a QR code.
+   1. In the Project panel, expand **Assets > TezosSDK > Examples > WalletConnection** and open the _WalletConnection scene.
+   1. Run the scene, which shows a QR code.
    1. Use your wallet app to scan the barcode and confirm the connection to the Unity project.
    The project UI shows the address of the connected account, as in this picture:
 
       <img src="/img/dApps/unity-wallet-connection-scene-connected.png" alt="The new RPC node selected in the Temple wallet" style={{width: 500}} />
 
-1. Add the prerequisite SDK components to your scene:
+1. Copy the MainThreadExecutor and TezosManager prefabs to your scene.
+These prefabs provide prerequisites to use Tezos in a scene.
+The TezosManager fields control what users see in their wallet applications before connecting to the project, as shown in this picture of the Inspector panel:
 
-   1. Open a scene in your project or create a scene.
-   1. In the Project panel, expand **Assets > TezosSDK > Runtime > Prefabs**.
-   1. From the Prefabs folder in the Project panel, drag the MainThreadExecutor prefab to the Hierarchy panel.
-   1. In the same way, drag the TezosManager prefab to the Hierarchy panel.
-   The TezosManager prefab opens in the Inspector panel.
-   1. In the Inspector panel, set the information for your project, including its name and URL.
-
-      This prefab provides prerequisites to use Tezos in a scene.
-      Its fields control what users see in their wallet applications before connecting to the project.
-
-      ![The Inspector panel, showing information about the project](/img/dApps/unity-inspector-tezosmanager.png)
+   ![The Inspector panel, showing information about the project](/img/dApps/unity-inspector-tezosmanager.png)
 
 1. Copy the necessary objects to the scene:
 
