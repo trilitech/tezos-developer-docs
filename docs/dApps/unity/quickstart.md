@@ -13,12 +13,7 @@ These instructions cover:
 - Testing that the SDK works in your project
 - Adding objects that connect to a user's Tezos wallet
 
-Connecting to a user's wallet is a prerequisite to working with Tezos in any application.
-Accessing the wallet allows your project to see the tokens in it and to prompt the user to submit transactions, but it does not give your project direct control over the wallet.
-Users must still confirm all transactions in their wallet application.
-
-Using a wallet application in this way saves you from having to implement payment processing and security in your application.
-Game developers can also use the wallet and its account as a unique account identifier and as the user's inventory.
+## Installing the SDK
 
 1. Make sure that you have Unity Editor version 2021.3.23f1 or later.
 
@@ -46,6 +41,15 @@ Game developers can also use the wallet and its account as a unique account iden
    The project UI shows the address of the connected account, as in this picture:
 
       <img src="/img/dApps/unity-wallet-connection-scene-connected.png" alt="The new RPC node selected in the Temple wallet" style={{width: 500}} />
+
+## Connecting to wallets
+
+Connecting to a user's wallet is a prerequisite to working with Tezos in any application.
+Accessing the wallet allows your project to see the tokens in it and to prompt the user to submit transactions, but it does not give your project direct control over the wallet.
+Users must still confirm all transactions in their wallet application.
+
+Using a wallet application in this way saves you from having to implement payment processing and security in your application.
+Game developers can also use the wallet and its account as a unique account identifier and as the user's inventory.
 
 1. Copy the `MainThreadExecutor` and `TezosManager` prefabs to your scene.
 These prefabs provide prerequisites to use Tezos in a scene.
@@ -165,9 +169,98 @@ This example prints information about the tokens that the account owns to the lo
    }
    ```
 
-1. You can send transactions to the user's wallet:
+## Managing tokens
 
-   TODO
+To create and work with tokens in your project, you need a smart contract to manage them.
+Smart contracts are programs on the blockchain that run tasks like storing, creating, and transferring tokens.
+
+You can create your own smart contracts or use the built-in contract that the SDK provides for managing tokens in Unity projects.
+The built-in contract is compatible with the [FA2 token standard](../../architecture/tokens/FA2), which means that you can use a single smart contract to manage any number of types of tokens.
+Each token type can be:
+
+- A fungible token, which are a collection of interchangeable tokens with a quantity that you define
+- A non-fungible token (NFT), which is a unique asset with only one unit
+
+For more information about smart contracts, see [Smart contracts](../../smart-contracts).
+
+1. To deploy the built-in contract, call the `TezosManager.Instance.Tezos.TokenContract.Deploy` method and pass a callback function:
+
+   ```csharp
+   public void DeployContract()
+   {
+     TezosManager
+         .Instance
+         .Tezos
+         .TokenContract
+         .Deploy(OnContractDeployed);
+   }
+
+   private void OnContractDeployed(string contractAddress)
+   {
+       Debug.Log(contractAddress);
+   }
+   ```
+
+   The project sends the deployment transaction to the connected wallet, which must approve the transaction and pay the related fees.
+
+   The callback function receives the address of the deployed contract, which the project uses to send  requests to the contract.
+   It can take a few minutes for the contract to deploy and be confirmed in multiple blocks on the blockchain.
+   The SDK stores the address of the contract as `TezosManager.Instance.Tezos.TokenContract.Address`.
+
+1. To create tokens, call the contract's `mint` entrypoint.
+
+   This entrypoint accepts these parameters:
+
+      - A callback function to run when the token is created
+      - The metadata for the token, which includes a name and description, URIs to preview media or thumbnails, and how many decimal places the token can be broken into
+      - The owner of the new tokens
+      - The number of tokens to create
+
+   For example, this code creates a token type with a quantity of 100:
+
+   ```csharp
+   var initialOwner = TezosManager
+       .Instance
+       .Wallet
+       .GetActiveAddress();
+
+   const string imageAddress = "ipfs://QmX4t8ikQgjvLdqTtL51v6iVun9tNE7y7Txiw4piGQVNgK";
+
+   var tokenMetadata = new TokenMetadata
+   {
+       Name = "My token",
+       Description = "Description for my token",
+       Symbol = "MYTOKEN",
+       Decimals = "0",
+       DisplayUri = imageAddress,
+       ArtifactUri = imageAddress,
+       ThumbnailUri = imageAddress
+   };
+
+   TezosManager
+       .Instance
+       .Tezos
+       .TokenContract
+       .Mint(
+           completedCallback: OnTokenMinted,
+           tokenMetadata: tokenMetadata,
+           destination: initialOwner,
+           amount: 100);
+
+   private void OnTokenMinted(TokenBalance tokenBalance)
+   {
+       Debug.Log($"Successfully minted token with Token ID {tokenBalance.TokenId}");
+   }
+   ```
+
+   For a complete example of creating tokens, see the file `TezosSDK/Examples/Contract/Scripts/MintToken.cs`.
+
+   Note that developers usually don't store large files such as images or large metadata files directly on the blockchain.
+   Instead, they set up distributed storage for the file with the InterPlanetary File System (IPFS).
+   For example, [Pinata](https://www.pinata.cloud/) provides an API to store files in IPFS.
+   The tutorial [Create a contract and web app that mints NFTs](../../tutorials/create-an-nft/nft-taquito) covers setting up an IPFS account and storing files on IPFS.
+   The code in the previous example assumes that the image that represents the token is already stored on IPFS.
+
 
 
 For more examples of how to work with the SDK, see the scenes in the `TezosSDK/Examples` folder.
