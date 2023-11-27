@@ -118,6 +118,9 @@ You can see these events and their return values in the `WalletEventManager.cs` 
    - `pairingCompleted`: Runs when the user's wallet is connected to the project but before the user has approved the connection in the wallet app
    - `payloadSigned`: Runs when the user signs a payload and returns the signature information
 
+Note that if you stop the project while your wallet is connected and restart the project later, it remembers that your wallet is connected.
+The SDK uses the [Beacon](https://docs.walletbeacon.io/) SDK to connect to wallets and remember connections.
+
 ## Managing tokens
 
 To create and work with tokens in your project, you need a smart contract to manage them.
@@ -295,6 +298,3 @@ For example, this image shows the Tokens tab of Better Call Dev and the three ty
    <img src="/img/dApps/unity-bcd-tokens.png" alt="Three types of tokens on the Tokens tab of the block explorer" style={{width: 500}} />
 
 For more examples of how to work with the SDK, see the scenes in the `TezosSDK/Examples` folder.
-
-Note that if you stop the project while your wallet is connected and restart the project later, it remembers that your wallet is connected.
-The SDK uses the [Beacon](https://docs.walletbeacon.io/) SDK to connect to wallets and remember connections.
