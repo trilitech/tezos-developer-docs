@@ -71,10 +71,10 @@ You can copy objects from the `_WalletConnection` scene, including the QRCode, L
    }
    ```
 
-   You can adjust this code and the Unity object to control when and where the QR code appears.
+   You can adjust this code and the bound Unity object to control when and where the QR code appears.
 
 1. Add features to your project to use the connected account.
-For example the `TezosSDK/Examples/Common/Scripts/AccountInfoUI.cs` file responds to the `AccountConnected` event, which runs when the user scans the QR code and approves the connection in their wallet app.
+For example, the `TezosSDK/Examples/Common/Scripts/AccountInfoUI.cs` file responds to the `AccountConnected` event, which runs when the user scans the QR code and approves the connection in their wallet app.
 When the event runs, it uses the `TezosManager.Instance.Wallet` object to get information about the connected account, such as its address:
 
    ```csharp
