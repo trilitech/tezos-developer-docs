@@ -2,7 +2,7 @@
 title: FA2 tokens
 authors: "Claude Barde, Aymeric Bethencourt, Tim McMackin"
 last_update:
-  date: 28th November 2023
+  date: 28 November 2023
 ---
 
 The FA2 standard supports several different token types, including:
