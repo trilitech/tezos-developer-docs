@@ -13,6 +13,7 @@ These instructions cover:
 - Testing that the SDK works in your project
 - Connecting to a user's Tezos wallet
 - Creating and managing tokens
+- Prompting the user to sign messages
 
 ## Installing the SDK
 
@@ -314,5 +315,44 @@ This example prints information about the tokens that the account owns to the lo
 For example, this image shows the Tokens tab of Better Call Dev and the three types of tokens in the contract:
 
    <img src="/img/dApps/unity-bcd-tokens.png" alt="Three types of tokens on the Tokens tab of the block explorer" style={{width: 500}} />
+
+## Signing messages
+
+You can also use the connection to the user's wallet to prompt them to sign messages.
+Signing a message proves that it came from a specific user's wallet because the wallet encrypts the message with the user's account's key.
+You can prompt users to sign messages for several reasons, including:
+
+- Ensuring that a message came from them
+- Ensuring that a user has the private key for a specific account
+- Proving that they own a specific token, such as if they want to offer the token for sale
+- Requiring operations to run only when multiple users sign messages
+- Pre-signing transactions that another application can run later and pay the fees for it on  the signer's behalf
+
+For example, this code prompts the user to sign the message "This message came from my account."
+
+```csharp
+using Beacon.Sdk.Beacon.Sign;
+
+// ...
+
+string payload = "This message came from my account.";
+
+void Start()
+{
+    TezosManager.Instance.MessageReceiver.PayloadSigned += OnPayloadSigned;
+    TezosManager.Instance.Wallet.RequestSignPayload(SignPayloadType.micheline, payload);
+}
+
+private void OnPayloadSigned(SignResult obj)
+{
+    // result is true if the message is signed correctly
+    var result = TezosManager.Instance.Wallet.VerifySignedPayload(SignPayloadType.micheline, payload);
+    Debug.Log($"Payload verification response: {result}");
+}
+```
+
+The `RequestSignPayload` method sends the request to the user's wallet.
+If the user approves the request, the wallet returns the signed payload, which includes encrypted information about the account that it came from.
+The code verifies that the payload came from that account by using the `VerifySignedPayload` method.
 
 For more examples of how to work with the SDK, see the scenes in the `TezosSDK/Examples` folder.
