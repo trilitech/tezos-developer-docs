@@ -276,33 +276,17 @@ The SDK provides these objects:
 
 - `TezosManager.Instance.DAppMetadata`: Read-only metadata about the project, including the Name, Url, Icon, and Description fields that you set on the TezosManager prefab in the Unity Editor.
 
-- `TezosManager.Instance.Wallet`: An object that represents the connection to the user's wallet and allows you to send transactions to the wallet.
-It has these functions:
+- `TezosManager.Instance.Wallet`: An object that provides information about the connected wallet and allows you to send transactions from the user's account.
 
-  - `Connect`: Connect to a wallet.
-  This function accepts the type of wallet, such as `WalletProviderType.beacon`, as a parameter.
+- `TezosManager.Instance.MessageReceiver`: An object that provides events that you can add listeners to.
+You can see these events and their return values in the `WalletEventManager.cs` file.
 
-  - `Disconnect`: Disconnect from the currently-connected wallet.
+- `TezosManager.Instance.Tezos.TokenContract`: An object that provides an FA2 contract and convenience methods to access it.
+You can use this object to deploy the contract and call the contract's entrypoints to create and transfer tokens.
 
-  - `GetActiveAddress`: Get the address of the currently connected account.
+- `TezosManager.Instance.Tezos.API`: An object that provides methods to access data from Tezos, such as an account's balance in tez or the metadata for a token.
 
-  - `RequestSignPayload`: Sends a request to the connected wallet to sign a payload string, such as to verify ownership of a token.
-
-  - `VerifySignedPayload`: Returns true if the specified signed payload is valid.
-
-  - `CallContract`: Calls a smart contract entrypoint.
-  This function accepts the address of the contract, the name of the entrypoint, the parameters to pass, and the amount of tez to send with the transaction.
-
-  - `OriginateContract`: Creates a smart contract based on the code that you pass to the function.
-
-<!-- TODO:
-TezosManager.Instance.Tezos.TokenContract
-TezosManager.Instance.API
-TezosManager.Awake()?
-TezosManager.InitializeTezos()?
-Tezos.GetCurrentWalletBalance?
-Tezos.GetOriginatedContracts?
--->
+<!-- TODO: Link to complete reference for these objects -->
 
 ## Dependencies
 
