@@ -11,7 +11,7 @@ These instructions cover:
 
 - Installing the SDK into an existing Unity project
 - Testing that the SDK works in your project
-- Adding objects that connect to a user's Tezos wallet
+- Connecting to a user's Tezos wallet
 - Creating and managing tokens
 
 ## Installing the SDK
@@ -124,14 +124,21 @@ The SDK uses the [Beacon](https://docs.walletbeacon.io/) SDK to connect to walle
 ## Managing tokens
 
 To create and work with tokens in your project, you need a smart contract to manage them.
-Smart contracts are programs on the blockchain that run tasks like storing, creating, and transferring tokens.
+Smart contracts are programs on the blockchain that are permanent and hosted automatically by Tezos nodes, so you don't have to worry about where to host contracts and whether they will run when users call them.
+
+Smart contracts can do many tasks, but for gaming they have two main purposes:
+
+- They handle tokens, which are digital assets stored on the blockchain
+- They provide backend logic that users can trust because it cannot change
 
 You can create your own smart contracts or use the built-in contract that the SDK provides for managing tokens in Unity projects.
 The built-in contract is compatible with the [FA2 token standard](../../architecture/tokens/FA2), which means that you can use a single smart contract to manage any number of types of tokens.
 Each token type can be:
 
-- Fungible tokens, which are collections of interchangeable tokens with a quantity that you define
-- Non-fungible tokens (NFTs), which are unique assets with only one unit
+- Fungible tokens, which are collections of interchangeable tokens with a quantity that you define.
+Fungible tokens can be quantifiable commodities like in-game currency, fuel, ammunition, or energy, or they can be identical items with a limited quantity.
+- Non-fungible tokens (NFTs), which are unique assets with only one unit.
+Games use NFTs for items that are unique and must not be duplicated.
 
 For more information about smart contracts, see [Smart contracts](../../smart-contracts).
 
@@ -155,7 +162,7 @@ For more information about smart contracts, see [Smart contracts](../../smart-co
 
    The project sends the deployment transaction to the connected wallet, which must approve the transaction and pay the related fees.
 
-   The callback function receives the address of the deployed contract, which the project uses to send  requests to the contract.
+   The callback function receives the address of the deployed contract, which the project uses to send requests to the contract.
    It can take a few minutes for the contract to deploy and be confirmed in multiple blocks on the blockchain.
    The SDK stores the address of the contract as `TezosManager.Instance.Tezos.TokenContract.Address`.
 
@@ -219,7 +226,7 @@ For more information about smart contracts, see [Smart contracts](../../smart-co
 
    Like the `mint`entrypoint, the built-in contract has a `transfer` method that accepts these parameters and calls the deployed contract's `transfer` entrypoint:
 
-      - The callback function
+      - A callback function to run when the transfer is complete
       - The account to transfer the tokens to
       - The ID of the token
       - The amount of tokens to transfer
