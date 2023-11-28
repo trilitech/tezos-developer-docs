@@ -130,8 +130,8 @@ You can create your own smart contracts or use the built-in contract that the SD
 The built-in contract is compatible with the [FA2 token standard](../../architecture/tokens/FA2), which means that you can use a single smart contract to manage any number of types of tokens.
 Each token type can be:
 
-- A fungible token, which are a collection of interchangeable tokens with a quantity that you define
-- A non-fungible token (NFT), which is a unique asset with only one unit
+- Fungible tokens, which are collections of interchangeable tokens with a quantity that you define
+- Non-fungible tokens (NFTs), which are unique assets with only one unit
 
 For more information about smart contracts, see [Smart contracts](../../smart-contracts).
 
