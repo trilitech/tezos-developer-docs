@@ -159,6 +159,8 @@ For more information about smart contracts, see [Smart contracts](../../smart-co
    It can take a few minutes for the contract to deploy and be confirmed in multiple blocks on the blockchain.
    The SDK stores the address of the contract as `TezosManager.Instance.Tezos.TokenContract.Address`.
 
+   The address that deployed the contract becomes the administrator of the contract and is the only account that can create tokens.
+
 1. To create tokens, call the contract's `mint` entrypoint.
 
    This entrypoint accepts these parameters:
