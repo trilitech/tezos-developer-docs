@@ -2,7 +2,7 @@
 title: Architecture
 authors: Tim McMackin
 last_update:
-  date: 20 November 2023
+  date: 28 November 2023
 ---
 
 import LucidDiagram from '@site/src/components/LucidDiagram';
@@ -27,9 +27,8 @@ There are several Tezos blockchains, commonly called Tezos networks.
 The primary Tezos network is referred to as Mainnet, and there are several other networks used for testing, referred to as testnets.
 Anyone can create new test networks if needed.
 
-
-The data inside a Tezos block includes operations such as transferring tokens between accounts, deploying or calling smart contracts, and performing governance operations.
-Blocks also include operations that are necessary for the management of the chain, including nodes' attestations that blocks are valid.
+As shown in the diagram, the data inside a Tezos block includes the hash of the previous block in the chain and many operations, such as transactions that transfer tez or call smart contracts.
+Blocks also include operations that are necessary for the management of the chain, including nodes' attestations that blocks are valid, called _consensus operations_, and votes on changes to the protocol, called _voting operations_.
 For more information on the operations that can be included in blocks, see [Blocks and operations](https://tezos.gitlab.io/alpha/blocks_ops.html) in the Octez documentation.
 
 ## Nodes
