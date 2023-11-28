@@ -163,7 +163,7 @@ For more information about smart contracts, see [Smart contracts](../../smart-co
 
 1. To create tokens, call the contract's `mint` entrypoint.
 
-   This entrypoint accepts these parameters:
+   The built-in contract has a `mint` method that accepts these parameters and calls the deployed contract's `mint` entrypoint:
 
       - A callback function to run when the token is created
       - The metadata for the token, which includes a name and description, URIs to preview media or thumbnails, and how many decimal places the token can be broken into
@@ -215,7 +215,16 @@ For more information about smart contracts, see [Smart contracts](../../smart-co
    The tutorial [Create a contract and web app that mints NFTs](../../tutorials/create-an-nft/nft-taquito) covers setting up an IPFS account and storing files on IPFS.
    The code in the previous example assumes that the image that represents the token is already stored on IPFS.
 
-1. To transfer tokens, call the contract's `Transfer` entrypoint and pass the callback function, the account to transfer the tokens to, the ID of the token, and the amount of tokens to transfer, as in this example:
+1. To transfer tokens, call the contract's `Transfer` entrypoint.
+
+   Like the `mint`entrypoint, the built-in contract has a `transfer` method that accepts these parameters and calls the deployed contract's `transfer` entrypoint:
+
+      - The callback function
+      - The account to transfer the tokens to
+      - The ID of the token
+      - The amount of tokens to transfer
+
+   This example transfers 12 tokens with the ID 5 to the account in the variable `destinationAccountAddress`.
 
    ```csharp
    public void HandleTransfer()
