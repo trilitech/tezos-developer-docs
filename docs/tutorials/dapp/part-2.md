@@ -632,7 +632,7 @@ yarn dev
 
 On the listed contract, choose your line and input the address of the contract you will receive a feedback. Click on `poke`
 
-![result](./img/dapp-result.png)
+![result](./img/tutorials/dapp-result.png)
 
 This time, the logged user will receive a feedback from a targeted contract (as input of the form) via any listed contract (the first column of the table).
 

@@ -531,7 +531,7 @@ As Temple is configured, click on Connect button
 
 On the popup, select your Temple wallet, then your account and connect.
 
-![](./img/dapp-logged.png)
+![](./img/tutorials/dapp-logged.png)
 
 Your are _logged_
 
@@ -591,7 +591,7 @@ yarn dev
 
 Go to your web browser and click on **Fetch contracts** button
 
-![](/img/dapp-deployedcontracts.png)
+![](/img/tutorials/dapp-deployedcontracts.png)
 
 Congratulations, you are able to list all similar deployed contracts
 
@@ -620,7 +620,7 @@ const poke = async (contract: api.Contract) => {
 };
 ```
 
-> :warning: Normally, a call to `c.methods.poke()` function is expected by convention, but with an unique entrypoint, Michelson generates a unique `default` entrypoint name instead of having the name of the entrypoint function. Also, be careful because all entrypoints function names are in lowercase, and all parameter types are inuppercase.
+> :warning: Normally, a call to `c.methods.poke()` function is expected by convention, but with an unique entrypoint, Michelson generates a unique `default` entrypoint name instead of having the name of the entrypoint function. Also, be careful because all entrypoints function names are in lowercase, and all parameter types are in uppercase.
 
 Replace the line displaying the contract address `{contracts.map((contract) => <div>{contract.address}</div>)}` with the one below, it adds a Poke button
 
@@ -630,7 +630,7 @@ Replace the line displaying the contract address `{contracts.map((contract) => <
 
 Save and see the page refreshed, then click on the Poke button
 
-![](/img/dapp-pokecontracts.png)
+![](/img/tutorials/dapp-pokecontracts.png)
 
 It calls the contract and add your public address tz1... to the set of traces
 
