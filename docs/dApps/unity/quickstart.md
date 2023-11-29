@@ -324,7 +324,7 @@ You can prompt users to sign messages for several reasons, including:
 - Ensuring that a user has the private key for a specific account
 - Proving that they own a specific token, such as if they want to offer the token for sale
 - Requiring operations to run only when multiple users sign messages
-- Pre-signing transactions that another application can run later and pay the fees for it on  the signer's behalf
+- Pre-signing transactions that another application can run later and pay the fees for on the signer's behalf
 
 For example, this code prompts the user to sign the message "This message came from my account."
 
