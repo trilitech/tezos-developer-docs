@@ -20,6 +20,7 @@ These instructions cover:
 1. Make sure that you have Unity Editor version 2021.3.23f1 or later.
 
 1. Install a Tezos-compatible wallet on a mobile device that has a camera and can scan QR codes.
+For instructions, see [Installing and funding a wallet](../../developing/wallet-setup).
 
 1. Switch the wallet to Ghostnet and use the [Ghostnet faucet](https://faucet.ghostnet.teztnets.xyz/) to get some tez that you can use to send transactions to your Unity projects.
 
