@@ -354,6 +354,7 @@ private void OnPayloadSigned(SignResult obj)
 The `RequestSignPayload` method sends the request to the user's wallet.
 If the user approves the request, the wallet returns the signed payload, which includes encrypted information about the account that it came from.
 
-The callback uses the `VerifySignedPayload` method to verify that the signed payload came from the currently connected account and contains the same message that was sent in the signing request.
+The callback uses the `VerifySignedPayload` method to verify the signed payload.
+This method compares the specified message to the most recent signature it received and returns true if the messages are the same and the signature matches the currently connected account.
 
 For more examples of how to work with the SDK, see the scenes in the `TezosSDK/Examples` folder.
