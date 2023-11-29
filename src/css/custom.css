@@ -195,7 +195,7 @@ ol li ol li ol {
 }
 
 /* icon for external links */
-a[target="_blank"]:after {
+article a[target="_blank"]:after {
   content: url("/img/external_link.svg");
   padding-left: 5px;
 }
