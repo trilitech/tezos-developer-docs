@@ -23,12 +23,10 @@ These instructions cover:
 
 1. Switch the wallet to Ghostnet and use the [Ghostnet faucet](https://faucet.ghostnet.teztnets.xyz/) to get some tez that you can use to send transactions to your Unity projects.
 
-1. Install the SDK through the Unity asset store:
+1. Install the SDK from GitHub:
 
-   1. In the Unity asset store, find the [Tezos SDK for Unity](https://assetstore.unity.com/packages/decentralization/infrastructure/tezos-sdk-for-unity-239001).
-   1. Click **Add to My Assets**.
-   1. In the Unity Editor, in the Package Manager panel, find the Tezos SDK for Unity and click the **Download** button.
-   1. TODO double-check these instructions when the new package is available on the asset store.
+   1. From the SDK's GitHub page at https://github.com/trilitech/tezos-unity-sdk/releases, download the latest release of the SDK, which is a file named `TezosUnitySdk.unitypackage`.
+   1. In the Unity Editor, click **Assets > Import Package > Custom Package** and import the SDK file.
    1. Verify that the SDK is installed by opening the Project panel and expanding the **Assets > TezosSDK** folder.
 
      If you see the TezosSDK folder with sub-folders including Editor, Examples, Resources, and Runtime, the SDK is installed correctly, as in this picture:
