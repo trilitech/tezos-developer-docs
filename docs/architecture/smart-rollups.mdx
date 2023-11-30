@@ -2,8 +2,10 @@
 title: Smart Rollups
 authors: 'Nomadic Labs, TriliTech, Tim McMackin'
 last_update:
-  date: 16 November 2023
+  date: 30 November 2023
 ---
+
+import LucidDiagram from '@site/src/components/LucidDiagram';
 
 Smart Rollups handle transactions and logic in a separate environment that doesn't need to follow all of the same rules as layer 1.
 The transactions and logic that Smart Rollups run is called layer 2.
@@ -11,6 +13,10 @@ The transactions and logic that Smart Rollups run is called layer 2.
 The code of a Smart Rollup is public, and anyone can run a Smart Rollup node to run that code and verify that other nodes are running it correctly, just like anyone can run baking nodes and accuser nodes on layer 1.
 
 For an introduction to Smart Rollups, see the tutorial [Deploy a Smart Rollup](../tutorials/smart-rollup).
+
+This diagram shows a high-level view of how Smart Rollups interact with layer 1:
+
+<LucidDiagram width="640px" height="480px" src="https://lucid.app/documents/embedded/0502acd1-ac3a-45a5-b3a6-8b0d77d6e951" id="BE6RELfrN5xE" />
 
 ## Uses for Smart Rollups
 
@@ -31,7 +37,7 @@ Smart Rollups can use data from the smart rollup inbox in each block and from th
 
 Smart Rollups have access to two sources of information: a rollup inbox in each block and the reveal data channel.
 These are the only sources of information that rollups can use.
-Smart Rollups nodes cannot communicate directly with each other.
+Smart Rollup nodes cannot communicate directly with each other.
 
 ### Rollup inbox
 
@@ -53,16 +59,17 @@ Smart Rollup nodes can use these internal messages to know when blocks begin and
 
 ### Reveal data channel
 
-Smart Rollups can request and provide information through the _reveal data channel_, which can include information about layer 1 or information that comes from outside layer 1.
+Smart Rollups can request information through the _reveal data channel_, which can include information about layer 1 or information that comes from outside layer 1.
 Importantly, the information that passes through the reveal data channel does not pass through layer 1, so it is not limited by the bandwidth of layer 1 and can include large amounts of data.
 
 The reveal data channel supports these requests:
 
 - A rollup node can request arbitrary data up to 4KB at a time if it knows the blake2b hash of the data, known as _preimage requests_.
-The node that has the data must provide it when another node requests it.
 To transfer more than 4KB of data, rollups must use multiple files, such as a single file that contains hashes that point to other files.
 
 - A rollup node can request information about the rollup, including the address and origination level of the rollup, known as _metadata requests_.
+
+{/* TODO how is this data provided? */}
 
 ## Smart Rollup lifecycle
 
@@ -82,7 +89,7 @@ If there are two or more different commitments, the nodes play a refutation game
 1. At end of the refutation period, the correct commitment is said to be _cemented_ and therefore final and unchangeable.
 1. After the commitment is cemented, any client, including the rollup operator or ordinary layer 1 user, can trigger one of the outbox messages to run the smart contract call.
 
-<!-- TODO diagram of commitment periods and refutation periods -->
+{/* TODO diagram of commitment periods and refutation periods */}
 
 ### Origination
 
@@ -145,7 +152,7 @@ For more information, se [Triggering the execution of an outbox message](https:/
 For examples of Smart Rollups, see this repository: https://gitlab.com/tezos/kernel-gallery.
 
 
-<!--
+{/*
 
 
 
@@ -1487,4 +1494,4 @@ solutions:
 -  **Refutation game**: A process by which the Tezos protocol solves a
     conflict between two stakers.
 
--->
+*/}
