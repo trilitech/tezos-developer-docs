@@ -87,15 +87,14 @@ To connect, scan the QR code in any Tezos-compatible wallet app.
 Mobile wallet apps for Tezos include [Temple](https://templewallet.com/), [Kukai](https://wallet.kukai.app/), and [Umami](https://umamiwallet.com/).
 Then, approve  the connection in the wallet app.
 
-Then, the scene shows the address of the connected account and a logout button that closes the connection:
+Then, the scene shows the address of the connected account and its balance, as in the following picture.
+At the bottom of the scene there is a logout button that closes the connection.
 
 <img src="/img/dApps/unity-walletconnection-scene-connected.png" alt="The WalletConnection scene with a connected account" style={{width: 300}} />
 
 To see the code that runs the objects in the scene, stop the scene and expand the Canvas object in the Hierarchy panel.
 Then, select an object, go to the Inspector panel, and double-click the script component.
-For example, to open the code for the object that shows the address of the account, select the AccountAddress object in the Hierarchy panel and double-click `AccountInfoUI` in the Inspector panel, as shown in this image:
-
-<img src="/img/dApps/unity-walletconnection-scene-accountinfoui.png" alt="Opening the AccountInfoUI script" style={{width: 600}} />
+For example, to open the code for the object that shows the address of the account, select the AccountAddress object in the Hierarchy panel and double-click `AccountInfoUI` in the Inspector panel.
 
 The `AccountInfoUI` script opens in your IDE.
 This script defines a variable named addressText, which is bound to the Unity object.
@@ -103,27 +102,48 @@ This script defines a variable named addressText, which is bound to the Unity ob
 In the `Start` function, it sets listeners for the Tezos SDK events that happen when accounts connect and disconnect:
 
 ```csharp
+#region Constants and Fields
+
+private readonly string _notConnectedText = "Not connected";
+
+#endregion
+
+#region Unity Methods
+
 private void Start()
 {
-  addressText.text = notConnectedText;
-  TezosManager.Instance.MessageReceiver.AccountConnected += OnAccountConnected;
-  TezosManager.Instance.MessageReceiver.AccountDisconnected += OnAccountDisconnected;
+    addressText.text = _notConnectedText;
+
+    // Subscribe to events
+    TezosManager.Instance.MessageReceiver.AccountConnected += OnAccountConnected;
+    TezosManager.Instance.MessageReceiver.AccountDisconnected += OnAccountDisconnected;
 }
 
-private void OnAccountDisconnected(AccountInfo account_info)
+#endregion
+
+#region Event Handlers
+
+private void OnAccountConnected(AccountInfo accountInfo)
 {
-  addressText.text = notConnectedText;
+    // We can get the address from the wallet
+    addressText.text = TezosManager.Instance.Wallet.GetActiveAddress();
+    // Or from the event data
+    addressText.text = accountInfo.Address;
+
+    UpdateLayout(); // Update layout to fit the new text
 }
 
-private void OnAccountConnected(AccountInfo account_info)
+private void OnAccountDisconnected(AccountInfo accountInfo)
 {
-  addressText.text = TezosManager.Instance.Wallet.GetActiveAddress();
-  // OR
-  addressText.text = account_info.Address;
+    addressText.text = _notConnectedText;
+    UpdateLayout();
 }
+
+#endregion
 ```
 
 For the complete list of listeners, see the file `Assets/TezosSDK/Runtime/Scripts/Beacon/WalletEventManager.cs` in the SDK.
+<!-- TODO link to reference section -->
 
 ### Contract scene
 
