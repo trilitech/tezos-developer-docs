@@ -23,9 +23,16 @@ Parameters:
 
 This method triggers the `AccountConnected` or `AccountConnectionFailed` events, depending on whether the connection was successful or not.
 
+When the `walletProvider` parameter is set to `WalletProviderType.beacon`, this method automatically picks the correct way to connect to wallets:
+
+- In WebGL applications, it uses the `TezosSDK.Beacon.BeaconConnectorWebGl` class to trigger the browser to connect to a wallet app in a browser plugin.
+- In all other applications, it uses the `TezosSDK.Beacon.BeaconConnectorDotNet` class to generate a QR code to connect to a wallet app on a mobile device.
+
 <!-- TODO
 There's a lot more to connections, as described in https://opentezos.com/gaming/unity-sdk/api-documentation/#iwalletproviderconnect.
 Need to work out what's relevant here and what should go in a topic on connecting to wallets.
+
+Update: Per Berk, there are only these two ways of connecting now.
 -->
 
 ## `Disconnect()`
