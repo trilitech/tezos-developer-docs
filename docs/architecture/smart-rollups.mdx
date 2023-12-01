@@ -2,15 +2,15 @@
 title: Smart Rollups
 authors: 'Nomadic Labs, TriliTech, Tim McMackin'
 last_update:
-  date: 30 November 2023
+  date: 1 December 2023
 ---
 
 import LucidDiagram from '@site/src/components/LucidDiagram';
 
-Smart Rollups handle transactions and logic in a separate environment that doesn't need to follow all of the same rules as layer 1.
-The transactions and logic that Smart Rollups run is called layer 2.
+Smart Rollups handle transactions and logic in a separate environment from the main Tezos nodes.
+The transactions and logic that Smart Rollups run is called _layer 2_ to differentiate it from the main network, which is called _layer 1_.
 
-The code of a Smart Rollup is public, and anyone can run a Smart Rollup node to run that code and verify that other nodes are running it correctly, just like anyone can run baking nodes and accuser nodes on layer 1.
+The code of a Smart Rollup is public, and anyone can run a Smart Rollup node to run that code and verify that other nodes are running it correctly, just like anyone can run nodes, bakers, and accusers on layer 1.
 
 For an introduction to Smart Rollups, see the tutorial [Deploy a Smart Rollup](../tutorials/smart-rollup).
 
@@ -37,7 +37,7 @@ Smart Rollups can use data from the smart rollup inbox in each block and from th
 
 Smart Rollups have access to two sources of information: a rollup inbox in each block and the reveal data channel.
 These are the only sources of information that rollups can use.
-Smart Rollup nodes cannot communicate directly with each other.
+Smart Rollup nodes cannot communicate directly with each other; they do not have a peer-ro-peer communication channel like layer 1 nodes.
 
 ### Rollup inbox
 
@@ -69,7 +69,35 @@ To transfer more than 4KB of data, rollups must use multiple files, such as a si
 
 - A rollup node can request information about the rollup, including the address and origination level of the rollup, known as _metadata requests_.
 
-{/* TODO how is this data provided? */}
+{/*
+TODO how is this data provided?
+Where does it come from?
+Do we need instructions on how to provide data?
+*/}
+
+## Consensus
+
+Smart Rollup nodes acheive consensus differently from layer 1 nodes.
+Instead of constantly sharing blocks and updating their states, layer 2 nodes maintain their states internally and share them at predefined intervals.
+Because the nodes behave in a deterministic manner, their states should all be the same if they have processed the same Smart Rollup inbox messages.
+This state is referred to as the "state of the rollup."
+
+Rollups share and achieve consensus on the state of the rollup with these two intervals:
+
+- The _commitment period_ runs for 60 consecutive blocks.
+During the commitment period, the rollups receive messages from the Smart Rollup inbox, process them, and update their internal states.
+
+  At the end of the commitment period, Smart Rollup nodes use the PVM to generate a hash of their states and publish it to layer 1.
+  This hash is referred to as the node's _commitment_.
+  The commitment allows other nodes to verify that the node has responded to all of the messages during the commitment period and run the rollup code accurately.
+
+  Then a new commitment period begins.
+
+- The _refutation period_ for a commitment period starts when the commitment period ends.
+During the refutation period, if two or more commitments are different, the nodes play a _refutation game_ to identify the correct commitment.
+
+  Then the correct commitment is said to be _cemented_ and therefore final and unchangeable.
+  The commitments for the next commitment period build on this cemented commitment.
 
 ## Smart Rollup lifecycle
 
