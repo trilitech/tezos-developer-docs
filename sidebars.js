@@ -223,6 +223,7 @@ const sidebars = {
           },
           items: [
             'reference/unity/API',
+            'reference/unity/DAppMetadata',
             'reference/unity/MessageReceiver',
             'reference/unity/prefabs',
             'reference/unity/TokenContract',
