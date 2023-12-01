@@ -208,6 +208,21 @@ const sidebars = {
         // 'reference/merkle-formats', // TODO
         // 'reference/ocaml-apis', // TODO
         {
+          type: 'category',
+          label: 'Unity SDK reference',
+          link: {
+            id: 'reference/unity',
+            type: 'doc',
+          },
+          items: [
+            'reference/unity/API',
+            'reference/unity/MessageReceiver',
+            'reference/unity/prefabs',
+            'reference/unity/TokenContract',
+            'reference/unity/Wallet',
+          ],
+        },
+        {
           type: 'link',
           label: 'Whitepaper',
           href: 'https://tezos.com/whitepaper.pdf',
