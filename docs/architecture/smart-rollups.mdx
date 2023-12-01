@@ -11,6 +11,8 @@ Smart Rollups handle transactions and logic in a separate environment from the m
 The transactions and logic that Smart Rollups run is called _layer 2_ to differentiate it from the main network, which is called _layer 1_.
 
 The code of a Smart Rollup is public, and anyone can run a Smart Rollup node to run that code and verify that other nodes are running it correctly, just like anyone can run nodes, bakers, and accusers on layer 1.
+This code, called the _kernel_, must behave in a deterministic manner and use a proof-generating virtual machine (PVM) to generate a proof of its state.
+In this way, multiple nodes can run the same code to create a single state for the rollup, and other nodes can verify the state of the rollup.
 
 For an introduction to Smart Rollups, see the tutorial [Deploy a Smart Rollup](../tutorials/smart-rollup).
 
@@ -24,29 +26,23 @@ Smart Rollups allow you to run large amounts of processing that would be impract
 For example, Smart Rollups are not constrained to the layer 1 block baking rate and therefore can run far more transactions per second than layer 1.
 Smart Rollups can also manipulate large amounts of data without needing to store it on layer 1.
 
-Smart Rollups also enable [Etherlink](https://www.etherlink.com/), which connects Tezos to Ethereum.
-
-## Limitations of Smart Rollups
-
-Smart Rollup nodes must behave in a deterministic manner by using a proof-generating virtual machine (PVM) to generate a proof of its state.
-In this way, multiple nodes can run the same rollup and other nodes can verify the state of the rollup.
-Therefore, Smart Rollups have some of the same limitations that smart contracts do, such as not being able to use information from outside the blockchain like external APIs.
-Smart Rollups can use data from the smart rollup inbox in each block and from the reveal data channel.
+Smart Rollups can also retrieve data from outside the blockchain in specific ways that smart contracts can't do.
+For example, Smart Rollups enable [Etherlink](https://www.etherlink.com/), which connects Tezos to Ethereum.
 
 ## Communication
 
-Smart Rollups have access to two sources of information: a rollup inbox in each block and the reveal data channel.
+Smart Rollups have access to two sources of information: the rollup inbox and the reveal data channel.
 These are the only sources of information that rollups can use.
 Smart Rollup nodes cannot communicate directly with each other; they do not have a peer-ro-peer communication channel like layer 1 nodes.
 
 ### Rollup inbox
 
-Each Tezos block has a _rollup inbox_, which contains messages from layer 1 to all rollups.
+As part of its state, layer 1 has a _rollup inbox_ that contains messages from layer 1 to all rollups.
 Anyone can add a message to this inbox and all messages are visible to all rollups.
-Rollups receive this inbox, filter it to the messages that they are interested in, and act on them accordingly.
+Smart Rollups filter the inbox to the messages that they are interested in and act on them accordingly.
 
 The messages that users add to the rollup inbox are called _external messages_.
-For example, users can add messages to the inbox with an Octez client `send smart rollup message` command.
+For example, users can add messages to the inbox with the Octez client `send smart rollup message` command.
 Smart contracts can add messages in a way similar to calling a smart contract entrypoint, by using the Michelson `TRANSFER_TOKENS` instruction.
 
 Each block also contains these _internal messages_, which are created by the protocol:
@@ -106,12 +102,12 @@ The general flow of a Smart Rollup goes through these steps:
 1. A user originates the Smart Rollup to layer 1.
 1. One or more users start Smart Rollup nodes based on that Smart Rollup.
 1. A commitment period begins.
-1. During the commitment period, the Smart Rollup nodes receive the messages in each block's inbox, filter them to the messages that they are interested in, and run processing based on those messages.
-1. The nodes add outgoing messages to their outboxes in the form of calls to smart contracts.
+1. During the commitment period, the Smart Rollup nodes receive the messages in the Smart Rollup inbox, filter them to the messages that they are interested in, and run processing based on those messages.
+1. The nodes add outgoing messages to the Smart Rollup outbox in the form of calls to smart contracts.
 1. At the end of the commitment period, the nodes publish their commitments to layer 1.
 These commitments are proofs generated from the state of the Smart Rollup node, which means that if all of the nodes run the Smart Rollup correctly, the commitments are all the same.
 1. A new commitment period begins.
-1. At the same time as the new commitment period, a refutation period for the previous commitment period begins, during which time other nodes can verify the commitment and publish a concurrent commitment to confirm or refute it.
+1. At the same time as the new commitment period begins, a refutation period for the previous commitment period begins, during which time other nodes can verify the commitment and publish a concurrent commitment to confirm or refute it.
 Because commitment periods are shorter than refutation periods, many overlapping refutation periods can be active at the same time, but only one commitment period is active at a time.
 If there are two or more different commitments, the nodes play a refutation game to determine the correct commitment.
 1. At end of the refutation period, the correct commitment is said to be _cemented_ and therefore final and unchangeable.
