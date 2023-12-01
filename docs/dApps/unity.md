@@ -1,8 +1,8 @@
 ---
 title: Tezos SDK for Unity
-authors: John Joubert, Tim McMackin
+authors: Tim McMackin
 last_update:
-  date: 22 November 2023
+  date: 1 December 2023
 ---
 
 The Tezos SDK for Unity provides tools that let you access user wallets and Tezos in games and other Unity projects.
@@ -36,6 +36,32 @@ If you see the TezosSDK folder with sub-folders including Editor, Examples, Reso
 
       This prefab provides prerequisites to use Tezos in a scene.
       Its fields control what users see in their wallet applications before connecting to the project.
+
+   1. If you want to publish the project to WebGL, follow the steps in [Enabling WebGL support](#enabling-webgl-support).
+
+## Enabling WebGL support
+
+The WebGL platform allows you to publish Unity projects to run in a web browser.
+Follow these steps to set up the Tezos SDK to work with WebGL:
+
+1. In the Unity Editor, go to the Project panel and find the Tezos SDK for Unity.
+1. From the `WebGLFrontend/output` folder, copy the `StreamingAssets` and `WebGLTemplates` folders into the `Assets` folder of your project.
+
+   Unity creates WebGL template folders for your project.
+   Each template is a subfolder within the `WebGLTemplates` folder.
+   Each template subfolder contains an `index.html` file along with any other resources the page needs, such as images or stylesheets.
+
+1. Select the template to use in the WebGL build:
+
+   1. Click **Edit > Project Settings**.
+   1. Go to the **Player** tab.
+   1. On the Player tab, go to the **WebGL settings** tab.
+   1. Under **Resolution and Presentation**, select the WebGL template to use.
+
+1. To enable copy and paste in the WebGL build, double-click the `WebGLCopyAndPaste.unitypackage` package, which is in the `TezosSDK/WebGLFrontend/output` folder of the SDK, to install it.
+
+   This package includes the script `WebGLCopyAndPaste.cs` alongside with `StreamingAssets` and `WebGLTemplates` folders inside your project Assets directory.
+   It automatically enables copy and paste on selectable text fields, such as the account address field in the _WalletConnection sample scene.
 
 ## Sample scenes
 
@@ -222,16 +248,6 @@ For example, this entry shows that the account that ends in `2zD` owns 9 of the 
 <img src="/img/dApps/unity-transfer-scene-block-explorer-token-ownership.png" alt="The block explorer's Storage tab, showing the account address and the quantity of a token it owns" style={{width: 500}} />
 
 This ledger of token ownership is stored in a big-map data type, which is serialized on Tezos to save space.
-
-## WebGL Support
-
-* Open Unity Editor.
-* Navigate to Project -> Packages and find the Tezos Unity SDK.
-* Double-click the package file WebGLSupport.unitypackage. Project->Packages->Tezos-Unity-SDK.
-* The Import Unity Package dialog box displays, with all the items in the package pre-checked, ready to install.
-* This action creates WebGL template folders in your Project. Each template is a subfolder within the WebGLTemplates
-  folder. Each template subfolder contains an index.html file along with any other resources the page needs, such as
-  images or stylesheets.
 
 ## SDK objects
 
