@@ -211,6 +211,7 @@ For more information about smart contracts, see [Smart contracts](../../smart-co
    For example, [Pinata](https://www.pinata.cloud/) provides an API to store files in IPFS.
    The tutorial [Create a contract and web app that mints NFTs](../../tutorials/create-an-nft/nft-taquito) covers setting up an IPFS account and storing files on IPFS.
    The code in the previous example assumes that the image that represents the token is already stored on IPFS.
+   <!-- TODO link to info in managing tokens topic on using UploaderFactory.GetPinataUploader to upload to IPFS; for now the metadata fields are set and you can't add your own metadata fields. -->
 
 1. To transfer tokens, call the contract's `Transfer` entrypoint.
 
