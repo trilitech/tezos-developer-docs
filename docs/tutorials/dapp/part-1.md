@@ -50,13 +50,13 @@ Every contract requires to respect this convention :
 - **storage** : the on-chain storage. It can be of any type but it is mandatory. For example : `unit` by default. It is recommended to add an `export` keyword before the type definition as it is a good practice to export it when you require to write unit tests from another Ligo file.
 - **return\_** : a pair of list of `operation` and a storage. This is mandatory by convention. You can only define another variable name, that is not a keyword, if you want
 
-[Have a look on the Entrypoints contracts documentation](https://ligolang.org/docs/advanced/entrypoints-contracts)>
+[Have a look on the Entrypoints contracts documentation](/smart-contracts/entrypoints)>
 
 > Note : The old syntax was requiring a main function. It is still valid but very verbatim and deprecated in Ligo V1.
 >
 > A `Poke` variant parameter is generated from the `poke` entrypoint function under the hood. A variant is more or less equivalent of the Enum type in Javascript. A default main function is generated and act like as a dispatcher for each of your entrypoints. It means that this painful boilerplate is no more needed on the new syntax
 
-[Have a look on the Variant type documentation](https://ligolang.org/docs/language-basics/unit-option-pattern-matching#variant-types)
+[Have a look on the Variant type documentation](/smart-contracts/data-types/complex-data-types#variants)
 
 2. Write the poke function
 
