@@ -1,5 +1,5 @@
 ---
-title: Part 2: Inter-contract calls and testing
+title: "Part 2: Inter-contract calls and testing"
 authors: "Benjamin Fuentes"
 last_update:
   date: 28th November 2023
