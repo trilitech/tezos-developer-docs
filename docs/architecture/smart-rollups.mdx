@@ -7,7 +7,10 @@ last_update:
 
 import LucidDiagram from '@site/src/components/LucidDiagram';
 
-Smart Rollups handle transactions and logic in a separate environment from the main Tezos nodes.
+Smart Rollups play a crucial part in providing high scalability on Tezos.
+They handle transactions and logic in a separate environment that doesn't need to follow all of the same rules as the main Tezos network.
+For this reason, they are not subject to the same block delays and data space constraints as the main Tezos network.
+
 The transactions and logic that Smart Rollups run is called _layer 2_ to differentiate it from the main network, which is called _layer 1_.
 
 The code of a Smart Rollup is public, and anyone can run a Smart Rollup node to run that code and verify that other nodes are running it correctly, just like anyone can run nodes, bakers, and accusers on layer 1.
