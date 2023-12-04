@@ -163,7 +163,7 @@ For more information about smart contracts, see [Smart contracts](../../smart-co
    The built-in contract has a `mint` method that accepts these parameters and calls the deployed contract's `mint` entrypoint:
 
       - A callback function to run when the token is created
-      - The metadata for the token, which includes a name and description, URIs to preview media or thumbnails, and how many decimal places the token can be broken into
+      - The metadata for the token, which includes a name and description, URIs to preview media or thumbnails, and how many decimal places the token can be broken into; this metadata is predefined, so you can't add or remove fields
       - The destination account that owns the new tokens, which can be a user account, this smart contract, or any other smart contract
       - The number of tokens to create
 
