@@ -47,62 +47,6 @@ It provides entrypoints that clients can call to change the value of that intege
 
 After you deploy the contract, you or any other user can call it through Octez or a distributed application (dApp).
 
-## Prerequisites
-
-To run this tutorial, you need the Octez client and LIGO.
-
-- To install the LIGO programming language, version 1.0.0 or later, see https://ligolang.org/docs/intro/installation.
-You can verify that LIGO is installed by running this command:
-
-   ```bash
-   ligo version
-   ```
-
-   If you see a message with a version 1.0.0 or later, LIGO is installed correctly.
-
-- To install the Octez client, which allows you to send transactions to the Tezos blockchain, use your operating system's package manager:
-
-   - For MacOS, run these commands:
-
-   ```bash
-   brew tap serokell/tezos-packaging-stable https://github.com/serokell/tezos-packaging-stable.git
-   brew install tezos-client
-   ```
-
-   - For Ubuntu, Windows WSL, and Linux distributions that use `apt`, run these commands:
-
-   ```bash
-   REPO="ppa:serokell/tezos"
-   sudo add-apt-repository -y $REPO && sudo apt-get update
-   sudo apt-get install -y tezos-client
-   ```
-
-   - For Fedora and Linux distributions that use Copr, run these commands:
-
-   ```bash
-   REPO="@Serokell/Tezos"
-   dnf copr enable -y $REPO && dnf update -y
-   dnf install -y tezos-client
-   ```
-
-   You can verify that the Octez client is installed by running this command:
-
-   ```bash
-   octez-client --version
-   ```
-
-   If you see a message with the version of Octez that you have installed, the Octez client is installed correctly.
-   For help on Octez, run `octez-client --help` or see http://tezos.gitlab.io/index.html.
-
-   For more detailed installation instructions, see [How to get Tezos](http://tezos.gitlab.io/introduction/howtoget.html).
-
-LIGO is a high-level programming language created by Marigold to write smart contracts for the Tezos blockchain.
-
-It abstracts away the complexity of using Michelson (the smart contract language directly available on-chain) and provides different syntaxes that make it easier to write smart contracts on Tezos.
-
-LIGO provides two syntaxes: *jsLigo*, a syntax similar to TypeScript, and *CameLigo*, a syntax similar to OCaml.
-This tutorial uses jsLigo, but you do not need any experience with JavaScript or TypeScript to run it.
-
 ## Create a project folder
 
 Follow these steps to create a LIGO project:
