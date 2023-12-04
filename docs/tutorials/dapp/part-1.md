@@ -1,5 +1,5 @@
 ---
-title: "Part 1: Create your minimum dapp on Tezos"
+title: "Part 1: Create your minimum dApp on Tezos"
 authors: "Benjamin Fuentes"
 last_update:
   date: 27 November 2023

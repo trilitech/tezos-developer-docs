@@ -5,7 +5,7 @@ last_update:
   date: 28 November 2023
 ---
 
-Previously, you learned how to create your first dapp.
+Previously, you learned how to create your first dApp.
 In this second session, you will enhance your skills on :
 
 - How to do inter-contract calls
@@ -565,7 +565,7 @@ Output
 
 ## Update the frontend
 
-1. Reuse the dapp files from previous session
+1. Reuse the dApp files from previous session
 
 https://github.com/marigold-dev/training-dapp-1/tree/main/solution/app
 

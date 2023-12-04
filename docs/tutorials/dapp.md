@@ -5,7 +5,7 @@ last_update:
   date: 27 November 2023
 ---
 
-> dapp : A decentralized application is a type of distributed open source software application that runs on a peer-to-peer (P2P) blockchain network rather than on a single computer. DApps are visibly similar to other software applications that are supported on a website or mobile device.
+> dApp : A decentralized application is a type of distributed open source software application that runs on a peer-to-peer (P2P) blockchain network rather than on a single computer. DApps are visibly similar to other software applications that are supported on a website or mobile device.
 
 This tutorial shows you how to create a poke game on smart contract.
 The game consists on poking the owner of a smart contract. The smart contract keeps a track of user interactions and stores a trace.
@@ -24,7 +24,7 @@ You will learn :
 - How to create a Tezos project with Taqueria
 - How to create a smart contract in jsLigo
 - How to deploy the smart contract a real testnet named Ghostnet
-- How to create a frontend dapp using Taquito library and interact with a Tezos browser wallet
+- How to create a frontend dApp using Taquito library and interact with a Tezos browser wallet
 - How to use an indexer like TZKT
 
 ## Prerequisites
@@ -45,7 +45,7 @@ This tutorial uses Typescript, so it will be easier if you are familiar with Jav
 
 ## The tutorial application
 
-In this tutorial, you create a simple game where the user is poking though a dapp. The user interacts with the smart contract through a web interface, where they can see the current state of the contract and send poke commands to it. The contract responds by updating its storage with the user's address. Alternately, a user can also poke the contract deployed by other users.
+In this tutorial, you create a simple game where the user is poking though a dApp. The user interacts with the smart contract through a web interface, where they can see the current state of the contract and send poke commands to it. The contract responds by updating its storage with the user's address. Alternately, a user can also poke the contract deployed by other users.
 
 The application looks like this:
 
@@ -53,4 +53,4 @@ The application looks like this:
 
 The code for the completed application is in this GitHub repository: [solution](https://github.com/marigold-dev/training-dapp-1/tree/main/solution)
 
-When you're ready, move to the next section [Create your minimum dapp on Tezos](./dapp/part-1) to begin setting up the application.
+When you're ready, move to the next section [Create your minimum dApp on Tezos](./dapp/part-1) to begin setting up the application.

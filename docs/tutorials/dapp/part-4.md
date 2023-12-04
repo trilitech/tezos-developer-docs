@@ -279,7 +279,7 @@ taq deploy pokeGame.tz -e testing
 └─────────────┴──────────────────────────────────────┴──────────┴──────────────────┴────────────────────────────────┘
 ```
 
-7. Test the dapp frontend
+7. Test the dApp frontend
 
 Regenerate types and run the frontend
 
