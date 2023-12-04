@@ -436,7 +436,7 @@ yarn dev
 
 The Kukai wallet is giving me back the error from the smart contract
 
-![kukaifail](./img/tutorials/dapp-kukaifail.png)
+![kukaifail](/img/tutorials/dapp-kukaifail.png)
 
 Ok, so let's authorize some minting on my user and try again to poke
 
