@@ -630,7 +630,7 @@ export default App;
 
 5. Mint a ticket on this contract
 
-![mint](./img/tutorials/dapp-mint.png)
+![mint](/img/tutorials/dapp-mint.png)
 
 6. Wait for the Tx popup confirmation and then try to poke again, it should succeed now
 
