@@ -83,7 +83,7 @@ This is the address that applications use to work with your wallet.
 
 Now you have an account and funds that you can use to work with Tezos.
 
-## Create the contract
+## Creating the contract
 
 The contract that you will create has these basic parts:
 
@@ -91,7 +91,7 @@ The contract that you will create has these basic parts:
 The storage can be a primitive type such as an integer, string, or timestamp, or a complex data type that contains multiple values.
 For more information on contract data types, see [Data types](../../smart-contracts/data-types).
 
-- Internal functions called entrypoints that run code when clients call the contract.
+- Functions called entrypoints that run code when clients call the contract.
 
 - A type that describes the return value of the entrypoints.
 
