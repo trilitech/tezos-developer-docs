@@ -2,7 +2,7 @@
 title: Quickstart
 authors: Tim McMackin
 last_update:
-  date: 27 November 2023
+  date: 4 December 2023
 ---
 
 Follow these steps to install the Tezos SDK for Unity in an existing Unity project and start using it.
@@ -206,12 +206,20 @@ For more information about smart contracts, see [Smart contracts](../../smart-co
 
    For a complete example of creating tokens, see the file `TezosSDK/Examples/Contract/Scripts/MintToken.cs` and the Contract example scene.
 
-   Note that developers usually don't store large files such as images or large metadata files directly on the blockchain.
-   Instead, they set up distributed storage for the file with the InterPlanetary File System (IPFS).
+   To store files such as images or metadata that are associated with the token, you can set up distributed storage with the InterPlanetary File System (IPFS).
    For example, [Pinata](https://www.pinata.cloud/) provides an API to store files in IPFS.
    The tutorial [Create a contract and web app that mints NFTs](../../tutorials/create-an-nft/nft-taquito) covers setting up an IPFS account and storing files on IPFS.
-   The code in the previous example assumes that the image that represents the token is already stored on IPFS.
-   <!-- TODO link to info in managing tokens topic on using UploaderFactory.GetPinataUploader to upload to IPFS; for now the metadata fields are set and you can't add your own metadata fields. -->
+
+   For example, this code uses the `TezosSDK.Scripts.FileUploaders.UploaderFactory` class and Pinata to open a window that allows the user to select a file to upload to IPFS.
+
+   ```csharp
+   var uploader = UploaderFactory.GetPinataUploader("Your pinata api key");
+
+   uploader.UploadFile(imageAddress =>
+   {
+      Debug.Log($"File uploaded to ipfs, address is {imageAddress}");
+   });
+   ```
 
 1. To transfer tokens, call the contract's `Transfer` entrypoint.
 
