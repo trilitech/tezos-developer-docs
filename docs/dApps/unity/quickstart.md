@@ -52,58 +52,70 @@ Users must still confirm all transactions in their wallet application.
 Using a wallet application in this way saves you from having to implement payment processing and security in your application.
 Game developers can also use the wallet and its account as a unique account identifier and as the user's inventory.
 
-1. Copy the `MainThreadExecutor` and `TezosManager` prefabs to your scene.
+1. Copy the `MainThreadExecutor`, `TezosAuthenticator`, and `TezosManager` prefabs to your scene.
 These prefabs provide prerequisites to use Tezos in a scene.
-The `TezosManager` fields control what users see in their wallet applications before connecting to the project, as shown in this picture of the Inspector panel:
 
-   ![The Inspector panel, showing information about the project](/img/dApps/unity-inspector-tezosmanager.png)
+   The `TezosAuthenticator` prefab automatically adds features that connect to users' wallets.
+   If you copy these prefabs into your scene and run it, it shows a QR code that Tezos wallet applications can scan to connect with the application.
+   You can access these features through the prefab and change how the project manages its connection to users' wallets.
 
-1. Add features to your project that connect to users' wallets.
-You can copy objects from the `_WalletConnection` scene, including the QRCode, LogoutButton, and AccountAddress objects.
-
-   The `TezosSDK/Examples/WalletConnection/Scripts/QRImageGenerator.cs` file receives a handshake from the `TezosManager` object and uses the handshake information to generate a URI and encode that URI to a QR code image:
+   For example, the `QRCode` object receives a handshake from the `TezosManager` object and uses the handshake information to generate a URI and encode that URI to a QR code image:
 
    ```csharp
-   private void SetQrCode(HandshakeData handshake_data)
+   public void SetQrCode(HandshakeData handshakeData)
    {
-       if (encoded)
-       {
-           return;
-       }
-
-       var uri = "tezos://?type=tzip10&data=" + handshake_data.PairingData;
+       var uri = "tezos://?type=tzip10&data=" + handshakeData.PairingData;
        EncodeTextToQrCode(uri);
    }
    ```
 
    You can adjust this code and the bound Unity object to control when and where the QR code appears.
 
+   The `TezosManager` fields control what users see in their wallet applications before connecting to the project, as shown in this picture of the Inspector panel:
+
+   ![The Inspector panel, showing information about the project](/img/dApps/unity-inspector-tezosmanager.png)
+
 1. Add features to your project to use the connected account.
 For example, the `TezosSDK/Examples/Common/Scripts/AccountInfoUI.cs` file responds to the `AccountConnected` event, which runs when the user scans the QR code and approves the connection in their wallet app.
-When the event runs, it uses the `TezosManager.Instance.Wallet` object to get information about the connected account, such as its address:
+You can use this event to get the address of the connected account, as in these steps:
 
-   ```csharp
-   private void Start()
-   {
-       addressText.text = notConnectedText;
-       TezosManager.Instance.MessageReceiver.AccountConnected += OnAccountConnected;
-       TezosManager.Instance.MessageReceiver.AccountDisconnected += OnAccountDisconnected;
-   }
+   1. In your scene, in the Hierarchy panel, right-click the Canvas object and then click **UI > Text - TextMeshPro**.
 
-   private void OnAccountDisconnected(AccountInfo account_info)
-   {
-       addressText.text = notConnectedText;
-   }
+   1. Bind the new object to the `addressText` variable in the `AccountInfoUI` script, as in this picture:
 
-   private void OnAccountConnected(AccountInfo account_info)
-   {
-       addressText.text = TezosManager.Instance.Wallet.GetActiveAddress();
-       // OR
-       addressText.text = account_info.Address;
-   }
-   ```
+      <img src="/img/dApps/unity-quickstart-bind-accountinfo.png" alt="The Inspector panel, showing the connection to the `AccountInfoUI` object" style={{width: 300}} />
 
-   You can use this address as a user's account ID because Tezos account addresses are unique.
+      This script, which is in the file `TezosSDK/Examples/Common/Scripts/AccountInfoUI.cs`, uses the `TezosManager.Instance.Wallet` object to get information about the connected account, such as its address:
+
+      ```csharp
+      private void Start()
+      {
+          addressText.text = _notConnectedText;
+
+          // Subscribe to events;
+          TezosManager.Instance.MessageReceiver.AccountConnected += OnAccountConnected;
+          TezosManager.Instance.MessageReceiver.AccountDisconnected += OnAccountDisconnected;
+      }
+
+      private void OnAccountDisconnected(AccountInfo accountInfo)
+      {
+          // We can get the address from the wallet
+          addressText.text = TezosManager.Instance.Wallet.GetActiveAddress();
+          // Or from the event data
+          addressText.text = accountInfo.Address;
+
+          UpdateLayout(); // Update layout to fit the new text
+      }
+
+      private void OnAccountConnected(AccountInfo account_info)
+      {
+          addressText.text = _notConnectedText;
+          UpdateLayout();
+      }
+      ```
+
+      Now when the user connects, the project shows the user's account address.
+      You can use this address as a user's account ID because Tezos account addresses are unique.
 
 1. To respond to other events, add listeners for the events that the SDK provides.
 You can see these events and their return values in the [MessageReceiver object](../../reference/unity/MessageReceiver).
