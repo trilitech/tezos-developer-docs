@@ -531,7 +531,7 @@ As Temple is configured, click on Connect button
 
 On the popup, select your Temple wallet, then your account and connect.
 
-![](./img/tutorials/dapp-logged.png)
+![The app after you have connected, showing your address and tex balance](/img/tutorials/dapp-logged.png)
 
 Your are _logged_
 
