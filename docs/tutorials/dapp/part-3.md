@@ -2,7 +2,7 @@
 title: "Part 3: Tickets"
 authors: "Benjamin Fuentes"
 last_update:
-  date: 29th November 2023
+  date: 29 November 2023
 ---
 
 Previously, you learned how to do inter-contract calls, use view and do unit testing.
