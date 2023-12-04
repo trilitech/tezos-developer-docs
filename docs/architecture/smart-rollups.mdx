@@ -65,7 +65,7 @@ Importantly, the information that passes through the reveal data channel does no
 
 The reveal data channel supports these requests:
 
-- A rollup node can request arbitrary data up to 4KB at a time if it knows the blake2b hash of the data, known as _preimage requests_.
+- A rollup node can request an arbitrary data page up to 4KB at a time if it knows the blake2b hash of the page, known as _preimage requests_.
 To transfer more than 4KB of data, rollups must use multiple files, such as a single file that contains hashes that point to other files.
 
 - A rollup node can request information about the rollup, including the address and origination level of the rollup, known as _metadata requests_.
