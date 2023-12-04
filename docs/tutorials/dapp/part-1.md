@@ -2,7 +2,7 @@
 title: "Part 1: Create your minimum dapp on Tezos"
 authors: "Benjamin Fuentes"
 last_update:
-  date: 27th November 2023
+  date: 27 November 2023
 ---
 
 To start working with the application, you create a Taqueria project and use it to deploy the Poke contract.
@@ -531,7 +531,7 @@ As Temple is configured, click on Connect button
 
 On the popup, select your Temple wallet, then your account and connect.
 
-![](./img/tutorials/dapp-logged.png)
+![The app after you have connected, showing your address and tex balance](/img/tutorials/dapp-logged.png)
 
 Your are _logged_
 

@@ -1,8 +1,8 @@
 ---
-title: Part 3: Tickets
+title: "Part 3: Tickets"
 authors: "Benjamin Fuentes"
 last_update:
-  date: 29th November 2023
+  date: 29 November 2023
 ---
 
 Previously, you learned how to do inter-contract calls, use view and do unit testing.
@@ -432,11 +432,11 @@ yarn dev
 
 2. Connect with any wallet with enough Tez, and Poke your own contract
 
-![pokefail](./img/tutorials/dapp-pokefail.png)
+![pokefail](/img/tutorials/dapp-pokefail.png)
 
 The Kukai wallet is giving me back the error from the smart contract
 
-![kukaifail](./img/tutorials/dapp-kukaifail.png)
+![kukaifail](/img/tutorials/dapp-kukaifail.png)
 
 Ok, so let's authorize some minting on my user and try again to poke
 
@@ -630,15 +630,15 @@ export default App;
 
 5. Mint a ticket on this contract
 
-![mint](./img/tutorials/dapp-mint.png)
+![mint](/img/tutorials/dapp-mint.png)
 
 6. Wait for the Tx popup confirmation and then try to poke again, it should succeed now
 
-![success](./img/tutorials/dapp-success.png)
+![success](/img/tutorials/dapp-success.png)
 
 7. Wait for the Tx popup confirmation and try to poke again, you should be out of tickets and it should fail
 
-![kukaifail](./img/tutorials/dapp-kukaifail.png)
+![kukaifail](/img/tutorials/dapp-kukaifail.png)
 
 Congratulation, you know how to use tickets and avoid DUP errors
 

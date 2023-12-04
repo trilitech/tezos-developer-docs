@@ -49,8 +49,7 @@ In this tutorial, you create a simple game where the user is poking though a dap
 
 The application looks like this:
 
-![dappTable]
-![](/img/tutorials/dapp-table.png)
+![Example of the table of addresses and which addresses poked them](/img/tutorials/dapp-table.png)
 
 The code for the completed application is in this GitHub repository: [solution](https://github.com/marigold-dev/training-dapp-1/tree/main/solution)
 

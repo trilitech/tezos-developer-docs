@@ -1,8 +1,8 @@
 ---
-title: Part 2: Inter-contract calls and testing
+title: "Part 2: Inter-contract calls and testing"
 authors: "Benjamin Fuentes"
 last_update:
-  date: 28th November 2023
+  date: 28 November 2023
 ---
 
 Previously, you learned how to create your first dapp.
@@ -632,7 +632,7 @@ yarn dev
 
 On the listed contract, choose your line and input the address of the contract you will receive a feedback. Click on `poke`
 
-![result](./img/tutorials/dapp-result.png)
+![The dApp page showing the result of the poke action](/img/tutorials/dapp-result.png)
 
 This time, the logged user will receive a feedback from a targeted contract (as input of the form) via any listed contract (the first column of the table).
 
