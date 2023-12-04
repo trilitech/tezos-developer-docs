@@ -2,7 +2,7 @@
 title: "Part 4: Smart contract upgrades"
 authors: "Benjamin Fuentes"
 last_update:
-  date: 29th November 2023
+  date: 29 November 2023
 ---
 
 # :point_up: Upgradable Poke game
