@@ -215,7 +215,7 @@ For more information about smart contracts, see [Smart contracts](../../smart-co
 
 1. To transfer tokens, call the contract's `Transfer` entrypoint.
 
-   Like the `mint`entrypoint, the built-in contract has a `transfer` method that accepts these parameters and calls the deployed contract's `transfer` entrypoint:
+   Like the `mint` entrypoint, the built-in contract has a `transfer` method that accepts these parameters and calls the deployed contract's `transfer` entrypoint:
 
       - A callback function to run when the transfer is complete
       - The account to transfer the tokens to
