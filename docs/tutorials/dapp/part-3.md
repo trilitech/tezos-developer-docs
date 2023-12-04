@@ -634,7 +634,7 @@ export default App;
 
 6. Wait for the Tx popup confirmation and then try to poke again, it should succeed now
 
-![success](./img/tutorials/dapp-success.png)
+![success](/img/tutorials/dapp-success.png)
 
 7. Wait for the Tx popup confirmation and try to poke again, you should be out of tickets and it should fail
 
