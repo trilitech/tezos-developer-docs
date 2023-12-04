@@ -2,11 +2,10 @@
 title: Deploy a smart contract with jsLIGO
 authors: 'John Joubert, Sasha Aldrick, Claude Barde, Tim McMackin'
 last_update:
-  date: 20 October 2023
+  date: 4 December 2023
 ---
 
-This tutorial covers using the Octez command-line client to deploy a smart contract to Tezos.
-The tutorial uses the LIGO programming language, which is one of the languages that you can write Tezos smart contracts in.
+This tutorial covers writing and deploying a simple smart contract with the LIGO programming language
 Specifically, this tutorial uses the jsLIGO version of LIGO, which has syntax similar to JavaScript, but you don't need any experience with JavaScript or LIGO to do this tutorial.
 
 - If you are more familiar with Python, try [Deploy a smart contract with SmartPy](./smartpy).
@@ -15,7 +14,6 @@ Specifically, this tutorial uses the jsLIGO version of LIGO, which has syntax si
 
 In this tutorial, you will learn how to:
 
-- Connect the Octez client to a testnet
 - Create a wallet
 - Get tokens from a faucet
 - Code a contract in LIGO, including:
@@ -24,7 +22,7 @@ In this tutorial, you will learn how to:
   - Writing code to run when the entrypoints are called
 - Deploy (or originate) the contract to Tezos and set its starting storage value
 - Look up the current state of the contract
-- Call the contract from the command line
+- Call the contract
 
 ## Tutorial contract
 
