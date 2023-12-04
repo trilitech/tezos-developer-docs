@@ -1,5 +1,5 @@
 ---
-title: Part 3: Tickets
+title: "Part 3: Tickets"
 authors: "Benjamin Fuentes"
 last_update:
   date: 29th November 2023
