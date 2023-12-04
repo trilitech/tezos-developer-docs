@@ -432,7 +432,7 @@ yarn dev
 
 2. Connect with any wallet with enough Tez, and Poke your own contract
 
-![pokefail](./img/tutorials/dapp-pokefail.png)
+![pokefail](/img/tutorials/dapp-pokefail.png)
 
 The Kukai wallet is giving me back the error from the smart contract
 
