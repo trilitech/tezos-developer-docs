@@ -133,8 +133,7 @@ The origination process stores data about the rollup on layer 1, including:
 - The type of proof-generating virtual machine (PVM) for the rollup, which generates a proof based on the state of the rollup; currently only the `wasm_2_0_0` PVM is supported
 - The source code of the rollup, which is a WebAssembly program referred to as the rollup's _kernel_
 - The Michelson data type of the messages it receives from layer 1
-
-TODO: Later docs mention the genesis commitment -- is that a different thing or is it implied by other things in the origination?
+- The genesis commitment that forms the basis for commitments that rollups nodes publish in the future
 
 After it is originated, anyone can run a Smart Rollup node based on this information.
 
