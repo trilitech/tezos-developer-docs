@@ -638,7 +638,7 @@ export default App;
 
 7. Wait for the Tx popup confirmation and try to poke again, you should be out of tickets and it should fail
 
-![kukaifail](./img/tutorials/dapp-kukaifail.png)
+![kukaifail](/img/tutorials/dapp-kukaifail.png)
 
 Congratulation, you know how to use tickets and avoid DUP errors
 
