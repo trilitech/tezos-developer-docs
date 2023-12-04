@@ -24,6 +24,18 @@ In this tutorial, you will learn how to:
 - Look up the current state of the contract
 - Call the contract
 
+## What is a smart contract?
+
+A smart contract is a computer program that is stored on a blockchain and runs on a blockchain.
+Because the blockchain is spread across many computer nodes, you don't have to think about where to host the program or worry whether a computer will run it or not.
+Responsibility for running the contract is distributed across all of the nodes in the Tezos system, so when you deploy a smart contract, you can be confident that it will be available and unmodified when someone wants to run it.
+
+A smart contract has these parts:
+
+- It has persistent storage, data that the contract can read and write
+- It has one or more entrypoints, which are a kind of function that clients can call, like endpoints in an API or functions or methods in many programming languages
+- It has a Tezos account and can store tez (technically, the contract is itself a type of Tezos account, but you can think of it as a program with a Tezos account)
+
 ## Tutorial contract
 
 The contract that you deploy in this tutorial stores a single integer.
