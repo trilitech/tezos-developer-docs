@@ -46,9 +46,11 @@ Smart Rollups filter the inbox to the messages that they are interested in and a
 
 The messages that users add to the rollup inbox are called _external messages_.
 For example, users can add messages to the inbox with the Octez client `send smart rollup message` command.
-Smart contracts can add messages in a way similar to calling a smart contract entrypoint, by using the Michelson `TRANSFER_TOKENS` instruction.
 
-Each block also contains these _internal messages_, which are created by the protocol:
+Similarly, smart contracts can add messages in a way similar to calling a smart contract entrypoint, by using the Michelson `TRANSFER_TOKENS` instruction.
+The messages that smart contracts add to the inbox are called _internal messages_.
+
+Each block also contains these internal messages, which are created by the protocol:
 
 - `Start of level`, which indicates the beginning of the block
 - `Info per level`, which includes the timestamp and block hash of the preceding block
