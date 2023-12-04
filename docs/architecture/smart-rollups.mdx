@@ -66,7 +66,7 @@ Importantly, the information that passes through the reveal data channel does no
 The reveal data channel supports these requests:
 
 - A rollup node can request an arbitrary data page up to 4KB at a time if it knows the blake2b hash of the page, known as _preimage requests_.
-To transfer more than 4KB of data, rollups must use multiple files, such as a single file that contains hashes that point to other files.
+To transfer more than 4KB of data, rollups must use multiple pages, such as a single file that contains hashes that point to other files.
 
 - A rollup node can request information about the rollup, including the address and origination level of the rollup, known as _metadata requests_.
 
@@ -137,16 +137,15 @@ After it is originated, anyone can run a Smart Rollup node based on this informa
 
 ### Commitment periods
 
-Starting from the rollup origination level, levels are partitioned into
-_commitment periods_ of 60 consecutive blocks.
+Starting from the rollup origination level, levels are partitioned into _commitment periods_ of 60 consecutive blocks.
 During each commitment period, the rollup receives the messages in the rollup inbox and processes them.
 
 At the end of the commitment period, the rollup node must use the PVM to publish its state to layer 1, which is called its _commitment_.
 Each commitment builds on the previous commitment, going back to the genesis commitment from when the Smart Rollup was originated.
-This commitment asserts that the rollup node has responded to every message in every block in the commitment period and updated its state according to the code for the Smart Rollup.
+This commitment asserts that the rollup node has responded to every message in the rollup inbox during in the commitment period and updated its state according to the code for the Smart Rollup.
 
-Each node must stake 10,000 tez along with its commitment.
-When another node makes an identical commitment, its stake is added to the stake of the first commitment.
+Nodes must stake 10,000 tez along with their commitments.
+When nodes make identical commitments, their stakes are combined into a single stake for the commitment.
 
 Then a refutation period for the commitment period begins, and a new commitment period begins.
 
