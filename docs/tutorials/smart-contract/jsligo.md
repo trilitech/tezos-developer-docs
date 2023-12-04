@@ -47,6 +47,42 @@ It provides entrypoints that clients can call to change the value of that intege
 
 After you deploy the contract, you or any other user can call it through Octez or a distributed application (dApp).
 
+## Creating and funding a wallet
+
+To deploy and work with the contract, you need a wallet and some tez tokens.
+
+1. Install a Tezos-compatible wallet.
+Which wallet you install is up to you and whether you want to install a wallet on your computer, in a browser extension, or as a mobile app.
+
+   If you don't know which one to choose, try the [Temple](https://templewallet.com/) browser extension, because then you can use it in the same browser that you are using to view the web app.
+
+   Desktop wallets for Tezos include the [Temple](https://templewallet.com/) browser extension, [Kukai](https://wallet.kukai.app/), and [Umami](https://umamiwallet.com/).
+
+   Mobile apps include [Temple](https://templewallet.com/), [Kukai](https://wallet.kukai.app/), and [Umami](https://umamiwallet.com/).
+
+1. Switch the wallet to use the Ghostnet testnet instead of Tezos Mainnet.
+Ghostnet is a network for testing Tezos applications where tokens are free so you don't have to spend real currency to work with your applications.
+
+   For example, for the Temple browser wallet, click **Tezos Mainnet** at the top and then click **Ghostnet Testnet**, as in this picture:
+
+   ![Selecting the Ghostnet testnet in the Temple wallet](/img/tutorials/temple-switch-network.png)
+
+1. From your wallet, get the address of your account, which starts with `tz1`.
+This is the address that applications use to work with your wallet.
+
+1. Go to the Ghostnet faucet page at https://faucet.ghostnet.teztnets.xyz.
+
+1. On the faucet page, paste your wallet address into the input field labeled "Or fund any address" and click the button for the amount of tez to add to your wallet.
+20 tez is enough to work with the tutorial contract, and you can return to the faucet later if you need more tez.
+
+   It may take a few minutes for the faucet to send the tokens and for those tokens to appear in your wallet.
+
+   You can use the faucet as much as you need to get tokens on the testnet, but those tokens are worthless and cannot be used on Mainnet.
+
+   ![Fund your wallet using the Ghostnet Faucet](/img/tutorials/wallet-funding.png)
+
+Now you have an account and funds that you can use to work with Tezos.
+
 ## Create a project folder
 
 Follow these steps to create a LIGO project:
