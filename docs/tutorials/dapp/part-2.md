@@ -520,7 +520,7 @@ File "contracts/mutation_pokeGame.jsligo", line 28, character 2 to line 47, char
 └──────────────────────────┴──────────────────────┘
 ```
 
-:space_invader: :space_invader: :space_invader: Holy :shit: , invaders !!! :space_invader: :space_invader: :space_invader:
+Invaders are here
 
 What happened ?
 
