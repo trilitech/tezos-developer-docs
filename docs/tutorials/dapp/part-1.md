@@ -26,11 +26,9 @@ taq install @taqueria/plugin-taquito
 taq create contract pokeGame.jsligo
 ```
 
-## Write the Smart contract code
+## Smart contract
 
-1. Edit the **pokeGame.jsligo** file
-
-Remove the default code and paste this code instead
+1. Edit the **pokeGame.jsligo** file. Remove the default code and paste this code instead
 
 ```ligolang
 export type storage = unit;
@@ -58,10 +56,8 @@ Every contract requires to respect this convention :
 
 [Have a look on the Variant type documentation](/smart-contracts/data-types/complex-data-types#variants)
 
-2. Write the poke function
-
-The objective is to store every user/caller addresses poking the contract.
-Rewrite the storage, and add the caller address to the set of traces
+2. Write the poke function. The objective is to store every user/caller addresses poking the contract.
+   Rewrite the storage, and add the caller address to the set of traces
 
 At line 1, replace the line with :
 
@@ -69,7 +65,7 @@ At line 1, replace the line with :
 export type storage = set<address>;
 ```
 
-Replace the `poke` function with :
+3. Replace the `poke` function with :
 
 ```ligolang
 @entry
@@ -91,9 +87,7 @@ Here, get the caller address using `Tezos.get_source()`. Tezos library provides 
 
 [Have a look on the Tezos library documentation](https://ligolang.org/docs/reference/current-reference)
 
-3. Try to poke
-
-The Ligo command-line provides sub-commands to test your Ligo code
+4. Try to poke. The Ligo command-line provides sub-commands to test your Ligo code
 
 [Have a look on the Testing Framework documentation](https://ligolang.org/docs/advanced/testing)
 
@@ -107,7 +101,7 @@ Taqueria is generating the `.tz` Michelson file on the `artifacts` folder. The M
 
 [Have a look on the Michelson documentation](https://tezos.gitlab.io/active/michelson.html)
 
-Taqueria is generating two additional files, edit the first file `pokeGame.storageList.jsligo` replacing current code with :
+5. Taqueria is generating two additional files, edit the first file `pokeGame.storageList.jsligo` replacing current code with :
 
 ```ligolang
 #import "pokeGame.jsligo" "Contract"
@@ -119,7 +113,7 @@ When you deploy a contract, you are required to initialize the default state of 
 
 [Have a look on the Taqueria documentation](https://taqueria.io/docs/plugins/plugin-ligo/#the-taq-compile-task)
 
-Compile all (contract + initial storage)
+6. Compile all (contract + initial storage)
 
 ```bash
 TAQ_LIGO_IMAGE=ligolang/ligo:1.1.0 taq compile pokeGame.jsligo
@@ -130,14 +124,14 @@ It compiles both source code and storage
 Before deployment, to simulate a call to our entrypoint **poke**, use `taq simulate`.  
 The contract parameter `Poke()` and the initial storage with the default empty set is passed to the execution
 
-Edit the second file **pokeGame.parameterList.jsligo**
+7. Edit the second file **pokeGame.parameterList.jsligo**
 
 ```ligolang
 #import "pokeGame.jsligo" "Contract"
 const default_parameter: parameter_of Contract = Poke();
 ```
 
-Run the simulation. First, install the Tezos client plugin, recompile all and then run the simulation
+8. Run the simulation. First, install the Tezos client plugin, recompile all and then run the simulation
 
 ```bash
 taq install @taqueria/plugin-octez-client
@@ -163,13 +157,13 @@ Output logs :
 
 You can notice that the instruction is storing the address of the caller into the storage set
 
-4. Configure your wallet to get free Tez
+9. Configure your wallet to get free Tez
 
 The default Tezos testing testnet is called **Ghostnet**
 
 :warning: You need an account to deploy a contract with some `tez` (the Tezos native currency). The first time you deploy a contract with Taqueria, it is generating a new implicit account with `0 tez`
 
-Deploying your contract to the `testing` environment, it forces Taqueria to generate a default account
+10. Deploying your contract to the `testing` environment, it forces Taqueria to generate a default account
 
 ```bash
 taq deploy pokeGame.tz -e "testing"
@@ -206,9 +200,7 @@ No operations performed
 
 Now you have :moneybag:
 
-5. Deploy to Ghostnet testnet
-
-Redeploy to the testing environment
+11. Deploy to Ghostnet testnet
 
 ```bash
 taq deploy pokeGame.tz -e "testing"
@@ -255,7 +247,7 @@ Then follow the prompts. Choose React and then Typescript+SWC:
 
 [More information about SWC here](https://swc.rs/).
 
-Add taquito and tzkt indexer libraries
+2. Add taquito and tzkt indexer libraries
 
 ```bash
 cd app
@@ -265,13 +257,13 @@ yarn add -D @airgap/beacon-types
 
 > :warning: Before starting, add the following dependencies in order to resolve polyfill issues. Some dependencies are from NodeJs, thus not included in browsers.
 
-For example, in my case, I installed this :
+3. For example, in my case, I installed this :
 
 ```bash
 yarn add --dev process buffer crypto-browserify stream-browserify assert stream-http https-browserify os-browserify url path-browserify
 ```
 
-Create a new file `nodeSpecific.ts` in the src folder of your project and edit with this content :
+4. Create a new file `nodeSpecific.ts` in the src folder of your project and edit with this content :
 
 ```bash
 touch src/nodeSpecific.ts
@@ -283,7 +275,7 @@ import { Buffer } from "buffer";
 globalThis.Buffer = Buffer;
 ```
 
-Open the `index.html` file and replace the `body` with this one :
+5. Open the `index.html` file and replace the `body` with this one :
 
 ```html
 <body>
@@ -293,7 +285,7 @@ Open the `index.html` file and replace the `body` with this one :
 </body>
 ```
 
-Finally open the `vite.config.ts` file and replace it with :
+6. Open the `vite.config.ts` file and replace it with :
 
 ```js
 import react from "@vitejs/plugin-react-swc";
@@ -338,7 +330,7 @@ export default ({ command }) => {
 };
 ```
 
-2. Generate the Typescript classes from Michelson code
+7. Generate the Typescript classes from Michelson code
 
 Taqueria is able to generate Typescript classes for any frontend application. It takes the definition of your smart contract and generates the contract entrypoint functions, type definitions, etc ...
 
@@ -349,17 +341,17 @@ taq install @taqueria/plugin-contract-types
 taq generate types ./app/src
 ```
 
-Back to your frontend app, run the dev server
+8. Back to your frontend app, run the dev server
 
 ```bash
 cd app
 yarn dev
 ```
 
-Open your browser at : http://localhost:5173/
-Your app should be running
+9. Open your browser at : http://localhost:5173/
+   Your app should be running
 
-3. Connect / disconnect the wallet
+10. Connect / disconnect the wallet
 
 Declare two React Button components and display the user address and his balance
 
@@ -426,7 +418,7 @@ function App() {
 export default App;
 ```
 
-Let's create the 2 missing src component files :
+11. Let's create the 2 missing src component files :
 
 ```bash
 touch src/ConnectWallet.tsx
@@ -435,7 +427,7 @@ touch src/DisconnectWallet.tsx
 
 ConnectWallet button creates an instance wallet, gets user permissions via a popup and then retrieves the current account information
 
-Edit **ConnectWallet.tsx**
+12. Edit **ConnectWallet.tsx**
 
 ```typescript
 import { NetworkType } from "@airgap/beacon-sdk";
@@ -488,8 +480,8 @@ const ConnectButton = ({
 export default ConnectButton;
 ```
 
-Edit **DisconnectWallet.tsx**.
-The button cleans the wallet instance and all linked objects
+13. Edit **DisconnectWallet.tsx**.
+    The button cleans the wallet instance and all linked objects
 
 ```typescript
 import { BeaconWallet } from "@taquito/beacon-wallet";
@@ -525,7 +517,7 @@ const DisconnectButton = ({
 export default DisconnectButton;
 ```
 
-Save both file, the dev server should refresh the page
+14. Save both file, the dev server should refresh the page
 
 As Temple is configured, click on Connect button
 
@@ -535,16 +527,16 @@ On the popup, select your Temple wallet, then your account and connect.
 
 Your are _logged_
 
-Click on the Disconnect button to test the disconnection
+15. Click on the Disconnect button to test the disconnection, and then reconnect
 
-4. List other poke contracts via an indexer
+16. List other poke contracts via an indexer
 
 Instead of querying heavily the rpc node to search where are located all other similar contracts and retrieve each address, use an indexer. an indexer is a kind of enriched cache API on top of an rpc node. On this example, the TZKT indexer is used to find other similar contracts.
 
-You need to install jq to parse the Taqueria json configuration file
-[Install jq](https://github.com/stedolan/jq)
+17. You need to install jq to parse the Taqueria json configuration file
+    [Install jq](https://github.com/stedolan/jq)
 
-On `package.json`, change the `dev` command on `scripts` configuration. Prefix it with a `jq` command to create an new environment variable pointing to your last smart contract address on testing env :
+18. On `package.json`, change the `dev` command on `scripts` configuration. Prefix it with a `jq` command to create an new environment variable pointing to your last smart contract address on testing env :
 
 ```bash
     "dev": "jq -r '\"VITE_CONTRACT_ADDRESS=\" + last(.tasks[]).output[0].address' ../.taq/testing-state.json > .env && vite",
@@ -552,8 +544,8 @@ On `package.json`, change the `dev` command on `scripts` configuration. Prefix i
 
 The last deployed contract address on Ghostnet is set now on our frontend.
 
-Add a button to fetch all similar contracts like yours, then display the list.
-Edit **App.tsx** and before the `return` of App function, add this section for the fetch function
+19. Add a button to fetch all similar contracts like yours, then display the list.
+    Edit **App.tsx** and before the `return` of App function, add this section for the fetch function
 
 ```typescript
 const [contracts, setContracts] = useState<Array<api.Contract>>([]);
@@ -570,7 +562,7 @@ const fetchContracts = () => {
 };
 ```
 
-On the returned **html template** section, after the display of the user balance div `I am {userAddress} with {userBalance} mutez`, append this :
+20. On the returned **html template** section, after the display of the user balance div `I am {userAddress} with {userBalance} mutez`, append this :
 
 ```tsx
 <br />
@@ -582,20 +574,20 @@ On the returned **html template** section, after the display of the user balance
 </div>
 ```
 
-Save your file and restart your server.
-Now, the start script generates the .env file containing the last deployed contract address
+21. Save your file and restart your server.
+    Now, the start script generates the .env file containing the last deployed contract address
 
 ```bash
 yarn dev
 ```
 
-Go to your web browser and click on **Fetch contracts** button
+22. Go to your web browser and click on **Fetch contracts** button
 
 ![](/img/tutorials/dapp-deployedcontracts.png)
 
 Congratulations, you are able to list all similar deployed contracts
 
-5. Poke your contract
+23. Poke your contract
 
 Import the Taqueria generated types
 
@@ -603,7 +595,7 @@ Import the Taqueria generated types
 import { PokeGameWalletType } from "./pokeGame.types";
 ```
 
-Add this new function after the previous fetch function, it calls the entrypoint for poking
+24. Add this new function after the previous fetch function, it calls the entrypoint for poking
 
 ```typescript
 const poke = async (contract: api.Contract) => {
@@ -622,13 +614,13 @@ const poke = async (contract: api.Contract) => {
 
 > :warning: Normally, a call to `c.methods.poke()` function is expected by convention, but with an unique entrypoint, Michelson generates a unique `default` entrypoint name instead of having the name of the entrypoint function. Also, be careful because all entrypoints function names are in lowercase, and all parameter types are in uppercase.
 
-Replace the line displaying the contract address `{contracts.map((contract) => <div>{contract.address}</div>)}` with the one below, it adds a Poke button
+25. Replace the line displaying the contract address `{contracts.map((contract) => <div>{contract.address}</div>)}` with the one below, it adds a Poke button
 
 ```html
     {contracts.map((contract) => <div>{contract.address} <button onClick={() =>poke(contract)}>Poke</button></div>)}
 ```
 
-Save and see the page refreshed, then click on the Poke button
+26. Save and see the page refreshed, then click on the Poke button
 
 ![](/img/tutorials/dapp-pokecontracts.png)
 
