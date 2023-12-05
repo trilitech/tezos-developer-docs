@@ -2,7 +2,7 @@
 title: Deploy a smart contract with jsLIGO
 authors: 'John Joubert, Sasha Aldrick, Claude Barde, Tim McMackin'
 last_update:
-  date: 4 December 2023
+  date: 5 December 2023
 ---
 
 This tutorial covers writing and deploying a simple smart contract with the LIGO programming language.
@@ -45,7 +45,7 @@ It provides entrypoints that clients can call to change the value of that intege
 - The `decrement` endpoint accepts an integer as a parameter and subtracts that integer to the value in storage
 - The `reset` endpoint takes no parameters and resets the value in storage to 0
 
-After you deploy the contract, you or any other user can call it through Octez or a distributed application (dApp).
+After you deploy the contract, you or any other user can call it from a variety of Tezos clients and decentralized applications (dApps).
 
 ## Creating and funding a wallet
 
@@ -118,7 +118,7 @@ You can work with LIGO code in any IDE, but this online IDE keeps you from havin
 
 1. In the IDE, create a project from the empty template and select the JsLIGO syntax, as shown in this picture:
 
-   <img src="/img/tutorials/ligo-online-ide-new-project.png" alt="Creating a project" style={{width: 500}} />
+   <img src="/img/tutorials/ligo-online-ide-new-project-js.png" alt="Creating a project" style={{width: 500}} />
 
    The IDE creates a project and a contract file named `Contract.jsligo`.
 
@@ -208,7 +208,7 @@ Before you can deploy the contract to Tezos, you must compile it to Michelson, t
    1. In the Dry Run window, select the `Increment` entrypoint, set the input parameter to `32` and the storage to `10`.
    The Dry Run window looks like this:
 
-      <img src="/img/tutorials/ligo-online-ide-dry-run-window.png" alt="The Dry Run window, showing the entrypoint to run, the parameter to pass, and the value of the storage" style={{width: 500}} />
+      <img src="/img/tutorials/ligo-online-ide-dry-run-window-js.png" alt="The Dry Run window, showing the entrypoint to run, the parameter to pass, and the value of the storage" style={{width: 500}} />
 
    1. Click **Run**.
 
@@ -243,7 +243,7 @@ You can ignore this warning because you can set the initial storage now.
 
    The window shows the estimated fees to deploy the contract, as in this picture:
 
-   <img src="/img/tutorials/ligo-online-ide-deploy-estimate.png" alt="The estimate of the fees to deploy the contract" style={{width: 500}} />
+   <img src="/img/tutorials/ligo-online-ide-deploy-estimate-js.png" alt="The estimate of the fees to deploy the contract" style={{width: 500}} />
 
 1. Click **Deploy**.
 
