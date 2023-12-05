@@ -10,7 +10,7 @@ The `TezosManager.Instance.Tezos.DAppMetadata` object provides read-only propert
 
 ## Properties
 
-These properties appear to be read-only:
+These properties are read-only:
 
 - `Name`: The name of the project, which is shown in wallet applications when users connect to the project
 - `Url`: The home page of the project
