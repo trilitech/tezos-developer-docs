@@ -2,11 +2,10 @@
 title: Deploy a smart contract with CameLIGO
 authors: 'John Joubert, Sasha Aldrick, Claude Barde, Tim McMackin'
 last_update:
-  date: 20 October 2023
+  date: 5 December 2023
 ---
 
-This tutorial covers using the Octez command-line client to deploy a smart contract to Tezos.
-The tutorial uses the LIGO programming language, which is one of the languages that you can write Tezos smart contracts in.
+This tutorial covers writing and deploying a simple smart contract with the LIGO programming language.
 Specifically, this tutorial uses the CameLIGO version of LIGO, which has syntax similar to OCaml, but you don't need any experience with OCaml or LIGO to do this tutorial.
 
 - If you are more familiar with JavaScript, try [Deploy a smart contract with jsLIGO](./jsligo).
@@ -15,7 +14,6 @@ Specifically, this tutorial uses the CameLIGO version of LIGO, which has syntax 
 
 In this tutorial, you will learn how to:
 
-- Connect the Octez client to a testnet
 - Create a wallet
 - Get tokens from a faucet
 - Code a contract in LIGO, including:
@@ -24,7 +22,19 @@ In this tutorial, you will learn how to:
   - Writing code to run when the entrypoints are called
 - Deploy (or originate) the contract to Tezos and set its starting storage value
 - Look up the current state of the contract
-- Call the contract from the command line
+- Call the contract
+
+## What is a smart contract?
+
+A smart contract is a computer program that is stored on a blockchain and runs on a blockchain.
+Because the blockchain is spread across many computer nodes, you don't have to think about where to host the program or worry whether a computer will run it or not.
+Responsibility for running the contract is distributed across all of the nodes in the Tezos system, so when you deploy a smart contract, you can be confident that it will be available and unmodified when someone wants to run it.
+
+A smart contract has these parts:
+
+- It has persistent storage, data that the contract can read and write
+- It has one or more entrypoints, which are a kind of function that clients can call, like endpoints in an API or functions or methods in many programming languages
+- It has a Tezos account and can store tez (technically, the contract is itself a type of Tezos account, but you can think of it as a program with a Tezos account)
 
 ## Tutorial contract
 
@@ -35,171 +45,45 @@ It provides entrypoints that clients can call to change the value of that intege
 - The `decrement` endpoint accepts an integer as a parameter and subtracts that integer to the value in storage
 - The `reset` endpoint takes no parameters and resets the value in storage to 0
 
-After you deploy the contract, you or any other user can call it through Octez or a distributed application (dApp).
+After you deploy the contract, you or any other user can call it from a variety of Tezos clients and decentralized applications (dApps).
 
-## Prerequisites
+## Creating and funding a wallet
 
-To run this tutorial, you need the Octez client and LIGO.
+To deploy and work with the contract, you need a wallet and some tez tokens.
 
-- To install the LIGO programming language, version 1.0.0 or later, see https://ligolang.org/docs/intro/installation.
-You can verify that LIGO is installed by running this command:
+1. Install a Tezos-compatible wallet.
+Which wallet you install is up to you and whether you want to install a wallet on your computer, in a browser extension, or as a mobile app.
 
-   ```bash
-   ligo version
-   ```
+   If you don't know which one to choose, try the [Temple](https://templewallet.com/) browser extension.
 
-   If you see a message with a version 1.0.0 or later, LIGO is installed correctly.
+   Desktop wallets for Tezos include the [Temple](https://templewallet.com/) browser extension, [Kukai](https://wallet.kukai.app/), and [Umami](https://umamiwallet.com/).
 
-- To install the Octez client, which allows you to send transactions to the Tezos blockchain, use your operating system's package manager:
+   Mobile apps include [Temple](https://templewallet.com/), [Kukai](https://wallet.kukai.app/), and [Umami](https://umamiwallet.com/).
 
-   - For MacOS, run these commands:
+1. Switch the wallet to use the Ghostnet testnet instead of Tezos Mainnet.
+Ghostnet is a network for testing Tezos applications where tokens are free so you don't have to spend real currency to work with your applications.
 
-   ```bash
-   brew tap serokell/tezos-packaging-stable https://github.com/serokell/tezos-packaging-stable.git
-   brew install tezos-client
-   ```
+   For example, for the Temple browser wallet, click **Tezos Mainnet** at the top and then click **Ghostnet Testnet**, as in this picture:
 
-   - For Ubuntu, Windows WSL, and Linux distributions that use `apt`, run these commands:
+   ![Selecting the Ghostnet testnet in the Temple wallet](/img/tutorials/temple-switch-network.png)
 
-   ```bash
-   REPO="ppa:serokell/tezos"
-   sudo add-apt-repository -y $REPO && sudo apt-get update
-   sudo apt-get install -y tezos-client
-   ```
+1. From your wallet, get the address of your account, which starts with `tz1`.
+This is the address that applications use to work with your wallet.
 
-   - For Fedora and Linux distributions that use Copr, run these commands:
-
-   ```bash
-   REPO="@Serokell/Tezos"
-   dnf copr enable -y $REPO && dnf update -y
-   dnf install -y tezos-client
-   ```
-
-   You can verify that the Octez client is installed by running this command:
-
-   ```bash
-   octez-client --version
-   ```
-
-   If you see a message with the version of Octez that you have installed, the Octez client is installed correctly.
-   For help on Octez, run `octez-client --help` or see http://tezos.gitlab.io/index.html.
-
-   For more detailed installation instructions, see [How to get Tezos](http://tezos.gitlab.io/introduction/howtoget.html).
-
-LIGO is a high-level programming language created by Marigold to write smart contracts for the Tezos blockchain.
-
-It abstracts away the complexity of using Michelson (the smart contract language directly available on-chain) and provides different syntaxes that make it easier to write smart contracts on Tezos.
-
-LIGO provides two syntaxes: *jsLigo*, a syntax similar to TypeScript, and *CameLigo*, a syntax similar to OCaml.
-This tutorial uses CameLigo, but you do not need any experience with OCaml to run it.
-
-## Create a project folder
-
-Follow these steps to create a LIGO project:
-
-1. On the command-line terminal, create a folder for the project and open it.
-You can name your project anything you want, such as `example-smart-contract-cameligo`.
-
-   ```bash
-   mkdir example-smart-contract-cameligo
-   cd example-smart-contract-cameligo
-   ```
-
-1. Create a file named `increment.mligo` in the project folder.
-This is where the contract code goes.
-
-   ```bash
-   touch increment.mligo
-   ```
-
-## Switch to a testnet
-
-Before you deploy your contract to the main Tezos network (referred to as *Mainnet*), you can deploy it to a testnet.
-Testnets are useful for testing Tezos operations because testnets provide tokens for free so you can work with them without spending real tokens.
-
-Tezos testnets are listed on this site: https://teztnets.xyz/.
-
-The [Ghostnet](https://teztnets.xyz/ghostnet-about) testnet is a good choice for testing because it is intended to be long-lived, as opposed to shorter-term testnets that allow people to test new Tezos features.
-
-Follow these steps to set your Octez client to use a testnet instead of the main network:
-
-1. On https://teztnets.xyz/, click the testnet to use, such as Ghostnet.
-
-1. Copy the one of the testnet's public RPC endpoints, such as `https://rpc.ghostnet.teztnets.xyz`.
-
-1. Set your Octez client to use this testnet by running this command on the command line, replacing the testnet RPC URL with the URL that you copied:
-
-   ```bash
-   octez-client --endpoint https://rpc.ghostnet.teztnets.xyz config update
-   ```
-
-   Octez shows a warning that you are using a testnet instead of Mainnet.
-
-1. Verify that you are using a testnet by running this command:
-
-   ```bash
-   octez-client config show
-   ```
-
-   The response from Octez includes the URL of the testnet.
-
-## Create a local wallet
-
-Deploying and using a smart contract costs fees, so you need a local wallet and tez tokens.
-The Octez client can manage a local wallet for you, and you can get tez tokens on testnets from faucets.
-
-1. Run the following command to generate a local wallet, replacing `local_wallet` with a name for your wallet:
-
-   ```bash
-   octez-client gen keys local_wallet
-   ```
-
-1. Get the address for the wallet by running this command, again replacing `local_wallet` with the name of your local wallet.
-
-   ```bash
-   octez-client show address local_wallet
-   ```
-
-   The Octez client prints a warning that you are using a testnet and the address of the new wallet in the `hash` field.
-   The wallet address begins with `tz1`, `tz2`, or `tz3`, as in this example:
-
-   ```bash
-   Warning:
-
-                    This is NOT the Tezos Mainnet.
-
-              Do NOT use your fundraiser keys on this network.
-
-   Hash: tz1dW9Mk...........H67L
-   Public Key: edp.............................bjbeDj
-   ```
-
-   You need the wallet address to send funds to the wallet, to deploy the contract, and to send transactions to the contract.
-
-1. On the testnets page at https://teztnets.xyz/, click the faucet link for the testnet you are using.
-For example, the Ghostnet faucet is at https://faucet.ghostnet.teztnets.xyz.
+1. Go to the Ghostnet faucet page at https://faucet.ghostnet.teztnets.xyz.
 
 1. On the faucet page, paste your wallet address into the input field labeled "Or fund any address" and click the button for the amount of tez to add to your wallet.
-20 tez is enough to work with the tutorial application, and you can return to the faucet later if you need more tez.
-It may take a few minutes for the faucet to send the tokens and for those tokens to appear in your wallet.
+20 tez is enough to work with the tutorial contract, and you can return to the faucet later if you need more tez.
+
+   It may take a few minutes for the faucet to send the tokens and for those tokens to appear in your wallet.
 
    You can use the faucet as much as you need to get tokens on the testnet, but those tokens are worthless and cannot be used on Mainnet.
 
    ![Fund your wallet using the Ghostnet Faucet](/img/tutorials/wallet-funding.png)
 
-1. Run this command to check the balance of your wallet:
+Now you have an account and funds that you can use to work with Tezos.
 
-   ```bash
-   octez-client get balance for local_wallet
-   ```
-
-If your wallet is set up correctly and the faucet has sent tokens to it, the Octez client prints the balance of your wallet, as in this example:
-
-```
-20 ꜩ
-```
-
-## Create the contract
+## Creating the contract
 
 The contract that you will create has these basic parts:
 
@@ -207,15 +91,46 @@ The contract that you will create has these basic parts:
 The storage can be a primitive type such as an integer, string, or timestamp, or a complex data type that contains multiple values.
 For more information on contract data types, see [Data types](../../smart-contracts/data-types).
 
-- Internal functions called entrypoints that run code when clients call the contract.
+- Functions called entrypoints that run code when clients call the contract.
 
 - A type that describes the return value of the entrypoints.
 
 Follow these steps to create the code for the contract:
 
-1. Open the `increment.mligo` file in any text editor.
+1. Open the LIGO online IDE at https://ide.ligolang.org/.
+You can work with LIGO code in any IDE, but this online IDE keeps you from having to install software on your computer, and it also simplifies the process of deploying contracts.
 
-1. Add this line of code to set the storage type to an integer:
+1. At the top right of the page, in the **Network** menu, select Ghostnet, as shown in this picture:
+
+   ![Selecting Ghostnet in the list of networks](/img/tutorials/ligo-online-ide-select-ghostnet.png)
+
+1. Connect a wallet to the IDE:
+
+   1. At the top right of the page, click the **Keypair Manager** <img src="/img/tutorials/ligo-online-ide-keypair-manager.png" alt="" style={{width: 24}} /> button.
+
+   1. In the Keypair Manager window, import the account that you created earlier or create and fund a new account to use with the IDE.
+
+      - To import the account that you created earlier, export the private key from your wallet app, click **Import** in the Keypair Manager window, and paste the private key.
+      Now you can use your account in the IDE.
+
+      - To create an account to use with the IDE, click **Create** in the Keypair Manager window, give the new keypair a name, and click **Create**.
+      Then, copy the address of the keypair and get tez from the faucet as you did in [Creating and funding a wallet](#creating-and-funding-a-wallet).
+
+1. In the IDE, create a project from the empty template and select the CameLIGO syntax, as shown in this picture:
+
+   <img src="/img/tutorials/ligo-online-ide-new-project-camel.png" alt="Creating a project" style={{width: 500}} />
+
+   The IDE creates a project and a contract file named `Contract.mligo`.
+
+1. On the left side of the page, under **Actions**, click **Project Settings**.
+
+1. In the **Module name** field, clear the default value to leave the field blank.
+
+1. Close the Project Settings tab to go back to the `Contract.mligo` file.
+
+   {/* Bug in IDE means we can't use a namespace */}
+
+1. In the contract file, create a type to set the storage type to an integer:
 
    ```ocaml
    type storage = int
@@ -281,26 +196,28 @@ type returnValue = operation list * storage
 
 Before you can deploy the contract to Tezos, you must compile it to Michelson, the base language of Tezos contracts.
 
-1. Test the contract by passing parameters and the storage value to the LIGO `dry-run` command.
-For example, this command sets the storage at 10 and increments it by 32:
+1. Test the contract by passing parameters and the storage value to the LIGO `dry-run` command:
 
-   ```bash
-   ligo run dry-run increment.mligo "Increment(32)" "10"
-   ```
+   1. On the left side of the page, under **Actions**, click **Dry Run**.
 
-   The terminal should show the response `(LIST_EMPTY(), 42)`.
-   This response means that the contract did not call any other contracts, so the list of operations is empty.
-   Then it shows the new value of the storage.
-   You can test the decrement and reset functions in the same way.
+   1. In the Dry Run window, select the `Increment` entrypoint, set the input parameter to `32` and the storage to `10`.
+   The Dry Run window looks like this:
 
-1. Run this command to compile the contract:
+      <img src="/img/tutorials/ligo-online-ide-dry-run-window-camel.png" alt="The Dry Run window, showing the entrypoint to run, the parameter to pass, and the value of the storage" style={{width: 500}} />
 
-   ```bash
-   ligo compile contract increment.mligo -o increment.tz
-   ```
+   1. Click **Run**.
 
-   If the compilation succeeds, no messages are shown in the terminal.
-   If you see error messages, verify that your contract code matches the code in the previous section.
+      At the bottom of the window, the Result field shows the response `(LIST_EMPTY(), 42)`.
+      This response means that the contract did not call any other contracts, so the list of operations is empty.
+      Then it shows the new value of the storage.
+      You can test the decrement and reset functions in the same way.
+      If you see any errors, make sure that the code of your contract matches the code in the previous section.
+
+1. On the left side of the page, under **Actions**, click **Compile**, and in the Compile window, click **Compile** again.
+
+If the compilation succeeds, the IDE prints the compiled code to the terminal and saves it to the file `build/contracts/Contract.tz`.
+You can see the code by expanding your project on the left side of the page, under `.workspaces`, and double-clicking `Contract.tz`.
+If you see error messages, verify that your contract code matches the code in the previous section.
 
 Now you can deploy the contract.
 
@@ -309,69 +226,64 @@ Now you can deploy the contract.
 Deploying a contract to the network is called "originating."
 Originating the contract requires a small amount of Tezos tokens as a fee.
 
-1. Run the following command to originate the smart contract, changing `$MY_TZ_ADDRESS` to the address or local name of the wallet that you created earlier in the tutorial:
+1. On the left side of the page, under **Actions**, click **Deploy**.
+You may see a warning that the initial storage is not set.
+You can ignore this warning because you can set the initial storage now.
 
-   ```bash
-   octez-client originate contract my-counter \
-       transferring 0 from $MY_TZ_ADDRESS \
-       running increment.tz \
-       --init 10 --burn-cap 0.1 --force
-   ```
+1. In the Deploy contract window, in the **Init storage** field, set the initial value for the contract's storage to an integer.
 
-   This command includes these parts:
+1. In the **Signer** field, make sure your account is selected.
 
-     - It uses the Octez client `originate contract` command to originate the contract and assigns the local name `my-counter` to the contract
-     - It includes 0 tokens from your wallet with the transaction, but the `--burn-cap` argument allows the transaction to take up to 0.1 tez from your wallet for fees.
-     - It sets the initial value of the contract storage to 10 with the `--init` argument.
+1. Click **Estimate**.
 
-   If the contract deploys successfully, Octez shows the address of the new contract, as in this example:
+   The window shows the estimated fees to deploy the contract, as in this picture:
 
-   ```bash
-   New contract KT1Nnk.................UFsJrq originated.
-   The operation has only been included 0 blocks ago.
-   We recommend to wait more.
-   ```
+   <img src="/img/tutorials/ligo-online-ide-deploy-estimate-camel.png" alt="The estimate of the fees to deploy the contract" style={{width: 500}} />
 
-1. Copy the contract address, which starts with `KT1`.
+1. Click **Deploy**.
 
-1. Optional: Run the command `octez-client get balance for local_wallet` to get the updated balance of your wallet.
+   The deployment process can take a few minutes.
+   When the contract is deployed, the Deploy contract window shows the address at the bottom of the window.
 
-1. Verify that the contract deployed successfully by finding it on a block explorer:
+1. Copy the address of the deployed contract, which starts with `KT1`.
 
-  1. Open a Tezos block explorer such as [TzKT](https://tzkt.io) or [Better Call Dev](https://better-call.dev/).
-
-  1. Set the explorer to Ghostnet instead of Mainnet.
-
-  1. Paste the contract address, which starts with `KT1`, into the search field and press Enter.
-
-  1. Go to the Storage tab to see that the initial value of the storage is 10.
+Now you can call the contract from any Tezos client, including web applications and command-line applications like [The Octez client](../../developing/octez-client).
 
 ## Calling the contract
 
-Now you can call the contract from any Tezos client, including Octez.
+These steps show you how to inspect the contract with a block explorer, which is a web application that shows information about Tezos.
+It also allows you to call the contract.
 
-To increment the current storage by a certain value, call the `increment` entrypoint, as in this example, again changing `$MY_TZ_ADDRESS` to the address or local name of the wallet that you created earlier in the tutorial:
+1. Open the block explorer Better Call Dev at this link: https://better-call.dev/
 
-```bash
-octez-client --wait none transfer 0 from $MY_TZ_ADDRESS to my-counter --entrypoint 'increment' --arg '5' --burn-cap 0.1
-```
+1. Paste the address of the contract in the search field and press Enter.
 
-The previous example uses the local name `my-counter`.
-You can also specify the contract address.
+   The block explorer shows information about the contract, including recent transactions and the current state of its storage.
 
-To decrement the current storage by a certain value, call the `decrement` entrypoint, as in this example:
+   <img src="/img/tutorials/bcd-originated-contract.png" alt="The block explorer, showing information about the contract" style={{width: 500}} />
 
-```bash
-octez-client --wait none transfer 0 from $MY_TZ_ADDRESS to my-counter --entrypoint 'decrement' --arg '6' --burn-cap 0.1
-```
+1. Try calling one of the endpoints:
 
-Finally, to reset the current storage to zero, call the `reset` entrypoint, as in this example:
+   1. Go to the **Storage** tab and check the current state of the storage, which should be the integer that you put in the Deploy window.
 
-```bash
-octez-client --wait none transfer 0 from $MY_TZ_ADDRESS to my-counter --entrypoint 'reset' --arg 'Unit' --burn-cap 0.1
-```
+   1. Go to the **Interact** tab.
+   This tab shows the entrypoints in the contract and lets you use them.
 
-You can go back to the block explorer to verify that the storage of the contract changed.
+   1. For the `increment` entrypoint, in the **Parameters** section, put an integer in the field, as shown in this image:
+
+      <img src="/img/tutorials/bcd-interact-parameters-increment.png" alt="Putting in a value for an entrypoint parameter" style={{width: 500}} />
+
+   1. Click **Execute** and then click **Wallet**.
+
+   1. Select your wallet and connect it to the application.
+
+   1. Confirm the transaction in your wallet.
+
+   1. Wait for a success message that says "The transaction has successfully been broadcasted to the network."
+
+   1. Go back to the **Storage** tab and see the new value of the storage, as in this picture:
+
+      <img src="/img/tutorials/bcd-updated-storage-counter.png" alt="Updated storage value" style={{width: 500}} />
 
 ## Summary
 
