@@ -108,7 +108,7 @@ It is required to :
 - add a new entrypoint to change the lambda code
 - update the current entrypoint for calling the lambda
 
-Let's start with adding the lambda function definition of the storage
+1. Let's start with adding the lambda function definition of the storage
 
 ```ligolang
 export type feedbackFunction = (oracleAddress: address) => string;
@@ -123,7 +123,7 @@ export type storage = {
 
 Let's do minor changes as you have 1 additional field `feedbackFunction` on storage destructuring.
 
-1. Edit the `PokeAndGetFeedback` function where the lambda `feedbackFunction(..)` is executed
+2. Edit the `PokeAndGetFeedback` function where the lambda `feedbackFunction(..)` is executed
 
 ```ligolang
 @no_mutation
@@ -161,7 +161,7 @@ Notice the line with `feedbackFunction(oracleAddress)` and call the lambda with 
 
 The first time, the current code is injected to check that it still works, and then, modify the lambda code on the storage.
 
-2. To modify the lambda function code, add an extra admin entrypoint `updateFeedbackFunction`
+3. To modify the lambda function code, add an extra admin entrypoint `updateFeedbackFunction`
 
 ```ligolang
 @entry
@@ -175,7 +175,7 @@ const updateFeedbackFunction = (newCode: feedbackFunction, store: storage): retu
 };
 ```
 
-3. The storage definition is broken, fix all storage missing field warnings on `poke` and `init` functions
+4. The storage definition is broken, fix all storage missing field warnings on `poke` and `init` functions
 
 ```ligolang
 @entry
@@ -231,7 +231,7 @@ const init = ([a, ticketCount]: [address, nat], store: storage): return_ => {
 };
 ```
 
-4. Change the initial storage with the old initial value of the lambda function (i.e calling a view to get a feedback)
+5. Change the initial storage with the old initial value of the lambda function (i.e calling a view to get a feedback)
 
 ```ligolang
 #import "pokeGame.jsligo" "Contract"
@@ -258,14 +258,14 @@ const default_storage = {
 };
 ```
 
-5. Compile and play with the CLI
+6. Compile and play with the CLI
 
 ```bash
 npm i
 TAQ_LIGO_IMAGE=ligolang/ligo:1.1.0 taq compile pokeGame.jsligo
 ```
 
-6. Redeploy to testnet
+7. Redeploy to testnet
 
 ```bash
 taq deploy pokeGame.tz -e testing
@@ -279,7 +279,7 @@ taq deploy pokeGame.tz -e testing
 └─────────────┴──────────────────────────────────────┴──────────┴──────────────────┴────────────────────────────────┘
 ```
 
-7. Test the dApp frontend
+8. Test the dApp frontend
 
 Regenerate types and run the frontend
 
@@ -289,7 +289,7 @@ cd app
 yarn dev
 ```
 
-8. Run the user sequence on the web page :
+9. Run the user sequence on the web page :
 
 1. Mint 1 ticket
 1. wait for confirmation
@@ -300,14 +300,14 @@ yarn dev
 
 Update the lambda function in background with the CLI though the new admin entrypoint. Return a fixed string this time, just for demo purpose and verify that the lambda executed is returning another output
 
-9. Edit the file `pokeGame.parameterList.jsligo`
+10. Edit the file `pokeGame.parameterList.jsligo`
 
 ```ligolang
 #import "pokeGame.jsligo" "Contract"
 const default_parameter : parameter_of Contract = UpdateFeedbackFunction((_oracleAddress : address) : string => "YEAH!!!");
 ```
 
-10. Compile all and call an init transaction
+11. Compile all and call an init transaction
 
 ```bash
 TAQ_LIGO_IMAGE=ligolang/ligo:1.1.0 taq compile pokeGame.jsligo
@@ -323,7 +323,7 @@ taq call pokeGame --param pokeGame.parameter.default_parameter.tz -e testing
 └────────────────┴──────────────────────────────────────┴─────────────────────────────────────────┴────────────┴────────────────┴────────────────────────────────┘
 ```
 
-11. Run the user sequence on the web page :
+12. Run the user sequence on the web page :
 
 1. Mint 1 ticket
 1. wait for confirmation
@@ -1113,7 +1113,7 @@ taq generate types ./app/src
 echo '"VITE_CONTRACT_ADDRESS=" + last(.tasks[] | select(.task == "deploy" and .output[0].contract == "proxy.tz").output[0].address)' > ./app/filter.jq
 ```
 
-Edit `./app/src/App.tsx` and change the contract address, display, etc ...
+4. Edit `./app/src/App.tsx` and change the contract address, display, etc ...
 
 ```typescript
 import { NetworkType } from "@airgap/beacon-types";
@@ -1348,14 +1348,14 @@ export default App;
 - Merge the proxy and contract storage into `ProxyStorage&ContractStorage` type definition. Fetching the contracts is appending the storage of the underlying contract to the proxy storage
 - the call to exposed entrypoint is altered. As all is generic, now on the proxy side there are only `await c.methods.callContract("my_entrypoint_name",my_packed_payload_bytes).send()` calls
 
-4. Run the frontend locally
+5. Run the frontend locally
 
 ```bash
 cd app
 yarn dev
 ```
 
-5. Do all the same actions as before through the proxy.
+6. Do all the same actions as before through the proxy.
 
 1. Login
 1. Refresh the contract list
@@ -1365,7 +1365,7 @@ yarn dev
 1. Wait for confirmation popup
 1. Refresh the contract list
 
-1. Deploy a new contract V2 and test it again.
+Deploy a new contract V2 and test it again.
 
 > Note : Remember that the `storage.feedback` field cannot change on any deployed smart contract because there is no exposed method to update it.
 > Let's change this value for the new contract instance, and call it `hello`

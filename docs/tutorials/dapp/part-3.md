@@ -403,7 +403,7 @@ First test should be fine
 └──────────────────────┴───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
-## Redeploy the smart contract
+3. Redeploy the smart contract
 
 Let play with the CLI to compile and deploy
 

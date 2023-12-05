@@ -101,7 +101,7 @@ const default_storage: Contract.storage = {
 };
 ```
 
-Compile your contract
+4. Compile your contract
 
 ```bash
 TAQ_LIGO_IMAGE=ligolang/ligo:1.1.0 taq compile pokeGame.jsligo
@@ -260,9 +260,7 @@ Explanations :
 - `type returned_feedback = [address, string]` the parameters of an oracle function always start with the address of the contract caller and followed by the return objects
 - `type oracle_param = contract<returned_feedback>` the oracle parameters need to be wrapped inside a typed contract
 
-2. Write the missing functions, starting with `getFeedback`
-
-Add this new function at the end of the file
+2. Write the missing functions, starting with `getFeedback`. Add this new function at the end of the file
 
 ```ligolang
 @entry
@@ -338,7 +336,7 @@ const pokeAndGetFeedbackCallback = (feedback : returned_feedback, store : storag
 TAQ_LIGO_IMAGE=ligolang/ligo:1.1.0 taq compile pokeGame.jsligo
 ```
 
-(Optional) Write a unit test for this new function `pokeAndGetFeedback`
+6. (Optional) Write a unit test for this new function `pokeAndGetFeedback`
 
 ## Use views instead of inter-contract call
 
@@ -636,7 +634,7 @@ On the listed contract, choose your line and input the address of the contract y
 
 This time, the logged user will receive a feedback from a targeted contract (as input of the form) via any listed contract (the first column of the table).
 
-Refresh manually clicking on `Fetch contracts` button
+8. Refresh manually clicking on `Fetch contracts` button
 
 Poke other developer's contract to discover their contract hidden feedback when you poke them
 
