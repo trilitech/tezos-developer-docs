@@ -97,9 +97,32 @@ For more information on contract data types, see [Data types](../../smart-contra
 
 Follow these steps to create the code for the contract:
 
-1. Open the `increment.jsligo` file in any text editor.
+1. Open the LIGO online IDE at https://ide.ligolang.org/.
+You can work with LIGO code in any IDE, but this online IDE keeps you from having to install software on your computer, and it also simplifies the process of deploying contracts.
 
-1. Create a namespace named `Counter` to hold the code for the contract:
+1. At the top right of the page, in the **Network** menu, select Ghostnet, as shown in this picture:
+
+   ![Selecting Ghostnet in the list of networks](/img/tutorials/ligo-online-ide-select-ghostnet.png)
+
+1. Connect a wallet to the IDE:
+
+   1. At the top right of the page, click the **Keypair Manager** ![Keypair Manager key icon](/img/tutorials/ligo-online-ide-keypair-manager.png).
+
+   1. In the Keypair Manager window, import the account you created earlier or create and fund a new account to use with the IDE.
+
+      - To import the account that you created earlier, export the private key from your wallet app, click **Import** in the Keypair Manager window, and paste the private key.
+      Now you can use your account in the IDE.
+
+      - To create an account to use with the IDE, click **Create** in the Keypair Manager window, give the new keypair a name, and click **Create**.
+      Then, copy the address of the keypair and get tez from the faucet as you did in [Creating and funding a wallet](#creating-and-funding-a-wallet).
+
+1. In the IDE, create a project from the empty template and select the JsLIGO syntax, as shown in this picture:
+
+   ![Creating a project](/img/tutorials/ligo-online-ide-new-project.png)
+
+   The IDE creates a project and a contract file named `Contract.jsligo`.
+
+1. In the contract file, create a namespace named `Counter` to hold the code for the contract:
 
    ```ts
    namespace Counter {
@@ -180,26 +203,28 @@ namespace Counter {
 
 Before you can deploy the contract to Tezos, you must compile it to Michelson, the base language of Tezos contracts.
 
-1. Test the contract by passing parameters and the storage value to the LIGO `dry-run` command.
-For example, this command sets the storage at 10 and increments it by 32:
+1. Test the contract by passing parameters and the storage value to the LIGO `dry-run` command:
 
-   ```bash
-   ligo run dry-run increment.jsligo -m Counter "Increment(32)" "10"
-   ```
+   1. On the left side of the page, under **Actions**, click **Dry Run**.
 
-   The terminal should show the response `(LIST_EMPTY(), 42)`.
-   This response means that the contract did not call any other contracts, so the list of operations is empty.
-   Then it shows the new value of the storage.
-   You can test the decrement and reset functions in the same way.
+   1. In the Dry Run window, select the `Increment` entrypoint, set the input parameter to `32` and the storage to `10`.
+   The Dry Run window looks like this:
 
-1. Run this command to compile the contract:
+      ![The Dry Run window, showing the entrypoint to run, the parameter to pass, and the value of the storage](/img/tutorials/ligo-online-ide-dry-run-window.png)
 
-   ```bash
-   ligo compile contract increment.jsligo -m Counter -o increment.tz
-   ```
+   1. Click **Run**.
 
-   If the compilation succeeds, no messages are shown in the terminal.
-   If you see error messages, verify that your contract code matches the code in the previous section.
+      At the bottom of the window, the Result field shows the response `(LIST_EMPTY(), 42)`.
+      This response means that the contract did not call any other contracts, so the list of operations is empty.
+      Then it shows the new value of the storage.
+      You can test the decrement and reset functions in the same way.
+      If you see any errors, make sure that the code of your contract matches the code in the previous section.
+
+1. On the left side of the page, under **Actions**, click **Compile**, and in the Compile window, click **Compile** again.
+
+If the compilation succeeds, the IDE prints the compiled code to the terminal and saves it to the file `build/contracts/Contract.tz`.
+You can see the code by expanding your project on the left side of the page, under `.workspaces`, and double-clicking `Contract.tz`.
+If you see error messages, verify that your contract code matches the code in the previous section.
 
 Now you can deploy the contract.
 
@@ -208,69 +233,55 @@ Now you can deploy the contract.
 Deploying a contract to the network is called "originating."
 Originating the contract requires a small amount of Tezos tokens as a fee.
 
-1. Run the following command to originate the smart contract, changing `$MY_TZ_ADDRESS` to the address or local name of the wallet that you created earlier in the tutorial:
+1. On the left side of the page, under **Actions**, click **Deploy**.
+You may see a warning that the initial storage is not set.
+You can ignore this warning because you can set the initial storage now.
 
-   ```bash
-   octez-client originate contract my-counter \
-       transferring 0 from $MY_TZ_ADDRESS \
-       running increment.tz \
-       --init 10 --burn-cap 0.1 --force
-   ```
+1. In the Deploy contract window, in the **Init storage** field, set the initial value for the contract's storage to an integer.
 
-   This command includes these parts:
+1. In the **Signer** field, make sure your account is selected.
 
-     - It uses the Octez client `originate contract` command to originate the contract and assigns the local name `my-counter` to the contract
-     - It includes 0 tokens from your wallet with the transaction, but the `--burn-cap` argument allows the transaction to take up to 0.1 tez from your wallet for fees.
-     - It sets the initial value of the contract storage to 10 with the `--init` argument.
+1. Click **Estimate**.
 
-   If the contract deploys successfully, Octez shows the address of the new contract, as in this example:
-
-   ```bash
-   New contract KT1Nnk.................UFsJrq originated.
-   The operation has only been included 0 blocks ago.
-   We recommend to wait more.
-   ```
-
-1. Copy the contract address, which starts with `KT1`.
-
-1. Optional: Run the command `octez-client get balance for local_wallet` to get the updated balance of your wallet.
-
-1. Verify that the contract deployed successfully by finding it on a block explorer:
-
-  1. Open a Tezos block explorer such as [TzKT](https://tzkt.io) or [Better Call Dev](https://better-call.dev/).
-
-  1. Set the explorer to Ghostnet instead of Mainnet.
-
-  1. Paste the contract address, which starts with `KT1`, into the search field and press Enter.
-
-  1. Go to the Storage tab to see that the initial value of the storage is 10.
+TODO getting an error when I estimate.
 
 ## Calling the contract
 
-Now you can call the contract from any Tezos client, including Octez.
+Now you can call the contract from any Tezos client, including web applications and command-line applications like [The Octez client](../../developing/octez-client).
 
-To increment the current storage by a certain value, call the `increment` entrypoint, as in this example, again changing `$MY_TZ_ADDRESS` to the address or local name of the wallet that you created earlier in the tutorial:
+These steps show you how to inspect the contract with a block explorer, which is a web application that shows information about Tezos.
+It also allows you to call the contract.
 
-```bash
-octez-client --wait none transfer 0 from $MY_TZ_ADDRESS to my-counter --entrypoint 'increment' --arg '5' --burn-cap 0.1
-```
+1. Open the block explorer Better Call Dev at this link: https://better-call.dev/
 
-The previous example uses the local name `my-counter`.
-You can also specify the contract address.
+1. Paste the address of the contract in the search field and press Enter.
 
-To decrement the current storage by a certain value, call the `decrement` entrypoint, as in this example:
+   The block explorer shows information about the contract, including recent transactions and the current state of its storage.
 
-```bash
-octez-client --wait none transfer 0 from $MY_TZ_ADDRESS to my-counter --entrypoint 'decrement' --arg '6' --burn-cap 0.1
-```
+   ![The block explorer, showing information about the contract](/img/tutorials/bcd-originated-contract.png)
 
-Finally, to reset the current storage to zero, call the `reset` entrypoint, as in this example:
+1. Try calling one of the endpoints:
 
-```bash
-octez-client --wait none transfer 0 from $MY_TZ_ADDRESS to my-counter --entrypoint 'reset' --arg 'Unit' --burn-cap 0.1
-```
+   1. Go to the **Storage** tab and check the current state of the storage, which should be the integer that you put in the Deploy window.
 
-You can go back to the block explorer to verify that the storage of the contract changed.
+   1. Go to the **Interact** tab.
+   This tab shows the entrypoints in the contract and lets you use them.
+
+   1. For the `increment` entrypoint, in the **Parameters** section, put an integer in the field, as shown in this image:
+
+   ![Putting in a value for an entrypoint parameter](/img/tutorials/bcd-interact-parameters-increment.png)
+
+   1. Click **Execute** and then click **Wallet**.
+
+   1. Select your wallet and connect it to the application.
+
+   1. Confirm the transaction in your wallet.
+
+   1. Wait for a success message that says "The transaction has successfully been broadcasted to the network."
+
+   1. Go back to the **Storage** tab and see the new value of the storage, as in this picture:
+
+   ![Updated storage value](/img/tutorials/bcd-updated-storage-counter.png)
 
 ## Summary
 
