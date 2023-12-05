@@ -233,6 +233,8 @@ For more information about smart contracts, see [Smart contracts](../../smart-co
    });
    ```
 
+   You can also use other tools such as the Pinata API to upload files to IPFS directly.
+
 1. To transfer tokens, call the contract's `Transfer` entrypoint.
 
    Like the `mint` entrypoint, the built-in contract has a `transfer` method that accepts these parameters and calls the deployed contract's `transfer` entrypoint:
