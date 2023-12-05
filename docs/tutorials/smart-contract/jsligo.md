@@ -122,15 +122,15 @@ You can work with LIGO code in any IDE, but this online IDE keeps you from havin
 
    The IDE creates a project and a contract file named `Contract.jsligo`.
 
-1. In the contract file, create a namespace named `Counter` to hold the code for the contract:
+1. On the left side of the page, under **Actions**, click **Project Settings**.
 
-   ```ts
-   namespace Counter {
+1. In the **Module name** field, clear the default value to leave the field blank.
 
-   }
-   ```
+1. Close the Project Settings tab to go back to the `Contract.jsligo` file.
 
-1. Inside the namespace, create a TypeScript type to set the storage type to an integer:
+   <!-- Bug in IDE means we can't use a namespace -->
+
+1. In the contract file, create a TypeScript type to set the storage type to an integer:
 
    ```ts
    type storage = int;
@@ -178,25 +178,23 @@ Tezos entrypoints return two values: a list of other operations to call and the 
 The complete contract code looks like this:
 
 ```ts
-namespace Counter {
-  type storage = int;
-  type returnValue = [list<operation>, storage];
+type storage = int;
+type returnValue = [list<operation>, storage];
 
-  // Increment entrypoint
-  @entry
-  const increment = (delta : int, store : storage) : returnValue =>
-    [list([]), store + delta];
+// Increment entrypoint
+@entry
+const increment = (delta : int, store : storage) : returnValue =>
+   [list([]), store + delta];
 
-  // Decrement entrypoint
-  @entry
-  const decrement = (delta : int, store : storage) : returnValue =>
-    [list([]), store - delta];
+// Decrement entrypoint
+@entry
+const decrement = (delta : int, store : storage) : returnValue =>
+   [list([]), store - delta];
 
-  // Reset entrypoint
-  @entry
-  const reset = (_p : unit, _s : storage) : returnValue =>
-    [list([]), 0];
-}
+// Reset entrypoint
+@entry
+const reset = (_p : unit, _s : storage) : returnValue =>
+   [list([]), 0];
 ```
 
 ## Testing and compiling the contract
@@ -243,11 +241,20 @@ You can ignore this warning because you can set the initial storage now.
 
 1. Click **Estimate**.
 
-TODO getting an error when I estimate.
+   The window shows the estimated fees to deploy the contract, as in this picture:
 
-## Calling the contract
+   ![The estimate of the fees to deploy the contract](/img/tutorials/ligo-online-ide-deploy-estimate.png)
+
+1. Click **Deploy**.
+
+   The deployment process can take a few minutes.
+   When the contract is deployed, the Deploy contract window shows the address at the bottom of the window.
+
+1. Copy the address of the deployed contract, which starts with `KT1`.
 
 Now you can call the contract from any Tezos client, including web applications and command-line applications like [The Octez client](../../developing/octez-client).
+
+## Calling the contract
 
 These steps show you how to inspect the contract with a block explorer, which is a web application that shows information about Tezos.
 It also allows you to call the contract.
