@@ -28,7 +28,7 @@ taq create contract pokeGame.jsligo
 
 ## Smart contract
 
-1. Edit the **pokeGame.jsligo** file. Remove the default code and paste this code instead
+1. Edit the **pokeGame.jsligo** file. Remove the default code and paste this code instead.
 
 ```ligolang
 export type storage = unit;
@@ -43,21 +43,21 @@ const poke = (_: unit, store: storage): return_ => {
 
 Every contract requires to respect this convention :
 
-- at least one entrypoint, annotated with **@entry** , with a mandatory signature taking 2 arguments **\*(parameter, storage)** and a return type. An entrypoint is function that is exposed as an external API.
-- **parameter** : the entrypoint parameter. It can be whatever type but it is mandatory. For example : an (ignored) variable starting with`_` here, and of type `unit` (the default type on Ligo)
+- At least one entrypoint, annotated with **@entry** , with a mandatory signature taking 2 arguments **\*(parameter, storage)** and a return type. An entrypoint is function that is exposed as an external API.
+- **parameter** : the entrypoint parameter. It can be whatever type but it is mandatory. For example : an (ignored) variable starting with`_` here, and of type `unit` (the default type on Ligo).
 - **storage** : the on-chain storage. It can be of any type but it is mandatory. For example : `unit` by default. It is recommended to add an `export` keyword before the type definition as it is a good practice to export it when you require to write unit tests from another Ligo file.
-- **return\_** : a pair of list of `operation` and a storage. This is mandatory by convention. You can only define another variable name, that is not a keyword, if you want
+- **return\_** : a pair of list of `operation` and a storage. This is mandatory by convention. You can only define another variable name, that is not a keyword, if you want.
 
 [Have a look on the Entrypoints contracts documentation](/smart-contracts/entrypoints)>
 
 > Note : The old syntax was requiring a main function. It is still valid but very verbatim and deprecated in Ligo V1.
 >
-> A `Poke` variant parameter is generated from the `poke` entrypoint function under the hood. A variant is more or less equivalent of the Enum type in Javascript. A default main function is generated and act like as a dispatcher for each of your entrypoints. It means that this painful boilerplate is no more needed on the new syntax
+> A `Poke` variant parameter is generated from the `poke` entrypoint function under the hood. A variant is more or less equivalent of the Enum type in Javascript. A default main function is generated and act like as a dispatcher for each of your entrypoints. It means that this painful boilerplate is no more needed on the new syntax.
 
 [Have a look on the Variant type documentation](/smart-contracts/data-types/complex-data-types#variants)
 
 2. Write the poke function. The objective is to store every user/caller addresses poking the contract.
-   Rewrite the storage, and add the caller address to the set of traces
+   Rewrite the storage, and add the caller address to the set of traces.
 
 At line 1, replace the line with :
 
@@ -76,7 +76,7 @@ const poke = (_: unit, store: storage): return_ => {
 
 Explanation :
 
-- The Ligo Set library has a function **add** to add one element to the Set of items. There is no concept of Class in Ligo, you use a library to apply functions on objects
+- The Ligo Set library has a function **add** to add one element to the Set of items. There is no concept of Class in Ligo, you use a library to apply functions on objects.
 - A list of operation is required to return. An empty list is returned here as there is no other contract to call.
 
 [Have a look on the Set library documentation](https://ligolang.org/docs/language-basics/sets-lists-tuples#sets)
@@ -91,7 +91,7 @@ Here, get the caller address using `Tezos.get_source()`. Tezos library provides 
 
 [Have a look on the Testing Framework documentation](https://ligolang.org/docs/advanced/testing)
 
-Compile the contract with Taqueria (Force to use a specific Ligo version with `TAQ_LIGO_IMAGE` Taqueria environment variable)
+Compile the contract with Taqueria (Force to use a specific Ligo version with `TAQ_LIGO_IMAGE` Taqueria environment variable).
 
 ```bash
 TAQ_LIGO_IMAGE=ligolang/ligo:1.1.0 taq compile pokeGame.jsligo
@@ -109,7 +109,7 @@ Taqueria is generating the `.tz` Michelson file on the `artifacts` folder. The M
 const default_storage = Set.empty as set<address>;
 ```
 
-When you deploy a contract, you are required to initialize the default state of your smart contract. Taqueria offers you to declare different variables on this file, it is useful to use different initialized state per environment
+When you deploy a contract, you are required to initialize the default state of your smart contract. Taqueria offers you to declare different variables on this file, it is useful to use different initialized state per environment.
 
 [Have a look on the Taqueria documentation](https://taqueria.io/docs/plugins/plugin-ligo/#the-taq-compile-task)
 
@@ -119,10 +119,10 @@ When you deploy a contract, you are required to initialize the default state of 
 TAQ_LIGO_IMAGE=ligolang/ligo:1.1.0 taq compile pokeGame.jsligo
 ```
 
-It compiles both source code and storage
+It compiles both source code and storage.
 
 Before deployment, to simulate a call to our entrypoint **poke**, use `taq simulate`.  
-The contract parameter `Poke()` and the initial storage with the default empty set is passed to the execution
+The contract parameter `Poke()` and the initial storage with the default empty set is passed to the execution.
 
 7. Edit the second file **pokeGame.parameterList.jsligo**
 
@@ -131,7 +131,7 @@ The contract parameter `Poke()` and the initial storage with the default empty s
 const default_parameter: parameter_of Contract = Poke();
 ```
 
-8. Run the simulation. First, install the Tezos client plugin, recompile all and then run the simulation
+8. Run the simulation. First, install the Tezos client plugin, recompile all and then run the simulation.
 
 ```bash
 taq install @taqueria/plugin-octez-client
@@ -155,30 +155,30 @@ Output logs :
 └─────────────┴──────────────────────────────────────────────┘
 ```
 
-You can notice that the instruction is storing the address of the caller into the storage set
+You can notice that the instruction is storing the address of the caller into the storage set.
 
-9. Configure your wallet to get free Tez
+9. Configure your wallet to get free Tez.
 
-The default Tezos testing testnet is called **Ghostnet**
+The default Tezos testing testnet is called **Ghostnet**.
 
-:warning: You need an account to deploy a contract with some `tez` (the Tezos native currency). The first time you deploy a contract with Taqueria, it is generating a new implicit account with `0 tez`
+:warning: You need an account to deploy a contract with some `tez` (the Tezos native currency). The first time you deploy a contract with Taqueria, it is generating a new implicit account with `0 tez`.
 
-10. Deploying your contract to the `testing` environment, it forces Taqueria to generate a default account
+10. Deploying your contract to the `testing` environment, it forces Taqueria to generate a default account.
 
 ```bash
 taq deploy pokeGame.tz -e "testing"
 ```
 
-You should get this kind of log
+You should get this kind of log.
 
 ```log
-Warning: the faucet field in network configs has been deprecated and will be ignored
+Warning: the faucet field in network configs has been deprecated and will be ignored.
 A keypair with public key hash tz1XXXXXXXXXXXXXXXXXXXXXX was generated for you.
 To fund this account:
-1. Go to https://teztnets.xyz and click "Faucet" of the target testnet
-2. Copy and paste the above key into the 'wallet address field
-3. Request some Tez (Note that you might need to wait for a few seconds for the network to register the funds)
-No operations performed
+1. Go to https://teztnets.xyz and click "Faucet" of the target testnet.
+2. Copy and paste the above key into the 'wallet address field.
+3. Request some Tez (Note that you might need to wait for a few seconds for the network to register the funds).
+No operations performed.
 ```
 
 - Choice N°1 (Recommended) : Use alice wallet instead of the generated account. A common usage is to use **alice** account as Taqueria operator. **alice** is a common known address used on Tezos and she has always some **tez**. Replace the Taqueria config file for **testing** env **.taq/config.local.testing.json** with **alice** settings:
@@ -196,17 +196,17 @@ No operations performed
   }
   ```
 
-- Choice N°2 : use the Taqueria generated account. Copy the account **privateKey** from the **.taq/config.local.testing.json** config file. Open your Temple browser extension on your computer or on your mobile phone and do the [initial setup](https://www.youtube.com/watch?v=S8_tL8PfCts). Once you are done, go to Settings (click on the avatar icon, or display Temple in full page) and click on **Import account > Private key** tab. Paste the **privateKey** to Temple text input and confirm. Send free Tez to your new account via this web faucet [Marigold faucet](https://faucet.marigold.dev/). Connect your wallet on **Ghostnet** and ask for free tez
+- Choice N°2 : use the Taqueria generated account. Copy the account **privateKey** from the **.taq/config.local.testing.json** config file. Open your Temple browser extension on your computer or on your mobile phone and do the [initial setup](https://www.youtube.com/watch?v=S8_tL8PfCts). Once you are done, go to Settings (click on the avatar icon, or display Temple in full page) and click on **Import account > Private key** tab. Paste the **privateKey** to Temple text input and confirm. Send free Tez to your new account via this web faucet [Marigold faucet](https://faucet.marigold.dev/). Connect your wallet on **Ghostnet** and ask for free tez.
 
-Now you have :moneybag:
+Now you have some money to play with.
 
-11. Deploy to Ghostnet testnet
+11. Deploy to Ghostnet testnet.
 
 ```bash
 taq deploy pokeGame.tz -e "testing"
 ```
 
-Your smart contract is deployed on the Ghostnet
+Your smart contract is deployed on the Ghostnet.
 
 ```logs
 ┌─────────────┬──────────────────────────────────────┬──────────┬──────────────────┬────────────────────────────────┐
@@ -218,7 +218,7 @@ Your smart contract is deployed on the Ghostnet
 
 ## Create the frontend
 
-1. Create a react app
+1. Create a react app.
 
 ```bash
 yarn create vite
@@ -247,7 +247,7 @@ Then follow the prompts. Choose React and then Typescript+SWC:
 
 [More information about SWC here](https://swc.rs/).
 
-2. Add taquito and tzkt indexer libraries
+2. Add taquito and tzkt indexer libraries.
 
 ```bash
 cd app
@@ -330,7 +330,7 @@ export default ({ command }) => {
 };
 ```
 
-7. Generate the Typescript classes from Michelson code
+7. Generate the Typescript classes from Michelson code.
 
 Taqueria is able to generate Typescript classes for any frontend application. It takes the definition of your smart contract and generates the contract entrypoint functions, type definitions, etc ...
 
@@ -341,7 +341,7 @@ taq install @taqueria/plugin-contract-types
 taq generate types ./app/src
 ```
 
-8. Back to your frontend app, run the dev server
+8. Back to your frontend app, run the dev server.
 
 ```bash
 cd app
@@ -349,13 +349,13 @@ yarn dev
 ```
 
 9. Open your browser at : http://localhost:5173/
-   Your app should be running
+   Your app should be running.
 
-10. Connect / disconnect the wallet
+10. Connect / disconnect the wallet.
 
-Declare two React Button components and display the user address and his balance
+Declare two React Button components and display the user address and his balance.
 
-Edit **src/App.tsx** file
+Edit **src/App.tsx** file.
 
 ```typescript
 import { NetworkType } from "@airgap/beacon-types";
@@ -425,7 +425,7 @@ touch src/ConnectWallet.tsx
 touch src/DisconnectWallet.tsx
 ```
 
-ConnectWallet button creates an instance wallet, gets user permissions via a popup and then retrieves the current account information
+ConnectWallet button creates an instance wallet, gets user permissions via a popup and then retrieves the current account information.
 
 12. Edit **ConnectWallet.tsx**
 
@@ -481,7 +481,7 @@ export default ConnectButton;
 ```
 
 13. Edit **DisconnectWallet.tsx**.
-    The button cleans the wallet instance and all linked objects
+    The button cleans the wallet instance and all linked objects.
 
 ```typescript
 import { BeaconWallet } from "@taquito/beacon-wallet";
@@ -517,23 +517,23 @@ const DisconnectButton = ({
 export default DisconnectButton;
 ```
 
-14. Save both file, the dev server should refresh the page
+14. Save both file, the dev server should refresh the page.
 
-As Temple is configured, click on Connect button
+As Temple is configured, click on Connect button.
 
 On the popup, select your Temple wallet, then your account and connect.
 
 ![The app after you have connected, showing your address and tex balance](/img/tutorials/dapp-logged.png)
 
-Your are _logged_
+Your are _logged_.
 
-15. Click on the Disconnect button to test the disconnection, and then reconnect
+15. Click on the Disconnect button to test the disconnection, and then reconnect.
 
-16. List other poke contracts via an indexer
+16. List other poke contracts via an indexer.
 
 Instead of querying heavily the rpc node to search where are located all other similar contracts and retrieve each address, use an indexer. an indexer is a kind of enriched cache API on top of an rpc node. On this example, the TZKT indexer is used to find other similar contracts.
 
-17. You need to install jq to parse the Taqueria json configuration file
+17. You need to install jq to parse the Taqueria json configuration file.
     [Install jq](https://github.com/stedolan/jq)
 
 18. On `package.json`, change the `dev` command on `scripts` configuration. Prefix it with a `jq` command to create an new environment variable pointing to your last smart contract address on testing env :
@@ -545,7 +545,7 @@ Instead of querying heavily the rpc node to search where are located all other s
 The last deployed contract address on Ghostnet is set now on our frontend.
 
 19. Add a button to fetch all similar contracts like yours, then display the list.
-    Edit **App.tsx** and before the `return` of App function, add this section for the fetch function
+    Edit **App.tsx** and before the `return` of App function, add this section for the fetch function.
 
 ```typescript
 const [contracts, setContracts] = useState<Array<api.Contract>>([]);
@@ -575,27 +575,25 @@ const fetchContracts = () => {
 ```
 
 21. Save your file and restart your server.
-    Now, the start script generates the .env file containing the last deployed contract address
+    Now, the start script generates the .env file containing the last deployed contract address.
 
 ```bash
 yarn dev
 ```
 
-22. Go to your web browser and click on **Fetch contracts** button
+22. Go to your web browser and click on **Fetch contracts** button.
 
 ![](/img/tutorials/dapp-deployedcontracts.png)
 
-Congratulations, you are able to list all similar deployed contracts
+Congratulations, you are able to list all similar deployed contracts.
 
-23. Poke your contract
-
-Import the Taqueria generated types
+23. Poke your contract. Import the Taqueria generated types.
 
 ```typescript
 import { PokeGameWalletType } from "./pokeGame.types";
 ```
 
-24. Add this new function after the previous fetch function, it calls the entrypoint for poking
+24. Add this new function after the previous fetch function, it calls the entrypoint for poking.
 
 ```typescript
 const poke = async (contract: api.Contract) => {
@@ -614,22 +612,22 @@ const poke = async (contract: api.Contract) => {
 
 > :warning: Normally, a call to `c.methods.poke()` function is expected by convention, but with an unique entrypoint, Michelson generates a unique `default` entrypoint name instead of having the name of the entrypoint function. Also, be careful because all entrypoints function names are in lowercase, and all parameter types are in uppercase.
 
-25. Replace the line displaying the contract address `{contracts.map((contract) => <div>{contract.address}</div>)}` with the one below, it adds a Poke button
+25. Replace the line displaying the contract address `{contracts.map((contract) => <div>{contract.address}</div>)}` with the one below, it adds a Poke button.
 
 ```html
     {contracts.map((contract) => <div>{contract.address} <button onClick={() =>poke(contract)}>Poke</button></div>)}
 ```
 
-26. Save and see the page refreshed, then click on the Poke button
+26. Save and see the page refreshed, then click on the Poke button.
 
 ![](/img/tutorials/dapp-pokecontracts.png)
 
-It calls the contract and add your public address tz1... to the set of traces
+It calls the contract and add your public address tz1... to the set of traces.
 
 ## Summary
 
 Now, you are able to create any Smart Contract using Ligo and create a complete Dapp via Taqueria/Taquito.
 
-In the next section, you will learn how to call a Smart contract from a Smart Contract using callbacks, and also write unit and mutation tests
+In the next section, you will learn how to call a Smart contract from a Smart Contract using callbacks, and also write unit and mutation tests.
 
 When you are ready, continue to [Part 2: Inter-contract calls and testing](./part-2).

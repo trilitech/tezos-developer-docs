@@ -10,18 +10,18 @@ last_update:
 Previously, you learned how to use tickets and don't mess up with it.
 In this third session, you will enhance your skills on :
 
-- upgrading a smart contract with lambda function code
-- upgrading a smart contract with proxy
+- Upgrading a smart contract with lambda function code.
+- Upgrading a smart contract with proxy.
 
 As you maybe know, smart contracts are immutable but in real life, applications are not and evolve. During the past several years, bugs and vulnerabilities in smart contracts caused millions of dollars to get stolen or lost forever. Such cases may even require manual intervention in blockchain operation to recover the funds.
 
-Let's see some tricks that allow to upgrade a contract
+Let's see some tricks that allow to upgrade a contract.
 
 # Prerequisites
 
-There is nothing more than you needed on first session : https://github.com/marigold-dev/training-dapp-1#memo-prerequisites
+There is nothing more than you needed on first session : https://github.com/marigold-dev/training-dapp-1#memo-prerequisites.
 
-Get the code from the session 3 or the solution [here](https://github.com/marigold-dev/training-dapp-3/tree/main/solution)
+Get the code from the session 3 or the solution [here](https://github.com/marigold-dev/training-dapp-3/tree/main/solution).
 
 # Upgrades
 
@@ -31,13 +31,13 @@ But application lifecycle implies to evolve and upgrade code to fix bug or bring
 
 > https://gitlab.com/tezos/tzip/-/blob/master/proposals/tzip-18/tzip-18.md
 
-> Note : All below solutions break in a wait the fact that a smart contract is immutable. **Trust** preservation can be safe enough if the upgrade process has some security and authenticity around it. Like the first time an admin deploys a smart contract, any user should be able to trust the code reading it with free read access, the same should apply to the upgrade process (notification of new code version, admin identification, whitelisted auditor reports, ...). To resume, if you really want to avoid DEVOPS centralization, you are about to create a DAO with a voting process among some selected users/administrators in order to deploy the new version of the smart contract ... but let's simplify and talk here only about classical centralized admin deployment
+> Note : All below solutions break in a wait the fact that a smart contract is immutable. **Trust** preservation can be safe enough if the upgrade process has some security and authenticity around it. Like the first time an admin deploys a smart contract, any user should be able to trust the code reading it with free read access, the same should apply to the upgrade process (notification of new code version, admin identification, whitelisted auditor reports, ...). To resume, if you really want to avoid DEVOPS centralization, you are about to create a DAO with a voting process among some selected users/administrators in order to deploy the new version of the smart contract ... but let's simplify and talk here only about classical centralized admin deployment.
 
 ## Naive approach
 
-One can deploy a new version of the smart contract and do a redirection to the new address on front end side
+One can deploy a new version of the smart contract and do a redirection to the new address on front end side.
 
-Complete flow
+Complete flow.
 
 ```mermaid
 sequenceDiagram
@@ -63,9 +63,9 @@ sequenceDiagram
 
 ## Stored Lambda function
 
-This time, the code will be on the storage and being executed at runtime
+This time, the code will be on the storage and being executed at runtime.
 
-Init
+Init.
 
 ```mermaid
 sequenceDiagram
@@ -73,7 +73,7 @@ sequenceDiagram
   Tezos-->>Admin: contractAddress
 ```
 
-Interaction
+Interaction.
 
 ```mermaid
 sequenceDiagram
@@ -81,7 +81,7 @@ sequenceDiagram
   Note right of SmartContract : Tezos.exec(lambaMap.find_opt(myfunction))
 ```
 
-Administration
+Administration.
 
 ```mermaid
 sequenceDiagram
@@ -105,10 +105,10 @@ sequenceDiagram
 Change the implementation of the function `pokeAndGetFeedback`. The feedback is now a lambda function on the storage.
 It is required to :
 
-- add a new entrypoint to change the lambda code
-- update the current entrypoint for calling the lambda
+- Add a new entrypoint to change the lambda code.
+- Update the current entrypoint for calling the lambda.
 
-1. Let's start with adding the lambda function definition of the storage
+1. Let's start with adding the lambda function definition of the storage.
 
 ```ligolang
 export type feedbackFunction = (oracleAddress: address) => string;
@@ -157,11 +157,11 @@ const pokeAndGetFeedback = (oracleAddress: address, store: storage): return_ => 
 };
 ```
 
-Notice the line with `feedbackFunction(oracleAddress)` and call the lambda with the address parameter
+Notice the line with `feedbackFunction(oracleAddress)` and call the lambda with the address parameter.
 
 The first time, the current code is injected to check that it still works, and then, modify the lambda code on the storage.
 
-3. To modify the lambda function code, add an extra admin entrypoint `updateFeedbackFunction`
+3. To modify the lambda function code, add an extra admin entrypoint `updateFeedbackFunction`.
 
 ```ligolang
 @entry
@@ -175,7 +175,7 @@ const updateFeedbackFunction = (newCode: feedbackFunction, store: storage): retu
 };
 ```
 
-4. The storage definition is broken, fix all storage missing field warnings on `poke` and `init` functions
+4. The storage definition is broken, fix all storage missing field warnings on `poke` and `init` functions.
 
 ```ligolang
 @entry
@@ -231,7 +231,7 @@ const init = ([a, ticketCount]: [address, nat], store: storage): return_ => {
 };
 ```
 
-5. Change the initial storage with the old initial value of the lambda function (i.e calling a view to get a feedback)
+5. Change the initial storage with the old initial value of the lambda function (i.e calling a view to get a feedback).
 
 ```ligolang
 #import "pokeGame.jsligo" "Contract"
@@ -258,7 +258,7 @@ const default_storage = {
 };
 ```
 
-6. Compile and play with the CLI
+6. Compile and play with the CLI.
 
 ```bash
 npm i
@@ -279,9 +279,9 @@ taq deploy pokeGame.tz -e testing
 └─────────────┴──────────────────────────────────────┴──────────┴──────────────────┴────────────────────────────────┘
 ```
 
-8. Test the dApp frontend
+8. Test the dApp frontend.
 
-Regenerate types and run the frontend
+Regenerate types and run the frontend.
 
 ```bash
 taq generate types ./app/src
@@ -291,23 +291,23 @@ yarn dev
 
 9. Run the user sequence on the web page :
 
-1. Mint 1 ticket
-1. wait for confirmation
-1. poke a contract address
-1. wait for confirmation
-1. click on button to refresh the contract list
-   So far so good, you have the same result as previous training :ok_hand:
+1. Mint 1 ticket.
+1. wait for confirmation.
+1. poke a contract address.
+1. wait for confirmation.
+1. click on button to refresh the contract list.
+   So far so good, you have the same result as previous training .
 
-Update the lambda function in background with the CLI though the new admin entrypoint. Return a fixed string this time, just for demo purpose and verify that the lambda executed is returning another output
+Update the lambda function in background with the CLI though the new admin entrypoint. Return a fixed string this time, just for demo purpose and verify that the lambda executed is returning another output.
 
-10. Edit the file `pokeGame.parameterList.jsligo`
+10. Edit the file `pokeGame.parameterList.jsligo`.
 
 ```ligolang
 #import "pokeGame.jsligo" "Contract"
 const default_parameter : parameter_of Contract = UpdateFeedbackFunction((_oracleAddress : address) : string => "YEAH!!!");
 ```
 
-11. Compile all and call an init transaction
+11. Compile all and call an init transaction.
 
 ```bash
 TAQ_LIGO_IMAGE=ligolang/ligo:1.1.0 taq compile pokeGame.jsligo
@@ -325,15 +325,15 @@ taq call pokeGame --param pokeGame.parameter.default_parameter.tz -e testing
 
 12. Run the user sequence on the web page :
 
-1. Mint 1 ticket
-1. wait for confirmation
-1. poke a contract address
-1. wait for confirmation
-1. click on button to refresh the contract list
+1. Mint 1 ticket.
+1. Wait for confirmation.
+1. Poke a contract address.
+1. Wait for confirmation.
+1. Click on button to refresh the contract list.
 
-You see that the feedback has changed to `YEAH!!!`
+You see that the feedback has changed to `YEAH!!!`.
 
-> Optional : fix the units tests
+> Optional : fix the units tests.
 
 ## Proxy pattern :star::star:
 
@@ -372,8 +372,8 @@ sequenceDiagram
 
 > Note : 2 location choices for the smart contract storage :
 >
-> - at proxy level : storage stays unique and immutable
-> - at end-contract level : storage is new at each new version and need to be migrated
+> - At proxy level : storage stays unique and immutable.
+> - At end-contract level : storage is new at each new version and need to be migrated.
 
 ### Pros/Cons
 
@@ -392,19 +392,19 @@ sequenceDiagram
 
 #### Rewrite the smart contract to make it generic
 
-1. Rename the file `pokeGame.jsligo` to `pokeGameLambda.jsligo` , as you can have a look on it later
+1. Rename the file `pokeGame.jsligo` to `pokeGameLambda.jsligo` , as you can have a look on it later.
 
-2. Remove pokeGame.parameterList.jsligo
+2. Remove pokeGame.parameterList.jsligo.
 
-3. Get back the original version of `pokeGame.jsligo` from previous training as it is easier to start from here
+3. Get back the original version of `pokeGame.jsligo` from previous training as it is easier to start from here.
 
-4. Create a new file `tzip18.jsligo`
+4. Create a new file `tzip18.jsligo`.
 
 ```bash
 taq create contract tzip18.jsligo
 ```
 
-5. Edit the file
+5. Edit the file.
 
 ```ligolang
 // Tzip 18 types
@@ -416,15 +416,15 @@ export type tzip18 = {
 };
 ```
 
-This type is included on all smart contract storages to track the proxy address and the last contract version. It is used to block old smart contract instances to be called, and check who can call who
+This type is included on all smart contract storages to track the proxy address and the last contract version. It is used to block old smart contract instances to be called, and check who can call who.
 
-6. Get back to `pokeGame.jsligo` and import this file on first line
+6. Get back to `pokeGame.jsligo` and import this file on first line.
 
 ```ligolang
 #import "./tzip18.jsligo" "TZIP18"
 ```
 
-7. Add the type on the storage definition
+7. Add the type on the storage definition.
 
 ```ligolang
 export type storage = {
@@ -435,7 +435,7 @@ export type storage = {
 };
 ```
 
-8. Fix all missing field tzip18 on storage structure in the file
+8. Fix all missing field tzip18 on storage structure in the file.
 
 ```ligolang
 const poke = (
@@ -558,17 +558,18 @@ const init = (
 };
 ```
 
-- The view call signature is different :
-  - it returns an optional bytes
-  - calling **getView** generic view exposed by the proxy
-  - passing the view named **feedback** (to dispatch to the correct function once you reach the code that will be executed)
-  - finally, unpack the bytes result and cast it to string
+The view call signature is different :
 
-With generic calls, a **unique** dispatch function has to be used and not multiple **@entry**
+- It returns an optional bytes.
+- Calling **getView** generic view exposed by the proxy.
+- Passing the view named **feedback** (to dispatch to the correct function once you reach the code that will be executed).
+- Finally, unpack the bytes result and cast it to string.
+
+With generic calls, a **unique** dispatch function has to be used and not multiple **@entry**.
 
 9. Write a main function annotated with @entry.
    The parameter is a string representing the entrypoint name and some generic bytes that required to be cast later on.
-   In a way, compiler checks are broken, so the code is to be well written and well cast as earliest as possible to mitigate risks
+   In a way, compiler checks are broken, so the code is to be well written and well cast as earliest as possible to mitigate risks.
 
 ```ligolang
 @entry
@@ -640,10 +641,10 @@ export const main = (action: { entrypointName: string, payload: bytes }, store: 
 ```
 
 - Start checking that only the proxy contract or the parent of this contract can call the main function. Enable this feature in case the future contract wants to run a migration _script_ itself, reading from children storage (looking at `tzip18.contractPrevious` field ).
-- With no more variant, the pattern matching is broken and `if...else` statement has be used instead
-- When a payload is passed, unpack it and cast it with `(Bytes.unpack(action.payload) as option<MY_TYPE_HERE>)`. It means the caller and callee agree on payload structure for each endpoint
+- With no more variant, the pattern matching is broken and `if...else` statement has be used instead.
+- When a payload is passed, unpack it and cast it with `(Bytes.unpack(action.payload) as option<MY_TYPE_HERE>)`. It means the caller and callee agree on payload structure for each endpoint.
 
-10. Add the last missing function changing the version of this contract and make it obsolete (just before the main function)
+10. Add the last missing function changing the version of this contract and make it obsolete (just before the main function).
 
 ```ligolang
 /**
@@ -671,7 +672,7 @@ const changeVersion = (
 };
 ```
 
-11. Change the view to a generic one and do a `if...else` on `viewName` argument
+11. Change the view to a generic one and do a `if...else` on `viewName` argument.
 
 ```ligolang
 @view
@@ -682,9 +683,9 @@ const getView = (viewName: string, store: storage): bytes => {
 };
 ```
 
-12. Change the initial storage
+12. Change the initial storage.
 
-> Note : for the moment, initialize the proxy address to a fake KT1 address because the proxy is not yet deployed
+> Note : for the moment, initialize the proxy address to a fake KT1 address because the proxy is not yet deployed.
 
 ```ligolang
 #import "pokeGame.jsligo" "Contract"
@@ -702,23 +703,23 @@ const default_storage = {
 };
 ```
 
-13. Compile
+13. Compile.
 
 ```bash
 TAQ_LIGO_IMAGE=ligolang/ligo:1.1.0 taq compile pokeGame.jsligo
 ```
 
-All good
+All good.
 
 #### Write the unique proxy
 
-1. Create a file `proxy.jsligo`
+1. Create a file `proxy.jsligo`.
 
 ```bash
 taq create contract proxy.jsligo
 ```
 
-2. Define the storage and entrypoints on it
+2. Define the storage and entrypoints on it.
 
 ```ligolang
 export type storage = {
@@ -729,16 +730,17 @@ export type storage = {
 type _return = [list<operation>, storage];
 ```
 
-- storage :
-  - holds a /or several admin
-  - the interface schema map for all underlying entrypoints
+The storage :
 
-> Note on parameters : use @entry syntax, parameters is 2 functions
+- Holds a /or several admin.
+- Maintains the interface schema map for all underlying entrypoints.
+
+> Note on parameters : use @entry syntax, parameters is 2 functions.
 >
-> - call : forward any request to the right underlying entrypoint
-> - upgrade : admin endpoint to update the interface schema map or change smart contract version
+> - **call** : forward any request to the right underlying entrypoint.
+> - **upgrade** : admin endpoint to update the interface schema map or change smart contract version.
 
-3. Add our missing types just above
+3. Add our missing types just above.
 
 ```ligolang
 export type callContract = {
@@ -763,12 +765,12 @@ export type changeVersion = {
 };
 ```
 
-- callContract : payload from user executing an entrypoint (name+payloadBytes)
-- entrypointType : payload to be able to call an underlying contract (name+address)
-- entrypointOperation : change the entrypoint interface map (new state of the map)
-- changeVersion : change the smart contract version (old/new addresses)
+- **callContract** : payload from user executing an entrypoint (name+payloadBytes).
+- **entrypointType** : payload to be able to call an underlying contract (name+address).
+- **entrypointOperation** : change the entrypoint interface map (new state of the map).
+- **changeVersion** : change the smart contract version (old/new addresses).
 
-4. Add the `Call`entrypoint (simple forward). (Before main function)
+4. Add the `Call`entrypoint (simple forward). (Before main function).
 
 ```ligolang
 // the proxy function
@@ -802,9 +804,9 @@ const callContract = (param: callContract, store: storage): _return => {
 };
 ```
 
-It gets the entrypoint to call and the payload in bytes and just forward it to the right location
+It gets the entrypoint to call and the payload in bytes and just forward it to the right location.
 
-5. Then, write the `upgrade` entrypoint. (Before main function)
+5. Then, write the `upgrade` entrypoint. (Before main function).
 
 ```ligolang
 /**
@@ -902,9 +904,9 @@ const upgrade = (
 ```
 
 - It loops over the new interface schema to update and do so.
-- If a changeVersion is required, it calls the old contract to take the new version configuration (and it disables itself)
+- If a changeVersion is required, it calls the old contract to take the new version configuration (and it disables itself).
 
-6. Last change is to expose any view from underlying contract, declare it at the end of the file
+6. Last change is to expose any view from underlying contract, declare it at the end of the file.
 
 ```ligolang
 @view
@@ -920,10 +922,10 @@ export const getView = (viewName: string, store: storage): bytes => {
 };
 ```
 
-- Expose a generic view on the proxy and pass the name of the final function called on the underlying contract (as the smart contract view is not unreachable/hidden by the proxy contract)
-- Search for an exposed view on the interface schema to retrieve the contract address, then call the view and return the result as an _exposed_ view
+- Expose a generic view on the proxy and pass the name of the final function called on the underlying contract (as the smart contract view is not unreachable/hidden by the proxy contract).
+- Search for an exposed view on the interface schema to retrieve the contract address, then call the view and return the result as an _exposed_ view.
 
-7. Compile
+7. Compile.
 
 ```bash
 TAQ_LIGO_IMAGE=ligolang/ligo:1.1.0 taq compile proxy.jsligo
@@ -931,7 +933,7 @@ TAQ_LIGO_IMAGE=ligolang/ligo:1.1.0 taq compile proxy.jsligo
 
 #### Deployment
 
-1. Edit `proxy.storageList.jsligo` to this below ( **!!! be careful to point the _governance_ address to your taq default user account !!!**)
+1. Edit `proxy.storageList.jsligo` to this below ( **!!! be careful to point the _governance_ address to your taq default user account !!!**).
 
 ```ligolang
 #include "proxy.jsligo"
@@ -941,7 +943,7 @@ const default_storage = {
 };
 ```
 
-2. Compile and deploy it
+2. Compile and deploy it.
 
 ```bash
 TAQ_LIGO_IMAGE=ligolang/ligo:1.1.0 taq compile proxy.jsligo
@@ -956,9 +958,9 @@ taq deploy proxy.tz -e testing
 └──────────┴──────────────────────────────────────┴───────┴──────────────────┴────────────────────────────────┘
 ```
 
-Keep this **proxy address**, as you need to report it below on `tzip18.proxy` field
+Keep this **proxy address**, as you need to report it below on `tzip18.proxy` field.
 
-3. Deploy a smart contract V1. ( :warning: Change with the **proxy address** on the file `pokeGame.storageList.jsligo` like here below )
+3. Deploy a smart contract V1. ( :warning: Change with the **proxy address** on the file `pokeGame.storageList.jsligo` like here below ).
 
 ```ligolang
 #import "pokeGame.jsligo" "Contract"
@@ -976,7 +978,7 @@ const default_storage = {
 };
 ```
 
-4. Deploy the underlying V1 contract
+4. Deploy the underlying V1 contract.
 
 ```bash
 TAQ_LIGO_IMAGE=ligolang/ligo:1.1.0 taq compile pokeGame.jsligo
@@ -992,7 +994,7 @@ taq deploy pokeGame.tz -e testing
 ```
 
 5. Tell the proxy that there is a first contract deployed with some interface.
-   Edit the parameter file `proxy.parameterList.jsligo` (:warning: Change with the smart contract address on each command line on `addr` fields below :warning:)
+   Edit the parameter file `proxy.parameterList.jsligo` (:warning: Change with the smart contract address on each command line on `addr` fields below :warning:).
 
 ```ligolang
 #import "proxy.jsligo" "Contract"
@@ -1064,14 +1066,14 @@ const initProxyWithV1: parameter_of Contract =
     );
 ```
 
-6. Compile & Call it
+6. Compile & Call it.
 
 ```bash
 TAQ_LIGO_IMAGE=ligolang/ligo:1.1.0 taq compile proxy.jsligo
 taq call proxy --param proxy.parameter.initProxyWithV1.tz -e testing
 ```
 
-output :
+Output :
 
 ```logs
 ┌────────────────┬──────────────────────────────────────┬───────────────────────────────────────────────────────────────────────────────────────────────────────┬────────────┬────────────────┬────────────────────────────────┐
@@ -1093,7 +1095,7 @@ output :
 
 #### Update the frontend
 
-1. Go on frontend side, recompile all and generate typescript classes
+1. Go on frontend side, recompile all and generate typescript classes.
 
 ```bash
 TAQ_LIGO_IMAGE=ligolang/ligo:1.1.0 taq compile pokeGame.jsligo
@@ -1101,13 +1103,13 @@ TAQ_LIGO_IMAGE=ligolang/ligo:1.1.0 taq compile proxy.jsligo
 taq generate types ./app/src
 ```
 
-2. Change the script to extract the proxy address instead of the contract one, edit `./app/package.json` and replace the line of script by
+2. Change the script to extract the proxy address instead of the contract one, edit `./app/package.json` and replace the line of script by :
 
 ```json
     "dev": "jq -r -f filter.jq ../.taq/testing-state.json > .env && vite",
 ```
 
-3. Where you created a new file `filter.jq` with below content
+3. Where you created a new file `filter.jq` with below content.
 
 ```bash
 echo '"VITE_CONTRACT_ADDRESS=" + last(.tasks[] | select(.task == "deploy" and .output[0].contract == "proxy.tz").output[0].address)' > ./app/filter.jq
@@ -1344,11 +1346,11 @@ function App() {
 export default App;
 ```
 
-- contract address now is pointing to the new **proxy** address
-- Merge the proxy and contract storage into `ProxyStorage&ContractStorage` type definition. Fetching the contracts is appending the storage of the underlying contract to the proxy storage
-- the call to exposed entrypoint is altered. As all is generic, now on the proxy side there are only `await c.methods.callContract("my_entrypoint_name",my_packed_payload_bytes).send()` calls
+- Contract address now is pointing to the new **proxy** address.
+- Merge the proxy and contract storage into `ProxyStorage&ContractStorage` type definition. Fetching the contracts is appending the storage of the underlying contract to the proxy storage.
+- The call to exposed entrypoint is altered. As all is generic, now on the proxy side there are only `await c.methods.callContract("my_entrypoint_name",my_packed_payload_bytes).send()` calls.
 
-5. Run the frontend locally
+5. Run the frontend locally.
 
 ```bash
 cd app
@@ -1357,18 +1359,18 @@ yarn dev
 
 6. Do all the same actions as before through the proxy.
 
-1. Login
-1. Refresh the contract list
-1. Mint 1 ticket
-1. Wait for confirmation popup
-1. Poke
-1. Wait for confirmation popup
-1. Refresh the contract list
+1. Login.
+1. Refresh the contract list.
+1. Mint 1 ticket.
+1. Wait for confirmation popup.
+1. Poke.
+1. Wait for confirmation popup.
+1. Refresh the contract list.
 
 Deploy a new contract V2 and test it again.
 
 > Note : Remember that the `storage.feedback` field cannot change on any deployed smart contract because there is no exposed method to update it.
-> Let's change this value for the new contract instance, and call it `hello`
+> Let's change this value for the new contract instance, and call it `hello`.
 
 7. Edit `pokeGame.storageList.jsligo` and add a new variable on it. Don't forget again to change `proxy` and `contractPrevious` by our own values !
 
@@ -1402,7 +1404,7 @@ taq deploy pokeGame.tz -e testing --storage pokeGame.storage.storageV2.tz
 ```
 
 8. Tell the proxy that there are new V2 entrypoints and remove the V1 ones.
-   Add a new parameter variable on `proxy.parameterList.jsligo`. Don't forget to change the `addr` values with the new contract address just above !!!
+   Add a new parameter variable on `proxy.parameterList.jsligo`. Don't forget to change the `addr` values with the new contract address just above.
 
 ```ligolang
 const initProxyWithV2: parameter_of Contract =
@@ -1472,14 +1474,14 @@ const initProxyWithV2: parameter_of Contract =
     );
 ```
 
-9. Call the proxy to do the changes
+9. Call the proxy to do the changes.
 
 ```bash
 TAQ_LIGO_IMAGE=ligolang/ligo:1.1.0 taq compile proxy.jsligo
 taq call proxy --param proxy.parameter.initProxyWithV2.tz -e testing
 ```
 
-10. Check the logs
+10. Check the logs.
 
 ```logs
 ┌────────────────┬──────────────────────────────────────┬───────────────────────────────────────────────────────────────────────────────────────────────────────┬────────────┬────────────────┬────────────────────────────────┐
@@ -1501,18 +1503,18 @@ taq call proxy --param proxy.parameter.initProxyWithV2.tz -e testing
 
 11. Back to the web app, test the flow again :
 
-1. Refresh the contract list
-1. Mint 1 ticket
-1. Wait for confirmation popup
-1. Poke
-1. Wait for confirmation popup
-1. Refresh the contract list
+1. Refresh the contract list.
+1. Mint 1 ticket.
+1. Wait for confirmation popup.
+1. Poke.
+1. Wait for confirmation popup.
+1. Refresh the contract list.
 
-Now, the proxy is calling the contract V2 and should return `hello` on the traces and no more `kiss`
+Now, the proxy is calling the contract V2 and should return `hello` on the traces and no more `kiss`.
 
 #### Last part is to set the old smart contract as obsolete
 
-1. Add a new parameter on `proxy.parameterList.jsligo` to force change of version on old contract (:warning: replace below with your own addresses for V1 ad V2)
+1. Add a new parameter on `proxy.parameterList.jsligo` to force change of version on old contract (:warning: replace below with your own addresses for V1 ad V2).
 
 ```ligolang
 const changeVersionV1ToV2: parameter_of Contract =
@@ -1529,14 +1531,14 @@ const changeVersionV1ToV2: parameter_of Contract =
     );
 ```
 
-2. Compile
+2. Compile.
 
 ```bash
 TAQ_LIGO_IMAGE=ligolang/ligo:1.1.0 taq compile proxy.jsligo
 taq call proxy --param proxy.parameter.changeVersionV1ToV2.tz -e testing
 ```
 
-3. Check logs
+3. Check logs.
 
 ```logs
 ┌────────────────┬──────────────────────────────────────┬───────────────────────────────────────────────────────────────────────────────────────────────────────────┬────────────┬────────────────┬────────────────────────────────┐
@@ -1548,16 +1550,16 @@ taq call proxy --param proxy.parameter.changeVersionV1ToV2.tz -e testing
 └────────────────┴──────────────────────────────────────┴───────────────────────────────────────────────────────────────────────────────────────────────────────────┴────────────┴────────────────┴────────────────────────────────┘
 ```
 
-4. Check on an indexer that the V1 `storage.tzip18.contractNext` is pointing to the next version address V2 : [old V1 contract storage](https://ghostnet.tzkt.io/KT18ceGtUsNtQTk9smxQcaxAswRVkHDDKDgK/storage/)
+4. Check on an indexer that the V1 `storage.tzip18.contractNext` is pointing to the next version address V2 : [old V1 contract storage](https://ghostnet.tzkt.io/KT18ceGtUsNtQTk9smxQcaxAswRVkHDDKDgK/storage/).
 
-This ends the proxy pattern implementation. The old contract is no more "runnable" and the proxy is pointing to the last version
+This ends the proxy pattern implementation. The old contract is no more "runnable" and the proxy is pointing to the last version.
 
 ## Alternative : Composability
 
-Managing a monolithic smart contract like a microservice can reduce the problem, on the other side it increases complexity and application lifecycle on OPS side
+Managing a monolithic smart contract like a microservice can reduce the problem, on the other side it increases complexity and application lifecycle on OPS side.
 
-That's your tradeoff
+That's your tradeoff.
 
 ## Summary
 
-Now, you are able to upgrade deployed contracts
+Now, you are able to upgrade deployed contracts.

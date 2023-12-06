@@ -10,7 +10,7 @@ last_update:
 This tutorial shows you how to create a poke game on smart contract.
 The game consists on poking the owner of a smart contract. The smart contract keeps a track of user interactions and stores a trace.
 
-Poke sequence diagram
+Poke sequence diagram.
 
 ```mermaid
 sequenceDiagram
@@ -21,11 +21,11 @@ sequenceDiagram
 
 You will learn :
 
-- How to create a Tezos project with Taqueria
-- How to create a smart contract in jsLigo
-- How to deploy the smart contract a real testnet named Ghostnet
-- How to create a frontend dApp using Taquito library and interact with a Tezos browser wallet
-- How to use an indexer like TZKT
+- How to create a Tezos project with Taqueria.
+- How to create a smart contract in jsLigo.
+- How to deploy the smart contract a real testnet named Ghostnet.
+- How to create a frontend dApp using Taquito library and interact with a Tezos browser wallet.
+- How to use an indexer like TZKT.
 
 ## Prerequisites
 
@@ -33,12 +33,12 @@ This tutorial uses Typescript, so it will be easier if you are familiar with Jav
 
 1. Make sure that you have installed these tools:
 
-   - [Node.JS and NPM](https://nodejs.org/en/download/): NPM is required to install the web application's dependencies
-   - [Taqueria](https://taqueria.io/), version 0.45.0 or later: Taqueria is a platform that makes it easier to develop and test dApps
-   - [Docker](https://docs.docker.com/engine/install/): Docker is required to run Taqueria
-   - [jq](https://stedolan.github.io/jq/download/): Some commands use the `jq` program to extract JSON data
-   - [`yarn`](https://yarnpkg.com/): The frontend application uses yarn to build and run (see this article for details about [differences between `npm` and `yarn`](https://www.geeksforgeeks.org/difference-between-npm-and-yarn/))
-   - Any Tezos-compatible wallet that supports Ghostnet, such as [Temple wallet](https://templewallet.com/)
+   - [Node.JS and NPM](https://nodejs.org/en/download/): NPM is required to install the web application's dependencies.
+   - [Taqueria](https://taqueria.io/), version 0.45.0 or later: Taqueria is a platform that makes it easier to develop and test dApps.
+   - [Docker](https://docs.docker.com/engine/install/): Docker is required to run Taqueria.
+   - [jq](https://stedolan.github.io/jq/download/): Some commands use the `jq` program to extract JSON data.
+   - [`yarn`](https://yarnpkg.com/): The frontend application uses yarn to build and run (see this article for details about [differences between `npm` and `yarn`](https://www.geeksforgeeks.org/difference-between-npm-and-yarn/)).
+   - Any Tezos-compatible wallet that supports Ghostnet, such as [Temple wallet](https://templewallet.com/).
 
 2. Optionally, you can install [`VS Code`](https://code.visualstudio.com/download) to edit your application code in and the [LIGO VS Code extension](https://marketplace.visualstudio.com/items?itemName=ligolang-publish.ligo-vscode) for LIGO editing features such as code highlighting and completion.
    Taqueria also provides a [Taqueria VS Code extension](https://marketplace.visualstudio.com/items?itemName=ecadlabs.taqueria-vscode) that helps visualize your project and run tasks.

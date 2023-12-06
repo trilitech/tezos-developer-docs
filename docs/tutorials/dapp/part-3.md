@@ -8,8 +8,8 @@ last_update:
 Previously, you learned how to do inter-contract calls, use view and do unit testing.
 In this third session, you will enhance your skills on :
 
-- using tickets
-- don't mess up with `DUP` errors while manipulating tickets
+- Using tickets.
+- Don't mess up with `DUP` errors while manipulating tickets.
 
 On the second version of the poke game, you were able to poke any contract without constraint. A right to poke via tickets is now mandatory. Ticket are a kind of object that cannot be copied and can hold some trustable information.
 
@@ -31,44 +31,44 @@ sequenceDiagram
 
 ## Prerequisites
 
-Prerequisites are the same as the first session : https://github.com/marigold-dev/training-dapp-1#memo-prerequisites
+Prerequisites are the same as the first session : https://github.com/marigold-dev/training-dapp-1#memo-prerequisites.
 
-Get the code from the session 2 solution [here](https://github.com/marigold-dev/training-dapp-2/tree/main/solution)
+Get the code from the session 2 solution [here](https://github.com/marigold-dev/training-dapp-2/tree/main/solution).
 
 ## Tickets
 
-Tickets came with Tezos **Edo** upgrade, they are great and often misunderstood
+Tickets came with Tezos **Edo** upgrade, they are great and often misunderstood.
 
 Ticket structure :
 
-- ticketer : (address) the creator contract address
-- value : (any) Can be any type from string to bytes. It holds whatever arbitrary values
-- amount : (nat) quantity of tickets minted
+- Ticketer : (address) the creator contract address.
+- Value : (any) Can be any type from string to bytes. It holds whatever arbitrary values.
+- Amount : (nat) quantity of tickets minted.
 
 Tickets features :
 
-- Not comparable : it makes no sense to compare tickets because tickets from same type are all equals and can be merged into a single ticket. When ticket types are different then it is no more comparable
-- Transferable : you can send ticket into a Transaction parameter
-- Storable : only on smart contract storage for the moment (Note : a new protocol release will enable it for implicit account soon)
-- Non dupable : you cannot copy or duplicate a ticket, it is a unique singleton object living in specific blockchain instance
-- Splittable : if amount is > 2 then you can split ticket object into 2 objects
-- Mergeable : you can merge ticket from same ticketer and same type
-- Mintable/burnable : anyone can create and destroy tickets
+- Not comparable : it makes no sense to compare tickets because tickets from same type are all equals and can be merged into a single ticket. When ticket types are different then it is no more comparable.
+- Transferable : you can send ticket into a Transaction parameter.
+- Storable : only on smart contract storage for the moment (Note : a new protocol release will enable it for implicit account soon).
+- Non dupable : you cannot copy or duplicate a ticket, it is a unique singleton object living in specific blockchain instance.
+- Splittable : if amount is > 2 then you can split ticket object into 2 objects.
+- Mergeable : you can merge ticket from same ticketer and same type.
+- Mintable/burnable : anyone can create and destroy tickets.
 
 Example of usage :
 
-- Authentication and Authorization token : giving a ticket to a user provides you Authentication. Adding some claims/rules on the ticket provides you some rights
-- Simplified FA1.2/FA2 token : representing crypto token with tickets (mint/burn/split/join), but it does not have all same properties and does not respect the TZIP standard
-- Voting rights : giving 1 ticket that count for 1 vote on each member
-- Wrapped crypto : holding XTZ collateral against a ticket, and redeeming it later
-- many others ...
+- Authentication and Authorization token : giving a ticket to a user provides you Authentication. Adding some claims/rules on the ticket provides you some rights.
+- Simplified FA1.2/FA2 token : representing crypto token with tickets (mint/burn/split/join), but it does not have all same properties and does not respect the TZIP standard.
+- Voting rights : giving 1 ticket that count for 1 vote on each member.
+- Wrapped crypto : holding XTZ collateral against a ticket, and redeeming it later.
+- Many others ...
 
 ### Minting
 
 Minting is the action of creating ticket from void. In general, minting operations are done by administrators of smart contract or either by an end user.
 
 1. Edit the `./contracts/pokeGame.jsligo` file and add a map of ticket ownership to the default `storage` type.
-   This map keeps a list of consumable tickets for each authorized user. It is used as a burnable right to poke
+   This map keeps a list of consumable tickets for each authorized user. It is used as a burnable right to poke.
 
 ```ligolang
 export type storage = {
@@ -78,9 +78,9 @@ export type storage = {
 };
 ```
 
-In order to fill this map, add an new administration endpoint. A new entrypoint `Init` is adding x tickets to a specific user
+In order to fill this map, add an new administration endpoint. A new entrypoint `Init` is adding x tickets to a specific user.
 
-> Note : to simplify, there is no security around this entrypoint, but in Production it should
+> Note : to simplify, there is no security around this entrypoint, but in Production it should.
 
 Tickets are very special objects that cannot be **DUPLICATED**. During compilation to Michelson, using a variable twice, copying a structure holding tickets are generating `DUP` command. To avoid our contract to fail at runtime, Ligo parses statically our code during compilation time to detect any DUP on tickets.
 
@@ -88,7 +88,7 @@ To solve most of issues, segregate ticket objects from the rest of the storage, 
 
 For each function having the storage as parameter, `store` object need to be destructured to isolate `ticketOwnership` object holding our tickets. Then, don't use anymore the `store` object or it creates a **DUP** error.
 
-2. Add the new `Init` function
+2. Add the new `Init` function.
 
 ```ligolang
 @entry
@@ -110,9 +110,9 @@ const init = ([a, ticketCount]: [address, nat], store: storage): return_ => {
 };
 ```
 
-Init function looks at how many tickets to create from the current caller, then it is added to the current map
+Init function looks at how many tickets to create from the current caller, then it is added to the current map.
 
-3. Modify the poke function
+3. Modify the poke function.
 
 ```ligolang
 @entry
@@ -146,11 +146,11 @@ const poke = (_: unit, store: storage): return_ => {
 
 First, extract an existing optional ticket from the map. If an operation is done directly on the map, even trying to find or get this object in the structure, a DUP Michelson instruction is generated. Use the secure `get_and_update` function from Map library to extract the item from the map and avoid any copy.
 
-> Note : more information about this function [here](https://ligolang.org/docs/reference/map-reference)
+> Note : more information about this function [here](https://ligolang.org/docs/reference/map-reference).
 
-On a second step, look at the optional ticket, if it exists, then burn it (i.e do not store it somewhere on the storage anymore) and add a trace of execution, otherwise fail with an error message
+On a second step, look at the optional ticket, if it exists, then burn it (i.e do not store it somewhere on the storage anymore) and add a trace of execution, otherwise fail with an error message.
 
-4. Same for `pokeAndGetFeedback` function, do same checks and type modifications as below
+4. Same for `pokeAndGetFeedback` function, do same checks and type modifications as below.
 
 ```ligolang
 @no_mutation
@@ -197,7 +197,7 @@ const pokeAndGetFeedback = (oracleAddress: address, store: storage): return_ => 
 };
 ```
 
-5. Update the storage initialization on `pokeGame.storages.jsligo`
+5. Update the storage initialization on `pokeGame.storages.jsligo`.
 
 ```ligolang
 #import "pokeGame.jsligo" "Contract"
@@ -214,9 +214,9 @@ const default_storage = {
 };
 ```
 
-6. Compile the contract to check any errors
+6. Compile the contract to check any errors.
 
-> Note : don't forget to check that Docker is running for taqueria
+> Note : don't forget to check that Docker is running for taqueria.
 
 ```bash
 npm i
@@ -224,35 +224,35 @@ npm i
 TAQ_LIGO_IMAGE=ligolang/ligo:1.1.0 taq compile pokeGame.jsligo
 ```
 
-Check on logs that everything is fine :ok_hand:
+Check on logs that everything is fine .
 
-Try to display a DUP error now
+Try to display a DUP error now.
 
-7. Add this line on `poke function` just after the first line of storage destructuration `const { pokeTraces, feedback, ticketOwnership } = store;`
+7. Add this line on `poke function` just after the first line of storage destructuration `const { pokeTraces, feedback, ticketOwnership } = store;`.
 
 ```ligolang
 const t2 = Map.find_opt(Tezos.get_source(), ticketOwnership);
 ```
 
-8. Compile again
+8. Compile again.
 
 ```bash
 TAQ_LIGO_IMAGE=ligolang/ligo:1.1.0 taq compile pokeGame.jsligo
 ```
 
-This time you should see the `DUP` warning generated by the **find** function
+This time you should see the `DUP` warning generated by the **find** function.
 
 ```logs
 Warning: variable "ticketOwnership" cannot be used more than once.
 ```
 
-9. Remove it
+9. Remove it.
 
 ## Test your code
 
-Update the unit tests files to see if you can still poke
+Update the unit tests files to see if you can still poke.
 
-1. Edit the `./contracts/unit_pokeGame.jsligo` file
+1. Edit the `./contracts/unit_pokeGame.jsligo` file.
 
 ```ligolang
 #import "./pokeGame.jsligo" "PokeGame"
@@ -360,18 +360,18 @@ const testSender1PokeWithNoTicketsToFail =
   )();
 ```
 
-- On `Init([sender1, ticketCount])`, initialize the smart contract with some tickets
-- On `Fail`, check if you have an error on the test (i.e the user should be allowed to poke)
-- On `testSender1Poke`, test with the first user using a preexisting ticket
-- On `testSender1PokeWithNoTicketsToFail`, test with the same user again but with no ticket and an error should be caught
+- On `Init([sender1, ticketCount])`, initialize the smart contract with some tickets.
+- On `Fail`, check if you have an error on the test (i.e the user should be allowed to poke).
+- On `testSender1Poke`, test with the first user using a preexisting ticket.
+- On `testSender1PokeWithNoTicketsToFail`, test with the same user again but with no ticket and an error should be caught.
 
-2. Run the test, and look at the logs to track execution
+2. Run the test, and look at the logs to track execution.
 
 ```bash
 TAQ_LIGO_IMAGE=ligolang/ligo:1.1.0 taq test unit_pokeGame.jsligo
 ```
 
-First test should be fine
+First test should be fine.
 
 ```logs
 ┌──────────────────────┬───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
@@ -403,9 +403,9 @@ First test should be fine
 └──────────────────────┴───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
-3. Redeploy the smart contract
+3. Redeploy the smart contract.
 
-Let play with the CLI to compile and deploy
+Let play with the CLI to compile and deploy.
 
 ```bash
 TAQ_LIGO_IMAGE=ligolang/ligo:1.1.0 taq compile pokeGame.jsligo
@@ -423,22 +423,22 @@ taq deploy pokeGame.tz -e testing
 
 ## Adapt the frontend code
 
-1. Rerun the app and check that you can cannot use the app anymore without tickets
+1. Rerun the app and check that you can cannot use the app anymore without tickets.
 
 ```bash
 cd app
 yarn dev
 ```
 
-2. Connect with any wallet with enough Tez, and Poke your own contract
+2. Connect with any wallet with enough Tez, and Poke your own contract.
 
 ![pokefail](/img/tutorials/dapp-pokefail.png)
 
-The Kukai wallet is giving me back the error from the smart contract
+The Kukai wallet is giving me back the error from the smart contract.
 
 ![kukaifail](/img/tutorials/dapp-kukaifail.png)
 
-Ok, so let's authorize some minting on my user and try again to poke
+Ok, so let's authorize some minting on my user and try again to poke.
 
 3. Add a new button for minting on a specific contract, replace the full content of `App.tsx` with :
 
@@ -626,32 +626,32 @@ export default App;
 
 > Note : You maybe have noticed, but the full typed generated Taquito class is used for the storage access now. It improves maintenance in case you contract storage has changed.
 
-4. Refresh the page, now that you have the Mint button
+4. Refresh the page, now that you have the Mint button.
 
-5. Mint a ticket on this contract
+5. Mint a ticket on this contract.
 
 ![mint](/img/tutorials/dapp-mint.png)
 
-6. Wait for the Tx popup confirmation and then try to poke again, it should succeed now
+6. Wait for the Tx popup confirmation and then try to poke again, it should succeed now.
 
 ![success](/img/tutorials/dapp-success.png)
 
-7. Wait for the Tx popup confirmation and try to poke again, you should be out of tickets and it should fail
+7. Wait for the Tx popup confirmation and try to poke again, you should be out of tickets and it should fail.
 
 ![kukaifail](/img/tutorials/dapp-kukaifail.png)
 
-Congratulation, you know how to use tickets and avoid DUP errors
+Congratulation, you know how to use tickets and avoid DUP errors.
 
 > Takeaways :
 >
-> - you can go further and improve the code like consuming one 1 ticket quantity at a time and manage it the right way
-> - you can also implement different type of Authorization mechanism, not only `can poke` claim
+> - You can go further and improve the code like consuming one 1 ticket quantity at a time and manage it the right way.
+> - You can also implement different type of Authorization mechanism, not only `can poke` claim.
 > - You can also try to base your ticket on some duration time like JSON token can do, not using the data field as a string but as bytes and store a timestamp on it.
 
 ## Summary
 
-Now, you are able to understand ticket. If you want to learn more about tickets, read this great article [here](https://www.marigold.dev/post/tickets-for-dummies)
+Now, you are able to understand ticket. If you want to learn more about tickets, read this great article [here](https://www.marigold.dev/post/tickets-for-dummies).
 
-On next training, you will learn how to upgrade smart contracts
+On next training, you will learn how to upgrade smart contracts.
 
 When you are ready, continue to [Part 4: Smart contract upgrades](./part-4).
