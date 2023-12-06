@@ -290,10 +290,10 @@ public void RunGetContractMetadata()
     StartCoroutine(routine);
 }
 
-private void HandleGetContractMetadata(JsonElement tokenMetadata)
+private void HandleGetContractMetadata(JsonElement contractMetadata)
 {
     // TODO handle JSON data
-    Debug.Log(tokenMetadata);
+    Debug.Log(contractMetadata);
 }
 ```
 
