@@ -18,9 +18,10 @@ Creating an originated account is part of the process of deploying a smart contr
 ## Counters
 
 Implicit accounts have _counters_, which track the number of operations that the account has sent.
-You can use this counter as a unique value to prevent sending a transaction multiple times.
 The counter for an implicit account is set to the global counter (the total number of transactions that have run on Tezos) when it is revealed.
 After that, its counter increments by one for each operation that the account runs.
+
+You can use this counter as a unique value to prevent a transaction from running multiple times.
 
 To get the value of a counter for an implicit account, you can use a block explorer's API, as in this example:
 
