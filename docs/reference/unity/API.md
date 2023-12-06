@@ -309,7 +309,6 @@ Gets the tokens in a contract.
 
 Example:
 
-<!-- TODO cover how to implement the other fields in tokenList-->
 ```csharp
 public void RunGetTokensForContract()
 {
@@ -333,6 +332,46 @@ private void HandleGetTokensForContract(IEnumerable<Token> tokenList)
     }
 }
 ```
+
+The callback returns a list of tokens, but not all of the fields in the `Token` objects are populated by default.
+You can populate the fields you want to retrieve by editing the `GetTokensForContract` method of the `TezosSDK.Tezos.API.TezosAPI` class.
+
+The methods in this class retrieves information about Tezos via the [TZKT](https://tzkt.io/) block explorer.
+To change the information that the `GetTokensForContract` method retrieves, update the URL to add fields.
+
+The default URL looks like this:
+
+```csharp
+var url =
+    $"tokens?contract={contractAddress}&select=contract,tokenId as token_id" +
+    $"{(withMetadata ? ",metadata as token_metadata" : "")},holdersCount as holders_count,id," +
+    $"lastTime as last_time&{sort}&limit={maxItems}";
+```
+
+To get the total supply of each token type, add the `totalSupply` field to the URL, like this:
+
+```csharp
+var url =
+    $"tokens?contract={contractAddress}&select=contract,tokenId as token_id" +
+    $"{(withMetadata ? ",metadata as token_metadata" : "")},holdersCount as holders_count,id," +
+    $"totalSupply as total_supply," +
+    $"lastTime as last_time&{sort}&limit={maxItems}";
+```
+
+Now when you run the `GetTokensForContract` method, the data passed to the callback includes the total supply of each token:
+
+```csharp
+private void HandleGetTokensForContract(IEnumerable<Token> tokenList)
+{
+    List<Token> tokens = new List<Token>(tokenList);
+    foreach (var tk in tokens)
+    {
+        Debug.Log($"Token ID {tk.TokenId} has total supply {tk.TotalSupply} among {tk.HoldersCount} holders");
+    }
+}
+```
+
+For information about what fields you can add to this URL, see the [TZKT API reference](https://api.tzkt.io/).
 
 ### `GetOperationStatus()`
 
