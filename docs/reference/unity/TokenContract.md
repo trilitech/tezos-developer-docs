@@ -32,6 +32,32 @@ TODO does this create a contract from the template in the SDK or is this how I a
 new TokenContract()
 ```
 
+### `Deploy()`
+
+```csharp
+void Deploy(Action<string> completedCallback)
+```
+
+Deploys (originates) a contract based on the built-in contract, including prompting the connected wallet to pay the origination fees.
+
+Parameters:
+
+- `completedCallback`: A callback method to run when the contract is deployed, which receives the address of the new contract
+
+Example:
+
+```csharp
+public void HandleDeploy()
+{
+    TezosManager.Instance.Tezos.TokenContract.Deploy(OnContractDeployed);
+}
+
+private void OnContractDeployed(string contractAddress)
+{
+    Debug.Log(contractAddress);
+}
+```
+
 ### `Mint()`
 
 ```csharp
@@ -126,31 +152,5 @@ public void HandleTransfer()
 private void TransferCompleted(string txHash)
 {
     Logger.LogDebug($"Transfer complete with transaction hash {txHash}");
-}
-```
-
-### `Deploy()`
-
-```csharp
-void Deploy(Action<string> completedCallback)
-```
-
-Deploys (originates) a contract based on the built-in contract, including prompting the connected wallet to pay the origination fees.
-
-Parameters:
-
-- `completedCallback`: A callback method to run when the contract is deployed, which receives the address of the new contract
-
-Example:
-
-```csharp
-public void HandleDeploy()
-{
-    TezosManager.Instance.Tezos.TokenContract.Deploy(OnContractDeployed);
-}
-
-private void OnContractDeployed(string contractAddress)
-{
-    Debug.Log(contractAddress);
 }
 ```
