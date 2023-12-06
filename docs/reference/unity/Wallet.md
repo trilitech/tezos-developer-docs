@@ -94,7 +94,7 @@ TezosManager.Instance.Wallet.RequestSignPayload(SignPayloadType.micheline, paylo
 bool VerifySignedPayload(SignPayloadType signingType, string payload)
 ```
 
-Returns true if the specified signed payload is valid.
+Returns true if most recent response to `RequestSignPayload` matches the specified payload and is properly signed.
 
 ### `CallContract()`
 
