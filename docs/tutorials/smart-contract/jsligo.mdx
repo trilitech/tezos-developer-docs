@@ -122,15 +122,15 @@ You can work with LIGO code in any IDE, but this online IDE keeps you from havin
 
    The IDE creates a project and a contract file named `Contract.jsligo`.
 
-1. On the left side of the page, under **Actions**, click **Project Settings**.
+1. In the contract file, create a namespace named `Counter` to hold the code for the contract:
 
-1. In the **Module name** field, clear the default value to leave the field blank.
+   ```ts
+   namespace Counter {
 
-1. Close the Project Settings tab to go back to the `Contract.jsligo` file.
+   }
+   ```
 
-   {/* Bug in IDE means we can't use a namespace */}
-
-1. In the contract file, create a TypeScript type to set the storage type to an integer:
+1. Inside the namespace, create a TypeScript type to set the storage type to an integer:
 
    ```ts
    type storage = int;
@@ -178,23 +178,25 @@ Tezos entrypoints return two values: a list of other operations to call and the 
 The complete contract code looks like this:
 
 ```ts
-type storage = int;
-type returnValue = [list<operation>, storage];
+namespace Counter {
+  type storage = int;
+  type returnValue = [list<operation>, storage];
 
-// Increment entrypoint
-@entry
-const increment = (delta : int, store : storage) : returnValue =>
-   [list([]), store + delta];
+  // Increment entrypoint
+  @entry
+  const increment = (delta : int, store : storage) : returnValue =>
+    [list([]), store + delta];
 
-// Decrement entrypoint
-@entry
-const decrement = (delta : int, store : storage) : returnValue =>
-   [list([]), store - delta];
+  // Decrement entrypoint
+  @entry
+  const decrement = (delta : int, store : storage) : returnValue =>
+    [list([]), store - delta];
 
-// Reset entrypoint
-@entry
-const reset = (_p : unit, _s : storage) : returnValue =>
-   [list([]), 0];
+  // Reset entrypoint
+  @entry
+  const reset = (_p : unit, _s : storage) : returnValue =>
+    [list([]), 0];
+}
 ```
 
 ## Testing and compiling the contract
