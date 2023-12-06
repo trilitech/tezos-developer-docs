@@ -3,10 +3,10 @@ title: Unity SDK DAppMetadata object
 sidebar_label: DAppMetadata object
 authors: Tim McMackin
 last_update:
-  date: 5 December 2023
+  date: 6 December 2023
 ---
 
-The `TezosManager.Instance.Tezos.DAppMetadata` object provides read-only properties that provide access to the values that you set on the `TezosManager` prefab in the Unity Editor.
+The Unity SDK class `TezosSDK.Tezos.DAppMetadata`, which is available at runtime as the `TezosManager.Instance.Tezos.DAppMetadata` object, provides read-only properties that provide access to the values that you set on the `TezosManager` prefab in the Unity Editor.
 
 ## Properties
 

@@ -3,10 +3,10 @@ title: Unity SDK Wallet object
 sidebar_label: Wallet object
 authors: Tim McMackin
 last_update:
-  date: 28 November 2023
+  date: 6 December 2023
 ---
 
-The Unity SDK class `TezosSDK.Tezos.WalletProvider`, which is available at runtime as `TezosManager.Instance.Wallet`, provides methods to connect to wallets and send transactions from the connected account.
+The Unity SDK class `TezosSDK.Tezos.Wallet.WalletProvider`, which is available at runtime as `TezosManager.Instance.Wallet`, provides methods to connect to wallets and send transactions from the connected account.
 
 ## `Connect()`
 
