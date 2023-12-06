@@ -64,7 +64,7 @@ This method triggers the `AccountDisconnected` event.
 void GetActiveAddress()
 ```
 
-Returns the address (technically the public key hash) of the currently connected account, or NULL if no wallet is connected.
+Returns the address (public key hash) of the currently connected account, or NULL if no wallet is connected.
 
 ### `RequestSignPayload()`
 
@@ -109,3 +109,6 @@ void CallContract(
 Calls the specified entrypoint of the built-in FA2 contract.
 
 You can use this method as an alternative to calling convenience methods such as `TezosManager.Instance.Tezos.TokenContract.Mint()` directly or as a way to call the contract methods that do not have convenience methods in the `TokenContract` object.
+
+This method triggers the `ContractCallInjected` event if the call is successfully sent to Tezos.
+Then it triggers `ContractCallCompleted` or `ContractCallFailed` events, depending on whether the call succeeded or failed.
