@@ -449,7 +449,7 @@ IEnumerator GetAccountCounter(
     string address);
 ```
 
-<!-- TODO what's an account's counter? -->
+Returns the counter for implicit accounts, which is a unique number that you can use to ensure that transactions are not duplicated.
 
 Example:
 
