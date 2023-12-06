@@ -22,15 +22,8 @@ These properties are populated after you deploy the contract with the `Deploy()`
 
 ### Constructors
 
-```csharp
-new TokenContract(string address)
-```
-
-TODO does this create a contract from the template in the SDK or is this how I access an already-deployed contract?
-
-```csharp
-new TokenContract()
-```
+The `TokenContract` class has constructors, but they are for internal use.
+Use the `Deploy()` method instead.
 
 ### `Deploy()`
 
