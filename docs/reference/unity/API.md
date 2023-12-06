@@ -312,8 +312,7 @@ Gets the tokens in a contract.
 
 Example:
 
-<!-- TODO getting too many hits to the callback and TotalSupply is null -->
-
+<!-- TODO cover how to implement the other fields in tokenList>
 ```csharp
 public void RunGetTokensForContract()
 {
@@ -333,7 +332,7 @@ private void HandleGetTokensForContract(IEnumerable<Token> tokenList)
     List<Token> tokens = new List<Token>(tokenList);
     foreach (var tk in tokens)
     {
-        Debug.Log($"Token ID {tk.TokenId} has total supply {tk.TotalSupply} among {tk.BalancesCount} holders");
+        Debug.Log(tk.TokenId);
     }
 }
 ```
