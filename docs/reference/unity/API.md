@@ -408,6 +408,7 @@ private void TransferCompleted(string txHash)
     );
     StartCoroutine(routine);
 }
+
 private void HandleGetOperationStatus(bool? result)
 {
     Debug.Log(result);
