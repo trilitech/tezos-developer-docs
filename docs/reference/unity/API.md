@@ -310,7 +310,7 @@ Gets the tokens in a contract.
 
 Example:
 
-<!-- TODO cover how to implement the other fields in tokenList>
+<!-- TODO cover how to implement the other fields in tokenList-->
 ```csharp
 public void RunGetTokensForContract()
 {
