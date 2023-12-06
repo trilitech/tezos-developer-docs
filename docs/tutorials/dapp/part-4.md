@@ -5,10 +5,10 @@ last_update:
   date: 29 November 2023
 ---
 
-# :point_up: Upgradable Poke game
+# Upgradable Poke game
 
 Previously, you learned how to use tickets and don't mess up with it.
-In this third session, you will enhance your skills on :
+In this third session, you will enhance your skills on:
 
 - Upgrading a smart contract with lambda function code.
 - Upgrading a smart contract with proxy.
@@ -19,7 +19,7 @@ Let's see some tricks that allow to upgrade a contract.
 
 # Prerequisites
 
-There is nothing more than you needed on first session : https://github.com/marigold-dev/training-dapp-1#memo-prerequisites.
+There is nothing more than you needed on first session: https://github.com/marigold-dev/training-dapp-1#memo-prerequisites.
 
 Get the code from the session 3 or the solution [here](https://github.com/marigold-dev/training-dapp-3/tree/main/solution).
 
@@ -31,7 +31,7 @@ But application lifecycle implies to evolve and upgrade code to fix bug or bring
 
 > https://gitlab.com/tezos/tzip/-/blob/master/proposals/tzip-18/tzip-18.md
 
-> Note : All below solutions break in a wait the fact that a smart contract is immutable. **Trust** preservation can be safe enough if the upgrade process has some security and authenticity around it. Like the first time an admin deploys a smart contract, any user should be able to trust the code reading it with free read access, the same should apply to the upgrade process (notification of new code version, admin identification, whitelisted auditor reports, ...). To resume, if you really want to avoid DEVOPS centralization, you are about to create a DAO with a voting process among some selected users/administrators in order to deploy the new version of the smart contract ... but let's simplify and talk here only about classical centralized admin deployment.
+> Note: All below solutions break in a wait the fact that a smart contract is immutable. **Trust** preservation can be safe enough if the upgrade process has some security and authenticity around it. Like the first time an admin deploys a smart contract, any user should be able to trust the code reading it with free read access, the same should apply to the upgrade process (notification of new code version, admin identification, whitelisted auditor reports, ...). To resume, if you really want to avoid DEVOPS centralization, you are about to create a DAO with a voting process among some selected users/administrators in order to deploy the new version of the smart contract ... but let's simplify and talk here only about classical centralized admin deployment.
 
 ## Naive approach
 
@@ -103,7 +103,7 @@ sequenceDiagram
 ### Implementation
 
 Change the implementation of the function `pokeAndGetFeedback`. The feedback is now a lambda function on the storage.
-It is required to :
+It is required to:
 
 - Add a new entrypoint to change the lambda code.
 - Update the current entrypoint for calling the lambda.
@@ -289,7 +289,7 @@ It is required to :
    yarn dev
    ```
 
-1. Run the user sequence on the web page :
+1. Run the user sequence on the web page:
 
    1. Mint 1 ticket.
    1. wait for confirmation.
@@ -323,7 +323,7 @@ It is required to :
    └────────────────┴──────────────────────────────────────┴─────────────────────────────────────────┴────────────┴────────────────┴────────────────────────────────┘
    ```
 
-1. Run the user sequence on the web page :
+1. Run the user sequence on the web page:
 
    1. Mint 1 ticket.
    1. Wait for confirmation.
@@ -333,7 +333,7 @@ It is required to :
 
    You see that the feedback has changed to `YEAH!!!`.
 
-1. Optional : fix the units tests.
+1. Optional: fix the units tests.
 
 ## Proxy pattern
 
@@ -370,10 +370,10 @@ sequenceDiagram
   Note left of SmartContractV1 : storage.tzip18.contractNext = contractV2Address
 ```
 
-> Note : 2 location choices for the smart contract storage :
+> Note: 2 location choices for the smart contract storage:
 >
-> - At proxy level : storage stays unique and immutable.
-> - At end-contract level : storage is new at each new version and need to be migrated.
+> - At proxy level: storage stays unique and immutable.
+> - At end-contract level: storage is new at each new version and need to be migrated.
 
 ### Pros/Cons
 
@@ -558,7 +558,7 @@ sequenceDiagram
    };
    ```
 
-   The view call signature is different :
+   The view call signature is different:
 
    - It returns an optional bytes.
    - Calling **getView** generic view exposed by the proxy.
@@ -685,7 +685,7 @@ const getView = (viewName: string, store: storage): bytes => {
 
 12. Change the initial storage.
 
-> Note : for the moment, initialize the proxy address to a fake KT1 address because the proxy is not yet deployed.
+> Note: for the moment, initialize the proxy address to a fake KT1 address because the proxy is not yet deployed.
 
 ```ligolang
 #import "pokeGame.jsligo" "Contract"
@@ -730,15 +730,15 @@ All good.
    type _return = [list<operation>, storage];
    ```
 
-   The storage :
+   The storage:
 
    - Holds a /or several admin.
    - Maintains the interface schema map for all underlying entrypoints.
 
-   > Note on parameters : use @entry syntax, parameters is 2 functions.
+   > Note on parameters: use @entry syntax, parameters is 2 functions.
    >
-   > - **call** : forward any request to the right underlying entrypoint.
-   > - **upgrade** : admin endpoint to update the interface schema map or change smart contract version.
+   > - **call**: forward any request to the right underlying entrypoint.
+   > - **upgrade**: admin endpoint to update the interface schema map or change smart contract version.
 
 1. Add our missing types just above.
 
@@ -765,10 +765,10 @@ All good.
    };
    ```
 
-   - **callContract** : payload from user executing an entrypoint (name+payloadBytes).
-   - **entrypointType** : payload to be able to call an underlying contract (name+address).
-   - **entrypointOperation** : change the entrypoint interface map (new state of the map).
-   - **changeVersion** : change the smart contract version (old/new addresses).
+   - **callContract**: payload from user executing an entrypoint (name+payloadBytes).
+   - **entrypointType**: payload to be able to call an underlying contract (name+address).
+   - **entrypointOperation**: change the entrypoint interface map (new state of the map).
+   - **changeVersion**: change the smart contract version (old/new addresses).
 
 1. Add the `Call`entrypoint (simple forward). (Before main function).
 
@@ -1068,30 +1068,30 @@ const default_storage = {
 
 1. Compile & Call it.
 
-```bash
-TAQ_LIGO_IMAGE=ligolang/ligo:1.1.0 taq compile proxy.jsligo
-taq call proxy --param proxy.parameter.initProxyWithV1.tz -e testing
-```
+   ```bash
+   TAQ_LIGO_IMAGE=ligolang/ligo:1.1.0 taq compile proxy.jsligo
+   taq call proxy --param proxy.parameter.initProxyWithV1.tz -e testing
+   ```
 
-Output :
+   Output:
 
-```logs
-┌────────────────┬──────────────────────────────────────┬───────────────────────────────────────────────────────────────────────────────────────────────────────┬────────────┬────────────────┬────────────────────────────────┐
-│ Contract Alias │ Contract Address                     │ Parameter                                                                                             │ Entrypoint │ Mutez Transfer │ Destination                    │
-├────────────────┼──────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────┼────────────┼────────────────┼────────────────────────────────┤
-│ proxy          │ KT1BPoz3Yi8LPimxCiDvpmutbCNY8x3ghKyQ │ (Left (Pair { Pair "Poke" False (Some (Pair "Poke" "KT18ceGtUsNtQTk9smxQcaxAswRVkHDDKDgK")) ;         │ default    │ 0              │ https://ghostnet.ecadinfra.com │
-│                │                                      │               Pair "PokeAndGetFeedback"                                                               │            │                │                                │
-│                │                                      │                    False                                                                              │            │                │                                │
-│                │                                      │                    (Some (Pair "PokeAndGetFeedback" "KT18ceGtUsNtQTk9smxQcaxAswRVkHDDKDgK")) ;        │            │                │                                │
-│                │                                      │               Pair "Init" False (Some (Pair "Init" "KT18ceGtUsNtQTk9smxQcaxAswRVkHDDKDgK")) ;         │            │                │                                │
-│                │                                      │               Pair "changeVersion"                                                                    │            │                │                                │
-│                │                                      │                    False                                                                              │            │                │                                │
-│                │                                      │                    (Some (Pair "changeVersion" "KT18ceGtUsNtQTk9smxQcaxAswRVkHDDKDgK")) ;             │            │                │                                │
-│                │                                      │               Pair "feedback" False (Some (Pair "feedback" "KT18ceGtUsNtQTk9smxQcaxAswRVkHDDKDgK")) } │            │                │                                │
-│                │                                      │             None))                                                                                    │            │                │                                │
-│                │                                      │                                                                                                       │            │                │                                │
-└────────────────┴──────────────────────────────────────┴───────────────────────────────────────────────────────────────────────────────────────────────────────┴────────────┴────────────────┴────────────────────────────────┘
-```
+   ```logs
+   ┌────────────────┬──────────────────────────────────────┬───────────────────────────────────────────────────────────────────────────────────────────────────────┬────────────┬────────────────┬────────────────────────────────┐
+   │ Contract Alias │ Contract Address                     │ Parameter                                                                                             │ Entrypoint │ Mutez Transfer │ Destination                    │
+   ├────────────────┼──────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────┼────────────┼────────────────┼────────────────────────────────┤
+   │ proxy          │ KT1BPoz3Yi8LPimxCiDvpmutbCNY8x3ghKyQ │ (Left (Pair { Pair "Poke" False (Some (Pair "Poke" "KT18ceGtUsNtQTk9smxQcaxAswRVkHDDKDgK")) ;         │ default    │ 0              │ https://ghostnet.ecadinfra.com │
+   │                │                                      │               Pair "PokeAndGetFeedback"                                                               │            │                │                                │
+   │                │                                      │                    False                                                                              │            │                │                                │
+   │                │                                      │                    (Some (Pair "PokeAndGetFeedback" "KT18ceGtUsNtQTk9smxQcaxAswRVkHDDKDgK")) ;        │            │                │                                │
+   │                │                                      │               Pair "Init" False (Some (Pair "Init" "KT18ceGtUsNtQTk9smxQcaxAswRVkHDDKDgK")) ;         │            │                │                                │
+   │                │                                      │               Pair "changeVersion"                                                                    │            │                │                                │
+   │                │                                      │                    False                                                                              │            │                │                                │
+   │                │                                      │                    (Some (Pair "changeVersion" "KT18ceGtUsNtQTk9smxQcaxAswRVkHDDKDgK")) ;             │            │                │                                │
+   │                │                                      │               Pair "feedback" False (Some (Pair "feedback" "KT18ceGtUsNtQTk9smxQcaxAswRVkHDDKDgK")) } │            │                │                                │
+   │                │                                      │             None))                                                                                    │            │                │                                │
+   │                │                                      │                                                                                                       │            │                │                                │
+   └────────────────┴──────────────────────────────────────┴───────────────────────────────────────────────────────────────────────────────────────────────────────┴────────────┴────────────────┴────────────────────────────────┘
+   ```
 
 #### Update the frontend
 
@@ -1103,7 +1103,7 @@ Output :
    taq generate types ./app/src
    ```
 
-1. Change the script to extract the proxy address instead of the contract one, edit `./app/package.json` and replace the line of script by :
+1. Change the script to extract the proxy address instead of the contract one, edit `./app/package.json` and replace the line of script by:
 
    ```json
        "dev": "jq -r -f filter.jq ../.taq/testing-state.json > .env && vite",
@@ -1377,7 +1377,7 @@ yarn dev
 
 Deploy a new contract V2 and test it again.
 
-> Note : Remember that the `storage.feedback` field cannot change on any deployed smart contract because there is no exposed method to update it.
+> Note: Remember that the `storage.feedback` field cannot change on any deployed smart contract because there is no exposed method to update it.
 > Let's change this value for the new contract instance, and call it `hello`.
 
 7. Edit `pokeGame.storageList.jsligo` and add a new variable on it. Don't forget again to change `proxy` and `contractPrevious` by our own values !
@@ -1509,7 +1509,7 @@ taq call proxy --param proxy.parameter.initProxyWithV2.tz -e testing
 └────────────────┴──────────────────────────────────────┴───────────────────────────────────────────────────────────────────────────────────────────────────────┴────────────┴────────────────┴────────────────────────────────┘
 ```
 
-11. Back to the web app, test the flow again :
+11. Back to the web app, test the flow again:
 
 1. Refresh the contract list.
 1. Mint 1 ticket.
@@ -1546,7 +1546,7 @@ const changeVersionV1ToV2: parameter_of Contract =
    taq call proxy --param proxy.parameter.changeVersionV1ToV2.tz -e testing
    ```
 
-2. Check logs.
+1. Check logs.
 
    ```logs
    ┌────────────────┬──────────────────────────────────────┬───────────────────────────────────────────────────────────────────────────────────────────────────────────┬────────────┬────────────────┬────────────────────────────────┐
@@ -1558,11 +1558,11 @@ const changeVersionV1ToV2: parameter_of Contract =
    └────────────────┴──────────────────────────────────────┴───────────────────────────────────────────────────────────────────────────────────────────────────────────┴────────────┴────────────────┴────────────────────────────────┘
    ```
 
-3. Check on an indexer that the V1 `storage.tzip18.contractNext` is pointing to the next version address V2 : [old V1 contract storage](https://ghostnet.tzkt.io/KT18ceGtUsNtQTk9smxQcaxAswRVkHDDKDgK/storage/).
+1. Check on an indexer that the V1 `storage.tzip18.contractNext` is pointing to the next version address V2: [old V1 contract storage](https://ghostnet.tzkt.io/KT18ceGtUsNtQTk9smxQcaxAswRVkHDDKDgK/storage/).
 
    This ends the proxy pattern implementation. The old contract is no more "runnable" and the proxy is pointing to the last version.
 
-## Alternative : Composability
+## Alternative: Composability
 
 Managing a monolithic smart contract like a microservice can reduce the problem, on the other side it increases complexity and application lifecycle on OPS side.
 

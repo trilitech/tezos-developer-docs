@@ -41,16 +41,16 @@ taq create contract pokeGame.jsligo
    };
    ```
 
-   Every contract requires to respect this convention :
+   Every contract requires to respect this convention:
 
    - At least one entrypoint, annotated with **@entry** , with a mandatory signature taking 2 arguments **\*(parameter, storage)** and a return type. An entrypoint is function that is exposed as an external API.
-   - **parameter** : the entrypoint parameter. It can be whatever type but it is mandatory. For example : an (ignored) variable starting with`_` here, and of type `unit` (the default type on Ligo).
-   - **storage** : the on-chain storage. It can be of any type but it is mandatory. For example : `unit` by default. It is recommended to add an `export` keyword before the type definition as it is a good practice to export it when you require to write unit tests from another Ligo file.
-   - **return\_** : a pair of list of `operation` and a storage. This is mandatory by convention. You can only define another variable name, that is not a keyword, if you want.
+   - **parameter**: the entrypoint parameter. It can be whatever type but it is mandatory. For example: an (ignored) variable starting with`_` here, and of type `unit` (the default type on Ligo).
+   - **storage**: the on-chain storage. It can be of any type but it is mandatory. For example: `unit` by default. It is recommended to add an `export` keyword before the type definition as it is a good practice to export it when you require to write unit tests from another Ligo file.
+   - **return\_**: a pair of list of `operation` and a storage. This is mandatory by convention. You can only define another variable name, that is not a keyword, if you want.
 
    [Have a look on the Entrypoints contracts documentation](/smart-contracts/entrypoints)>
 
-   > Note : The old syntax was requiring a main function. It is still valid but very verbatim and deprecated in Ligo V1.
+   > Note: The old syntax was requiring a main function. It is still valid but very verbatim and deprecated in Ligo V1.
    >
    > A `Poke` variant parameter is generated from the `poke` entrypoint function under the hood. A variant is more or less equivalent of the Enum type in Javascript. A default main function is generated and act like as a dispatcher for each of your entrypoints. It means that this painful boilerplate is no more needed on the new syntax.
 
@@ -60,13 +60,13 @@ taq create contract pokeGame.jsligo
    The objective is to store every user/caller addresses poking the contract.
    Rewrite the storage, and add the caller address to the set of traces.
 
-   At line 1, replace the line with :
+   At line 1, replace the line with:
 
    ```ligolang
    export type storage = set<address>;
    ```
 
-1. Replace the `poke` function with :
+1. Replace the `poke` function with:
 
    ```ligolang
    @entry
@@ -75,7 +75,7 @@ taq create contract pokeGame.jsligo
    };
    ```
 
-   Explanation :
+   Explanation:
 
    - The Ligo Set library has a function **add** to add one element to the Set of items. There is no concept of Class in Ligo, you use a library to apply functions on objects.
    - A list of operation is required to return. An empty list is returned here as there is no other contract to call.
@@ -102,7 +102,7 @@ taq create contract pokeGame.jsligo
 
    [Have a look on the Michelson documentation](https://tezos.gitlab.io/active/michelson.html)
 
-1. Taqueria is generating two additional files, edit the first file `pokeGame.storageList.jsligo` replacing current code with :
+1. Taqueria is generating two additional files, edit the first file `pokeGame.storageList.jsligo` replacing current code with:
 
    ```ligolang
    #import "pokeGame.jsligo" "Contract"
@@ -140,7 +140,7 @@ taq create contract pokeGame.jsligo
    taq simulate pokeGame.tz --param pokeGame.parameter.default_parameter.tz
    ```
 
-   Output logs :
+   Output logs:
 
    ```logs
    ┌─────────────┬──────────────────────────────────────────────┐
@@ -162,7 +162,7 @@ taq create contract pokeGame.jsligo
 
    The default Tezos testing testnet is called **Ghostnet**.
 
-   :warning: You need an account to deploy a contract with some `tez` (the Tezos native currency). The first time you deploy a contract with Taqueria, it is generating a new implicit account with `0 tez`.
+   > :warning: You need an account to deploy a contract with some `tez` (the Tezos native currency). The first time you deploy a contract with Taqueria, it is generating a new implicit account with `0 tez`.
 
 1. Deploying your contract to the `testing` environment, it forces Taqueria to generate a default account.
 
@@ -182,7 +182,7 @@ taq create contract pokeGame.jsligo
    No operations performed.
    ```
 
-   - Choice N°1 (Recommended) : Use alice wallet instead of the generated account. A common usage is to use **alice** account as Taqueria operator. **alice** is a common known address used on Tezos and she has always some **tez**. Replace the Taqueria config file for **testing** env **.taq/config.local.testing.json** with **alice** settings:
+   - Choice N°1 (Recommended): Use alice wallet instead of the generated account. A common usage is to use **alice** account as Taqueria operator. **alice** is a common known address used on Tezos and she has always some **tez**. Replace the Taqueria config file for **testing** env **.taq/config.local.testing.json** with **alice** settings:
 
      ```json
      {
@@ -197,7 +197,7 @@ taq create contract pokeGame.jsligo
      }
      ```
 
-   - Choice N°2 : use the Taqueria generated account. Copy the account **privateKey** from the **.taq/config.local.testing.json** config file. Open your Temple browser extension on your computer or on your mobile phone and do the [initial setup](https://www.youtube.com/watch?v=S8_tL8PfCts). Once you are done, go to Settings (click on the avatar icon, or display Temple in full page) and click on **Import account > Private key** tab. Paste the **privateKey** to Temple text input and confirm. Send free Tez to your new account via this web faucet [Marigold faucet](https://faucet.marigold.dev/). Connect your wallet on **Ghostnet** and ask for free tez.
+   - Choice N°2: use the Taqueria generated account. Copy the account **privateKey** from the **.taq/config.local.testing.json** config file. Open your Temple browser extension on your computer or on your mobile phone and do the [initial setup](https://www.youtube.com/watch?v=S8_tL8PfCts). Once you are done, go to Settings (click on the avatar icon, or display Temple in full page) and click on **Import account > Private key** tab. Paste the **privateKey** to Temple text input and confirm. Send free Tez to your new account via this web faucet [Marigold faucet](https://faucet.marigold.dev/). Connect your wallet on **Ghostnet** and ask for free tez.
 
    Now you have some money to play with.
 
@@ -258,13 +258,13 @@ taq create contract pokeGame.jsligo
 
    > :warning: Before starting, add the following dependencies in order to resolve polyfill issues. Some dependencies are from NodeJs, thus not included in browsers.
 
-1. For example, in my case, I installed this :
+1. For example, in my case, I installed this:
 
    ```bash
    yarn add --dev process buffer crypto-browserify stream-browserify assert stream-http https-browserify os-browserify url path-browserify
    ```
 
-1. Create a new file `nodeSpecific.ts` in the src folder of your project and edit with this content :
+1. Create a new file `nodeSpecific.ts` in the src folder of your project and edit with this content:
 
    ```bash
    touch src/nodeSpecific.ts
@@ -276,7 +276,7 @@ taq create contract pokeGame.jsligo
    globalThis.Buffer = Buffer;
    ```
 
-1. Open the `index.html` file and replace the `body` with this one :
+1. Open the `index.html` file and replace the `body` with this one:
 
    ```html
    <body>
@@ -286,7 +286,7 @@ taq create contract pokeGame.jsligo
    </body>
    ```
 
-1. Open the `vite.config.ts` file and replace it with :
+1. Open the `vite.config.ts` file and replace it with:
 
    ```js
    import react from "@vitejs/plugin-react-swc";
@@ -335,7 +335,7 @@ taq create contract pokeGame.jsligo
 
    Taqueria is able to generate Typescript classes for any frontend application. It takes the definition of your smart contract and generates the contract entrypoint functions, type definitions, etc ...
 
-   To get typescript classes from taqueria plugin, on your project root folder run :
+   To get typescript classes from taqueria plugin, on your project root folder run:
 
    ```bash
    taq install @taqueria/plugin-contract-types
@@ -349,7 +349,7 @@ taq create contract pokeGame.jsligo
    yarn dev
    ```
 
-1. Open your browser at : http://localhost:5173/
+1. Open your browser at: http://localhost:5173/
    Your app should be running.
 
 1. Connect / disconnect the wallet.
@@ -419,7 +419,7 @@ taq create contract pokeGame.jsligo
    export default App;
    ```
 
-1. Let's create the 2 missing src component files :
+1. Let's create the 2 missing src component files:
 
    ```bash
    touch src/ConnectWallet.tsx
@@ -537,7 +537,7 @@ taq create contract pokeGame.jsligo
 1. You need to install jq to parse the Taqueria json configuration file.
    [Install jq](https://github.com/stedolan/jq)
 
-1. On `package.json`, change the `dev` command on `scripts` configuration. Prefix it with a `jq` command to create an new environment variable pointing to your last smart contract address on testing env :
+1. On `package.json`, change the `dev` command on `scripts` configuration. Prefix it with a `jq` command to create an new environment variable pointing to your last smart contract address on testing env:
 
    ```bash
        "dev": "jq -r '\"VITE_CONTRACT_ADDRESS=\" + last(.tasks[]).output[0].address' ../.taq/testing-state.json > .env && vite",
@@ -563,7 +563,7 @@ taq create contract pokeGame.jsligo
    };
    ```
 
-1. On the returned **html template** section, after the display of the user balance div `I am {userAddress} with {userBalance} mutez`, append this :
+1. On the returned **html template** section, after the display of the user balance div `I am {userAddress} with {userBalance} mutez`, append this:
 
    ```tsx
    <br />

@@ -6,7 +6,7 @@ last_update:
 ---
 
 Previously, you learned how to do inter-contract calls, use view and do unit testing.
-In this third session, you will enhance your skills on :
+In this third session, you will enhance your skills on:
 
 - Using tickets.
 - Don't mess up with `DUP` errors while manipulating tickets.
@@ -31,7 +31,7 @@ sequenceDiagram
 
 ## Prerequisites
 
-Prerequisites are the same as the first session : https://github.com/marigold-dev/training-dapp-1#memo-prerequisites.
+Prerequisites are the same as the first session: https://github.com/marigold-dev/training-dapp-1#memo-prerequisites.
 
 Get the code from the session 2 solution [here](https://github.com/marigold-dev/training-dapp-2/tree/main/solution).
 
@@ -39,28 +39,28 @@ Get the code from the session 2 solution [here](https://github.com/marigold-dev/
 
 Tickets came with Tezos **Edo** upgrade, they are great and often misunderstood.
 
-Ticket structure :
+Ticket structure:
 
-- Ticketer : (address) the creator contract address.
-- Value : (any) Can be any type from string to bytes. It holds whatever arbitrary values.
-- Amount : (nat) quantity of tickets minted.
+- Ticketer: (address) the creator contract address.
+- Value: (any) Can be any type from string to bytes. It holds whatever arbitrary values.
+- Amount: (nat) quantity of tickets minted.
 
-Tickets features :
+Tickets features:
 
-- Not comparable : it makes no sense to compare tickets because tickets from same type are all equals and can be merged into a single ticket. When ticket types are different then it is no more comparable.
-- Transferable : you can send ticket into a Transaction parameter.
-- Storable : only on smart contract storage for the moment (Note : a new protocol release will enable it for implicit account soon).
-- Non dupable : you cannot copy or duplicate a ticket, it is a unique singleton object living in specific blockchain instance.
-- Splittable : if amount is > 2 then you can split ticket object into 2 objects.
-- Mergeable : you can merge ticket from same ticketer and same type.
-- Mintable/burnable : anyone can create and destroy tickets.
+- Not comparable: it makes no sense to compare tickets because tickets from same type are all equals and can be merged into a single ticket. When ticket types are different then it is no more comparable.
+- Transferable: you can send ticket into a Transaction parameter.
+- Storable: only on smart contract storage for the moment (Note: a new protocol release will enable it for implicit account soon).
+- Non dupable: you cannot copy or duplicate a ticket, it is a unique singleton object living in specific blockchain instance.
+- Splittable: if amount is > 2 then you can split ticket object into 2 objects.
+- Mergeable: you can merge ticket from same ticketer and same type.
+- Mintable/burnable: anyone can create and destroy tickets.
 
-Example of usage :
+Example of usage:
 
-- Authentication and Authorization token : giving a ticket to a user provides you Authentication. Adding some claims/rules on the ticket provides you some rights.
-- Simplified FA1.2/FA2 token : representing crypto token with tickets (mint/burn/split/join), but it does not have all same properties and does not respect the TZIP standard.
-- Voting rights : giving 1 ticket that count for 1 vote on each member.
-- Wrapped crypto : holding XTZ collateral against a ticket, and redeeming it later.
+- Authentication and Authorization token: giving a ticket to a user provides you Authentication. Adding some claims/rules on the ticket provides you some rights.
+- Simplified FA1.2/FA2 token: representing crypto token with tickets (mint/burn/split/join), but it does not have all same properties and does not respect the TZIP standard.
+- Voting rights: giving 1 ticket that count for 1 vote on each member.
+- Wrapped crypto: holding XTZ collateral against a ticket, and redeeming it later.
 - Many others ...
 
 ### Minting
@@ -80,7 +80,7 @@ Minting is the action of creating ticket from void. In general, minting operatio
 
    In order to fill this map, add an new administration endpoint. A new entrypoint `Init` is adding x tickets to a specific user.
 
-   > Note : to simplify, there is no security around this entrypoint, but in Production it should.
+   > Note: to simplify, there is no security around this entrypoint, but in Production it should.
 
    Tickets are very special objects that cannot be **DUPLICATED**. During compilation to Michelson, using a variable twice, copying a structure holding tickets are generating `DUP` command. To avoid our contract to fail at runtime, Ligo parses statically our code during compilation time to detect any DUP on tickets.
 
@@ -146,7 +146,7 @@ Minting is the action of creating ticket from void. In general, minting operatio
 
    First, extract an existing optional ticket from the map. If an operation is done directly on the map, even trying to find or get this object in the structure, a DUP Michelson instruction is generated. Use the secure `get_and_update` function from Map library to extract the item from the map and avoid any copy.
 
-   > Note : more information about this function [here](https://ligolang.org/docs/reference/map-reference).
+   > Note: more information about this function [here](https://ligolang.org/docs/reference/map-reference).
 
    On a second step, look at the optional ticket, if it exists, then burn it (i.e do not store it somewhere on the storage anymore) and add a trace of execution, otherwise fail with an error message.
 
@@ -216,7 +216,7 @@ Minting is the action of creating ticket from void. In general, minting operatio
 
 1. Compile the contract to check any errors.
 
-   > Note : don't forget to check that Docker is running for taqueria.
+   > Note: don't forget to check that Docker is running for taqueria.
 
    ```bash
    npm i
@@ -440,7 +440,7 @@ Update the unit tests files to see if you can still poke.
 
    Ok, so let's authorize some minting on my user and try again to poke.
 
-1. Add a new button for minting on a specific contract, replace the full content of `App.tsx` with :
+1. Add a new button for minting on a specific contract, replace the full content of `App.tsx` with:
 
    ```typescript
    import { NetworkType } from "@airgap/beacon-types";
@@ -632,7 +632,7 @@ Update the unit tests files to see if you can still poke.
    export default App;
    ```
 
-   > Note : You maybe have noticed, but the full typed generated Taquito class is used for the storage access now. It improves maintenance in case you contract storage has changed.
+   > Note: You maybe have noticed, but the full typed generated Taquito class is used for the storage access now. It improves maintenance in case you contract storage has changed.
 
 1. Refresh the page, now that you have the Mint button.
 
@@ -650,7 +650,7 @@ Update the unit tests files to see if you can still poke.
 
    Congratulation, you know how to use tickets and avoid DUP errors.
 
-   > Takeaways :
+   > Takeaways:
    >
    > - You can go further and improve the code like consuming one 1 ticket quantity at a time and manage it the right way.
    > - You can also implement different type of Authorization mechanism, not only `can poke` claim.
