@@ -246,8 +246,6 @@ Gets the metadata for the specified token.
 
 Example:
 
-<!-- TODO no worky -->
-
 ```csharp
 public void RunGetTokenMetadata()
 {
