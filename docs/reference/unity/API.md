@@ -3,10 +3,10 @@ title: Unity SDK API object
 sidebar_label: API object
 authors: Tim McMackin
 last_update:
-  date: 5 December 2023
+  date: 6 December 2023
 ---
 
-The `TezosManager.Instance.Tezos.API` object provides information about the Tezos blockchain, such as what tokens accounts or contracts control.
+The Unity SDK class `TezosSDK.Tezos.API.TezosAPI`, which is available at runtime as the `TezosManager.Instance.Tezos.API` object, provides information about the Tezos blockchain, such as what tokens accounts or contracts control.
 
 ## Properties
 
