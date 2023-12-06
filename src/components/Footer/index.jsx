@@ -1,6 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import styles from './styles.module.css';
+import { ChatBob } from '@site/src/components/ChatBob'
 
 const socialLinks = [
   { name: 'Discord', link: 'https://discord.gg/yXaPy6s5Nr', icon: '/img/socials/Tezos-social-icon-white-01.svg' },
@@ -97,6 +98,7 @@ export default function Footer() {
           </div>
         </div>
       </div>
+      <ChatBob />
     </footer>
   );
 }

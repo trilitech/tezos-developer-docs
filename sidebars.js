@@ -19,12 +19,11 @@ const sidebars = {
     {
       type: "category",
       label: "Architecture",
-      // link: { // TODO
-      //   id: 'architecture',
-      //   type: 'doc',
-      // },
+      link: {
+        id: "architecture",
+        type: "doc",
+      },
       items: [
-        "architecture/protocol",
         "architecture/accounts",
         {
           type: "category",
@@ -68,6 +67,7 @@ const sidebars = {
       type: "category",
       label: "Developing on Tezos",
       items: [
+        "developing/wallet-setup",
         "developing/dev-environments",
         "developing/testnets",
         // 'developing/sandbox', // TODO
@@ -164,7 +164,7 @@ const sidebars = {
         "smart-contracts/storage",
         "smart-contracts/special-values",
         "smart-contracts/constants",
-        // 'smart-contracts/serialization',
+        "smart-contracts/serialization",
         "smart-contracts/sapling",
         "smart-contracts/views",
         "smart-contracts/delegation",
