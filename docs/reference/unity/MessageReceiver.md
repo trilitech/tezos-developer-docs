@@ -3,10 +3,10 @@ title: Unity SDK MessageReceiver object
 sidebar_label: MessageReceiver object
 authors: Tim McMackin
 last_update:
-  date: 5 December 2023
+  date: 6 December 2023
 ---
 
-The `TezosManager.Instance.MessageReceiver` object provides events that you can add listeners to.
+The Unity SDK class `TezosSDK.Beacon.WalletMessageReceiver`, which is available at runtime as the `TezosManager.Instance.MessageReceiver` object, provides events that you can add listeners to.
 
 These events are asynchronous.
 For example, if your project makes multiple calls to smart contracts, the `ContractCallCompleted` event runs multiple times, not necessarily in the order that you called the contracts.
