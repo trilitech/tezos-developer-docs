@@ -259,8 +259,7 @@ public void RunGetTokenMetadata()
 
 private void HandleGetTokenMetadata(JsonElement tokenMetadata)
 {
-    // TODO handle JSON data
-    Debug.Log(tokenMetadata);
+    Debug.Log(tokenMetadata.GetProperty("name"));
 }
 ```
 
