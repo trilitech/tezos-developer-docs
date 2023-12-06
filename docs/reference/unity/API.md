@@ -272,10 +272,9 @@ public IEnumerator GetContractMetadata(
 ```
 
 Gets the metadata for the specified contract.
+Most contracts, including the built-in FA2 contract, do not have metadata.
 
 Example:
-
-<!-- TODO no worky -->
 
 ```csharp
 public void RunGetContractMetadata()
@@ -289,7 +288,6 @@ public void RunGetContractMetadata()
 
 private void HandleGetContractMetadata(JsonElement contractMetadata)
 {
-    // TODO handle JSON data
     Debug.Log(contractMetadata);
 }
 ```
