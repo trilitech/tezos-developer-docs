@@ -131,10 +131,10 @@ const sidebars = {
             id: 'smart-contracts/languages',
           },
           items: [
-            'smart-contracts/languages/ligo',
-            'smart-contracts/languages/smartpy',
-            'smart-contracts/languages/archetype',
-            'smart-contracts/languages/michelson',
+            { type: 'ref', id: 'smart-contracts/languages/ligo' },
+            { type: 'ref', id: 'smart-contracts/languages/smartpy'},
+            { type: 'ref', id: 'smart-contracts/languages/archetype'},
+            { type: 'ref', id: 'smart-contracts/languages/michelson'},
           ],
         },
         {
@@ -221,6 +221,92 @@ const sidebars = {
       ],
     },
   ],
+
+  languagesSidebar: [
+    {
+      type: 'ref',
+      id: 'overview/index',
+      label: 'Back to main',
+    },
+    {
+      type: 'category',
+      label: 'Languages',
+      link: {
+        type: 'doc',
+        id: 'smart-contracts/languages',
+      },
+      items: [
+        { type: 'ref', id: 'smart-contracts/languages/ligo' },
+        { type: 'ref', id: 'smart-contracts/languages/smartpy'},
+        { type: 'ref', id: 'smart-contracts/languages/archetype'},
+        { type: 'ref', id: 'smart-contracts/languages/michelson'},
+      ],
+    },
+  ],
+
+  ligoSidebar: [
+    {
+      type: 'ref',
+      id: 'smart-contracts/languages',
+      label: 'Back to languages',
+    },
+    {
+      type: 'doc',
+      label: 'LIGO overview',
+      id: 'smart-contracts/languages/ligo',
+    },
+    'smart-contracts/languages/ligo/faq',
+    {
+      type: 'category',
+      label: 'Data types',
+      link: {
+        type: 'doc',
+        id: 'smart-contracts/languages/ligo/data-types',
+      },
+      items: [
+        'smart-contracts/languages/ligo/data-types/simple',
+        'smart-contracts/languages/ligo/data-types/composite',
+        'smart-contracts/languages/ligo/data-types/type-annotations',
+        'smart-contracts/languages/ligo/data-types/booleans',
+        'smart-contracts/languages/ligo/data-types/records',
+        'smart-contracts/languages/ligo/data-types/tuples',
+        'smart-contracts/languages/ligo/data-types/numbers',
+      ],
+    },
+    'smart-contracts/languages/ligo/constants-variables',
+    'smart-contracts/languages/ligo/functions',
+    'smart-contracts/languages/ligo/entrypoints',
+    'smart-contracts/languages/ligo/error-handling',
+    'smart-contracts/languages/ligo/loops',
+    'smart-contracts/languages/ligo/patterns',
+    'smart-contracts/languages/ligo/attributes',
+    'smart-contracts/languages/ligo/views',
+    'smart-contracts/languages/ligo/operations',
+    'smart-contracts/languages/ligo/domain-specific',
+    {
+      type: 'category',
+      label: 'Combining code',
+      items: [
+        'smart-contracts/languages/ligo/combining-code/modules',
+        'smart-contracts/languages/ligo/combining-code/global-constants',
+        'smart-contracts/languages/ligo/combining-code/package-management',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Testing',
+      link: {
+        type: 'doc',
+        id: 'smart-contracts/languages/ligo/testing',
+      },
+      items: [
+        'smart-contracts/languages/ligo/testing/mutation',
+        'smart-contracts/languages/ligo/testing/michelson',
+      ],
+    },
+    'smart-contracts/languages/ligo/advanced',
+  ],
+
   tutorialsSidebar: [
     {
       type: 'category',

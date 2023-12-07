@@ -71,6 +71,12 @@ const config = {
           },
           {
             type: 'docSidebar',
+            sidebarId: 'languagesSidebar',
+            position: 'left',
+            label: 'Languages'
+          },
+          {
+            type: 'docSidebar',
             sidebarId: 'tutorialsSidebar',
             position: 'left',
             label: 'Tutorials',
