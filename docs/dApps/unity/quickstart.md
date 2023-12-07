@@ -38,18 +38,6 @@ These prefabs provide prerequisites to use Tezos in a scene.
    If you copy these prefabs into your scene and run it, it shows a QR code that Tezos wallet applications can scan to connect with the application.
    You can access these features through the prefab and change how the project manages its connection to users' wallets.
 
-   For example, the `QRCode` object receives a handshake from the `TezosManager` object and uses the handshake information to generate a URI and encode that URI to a QR code image:
-
-   ```csharp
-   public void SetQrCode(HandshakeData handshakeData)
-   {
-       var uri = "tezos://?type=tzip10&data=" + handshakeData.PairingData;
-       EncodeTextToQrCode(uri);
-   }
-   ```
-
-   You can adjust this code and the bound Unity object to control when and where the QR code appears.
-
    The `TezosManager` fields control what users see in their wallet applications before connecting to the project, as shown in this picture of the Inspector panel:
 
    ![The Inspector panel, showing information about the project](/img/dApps/unity-inspector-tezosmanager.png)
