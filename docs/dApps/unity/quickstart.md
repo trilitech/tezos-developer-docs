@@ -17,31 +17,10 @@ These instructions cover:
 
 ## Installing the SDK
 
-1. Make sure that you have Unity Editor version 2021.3.23f1 or later.
+To install the SDK, follow the instructions at https://github.com/trilitech/tezos-unity-sdk.
 
-1. Install a Tezos-compatible wallet on a mobile device that has a camera and can scan QR codes.
+To work with the SDK, you also need a Tezos-compatible wallet on a mobile device that has a camera and can scan QR codes and to configure the wallet for the Ghostnet testnet.
 For instructions, see [Installing and funding a wallet](../../developing/wallet-setup).
-
-1. Switch the wallet to Ghostnet and use the [Ghostnet faucet](https://faucet.ghostnet.teztnets.xyz/) to get some tez that you can use to send transactions to your Unity projects.
-
-1. Install the SDK from GitHub:
-
-   1. From the SDK's GitHub page at https://github.com/trilitech/tezos-unity-sdk/releases, download the latest release of the SDK, which is a file named `TezosUnitySdk.unitypackage`.
-   1. In the Unity Editor, click **Assets > Import Package > Custom Package** and import the SDK file.
-   1. Verify that the SDK is installed by opening the Project panel and expanding the **Assets > TezosSDK** folder.
-
-     If you see the TezosSDK folder with sub-folders including Editor, Examples, Resources, and Runtime, the SDK is installed correctly, as in this picture:
-
-     <img src="/img/dApps/unity-installed-project-panel.png" alt="The SDK assets in the Project panel" style={{width: 200}} />
-
-1. Verify that the SDK works in your project by running the WalletConnection example scene, which demonstrates how to connect to a Tezos wallet in a Unity project:
-
-   1. In the Project panel, expand **Assets > TezosSDK > Examples > WalletConnection** and open the `_WalletConnection` scene.
-   1. Run the scene, which shows a QR code.
-   1. Use your wallet app to scan the barcode and confirm the connection to the Unity project.
-   The project UI shows the address of the connected account, as in this picture:
-
-      <img src="/img/dApps/unity-wallet-connection-scene-connected.png" alt="The new RPC node selected in the Temple wallet" style={{width: 500}} />
 
 ## Connecting to wallets
 
