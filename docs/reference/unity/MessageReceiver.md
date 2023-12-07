@@ -48,7 +48,7 @@ Returns a `TezosSDK.Beacon.ErrorInfo` object with an error message.
 
 ### `public event Action<AccountInfo> AccountDisconnected`
 
-Runs when an account disconnects.
+Runs when an account disconnects successfully.
 Returns a `TezosSDK.Beacon.AccountInfo` object with information that includes the address of the connected account.
 
 ### `public event Action<OperationResult> ContractCallCompleted`
@@ -68,7 +68,7 @@ Returns a `TezosSDK.Beacon.OperationResult` object with the hash of the transact
 
 ### `public event Action<HandshakeData> HandshakeReceived`
 
-Runs when the handshake with a user's wallet application is received.
+Runs when a handshake with a user's wallet application is received.
 Returns a `TezosSDK.Beacon.HandshakeData` object with the data that applications need to connect to the wallet.
 
 ### `public event Action<PairingDoneData> PairingCompleted`
