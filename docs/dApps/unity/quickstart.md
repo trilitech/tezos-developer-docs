@@ -56,7 +56,7 @@ You can use this event to get the address of the connected account, as in this c
        TezosManager.Instance.MessageReceiver.AccountDisconnected += OnAccountDisconnected;
    }
 
-   private void OnAccountDisconnected(AccountInfo accountInfo)
+   private void OnAccountConnected(AccountInfo accountInfo)
    {
        // We can get the address from the wallet
        addressText.text = TezosManager.Instance.Wallet.GetActiveAddress();
@@ -66,7 +66,7 @@ You can use this event to get the address of the connected account, as in this c
        UpdateLayout(); // Update layout to fit the new text
    }
 
-   private void OnAccountConnected(AccountInfo account_info)
+   private void OnAccountDisconnected(AccountInfo account_info)
    {
        addressText.text = _notConnectedText;
        UpdateLayout();
