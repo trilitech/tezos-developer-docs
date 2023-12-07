@@ -44,45 +44,36 @@ These prefabs provide prerequisites to use Tezos in a scene.
 
 1. Add features to your project to use the connected account.
 For example, the `TezosSDK/Examples/Common/Scripts/AccountInfoUI.cs` file responds to the `AccountConnected` event, which runs when the user scans the QR code and approves the connection in their wallet app.
-You can use this event to get the address of the connected account, as in these steps:
+You can use this event to get the address of the connected account, as in this code:
 
-   1. In your scene, in the Hierarchy panel, right-click the Canvas object and then click **UI > Text - TextMeshPro**.
+   ```csharp
+   private void Start()
+   {
+       addressText.text = _notConnectedText;
 
-   1. Bind the new object to the `addressText` variable in the `AccountInfoUI` script, as in this picture:
+       // Subscribe to events;
+       TezosManager.Instance.MessageReceiver.AccountConnected += OnAccountConnected;
+       TezosManager.Instance.MessageReceiver.AccountDisconnected += OnAccountDisconnected;
+   }
 
-      <img src="/img/dApps/unity-quickstart-bind-accountinfo.png" alt="The Inspector panel, showing the connection to the `AccountInfoUI` object" style={{width: 300}} />
+   private void OnAccountDisconnected(AccountInfo accountInfo)
+   {
+       // We can get the address from the wallet
+       addressText.text = TezosManager.Instance.Wallet.GetActiveAddress();
+       // Or from the event data
+       addressText.text = accountInfo.Address;
 
-      This script, which is in the file `TezosSDK/Examples/Common/Scripts/AccountInfoUI.cs`, uses the `TezosManager.Instance.Wallet` object to get information about the connected account, such as its address:
+       UpdateLayout(); // Update layout to fit the new text
+   }
 
-      ```csharp
-      private void Start()
-      {
-          addressText.text = _notConnectedText;
+   private void OnAccountConnected(AccountInfo account_info)
+   {
+       addressText.text = _notConnectedText;
+       UpdateLayout();
+   }
+   ```
 
-          // Subscribe to events;
-          TezosManager.Instance.MessageReceiver.AccountConnected += OnAccountConnected;
-          TezosManager.Instance.MessageReceiver.AccountDisconnected += OnAccountDisconnected;
-      }
-
-      private void OnAccountDisconnected(AccountInfo accountInfo)
-      {
-          // We can get the address from the wallet
-          addressText.text = TezosManager.Instance.Wallet.GetActiveAddress();
-          // Or from the event data
-          addressText.text = accountInfo.Address;
-
-          UpdateLayout(); // Update layout to fit the new text
-      }
-
-      private void OnAccountConnected(AccountInfo account_info)
-      {
-          addressText.text = _notConnectedText;
-          UpdateLayout();
-      }
-      ```
-
-      Now when the user connects, the project shows the user's account address.
-      You can use this address as a user's account ID because Tezos account addresses are unique.
+   You can use this address as a user's account ID because Tezos account addresses are unique.
 
 1. To respond to other events, add listeners for the events that the SDK provides.
 You can see these events and their return values in the [MessageReceiver object](../../reference/unity/MessageReceiver).
