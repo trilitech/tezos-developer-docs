@@ -84,7 +84,7 @@ taq create contract pokeGame.jsligo
 
    [Have a look on the List library documentation](https://ligolang.org/docs/language-basics/sets-lists-tuples/?lang=jsligo#lists)
 
-   Here, get the caller address using `Tezos.get_source()`. Tezos library provides useful functions for manipulating blockchain objects
+   Here, get the caller address using `Tezos.get_source()`. Tezos library provides useful functions for manipulating blockchain objects.
 
    [Have a look on the Tezos library documentation](https://ligolang.org/docs/reference/current-reference)
 
