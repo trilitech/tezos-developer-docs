@@ -197,7 +197,7 @@ Minting is the action of creating ticket from void. In general, minting operatio
    };
    ```
 
-1. Update the storage initialization on `pokeGame.storages.jsligo`.
+1. Update the storage initialization on `pokeGame.storageList.jsligo`.
 
    ```ligolang
    #import "pokeGame.jsligo" "Contract"
