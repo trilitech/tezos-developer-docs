@@ -50,7 +50,7 @@ taq create contract pokeGame.jsligo
 
    [Have a look on the Entrypoints contracts documentation](/smart-contracts/entrypoints)>
 
-   > Note: The old syntax was requiring a main function. It is still valid but very verbatim and deprecated in Ligo V1.
+   > Note: Previous versions of LIGO used a single main function instead of a function for each entrypoint. This syntax is still valid, but it is harder to read and deprecated in Ligo V1.
    >
    > A `Poke` variant parameter is generated from the `poke` entrypoint function under the hood. A variant is more or less equivalent of the Enum type in Javascript. A default main function is generated and act like as a dispatcher for each of your entrypoints. It means that this painful boilerplate is no more needed on the new syntax.
 
