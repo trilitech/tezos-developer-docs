@@ -344,7 +344,7 @@ As you saw on the previous step, inter-contract calls makes the business logic m
 
 In this training, the oracle is providing a read-only storage that can be replaced by a `view` instead of a complex and costly callback.
 
-[See documentation here about onchain views](https://ligolang.org/docs/protocol/hangzhou#on-chain-views].
+[See documentation here about onchain views](https://ligolang.org/docs/protocol/hangzhou#on-chain-views).
 
 ```mermaid
 sequenceDiagram
