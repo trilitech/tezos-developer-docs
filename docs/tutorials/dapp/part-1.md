@@ -26,7 +26,7 @@ taq install @taqueria/plugin-taquito
 taq create contract pokeGame.jsligo
 ```
 
-## Smart contract
+## Write the smart contract
 
 1. Edit the **pokeGame.jsligo** file. Remove the default code and paste this code instead.
 
@@ -88,19 +88,21 @@ taq create contract pokeGame.jsligo
 
    [Have a look on the Tezos library documentation](https://ligolang.org/docs/reference/current-reference)
 
-1. Try to poke. The Ligo command-line provides sub-commands to test your Ligo code
+## Simulate a call on your smart contract
 
-   [Have a look on the Testing Framework documentation](https://ligolang.org/docs/advanced/testing)
+The Ligo command-line provides sub-commands to test your Ligo code.
 
-   Compile the contract with Taqueria (Force to use a specific Ligo version with `TAQ_LIGO_IMAGE` Taqueria environment variable).
+[Have a look on the Testing Framework documentation](https://ligolang.org/docs/advanced/testing)
 
-   ```bash
-   TAQ_LIGO_IMAGE=ligolang/ligo:1.1.0 taq compile pokeGame.jsligo
-   ```
+1. Compile the contract with Taqueria (Force to use a specific Ligo version with `TAQ_LIGO_IMAGE` Taqueria environment variable).
 
-   Taqueria is generating the `.tz` Michelson file on the `artifacts` folder. The Michelson language is the default stack language used by the Michelson VM to run your code on a node. It is something similar to WASM.
+```bash
+TAQ_LIGO_IMAGE=ligolang/ligo:1.1.0 taq compile pokeGame.jsligo
+```
 
-   [Have a look on the Michelson documentation](https://tezos.gitlab.io/active/michelson.html)
+Taqueria is generating the `.tz` Michelson file on the `artifacts` folder. The Michelson language is the default stack language used by the Michelson VM to run your code on a node. It is something similar to WASM.
+
+[Have a look on the Michelson documentation](https://tezos.gitlab.io/active/michelson.html)
 
 1. Taqueria is generating two additional files, edit the first file `pokeGame.storageList.jsligo` replacing current code with:
 
