@@ -41,12 +41,12 @@ taq create contract pokeGame.jsligo
    };
    ```
 
-   Every contract requires to respect this convention:
+   Every contract has to follow these rules :
 
    - At least one entrypoint, annotated with **@entry** , with a mandatory signature taking 2 arguments **\*(parameter, storage)** and a return type. An entrypoint is function that is exposed as an external API.
-   - **parameter**: the entrypoint parameter. It can be whatever type but it is mandatory. For example: an (ignored) variable starting with`_` here, and of type `unit` (the default type on Ligo).
-   - **storage**: the on-chain storage. It can be of any type but it is mandatory. For example: `unit` by default. It is recommended to add an `export` keyword before the type definition as it is a good practice to export it when you require to write unit tests from another Ligo file.
-   - **return\_**: a pair of list of `operation` and a storage. This is mandatory by convention. You can only define another variable name, that is not a keyword, if you want.
+     - **parameter**: the entrypoint parameter. Mandatory and can be of any type. For example: an (ignored) variable starting with`_` here, and of type `unit` (the type void on Ligo).
+     - **storage**: the on-chain storage. Mandatory and can be of any type. For example, here we use the type `unit`. It is recommended to add an `export` keyword before the type definition as it is a good practice to export it when you require to write unit tests from another Ligo file.
+     - **return\_**: a mandatory pair of list of `operation` and the storage type (defined earlier). Return type naming is free but don't use an existing keyword like **return**.
 
    [Have a look on the Entrypoints contracts documentation](/smart-contracts/entrypoints)>
 
