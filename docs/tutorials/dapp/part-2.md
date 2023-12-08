@@ -239,7 +239,7 @@ sequenceDiagram
 
 ## Do an inter contract call
 
-To keep things simple, 2 versions of the same smart contract are deployed to simulate inter-contract call and get the feedback message (cf. [sequence diagram](#new-poke-sequence-diagram)).
+To keep things simple, 2 versions of the same smart contract are deployed to simulate inter-contract call and get the feedback message (cf. [sequence diagram](#poke-and-get-feedback-sequence-diagram)).
 
 Create a new poke function `PokeAndGetFeedback: (other : address)` with a second part function `PokeAndGetFeedbackCallback: (feedback : returned_feedback)` as a callback. Calling a contract is asynchronous, this is the reason it is done in two times.
 

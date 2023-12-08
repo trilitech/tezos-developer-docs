@@ -124,7 +124,7 @@ Taqueria is generating the `.tz` Michelson file on the `artifacts` folder. The M
 
    It compiles both source code and storage.
 
-   Before deployment, to simulate a call to our entrypoint **poke**, use `taq simulate`.  
+   Before deployment, to simulate a call to our entrypoint **poke**, Taq has a **taq simulate** command.  
    The contract parameter `Poke()` and the initial storage with the default empty set is passed to the execution.
 
 1. Edit the second file **pokeGame.parameterList.jsligo**
@@ -160,13 +160,13 @@ Taqueria is generating the `.tz` Michelson file on the `artifacts` folder. The M
 
    You can notice that the instruction is storing the address of the caller into the storage set.
 
-1. Configure your wallet to get free Tez.
+### Configure your wallet and deploy
 
-   The default Tezos testing testnet is called **Ghostnet**.
+The default Tezos testing testnet is called **Ghostnet**.
 
-   > :warning: You need an account to deploy a contract with some `tez` (the Tezos native currency). The first time you deploy a contract with Taqueria, it is generating a new implicit account with `0 tez`.
+> :warning: You need an account to deploy a contract with some `tez` (the Tezos native currency). The first time you deploy a contract with Taqueria, it is generating a new implicit account with `0 tez`.
 
-1. Deploying your contract to the `testing` environment, it forces Taqueria to generate a default account.
+1. Deploy your contract to the `testing` environment. Ut forces Taqueria to generate a default account on a testing config file.
 
    ```bash
    taq deploy pokeGame.tz -e "testing"
@@ -221,34 +221,34 @@ Taqueria is generating the `.tz` Michelson file on the `artifacts` folder. The M
 
 ## Create the frontend
 
-1. Create a react app.
+### Create a react app
 
-   ```bash
-   yarn create vite
-   ```
+```bash
+yarn create vite
+```
 
-   Then follow the prompts. Choose React and then Typescript+SWC:
+Then follow the prompts. Choose React and then Typescript+SWC:
 
-   ```shell
-   ? Project name: › app #Enter your project name
+```shell
+? Project name: › app #Enter your project name
 
-   ? Select a framework: › - Use arrow-keys. Return to submit. # Select React as framework
-       Vanilla
-       Vue
-   ❯   React
-       Preact
-       Lit
-       Svelte
-       Others
+? Select a framework: › - Use arrow-keys. Return to submit. # Select React as framework
+    Vanilla
+    Vue
+❯   React
+    Preact
+    Lit
+    Svelte
+    Others
 
-   ? Select a variant: › - Use arrow-keys. Return to submit. #Both TypeScript variants are fine. Select TypeScript only.
-       TypeScript
-   ❯   TypeScript + SWC
-       JavaScript
-       JavaScript + SWC
-   ```
+? Select a variant: › - Use arrow-keys. Return to submit. #Both TypeScript variants are fine. Select TypeScript only.
+    TypeScript
+❯   TypeScript + SWC
+    JavaScript
+    JavaScript + SWC
+```
 
-   [More information about SWC here](https://swc.rs/).
+[More information about SWC here](https://swc.rs/).
 
 1. Add taquito and tzkt indexer libraries.
 
@@ -333,16 +333,16 @@ Taqueria is generating the `.tz` Michelson file on the `artifacts` folder. The M
    };
    ```
 
-1. Generate the Typescript classes from Michelson code.
+### Generate the Typescript classes from Michelson code and run the server
 
-   Taqueria is able to generate Typescript classes for any frontend application. It takes the definition of your smart contract and generates the contract entrypoint functions, type definitions, etc ...
+Taqueria is able to generate Typescript classes for any frontend application. It takes the definition of your smart contract and generates the contract entrypoint functions, type definitions, etc ...
 
-   To get typescript classes from taqueria plugin, on your project root folder run:
+To get typescript classes from taqueria plugin, on your project root folder run:
 
-   ```bash
-   taq install @taqueria/plugin-contract-types
-   taq generate types ./app/src
-   ```
+```bash
+taq install @taqueria/plugin-contract-types
+taq generate types ./app/src
+```
 
 1. Back to your frontend app, run the dev server.
 
@@ -354,72 +354,72 @@ Taqueria is generating the `.tz` Michelson file on the `artifacts` folder. The M
 1. Open your browser at: http://localhost:5173/
    Your app should be running.
 
-1. Connect / disconnect the wallet.
+### Connect / disconnect the wallet.
 
-   Declare two React Button components and display the user address and his balance.
+Declare two React Button components and display the user address and his balance.
 
-   Edit **src/App.tsx** file.
+Edit **src/App.tsx** file.
 
-   ```typescript
-   import { NetworkType } from "@airgap/beacon-types";
-   import { BeaconWallet } from "@taquito/beacon-wallet";
-   import { TezosToolkit } from "@taquito/taquito";
-   import * as api from "@tzkt/sdk-api";
-   import { useEffect, useState } from "react";
-   import "./App.css";
-   import ConnectButton from "./ConnectWallet";
-   import DisconnectButton from "./DisconnectWallet";
+```typescript
+import { NetworkType } from "@airgap/beacon-types";
+import { BeaconWallet } from "@taquito/beacon-wallet";
+import { TezosToolkit } from "@taquito/taquito";
+import * as api from "@tzkt/sdk-api";
+import { useEffect, useState } from "react";
+import "./App.css";
+import ConnectButton from "./ConnectWallet";
+import DisconnectButton from "./DisconnectWallet";
 
-   function App() {
-     api.defaults.baseUrl = "https://api.ghostnet.tzkt.io";
+function App() {
+  api.defaults.baseUrl = "https://api.ghostnet.tzkt.io";
 
-     const Tezos = new TezosToolkit("https://ghostnet.tezos.marigold.dev");
-     const wallet = new BeaconWallet({
-       name: "Training",
-       preferredNetwork: NetworkType.GHOSTNET,
-     });
-     Tezos.setWalletProvider(wallet);
+  const Tezos = new TezosToolkit("https://ghostnet.tezos.marigold.dev");
+  const wallet = new BeaconWallet({
+    name: "Training",
+    preferredNetwork: NetworkType.GHOSTNET,
+  });
+  Tezos.setWalletProvider(wallet);
 
-     useEffect(() => {
-       (async () => {
-         const activeAccount = await wallet.client.getActiveAccount();
-         if (activeAccount) {
-           setUserAddress(activeAccount.address);
-           const balance = await Tezos.tz.getBalance(activeAccount.address);
-           setUserBalance(balance.toNumber());
-         }
-       })();
-     }, []);
+  useEffect(() => {
+    (async () => {
+      const activeAccount = await wallet.client.getActiveAccount();
+      if (activeAccount) {
+        setUserAddress(activeAccount.address);
+        const balance = await Tezos.tz.getBalance(activeAccount.address);
+        setUserBalance(balance.toNumber());
+      }
+    })();
+  }, []);
 
-     const [userAddress, setUserAddress] = useState<string>("");
-     const [userBalance, setUserBalance] = useState<number>(0);
+  const [userAddress, setUserAddress] = useState<string>("");
+  const [userBalance, setUserBalance] = useState<number>(0);
 
-     return (
-       <div className="App">
-         <header className="App-header">
-           <ConnectButton
-             Tezos={Tezos}
-             setUserAddress={setUserAddress}
-             setUserBalance={setUserBalance}
-             wallet={wallet}
-           />
+  return (
+    <div className="App">
+      <header className="App-header">
+        <ConnectButton
+          Tezos={Tezos}
+          setUserAddress={setUserAddress}
+          setUserBalance={setUserBalance}
+          wallet={wallet}
+        />
 
-           <DisconnectButton
-             wallet={wallet}
-             setUserAddress={setUserAddress}
-             setUserBalance={setUserBalance}
-           />
+        <DisconnectButton
+          wallet={wallet}
+          setUserAddress={setUserAddress}
+          setUserBalance={setUserBalance}
+        />
 
-           <div>
-             I am {userAddress} with {userBalance} mutez
-           </div>
-         </header>
-       </div>
-     );
-   }
+        <div>
+          I am {userAddress} with {userBalance} mutez
+        </div>
+      </header>
+    </div>
+  );
+}
 
-   export default App;
-   ```
+export default App;
+```
 
 1. Let's create the 2 missing src component files:
 
@@ -532,9 +532,9 @@ Taqueria is generating the `.tz` Michelson file on the `artifacts` folder. The M
 
 1. Click on the Disconnect button to test the disconnection, and then reconnect.
 
-1. List other poke contracts via an indexer.
+### List other poke contracts via an indexer
 
-   Instead of querying heavily the rpc node to search where are located all other similar contracts and retrieve each address, use an indexer. an indexer is a kind of enriched cache API on top of an rpc node. On this example, the TZKT indexer is used to find other similar contracts.
+Instead of querying heavily the rpc node to search where are located all other similar contracts and retrieve each address, use an indexer. an indexer is a kind of enriched cache API on top of an rpc node. On this example, the TZKT indexer is used to find other similar contracts.
 
 1. You need to install jq to parse the Taqueria json configuration file.
    [Install jq](https://github.com/stedolan/jq)
@@ -590,7 +590,9 @@ Taqueria is generating the `.tz` Michelson file on the `artifacts` folder. The M
 
    Congratulations, you are able to list all similar deployed contracts.
 
-1. Poke your contract. Import the Taqueria generated types.
+### Poke your contract
+
+1. Import the Taqueria generated types on **app/src/App.tsx**.
 
    ```typescript
    import { PokeGameWalletType } from "./pokeGame.types";
