@@ -222,33 +222,11 @@ const sidebars = {
     },
   ],
 
-  languagesSidebar: [
-    {
-      type: 'ref',
-      id: 'overview/index',
-      label: 'Back to main',
-    },
-    {
-      type: 'category',
-      label: 'Languages',
-      link: {
-        type: 'doc',
-        id: 'smart-contracts/languages',
-      },
-      items: [
-        { type: 'ref', id: 'smart-contracts/languages/ligo' },
-        { type: 'ref', id: 'smart-contracts/languages/smartpy'},
-        { type: 'ref', id: 'smart-contracts/languages/archetype'},
-        { type: 'ref', id: 'smart-contracts/languages/michelson'},
-      ],
-    },
-  ],
-
   ligoSidebar: [
     {
       type: 'ref',
       id: 'smart-contracts/languages',
-      label: 'Back to languages',
+      label: 'Back to main',
     },
     {
       type: 'doc',
