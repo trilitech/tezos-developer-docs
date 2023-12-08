@@ -70,10 +70,31 @@ const config = {
             label: 'Documentation'
           },
           {
-            type: 'docSidebar',
-            sidebarId: 'languagesSidebar',
+            type: 'dropdown',
             position: 'left',
-            label: 'Languages'
+            label: 'Languages',
+            items: [
+              {
+                type: 'doc',
+                docId: 'smart-contracts/languages/ligo',
+                label: 'LIGO',
+              },
+              {
+                type: 'doc',
+                docId: 'smart-contracts/languages/smartpy',
+                label: 'SmartPy',
+              },
+              {
+                type: 'doc',
+                docId: 'smart-contracts/languages/archetype',
+                label: 'Archetype',
+              },
+              {
+                type: 'doc',
+                docId: 'smart-contracts/languages/michelson',
+                label: 'Michelson',
+              },
+            ],
           },
           {
             type: 'docSidebar',
