@@ -63,7 +63,7 @@ Example of usage:
 - Wrapped crypto: holding XTZ collateral against a ticket, and redeeming it later.
 - Many others ...
 
-### Minting
+## Minting
 
 Minting is the action of creating ticket from void. In general, minting operations are done by administrators of smart contract or either by an end user.
 
