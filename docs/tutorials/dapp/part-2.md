@@ -1,6 +1,6 @@
 ---
-title: "Part 2: Inter-contract calls and testing"
-authors: "Benjamin Fuentes"
+title: 'Part 2: Inter-contract calls and testing'
+authors: 'Benjamin Fuentes'
 last_update:
   date: 28 November 2023
 ---
@@ -576,13 +576,13 @@ The higher the percentage of mutants killed, the more effective your tests are.
 1. Adapt the frontend application code. Edit `App.tsx`, and add new import.
 
    ```typescript
-   import { address } from "./type-aliases";
+   import { address } from './type-aliases';
    ```
 
 1. Add new React variable after `userBalance` definition.
 
    ```typescript
-   const [contractToPoke, setContractToPoke] = useState<string>("");
+   const [contractToPoke, setContractToPoke] = useState<string>('');
    ```
 
 1. Change the poke function to set entrypoint to `pokeAndGetFeedback`.
@@ -594,13 +594,13 @@ The higher the percentage of mutants killed, the more effective your tests are.
      contract: api.Contract
    ) => {
      e.preventDefault();
-     let c: PokeGameWalletType = await Tezos.wallet.at("" + contract.address);
+     let c: PokeGameWalletType = await Tezos.wallet.at('' + contract.address);
      try {
        const op = await c.methods
          .pokeAndGetFeedback(contractToPoke as address)
          .send();
        await op.confirmation();
-       alert("Tx done");
+       alert('Tx done');
      } catch (error: any) {
        console.log(error);
        console.table(`Error: ${JSON.stringify(error, null, 2)}`);
