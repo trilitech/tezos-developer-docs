@@ -32,10 +32,7 @@ const sidebars = {
             id: 'architecture/tokens',
             type: 'doc',
           },
-          items: [
-            'architecture/tokens/FA1.2',
-            'architecture/tokens/FA2',
-          ],
+          items: ['architecture/tokens/FA1.2', 'architecture/tokens/FA2'],
         },
         // { // TODO
         //   type: 'category',
@@ -53,11 +50,11 @@ const sidebars = {
         'architecture/smart-rollups',
         // 'architecture/data-availability', // TODO
         {
-          type: "category",
-          label: "Governance",
+          type: 'category',
+          label: 'Governance',
           link: {
             id: 'architecture/governance',
-            type: "doc",
+            type: 'doc',
           },
           items: [
             'architecture/governance/amendment-history',
@@ -118,7 +115,7 @@ const sidebars = {
       label: 'Smart contracts',
       link: {
         id: 'smart-contracts',
-        type: 'doc'
+        type: 'doc',
       },
       items: [
         // 'smart-contracts/quickstart',  // TODO
@@ -283,6 +280,22 @@ const sidebars = {
             'tutorials/build-your-first-app/getting-information',
           ],
         },
+
+        {
+          type: 'category',
+          label: 'Start with a minimum dApp and add new features',
+          link: {
+            type: 'doc',
+            id: 'tutorials/dapp',
+          },
+          items: [
+            'tutorials/dapp/part-1',
+            'tutorials/dapp/part-2',
+            'tutorials/dapp/part-3',
+            'tutorials/dapp/part-4',
+          ],
+        },
+
         {
           type: 'category',
           label: 'Deploy a smart rollup',
@@ -313,8 +326,8 @@ const sidebars = {
           ],
         },
       ],
-    }
+    },
   ],
-}
+};
 
 module.exports = sidebars;
