@@ -107,7 +107,7 @@ sequenceDiagram
    TAQ_LIGO_IMAGE=ligolang/ligo:1.1.0 taq compile pokeGame.jsligo
    ```
 
-   Write a second function `pokeAndGetFeedback` involving the call to another contract a bit later, let's do unit testing first !
+   Write a second function `pokeAndGetFeedback` involving the call to another contract a bit later, let's do unit testing first!
 
 ## Write unit tests
 
