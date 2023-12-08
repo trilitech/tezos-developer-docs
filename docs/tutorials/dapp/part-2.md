@@ -413,7 +413,7 @@ Ligo provides mutations testing through the Test library. Mutation tests are lik
 If your tests fail then the mutant is killed. If your tests passed, the mutant survived.
 The higher the percentage of mutants killed, the more effective your tests are.
 
-[Example of mutation features for other languages] (https://stryker-mutator.io/docs/mutation-testing-elements/supported-mutators)
+[Example of mutation features for other languages](https://stryker-mutator.io/docs/mutation-testing-elements/supported-mutators)
 
 1. Create a file `mutation_pokeGame.jsligo`.
 
