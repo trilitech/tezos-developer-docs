@@ -608,7 +608,7 @@ The higher the percentage of mutants killed, the more effective your tests are.
    };
    ```
 
-1. Change the display of the table.
+1. Change the display to a table changing `contracts.map...` by:
 
    ```html
    <table><thead><tr><th>address</th><th>trace "contract - feedback - user"</th><th>action</th></tr></thead><tbody>
