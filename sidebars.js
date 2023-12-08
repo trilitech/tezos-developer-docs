@@ -307,6 +307,56 @@ const sidebars = {
     'smart-contracts/languages/ligo/advanced',
   ],
 
+  smartpySidebar: [
+    {
+      type: 'ref',
+      id: 'smart-contracts/languages',
+      label: 'Back to languages',
+    },
+    {
+      type: 'doc',
+      label: 'SmartPy overview',
+      id: 'smart-contracts/languages/smartpy',
+    },
+    {
+      type: 'category',
+      label: 'Data types',
+      link: {
+        type: 'doc',
+        id: 'smart-contracts/languages/ligo/data-types',
+      },
+      items: [
+        'smart-contracts/languages/smartpy/data-types/integers',
+        'smart-contracts/languages/smartpy/data-types/bytes',
+        'smart-contracts/languages/smartpy/data-types/booleans',
+        'smart-contracts/languages/smartpy/data-types/unit',
+        'smart-contracts/languages/smartpy/data-types/timestamps',
+        'smart-contracts/languages/smartpy/data-types/tuples',
+        'smart-contracts/languages/smartpy/data-types/options',
+        'smart-contracts/languages/smartpy/data-types/lists',
+        'smart-contracts/languages/smartpy/data-types/lambdas',
+        'smart-contracts/languages/smartpy/data-types/signatures',
+        'smart-contracts/languages/smartpy/data-types/exceptions',
+        'smart-contracts/languages/smartpy/data-types/tickets',
+        'smart-contracts/languages/smartpy/data-types/bls',
+        'smart-contracts/languages/smartpy/data-types/records',
+        'smart-contracts/languages/smartpy/data-types/types',
+      ],
+    },
+    'smart-contracts/languages/smartpy/operations',
+    'smart-contracts/languages/smartpy/utils',
+    'smart-contracts/languages/smartpy/error-handling',
+    {
+      type: 'category',
+      label: 'Testing',
+      items: [
+        'smart-contracts/languages/smartpy/testing/contracts',
+        'smart-contracts/languages/smartpy/testing/simulation',
+        'smart-contracts/languages/smartpy/testing/cryptography',
+      ],
+    },
+  ],
+
   tutorialsSidebar: [
     {
       type: 'category',
