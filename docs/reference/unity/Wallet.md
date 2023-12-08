@@ -3,7 +3,7 @@ title: Unity SDK Wallet object
 sidebar_label: Wallet object
 authors: Tim McMackin
 last_update:
-  date: 28 November 2023
+  date: 8 December 2023
 ---
 
 The Unity SDK class `TezosSDK.Tezos.WalletProvider`, which is available at runtime as `TezosManager.Instance.Wallet`, provides methods to connect to wallets and send transactions from the connected account.
@@ -28,11 +28,17 @@ When the `walletProvider` parameter is set to `WalletProviderType.beacon`, this 
 - In WebGL applications, it uses the `TezosSDK.Beacon.BeaconConnectorWebGl` class to trigger the browser to connect to a wallet app in a browser plugin.
 - In all other applications, it uses the `TezosSDK.Beacon.BeaconConnectorDotNet` class to generate a QR code to connect to a wallet app on a mobile device.
 
+When the `walletProvider` parameter is set to `WalletProviderType.kukai` in a WebGL application, it triggers the web browser to open the user's Kukai wallet.
+This type of connection is appropriate only for WebGL applications.
+
 <!-- TODO
 There's a lot more to connections, as described in https://opentezos.com/gaming/unity-sdk/api-documentation/#iwalletproviderconnect.
 Need to work out what's relevant here and what should go in a topic on connecting to wallets.
 
+What happens with the redirect param?
+
 Update: Per Berk, there are only these two ways of connecting now.
+Update, no, it appears we still have qr code, deep link (beacon), and social (kukai)
 -->
 
 ## `Disconnect()`
