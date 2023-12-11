@@ -19,14 +19,14 @@ Sends a request to a user's wallet to connect to the application.
 Parameters:
 
   - `walletProvider`: The type of wallet to connect to, including `WalletProviderType.beacon` for TZIP-7 wallets (most Tezos wallets) and `WalletProviderType.kukai` for Kukai wallets.
-  - `withRedirectToWallet`: Whether to open the connected mobile app after connecting to a wallet via another source, such as a desktop app.
+  - `withRedirectToWallet`: When running on a mobile platform, whether to open the connected mobile app after connecting to a wallet.
 
 This method triggers the `AccountConnected` or `AccountConnectionFailed` events, depending on whether the connection was successful or not.
 
 When the `walletProvider` parameter is set to `WalletProviderType.beacon`, this method automatically picks the correct way to connect to wallets:
 
 - In WebGL applications, it uses the `TezosSDK.Beacon.BeaconConnectorWebGl` class to trigger the browser to connect to a wallet app in a browser plugin.
-- In all other applications, it uses the `TezosSDK.Beacon.BeaconConnectorDotNet` class to generate a QR code to connect to a wallet app on a mobile device.
+- In all other applications, it uses the `TezosSDK.Beacon.BeaconConnectorDotNet` class to generate a QR code to connect to a wallet app on a mobile device or use a "deep link" to connect to a wallet on the same mobile device that is running the application.
 
 When the `walletProvider` parameter is set to `WalletProviderType.kukai` in a WebGL application, it triggers the web browser to open the user's Kukai wallet.
 This type of connection is appropriate only for WebGL applications.
@@ -39,6 +39,7 @@ What happens with the redirect param?
 
 Update: Per Berk, there are only these two ways of connecting now.
 Update, no, it appears we still have qr code, deep link (beacon), and social (kukai)
+Need to verify how the WalletProviderType.kukai works
 -->
 
 ## `Disconnect()`
