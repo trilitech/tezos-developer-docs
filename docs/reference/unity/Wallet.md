@@ -6,7 +6,7 @@ last_update:
   date: 11 December 2023
 ---
 
-The Unity SDK class `TezosSDK.Tezos.WalletProvider`, which is available at runtime as `TezosManager.Instance.Wallet`, provides methods to connect to wallets and send transactions from the connected account.
+The Unity SDK class `TezosSDK.Tezos.Wallet.WalletProvider`, which is available at runtime as `TezosManager.Instance.Wallet`, provides methods to connect to wallets and send transactions from the connected account.
 
 ## Properties
 
@@ -94,7 +94,7 @@ TezosManager.Instance.Wallet.RequestSignPayload(SignPayloadType.micheline, paylo
 bool VerifySignedPayload(SignPayloadType signingType, string payload)
 ```
 
-Returns true if the specified signed payload is valid.
+Returns true if most recent response to `RequestSignPayload` matches the specified payload and is properly signed.
 
 ### `CallContract()`
 
@@ -109,3 +109,6 @@ void CallContract(
 Calls the specified entrypoint of the built-in FA2 contract.
 
 You can use this method as an alternative to calling convenience methods such as `TezosManager.Instance.Tezos.TokenContract.Mint()` directly or as a way to call the contract methods that do not have convenience methods in the `TokenContract` object.
+
+This method triggers the `ContractCallInjected` event if the call is successfully sent to Tezos.
+Then it triggers `ContractCallCompleted` or `ContractCallFailed` events, depending on whether the call succeeded or failed.
