@@ -81,8 +81,7 @@ private void OnAccountDisconnected(AccountInfo accountInfo)
 #endregion
 ```
 
-For the complete list of listeners, see the file `Assets/TezosSDK/Runtime/Scripts/Beacon/WalletEventManager.cs` in the SDK.
-<!-- TODO link to reference section -->
+For the complete list of listeners, see the [Unity SDK MessageReceiver object](../../reference/unity/MessageReceiver.md).
 
 ## Contract scene
 
