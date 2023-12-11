@@ -2,7 +2,7 @@
 title: Connecting accounts
 authors: Tim McMackin
 last_update:
-  date: 8 December 2023
+  date: 11 December 2023
 ---
 
 Connecting to a user's wallet is a prerequisite to working with Tezos in any application.
@@ -13,19 +13,31 @@ Using a wallet application in this way saves you from having to implement paymen
 Game developers can also use the wallet and its account as a unique account identifier and as the user's inventory.
 
 The `TezosAuthenticator` prefab provides the tools that you need to connect to user's Tezos wallets in a Unity project.
-It connects to wallet apps in these main ways:
 
-- The Unity project shows a QR code that users scan with their wallet app.
-This method is appropriate for games running in web browsers or in standalone applications.
-- The Unity project links the device to open its wallet application directly, called a _deep link_.
-This method is appropriate for games running on mobile devices and for WebGL games running in web browsers.
-- The Unity project links to the user's Kukai social wallet.
-This method is appropriate for WebGL games running in web browsers.
+This table shows the ways that the SDK can connect to wallets and which platforms they are appropriate for:
 
-In either case, the Tezos SDK for Unity runs the `TezosManager.Instance.MessageReceiver.AccountConnected` or `TezosManager.Instance.MessageReceiver.AccountConnectionFailed` event, as appropriate.
+Connection method | Description | Web platform (WebGL) | Mobile apps | Standalone applications
+--- | --- | --- | --- | ---
+QR code | Users scan a QR code with a wallet app | Yes | No | Yes
+Deep link | The application opens the user's wallet app directly | Yes | Yes | No
+Social wallets (Kukai) | The application opens the user's Kukai web-based wallet | Yes | No | No
+
+Regardless of the connection method, the Tezos SDK for Unity runs the `AccountConnected` or `AccountConnectionFailed` event, as appropriate.
 For more information about events, see the [Unity SDK MessageReceiver object](../../reference/unity/MessageReceiver).
 
+<!-- TODO info about handshakes? -->
+<!-- TODO info about persistent Beacon connections; do developers need to know where to store them? Do they put them in a database or something? -->
+
 ## QR code connections
+
+This method generates a QR code that a user scans with their wallet application:
+
+1. The Unity application calls [`Wallet.Connect()`](../../reference/unity/Wallet#connect) in Beacon mode to send a connection request to a wallet application via the [TZIP-10 protocol](https://gitlab.com/tezos/tzip/-/tree/master/proposals/tzip-10).
+1. The wallet returns a handshake that includes pairing information for the wallet, which triggers the `HandshakeReceived` event.
+1. From the handshake information, the SDK generates a QR code.
+The `TezosAuthenticator` prefab handles the QR code generation with the `TezosSDK.View.QRCodeView` class.
+1. The user scans the QR code with their wallet app and approves the connection.
+1. The SDK receives the connection approval, which triggers the `OnAccountConnected` event and includes information about the connected account.
 
 ## Deep link connections
 
