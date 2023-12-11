@@ -188,7 +188,114 @@ const sidebars = {
         // 'dApps/creating', //TODO
         'dApps/wallets',
         'dApps/sending-transactions',
-        'dApps/taquito',
+        {
+          type: 'category',
+          label: 'Taquito dApp SDK for TypeScript',
+          link: {
+            type: 'doc',
+            id: 'dApps/taquito',
+          },
+          items: [
+            'dApps/taquito/quick_start',
+            'dApps/taquito/operation_flow',
+            'dApps/taquito/rpc_nodes',
+            'dApps/taquito/web3js_taquito',
+            {
+              type: 'category',
+              label: 'Providers',
+              items: [
+                'dApps/taquito/prepare',
+                'dApps/taquito/estimate',
+              ],
+            },
+            {
+              type: 'category',
+              label: 'Operations',
+              items: [
+                'dApps/taquito/making_transfers',
+                'dApps/taquito/originate',
+                'dApps/taquito/consensus_key',
+                'dApps/taquito/global_constant',
+                'dApps/taquito/increase_paid_storage',
+                'dApps/taquito/set_delegate',
+                'dApps/taquito/smart_rollups',
+                'dApps/taquito/proposal_and_ballot',
+                'dApps/taquito/failing_noop',
+              ],
+            },
+            {
+              type: 'category',
+              label: 'Smart contracts',
+              items: [
+                'dApps/taquito/smartcontracts',
+                'dApps/taquito/contract_call_parameters',
+                'dApps/taquito/fa2_parameters',
+                'dApps/taquito/manager_lambda',
+                'dApps/taquito/multisig_doc',
+              ],
+            },
+            {
+              type: 'category',
+              label: 'Wallets',
+              items: [
+                'dApps/taquito/beaconwallet-singleton',
+                'dApps/taquito/wallets',
+                'dApps/taquito/transaction_limits',
+              ],
+            },
+            {
+              type: 'category',
+              label: 'Michelson',
+              items: [
+                'dApps/taquito/maps_bigmaps',
+                'dApps/taquito/michelsonmap',
+                'dApps/taquito/tickets',
+              ],
+            },
+            {
+              type: 'category',
+              label: 'Views',
+              items: [
+                'dApps/taquito/lambda_view',
+                'dApps/taquito/on_chain_views',
+              ],
+            },
+            {
+              type: 'category',
+              label: 'Contract and Token Metadata',
+              items: [
+                'dApps/taquito/tzip12',
+                'dApps/taquito/metadata-tzip16',
+              ],
+            },
+            {
+              type: 'category',
+              label: 'Signers',
+              items: [
+                'dApps/taquito/signing',
+                'dApps/taquito/inmemory_signer',
+                'dApps/taquito/ledger_signer'
+              ],
+            },
+            {
+              type: 'category',
+              label: 'Packages',
+              items: [
+                'dApps/taquito/rpc_package',
+                'dApps/taquito/michelson_encoder',
+                'dApps/taquito/contracts-library',
+                'dApps/taquito/taquito_utils',
+                {
+                  type: 'category',
+                  label: 'Sapling',
+                  collapsed: false,
+                  collapsible: false,
+                  items: ['dApps/taquito/sapling', 'dApps/taquito/sapling_in_memory_spending_key', 'dApps/taquito/sapling_in_memory_viewing_key'],
+                },
+              ],
+            },
+          ],
+        },
         'dApps/unity',
         // 'dApps/frameworks', // TODO
         // Hide defi for now because the content is very outdated
