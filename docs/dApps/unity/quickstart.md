@@ -2,7 +2,7 @@
 title: Quickstart
 authors: Tim McMackin
 last_update:
-  date: 7 December 2023
+  date: 11 December 2023
 ---
 
 Follow these steps to install the Tezos SDK for Unity in an existing Unity project and start using it.
@@ -252,6 +252,39 @@ private void onTokenBalances(IEnumerable<TokenBalance> tokenBalances)
     }
 }
 ```
+
+## Uploading files to IPFS
+
+The InterPlanetary File System (IPFS) is a protocol and peer-to-peer network for storing and sharing data in a distributed file system.
+Blockchain developers use it to store data such as token images and metadata.
+
+The SDK provides tools to upload to IPFS by using the [Pinata](https://pinata.cloud/) API, but you can set up IPFS upload in other ways.
+
+To use the SDK, see the code in the `Examples/IPFSUpload/Scripts/UIController.cs` file, which handles uploading files in the IPFSUpload scene.
+It has a UI upload button that triggers this method, which uses the built-in Pinata uploader to upload the file and get the IRL for it:
+
+```csharp
+public void HandleUploadClick()
+{
+    if (string.IsNullOrEmpty(TezosManager.PinataApiKey))
+    {
+        Logger.LogError("Can not proceed without Pinata API key.");
+        return;
+    }
+
+    var uploader = UploaderFactory.GetPinataUploader(TezosManager.PinataApiKey);
+    var uploadCoroutine = uploader.UploadFile(ipfsUrl =>
+    {
+        Logger.LogDebug($"File uploaded, url is {ipfsUrl}");
+    });
+
+    StartCoroutine(uploadCoroutine);
+}
+```
+
+This code assumes that you have set your Pinata API key on the `TezosManager` prefab.
+
+For a complete example, see the IPFSUpload scene.
 
 ## Signing messages
 
