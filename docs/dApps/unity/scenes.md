@@ -12,8 +12,6 @@ To open the scenes, install the SDK and in the Project panel, expand **TezosSDK 
 Before using any of the scenes, install a Tezos-compatible wallet on a mobile device that has a camera and can scan QR codes and get some test tez tokens that you can use to pay transaction fees.
 For instructions, see [Installing and funding a wallet](../../developing/wallet-setup).
 
-The sample scenes are in sub-folders:
-
 ## WalletConnection scene
 
 This scene shows how to connect to a user's wallet and get information about their account.
@@ -209,3 +207,18 @@ For example, this entry shows that the account that ends in `2zD` owns 9 of the 
 <img src="/img/dApps/unity-transfer-scene-block-explorer-token-ownership.png" alt="The block explorer's Storage tab, showing the account address and the quantity of a token it owns" style={{width: 500}} />
 
 This ledger of token ownership is stored in a big-map data type, which is serialized on Tezos to save space.
+
+## IPFSUpload scene
+
+This scene shows how to upload files to IPFS with the Pinata API.
+To open the scene, go to the Project panel, expand **TezosSDK > Examples > Transfer**, and double-click `_IPFSUpload`.
+
+The InterPlanetary File System (IPFS) is a protocol and peer-to-peer network for storing and sharing data in a distributed file system.
+Blockchain developers use it to store data such as token images and metadata.
+
+To use the scene, select the `DontDestroyOnLoad/TezosManager` object and add your Pinata API key, as in this picture:
+
+<img src="/img/dApps/unity-ipfs-scene-api-key.png" alt="Adding the Pinata API key to the TezosManager object" style={{width: 300}} />
+
+Then, click the **Play** button and then go to the Simulator tab.
+The scene shows a button that opens a file selection window and uploads that file to IPFS.
