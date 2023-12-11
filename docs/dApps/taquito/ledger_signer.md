@@ -3,8 +3,8 @@ title: Ledger Signer
 author: Roxane Letourneau
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+<!-- import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem'; -->
 
 The Ledger Signer implements the Signer interface of Taquito, allowing you to sign operation from a Ledger Nano device.
 
@@ -25,7 +25,7 @@ See the following link for a reference and migration guide: https://github.com/L
 
 You can pass an instance of the transport of your choice to your Ledger Signer as follows:
 
-<Tabs
+<!-- <Tabs
 defaultValue="webApp"
 values={[
 {label: 'Web application', value: 'webApp'},
@@ -53,16 +53,16 @@ const ledgerSigner = new LedgerSigner(transport);
 ```
 
   </TabItem>
-</Tabs>
+</Tabs> -->
 
 The constructor of the `LedgerSigner` class can take three other parameters. If none are specified, the default values are used.
 
-- path: **default value is "44'/1729'/0'/0'"**  
-  You can use as a parameter the `HDPathTemplate` which refers to `44'/1729'/${account}'/0'`. You have to specify what is the index of the account you want to use. Or you can also use a complete path as a parameter.  
+- path: **default value is "44'/1729'/0'/0'"**
+  You can use as a parameter the `HDPathTemplate` which refers to `44'/1729'/${account}'/0'`. You have to specify what is the index of the account you want to use. Or you can also use a complete path as a parameter.
   _More details about paths below_
-- prompt: **default is true**  
+- prompt: **default is true**
   If true, you will be asked on your Ledger device to send your public key for validation.
-- derivationType: **default is DerivationType.ED25519**  
+- derivationType: **default is DerivationType.ED25519**
   It can be DerivationType.ED25519 | DerivationType.BIP32_ED25519 (tz1), DerivationType.SECP256K1 (tz2) or DerivationType.P256 (tz3).
 
 ```js
@@ -97,7 +97,7 @@ const publicKeyHash = await Tezos.signer.publicKeyHash();
 
 You are all set to sign operation with your Ledger device. You can use your configured ledger signer with both the Contract API or the Wallet API as usual. If you try the following example, you will be asked on your Ledger device to confirm the transaction before sending it.
 
-<Tabs
+<!-- <Tabs
 defaultValue="contractAPI"
 values={[
 {label: 'Contract API', value: 'contractAPI'},
@@ -140,7 +140,7 @@ Tezos.wallet
 ```
 
   </TabItem>
-</Tabs>
+</Tabs> -->
 
 ## Derivation paths, HD wallet & BIP Standards
 
@@ -162,7 +162,7 @@ Where `purpose` is a constant set to `44'` and `coin_type` is set to `1729'` for
 The path always begins with `44'/1729'` and we see some difference for the three other indexes across the Tezos ecosystem. We can notice that changing any number for the three last indexes of the path (`account' / change / address_index`) will lead to different accounts. **But, to ensure consistency, it is important trying to follow the same convention regarding the structure of the path and which index to increase to access the next address.**
 
 In Tezos, we generally see a slight difference in the path compared to the BIP44 specification. It is common to see path made of 4 indexes instead of 5 (default path being `44'/1729'/0'/0'` instead of `44'/1729'/0'/0'/0'`). For example, the default path used by tezos-client is `44'/1729'/0'/0'`.
-Based on what is done by the Tezos-client, the default path used by Taquito in the `LedgerSigner` is also `44'/1729'/0'/0'`. Taquito offers a template for the path called `HDPathTemplate`. This template uses four indexes and suggests doing the iteration on the `account` index.  
+Based on what is done by the Tezos-client, the default path used by Taquito in the `LedgerSigner` is also `44'/1729'/0'/0'`. Taquito offers a template for the path called `HDPathTemplate`. This template uses four indexes and suggests doing the iteration on the `account` index.
 For example, you can use HDPathTemplate(0) (equivalent to `44'/1729'/0'/0'`) to access the first address, HDPathTemplate(1) equivalent to `44'/1729'/1'/0'`) to access the second address, HDPathTemplate(2) (equivalent to `44'/1729'/2'/0'`) to access the third address... _In order to meet the needs of each user, this template is not imposed by Taquito_.
 
 We can see other implementations that use `44'/1729'/0'/0'/0'`, where the next address is accessed by incrementing `account` or `address_index`.
@@ -171,8 +171,8 @@ We can see other implementations that use `44'/1729'/0'/0'/0'`, where the next a
 
 | Wallet  | Path                                                         |
 | ------- | ------------------------------------------------------------ |
-| Tezbox  | "44'/1729'/{account}'/0'" or "44'/1729'/0'/{account}'"       |
-| Galleon | "44'/1729'/{account}'/0'/0'" or "44'/1729'/0'/0'/{account}'" |
+| Tezbox  | "44'/1729'/\{account\}'/0'" or "44'/1729'/0'/\{account\}'"       |
+| Galleon | "44'/1729'/\{account\}'/0'/0'" or "44'/1729'/0'/0'/\{account\}'" |
 
 #### Some considerations about paths
 
@@ -192,7 +192,7 @@ https://medium.com/mycrypto/wtf-is-a-derivation-path-c3493ca2eb52
 
 ## Live example that iterates from the path `44'/1729'/0'/0'` to `44'/1729'/9'/0'`
 
-Having your Ledger device connected to your computer and the `Tezos Wallet App` opened, you can run the following code example. It will scan your Ledger from path `44'/1729'/0'/0'` to `44'/1729'/9'/0'` to get public key hashes and the balance for revealed accounts. Confirmations will be asked on your Ledger to send the public keys.  
+Having your Ledger device connected to your computer and the `Tezos Wallet App` opened, you can run the following code example. It will scan your Ledger from path `44'/1729'/0'/0'` to `44'/1729'/9'/0'` to get public key hashes and the balance for revealed accounts. Confirmations will be asked on your Ledger to send the public keys.
 _Note that this example is not intended to be a complete example of paths scanning but only a rough outline of what it is possible to do._
 
 ```js live noInline

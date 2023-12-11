@@ -3128,7 +3128,7 @@ Support for the new Babylon multiple BigMap feature is not yet supported.
 
 Documentation:
 
-- Add [making transfers](/docs/making_transfers) section to documentation with examples on how to make transfers involving migrated KT1 accounts.
+- Add [making transfers](./making_transfers) section to documentation with examples on how to make transfers involving migrated KT1 accounts.
 
 ## 4.1.0-beta.5: Public release of `taquito`
 
