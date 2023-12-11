@@ -8,6 +8,7 @@ last_update:
 
 The SDK includes sample scenes that demonstrate how to use the SDK.
 To open the scenes, install the SDK and in the Project panel, expand **TezosSDK > Examples**.
+The examples are in individual folders.
 
 Before using any of the scenes, install a Tezos-compatible wallet on a mobile device that has a camera and can scan QR codes and get some test tez tokens that you can use to pay transaction fees.
 For instructions, see [Installing and funding a wallet](../../developing/wallet-setup).
@@ -15,73 +16,47 @@ For instructions, see [Installing and funding a wallet](../../developing/wallet-
 ## WalletConnection scene
 
 This scene shows how to connect to a user's wallet and get information about their account.
-To open the scene, go to the Project panel, expand **TezosSDK > Examples > WalletConnection**, and double-click `_WalletConnection`.
-
-To try the scene, click the **Play** button and then go to the Simulator tab.
-The scene shows that no account is connected and a QR code:
 
 <img src="/img/dApps/unity-walletconnection-scene-unconnected.png" alt="The start of the WalletConnection scene, with no account information" style={{width: 300}} />
 
-To connect, scan the QR code in any Tezos-compatible wallet app.
-Mobile wallet apps for Tezos include [Temple](https://templewallet.com/), [Kukai](https://wallet.kukai.app/), and [Umami](https://umamiwallet.com/).
-Then, approve  the connection in the wallet app.
+The scene uses the platform type to determine how to connect to a user's wallet.
+In the `SetPlatformFlags` function, it checks what platform it is running on:
 
-Then, the scene shows the address of the connected account and its balance, as in the following picture.
+```csharp
+private void SetPlatformFlags()
+{
+    _isMobile = Application.platform == RuntimePlatform.IPhonePlayer || Application.platform == RuntimePlatform.Android;
+    _isWebGL = Application.platform == RuntimePlatform.WebGLPlayer;
+
+    // ...
+}
+```
+
+Then based on the platform, it shows different buttons for different connection types:
+
+```csharp
+// Activate deepLinkButton when on mobile or WebGL, but not authenticated
+deepLinkButton.SetActive(_isMobile || _isWebGL);
+
+// Activate socialLoginButton only when on WebGL and not authenticated
+socialLoginButton.SetActive(_isWebGL);
+
+// Activate qrCodePanel only on standalone and not authenticated
+qrCodePanel.SetActive(!_isMobile && !_isWebGL);
+```
+
+These buttons correspond to the ways that the SDK can connect to wallets:
+
+- For mobile and WebGL platforms, the scene shows a button that links directly to a wallet app, such as a browser plugin or mobile app
+- For WebGL platforms, the scene shows a button that links to social wallets, such as Kukai
+- For standalone platforms, the scene shows a QR code that you can scan in any Tezos-compatible wallet app
+
+The buttons call the [`Wallet.Connect()`](../../reference/unity/Wallet#connect) method with the `walletProvider` parameter set to `WalletProviderType.beacon` for the direct links or QR code connections and the `walletProvider` parameter set to `WalletProviderType.kukai` for the social wallet connections.
+
+After the user approves the connection in the wallet, the scene shows the address of the connected account and its balance, as in the following picture.
 At the bottom of the scene there is a logout button that closes the connection.
 
 <img src="/img/dApps/unity-walletconnection-scene-connected.png" alt="The WalletConnection scene with a connected account" style={{width: 300}} />
-
-To see the code that runs the objects in the scene, stop the scene and expand the Canvas object in the Hierarchy panel.
-Then, select an object, go to the Inspector panel, and double-click the script component.
-For example, to open the code for the object that shows the address of the account, select the AccountAddress object in the Hierarchy panel and double-click `AccountInfoUI` in the Inspector panel.
-
-The `AccountInfoUI` script opens in your IDE.
-This script defines a variable named addressText, which is bound to the Unity object.
-
-In the `Start` function, it sets listeners for the Tezos SDK events that happen when accounts connect and disconnect:
-
-```csharp
-#region Constants and Fields
-
-private readonly string _notConnectedText = "Not connected";
-
-#endregion
-
-#region Unity Methods
-
-private void Start()
-{
-    addressText.text = _notConnectedText;
-
-    // Subscribe to events
-    TezosManager.Instance.MessageReceiver.AccountConnected += OnAccountConnected;
-    TezosManager.Instance.MessageReceiver.AccountDisconnected += OnAccountDisconnected;
-}
-
-#endregion
-
-#region Event Handlers
-
-private void OnAccountConnected(AccountInfo accountInfo)
-{
-    // We can get the address from the wallet
-    addressText.text = TezosManager.Instance.Wallet.GetActiveAddress();
-    // Or from the event data
-    addressText.text = accountInfo.Address;
-
-    UpdateLayout(); // Update layout to fit the new text
-}
-
-private void OnAccountDisconnected(AccountInfo accountInfo)
-{
-    addressText.text = _notConnectedText;
-    UpdateLayout();
-}
-
-#endregion
-```
-
-For the complete list of listeners, see the [Unity SDK MessageReceiver object](../../reference/unity/MessageReceiver.md).
 
 ## Contract scene
 
@@ -94,17 +69,29 @@ In this case, the smart contract keeps track of tokens, their metadata, and who 
 The SDK comes with a sample smart contract that allows a Unity project to create tokens.
 You can customize these tokens, give them to users, and treat them like the players' in-game inventories.
 
-To open the scene, go to the Project panel, expand **TezosSDK > Examples > WalletConnection**, and double-click `_WalletConnection`.
-Then, click the **Play** button and then go to the Simulator tab.
-
-Like the WalletConnection scene, you must first scan the barcode with a Tezos wallet app and approve the connection in the app.
+Like the WalletConnection scene, you must first connect to a wallet.
 Then the scene shows the address of the connected account and enables the "Deploy Contract" and "Mint Token" buttons:
 
 <img src="/img/dApps/unity-contract-scene-connected.png" alt="The start of the WalletConnection scene with an account connected" style={{width: 500}} />
 
 When you click "Deploy Contract," your connected wallet prompts you to confirm the transaction and pay the transaction fees.
 Because you are connected to the test network, these are worthless testnet tokens and not real currency.
-This process can take time because the project has to send the code for the smart contract to your wallet app.
+This process can take some time.
+
+The scene runs the `HandleDeploy` function in the `TezosSDK/Examples/Contract/Scripts/DeployContract.cs` file, which calls the [`TokenContract.Deploy`](../../reference/unity/TokenContract#deploy) method to deploy the contract to Tezos:
+
+```csharp
+public void HandleDeploy()
+{
+    TezosManager.Instance.Tezos.TokenContract.Deploy(OnContractDeployed);
+}
+
+private void OnContractDeployed(string contractAddress)
+{
+    contractAddressText.text = contractAddress;
+    tokensCountText.text = "0";
+}
+```
 
 When you confirm the transaction in the wallet app, you must wait for the contract to be deployed on Tezos.
 The log in the Console panel shows a message that looks like `Received operation with hash oopFjLYGTbZTEFsTh4p1YPnHR1Up1SNnvE5xk2SRaGH6PZ4ry56`, which is the address of the Tezos operation that deployed the contract.
@@ -124,8 +111,7 @@ Currently, the block explorer shows only the origination transaction, which depl
 <img src="/img/dApps/unity-contract-scene-origination.png" alt="The newly originated contract on the block explorer" style={{width: 500}} />
 
 Now you can go back to the Simulation panel in the Unity Editor and click "Mint Token."
-The project sends another transaction to your wallet app.
-When you approve it, the wallet app sends a transaction to the smart contract to create (mint) a token.
+The project gets approval in your wallet and then sends a transaction to the smart contract to create (mint) a token.
 Like the deployment operation, it can take time for the transaction to complete and be confirmed on Tezos.
 
 When the mint transaction is complete, the "Tokens Count" text in the scene updates to show the number of token types that have been minted with this contract.
@@ -139,7 +125,7 @@ Because the contract follows the FA2 standard for tokens, the block explorer als
 
 The tokens that this scene creates have randomly generated metadata.
 To change the metadata, open the `TezosSDK/Examples/Contract/Scripts/MintToken.cs` file.
-The file's `HandleMint` function creates the token by generating random numbers, creating a metadata object for the token, and using the `TokenContract.Mint` function to send the mint transaction to the contract:
+The file's `HandleMint` function creates the token by generating random numbers, creating a metadata object for the token, and using the `TokenContract.Mint` method to send the mint transaction to the contract:
 
 ```csharp
 public void HandleMint()
@@ -180,21 +166,19 @@ public void HandleMint()
 
 In your projects, you can set the metadata to store information about what the token represents.
 For more information about creating tokens with Tezos, see [Tokens](../../architecture/tokens) and the tutorials [Create an NFT](../../tutorials/create-an-nft) and [Build an NFT marketplace](../../tutorials/build-an-nft-marketplace).
+<!-- TODO link to unity-specific topic on managing tokens -->
 
 ## Transfer scene
 
 This scene shows how to transfer tokens between accounts.
-To open the scene, go to the Project panel, expand **TezosSDK > Examples > Transfer**, and double-click `_Transfer`.
 
-To try the scene, click the **Play** button and then go to the Simulator tab.
-Like the other scenes, it shows a QR code to connect to, but it can reuse the connection from other scenes.
-
+Like the WalletConnection scene, you must first connect to a wallet.
 By default, the scene uses the contract that you deployed with the Contract scene.
 It also shows the IDs of the tokens that you created with that contract, starting with 0.
 
 To transfer a token, make sure that the scene shows the address of the contract.
 Then, fill in the fields and click the Transfer button.
-The Simulator panel looks like this:
+The scene looks like this:
 
 <img src="/img/dApps/unity-transfer-scene-address.png" alt="The Transfer scene, showing information about the token to transfer" style={{width: 500}} />
 
@@ -210,7 +194,6 @@ This ledger of token ownership is stored in a big-map data type, which is serial
 ## IPFSUpload scene
 
 This scene shows how to upload files to IPFS with the Pinata API.
-To open the scene, go to the Project panel, expand **TezosSDK > Examples > Transfer**, and double-click `_IPFSUpload`.
 
 The InterPlanetary File System (IPFS) is a protocol and peer-to-peer network for storing and sharing data in a distributed file system.
 Blockchain developers use it to store data such as token images and metadata.
@@ -219,5 +202,25 @@ To use the scene, select the `DontDestroyOnLoad/TezosManager` object and add you
 
 <img src="/img/dApps/unity-ipfs-scene-api-key.png" alt="Adding the Pinata API key to the TezosManager object" style={{width: 300}} />
 
-Then, click the **Play** button and then go to the Simulator tab.
-The scene shows a button that opens a file selection window and uploads that file to IPFS.
+When you run the scene, it shows a button that opens a file selection window, uploads that file to IPFS, and returns the IPFS URI that you can use to access the file later.
+
+The relevant code is in `TezosSDK/Examples/IPFSUpload/Scripts/UIController.cs`:
+
+```csharp
+public void HandleUploadClick()
+{
+    if (string.IsNullOrEmpty(TezosManager.PinataApiKey))
+    {
+        Logger.LogError("Can not proceed without Pinata API key.");
+        return;
+    }
+
+    var uploader = UploaderFactory.GetPinataUploader(TezosManager.PinataApiKey);
+    var uploadCoroutine = uploader.UploadFile(ipfsUrl =>
+    {
+        Logger.LogDebug($"File uploaded, url is {ipfsUrl}");
+    });
+
+    StartCoroutine(uploadCoroutine);
+}
+```
