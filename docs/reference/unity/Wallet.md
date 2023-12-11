@@ -3,12 +3,18 @@ title: Unity SDK Wallet object
 sidebar_label: Wallet object
 authors: Tim McMackin
 last_update:
-  date: 8 December 2023
+  date: 11 December 2023
 ---
 
 The Unity SDK class `TezosSDK.Tezos.WalletProvider`, which is available at runtime as `TezosManager.Instance.Wallet`, provides methods to connect to wallets and send transactions from the connected account.
 
-## `Connect()`
+## Properties
+
+None.
+
+## Methods
+
+### `Connect()`
 
 ```csharp
 void Connect(WalletProviderType walletProvider, bool withRedirectToWallet)
@@ -42,7 +48,7 @@ Update, no, it appears we still have qr code, deep link (beacon), and social (ku
 Need to verify how the WalletProviderType.kukai works
 -->
 
-## `Disconnect()`
+### `Disconnect()`
 
 ```csharp
 void Disconnect()
@@ -52,7 +58,7 @@ Disconnects from the currently connected wallet.
 
 This method triggers the `AccountDisconnected` event.
 
-## `GetActiveAddress()`
+### `GetActiveAddress()`
 
 ```csharp
 void GetActiveAddress()
@@ -60,7 +66,7 @@ void GetActiveAddress()
 
 Returns the address (technically the public key hash) of the currently connected account, or NULL if no wallet is connected.
 
-## `RequestSignPayload()`
+### `RequestSignPayload()`
 
 ```csharp
 public void Connect(WalletProviderType walletProvider, bool withRedirectToWallet)
@@ -82,7 +88,7 @@ TezosManager.Instance.Wallet.RequestSignPayload(SignPayloadType.micheline, paylo
 ```
 
 
-## `VerifySignedPayload()`
+### `VerifySignedPayload()`
 
 ```csharp
 bool VerifySignedPayload(SignPayloadType signingType, string payload)
@@ -90,7 +96,7 @@ bool VerifySignedPayload(SignPayloadType signingType, string payload)
 
 Returns true if the specified signed payload is valid.
 
-## `CallContract()`
+### `CallContract()`
 
 ```csharp
 void CallContract(
