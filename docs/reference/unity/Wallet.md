@@ -18,7 +18,7 @@ Sends a request to a user's wallet to connect to the application.
 
 Parameters:
 
-  - `walletProvider`: The type of wallet to connect to, including `WalletProviderType.beacon` for TZIP-7 wallets (most Tezos wallets) and `WalletProviderType.kukai` for Kukai wallets.
+  - `walletProvider`: The type of wallet to connect to, including `WalletProviderType.beacon` for TZIP-10 wallets (most Tezos wallets) and `WalletProviderType.kukai` for Kukai wallets.
   - `withRedirectToWallet`: When running on a mobile platform, whether to open the connected mobile app after connecting to a wallet.
 
 This method triggers the `AccountConnected` or `AccountConnectionFailed` events, depending on whether the connection was successful or not.
