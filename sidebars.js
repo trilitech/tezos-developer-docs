@@ -196,6 +196,7 @@ const sidebars = {
           },
           items: [
             'dApps/unity/quickstart',
+            'dApps/unity/scenes',
           ],
         },
         // 'dApps/frameworks', // TODO
