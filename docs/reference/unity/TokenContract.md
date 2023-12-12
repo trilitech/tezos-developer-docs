@@ -10,6 +10,8 @@ The Unity SDK class `TezosSDK.Tezos.API.Models.TokenContract`, which is availabl
 
 For information about FA2 contracts and tokens, see [FA2 tokens](../../architecture/tokens/FA2).
 
+The Michelson source code of the built-in contract is in the `Resources/Contracts` folder of the SDK.
+
 ## Properties
 
 These properties are populated after you deploy the contract with the `Deploy()` method:
