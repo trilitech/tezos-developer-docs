@@ -102,6 +102,23 @@ const config = {
             ],
           },
           {
+            type: 'dropdown',
+            position: 'left',
+            label: 'SDKs',
+            items: [
+              {
+                type: 'doc',
+                docId: 'dApps/taquito',
+                label: 'TypeScript',
+              },
+              {
+                type: 'doc',
+                docId: 'dApps/unity',
+                label: 'Unity',
+              },
+            ],
+          },
+          {
             type: 'docSidebar',
             sidebarId: 'tutorialsSidebar',
             position: 'left',
