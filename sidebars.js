@@ -451,7 +451,7 @@ const sidebars = {
     {
       type: 'ref',
       id: 'smart-contracts/languages',
-      label: 'Back to languages',
+      label: 'Back to main',
     },
     {
       type: 'doc',
