@@ -94,7 +94,7 @@ The Contract example scene shows how to deploy a contract from a Unity project.
 The SDK provides a built-in contract that you can use instead of writing your own.
 This contract manages different kinds of tokens.
 
-To deploy the built-in contract, call the `TezosManager.Instance.Tezos.TokenContract.Deploy` method and pass a callback function:
+To deploy the built-in contract, call the [`TokenContract.Deploy()`](../../reference/unity/TokenContract#deploy) method and pass a callback function:
 
 ```csharp
 public void DeployContract()
@@ -113,7 +113,7 @@ private void OnContractDeployed(string contractAddress)
 ```
 
 The project sends the deployment transaction to the connected wallet, which must approve the transaction and pay the related fees.
-The SDK stores the address of the contract as `TezosManager.Instance.Tezos.TokenContract.Address`.
+The SDK stores the address of the contract as [`TokenContract.address`](../../reference/unity/TokenContract).
 
 ## Creating tokens
 
@@ -198,7 +198,7 @@ For a complete example, see the Transfer example scene.
 
 ## Getting token balances
 
-To get the tokens that the connected account owns, call the `TezosManager.Instance.Tezos.API.GetTokensForOwner` method in a coroutine.
+To get the tokens that the connected account owns, call the [`API.GetTokensForOwner()`](../../reference/unity/API#gettokensforowner) method in a coroutine.
 This example prints information about the tokens that the account owns to the log:
 
 ```csharp
