@@ -383,158 +383,9 @@ const sidebars = {
       ],
     },
     {
-      type: 'category',
-      label: 'Taqueria development platform for Tezos',
-      items: [
-        {
-          type: "category",
-          label: "Getting Started",
-          items: [
-            "taqueria/getting-started/installation",
-            "taqueria/intro",
-            "taqueria/getting-started/quickstart",
-
-          ],
-        },
-        {
-          type: "category",
-          label: "Scaffolds",
-          items: [
-            "taqueria/scaffolds/scaffold-basics",
-            "taqueria/scaffolds/taco-shop",
-          ],
-        },
-        {
-          type: "category",
-          label: "VS Code Extension",
-          items: [
-            "taqueria/vs-code-extension/overview",
-          ],
-        },
-        {
-          type: "category",
-          label: "Plugin Reference",
-          items: [
-            "taqueria/plugins/plugin-basics",
-            "taqueria/plugins/plugin-core",
-            "taqueria/plugins/plugin-archetype",
-            "taqueria/plugins/plugin-contract-types",
-            "taqueria/plugins/plugin-flextesa",
-            "taqueria/plugins/plugin-ipfs-pinata",
-            "taqueria/plugins/plugin-metadata",
-            "taqueria/plugins/plugin-jest",
-            "taqueria/plugins/plugin-ligo",
-            "taqueria/plugins/plugin-smartpy",
-            "taqueria/plugins/plugin-taquito",
-            "taqueria/plugins/plugin-octez-client",
-          ],
-        },
-        {
-          type: "category",
-          label: "Task Reference",
-          items: [
-            // Taqueria Built-in Tasks
-            "taqueria/tasks/init",
-            "taqueria/tasks/install",
-            "taqueria/tasks/uninstall",
-            "taqueria/tasks/opt-in",
-            "taqueria/tasks/opt-out",
-            "taqueria/tasks/scaffold",
-            "taqueria/tasks/set-environment",
-            "taqueria/tasks/get-environment",
-
-            // Core plugin tasks
-            "taqueria/tasks/clean",
-
-            // Provided by ligo, smartpy, and archetype plugin:
-            "taqueria/tasks/compile",
-            "taqueria/tasks/compile-all",
-
-            // Contract Types plugin tasks
-            "taqueria/tasks/generate-types",
-
-            // Flextesa plugin tasks
-            "taqueria/tasks/list-accounts",
-            "taqueria/tasks/start-sandbox",
-            "taqueria/tasks/stop-sandbox",
-            "taqueria/tasks/bake",
-            "taqueria/tasks/show-protocols",
-
-            // Taquito plugin tasks
-            "taqueria/tasks/deploy",
-            "taqueria/tasks/instantiate-account",
-            "taqueria/tasks/fund",
-
-            // Taquito plugin tasks
-            "taqueria/tasks/deploy",
-            "taqueria/tasks/instantiate-account",
-            "taqueria/tasks/fund",
-
-            // Pinata plugin tasks
-            "taqueria/tasks/publish",
-            // "tasks/pin",
-
-            // Provided by ligo, smartpy, archetype, and jest plugin:
-            "taqueria/tasks/test",
-
-            // Ligo plugin tasks:
-            "taqueria/tasks/ligo",
-
-            // Metadata plugin tasks
-            "taqueria/tasks/generate-metadata",
-            // "tasks/generate-project-metadata",
-
-            // Octez client plugin tasks:
-            // "tasks/client",
-            "taqueria/tasks/simulate",
-            "taqueria/tasks/transfer",
-            "taqueria/tasks/typecheck",
-            "taqueria/tasks/typecheck-all"
-          ].sort(),
-        },
-        {
-          type: "category",
-          label: "Features",
-          items: [
-            "taqueria/features/github-action",
-            "taqueria/features/templates",
-          ],
-        },
-        {
-          type: "category",
-          label: "Configuration",
-          items: [
-            "taqueria/config/config-files",
-            "taqueria/config/implicit-accounts",
-            "taqueria/config/environments"
-          ],
-        },
-        {
-          type: "category",
-          label: "Taqueria Libraries",
-          items: [
-            "taqueria/libraries/toolkit"
-          ],
-        },
-        {
-          type: "category",
-          label: "Taqueria Internals",
-          items: [
-            "taqueria/taqueria-internals/architecture",
-            "taqueria/data-collection-policy"
-          ],
-        },
-        {
-          type: "category",
-          label: "Taqueria Development",
-          items: [
-            "taqueria/roadmap",
-            "taqueria/taqueria-dev/contributions",
-            "taqueria/taqueria-dev/making-plugins",
-            "taqueria/taqueria-dev/pr-npm-packages"
-          ],
-        },
-      ],
+      type: 'doc',
+      id: 'taqueria/intro',
+      label: 'Taqueria development platform',
     },
     {
       type: 'category',
@@ -559,11 +410,167 @@ const sidebars = {
     },
   ],
 
+  taqueriaSidebar: [
+    {
+      type: 'ref',
+      id: 'overview/index',
+      label: '<< Back to main',
+    },
+    "taqueria/intro",
+    {
+      type: "category",
+      label: "Getting Started",
+      items: [
+        "taqueria/getting-started/installation",
+        "taqueria/getting-started/quickstart",
+
+      ],
+    },
+    {
+      type: "category",
+      label: "Scaffolds",
+      items: [
+        "taqueria/scaffolds/scaffold-basics",
+        "taqueria/scaffolds/taco-shop",
+      ],
+    },
+    {
+      type: "category",
+      label: "VS Code Extension",
+      items: [
+        "taqueria/vs-code-extension/overview",
+      ],
+    },
+    {
+      type: "category",
+      label: "Plugin Reference",
+      items: [
+        "taqueria/plugins/plugin-basics",
+        "taqueria/plugins/plugin-core",
+        "taqueria/plugins/plugin-archetype",
+        "taqueria/plugins/plugin-contract-types",
+        "taqueria/plugins/plugin-flextesa",
+        "taqueria/plugins/plugin-ipfs-pinata",
+        "taqueria/plugins/plugin-metadata",
+        "taqueria/plugins/plugin-jest",
+        "taqueria/plugins/plugin-ligo",
+        "taqueria/plugins/plugin-smartpy",
+        "taqueria/plugins/plugin-taquito",
+        "taqueria/plugins/plugin-octez-client",
+      ],
+    },
+    {
+      type: "category",
+      label: "Task Reference",
+      items: [
+        // Taqueria Built-in Tasks
+        "taqueria/tasks/init",
+        "taqueria/tasks/install",
+        "taqueria/tasks/uninstall",
+        "taqueria/tasks/opt-in",
+        "taqueria/tasks/opt-out",
+        "taqueria/tasks/scaffold",
+        "taqueria/tasks/set-environment",
+        "taqueria/tasks/get-environment",
+
+        // Core plugin tasks
+        "taqueria/tasks/clean",
+
+        // Provided by ligo, smartpy, and archetype plugin:
+        "taqueria/tasks/compile",
+        "taqueria/tasks/compile-all",
+
+        // Contract Types plugin tasks
+        "taqueria/tasks/generate-types",
+
+        // Flextesa plugin tasks
+        "taqueria/tasks/list-accounts",
+        "taqueria/tasks/start-sandbox",
+        "taqueria/tasks/stop-sandbox",
+        "taqueria/tasks/bake",
+        "taqueria/tasks/show-protocols",
+
+        // Taquito plugin tasks
+        "taqueria/tasks/deploy",
+        "taqueria/tasks/instantiate-account",
+        "taqueria/tasks/fund",
+
+        // Taquito plugin tasks
+        "taqueria/tasks/deploy",
+        "taqueria/tasks/instantiate-account",
+        "taqueria/tasks/fund",
+
+        // Pinata plugin tasks
+        "taqueria/tasks/publish",
+        // "tasks/pin",
+
+        // Provided by ligo, smartpy, archetype, and jest plugin:
+        "taqueria/tasks/test",
+
+        // Ligo plugin tasks:
+        "taqueria/tasks/ligo",
+
+        // Metadata plugin tasks
+        "taqueria/tasks/generate-metadata",
+        // "tasks/generate-project-metadata",
+
+        // Octez client plugin tasks:
+        // "tasks/client",
+        "taqueria/tasks/simulate",
+        "taqueria/tasks/transfer",
+        "taqueria/tasks/typecheck",
+        "taqueria/tasks/typecheck-all"
+      ].sort(),
+    },
+    {
+      type: "category",
+      label: "Features",
+      items: [
+        "taqueria/features/github-action",
+        "taqueria/features/templates",
+      ],
+    },
+    {
+      type: "category",
+      label: "Configuration",
+      items: [
+        "taqueria/config/config-files",
+        "taqueria/config/implicit-accounts",
+        "taqueria/config/environments"
+      ],
+    },
+    {
+      type: "category",
+      label: "Taqueria Libraries",
+      items: [
+        "taqueria/libraries/toolkit"
+      ],
+    },
+    {
+      type: "category",
+      label: "Taqueria Internals",
+      items: [
+        "taqueria/taqueria-internals/architecture",
+        "taqueria/data-collection-policy"
+      ],
+    },
+    {
+      type: "category",
+      label: "Taqueria Development",
+      items: [
+        "taqueria/roadmap",
+        "taqueria/taqueria-dev/contributions",
+        "taqueria/taqueria-dev/making-plugins",
+        "taqueria/taqueria-dev/pr-npm-packages"
+      ],
+    },
+  ],
+
   ligoSidebar: [
     {
       type: 'ref',
       id: 'smart-contracts/languages',
-      label: 'Back to main',
+      label: '<< Back to main',
     },
     {
       type: 'doc',
@@ -626,7 +633,7 @@ const sidebars = {
     {
       type: 'ref',
       id: 'smart-contracts/languages',
-      label: 'Back to main',
+      label: '<< Back to main',
     },
     {
       type: 'doc',
