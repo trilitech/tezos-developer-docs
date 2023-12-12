@@ -294,6 +294,61 @@ const sidebars = {
                 },
               ],
             },
+            {
+              type: 'category',
+              label: 'Advanced Scenarios',
+              items: [
+                'dApps/taquito/ophash_before_injecting',
+                'dApps/taquito/drain_account',
+                'dApps/taquito/complex_parameters',
+                'dApps/taquito/confirmation_event_stream',
+                'dApps/taquito/subscribe_event',
+                'dApps/taquito/liquidity_baking',
+                'dApps/taquito/storage_annotations',
+                'dApps/taquito/tezos_domains',
+              ],
+            },
+            {
+              type: 'category',
+              label: 'Modules customization',
+              items: ['dApps/taquito/forger', 'dApps/taquito/rpc-cache', 'dApps/taquito/cancel_http_requests'],
+            },
+            {
+              type: 'category',
+              label: 'Running integration tests',
+              items: ['dApps/taquito/ledger_integration_test', 'dApps/taquito/rpc_nodes_integration_test'],
+            },
+            {
+              type: 'category',
+              label: 'Dapp Development',
+              items: [
+                'dApps/taquito/mobile_bundle',
+                'dApps/taquito/dapp_template',
+                'dApps/taquito/dapp_prelaunch',
+
+              ],
+            },
+            {
+              type: 'category',
+              label: 'Taquito Public API',
+              items: [
+                'dApps/taquito/wallet_API',
+                'dApps/taquito/batch_API',
+              ]
+            },
+            {
+              type: 'category',
+              label: 'Misc',
+              items: [
+                'dApps/taquito/tutorial_links',
+                'dApps/taquito/contracts_collection',
+              ],
+            },
+            {
+              type: 'link',
+              label: 'TypeDoc Reference',
+              href: 'https://tezostaquito.io/typedoc',
+            },
           ],
         },
         'dApps/unity',
