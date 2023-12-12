@@ -133,8 +133,8 @@ const sidebars = {
           items: [
             { type: 'ref', id: 'smart-contracts/languages/ligo' },
             { type: 'ref', id: 'smart-contracts/languages/smartpy'},
-            { type: 'ref', id: 'smart-contracts/languages/archetype'},
-            { type: 'ref', id: 'smart-contracts/languages/michelson'},
+            'smart-contracts/languages/archetype',
+            'smart-contracts/languages/michelson',
           ],
         },
         {
