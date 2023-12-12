@@ -113,6 +113,11 @@ const config = {
               },
               {
                 type: 'doc',
+                docId: 'taqueria/intro',
+                label: 'Taqueria',
+              },
+              {
+                type: 'doc',
                 docId: 'dApps/unity',
                 label: 'Unity',
               },

@@ -1,0 +1,252 @@
+---
+title: Quickstart
+---
+{/* // import NodeRequirement from "@site/src/components/Helpers/NodeRequirement" */}
+
+{/*
+Content Type: Getting Started Documentation
+
+Purpose: To get a developer set up and ready to go with Taqueria in under 5 minutes
+
+Goal: To onboard as many devs as possible by translating their interest into them actually developing on Taqueria
+
+Questions:
+- What is the quickest explanation of Taqueria and what it does?
+- What are the most important questions new users will have?
+- What are the cool things you can do with Taqueria?
+*/}
+
+## Overview
+
+This quickstart guide will teach you the fundamentals of using Taqueria in 10 minutes by going through the process of running some basic tasks in Taqueria from the CLI
+
+What you will accomplish:
+- Initialize a new Taqueria project
+- Install plugins for LIGO, Flextesa, and Taquito
+- Creating a new LIGO contract, along with its associated storage list and parameter list files.
+- Compile the LIGO smart contract
+- Start a local Flextesa sandbox
+- Originate the compiled smart contract to the sandbox
+- Interact with the smart contract deployed to the sandbox
+
+## Requirements
+
+To successfully follow this guide, you must ensure that:
+- The Taqueria CLI has been [installed](./installation.mdx) and is available in your `$PATH`
+- Docker v20.10.12 (or later) is installed and currently running
+{/* - <NodeRequirement download/> */}
+
+:::note
+The Taqueria VS Code Extension provides direct access to Taqueria tasks. Under the hood, the VS Code Extension makes calls to the CLI, so you can be assured the behaviour of tasks will remain consistent regardless of whether they are executed from a terminal or the command palette. The steps in this guide are for using the Taqueria CLI, but you can also run the commands from the Taqueria extension via the VS Code command palette if you prefer
+:::
+
+## Starting a Taqueria Project
+
+There are two things required to start using Taqueria on a project
+
+First, the project must have been initialized by Taqueria. This process creates a hidden directory `.taq` inside the project directory that contains the configuration and state files required by Taqueria, and ensures the required directories `contracts` and `artifacts` have been created
+
+Taqueria provides the command `init` which will create a new directory with the correct structure and configuration. To create a new Taqueria project called `my-first-project`, run the command:
+```shell
+taq init my-first-project
+```
+Or run the following if you'd like to have the necessary plugins pre-installed for you on initialization (assuming you're a LIGO developer):
+```shell
+taq init my-first-project --workflow ligo
+```
+
+After the project has been initialized you are ready to start working with Taqueria. Navigate to your project directory and we will explore working with plugins:
+```shell
+cd my-first-project
+```
+
+## Working with Plugins
+
+Now that the project has been properly initialized, plugins can be installed to provide support for specific functionality such as compilation, smart contract origination, or running sandbox environments
+
+Plugins are installed using the `taq install` command which appears in the command list once a project is initialized. You can view the list of commands available in the current project context by running `taq --help` from the CLI. It should look something like this:
+```shell
+❯ taq --help
+taq <command>
+
+Commands:
+  taq init [projectDir]           Initialize a new project
+  taq opt-in                      Opt-in to sharing anonymous usage analytics
+  taq opt-out                     Opt-out of sharing anonymous usage analytics
+  taq install <pluginName>        Install a plugin
+  taq uninstall <pluginName>      Uninstall a plugin
+```
+
+Once a plugin has been installed, you will see the additional commands provided by the plugin added to the list
+
+## Working with LIGO Smart Contracts
+
+To add support for the LIGO smart contract language, install the LIGO plugin by running:
+```shell
+taq install @taqueria/plugin-ligo
+```
+
+Copy the following 3 code snippets, with the names suggested at the top of each code snippets, to the `contracts` folder of your Taqueria project
+
+```ligo title="Counter.mligo"
+module Counter = struct
+  type storage = int
+
+  type ret = operation list * storage
+
+  (* Three entrypoints *)
+
+  [@entry]
+  let increment (delta : int) (store : storage) : ret = [], store + delta
+
+  [@entry]
+  let decrement (delta : int) (store : storage) : ret = [], store - delta
+
+  [@entry]
+  let reset (() : unit) (_ : storage) : ret = [], 0
+end
+```
+
+```ligo title="Counter.storageList.mligo"
+#import "Counter.mligo" "Contract"
+
+// Define your initial storage values as a list of LIGO variable definitions, the first of which will be considered the default value to be used for origination later on
+let initial_count = 42
+let another_count: Contract.Counter.storage = 23 + 18 + 1
+```
+
+```ligo title="Counter.parameterList.mligo"
+#import "Counter.mligo" "Contract"
+let increment_by_3: Contract.Counter parameter_of = Increment 3
+```
+
+You can now compile this contract, along with its storage and parameter values, by simply running the following command from the root of the project directory:
+```shell
+taq compile Counter.mligo
+```
+
+Taqueria will then output the following, and the artifacts created:
+```shell
+❯ taq compile counter.mligo
+┌───────────────────────┬───────────────────────────────────────────────┐
+│ Source                │ Artifact                                      │
+├───────────────────────┼───────────────────────────────────────────────┤
+│ Counter.mligo/Counter │ artifacts/Counter.tz                          │
+│                       │ artifacts/Counter.default_storage.tz          │
+│                       │ artifacts/Counter.storage.another_count.tz    │
+│                       │ artifacts/Counter.parameter.increment_by_3.tz │
+└───────────────────────┴───────────────────────────────────────────────┘
+
+Compiled 1 contract(s) in "Counter.mligo"
+```
+
+If you open this file (`artifacts/Counter.tz`), you can view the raw Michelson code which will later be originated to the sandbox:
+```
+{ parameter (or (or (int %decrement) (int %increment)) (unit %reset)) ;
+  storage int ;
+  code { UNPAIR ;
+         IF_LEFT { IF_LEFT { SWAP ; SUB } { ADD } } { DROP 2 ; PUSH int 0 } ;
+         NIL operation ;
+         PAIR } }
+```
+
+
+### Starting a Flextesa Sandbox
+
+The next step is to install the Flextesa plugin which provides a local Tezos sandbox network:
+```shell
+taq install @taqueria/plugin-flextesa
+```
+
+Once installed, the plugin provides three commands to start, stop, and query a sandbox:
+- `taq start sandbox [sandboxName]`
+- `taq stop sandbox [sandboxName]`
+- `taq list accounts [sandboxName]`
+
+:::note
+Sandboxes are configured in the project's Taqueria configuration file (`.taq/config.json`). Each named sandbox configuration can then be called from the CLI.
+By default, every Taqueria project comes pre-configured with a sandbox named `local`
+:::
+
+Start up the sandbox named `local` by running:
+```shell
+taq start sandbox local
+```
+
+To confirm the sandbox is running, query the sandbox for the account information:
+```shell
+taq list accounts local
+```
+
+If successful, you will see a list of the accounts and balances specified in the `config.json` file that have been created on the Tezos blockchain in the sandbox:
+```
+❯ taq list accounts local
+┌─────────┬─────────┬──────────────────────────────────────┐
+│ Account │ Balance │ Address                              │
+├─────────┼─────────┼──────────────────────────────────────┤
+│ bob     │ 3000 ꜩ  │ tz1aSkwEot3L2kmUvcoxzjMomb9mvBNuzFK6 │
+├─────────┼─────────┼──────────────────────────────────────┤
+│ alice   │ 3000 ꜩ  │ tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb │
+├─────────┼─────────┼──────────────────────────────────────┤
+│ john    │ 3000 ꜩ  │ tz1Zwoh1QCVAvJ4sVTojMp9pLYp6Ji4NoZy6 │
+├─────────┼─────────┼──────────────────────────────────────┤
+│ jane    │ 3000 ꜩ  │ tz1aHUAC4oviwJuZF1EvVSvFz7cu9KMNYBph │
+├─────────┼─────────┼──────────────────────────────────────┤
+│ joe     │ 3000 ꜩ  │ tz1MVGjgD1YtAPwohsSfk8i3ZiT1yEGM2YXB │
+└─────────┴─────────┴──────────────────────────────────────┘
+```
+
+### Originating a Contract with Taquito
+
+With a sandbox now running, the next step is to originate the `counter.tz` file to the sandbox network using the Taquito plugin
+
+First, install the plugin:
+```shell
+taq install @taqueria/plugin-taquito
+```
+
+Now you can originate the contract by running:
+```shell
+taq originate counter.tz
+```
+
+This will originate `counter.tz` in the `artifacts` directory to the sandbox and return the on-chain address of the originated contract. This will look something like this:
+```
+┌────────────┬──────────────────────────────────────┬─────────┬─────────────┐
+│ Contract   │ Address                              │ Alias   │ Destination │
+├────────────┼──────────────────────────────────────┼─────────┼─────────────┤
+│ counter.tz │ KT1Ayz8qos7G4U3Jucp6QWoM7ayhbShNXcat │ counter │ local       │
+└────────────┴──────────────────────────────────────┴─────────┴─────────────┘
+```
+
+### Interacting with a deployed Contract with Taquito
+
+With the sandbox still running, the last step is to interact with the contract you just deployed to your sandbox. You may use its alias or its address directly
+
+To do that, run:
+```shell
+taq transfer counter --param counter.parameter.increment_by_3.tz
+```
+
+This will call the counter contract's entrypoint `increment` and will increment the storage by `3`. The output will look something like this:
+```
+┌────────────────┬──────────────────────────────────────┬────────────────┬───────────────────┬────────────┬────────────────────────┐
+│ Contract Alias │ Contract Address                     │ Mutez Transfer │ Parameter         │ Entrypoint │ Destination            │
+├────────────────┼──────────────────────────────────────┼────────────────┼───────────────────┼────────────┼────────────────────────┤
+│ counter        │ KT1Ayz8qos7G4U3Jucp6QWoM7ayhbShNXcat │ 0              │ (Left (Right 3 )) │ default    │ http://localhost:20000 │
+│                │                                      │                │                   │            │                        │
+└────────────────┴──────────────────────────────────────┴────────────────┴───────────────────┴────────────┴────────────────────────┘
+```
+
+## Finishing Up
+
+Congratulations! At this point, you have run through the basic usage of Taqueria including:
+- Initializing a new Taqueria project
+- Installing plugins for LIGO, Flextesa, and Taquito
+- Creating a new LIGO contract, along with its associated storage list and parameter list files
+- Compiling a LIGO smart contract
+- Starting and querying a local Flextesa sandbox
+- Originating a compiled smart contract to the sandbox
+- Interacting with a smart contract deployed to the sandbox
+
+For more details on the usage of specific Taqueria tasks, you can refer to the plugin documentation which contains additional context, configuration, and usage of the many Taqueria tasks; or continue on with the getting started guides

@@ -1,0 +1,33 @@
+---
+title: Taqueria Plugins
+---
+
+Plugins are how Taqueria gets things done. Each plugin implements a specific function such as a smart contract compiler, sandbox, or test framework. A plugin will provide one or more tasks that you can use in Taqueria
+
+Taqueria is designed to be flexible, streamlined, and customizable so plugins are installed on a per-project basis depending on the particular needs of the project
+
+Once installed, plugins provide their functionality by exposing tasks in the Taqueria CLI. The tasks available to run on a particular project can be viewed by running the `taq --help` command in a project directory that's using Taqueria.
+
+:::note
+If you aren't seeing tasks listed when running `taq`, make sure that you are in the correct project folder and that you have successfully installed that particular plugin on that project `taq install @taqueria/<plugin-name>`
+:::
+
+During installation, NPM packages for the plugin are downloaded into the project folder and the plugin is registered in `.taq/config.json`
+
+## Available Plugins
+
+| Name                                                   |  Package                   |  Description                                                                           |
+|--------------------------------------------------------|-----------------------------------|---------------------------------------------------------------------------------|
+| [Archetype](/taqueria/plugins/plugin-archetype/)           | `@taqueria/plugin-archetype`      | A compiler for the Archetype smart contract language                            |
+| [Core](/taqueria/plugins/plugin-core/)                     | `@taqueria/plugin-core`           | Contains core utility tasks provided by Taqueria                                |
+| [Contract Types](/taqueria/plugins/plugin-contract-types/) | `@taqueria/plugin-contract-types` | A type generator that produces TS types from Michelson code                     |
+| [Flextesa](/taqueria/plugins/plugin-flextesa/)             | `@taqueria/plugin-flextesa`       | A Tezos sandbox (testnet) that runs locally on your machine                     |
+| [IPFS Pinata](/taqueria/plugins/plugin-ipfs-pinata/)       | `@taqueria/plugin-ipfs-pinata`    | Publishes metadata or media files to IPFS via Pinata                            |
+| [Metadata](/taqueria/plugins/plugin-metadata/)             | `@taqueria/plugin-metadata`       | Create JSON files containing TZIP-16 compliant metadata for a smart contract    |
+| [Jest](/taqueria/plugins/plugin-jest/)                     | `@taqueria/plugin-jest`           | Provides support for Jest testing                                               |
+| [LIGO](/taqueria/plugins/plugin-ligo/)                     | `@taqueria/plugin-ligo`           | A compiler for the LIGO smart contract language (using LIGO v1 or later)        |
+| [LIGO](/taqueria/plugins/plugin-ligo-legacy/)              | `@taqueria/plugin-ligo`           | A compiler for the LIGO smart contract language (using LIGO v0.73 and earlier)  |
+| [SmartPy](/taqueria/plugins/plugin-smartpy/)               | `@taqueria/plugin-smartpy`        | A compiler for the SmartPy smart contract language (using v0.17 syntax)         |
+| [SmartPy](/taqueria/plugins/plugin-smartpy/)               | `@taqueria/plugin-smartpy`        | A compiler for the SmartPy smart contract language (using v0.16 syntax)         |
+| [Taquito](/taqueria/plugins/plugin-taquito/)               | `@taqueria/plugin-taquito`        | A front-end Tezos framework used to originate and interact with smart contracts |
+| [Octez Client](/taqueria/plugins/plugin-octez-client/)     | `@taqueria/plugin-octez-client`   | An abstraction of `octez-client`, providing simulation and typechecking         |
