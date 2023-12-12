@@ -2,14 +2,13 @@
 title: FA2 tokens
 authors: "Claude Barde, Aymeric Bethencourt, Tim McMackin"
 last_update:
-  date: 26 October 2023
+  date: 28 November 2023
 ---
 
 The FA2 standard supports several different token types, including:
 
 - Fungible tokens
 - Non-fungible tokens (NFTs)
-- Non-transferable tokens, also known as soulbound tokens
 - Multiple types of tokens in the same contract
 
 FA2 gives developers freedom to create new types of tokens while following an interface standard that lets the tokens work with existing wallets and applications.
