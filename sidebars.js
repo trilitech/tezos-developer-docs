@@ -358,29 +358,9 @@ const sidebars = {
       ],
     },
     {
-      type: 'category',
+      type: 'doc',
+      id: 'dApps/unity',
       label: 'Tezos SDK for Unity',
-      link: {
-        id: 'dApps/unity',
-        type: 'doc',
-      },
-      items: [
-        'dApps/unity/quickstart',
-        'dApps/unity/scenes',
-        'dApps/unity/connecting-accounts',
-        'reference/unity/prefabs',
-        {
-          type: "category",
-          label: "Objects",
-          items: [
-            'reference/unity/API',
-            'reference/unity/DAppMetadata',
-            'reference/unity/MessageReceiver',
-            'reference/unity/TokenContract',
-            'reference/unity/Wallet',
-          ],
-        },
-      ],
     },
     {
       type: 'doc',
@@ -406,6 +386,30 @@ const sidebars = {
           href: 'https://tezos.com/position-paper.pdf',
         },
         // 'reference/previous-versions', // TODO
+      ],
+    },
+  ],
+
+  unitySidebar: [
+    {
+      type: 'ref',
+      id: 'overview/index',
+      label: '<< Back to main',
+    },
+    'dApps/unity',
+    'dApps/unity/quickstart',
+    'dApps/unity/scenes',
+    'dApps/unity/connecting-accounts',
+    'reference/unity/prefabs',
+    {
+      type: "category",
+      label: "Objects",
+      items: [
+        'reference/unity/API',
+        'reference/unity/DAppMetadata',
+        'reference/unity/MessageReceiver',
+        'reference/unity/TokenContract',
+        'reference/unity/Wallet',
       ],
     },
   ],
