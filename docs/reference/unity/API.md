@@ -480,7 +480,7 @@ IEnumerator GetOriginatedContractsForOwner(
 
 Gets the contracts that the specified account deployed (originated).
 Optionally, you can pass the hash of a contract to return only contracts that match that hash.
-For example, the hash of the contract in the [`TokenContract`](./TokenContract) object, which is in the `Resources/Contracts/FA2TokenContractCodeHash.txt` file, is `199145999`.
+For example, the hash of the contract in the [`TokenContract`](./TokenContract) object is in the `Resources/Contracts/FA2TokenContractCodeHash.txt` file.
 
 Example:
 
