@@ -89,10 +89,10 @@ Smart contracts can do many tasks, but for gaming they have two main purposes:
 - They handle tokens, which are digital assets stored on the blockchain
 - They provide backend logic that users can trust because it cannot change
 
-You can create your own smart contracts or use the built-in contract that the SDK provides for managing tokens in Unity projects.
-The built-in contract is compatible with the [FA2 token standard](../../architecture/tokens/FA2), which means that you can use a single smart contract to manage any number of types of tokens.
-
 The Contract example scene shows how to deploy a contract from a Unity project.
+
+The SDK provides a built-in contract that you can use instead of writing your own.
+This contract manages different kinds of tokens.
 
 To deploy the built-in contract, call the `TezosManager.Instance.Tezos.TokenContract.Deploy` method and pass a callback function:
 
