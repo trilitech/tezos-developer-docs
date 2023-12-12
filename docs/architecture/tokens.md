@@ -2,7 +2,7 @@
 title: Tokens
 authors: "Claude Barde, Aymeric Bethencourt, Tim McMackin"
 last_update:
-  date: 1 November 2023
+  date: 28 November 2023
 ---
 
 In a blockchain ecosystem, a digital asset that can be transferred between accounts is called a _token_.
@@ -13,7 +13,6 @@ Tezos supports many types of tokens, including:
 - Non-fungible tokens (NFTs), which are unique digital assets that can represent ownership of something
 - Stablecoins, which are tied to the price of fiat currencies such as USD and EUR
 - Wrapped tokens, which represent tokens from another blockchain or another standard; see [Wrapped tokens](#wrapped-tokens)
-- Non-transferable tokens, also known as soulbound tokens, which cannot be transferred to another account after they are created
 
 It's important to remember that in most cases, Tezos tokens are managed by smart contracts.
 Tokens are not stored directly in accounts; instead, smart contracts keep a ledger of how many tokens different accounts hold.
