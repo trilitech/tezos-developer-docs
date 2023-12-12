@@ -185,13 +185,6 @@ const sidebars = {
         // 'dApps/creating', //TODO
         'dApps/wallets',
         'dApps/sending-transactions',
-        'dApps/unity',
-        'dApps/taquito',
-        {
-          type: 'ref',
-          id: 'dApps/unity',
-          label: 'Tezos SDK for Unity',
-        },
         // 'dApps/frameworks', // TODO
         // Hide defi for now because the content is very outdated
         // 'dApps/defi',
@@ -375,6 +368,18 @@ const sidebars = {
         'dApps/unity/quickstart',
         'dApps/unity/scenes',
         'dApps/unity/connecting-accounts',
+        'reference/unity/prefabs',
+        {
+          type: "category",
+          label: "Objects",
+          items: [
+            'reference/unity/API',
+            'reference/unity/DAppMetadata',
+            'reference/unity/MessageReceiver',
+            'reference/unity/TokenContract',
+            'reference/unity/Wallet',
+          ],
+        },
       ],
     },
     {
@@ -385,28 +390,6 @@ const sidebars = {
         // 'reference/encoding', // TODO
         // 'reference/merkle-formats', // TODO
         // 'reference/ocaml-apis', // TODO
-        {
-          type: 'category',
-          label: 'Unity SDK reference',
-          link: {
-            id: 'reference/unity',
-            type: 'doc',
-          },
-          items: [
-            'reference/unity/prefabs',
-            {
-              type: "category",
-              label: "Objects",
-              items: [
-                'reference/unity/API',
-                'reference/unity/DAppMetadata',
-                'reference/unity/MessageReceiver',
-                'reference/unity/TokenContract',
-                'reference/unity/Wallet',
-              ],
-            },
-          ],
-        },
         {
           type: 'link',
           label: 'Whitepaper',
