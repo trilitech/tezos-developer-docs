@@ -112,3 +112,21 @@ You can use this method as an alternative to calling convenience methods such as
 
 This method triggers the `ContractCallInjected` event if the call is successfully sent to Tezos.
 Then it triggers `ContractCallCompleted` or `ContractCallFailed` events, depending on whether the call succeeded or failed.
+
+### `OriginateContract()`
+
+```csharp
+void OriginateContract(
+  string script,
+  string delegateAddress);
+```
+
+Deploys (originates) the specified contract.
+
+To use this method, you must compile a contract to Michelson in a JSON file.
+For an example, see the code of the built-in contract in `Resources/Contracts`.
+
+This method triggers the `ContractCallInjected` event if the call is successfully sent to Tezos.
+Then it triggers `ContractCallCompleted` or `ContractCallFailed` events, depending on whether the origination operation succeeded or failed.
+
+<!-- TODO explain the delegateAddress -->
