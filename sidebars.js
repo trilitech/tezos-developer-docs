@@ -188,17 +188,9 @@ const sidebars = {
         'dApps/unity',
         'dApps/taquito',
         {
-          type: 'category',
+          type: 'ref',
+          id: 'dApps/unity',
           label: 'Tezos SDK for Unity',
-          link: {
-            id: 'dApps/unity',
-            type: 'doc',
-          },
-          items: [
-            'dApps/unity/quickstart',
-            'dApps/unity/scenes',
-            'dApps/unity/connecting-accounts',
-          ],
         },
         // 'dApps/frameworks', // TODO
         // Hide defi for now because the content is very outdated
@@ -370,6 +362,19 @@ const sidebars = {
           label: 'TypeDoc Reference',
           href: 'https://tezostaquito.io/typedoc',
         },
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Tezos SDK for Unity',
+      link: {
+        id: 'dApps/unity',
+        type: 'doc',
+      },
+      items: [
+        'dApps/unity/quickstart',
+        'dApps/unity/scenes',
+        'dApps/unity/connecting-accounts',
       ],
     },
     {
