@@ -19,6 +19,11 @@ const config = {
     defaultLocale: 'en',
     locales: ['en'],
   },
+  markdown: {
+    mermaid: true,
+  },
+
+  themes: ['@docusaurus/theme-mermaid'],
 
   presets: [
     [
@@ -111,6 +116,7 @@ const config = {
       },
       prism: {
         theme: require('prism-react-renderer/themes/github'),
+        additionalLanguages: ['csharp'],
       },
       // https://github.com/flexanalytics/plugin-image-zoom
       // Enable click to zoom in to large images
