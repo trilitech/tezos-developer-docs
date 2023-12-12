@@ -325,6 +325,15 @@ const sidebars = {
             'tutorials/build-an-nft-marketplace/part-4',
           ],
         },
+        {
+          type: 'category',
+          label: 'Create a mobile game on Tezos',
+          link: {
+            type: 'doc',
+            id: 'tutorials/mobile',
+          },
+          items: ['tutorials/mobile/part-1', 'tutorials/mobile/part-2'],
+        },
       ],
     },
   ],
