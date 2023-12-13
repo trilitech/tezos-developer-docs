@@ -187,18 +187,6 @@ const sidebars = {
         'dApps/wallets',
         'dApps/sending-transactions',
         'dApps/taquito',
-        {
-          type: 'category',
-          label: 'Tezos SDK for Unity',
-          link: {
-            id: 'dApps/unity',
-            type: 'doc',
-          },
-          items: [
-            'dApps/unity/quickstart',
-            'dApps/unity/scenes',
-          ],
-        },
         // 'dApps/frameworks', // TODO
         // Hide defi for now because the content is very outdated
         // 'dApps/defi',
@@ -242,13 +230,11 @@ const sidebars = {
       type: 'category',
       label: 'Reference',
       items: [
-        // 'reference/rpc', // TODO
-        // 'reference/encoding', // TODO
-        // 'reference/merkle-formats', // TODO
-        // 'reference/ocaml-apis', // TODO
+        'dApps/unity/quickstart',
+        'dApps/unity/scenes',
         {
           type: 'category',
-          label: 'Unity SDK reference',
+          label: 'Reference',
           link: {
             id: 'reference/unity',
             type: 'doc',
@@ -268,6 +254,16 @@ const sidebars = {
             },
           ],
         },
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Reference',
+      items: [
+        // 'reference/rpc', // TODO
+        // 'reference/encoding', // TODO
+        // 'reference/merkle-formats', // TODO
+        // 'reference/ocaml-apis', // TODO
         {
           type: 'link',
           label: 'Whitepaper',
