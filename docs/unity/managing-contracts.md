@@ -11,7 +11,7 @@ Smart contracts can do many tasks, but for gaming they have two main purposes:
 - They handle tokens, which are digital assets stored on the blockchain
 - They provide backend logic that users can trust because it cannot change
 
-For more information about contracts, see [Smart contracts](../../smart-contracts).
+For more information about contracts, see [Smart contracts](../smart-contracts).
 
 You can create your own smart contracts or use the built-in contract that the SDK provides for managing tokens in Unity projects.
 
@@ -28,7 +28,7 @@ The Michelson source code of the built-in contract is in the `Resources/Contract
 
 ## Deploying the built-in contract
 
-To deploy the built-in contract, call the [`TokenContract.Deploy()`](../../reference/unity/TokenContract#deploy) method and pass a callback function:
+To deploy the built-in contract, call the [`TokenContract.Deploy()`](./reference/TokenContract#deploy) method and pass a callback function:
 
 ```csharp
 public void DeployContract()
@@ -52,7 +52,7 @@ It can take a few minutes for the contract to deploy and be confirmed in multipl
 
 The address that deployed the contract becomes the administrator of the contract and is the only account that can create tokens.
 
-The SDK provides information about the contract such as its address in the [`TokenContract`](../../reference/unity/TokenContract) object.
+The SDK provides information about the contract such as its address in the [`TokenContract`](./reference/TokenContract) object.
 You can use block explorers such as [Better Call Dev](https://better-call.dev/) to see information about the deployed contract.
 
 For information about using the built-in contract, see [Managing tokens](./managing-tokens).
@@ -84,7 +84,7 @@ Then, ensure that the code of the code and initial storage value of the contract
 }
 ```
 
-To deploy the contract from the Unity project, use the [`Wallet.OriginateContract()`](../../reference/unity/Wallet#originatecontract) method, as in this example:
+To deploy the contract from the Unity project, use the [`Wallet.OriginateContract()`](./reference/Wallet#originatecontract) method, as in this example:
 
 ```csharp
 var contractJSON = Resources.Load<TextAsset>("Contracts/MyContract").text;
