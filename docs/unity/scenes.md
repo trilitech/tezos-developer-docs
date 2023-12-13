@@ -11,7 +11,7 @@ To open the scenes, install the SDK and in the Project panel, expand **TezosSDK 
 The examples are in individual folders.
 
 Before using any of the scenes, install a Tezos-compatible wallet on a mobile device that has a camera and can scan QR codes and get some test tez tokens that you can use to pay transaction fees.
-For instructions, see [Installing and funding a wallet](../../developing/wallet-setup).
+For instructions, see [Installing and funding a wallet](./developing/wallet-setup).
 
 ## WalletConnection scene
 
@@ -51,7 +51,7 @@ These buttons correspond to the ways that the SDK can connect to wallets:
 - For WebGL platforms, the scene shows a button that links to social wallets, such as Kukai
 - For standalone platforms, the scene shows a QR code that you can scan in any Tezos-compatible wallet app
 
-The buttons call the [`Wallet.Connect()`](../../reference/unity/Wallet#connect) method with the `walletProvider` parameter set to `WalletProviderType.beacon` for the direct links or QR code connections and the `walletProvider` parameter set to `WalletProviderType.kukai` for the social wallet connections.
+The buttons call the [`Wallet.Connect()`](./reference/Wallet#connect) method with the `walletProvider` parameter set to `WalletProviderType.beacon` for the direct links or QR code connections and the `walletProvider` parameter set to `WalletProviderType.kukai` for the social wallet connections.
 
 After the user approves the connection in the wallet, the scene shows the address of the connected account and its balance, as in the following picture.
 At the bottom of the scene there is a logout button that closes the connection.
@@ -78,7 +78,7 @@ When you click "Deploy Contract," your connected wallet prompts you to confirm t
 Because you are connected to the test network, these are worthless testnet tokens and not real currency.
 This process can take some time.
 
-The scene runs the `HandleDeploy` function in the `TezosSDK/Examples/Contract/Scripts/DeployContract.cs` file, which calls the [`TokenContract.Deploy`](../../reference/unity/TokenContract#deploy) method to deploy the contract to Tezos:
+The scene runs the `HandleDeploy` function in the `TezosSDK/Examples/Contract/Scripts/DeployContract.cs` file, which calls the [`TokenContract.Deploy`](./reference/TokenContract#deploy) method to deploy the contract to Tezos:
 
 ```csharp
 public void HandleDeploy()
@@ -165,7 +165,7 @@ public void HandleMint()
 ```
 
 In your projects, you can set the metadata to store information about what the token represents.
-For more information about creating tokens with Tezos, see [Tokens](../../architecture/tokens) and the tutorials [Create an NFT](../../tutorials/create-an-nft) and [Build an NFT marketplace](../../tutorials/build-an-nft-marketplace).
+For more information about creating tokens with Tezos, see [Tokens](../architecture/tokens) and the tutorials [Create an NFT](../tutorials/create-an-nft) and [Build an NFT marketplace](../../tutorials/build-an-nft-marketplace).
 <!-- TODO link to unity-specific topic on managing tokens -->
 
 ## Transfer scene

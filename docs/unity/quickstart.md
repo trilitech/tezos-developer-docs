@@ -20,7 +20,7 @@ These instructions cover:
 To install the SDK, follow the instructions at https://github.com/trilitech/tezos-unity-sdk.
 
 To work with the SDK, you also need a Tezos-compatible wallet on a mobile device that has a camera and can scan QR codes and to configure the wallet for the Ghostnet testnet.
-For instructions, see [Installing and funding a wallet](../../developing/wallet-setup).
+For instructions, see [Installing and funding a wallet](../developing/wallet-setup).
 
 ## Connecting to wallets
 
@@ -76,7 +76,7 @@ You can use this event to get the address of the connected account, as in this c
    You can use this address as a user's account ID because Tezos account addresses are unique.
 
 1. To respond to other events, add listeners for the events that the SDK provides.
-You can see these events and their return values in the [MessageReceiver object](../../reference/unity/MessageReceiver).
+You can see these events and their return values in the [MessageReceiver object](./reference/MessageReceiver).
 
 Note that if you stop the project while your wallet is connected and restart the project later, it remembers that your wallet is connected.
 The SDK uses the [Beacon](https://docs.walletbeacon.io/) SDK to connect to wallets and remember connections.
@@ -94,7 +94,7 @@ The Contract example scene shows how to deploy a contract from a Unity project.
 The SDK provides a built-in contract that you can use instead of writing your own.
 This contract manages different kinds of tokens.
 
-To deploy the built-in contract, call the [`TokenContract.Deploy()`](../../reference/unity/TokenContract#deploy) method and pass a callback function:
+To deploy the built-in contract, call the [`TokenContract.Deploy()`](./reference/TokenContract#deploy) method and pass a callback function:
 
 ```csharp
 public void DeployContract()
@@ -113,7 +113,7 @@ private void OnContractDeployed(string contractAddress)
 ```
 
 The project sends the deployment transaction to the connected wallet, which must approve the transaction and pay the related fees.
-The SDK stores the address of the contract as [`TokenContract.address`](../../reference/unity/TokenContract).
+The SDK stores the address of the contract as [`TokenContract.address`](./reference/TokenContract).
 
 ## Creating tokens
 
@@ -198,7 +198,7 @@ For a complete example, see the Transfer example scene.
 
 ## Getting token balances
 
-To get the tokens that the connected account owns, call the [`API.GetTokensForOwner()`](../../reference/unity/API#gettokensforowner) method in a coroutine.
+To get the tokens that the connected account owns, call the [`API.GetTokensForOwner()`](./reference/API#gettokensforowner) method in a coroutine.
 This example prints information about the tokens that the account owns to the log:
 
 ```csharp
