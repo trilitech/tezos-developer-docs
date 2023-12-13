@@ -69,6 +69,45 @@ Then during SDK initialization, the SDK saves the address to the [`TokenContract
 
 To retrieve the address of contracts that you haven't deployed through the project, you can use the [`API.GetOriginatedContractsForOwner()`](./reference/API#getoriginatedcontractsforowner) method or use another way of getting the contract address.
 
+## Calling the built-in contract
+
+The built-in contract has convenience methods for minting and transferring tokens; see [Managing tokens](./managing-tokens).
+
+To call the contract's other entrypoints, use the [`Wallet.CallContract()`](./reference/Wallet#callcontract) method.
+For example, to call the contract's `set_administrator` entrypoint to set a new administrator account, use this code:
+
+```csharp
+using Netezos.Contracts;
+using Netezos.Encoding;
+using Newtonsoft.Json.Linq;
+
+// ...
+
+// Use Michelson JSON of the contract code
+var contractJSON = Resources.Load<TextAsset>("Contracts/FA2TokenContract").text;
+var code = JObject
+    .Parse(contractJSON)
+    .SelectToken("code");
+
+// Create a `Netezos.Contracts.ContractScript` object to represent the contract
+var contract = new ContractScript(Micheline.FromJson(code.ToString()));
+
+// Build the parameters for the call
+var callParameters = contract.BuildParameter(
+    entrypoint: "set_administrator",
+    value: newAdministratorAddress
+).ToJson();
+
+// Call the contract
+TezosManager.Instance.Tezos.Wallet.CallContract(
+    contractAddress: contractAddress,
+    entryPoint: "set_administrator",
+    input: callParameters
+);
+```
+
+<!-- TODO link to a list of entrypoints in the contract -->
+
 ## Deploying other contracts
 
 To deploy a contract from Unity, you must compile the contract to Michelson in JSON format.
@@ -124,7 +163,7 @@ using Netezos.Contracts;
 using Netezos.Encoding;
 using Newtonsoft.Json.Linq;
 
-...
+// ...
 
 // Use Michelson JSON of the contract code
 var contractJSON = Resources.Load<TextAsset>("Contracts/MyContract").text;
@@ -132,7 +171,7 @@ var code = JObject
     .Parse(contractJSON)
     .SelectToken("code");
 
-// Create a `Netezos.Contracts.ContractScript` to represent the contract
+// Create a `Netezos.Contracts.ContractScript` object to represent the contract
 var contract = new ContractScript(Micheline.FromJson(code.ToString()));
 
 // Build the parameters for the call
