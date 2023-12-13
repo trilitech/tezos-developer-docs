@@ -236,20 +236,20 @@ const sidebars = {
           type: 'category',
           label: 'Reference',
           link: {
-            id: 'reference/unity',
+            id: 'unity/reference',
             type: 'doc',
           },
           items: [
-            'reference/unity/prefabs',
+            'unity/reference/prefabs',
             {
               type: "category",
               label: "Objects",
               items: [
-                'reference/unity/API',
-                'reference/unity/DAppMetadata',
-                'reference/unity/MessageReceiver',
-                'reference/unity/TokenContract',
-                'reference/unity/Wallet',
+                'unity/reference/API',
+                'unity/reference/DAppMetadata',
+                'unity/reference/MessageReceiver',
+                'unity/reference/TokenContract',
+                'unity/reference/Wallet',
               ],
             },
           ],
