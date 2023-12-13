@@ -57,6 +57,18 @@ You can use block explorers such as [Better Call Dev](https://better-call.dev/) 
 
 For information about using the built-in contract, see [Managing tokens](./managing-tokens).
 
+## Getting the contract address
+
+When you deploy a contract with the [`TokenContract.Deploy()`](./reference/TokenContract#deploy) method, the SDK saves the contract address by running this code:
+
+```csharp
+PlayerPrefs.SetString("CurrentContract:" + Tezos.Wallet.GetActiveAddress(), contractAddress);
+```
+
+Then during SDK initialization, the SDK saves the address to the [`TokenContract.Address`](./reference/TokenContract) property.
+
+To retrieve the address of contracts that you haven't deployed through the project, you can use the [`API.GetOriginatedContractsForOwner()`](./reference/API#getoriginatedcontractsforowner) method or use another way of getting the contract address.
+
 ## Deploying other contracts
 
 To deploy a contract from Unity, you must compile the contract to Michelson in JSON format.
