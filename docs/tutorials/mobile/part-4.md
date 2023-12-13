@@ -116,7 +116,7 @@ Your game will be more successful if you publish it on the Android or Apple stor
    To publish your app to Android store, read the Google documentation.
    You need a developer account : https://developer.android.com/distribute/console/
 
-   It costs 25$ for life (for information : Apple developer account costs 99$/ year ...).
+   It costs 25\$ for life (for information : Apple developer account costs 99$/ year ...).
 
 1. On Android studio, go to Build > Generate Signed bundle / APK...
 
