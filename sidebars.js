@@ -332,7 +332,12 @@ const sidebars = {
             type: 'doc',
             id: 'tutorials/mobile',
           },
-          items: ['tutorials/mobile/part-1', 'tutorials/mobile/part-2'],
+          items: [
+            'tutorials/mobile/part-1',
+            'tutorials/mobile/part-2',
+            'tutorials/mobile/part-3',
+            'tutorials/mobile/part-4',
+          ],
         },
       ],
     },
