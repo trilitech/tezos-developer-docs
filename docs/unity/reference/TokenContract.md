@@ -50,7 +50,9 @@ Its parameters are a key-value pair for the new or updated metadata value.
 This metadata is a value in the contract's storage, which is different from the metadata returned by the [`API.GetContractMetadata()`](./API#getcontractmetadata) method.
 This entrypoint can be called only by the current administrator account.
 
-<!-- TODO what does set_pause do? -->
+- `set_pause`: Sets the value of the `paused` storage field.
+When this field is set to true, tokens can be minted but not transferred between accounts.
+This entrypoint can be called only by the current administrator account.
 
 <!-- For examples of calling these entrypoints, see [Calling the built-in contract](../managing-contracts#calling-the-built-in-contract). -->
 For information about entrypoints, see [entrypoints](../../smart-contracts/entrypoints).
