@@ -20,6 +20,40 @@ These properties are populated after you deploy the contract with the `Deploy()`
 - `TokensCount`: The total number of token types in the contract
 - `LastActivityTime`: The timestamp of the last time tokens were minted or transferred
 
+## Entrypoints
+
+The built-in contract has the entrypoints that the FA2 standard requires and a few other entrypoints for the convenience of developers.
+
+- `transfer`: Transfers tokens from a source account to one or more destination accounts.
+Its parameters are the address of the source account and a list of destination accounts, each with the token ID and amount to transfer.
+For a simpler way to transfer tokens, see the [`Transfer()`](#transfer) method.
+
+- `mint`: Creates a token type and one or more tokens of that type.
+Its parameters are the address of the owner of the new tokens, the amount of tokens to create, and the metadata for the token type.
+This entrypoint can be called only by the current administrator account.
+For a simpler way to create tokens, see the [`Mint()`](#mint) method.
+
+- `balance_of`: Sends information about an owner's token balance to another contract.
+Its parameters are a callback contract that accepts a list of token IDs and the amount that the specified account owns.
+For a simpler way to get information about token ownership, see the [`API.GetTokensForOwner()`](./API#gettokensforowner) method.
+
+- `update_operators`: Adds or removes operators for the specified token owners and token IDs.
+Its parameters are a list of commands to add or remove operators for token owners and IDs.
+For information about operators, see [Operators](../../architecture/tokens/FA2#operators).
+
+- `set_administrator`: Changes the account that can mint tokens.
+Its parameter is the address of the new administrator account.
+This entrypoint can be called only by the current administrator account.
+
+- `set_metadata`: Creates or changes a metadata field on the specified contract.
+Its parameters are a key-value pair for the new or updated metadata value.
+This entrypoint can be called only by the current administrator account.
+
+<!-- TODO what does set_pause do? -->
+
+<!-- For examples of calling these entrypoints, see [Calling the built-in contract](../managing-contracts#calling-the-built-in-contract). -->
+For information about entrypoints, see [entrypoints](../../smart-contracts/entrypoints).
+
 ## Methods
 
 ### Constructors
