@@ -106,7 +106,7 @@ TezosManager.Instance.Tezos.Wallet.CallContract(
 );
 ```
 
-<!-- TODO link to a list of entrypoints in the contract -->
+For information about the entrypoints in the built-in contract, see [Unity SDK TokenContract object](./reference/TokenContract#entrypoints).
 
 ## Deploying other contracts
 
