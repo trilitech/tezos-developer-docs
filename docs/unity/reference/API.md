@@ -51,12 +51,36 @@ IEnumerator ReadView(string contractAddress,
 ```
 
 Returns the response from a contract [view](../../smart-contracts/views).
+Note that the `input` parameter must be a Michelson-encoded object, as in the following example, which passes an integer and string parameter to the view:
 
 Example:
 
-TODO
-
 ```csharp
+public void RunReadView()
+{
+    var input = new MichelinePrim
+        {
+            Prim = PrimType.Pair,
+            Args = new List<IMicheline>
+                {
+                    new MichelineInt(2),
+                    new MichelineString("hello")
+                }
+        }.ToJson();
+
+    var routine = TezosManager.Instance.Tezos.API.ReadView(
+        contractAddress: TezosManager.Instance.Tezos.TokenContract.Address,
+        entrypoint: viewName,
+        input: input,
+        callback: HandleRunReadView
+    );
+    StartCoroutine(routine);
+}
+
+public void HandleRunReadView(JsonElement view_response)
+{
+    Debug.Log(view_response);
+}
 ```
 
 ### `GetTokensForOwner()`
