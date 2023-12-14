@@ -126,7 +126,8 @@ Deploys (originates) the specified contract.
 To use this method, you must compile a contract to Michelson in a JSON file.
 For an example, see the code of the built-in contract in `Resources/Contracts`.
 
+The optional `delegateAddress` parameter is the address of the account to delegate the contract's tez to.
+For more information, see [Delegation](../../smart-contracts/delegation).
+
 This method triggers the `ContractCallInjected` event if the call is successfully sent to Tezos.
 Then it triggers `ContractCallCompleted` or `ContractCallFailed` events, depending on whether the origination operation succeeded or failed.
-
-<!-- TODO explain the delegateAddress -->
