@@ -10,7 +10,7 @@ last_update:
 Web3 mobile gaming is a new era of decentralized, blockchain-based gaming that promises to revolutionize the industry. It combines gaming with the unique features of blockchain technology, such as secure and transparent transactions, digital asset ownership, and decentralized governance. In Web3 gaming, players can enjoy a wide range of gaming experiences and participate in the creation, management, and monetization of these games through the use of cryptocurrencies, non-fungible tokens (NFTs), and decentralized autonomous organizations (DAOs).
 
 Web3 gaming is still in its early stages, but it has the potential to transform the gaming industry and create new opportunities for gamers and developers alike.
-There are two categories of web3 gaming dapp :
+There are two categories of web3 gaming dapp:
 
 - The ones including web3 parts like NFT or fungible tokens but represent generally less than 25% of the application
 - The ones which are 100% onchain, like on this tutorial, where all the logic is coded inside the smart contract
@@ -41,7 +41,7 @@ This tutorial uses Typescript, so it will be easier if you are familiar with Jav
 
 ## The tutorial game
 
-Rock paper scissors (also known by other orderings of the three items, with "rock" sometimes being called "stone," or as Rochambeau, roshambo, or ro-sham-bo) is a hand game originating from China, usually played between two people, in which each player simultaneously forms one of three shapes with an outstretched hand.
+Shifumi or Rock paper scissors (also known by other orderings of the three items, with "rock" sometimes being called "stone," or as Rochambeau, roshambo, or ro-sham-bo) is a hand game originating from China, usually played between two people, in which each player simultaneously forms one of three shapes with an outstretched hand.
 
 These shapes are "rock" (a closed fist), "paper" (a flat hand), and "scissors" (a fist with the index finger and middle finger extended, forming a V). "Scissors" is identical to the two-fingered V sign (also indicating "victory" or "peace") except that it is pointed horizontally instead of being held upright in the air.
 

@@ -7,9 +7,12 @@ last_update:
 
 In this section, you will create the pages to :
 
-- Create a game.
-- Join a game.
-- Play a session.
+- Create a game : you interact with the modal **createGameModal** from the **HomeScreen.tsx** page to create a game session.
+- Join a game : it redirects you to an existing game session on the **SessionScreen.tsx** page. This modal is coded on the **HomeScreen.tsx** page.
+- Play a session : once you are on a game session against someone, you can play some action
+  - Choose a move : Scissor , Stone or Paper
+  - Reveal your move to resolve the game round. A game session can have several rounds
+- Visualize the top player results
 
 ## Play on a game session
 
@@ -17,6 +20,8 @@ In this section, you will create the pages to :
    Confirm the operation with your wallet.
 
    You are redirected the new game session page (that is blank page right now).
+
+   > Note : don't hesitate to look at the code of the modal **createGameModal** from the **HomeScreen.tsx** page to understand how it works
 
 1. Edit the file `./src/SessionScreen.tsx`.
 

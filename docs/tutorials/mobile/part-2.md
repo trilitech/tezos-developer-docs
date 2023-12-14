@@ -9,15 +9,13 @@ A web3 mobile application is not different from a web2 one in terms of its basic
 
 ## Create the Mobile app
 
-Ionic React is a good hybrid solution and compatible with the [BeaconSDK](https://github.com/airgap-it/beacon-sdk) (Typescript). The behavior is equivalent to a classical web development.
+[Ionic React](https://ionicframework.com/docs/react) is a good hybrid solution for creating mobile applications and compatible with the Typescript version of the [BeaconSDK](https://github.com/airgap-it/beacon-sdk). The behavior is equivalent to a classical web development, so for a web developer the ramp up is easy.
 
 > Beacon : the protocol of communication between the dapp and the wallet.
 
-> Note : As of today, it is not recommended to develop a native dapp in Flutter, React Native because or native tools as it requires additional UI works (ex : missing wallet popup mechanism to confirm transactions).
+> Note : As of today, it is not recommended to develop a native dapp in Flutter, React Native or native tools as it requires additional UI works (ex : missing wallet popup mechanism to confirm transactions).
 
 1. Install Ionic
-
-   [Ionic documentation](https://ionicframework.com/docs/react)
 
    ```bash
    npm install -g @ionic/cli
@@ -69,13 +67,7 @@ Ionic React is a good hybrid solution and compatible with the [BeaconSDK](https:
       globalThis.Buffer = Buffer;
       ```
 
-   1. Create the `vite.config.ts` file.
-
-      ```bash
-      touch vite.config.ts
-      ```
-
-   1. Edit it.
+   1. Edit `vite.config.ts` file.
 
       ```js
       import react from '@vitejs/plugin-react-swc';

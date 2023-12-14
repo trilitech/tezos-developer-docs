@@ -5,7 +5,7 @@ last_update:
   date: 12 December 2023
 ---
 
-On this first section, you will :
+On this first section, you will:
 
 - create the game smart contract importing an existing Ligo library
 - deploy your smart contract to the Ghostnet
@@ -91,7 +91,7 @@ On this first section, you will :
    taq deploy main.tz -e "testing"
    ```
 
-   > Note : if it is the first time you use taqueria, I recommend to look at this training first [https://github.com/marigold-dev/training-dapp-1#ghostnet-testnet](https://github.com/marigold-dev/training-dapp-1#ghostnet-testnet)
+   > Note: If this is your first time using Taqueria, look at this training first: [https://github.com/marigold-dev/training-dapp-1#ghostnet-testnet](https://github.com/marigold-dev/training-dapp-1#ghostnet-testnet)
    >
    > For advanced users, just go to `.taq/config.local.testing.json` , replace account with alice settings and then redeploy
    >
@@ -108,7 +108,7 @@ On this first section, you will :
    > }
    > ```
 
-   Your smart contract is ready on the Ghostnet !
+   Your smart contract is ready on Ghostnet !
 
    ```logs
    ┌──────────┬──────────────────────────────────────┬───────┐
