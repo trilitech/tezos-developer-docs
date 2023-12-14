@@ -45,8 +45,9 @@ For information about operators, see [Operators](../../architecture/tokens/FA2#o
 Its parameter is the address of the new administrator account.
 This entrypoint can be called only by the current administrator account.
 
-- `set_metadata`: Creates or changes a metadata field on the specified contract.
+- `set_metadata`: Creates or changes a metadata field in the specified contract's storage.
 Its parameters are a key-value pair for the new or updated metadata value.
+This metadata is a value in the contract's storage, which is different from the metadata returned by the [`API.GetContractMetadata()`](./API#getcontractmetadata) method.
 This entrypoint can be called only by the current administrator account.
 
 <!-- TODO what does set_pause do? -->
