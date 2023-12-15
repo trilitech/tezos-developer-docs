@@ -95,7 +95,6 @@ TezosManager.Instance.MessageReceiver.PayloadSigned += OnPayloadSigned;
 TezosManager.Instance.Wallet.RequestSignPayload(SignPayloadType.micheline, payload);
 ```
 
-
 ### `VerifySignedPayload()`
 
 ```csharp
@@ -114,12 +113,12 @@ void CallContract(
     ulong amount = 0);
 ```
 
-Calls the specified entrypoint of the built-in FA2 contract.
-
-You can use this method as an alternative to calling convenience methods such as `TezosManager.Instance.Tezos.TokenContract.Mint()` directly or as a way to call the contract methods that do not have convenience methods in the `TokenContract` object.
+Calls the specified entrypoint of the specified contract.
 
 This method triggers the `ContractCallInjected` event if the call is successfully sent to Tezos.
 Then it triggers `ContractCallCompleted` or `ContractCallFailed` events, depending on whether the call succeeded or failed.
+
+<!-- TODO info about formatting parameters -->
 
 ### `OriginateContract()`
 
