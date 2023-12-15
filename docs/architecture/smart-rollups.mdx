@@ -96,9 +96,7 @@ Each rollup publishes a hash of its state, known as its _commitment_, on predefi
 - The _commitment period_ runs for 60 consecutive layer 1 blocks.
 During the commitment period, the rollups receive messages from the Smart Rollup inbox, process them, and update their internal states.
 
-  At the end of the commitment period, each node uses the PVM to generate their commitment.
-  Then they each publish their commitment to layer 1.
-
+  At the end of the commitment period, each node generates a commitment and publishes it to layer 1.
   Then a new commitment period begins.
 
 - The _refutation period_ for a commitment period starts when the commitment period ends.
