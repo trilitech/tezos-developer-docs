@@ -25,6 +25,7 @@ The contract has entrypoints that allow you to create and transfer tokens.
 See [Managing tokens](./managing-tokens).
 
 The Michelson source code of the built-in contract is in the `Resources/Contracts` folder of the SDK, but it isn't very human-readable.
+For a list of the entrypoints in the contract, see [TokenContract object](./reference/TokenContract).
 
 ## Deploying the built-in contract
 
