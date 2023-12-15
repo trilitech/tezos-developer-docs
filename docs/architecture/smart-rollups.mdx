@@ -118,7 +118,6 @@ The general flow of a Smart Rollup goes through these steps:
 1. A new commitment period begins.
 1. At the same time as the new commitment period begins, a refutation period for the previous commitment period begins, during which time other nodes can publish a concurrent commitment to refute a published commitment.
 Because commitment periods are shorter than refutation periods, many overlapping refutation periods can be active at the same time, but only one commitment period is active at a time.
-If there are two or more different commitments, the nodes play a refutation game to determine the correct commitment.
 1. At end of the refutation period, the correct commitment is said to be _cemented_ and therefore final and unchangeable.
 1. After the commitment is cemented, any client, including the rollup operator or ordinary layer 1 user, can trigger one of the outbox messages to run the smart contract call.
 
