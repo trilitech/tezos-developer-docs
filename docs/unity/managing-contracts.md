@@ -185,7 +185,22 @@ TezosManager.Instance.Tezos.Wallet.CallContract(
 );
 ```
 
+This example passes the value 12 to the entrypoint in the variable `entryPointName`.
+If the entrypoint requires a parameter that is more complex than a single value, you must encode it as described in [Encoding parameters](#encoding-parameters).
+
 To get the hash of the transaction, use the `ContractCallCompleted` event.
+
+## Encoding parameters
+
+When you call contract entrypoints or views with `Wallet.CallContract()`, you must encode the parameter as a Micheline value.
+For example, if an entrypoint accepts four integers as parameters, you must pass a list of `Netezos.Encoding.MichelineInt` values:
+
+TODO can't get this to work with various values.
+
+```csharp
+
+```
+
 
 <!-- TODO:
 - Can you deploy a contract for each user?
