@@ -115,7 +115,6 @@ The general flow of a Smart Rollup goes through these steps:
 1. During the commitment period, the Smart Rollup nodes receive the messages in the Smart Rollup inbox, filter them to the messages that they are interested in, and run processing based on those messages.
 1. The nodes add outgoing messages to the Smart Rollup outbox in the form of calls to smart contracts.
 1. At the end of the commitment period, the nodes publish their commitments to layer 1.
-These commitments are proofs generated from the state of the Smart Rollup node, which means that if all of the nodes run the Smart Rollup correctly, the commitments are all the same.
 1. A new commitment period begins.
 1. At the same time as the new commitment period begins, a refutation period for the previous commitment period begins, during which time other nodes can verify the commitment and publish a concurrent commitment to confirm or refute it.
 Because commitment periods are shorter than refutation periods, many overlapping refutation periods can be active at the same time, but only one commitment period is active at a time.
