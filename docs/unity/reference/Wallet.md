@@ -69,13 +69,21 @@ Returns the address (public key hash) of the currently connected account, or NUL
 ### `RequestSignPayload()`
 
 ```csharp
-public void Connect(WalletProviderType walletProvider, bool withRedirectToWallet)
+public void RequestSignPayload(
+  SignPayloadType signingType,
+  string payload)
 ```
 
 Sends a request to the connected wallet to sign a payload string.
-Signing a message proves that it came from a specific user's wallet because the wallet encrypts the message with the user's account's key.
-You can prompt users to sign messages for several reasons, including:
 
+Parameters:
+
+  - `signingType`: The type of payload, such as raw, operation or micheline.
+  - `payload`: The payload to send to the wallet to sign.
+
+<!-- TODO link to info about more you can do with signing messages -->
+
+Signing a message proves that it came from a specific user's wallet because the wallet encrypts the message with the user's account's key.
 For example, this code prompts the user to sign the message "This message came from my account."
 
 ```csharp
