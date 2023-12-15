@@ -14,7 +14,9 @@ For this reason, they are not subject to the same block delays and data space co
 The transactions and logic that Smart Rollups run is called _layer 2_ to differentiate it from the main network, which is called _layer 1_.
 
 The compiled code of a Smart Rollup must be provided publicly, so that anyone can run a Smart Rollup node to execute that code and verify that other nodes are running it correctly, just like anyone can run nodes, bakers, and accusers on layer 1.
-This code, called the _kernel_, must behave in a deterministic manner and use a proof-generating virtual machine (PVM) to generate a proof of its state.
+This code, called the _kernel_, must behave in a deterministic manner and according to a given semantics, which guarantees that results are reproducible by any rollup node with the same kernel.
+The semantics is precisely defined by a reference virtual machine called a proof-generating virtual machine (PVM), able to generate a proof that executing a program in a given context results in a given state.
+This guarantees that if a divergence in results is found, it can be tracked down to a single elementary step that was not executed correctly by some node.
 In this way, multiple nodes can run the same code to create a single state for the rollup, and other nodes can verify the state of the rollup.
 
 For a tutorial on Smart Rollups, see [Deploy a Smart Rollup](../tutorials/smart-rollup).
