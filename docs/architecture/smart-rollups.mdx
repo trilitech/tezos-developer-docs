@@ -142,7 +142,7 @@ After it is originated, anyone can run a Smart Rollup node based on this informa
 Starting from the rollup origination level, levels are partitioned into _commitment periods_ of 60 consecutive blocks.
 During each commitment period, the rollup receives the messages in the rollup inbox and processes them.
 
-At the end of the commitment period, the rollup node must use the PVM to publish its state to layer 1, which is called its _commitment_.
+At the end of the commitment period, the rollup node must publish its state to layer 1, which is called its _commitment_.
 Each commitment builds on the previous commitment, going back to the genesis commitment from when the Smart Rollup was originated.
 This commitment asserts that the rollup node has responded to every message in the rollup inbox during in the commitment period and updated its state according to the code for the Smart Rollup.
 
