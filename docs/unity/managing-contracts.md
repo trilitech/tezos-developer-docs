@@ -151,13 +151,9 @@ The built-in contract provides convenience methods that you can use to interact 
 See [Managing tokens](./managing-tokens).
 
 To call any other contract, you need its source code in Michelson JSON format.
-You can retrieve the code of a deployed contract by passing its address to the [TZKT](https://api.tzkt.io/) API, as in this example:
+You can retrieve the code of a deployed contract from block explorers or APIs such as the [TZKT](https://api.tzkt.io/) API.
 
-```bash
-curl https://api.ghostnet.tzkt.io/v1/contracts/KT1T1saRmmTQcvpPVLiWzQ5FaMzAwkgwND8J/code
-```
-
-Then you can call the contract by assembling a `Netezos.Contracts.ContractScript` object that represents the contract and building a parameter out of the entrypoint to call and the value to pass to it, as in this example:
+Then you can call the contract by assembling a `Netezos.Contracts.ContractScript` object that represents the contract and building an object out of the entrypoint to call and the value to pass to it, as in this example:
 
 ```csharp
 using Netezos.Contracts;
