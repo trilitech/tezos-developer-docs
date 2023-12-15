@@ -157,8 +157,11 @@ The refutation period lasts 2 weeks on Mainnet; it can be different on other net
 
 ### Triggering outbox messages
 
-After a commitment is cemented, clients can trigger the transactions in that commitment's outbox with the Octez `execute outbox message` command.
-When they trigger the transaction, it runs like any other call to a smart contract.
+Smart Rollups can generate transactions to run on layer 1, but those transactions do not run immediately.
+When a commitment includes layer 1 transactions, these transactions go into the Smart Rollup outbox and wait for the commitment to be cemented.
+
+After the commitment is cemented, clients can trigger transactions in the outbox with the Octez `execute outbox message` command.
+When they trigger a transaction, it runs like any other call to a smart contract.
 For more information, se [Triggering the execution of an outbox message](https://tezos.gitlab.io/shell/smart_rollup_node.html?highlight=triggering) in the Octez documentation.
 
 ## Examples
