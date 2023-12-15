@@ -86,21 +86,18 @@ Eventually include:
   - revealing data from the (WIP) DAL
 */}
 
-## Consensus
+## Commitments
 
-Smart Rollup nodes achieve consensus differently from layer 1 nodes.
-Instead of constantly sharing blocks and updating their states, layer 2 nodes maintain their states internally and share them at predefined intervals.
-Because the nodes behave in a deterministic manner, their states should all be the same if they have processed the same Smart Rollup inbox messages.
+Because Smart Rollup nodes behave in a deterministic manner, their states should all be the same if they have processed the same Smart Rollup inbox messages with the same kernel.
 This state is referred to as the "state of the rollup."
 
-Rollups share and achieve consensus on the state of the rollup with these two intervals:
+Each rollup publishes a hash of its state, known as its _commitment_, on predefined intervals:
 
 - The _commitment period_ runs for 60 consecutive blocks.
 During the commitment period, the rollups receive messages from the Smart Rollup inbox, process them, and update their internal states.
 
-  At the end of the commitment period, Smart Rollup nodes use the PVM to generate a hash of their states and publish it to layer 1.
-  This hash is referred to as the node's _commitment_.
-  The commitment allows other nodes to verify that the node has responded to all of the messages during the commitment period and run the rollup code accurately.
+  At the end of the commitment period, each node uses the PVM to generate their commitment.
+  Then they each publish their commitment to layer 1.
 
   Then a new commitment period begins.
 
