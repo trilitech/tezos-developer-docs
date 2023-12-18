@@ -1,5 +1,222 @@
-# dApp quickstart
+---
+title: dApp quickstart
+authors: "Tim McMackin"
+last_update:
+  date: 18 December 2023
+---
 
-Here we insert the tutorial that shows how to build a react dapp on top of the contract we built in the "first smart contract" guide
+This quickstart shows you how to get started with a simple dApp that calls an existing smart contract on the Tezos blockchain.
+It uses the [Svelte](https://svelte.dev/) framework and JavaScript, but you can use any JavaScript/TypeScript framework and get similar results.
+
+## Prerequisites
+
+To follow this quickstart, you need [Node.JS and NPM](https://nodejs.org/) installed.
+
+You also need a Tezos wallet in a web browser extension, such as the [Temple wallet](https://templewallet.com/), and some test tez to pay transaction fees.
+See [Installing and funding a wallet](../developing/wallet-setup).
+
+## Setting up the web application
+
+Run these steps to set up a simple web application:
+
+1. In a terminal window, run these commands to start a Svelte application:
+
+   ```bash
+   npm create vite@latest quickstartApp -- --template svelte
+   cd quickstartApp
+   npm install
+   ```
+
+1. Install the Tezos-related dependencies:
+
+   ```bash
+   npm install @taquito/taquito @taquito/beacon-wallet @airgap/beacon-types
+   ```
+
+1. Install the `buffer`, `events`, and `vite-compatible-readable-stream` libraries:
+
+   ```bash
+   npm install --save-dev buffer events vite-compatible-readable-stream
+   ```
+
+1. Update the `vite.config.js` file to the following code:
+
+   ```javascript
+   import { defineConfig, mergeConfig } from "vite";
+   import path from "path";
+   import { svelte } from "@sveltejs/vite-plugin-svelte";
+
+   export default ({ command }) => {
+     const isBuild = command === "build";
+
+     return defineConfig({
+       plugins: [svelte()],
+         define: {
+           global: {}
+         },
+       build: {
+         target: "esnext",
+         commonjsOptions: {
+           transformMixedEsModules: true
+         }
+       },
+       server: {
+         port: 4000
+       },
+       resolve: {
+         alias: {
+           "@airgap/beacon-types": path.resolve(
+             path.resolve(),
+             `./node_modules/@airgap/beacon-types/dist/${
+             isBuild ? "esm" : "cjs"
+             }/index.js`
+           ),
+           // polyfills
+           "readable-stream": "vite-compatible-readable-stream",
+           stream: "vite-compatible-readable-stream"
+         }
+       }
+     });
+   };
+   ```
+
+1. Update the default HTML file `index.html` to the following code:
+
+   ```html
+   <!DOCTYPE html>
+   <html lang="en">
+     <head>
+       <meta charset="UTF-8" />
+       <link rel="icon" href="/favicon.ico" />
+       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+       <script>
+         const global = globalThis;
+       </script>
+       <script type="module">
+         import { Buffer } from "buffer";
+         window.Buffer = Buffer;
+       </script>
+       <title>My quickstart dApp</title>
+     </head>
+     <body>
+       <script type="module" src="/src/main.js"></script>
+     </body>
+   </html>
+   ```
+
+1. Replace the `src/main.js` file with this code:
+
+   ```javascript
+   import './app.css'
+   import App from './App.svelte'
+
+   const app = new App({
+     target: document.body,
+   })
+
+   export default app
+   ```
+
+1. Replace the default `src/App.svelte` file with this code:
+
+   ```html
+   <script>
+   </script>
+
+   <main>
+   </main>
+
+   <style>
+   </style>
+   ```
+
+You will add code to connect to the user's wallet in the next section.
+
+## Connecting to the user's wallet
+
+dApps use wallets to interact with user accounts.
+You can use the Beacon SDK to connect to wallets and handle transaction approvals, so your application never needs to store account information, passwords, or keys.
+
+Follow these steps to allow wallets to connect to your application:
+
+1. In the `src/App.svelte` file, add these imports to the `<script>` section:
+
+   ```javascript
+   import { BeaconWallet } from "@taquito/beacon-wallet";
+   import { NetworkType } from "@airgap/beacon-types";
+   ```
+
+1. After these imports, create variables to represent the wallet itself and its address:
+
+   ```javascript
+   let wallet;
+   let address;
+   ```
+
+1. Still within the `<script>` section, add this function to connect to the user's wallet:
+
+   ```javascript
+   const connectWallet = async () => {
+     const newWallet = new BeaconWallet({
+       name: "dApp quickstart",
+       network: {
+        type: NetworkType.GHOSTNET,
+      },
+     });
+     await newWallet.requestPermissions();
+     address = await newWallet.getPKH();
+     wallet = newWallet;
+   };
+   ```
+
+1. Add this function to disconnect from the user's wallet:
+
+   ```javascript
+   const disconnectWallet = () => {
+     wallet.client.clearActiveAccount();
+     wallet = undefined;
+   };
+   ```
+
+1. Update the `main` section to have this code:
+
+   ```html
+   <h1>Tezos dApp quickstart</h1>
+
+   <div class="card">
+      {#if wallet}
+       <p>The address of the connected wallet is {address}.</p>
+       <p>
+         <button on:click={disconnectWallet}> Disconnect wallet </button>
+       </p>
+      {:else}
+       <button on:click={connectWallet}> Connect wallet </button>
+      {/if}
+   </div>
+   ```
+
+1. Run this command to start the application:
+
+   ```bash
+   npm run dev
+   ```
+
+1. Open a web browser to http://localhost:4000.
+
+1. Click the "Connect wallet" button and follow the prompts in your wallet to connect to the dApp.
+
+After your wallet connects, the dApp shows your account address, as in this picture:
+
+![The quickstart dApp, showing the account address and the disconnect button](/img/dApps/quickstart-connected.wallet.png)
+
+Now your dApp can connect to users' Tezos wallets.
+In the next section, you will add the ability for a user to send a transaction to Tezos.
 
 Mention Beacon, diagram about key custody, dapp is never concerned about keys
+
+
+
+## Next steps
+
+Now that you have an application that can call a smart contract, you can deploy your own smart contracts to use with your dApps.
+See the tutorial [Deploy a smart contract](../tutorials/smart-contract) to learn how to write a smart contract or the tutorial [Build your first app on Tezos](../tutorials/build-your-first-app) to learn more about writing dApps.

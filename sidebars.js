@@ -181,7 +181,7 @@ const sidebars = {
       //   type: 'doc',
       // },
       items: [
-        // 'dApps/first-dapp', // TODO
+        'dApps/quickstart',
         'dApps/samples',
         // 'dApps/creating', //TODO
         'dApps/wallets',
