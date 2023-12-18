@@ -70,7 +70,7 @@ Then during SDK initialization, the SDK saves the address to the [`TokenContract
 
 To retrieve the address of contracts that you haven't deployed through the project, you can use the [`API.GetOriginatedContractsForOwner()`](./reference/API#getoriginatedcontractsforowner) method or use another way of getting the contract address.
 
-## Calling the built-in contract
+## Calling contracts
 
 The built-in contract has convenience methods for minting and transferring tokens; see [Managing tokens](./managing-tokens).
 
@@ -78,36 +78,102 @@ To call the contract's other entrypoints, use the [`Wallet.CallContract()`](./re
 For example, to call the contract's `set_administrator` entrypoint to set a new administrator account, use this code:
 
 ```csharp
-using Netezos.Contracts;
 using Netezos.Encoding;
-using Newtonsoft.Json.Linq;
 
 // ...
 
-// Use Michelson JSON of the contract code
-var contractJSON = Resources.Load<TextAsset>("Contracts/FA2TokenContract").text;
-var code = JObject
-    .Parse(contractJSON)
-    .SelectToken("code");
-
-// Create a `Netezos.Contracts.ContractScript` object to represent the contract
-var contract = new ContractScript(Micheline.FromJson(code.ToString()));
-
-// Build the parameters for the call
-var callParameters = contract.BuildParameter(
-    entrypoint: "set_administrator",
-    value: newAdministratorAddress
-).ToJson();
-
-// Call the contract
 TezosManager.Instance.Tezos.Wallet.CallContract(
-    contractAddress: contractAddress,
+    contractAddress: TezosManager.Instance.Tezos.TokenContract.Address,
     entryPoint: "set_administrator",
-    input: callParameters
+    input: new MichelineString(newAdminAddress).ToJson()
 );
 ```
 
 For information about the entrypoints in the built-in contract, see [Unity SDK TokenContract object](./reference/TokenContract#entrypoints).
+
+You can call any other contract by using its address, entrypoint name, and parameter value, as in this example:
+
+```csharp
+using Netezos.Encoding;
+
+// ...
+
+TezosManager.Instance.Tezos.Wallet.CallContract(
+    contractAddress: address,
+    entryPoint: entryPointName,
+    input: new MichelineInt(12).ToJson()
+);
+```
+
+This example passes the value 12 to the entrypoint in the variable `entryPointName`.
+
+Note that the parameter is encoded as a Michelson value.
+For information about encoding more complex parameters, see [Encoding parameters](#encoding-parameters).
+
+To get the hash of the transaction, use the `ContractCallCompleted` event.
+
+## Encoding parameters
+
+When you call contract entrypoints or views with `Wallet.CallContract()` or `Wallet.ReadView()`, you must encode the parameter as a Micheline value.
+For example, if an entrypoint accepts two integers and one string as parameters, you must pass a list of two `Netezos.Encoding.MichelineInt` values and one `Netezos.Encoding.MichelineString` value:
+
+```csharp
+using Netezos.Encoding;
+
+// ...
+
+var input = new MichelinePrim
+{
+    Prim = PrimType.Pair,
+    Args = new List<IMicheline>
+    {
+        new MichelineInt(1),
+        new MichelineInt(2),
+        new MichelineString("My string value")
+    }
+}.ToJson();
+
+TezosManager.Instance.Tezos.Wallet.CallContract(
+    contractAddress: address,
+    entryPoint: entryPointName,
+    input: input
+);
+```
+
+You can also use the value of the parameters in Michelson JSON.
+The previous example looks like this with a JSON parameter value:
+
+```csharp
+var input = @"{
+    ""prim"": ""Pair"",
+    ""args"": [
+        {
+        ""int"": ""1""
+        },
+        {
+        ""prim"": ""Pair"",
+        ""args"": [
+            {
+            ""int"": ""2""
+            },
+            {
+            ""string"": ""My string value""
+            }
+        ]
+      }
+    ]
+}";
+
+TezosManager.Instance.Tezos.Wallet.CallContract(
+    contractAddress: address,
+    entryPoint: entryPointName,
+    input: input
+);
+```
+
+Some block explorers allow you to fill in parameter values for an entrypoint and then download the Michelson JSON to use in your code.
+
+<!-- TODO: Should we document more complex params as in entrypoints like update_operators? Seems like List<IMicheline> works with different organizations of pairs. -->
 
 ## Deploying other contracts
 
@@ -145,47 +211,8 @@ TezosManager.Instance.Tezos.Wallet.OriginateContract(contractJSON);
 
 To get the address of the deployed contract, use the `ContractCallCompleted` event.
 
-## Calling other contracts
-
-The built-in contract provides convenience methods that you can use to interact with it.
-See [Managing tokens](./managing-tokens).
-
-To call any other contract, use the [`Wallet.CallContract()`](./reference/Wallet#callcontract) method, as in this example:
-
-
-```csharp
-using Netezos.Encoding;
-
-// ...
-
-TezosManager.Instance.Tezos.Wallet.CallContract(
-    contractAddress: address,
-    entryPoint: entryPointName,
-    input: new MichelineInt(12).ToJson()
-);
-```
-
-This example passes the value 12 to the entrypoint in the variable `entryPointName`.
-
-Note that the parameter is encoded as a Michelson value.
-For information about encoding more complex parameters, see [Encoding parameters](#encoding-parameters).
-
-To get the hash of the transaction, use the `ContractCallCompleted` event.
-
-## Encoding parameters
-
-When you call contract entrypoints or views with `Wallet.CallContract()`, you must encode the parameter as a Micheline value.
-For example, if an entrypoint accepts four integers as parameters, you must pass a list of `Netezos.Encoding.MichelineInt` values:
-
-TODO can't get this to work with various values.
-
-```csharp
-
-```
-
 
 <!-- TODO:
 - Can you deploy a contract for each user?
 - Managing multiple contracts?
-- Encoding param for `value`
 -->
