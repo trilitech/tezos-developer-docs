@@ -29,8 +29,8 @@ public void RunGetTezosBalance()
 {
     Debug.Log("Getting balance");
     var routine = TezosManager.Instance.Tezos.API.GetTezosBalance(
-        callback: HandleTezosBalance,
-        address: myAddress
+        HandleTezosBalance,
+        myAddress
     );
     StartCoroutine(routine);
 }

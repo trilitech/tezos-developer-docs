@@ -3,7 +3,7 @@ title: Unity SDK TokenContract object
 sidebar_label: TokenContract object
 authors: Tim McMackin
 last_update:
-  date: 13 December 2023
+  date: 6 December 2023
 ---
 
 The Unity SDK class `TezosSDK.Tezos.API.Models.TokenContract`, which is available at runtime as the `TezosManager.Instance.Tezos.TokenContract` object, provides a built-in FA2-compatible smart contract and convenience methods to work with it.
