@@ -173,7 +173,101 @@ TezosManager.Instance.Tezos.Wallet.CallContract(
 
 Some block explorers allow you to fill in parameter values for an entrypoint and then download the Michelson JSON to use in your code.
 
-<!-- TODO: Should we document more complex params as in entrypoints like update_operators? Seems like List<IMicheline> works with different organizations of pairs. -->
+You can build more complex parameters out of `Netezos.Encoding` objects.
+For example, the built-in contract has an entrypoint named `update_operators`, which is an FA2 standard entrypoint that gives an account control over another account's tokens.
+It accepts a list of changes to make to token operators, each including these fields in this order:
+
+- Either "add_operator" or "remove_operator"
+- The address of the operator, which will be able to control the owner's tokens of the specified ID.
+- The ID of the token
+- The address of the token owner
+
+This is the Michelson parameter type for the endpoint:
+
+```
+(list %update_operators (or
+  (pair %add_operator (address %owner)
+    (pair (address %operator)
+          (nat %token_id)))
+  (pair %remove_operator (address %owner)
+    (pair
+      (address %operator)
+      (nat %token_id)))))
+```
+
+In this case, you set the "add_operator" value by passing a `PrimType.Left` Michelson primitive or the "remove_operator" value by passing a `PrimType.Right` primitive.
+The values in the primitive are a series of nested pairs called a [right comb](../smart-contracts/data-types/complex-data-types#right-combs), as in this example:
+
+```json
+{
+  "prim": "LEFT",
+  "args": [
+    {
+      "prim": "Pair",
+      "args": [
+        {
+          "string": "tz1QCVQinE8iVj1H2fckqx6oiM85CNJSK9Sx"
+        },
+        {
+          "prim": "Pair",
+          "args": [
+            {
+              "string": "tz1hQKqRPHmxET8du3fNACGyCG8kZRsXm2zD"
+            },
+            {
+              "int": "1"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+The code to create a list of these elements to pass to the entrypoint looks like this:
+
+```csharp
+var operatorAddress = "tz1hQKqRPHmxET8du3fNACGyCG8kZRsXm2zD";
+var ownerAddress = "tz1QCVQinE8iVj1H2fckqx6oiM85CNJSK9Sx";
+int[] tokenIds = {1, 2, 3};
+
+var operatorArray = new MichelineArray();
+foreach (var tokenId in tokenIds)
+{
+    operatorArray.Add(new MichelinePrim
+    {
+        Prim = PrimType.Left,
+        Args = new List<IMicheline>
+        {
+            new MichelinePrim
+            {
+                Prim = PrimType.Pair,
+                Args = new List<IMicheline>
+                {
+                    new MichelineString(ownerAddress),
+                    new MichelinePrim
+                    {
+                        Prim = PrimType.Pair,
+                        Args = new List<IMicheline>
+                        {
+                            new MichelineString(operatorAddress),
+                            new MichelineInt(tokenId)
+                        }
+                    }
+
+                }
+            }
+        }
+    });
+};
+
+TezosManager.Instance.Tezos.Wallet.CallContract(
+    contractAddress: address,
+    entryPoint: "update_operators",
+    input: operatorArray.ToJson()
+);
+```
 
 ## Deploying other contracts
 
