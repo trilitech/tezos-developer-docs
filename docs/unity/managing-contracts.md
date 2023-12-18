@@ -2,7 +2,7 @@
 title: Managing contracts
 authors: Tim McMackin
 last_update:
-  date: 12 December 2023
+  date: 18 December 2023
 ---
 
 Smart contracts are backend programs that run on the Tezos blockchains.
@@ -150,43 +150,25 @@ To get the address of the deployed contract, use the `ContractCallCompleted` eve
 The built-in contract provides convenience methods that you can use to interact with it.
 See [Managing tokens](./managing-tokens).
 
-To call any other contract, you need its source code in Michelson JSON format.
-You can retrieve the code of a deployed contract from block explorers or APIs such as the [TZKT](https://api.tzkt.io/) API.
+To call any other contract, use the [`Wallet.CallContract()`](./reference/Wallet#callcontract) method, as in this example:
 
-Then you can call the contract by assembling a `Netezos.Contracts.ContractScript` object that represents the contract and building an object out of the entrypoint to call and the value to pass to it, as in this example:
 
 ```csharp
-using Netezos.Contracts;
 using Netezos.Encoding;
-using Newtonsoft.Json.Linq;
 
 // ...
 
-// Use Michelson JSON of the contract code
-var contractJSON = Resources.Load<TextAsset>("Contracts/MyContract").text;
-var code = JObject
-    .Parse(contractJSON)
-    .SelectToken("code");
-
-// Create a `Netezos.Contracts.ContractScript` object to represent the contract
-var contract = new ContractScript(Micheline.FromJson(code.ToString()));
-
-// Build the parameters for the call
-var callParameters = contract.BuildParameter(
-    entrypoint: entryPointName,
-    value: 12
-).ToJson();
-
-// Call the contract
 TezosManager.Instance.Tezos.Wallet.CallContract(
     contractAddress: address,
     entryPoint: entryPointName,
-    input: callParameters
+    input: new MichelineInt(12).ToJson()
 );
 ```
 
 This example passes the value 12 to the entrypoint in the variable `entryPointName`.
-If the entrypoint requires a parameter that is more complex than a single value, you must encode it as described in [Encoding parameters](#encoding-parameters).
+
+Note that the parameter is encoded as a Michelson value.
+For information about encoding more complex parameters, see [Encoding parameters](#encoding-parameters).
 
 To get the hash of the transaction, use the `ContractCallCompleted` event.
 
