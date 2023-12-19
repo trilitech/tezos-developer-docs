@@ -334,7 +334,6 @@ private void OnPayloadSigned(SignResult obj)
     // Result is true if the message is signed correctly
     // And that it came from the currently-connected wallet
     var result = TezosManager.Instance.Wallet.VerifySignedPayload(SignPayloadType.micheline, payload);
-
     Debug.Log($"Payload verification response: {result}");
 }
 ```
