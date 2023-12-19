@@ -106,7 +106,7 @@ void Start()
     TezosManager.Instance.MessageReceiver.AccountConnected += OnAccountConnected;
 }
 
-private void OnAccountConnected(AccountInfo account_info)
+private void OnAccountConnected(AccountInfo accountInfo)
 {
     var address = TezosManager.Instance.Wallet.GetActiveAddress();
     var routine = TezosManager.Instance.Tezos.API.GetTokensForOwner(
