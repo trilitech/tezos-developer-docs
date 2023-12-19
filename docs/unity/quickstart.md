@@ -31,7 +31,7 @@ Users must still confirm all transactions in their wallet application.
 Using a wallet application in this way saves you from having to implement payment processing and security in your application.
 Game developers can also use the wallet and its account as a unique account identifier and as the user's inventory.
 
-1. Copy the `MainThreadExecutor`, `TezosAuthenticator`, and `TezosManager` prefabs to your scene.
+1. Copy the `TezosAuthenticator` and `TezosManager` prefabs to your scene.
 These prefabs provide prerequisites to use Tezos in a scene.
 
    The `TezosAuthenticator` prefab automatically adds features that connect to users' wallets.

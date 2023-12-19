@@ -2,7 +2,7 @@
 title: Tezos SDK for Unity
 authors: Tim McMackin
 last_update:
-  date: 11 December 2023
+  date: 19 December 2023
 ---
 
 The Tezos SDK for Unity provides tools that let you access user wallets and Tezos in games and other Unity projects.
@@ -29,8 +29,7 @@ If you see the TezosSDK folder with sub-folders including Editor, Examples, Reso
 
    1. Open a scene in your project or create a scene.
    1. In the Project panel, expand **Assets > TezosSDK > Runtime > Prefabs**.
-   1. From the Prefabs folder in the Project panel, drag the MainThreadExecutor prefab to the Hierarchy panel.
-   1. In the same way, drag the TezosManager prefab to the Hierarchy panel.
+   1. From the Prefabs folder in the Project panel, drag the TezosManager prefab to the Hierarchy panel.
    The TezosManager prefab opens in the Inspector panel.
    1. In the Inspector panel, set the information for your project, including its name and URL.
 
