@@ -83,6 +83,12 @@ const config = {
             label: 'Tutorials',
           },
           {
+            type: 'docSidebar',
+            sidebarId: 'courseSidebar',
+            position: 'left',
+            label: 'Course',
+          },
+          {
             href: 'https://github.com/trilitech/tezos-developer-docs',
             label: 'GitHub',
             position: 'right',
