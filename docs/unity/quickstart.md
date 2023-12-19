@@ -2,7 +2,7 @@
 title: Quickstart
 authors: Tim McMackin
 last_update:
-  date: 11 December 2023
+  date: 19 December 2023
 ---
 
 Follow these steps to install the Tezos SDK for Unity in an existing Unity project and start using it.
@@ -29,7 +29,7 @@ If you want to publish the project to WebGL, follow the steps in [Enabling WebGL
 The WebGL platform allows you to publish Unity projects to run in a web browser.
 Follow these steps to set up the Tezos SDK to work with WebGL:
 
-1. In the Unity Editor, go to the Project panel and find the Tezos SDK for Unity.
+1. In the Unity Editor, go to the Project panel and find the `TezosSDK` folder.
 1. From the `WebGLFrontend/output` folder, copy the `StreamingAssets` and `WebGLTemplates` folders into the `Assets` folder of your project.
 
    Unity creates WebGL template folders for your project.
@@ -43,9 +43,9 @@ Follow these steps to set up the Tezos SDK to work with WebGL:
    1. On the Player tab, go to the **WebGL settings** tab.
    1. Under **Resolution and Presentation**, select the WebGL template to use.
 
-1. To enable copy and paste in the WebGL build, double-click `WebGLCopyAndPaste.unitypackage`, which is in the `TezosSDK/WebGLFrontend/output` folder of the SDK, to install it.
+1. To enable copy and paste in the WebGL build, double-click `WebGLCopyAndPaste.unitypackage`, which is in the `WebGLFrontend/output` folder of the SDK, to install it.
 
-   This package automatically enables copy and paste on selectable text fields, such as the account address field in the _WalletConnection Tutorial scene.
+   This package automatically enables copy and paste on selectable text fields, such as the account address field in the WalletConnection tutorial scene.
 
 ## Connecting to wallets
 
@@ -91,7 +91,7 @@ You can use this event to get the address of the connected account, as in this c
        addressText.text = accountInfo.Address;
    }
 
-   private void OnAccountDisconnected(AccountInfo account_info)
+   private void OnAccountDisconnected(AccountInfo accountInfo)
    {
        addressText.text = "Not Connected";
    }
@@ -102,7 +102,7 @@ You can use this event to get the address of the connected account, as in this c
 1. To respond to other events, add listeners for the events that the SDK provides.
 You can see these events and their return values in the [MessageReceiver object](./reference/MessageReceiver).
 
-Note that if you stop the project while your wallet is connected and restart the project later, the project will remember the wallet's connection status by using the data saved at [Application.persistentDataPath](https://docs.unity3d.com/ScriptReference/Application-persistentDataPath.html)
+Note that if you stop the project while your wallet is connected and restart the project later, the project remembers the wallet's connection status by using the data saved at [Application.persistentDataPath](https://docs.unity3d.com/ScriptReference/Application-persistentDataPath.html)
 The SDK uses the [Beacon](https://docs.walletbeacon.io/) SDK to connect to wallets.
 
 ## Deploying contracts
