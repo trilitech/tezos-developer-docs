@@ -49,7 +49,7 @@ You can use this event to get the address of the connected account, as in this c
    ```csharp
    private void Start()
    {
-       addressText.text = _notConnectedText;
+       addressText.text = "Not Connected";
 
        // Subscribe to events;
        TezosManager.Instance.MessageReceiver.AccountConnected += OnAccountConnected;
@@ -62,16 +62,12 @@ You can use this event to get the address of the connected account, as in this c
        addressText.text = TezosManager.Instance.Wallet.GetActiveAddress();
        // Or from the event data
        addressText.text = accountInfo.Address;
-
-       UpdateLayout(); // Update layout to fit the new text
    }
 
    private void OnAccountDisconnected(AccountInfo account_info)
    {
-       addressText.text = _notConnectedText;
-       UpdateLayout();
+       addressText.text = "Not Connected";
    }
-   ```
 
    You can use this address as a user's account ID because Tezos account addresses are unique.
 
