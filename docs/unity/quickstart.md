@@ -43,7 +43,7 @@ These prefabs provide prerequisites to use Tezos in a scene.
    ![The Inspector panel, showing information about the project](/img/dApps/unity-inspector-tezosmanager.png)
 
 1. Add features to your project to use the connected account.
-For example, the `TezosSDK/Examples/Common/Scripts/AccountInfoUI.cs` file responds to the `AccountConnected` event, which runs when the user scans the QR code and approves the connection in their wallet app.
+For example, the `TezosSDK/Examples/Common/Scripts/AccountInfoUI.cs` file responds to the `AccountConnected` event, which runs when the user scans the QR code and approves the connection in their wallet application.
 You can use this event to get the address of the connected account, as in this code:
 
    ```csharp
