@@ -7,7 +7,7 @@ last_update:
 ---
 
 The SDK includes tutorial scenes that demonstrate how to use the SDK.
-To open the scenes, install the SDK and in the Project panel, expand **TezosSDK > Examples**.
+To open the scenes, install the SDK and in the Project panel, expand **TezosSDK > Tutorials**.
 The examples are in individual folders.
 
 Before using any of the scenes, install a Tezos-compatible wallet on a mobile device that has a camera and can scan QR codes and get some test tez tokens that you can use to pay transaction fees.
