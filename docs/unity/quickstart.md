@@ -209,45 +209,45 @@ This example prints information about the tokens that the account owns to the lo
 
 private void Start()
 {
-	// Subscribe to account connection event
-	TezosManager.Instance.MessageReceiver.AccountConnected += OnAccountConnected;
+    // Subscribe to account connection event
+    TezosManager.Instance.MessageReceiver.AccountConnected += OnAccountConnected;
 }
 
 private void OnAccountConnected(AccountInfo accountInfo)
 {
-	// Address of the connected wallet
-	var address = accountInfo.Address;
+    // Address of the connected wallet
+    var address = accountInfo.Address;
 
-	// Prepare the coroutine to fetch the tokens
-	var routine = TezosManager.Instance.Tezos.API.GetTokensForOwner(
-		OnTokensFetched, // Callback to be called when the tokens are fetched
-		address, true, 10_000, new TokensForOwnerOrder.ByLastTimeAsc(0));
+    // Prepare the coroutine to fetch the tokens
+    var routine = TezosManager.Instance.Tezos.API.GetTokensForOwner(
+        OnTokensFetched, // Callback to be called when the tokens are fetched
+        address, true, 10_000, new TokensForOwnerOrder.ByLastTimeAsc(0));
 
-	StartCoroutine(routine);
+    StartCoroutine(routine);
 }
 
 private void OnTokensFetched(IEnumerable<TokenBalance> tokenBalances)
 {
-	var walletAddress = TezosManager.Instance.Wallet.GetActiveAddress();
-	var contractAddress = TezosManager.Instance.Tezos.TokenContract.Address;
+    var walletAddress = TezosManager.Instance.Wallet.GetActiveAddress();
+    var contractAddress = TezosManager.Instance.Tezos.TokenContract.Address;
 
-	var tokens = new List<TokenBalance>(tokenBalances);
+    var tokens = new List<TokenBalance>(tokenBalances);
 
-	// Filter the tokens by the current contract address
-	var filteredTokens = tokens.Where(tb => tb.TokenContract.Address == contractAddress).ToList();
+    // Filter the tokens by the current contract address
+    var filteredTokens = tokens.Where(tb => tb.TokenContract.Address == contractAddress).ToList();
 
-	if (filteredTokens.Count > 0)
-	{
-		foreach (var tb in filteredTokens)
-		{
-			Debug.Log($"{walletAddress} has {tb.Balance} tokens on contract {tb.TokenContract.Address}");
-			Debug.Log(tb.TokenMetadata);
-		}
-	}
-	else
-	{
-		Debug.Log($"{walletAddress} has no tokens in the active contract");
-	}
+    if (filteredTokens.Count > 0)
+    {
+        foreach (var tb in filteredTokens)
+        {
+            Debug.Log($"{walletAddress} has {tb.Balance} tokens on contract {tb.TokenContract.Address}");
+            Debug.Log(tb.TokenMetadata);
+        }
+    }
+    else
+    {
+        Debug.Log($"{walletAddress} has no tokens in the active contract");
+    }
 }
 ```
 
