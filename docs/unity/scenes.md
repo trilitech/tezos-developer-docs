@@ -1,6 +1,6 @@
 ---
-title: Unity SDK example scenes
-sidebar_label: Example scenes
+title: Unity SDK tutorial scenes
+sidebar_label: Tutorial scenes
 authors: Tim McMackin
 last_update:
   date: 11 December 2023
