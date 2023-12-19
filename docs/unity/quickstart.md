@@ -95,7 +95,6 @@ You can use this event to get the address of the connected account, as in this c
    {
        addressText.text = NOT_CONNECTED_TEXT;
    }
-   ```
 
    You can use this address as a user's account ID because Tezos account addresses are unique.
 
