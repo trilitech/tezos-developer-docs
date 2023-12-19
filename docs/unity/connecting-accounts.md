@@ -24,7 +24,7 @@ Also, provide a prominent disconnect button to allow users to disconnect one acc
 ## The `TezosAuthenticator` prefab
 
 The `TezosAuthenticator` prefab provides the tools that you need to connect to user's Tezos wallets in a Unity project.
-You can copy the `MainThreadExecutor`, `TezosAuthenticator`, and `TezosManager` prefabs to your scene, and the `TezosAuthenticator` prefab automatically adds features that connect to users' wallets.
+You can copy the `TezosAuthenticator` and `TezosManager` prefabs to your scene, and the `TezosAuthenticator` prefab automatically adds features that connect to users' wallets.
 
 ## Connection methods
 
