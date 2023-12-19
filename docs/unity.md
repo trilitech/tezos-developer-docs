@@ -97,7 +97,3 @@ The SDK also uses the [Newtonsoft JSON Unity Package](https://docs.unity3d.com/P
 ## Supported Platforms
 
 The SDK supports Windows, Linux, MacOS, iOS, Android, and WebGL platforms.
-
-:::note More information
-For more information you can read detailed [documentation](https://opentezos.com/gaming/unity-sdk/api-documentation/) on OpenTezos.
-:::
