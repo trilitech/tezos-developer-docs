@@ -205,15 +205,6 @@ To get the tokens that the connected account owns, call the [`API.GetTokensForOw
 This example prints information about the tokens that the account owns to the log:
 
 ```csharp
-using Beacon.Sdk.Beacon;
-using TezosSDK.Beacon;
-using TezosSDK.Tezos;
-using TezosSDK.Helpers;
-using TezosSDK.Tezos.API.Models.Tokens;
-using TezosSDK.Tezos.API.Models.Filters;
-using System.Linq;
-
-// ...
 
 private void Start()
 {
