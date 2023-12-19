@@ -86,7 +86,7 @@ Smart contracts can do many tasks, but for gaming they have two main purposes:
 - They handle tokens, which are digital assets stored on the blockchain
 - They provide backend logic that users can trust because it cannot change
 
-The Contract example scene shows how to deploy a contract from a Unity project.
+The Contract tutorial scene shows how to deploy a contract from a Unity project.
 
 The SDK provides a built-in contract that you can use instead of writing your own.
 This contract manages different kinds of tokens.
@@ -128,10 +128,10 @@ For example, this code creates a token type with a quantity of 100:
 var initialOwner = TezosManager
     .Instance
     .Wallet
-    .GetActiveAddress(); 
+    .GetActiveAddress();
 
 
-// To preview the IPFS-hosted image: 
+// To preview the IPFS-hosted image:
 // https://ipfs.io/ipfs/QmX4t8ikQgjvLdqTtL51v6iVun9tNE7y7Txiw4piGQVNgK
 const string imageAddress = "ipfs://QmX4t8ikQgjvLdqTtL51v6iVun9tNE7y7Txiw4piGQVNgK";
 
@@ -165,7 +165,7 @@ private void OnTokenMinted(TokenBalance tokenBalance)
 }
 ```
 
-For a complete example of creating tokens, see the file `TezosSDK/Examples/Contract/Scripts/MintToken.cs` and the Contract example scene.
+For a complete example of creating tokens, see the file `TezosSDK/Examples/Contract/Scripts/MintToken.cs` and the Contract tutorial scene.
 
 ## Transferring tokens
 
@@ -198,7 +198,7 @@ private void TransferCompleted(string txHash)
 }
 ```
 
-For a complete example, see the Transfer example scene.
+For a complete example, see the Transfer tutorial scene.
 
 ## Getting token balances
 
@@ -303,7 +303,7 @@ private void Start()
 {
     // Subscribe to the wallet event
     TezosManager.Instance.MessageReceiver.PayloadSigned += OnPayloadSigned;
-    
+
     TezosManager.Instance.Wallet.RequestSignPayload(SignPayloadType.micheline, payload);
 }
 
@@ -312,7 +312,7 @@ private void OnPayloadSigned(SignResult obj)
     // Result is true if the message is signed correctly
     // And that it came from the currently-connected wallet
     var result = TezosManager.Instance.Wallet.VerifySignedPayload(SignPayloadType.micheline, payload);
-    
+
     Debug.Log($"Payload verification response: {result}");
 }
 ```
