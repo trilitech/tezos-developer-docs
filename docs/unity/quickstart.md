@@ -75,7 +75,7 @@ You can use this event to get the address of the connected account, as in this c
 You can see these events and their return values in the [MessageReceiver object](./reference/MessageReceiver).
 
 Note that if you stop the project while your wallet is connected and restart the project later, the project will remember the wallet's connection status by using the data saved at [Application.persistentDataPath](https://docs.unity3d.com/ScriptReference/Application-persistentDataPath.html)
-The SDK uses the [Beacon](https://docs.walletbeacon.io/) SDK to connect to wallets and remember connections.
+The SDK uses the [Beacon](https://docs.walletbeacon.io/) SDK to connect to wallets.
 
 ## Deploying contracts
 
