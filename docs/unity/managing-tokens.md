@@ -60,7 +60,7 @@ private void OnTokenMinted(TokenBalance tokenBalance)
 }
 ```
 
-For a complete example of creating tokens, see the file `TezosSDK/Examples/Contract/Scripts/MintToken.cs` and the Contract example scene.
+For a complete example of creating tokens, see the file `TezosSDK/Examples/Contract/Scripts/MintToken.cs` and the Contract tutorial scene.
 
 ## Transferring tokens
 
@@ -93,7 +93,7 @@ private void TransferCompleted(string txHash)
 }
 ```
 
-For a complete example, see the Transfer example scene.
+For a complete example, see the Transfer tutorial scene.
 
 ## Getting token balances
 

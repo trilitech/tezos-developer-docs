@@ -12,7 +12,7 @@ Users still confirm or reject all transactions in their wallet application, so y
 Using a wallet application in this way saves you from having to implement payment processing and security in your application.
 Game developers can also use the wallet and its account as a unique account identifier and as the user's inventory.
 
-For an example of connecting to wallets, see the WalletConnection example scene.
+For an example of connecting to wallets, see the WalletConnection tutorial scene.
 
 ## Best practices
 

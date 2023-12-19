@@ -15,7 +15,7 @@ For more information about contracts, see [Smart contracts](../smart-contracts).
 
 You can create your own smart contracts or use the built-in contract that the SDK provides for managing tokens in Unity projects.
 
-The Contract example scene shows how to deploy a copy of the built-in contract from a Unity project.
+The Contract tutorial scene shows how to deploy a copy of the built-in contract from a Unity project.
 
 ## The built-in contract
 
