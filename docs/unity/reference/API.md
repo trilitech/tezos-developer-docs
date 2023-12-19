@@ -77,9 +77,9 @@ public void RunReadView()
     StartCoroutine(routine);
 }
 
-public void HandleRunReadView(JsonElement view_response)
+public void HandleRunReadView(JsonElement viewResponse)
 {
-    Debug.Log(view_response);
+    Debug.Log(viewResponse);
 }
 ```
 
