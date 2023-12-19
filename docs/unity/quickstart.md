@@ -267,7 +267,7 @@ Blockchain developers use it to store data such as token images and metadata.
 The SDK provides tools to upload to IPFS by using the [Pinata](https://pinata.cloud/) API, but you can set up IPFS upload in other ways.
 
 To use the SDK, see the code in the `Examples/IPFSUpload/Scripts/UIController.cs` file, which handles uploading files in the IPFSUpload scene.
-It has a UI upload button that triggers this method, which uses the built-in Pinata uploader to upload the file and get the IRL for it:
+It has a UI upload button that triggers this method, which uses the built-in Pinata uploader to upload the file and get the URL for it:
 
 ```csharp
 public void HandleUploadClick()
