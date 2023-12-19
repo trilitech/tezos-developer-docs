@@ -1,12 +1,47 @@
-# Decentralized applications (dApps)
+---
+title: Decentralized applications (dApps)
+authors: Benjamin Pilia, Tim McMackin
+last_update:
+  date: 19 December 2023
+---
 
-One of the main features of blockchains is the _decentralization_: each transaction sent is verified by multiple nodes and its validation process does not rely on a single trusted third party.
+One of the main features of blockchains is _decentralization_: each transaction is verified by multiple nodes and its validation process does not rely on a single trusted third party.
 Decentralized applications (dApps or Dapps) take advantage of these features to create applications that are independent, transparent, and trustless.
 
 In general, dApps have two parts:
 
 - An on-chain component that consists of one or more smart contracts
-- An off-chain component that can act as a user interface to simplify interaction with the on-chain component, run off-chain processing, and get information from the outside world
+- An off-chain component that can act as a user interface to simplify interaction with the on-chain component, run off-chain processing, and get information from sources that are not available to the on-chain component
 
 The off-chain component can be nearly any kind of program, including a web application, mobile or desktop app, or command-line interface.
-It relies on wallets to interact with the smart contract on behalf of a user's Tezos account.
+It relies on wallets and tools to interact with the smart contract on behalf of a user's Tezos account.
+
+Some of these tools that allow an off-chain component to interact with smart contracts include:
+
+- [Taquito](./dApps/taquito), an SDK for JavaScript/TypeScript applications
+- The [Tezos SDK for Unity](./dApps/unity), a toolkit for Unity applications
+- [Taqueria](https://taqueria.io/), a development platform for dApps
+
+## Sample dApps
+
+For example dApps, see [Sample dApps](./dApps/samples).
+
+## Best practices
+
+Good programming and design practices make dApps easier to use and provide a better user experience.
+See [Best practices and avoiding flaws](./dApps/best-practices).
+
+## dApp tasks
+
+For information on typical tasks that dApps do, see:
+
+- [Connecting to wallets](./dApps/wallets)
+- [Sending transactions](./dApps/sending-transactions)
+
+## Tutorials
+
+These tutorials cover dApps of different complexities:
+
+- For a simple dApp, see [Build your first app on Tezos](./tutorials/build-your-first-app)
+- For a dApp that mints NFTs, see [Mint NFTs from a web app](./tutorials/create-an-nft/nft-web-app)
+- For a large dApp that allows users to buy and sell NFTs, see [Build an NFT marketplace](./tutorials/build-an-nft-marketplace)
