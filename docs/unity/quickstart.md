@@ -60,10 +60,12 @@ Game developers can also use the wallet and its account as a unique account iden
 These prefabs provide prerequisites to use Tezos in a scene.
 
    The `TezosAuthenticator` prefab automatically adds features that connect to users' wallets.
-   If you copy these prefabs into your scene and run it, it shows a QR code that Tezos wallet applications can scan to connect with the application.
+   If you copy these prefabs into your scene and run it, it shows a QR code or connection buttons that Tezos wallet applications can scan to connect with the application.
+   Whether it shows the QR code or buttons depends on whether the project is running in standalone, mobile, or WebGL mode.
    You can access these features through the prefab and change how the project manages its connection to users' wallets.
 
-   The `TezosManager` fields control what users see in their wallet applications before connecting to the project, as shown in this picture of the Inspector panel:
+   The `TezosManager` prefab sets up and initializes the Tezos SDK for use in the scene.
+   Its fields control what users see in their wallet applications before connecting to the project, as shown in this picture of the Inspector panel:
 
    ![The Inspector panel, showing information about the project](/img/dApps/unity-inspector-tezosmanager.png)
 
