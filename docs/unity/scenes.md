@@ -104,7 +104,7 @@ For example, this is what the transaction looks like in the Temple wallet:
 
 When the contract is deployed, the project updates to show the address of the contract, which starts with `KT1`.
 You can get the address by opening the Scene panel, selecting the Address object in the Hierarchy panel, and copying the address from the Inspector panel.
-To see information about the deployed contract, copy this address and put it into a block explorer such as [Better Call Dev](https://better-call.dev/).
+To see information about the deployed contract, copy this address and put it into a block explorer such as [Better Call Dev](https://better-call.dev/) or [tzkt.io](https://tzkt.io/).
 
 The block explorer shows information about the contract, including recent transactions, its source code, and the tokens it controls and their owners.
 Currently, the block explorer shows only the origination transaction, which deployed the contract:
