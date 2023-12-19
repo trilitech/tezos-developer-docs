@@ -8,354 +8,129 @@ last_update:
 This quickstart shows you how to get started with a simple dApp that calls an existing smart contract on the Tezos blockchain.
 It uses the [Svelte](https://svelte.dev/) framework and JavaScript, but you can use any JavaScript/TypeScript framework and get similar results.
 
+For a full walkthrough of creating this dApp, see the tutorial [Build your first app on Tezos](../tutorials/build-your-first-app).
+The following instructions are for setting up the application with minimal explanation.
+
 ## Prerequisites
 
-To follow this quickstart, you need [Node.JS and NPM](https://nodejs.org/) installed.
+To follow this quickstart, you need [Git](https://github.com/) to download a sample application and [Node.JS and NPM](https://nodejs.org/) to install its dependencies and run it.
 
 You also need a Tezos wallet in a web browser extension, such as the [Temple wallet](https://templewallet.com/), and some test tez to pay transaction fees.
 See [Installing and funding a wallet](../developing/wallet-setup).
 
-## Setting up the web application
+## Setting up the sample dApp
 
-Run these steps to set up a simple web application:
+The sample dApp is provided in the repository https://github.com/trilitech/tutorial-applications, so all you need to do is to clone it, install its dependencies, and start it:
 
-1. In a terminal window, run these commands to start a Svelte application:
+1. Clone the repository by running this command:
 
    ```bash
-   npm create vite@latest quickstartApp -- --template svelte
-   cd quickstartApp
+   git clone https://github.com/trilitech/tutorial-applications
+   ```
+
+1. Go to the folder with the application:
+
+   ```bash
+   cd bank-tutorial
+   ```
+
+1. Install the dependencies:
+
+   ```bash
    npm install
    ```
 
-1. Install the Tezos-related dependencies:
-
-   ```bash
-   npm install @taquito/taquito @taquito/beacon-wallet @airgap/beacon-types
-   ```
-
-1. Install the `buffer`, `events`, and `vite-compatible-readable-stream` libraries:
-
-   ```bash
-   npm install --save-dev buffer events vite-compatible-readable-stream
-   ```
-
-1. Update the `vite.config.js` file to the following code:
-
-   ```javascript
-   import { defineConfig, mergeConfig } from "vite";
-   import path from "path";
-   import { svelte } from "@sveltejs/vite-plugin-svelte";
-
-   export default ({ command }) => {
-     const isBuild = command === "build";
-
-     return defineConfig({
-       plugins: [svelte()],
-         define: {
-           global: {}
-         },
-       build: {
-         target: "esnext",
-         commonjsOptions: {
-           transformMixedEsModules: true
-         }
-       },
-       server: {
-         port: 4000
-       },
-       resolve: {
-         alias: {
-           "@airgap/beacon-types": path.resolve(
-             path.resolve(),
-             `./node_modules/@airgap/beacon-types/dist/${
-             isBuild ? "esm" : "cjs"
-             }/index.js`
-           ),
-           // polyfills
-           "readable-stream": "vite-compatible-readable-stream",
-           stream: "vite-compatible-readable-stream"
-         }
-       }
-     });
-   };
-   ```
-
-1. Update the default HTML file `index.html` to the following code:
-
-   ```html
-   <!DOCTYPE html>
-   <html lang="en">
-     <head>
-       <meta charset="UTF-8" />
-       <link rel="icon" href="/favicon.ico" />
-       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-       <script>
-         const global = globalThis;
-       </script>
-       <script type="module">
-         import { Buffer } from "buffer";
-         window.Buffer = Buffer;
-       </script>
-       <title>My quickstart dApp</title>
-     </head>
-     <body>
-       <script type="module" src="/src/main.js"></script>
-     </body>
-   </html>
-   ```
-
-1. Replace the `src/main.js` file with this code:
-
-   ```javascript
-   import './app.css'
-   import App from './App.svelte'
-
-   const app = new App({
-     target: document.body,
-   })
-
-   export default app
-   ```
-
-1. Replace the default `src/App.svelte` file with this code:
-
-   ```html
-   <script>
-   </script>
-
-   <main>
-   </main>
-
-   <style>
-   </style>
-   ```
-
-You will add code to connect to the user's wallet in the next section.
-
-## Connecting to the user's wallet
-
-dApps use wallets to interact with user accounts.
-You can use the Beacon SDK to connect to wallets and handle transaction approvals, so your application never needs to store account information, passwords, or keys.
-
-Follow these steps to allow wallets to connect to your application:
-
-1. In the `src/App.svelte` file, add these imports to the `<script>` section:
-
-   ```javascript
-   import { BeaconWallet } from "@taquito/beacon-wallet";
-   import { NetworkType } from "@airgap/beacon-types";
-   ```
-
-1. After these imports, create variables to represent the wallet itself and its address:
-
-   ```javascript
-   let wallet;
-   let address;
-   ```
-
-1. Still within the `<script>` section, add this function to connect to the user's wallet:
-
-   ```javascript
-   const connectWallet = async () => {
-     const newWallet = new BeaconWallet({
-       name: "dApp quickstart",
-       network: {
-        type: NetworkType.GHOSTNET,
-      },
-     });
-     await newWallet.requestPermissions();
-     address = await newWallet.getPKH();
-     wallet = newWallet;
-   };
-   ```
-
-1. Add this function to disconnect from the user's wallet:
-
-   ```javascript
-   const disconnectWallet = () => {
-     wallet.client.clearActiveAccount();
-     wallet = undefined;
-   };
-   ```
-
-1. Update the `main` section to have this code:
-
-   ```html
-   <h1>Tezos dApp quickstart</h1>
-
-   <div class="card">
-      {#if wallet}
-       <p>The address of the connected wallet is {address}.</p>
-       <p>
-         <button on:click={disconnectWallet}> Disconnect wallet </button>
-       </p>
-      {:else}
-       <button on:click={connectWallet}> Connect wallet </button>
-      {/if}
-   </div>
-   ```
-
-1. Run this command to start the application:
+1. Start the application:
 
    ```bash
    npm run dev
    ```
 
-1. Open a web browser to http://localhost:4000.
+The application starts and you can see it in a web browser at http://localhost:4000.
 
-1. Click the "Connect wallet" button and follow the prompts in your wallet to connect to the dApp.
+## Using the dApp
 
-After your wallet connects, the dApp shows your account address, as in this picture:
+The running application looks like this:
 
-![The quickstart dApp, showing the account address and the disconnect button](/img/dApps/quickstart-connected.wallet.png)
+![Completed bank application, showing information about the user's wallet and buttons to deposit or withdraw tez](/img/tutorials/bank-app-complete.png)
 
-Now your dApp can connect to users' Tezos wallets.
-In the next section, you will add the ability for a user to send a transaction to Tezos.
+The application connects to a user's cryptocurrency wallet and shows the balance of that wallet in Tezos's native currency, which is referred to as tez, by the ticker symbol XTZ, or the symbol ꜩ.
+It provides an input field and slider for the user to select an amount of tez to deposit and a button to send the deposit transaction to the smart contract by calling its `deposit` entrypoint.
+It also provides a button to withdraw the amount from the smart contract by calling its `withdraw` entrypoint.
 
-## Sending transactions to Tezos
+In this way, the application demonstrates how to do these basic dApp tasks:
 
-dApps use smart contracts on Tezos as backend logic, to manage tokens, store data, and to handle account information.
-This quickstart uses a simple smart contract that stores an integer and lets users increment or decrement it.
-Therefore, the dApp needs a number field for the amount to increment or decrement and buttons to send the increment or decrement transaction.
+- Connecting to users' wallets
 
-1. Under the disconnect wallet button, add this code to add the number field and buttons:
+  The dApp uses the Beacon SDK to connect to wallets, which allows the application to get information about the user's account and to prompt them to approve Tezos transactions.
+  You can see this code in the `src/App.svelte` file, in the `connectWallet` function:
 
-   ```html
-   <p>
-     <input type="number" bind:value={number} />
-     <button on:click={increment}> Increment counter </button>
-     <button on:click={decrement}> Decrement counter </button>
-   </p>
-   ```
+  ```javascript
+  const connectWallet = async () => {
+    const newWallet = new BeaconWallet({
+      name: "Simple dApp tutorial",
+      network: {
+        type: NetworkType.GHOSTNET,
+      },
+    });
+    await newWallet.requestPermissions();
+    address = await newWallet.getPKH();
+    await getWalletBalance(address);
+    await getBankBalance(address);
+    wallet = newWallet;
+    depositButtonActive = true;
+  };
+  ```
 
-1. In the `<script>` section, add a variable to represent the value of the number field:
+  Note that your application does not need to store any passwords, keys, or secrets; all security is handled by the wallet.
 
-   ```javascript
-   let number;
-   ```
+- Sending transactions to Tezos
 
-1. Add the address of the contract as a constant:
+  A Tezos transaction is a call to a smart contract entrypoint.
+  It optionally includes parameters and tez.
+  The `deposit` and `withdraw` functions call the entrypoints of the same names.
+  For example, the `deposit` function creates objects that represent the contract and the parameters for the transaction.
+  Then it estimates the fees for the transaction, sends the transaction to the user's wallet for approval, and waits for the transaction to be confirmed on Tezos.
 
-   ```javascript
-   const contractAddress = "KT18ikZ2PYNs4AaMw2jdD911Y2KqT1nsTQE8";
-   ```
+  ```javascript
+    const deposit = async () => {
+    depositButtonActive = false;
+    depositButtonLabel = "Depositing...";
 
-   This contract is pre-deployed for your use in the quickstart.
-   Later you can deploy your own contracts.
+    Tezos.setWalletProvider(wallet);
+    const contract = await Tezos.wallet.at(contractAddress);
+    const transactionParams = await contract.methods
+      .deposit()
+      .toTransferParams({
+        amount: depositAmount,
+      });
+    const estimate = await Tezos.estimate.transfer(transactionParams);
 
-1. Add an import for the Taquito SDK, which sends transactions to Tezos, and initialize it:
+    const operation = await Tezos.wallet
+      .transfer({
+        ...transactionParams,
+        ...estimate,
+      })
+      .send();
 
-   ```javascript
-   import { TezosToolkit } from "@taquito/taquito";
+    console.log(`Waiting for ${operation.opHash} to be confirmed...`);
 
-   const rpcUrl = "https://ghostnet.ecadinfra.com";
-   const Tezos = new TezosToolkit(rpcUrl);
-   ```
+    await operation.confirmation(2);
 
-1. Add functions to call the increment and decrement transactions:
+    console.log(
+      `Operation injected: https://ghost.tzstats.com/${operation.opHash}`
+    );
 
-   ```javascript
-   const increment = async () => {
-     Tezos.setWalletProvider(wallet);
-     const contract = await Tezos.wallet.at(contractAddress);
-     const operation = await contract.methods.increment(number).send();
-     const operationHash = await operation.confirmation(2);
-     console.log(operationHash);
-   }
+    await getWalletBalance(address);
+    await getBankBalance(address);
+    depositButtonActive = true;
+    depositButtonLabel = "Deposit";
+  };
+  ```
 
-   const decrement = async () => {
-     Tezos.setWalletProvider(wallet);
-     const contract = await Tezos.wallet.at(contractAddress);
-     const operation = await contract.methods.decrement(number).send();
-     const operationHash = await operation.confirmation(2);
-     console.log(operationHash);
-   }
-   ```
-
-   The complete `App.svelte` file looks like this:
-
-   ```javascript
-   <script>
-     import { BeaconWallet } from "@taquito/beacon-wallet";
-     import { NetworkType } from "@airgap/beacon-types";
-     import { TezosToolkit } from "@taquito/taquito";
-
-     let wallet;
-     let address;
-     let number;
-
-     const contractAddress = "KT18ikZ2PYNs4AaMw2jdD911Y2KqT1nsTQE8";
-
-     const connectWallet = async () => {
-       const newWallet = new BeaconWallet({
-         name: "dApp quickstart",
-         network: {
-           type: NetworkType.GHOSTNET,
-         },
-       });
-       await newWallet.requestPermissions();
-       address = await newWallet.getPKH();
-       wallet = newWallet;
-     };
-
-     const disconnectWallet = () => {
-       wallet.client.clearActiveAccount();
-       wallet = undefined;
-     };
-
-     const rpcUrl = "https://ghostnet.ecadinfra.com";
-     const Tezos = new TezosToolkit(rpcUrl);
-
-     const increment = async () => {
-       Tezos.setWalletProvider(wallet);
-       const contract = await Tezos.wallet.at(contractAddress);
-       const operation = await contract.methods.increment(number).send();
-       const operationHash = await operation.confirmation(2);
-       console.log(operationHash);
-     }
-
-     const decrement = async () => {
-       Tezos.setWalletProvider(wallet);
-       const contract = await Tezos.wallet.at(contractAddress);
-       const operation = await contract.methods.decrement(number).send();
-       const operationHash = await operation.confirmation(2);
-       console.log(operationHash);
-     }
-   </script>
-
-   <main>
-     <h1>Tezos dApp quickstart</h1>
-
-     <div class="card">
-       {#if wallet}
-         <p>The address of the connected wallet is {address}.</p>
-         <p>
-           <button on:click={disconnectWallet}> Disconnect wallet </button>
-         </p>
-         <p>
-           <input type="number" bind:value={number} />
-           <button on:click={increment}> Increment counter </button>
-           <button on:click={decrement}> Decrement counter </button>
-         </p>
-       {:else}
-         <button on:click={connectWallet}> Connect wallet </button>
-       {/if}
-     </div>
-   </main>
-
-   <style>
-   </style>
-   ```
-
-
-
-
-
-Mention Beacon, diagram about key custody, dapp is never concerned about keys
-
-
+  You can adapt this code to call any smart contract entrypoints.
 
 ## Next steps
 
-Now that you have an application that can call a smart contract, you can deploy your own smart contracts to use with your dApps.
+Now that you have an application that can call a smart contract, you can call other contracts or deploy your own smart contracts to use with your dApps.
 See the tutorial [Deploy a smart contract](../tutorials/smart-contract) to learn how to write a smart contract or the tutorial [Build your first app on Tezos](../tutorials/build-your-first-app) to learn more about writing dApps.
