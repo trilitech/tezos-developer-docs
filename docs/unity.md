@@ -58,7 +58,7 @@ Follow these steps to set up the Tezos SDK to work with WebGL:
    1. On the Player tab, go to the **WebGL settings** tab.
    1. Under **Resolution and Presentation**, select the WebGL template to use.
 
-1. To enable copy and paste in the WebGL build, double-click the `WebGLCopyAndPaste.unitypackage` package, which is in the `TezosSDK/WebGLFrontend/output` folder of the SDK, to install it.
+1. To enable copy and paste in the WebGL build, double-click `WebGLCopyAndPaste.unitypackage`, which is in the `TezosSDK/WebGLFrontend/output` folder of the SDK, to install it.
 
    This package includes the script `WebGLCopyAndPaste.cs` alongside with `StreamingAssets` and `WebGLTemplates` folders inside your project Assets directory.
    It automatically enables copy and paste on selectable text fields, such as the account address field in the _WalletConnection example scene.
