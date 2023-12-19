@@ -6,7 +6,7 @@ last_update:
   date: 11 December 2023
 ---
 
-The SDK includes sample scenes that demonstrate how to use the SDK.
+The SDK includes tutorial scenes that demonstrate how to use the SDK.
 To open the scenes, install the SDK and in the Project panel, expand **TezosSDK > Examples**.
 The examples are in individual folders.
 
