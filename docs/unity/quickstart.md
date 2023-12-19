@@ -307,17 +307,20 @@ using Beacon.Sdk.Beacon.Sign;
 
 string payload = "This message came from my account.";
 
-void Start()
+private void Start()
 {
+    // Subscribe to the wallet event
     TezosManager.Instance.MessageReceiver.PayloadSigned += OnPayloadSigned;
+    
     TezosManager.Instance.Wallet.RequestSignPayload(SignPayloadType.micheline, payload);
 }
 
 private void OnPayloadSigned(SignResult obj)
 {
-    // result is true if the message is signed correctly
-    // and that it came from the currently-connected account
+    // Result is true if the message is signed correctly
+    // And that it came from the currently-connected wallet
     var result = TezosManager.Instance.Wallet.VerifySignedPayload(SignPayloadType.micheline, payload);
+    
     Debug.Log($"Payload verification response: {result}");
 }
 ```
