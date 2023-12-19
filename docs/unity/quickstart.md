@@ -19,7 +19,7 @@ These instructions cover:
 
 To install the SDK, follow the instructions at https://github.com/trilitech/tezos-unity-sdk.
 
-To work with the SDK, you also need a Tezos-compatible wallet on a mobile device that has a camera and can scan QR codes and to configure the wallet for the Ghostnet testnet.
+To work with the SDK, ensure you have a Tezos-compatible wallet configured for the Ghostnet testnet on your mobile device
 For instructions, see [Installing and funding a wallet](../developing/wallet-setup).
 
 ## Connecting to wallets
