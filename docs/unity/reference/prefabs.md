@@ -8,10 +8,6 @@ last_update:
 
 The Tezos SDK for Unity provides these prefabs:
 
-## MainThreadExecutor
-
-This prefab provides prerequisites for using the SDK in a scene.
-
 ## TezosAuthenticator
 
 This prefab provides code to connect to different kinds of Tezos wallets.
