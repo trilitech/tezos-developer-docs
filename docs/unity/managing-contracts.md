@@ -78,10 +78,6 @@ To call the contract's other entrypoints, use the [`Wallet.CallContract()`](./re
 For example, to call the contract's `set_administrator` entrypoint to set a new administrator account, use this code:
 
 ```csharp
-using Netezos.Encoding;
-
-// ...
-
 TezosManager.Instance.Tezos.Wallet.CallContract(
     contractAddress: TezosManager.Instance.Tezos.TokenContract.Address,
     entryPoint: "set_administrator",
@@ -94,10 +90,6 @@ For information about the entrypoints in the built-in contract, see [Unity SDK T
 You can call any other contract by using its address, entrypoint name, and parameter value, as in this example:
 
 ```csharp
-using Netezos.Encoding;
-
-// ...
-
 TezosManager.Instance.Tezos.Wallet.CallContract(
     contractAddress: address,
     entryPoint: entryPointName,
@@ -118,10 +110,6 @@ When you call contract entrypoints or views with `Wallet.CallContract()` or `Wal
 For example, if an entrypoint accepts two integers and one string as parameters, you must pass a list of two `Netezos.Encoding.MichelineInt` values and one `Netezos.Encoding.MichelineString` value:
 
 ```csharp
-using Netezos.Encoding;
-
-// ...
-
 var input = new MichelinePrim
 {
     Prim = PrimType.Pair,
