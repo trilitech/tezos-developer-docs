@@ -25,7 +25,8 @@ In the `SetPlatformFlags` function, it checks what platform it is running on:
 ```csharp
 private void SetPlatformFlags()
 {
-    _isMobile = Application.platform == RuntimePlatform.IPhonePlayer || Application.platform == RuntimePlatform.Android;
+    _isMobile = Application.platform == RuntimePlatform.IPhonePlayer || 
+                        Application.platform == RuntimePlatform.Android;
     _isWebGL = Application.platform == RuntimePlatform.WebGLPlayer;
 
     // ...
