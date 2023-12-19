@@ -123,13 +123,18 @@ To create a token type, call the contract's `mint` entrypoint and pass these par
 For example, this code creates a token type with a quantity of 100:
 
 ```csharp
+// Get the address of the connected wallet
 var initialOwner = TezosManager
     .Instance
     .Wallet
-    .GetActiveAddress();
+    .GetActiveAddress(); 
 
+
+// To preview the IPFS-hosted image: 
+// https://ipfs.io/ipfs/QmX4t8ikQgjvLdqTtL51v6iVun9tNE7y7Txiw4piGQVNgK
 const string imageAddress = "ipfs://QmX4t8ikQgjvLdqTtL51v6iVun9tNE7y7Txiw4piGQVNgK";
 
+// Prepare metadata
 var tokenMetadata = new TokenMetadata
 {
     Name = "My token",
@@ -141,6 +146,7 @@ var tokenMetadata = new TokenMetadata
     ThumbnailUri = imageAddress
 };
 
+// Call the "mint" entrypoint of the contract
 TezosManager
     .Instance
     .Tezos
@@ -151,6 +157,7 @@ TezosManager
         destination: initialOwner,
         amount: 100);
 
+// This callback is triggered after the contract call successfully completes and the resulting transaction is recorded on the blockchain.
 private void OnTokenMinted(TokenBalance tokenBalance)
 {
     Debug.Log($"Successfully minted token with Token ID {tokenBalance.TokenId}");
