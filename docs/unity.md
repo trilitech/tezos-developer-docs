@@ -33,7 +33,7 @@ If you see the TezosSDK folder with sub-folders including Editor, Examples, Reso
    The TezosManager prefab opens in the Inspector panel.
    1. In the Inspector panel, set the information for your project, including its name and URL.
 
-      This prefab provides prerequisites to use Tezos in a scene.
+      This prefab sets up and initialises the Tezos SDK for use in the scene.
       Its fields control what users see in their wallet applications before connecting to the project.
 
    1. If you want to publish the project to WebGL, follow the steps in [Enabling WebGL support](#enabling-webgl-support).
