@@ -48,7 +48,7 @@ Follow these steps to set up the Tezos SDK to work with WebGL:
 1. From the `WebGLFrontend/output` folder, copy the `StreamingAssets` and `WebGLTemplates` folders into the `Assets` folder of your project.
 
    Unity creates WebGL template folders for your project.
-   Each template is a subfolder within the `WebGLTemplates` folder.
+   Each template is contained as a subfolder within the `WebGLTemplates` folder.
    Each template subfolder contains an `index.html` file along with any other resources the page needs, such as images or stylesheets.
 
 1. Select the template to use in the WebGL build:
