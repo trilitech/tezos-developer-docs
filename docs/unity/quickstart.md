@@ -293,10 +293,6 @@ For example, this code prompts the user to sign the message "This message came f
 Then, the callback verifies that the signature is valid and that it came from the user's account:
 
 ```csharp
-using Beacon.Sdk.Beacon.Sign;
-
-// ...
-
 string payload = "This message came from my account.";
 
 private void Start()

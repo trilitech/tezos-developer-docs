@@ -87,8 +87,6 @@ Signing a message proves that it came from a specific user's wallet because the 
 For example, this code prompts the user to sign the message "This message came from my account."
 
 ```csharp
-using Beacon.Sdk.Beacon.Sign;
-
 string payload = "This message came from my account.";
 
 TezosManager.Instance.MessageReceiver.PayloadSigned += OnPayloadSigned;
