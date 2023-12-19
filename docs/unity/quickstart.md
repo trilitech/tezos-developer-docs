@@ -22,6 +22,31 @@ To install the SDK, follow the instructions at https://github.com/trilitech/tezo
 To work with the SDK, ensure that you have a Tezos-compatible wallet configured for the Ghostnet testnet on your mobile device.
 For instructions, see [Installing and funding a wallet](../developing/wallet-setup).
 
+If you want to publish the project to WebGL, follow the steps in [Enabling WebGL support](#enabling-webgl-support).
+
+## Enabling WebGL support
+
+The WebGL platform allows you to publish Unity projects to run in a web browser.
+Follow these steps to set up the Tezos SDK to work with WebGL:
+
+1. In the Unity Editor, go to the Project panel and find the Tezos SDK for Unity.
+1. From the `WebGLFrontend/output` folder, copy the `StreamingAssets` and `WebGLTemplates` folders into the `Assets` folder of your project.
+
+   Unity creates WebGL template folders for your project.
+   Each template is contained as a subfolder within the `WebGLTemplates` folder.
+   Each template subfolder contains an `index.html` file along with any other resources the page needs, such as images or stylesheets.
+
+1. Select the template to use in the WebGL build:
+
+   1. Click **Edit > Project Settings**.
+   1. Go to the **Player** tab.
+   1. On the Player tab, go to the **WebGL settings** tab.
+   1. Under **Resolution and Presentation**, select the WebGL template to use.
+
+1. To enable copy and paste in the WebGL build, double-click `WebGLCopyAndPaste.unitypackage`, which is in the `TezosSDK/WebGLFrontend/output` folder of the SDK, to install it.
+
+   This package automatically enables copy and paste on selectable text fields, such as the account address field in the _WalletConnection Tutorial scene.
+
 ## Connecting to wallets
 
 Connecting to a user's wallet is a prerequisite to working with Tezos in any application.
