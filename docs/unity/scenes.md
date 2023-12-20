@@ -3,29 +3,29 @@ title: Unity SDK tutorial scenes
 sidebar_label: Tutorial scenes
 authors: Tim McMackin
 last_update:
-  date: 11 December 2023
+  date: 20 December 2023
 ---
 
 The SDK includes tutorial scenes that demonstrate how to use the SDK.
 To open the scenes, install the SDK and in the Project panel, expand **TezosSDK > Tutorials**.
 The tutorials are in individual folders.
 
-Before using any of the scenes, install a Tezos-compatible wallet on a mobile device that has a camera and can scan QR codes and get some test tez tokens that you can use to pay transaction fees.
+Before using any of the scenes, install a Tezos-compatible wallet on a mobile device and get some test tez tokens that you can use to pay transaction fees.
 For instructions, see [Installing and funding a wallet](./developing/wallet-setup).
 
 ## WalletConnection scene
 
-This scene shows how to connect to a user's wallet and get information about their account.
+This scene shows how to to use the TezosAuthenticator prefab to connect to a user's wallet and get information about their account.
 
 <img src="/img/dApps/unity-walletconnection-scene-unconnected.png" alt="The start of the WalletConnection scene, with no account information" style={{width: 300}} />
 
 The scene uses the platform type to determine how to connect to a user's wallet.
-In the `SetPlatformFlags` function, it checks what platform it is running on:
+In the TezosAuthenticator `SetPlatformFlags` function, it checks what platform it is running on:
 
 ```csharp
 private void SetPlatformFlags()
 {
-    _isMobile = Application.platform == RuntimePlatform.IPhonePlayer || 
+    _isMobile = Application.platform == RuntimePlatform.IPhonePlayer ||
                         Application.platform == RuntimePlatform.Android;
     _isWebGL = Application.platform == RuntimePlatform.WebGLPlayer;
 
@@ -79,20 +79,7 @@ When you click "Deploy Contract," your connected wallet prompts you to confirm t
 Because you are connected to the test network, these are worthless testnet tokens and not real currency.
 This process can take some time.
 
-The scene runs the `HandleDeploy` function in the `TezosSDK/Examples/Contract/Scripts/DeployContract.cs` file, which calls the [`TokenContract.Deploy`](./reference/TokenContract#deploy) method to deploy the contract to Tezos:
-
-```csharp
-public void HandleDeploy()
-{
-    TezosManager.Instance.Tezos.TokenContract.Deploy(OnContractDeployed);
-}
-
-private void OnContractDeployed(string contractAddress)
-{
-    contractAddressText.text = contractAddress;
-    tokensCountText.text = "0";
-}
-```
+The scene calls the [`TokenContract.Deploy()`](./reference/TokenContract#deploy) method to deploy the contract to Tezos.
 
 When you confirm the transaction in the wallet app, you must wait for the contract to be deployed on Tezos.
 The log in the Console panel shows a message that looks like `Received operation with hash oopFjLYGTbZTEFsTh4p1YPnHR1Up1SNnvE5xk2SRaGH6PZ4ry56`, which is the address of the Tezos operation that deployed the contract.
@@ -103,7 +90,7 @@ For example, this is what the transaction looks like in the Temple wallet:
 <img src="/img/dApps/unity-contract-scene-origination-temple.png" alt="Approving the contract deployment transaction in the wallet app" style={{width: 300}} />
 
 When the contract is deployed, the project updates to show the address of the contract, which starts with `KT1`.
-You can get the address by opening the Scene panel, selecting the Address object in the Hierarchy panel, and copying the address from the Inspector panel.
+The project remembers the contract if you reload the scene later.
 To see information about the deployed contract, copy this address and put it into a block explorer such as [Better Call Dev](https://better-call.dev/) or [tzkt.io](https://tzkt.io/).
 
 The block explorer shows information about the contract, including recent transactions, its source code, and the tokens it controls and their owners.
@@ -126,42 +113,16 @@ Because the contract follows the FA2 standard for tokens, the block explorer als
 
 The tokens that this scene creates have randomly generated metadata.
 To change the metadata, open the `TezosSDK/Examples/Contract/Scripts/MintToken.cs` file.
-The file's `HandleMint` function creates the token by generating random numbers, creating a metadata object for the token, and using the `TokenContract.Mint` method to send the mint transaction to the contract:
+The file's `HandleMint` function creates the token by generating random numbers, creating a metadata object for the token, and using the [`TokenContract.Mint()`](./reference/TokenContract#mint) method to send the mint transaction to the contract:
 
 ```csharp
 public void HandleMint()
 {
-    var rnd = new Random();
-    var randomInt = rnd.Next(1, int.MaxValue);
-    var randomAmount = rnd.Next(1, 1024);
+    var tokenMetadata = CreateRandomTokenMetadata();
+    var destinationAddress = TezosManager.Instance.Wallet.GetActiveAddress();
+    var randomAmount = new Random().Next(1, 1024);
 
-    var destinationAddress = TezosManager
-        .Instance
-        .Wallet
-        .GetActiveAddress();
-
-    const string imageAddress = "ipfs://QmX4t8ikQgjvLdqTtL51v6iVun9tNE7y7Txiw4piGQVNgK";
-
-    var tokenMetadata = new TokenMetadata
-    {
-        Name = $"testName_{randomInt}",
-        Description = $"testDescription_{randomInt}",
-        Symbol = $"TST_{randomInt}",
-        Decimals = "0",
-        DisplayUri = imageAddress,
-        ArtifactUri = imageAddress,
-        ThumbnailUri = imageAddress
-    };
-
-    TezosManager
-        .Instance
-        .Tezos
-        .TokenContract
-        .Mint(
-            completedCallback: OnTokenMinted,
-            tokenMetadata: tokenMetadata,
-            destination: destinationAddress,
-            amount: randomAmount);
+    TezosManager.Instance.Tezos.TokenContract.Mint(OnTokenMinted, tokenMetadata, destinationAddress, randomAmount);
 }
 ```
 
@@ -189,6 +150,23 @@ For example, in [Better Call Dev](https://better-call.dev/), go to the Storage t
 For example, this entry shows that the account that ends in `2zD` owns 9 of the token with the ID 1:
 
 <img src="/img/dApps/unity-transfer-scene-block-explorer-token-ownership.png" alt="The block explorer's Storage tab, showing the account address and the quantity of a token it owns" style={{width: 500}} />
+
+The transfer tutorial scene uses the [`TokenContract.Transfer()`](./reference/TokenContract#transfer) method to transfer the token:
+
+```csharp
+public void HandleTransfer()
+{
+    TezosManager
+        .Instance
+        .Tezos
+        .TokenContract
+        .Transfer(
+            completedCallback: TransferCompleted,
+            destination: address.text,
+            tokenId: int.Parse(id.text),
+            amount: int.Parse(amount.text));
+}
+```
 
 This ledger of token ownership is stored in a big-map data type, which is serialized on Tezos to save space.
 
