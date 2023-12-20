@@ -68,7 +68,7 @@ PlayerPrefs.SetString("CurrentContract:" + Tezos.Wallet.GetActiveAddress(), cont
 
 Then during SDK initialization, the SDK saves the address to the [`TokenContract.Address`](./reference/TokenContract) property.
 
-To retrieve the address of contracts that you haven't deployed through the project, you can use the [`API.GetOriginatedContractsForOwner()`](./reference/API#getoriginatedcontractsforowner) method or use another way of getting the contract address.
+To retrieve the address of contracts that you haven't deployed through the project, you can use the [`API.GetOriginatedContractsForOwner()`](./reference/API#getoriginatedcontractsforowner) method.
 
 ## Calling contracts
 
@@ -106,7 +106,7 @@ To get the hash of the transaction, use the `ContractCallCompleted` event.
 
 ## Encoding parameters
 
-When you call contract entrypoints or views with `Wallet.CallContract()` or `Wallet.ReadView()`, you must encode the parameter as a Micheline value.
+When you call contract entrypoints or views with the `Wallet.CallContract()` or `Wallet.ReadView()` methods, you must encode the parameter as a Micheline value.
 For example, if an entrypoint accepts two integers and one string as parameters, you must pass a list of two `Netezos.Encoding.MichelineInt` values and one `Netezos.Encoding.MichelineString` value:
 
 ```csharp
