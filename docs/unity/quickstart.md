@@ -53,20 +53,15 @@ Using a wallet application in this way saves you from having to implement paymen
 Game developers can also use the wallet and its account as a unique account identifier and as the user's inventory.
 
 1. Copy the `TezosAuthenticator` and `TezosManager` prefabs to your scene.
-These prefabs provide prerequisites to use Tezos in a scene.
+These prefabs provide prerequisites to use Tezos in a scene and help connect to accounts.
+For more information about them, see [Prefabs](./prefabs).
 
    The `TezosAuthenticator` prefab automatically adds features that connect to users' wallets.
    If you copy these prefabs into your scene and run it, it shows a QR code or connection buttons that Tezos wallet applications can scan to connect with the application.
    Whether it shows the QR code or buttons depends on whether the project is running in standalone, mobile, or WebGL mode.
-   You can access these features through the prefab and change how the project manages its connection to users' wallets.
-
-   The `TezosManager` prefab sets up and initializes the Tezos SDK for use in the scene.
-   Its fields control what users see in their wallet applications before connecting to the project, as shown in this picture of the Inspector panel:
-
-   ![The Inspector panel, showing information about the project](/img/unity/unity-inspector-tezosmanager.png)
 
 1. Add features to your project to use the connected account.
-For example, the `TezosSDK/Examples/Common/Scripts/AccountInfoUI.cs` file responds to the `AccountConnected` event, which runs when the user scans the QR code and approves the connection in their wallet application.
+For example, the `TezosSDK/Examples/Common/Scripts/AccountInfoUI.cs` file responds to the `AccountConnected` event, which runs when the user approves the connection in their wallet application.
 You can use this event to get the address of the connected account, as in this code:
 
    ```csharp
