@@ -331,4 +331,17 @@ private void OnPayloadSigned(SignResult obj)
 }
 ```
 
-For more examples of how to work with the SDK, see the scenes in the `TezosSDK/Examples` folder.
+## Changing the RPC node
+
+As described in [The RPC protocol](../architecture/rpc), Tezos clients including the Unity SDK send transactions to RPC nodes.
+By default, the SDK sends requests to a public RPC node that uses the Ghostnet test network, where you can test transactions without spending real tez.
+For more information about test networks, see [Using sandboxes and testnets](../developing/testnets).
+
+If you need to change the RPC node that the SDK uses, such as if the default node is overloaded or if you are ready to send transactions to Mainnet, you can change the RPC node by setting the values of the `TezosConfig.RpcBaseUrl` and `TezosConfig.Network` properties, as in this code:
+
+```csharp
+TezosConfig.Instance.RpcBaseUrl = "https://mainnet.smartpy.io";
+TezosConfig.Instance.Network = NetworkType.mainnet;
+```
+
+For more examples of how to work with the SDK, see the scenes in the `TezosSDK/Examples` folder, which are described in [Tutorial scenes](./scenes).
