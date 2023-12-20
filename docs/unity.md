@@ -35,6 +35,8 @@ The SDK provides these objects:
 - [`MessageReceiver`](./unity/reference/MessageReceiver): An object that provides events that you can add listeners to.
 You can see these events and their return values in the `WalletEventManager.cs` file.
 
+- [`TezosConfig`](./unity/reference/TezosConfig): An object that sets the [RPC](../architecture/rpc) node that the SDK uses to send transactions to Tezos
+
 - [`TokenContract`](./unity/reference/TokenContract): An object that provides an FA2 contract and convenience methods to access it.
 You can use this object to deploy the contract and call the contract's entrypoints to create and transfer tokens.
 
