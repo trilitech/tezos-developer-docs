@@ -2,7 +2,7 @@
 title: Connecting accounts
 authors: Tim McMackin
 last_update:
-  date: 11 December 2023
+  date: 20 December 2023
 ---
 
 Connecting to a user's wallet is a prerequisite to working with Tezos in any application.
@@ -61,7 +61,7 @@ This method relies on the Beacon SDK to interact with wallet apps:
 1. The Unity WebGL application calls the [`Wallet.Connect()`](./reference/Wallet#connect) method with the `walletProvider` parameter set to `WalletProviderType.beacon`.
 The Beacon SDK detects that it is running in a web application and opens a popup window with the wallets that Beacon can connect to:
 
-   <img src="/img/dApps/unity-connecting-beacon-popup.png" alt="Beacon popup window with wallet types including Temple and Umami" style={{width: 300}} />
+   <img src="/img/unity/unity-connecting-beacon-popup.png" alt="Beacon popup window with wallet types including Temple and Umami" style={{width: 300}} />
 
 1. The [Beacon](https://walletbeacon.io/) SDK handles the process of connecting to the wallet.
 1. The SDK receives the connection approval, which triggers the `OnAccountConnected` event and includes information about the connected account.
