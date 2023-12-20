@@ -240,7 +240,6 @@ const sidebars = {
             type: 'doc',
           },
           items: [
-            'unity/reference/prefabs',
             {
               type: "category",
               label: "Objects",
