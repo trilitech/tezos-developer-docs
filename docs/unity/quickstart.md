@@ -2,7 +2,7 @@
 title: Quickstart
 authors: Tim McMackin
 last_update:
-  date: 19 December 2023
+  date: 20 December 2023
 ---
 
 Follow these steps to install the Tezos SDK for Unity in an existing Unity project and start using it.
@@ -26,22 +26,18 @@ If you want to publish the project to WebGL, follow the steps in [Enabling WebGL
 
 ## Enabling WebGL support
 
-The WebGL platform allows you to publish Unity projects to run in a web browser.
+The Unity SDK provides a WebGL template that you can use to publish Unity projects to run in a web browser.
 Follow these steps to set up the Tezos SDK to work with WebGL:
 
 1. In the Unity Editor, go to the Project panel and find the `TezosSDK` folder.
 1. From the `WebGLFrontend/output` folder, copy the `StreamingAssets` and `WebGLTemplates` folders into the `Assets` folder of your project.
 
-   Unity creates WebGL template folders for your project.
-   Each template is contained as a subfolder within the `WebGLTemplates` folder.
-   Each template subfolder contains an `index.html` file along with any other resources the page needs, such as images or stylesheets.
-
-1. Select the template to use in the WebGL build:
+1. Select the AirGap template to use in the WebGL build:
 
    1. Click **Edit > Project Settings**.
    1. Go to the **Player** tab.
    1. On the Player tab, go to the **WebGL settings** tab.
-   1. Under **Resolution and Presentation**, select the WebGL template to use.
+   1. Under **Resolution and Presentation**, select the AirGap WebGL template.
 
 1. To enable copy and paste in the WebGL build, double-click `WebGLCopyAndPaste.unitypackage`, which is in the `WebGLFrontend/output` folder of the SDK, to install it.
 
