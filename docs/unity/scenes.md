@@ -17,7 +17,7 @@ For instructions, see [Installing and funding a wallet](./developing/wallet-setu
 
 This scene shows how to to use the TezosAuthenticator prefab to connect to a user's wallet and get information about their account.
 
-<img src="/img/dApps/unity-walletconnection-scene-unconnected.png" alt="The start of the WalletConnection scene, with no account information" style={{width: 300}} />
+<img src="/img/unity/unity-walletconnection-scene-unconnected.png" alt="The start of the WalletConnection scene, with no account information" style={{width: 300}} />
 
 The scene uses the platform type to determine how to connect to a user's wallet.
 In the TezosAuthenticator `SetPlatformFlags` function, it checks what platform it is running on:
@@ -57,7 +57,7 @@ The buttons call the [`Wallet.Connect()`](./reference/Wallet#connect) method wit
 After the user approves the connection in the wallet, the scene shows the address of the connected account and its balance, as in the following picture.
 At the bottom of the scene there is a logout button that closes the connection.
 
-<img src="/img/dApps/unity-walletconnection-scene-connected.png" alt="The WalletConnection scene with a connected account" style={{width: 300}} />
+<img src="/img/unity/unity-walletconnection-scene-connected.png" alt="The WalletConnection scene with a connected account" style={{width: 300}} />
 
 ## Contract scene
 
@@ -73,7 +73,7 @@ You can customize these tokens, give them to users, and treat them like the play
 Like the WalletConnection scene, you must first connect to a wallet.
 Then the scene shows the address of the connected account and enables the "Deploy Contract" and "Mint Token" buttons:
 
-<img src="/img/dApps/unity-contract-scene-connected.png" alt="The start of the WalletConnection scene with an account connected" style={{width: 500}} />
+<img src="/img/unity/unity-contract-scene-connected.png" alt="The start of the WalletConnection scene with an account connected" style={{width: 500}} />
 
 When you click "Deploy Contract," your connected wallet prompts you to confirm the transaction and pay the transaction fees.
 Because you are connected to the test network, these are worthless testnet tokens and not real currency.
@@ -87,7 +87,7 @@ This process can take a few minutes.
 
 For example, this is what the transaction looks like in the Temple wallet:
 
-<img src="/img/dApps/unity-contract-scene-origination-temple.png" alt="Approving the contract deployment transaction in the wallet app" style={{width: 300}} />
+<img src="/img/unity/unity-contract-scene-origination-temple.png" alt="Approving the contract deployment transaction in the wallet app" style={{width: 300}} />
 
 When the contract is deployed, the project updates to show the address of the contract, which starts with `KT1`.
 The project remembers the contract if you reload the scene later.
@@ -96,7 +96,7 @@ To see information about the deployed contract, copy this address and put it int
 The block explorer shows information about the contract, including recent transactions, its source code, and the tokens it controls and their owners.
 Currently, the block explorer shows only the origination transaction, which deployed the contract:
 
-<img src="/img/dApps/unity-contract-scene-origination.png" alt="The newly originated contract on the block explorer" style={{width: 500}} />
+<img src="/img/unity/unity-contract-scene-origination.png" alt="The newly originated contract on the block explorer" style={{width: 500}} />
 
 Now you can go back to the Simulation panel in the Unity Editor and click "Mint Token."
 The project gets approval in your wallet and then sends a transaction to the smart contract to create (mint) a token.
@@ -109,7 +109,7 @@ Your tokens can have a quantity of 1 to make them unique or a larger quantity to
 You can also see the mint transaction on the block explorer.
 Because the contract follows the FA2 standard for tokens, the block explorer also shows the tokens and information about them, as in this picture:
 
-<img src="/img/dApps/unity-contract-scene-token.png" alt="The new token on the block explorer" style={{width: 300}} />
+<img src="/img/unity/unity-contract-scene-token.png" alt="The new token on the block explorer" style={{width: 300}} />
 
 The tokens that this scene creates have randomly generated metadata.
 To change the metadata, open the `TezosSDK/Examples/Contract/Scripts/MintToken.cs` file.
@@ -142,14 +142,14 @@ To transfer a token, make sure that the scene shows the address of the contract.
 Then, fill in the fields and click the Transfer button.
 The scene looks like this:
 
-<img src="/img/dApps/unity-transfer-scene-address.png" alt="The Transfer scene, showing information about the token to transfer" style={{width: 500}} />
+<img src="/img/unity/unity-transfer-scene-address.png" alt="The Transfer scene, showing information about the token to transfer" style={{width: 500}} />
 
 After you approve the transaction in your wallet app, the contract transfers the token to the new owner.
 You can see the token owners by looking at the contract storage in a block explorer.
 For example, in [Better Call Dev](https://better-call.dev/), go to the Storage tab, expand the `ledger` object, and look at the entries.
 For example, this entry shows that the account that ends in `2zD` owns 9 of the token with the ID 1:
 
-<img src="/img/dApps/unity-transfer-scene-block-explorer-token-ownership.png" alt="The block explorer's Storage tab, showing the account address and the quantity of a token it owns" style={{width: 500}} />
+<img src="/img/unity/unity-transfer-scene-block-explorer-token-ownership.png" alt="The block explorer's Storage tab, showing the account address and the quantity of a token it owns" style={{width: 500}} />
 
 The transfer tutorial scene uses the [`TokenContract.Transfer()`](./reference/TokenContract#transfer) method to transfer the token:
 
@@ -179,7 +179,7 @@ Blockchain developers use it to store data such as token images and metadata.
 
 To use the scene, select the `DontDestroyOnLoad/TezosManager` object and add your Pinata API key, as in this picture:
 
-<img src="/img/dApps/unity-ipfs-scene-api-key.png" alt="Adding the Pinata API key to the TezosManager object" style={{width: 300}} />
+<img src="/img/unity/unity-ipfs-scene-api-key.png" alt="Adding the Pinata API key to the TezosManager object" style={{width: 300}} />
 
 When you run the scene, it shows a button that opens a file selection window, uploads that file to IPFS, and returns the IPFS URI that you can use to access the file later.
 

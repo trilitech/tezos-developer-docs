@@ -67,7 +67,7 @@ These prefabs provide prerequisites to use Tezos in a scene.
    The `TezosManager` prefab sets up and initializes the Tezos SDK for use in the scene.
    Its fields control what users see in their wallet applications before connecting to the project, as shown in this picture of the Inspector panel:
 
-   ![The Inspector panel, showing information about the project](/img/dApps/unity-inspector-tezosmanager.png)
+   ![The Inspector panel, showing information about the project](/img/unity/unity-inspector-tezosmanager.png)
 
 1. Add features to your project to use the connected account.
 For example, the `TezosSDK/Examples/Common/Scripts/AccountInfoUI.cs` file responds to the `AccountConnected` event, which runs when the user scans the QR code and approves the connection in their wallet application.
