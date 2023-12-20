@@ -3,7 +3,7 @@ title: Unity SDK prefabs
 sidebar_label: Prefabs
 authors: Tim McMackin
 last_update:
-  date: 1 December 2023
+  date: 20 December 2023
 ---
 
 The Tezos SDK for Unity provides these prefabs:
@@ -17,4 +17,4 @@ This prefab provides code to connect to different kinds of Tezos wallets.
 ## TezosManager
 
 This prefab sets the metadata for the scene, such as the application name that users see in their wallet applications before connecting to the project.
-It also creates an instance of the `TezosSDK.Tezos.Tezos` class, which provides access to the SDK objects such as the [Wallet](./Wallet) and [MessageReceiver](./MessageReceiver) objects.
+It also creates an instance of the `TezosSDK.Tezos.Tezos` class, which provides access to the SDK objects such as the [Wallet](./reference/Wallet) and [MessageReceiver](./reference/MessageReceiver) objects.

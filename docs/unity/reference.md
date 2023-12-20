@@ -3,7 +3,7 @@ title: Unity SDK reference
 sidebar_label: Reference
 authors: Tim McMackin
 last_update:
-  date: 6 December 2023
+  date: 20 December 2023
 ---
 
 The Tezos SDK for Unity provides several objects that your Unity project can use to work with Tezos.
@@ -15,4 +15,4 @@ These pages provide reference for the most important of these objects:
 - [TokenContract object](./reference/TokenContract): Provides a built-in FA2-compatible smart contract and convenience methods to work with it
 - [Wallet object](./reference/Wallet): Provides methods to connect to wallets and send transactions from the connected account
 
-The SDK also provides Unity prefabs that are prerequisites for the SDK; see [Prefabs](./reference/prefabs).
+The SDK also provides Unity prefabs that are prerequisites for the SDK; see [Prefabs](./prefabs).

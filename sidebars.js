@@ -205,6 +205,7 @@ const sidebars = {
       items: [
         'unity/quickstart',
         'unity/scenes',
+        'unity/prefabs',
         {
           type: 'category',
           label: 'Reference',
@@ -213,7 +214,6 @@ const sidebars = {
             type: 'doc',
           },
           items: [
-            'unity/reference/prefabs',
             {
               type: "category",
               label: "Objects",
