@@ -2,7 +2,7 @@
 title: Quickstart
 authors: Tim McMackin
 last_update:
-  date: 20 December 2023
+  date: 22 December 2023
 ---
 
 Follow these steps to install the Tezos SDK for Unity in an existing Unity project and start using it.
@@ -61,13 +61,13 @@ For more information about them, see [Prefabs](./prefabs).
    Whether it shows the QR code or buttons depends on whether the project is running in standalone, mobile, or WebGL mode.
 
 1. Add features to your project to use the connected account.
-For example, the `TezosSDK/Examples/Common/Scripts/AccountInfoUI.cs` file responds to the `AccountConnected` event, which runs when the user approves the connection in their wallet application.
+For example, the `Tutorials/Common/Scripts/WalletInfoUI.cs` file responds to the `AccountConnected` event, which runs when the user approves the connection in their wallet application.
 You can use this event to get the address of the connected account, as in this code:
 
    ```csharp
    private void Start()
    {
-       addressText.text = "Not Connected";
+       addressText.text = NOT_CONNECTED_TEXT;
 
        // Subscribe to events;
        TezosManager.Instance.MessageReceiver.AccountConnected += OnAccountConnected;
@@ -84,7 +84,7 @@ You can use this event to get the address of the connected account, as in this c
 
    private void OnAccountDisconnected(AccountInfo accountInfo)
    {
-       addressText.text = "Not Connected";
+       addressText.text = NOT_CONNECTED_TEXT;
    }
    ```
 
@@ -104,7 +104,7 @@ Smart contracts can do many tasks, but for gaming they have two main purposes:
 - They handle tokens, which are digital assets stored on the blockchain
 - They provide backend logic that users can trust because it cannot change
 
-The Contract tutorial scene shows how to deploy a contract from a Unity project.
+The ContractAndMinting tutorial scene shows how to deploy a contract from a Unity project.
 
 The SDK provides a built-in contract that you can use instead of writing your own.
 This contract manages different kinds of tokens.
@@ -183,7 +183,7 @@ private void OnTokenMinted(TokenBalance tokenBalance)
 }
 ```
 
-For a complete example of creating tokens, see the file `TezosSDK/Examples/Contract/Scripts/MintToken.cs` and the Contract tutorial scene.
+For a complete example of creating tokens, see the file `Tutorials/ContractAndMinting/Scripts/MintToken.cs` and the ContractAndMinting tutorial scene.
 
 ## Transferring tokens
 
@@ -276,7 +276,7 @@ Blockchain developers use it to store data such as token images and metadata.
 
 The SDK provides tools to upload to IPFS by using the [Pinata](https://pinata.cloud/) API, but you can set up IPFS upload in other ways.
 
-To use the SDK, see the code in the `Examples/IPFSUpload/Scripts/UIController.cs` file, which handles uploading files in the IPFSUpload scene.
+To use the SDK, see the code in the `Tutorials/IPFSUpload/Scripts/UploadImageButton.cs` file, which handles uploading files in the IPFSUpload scene.
 It has a UI upload button that triggers this method, which uses the built-in Pinata uploader to upload the file and get the URL for it:
 
 ```csharp
@@ -289,6 +289,7 @@ public void HandleUploadClick()
     }
 
     var uploader = UploaderFactory.GetPinataUploader(TezosManager.PinataApiKey);
+
     var uploadCoroutine = uploader.UploadFile(ipfsUrl =>
     {
         Logger.LogDebug($"File uploaded, url is {ipfsUrl}");

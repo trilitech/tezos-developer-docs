@@ -209,7 +209,7 @@ To use the scene, open the IPFSUpload scene in the editor, click the `TezosManag
 
 When you run the scene, it shows a button that opens a file selection window, uploads that file to IPFS, and returns the IPFS URI that you can use to access the file later.
 
-The relevant code is in `TezosSDK/Examples/IPFSUpload/Scripts/UIController.cs`:
+The relevant code is in `Tutorials/IPFSUpload/Scripts/UIController.cs`:
 
 ```csharp
 public void HandleUploadClick()
