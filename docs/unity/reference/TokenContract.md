@@ -61,8 +61,20 @@ For information about entrypoints, see [entrypoints](../../smart-contracts/entry
 
 ### Constructors
 
-The `TokenContract` class constructors are for internal use.
-Use the `Deploy()` method instead.
+```csharp
+new TokenContract();
+```
+
+This constructor is for internal use.
+To deploy the built-in contract, use the `Deploy()` method.
+
+```csharp
+new TokenContract(string address);
+```
+
+Initializes a `TokenContract` object with a copy of the built-in contract that you have deployed already.
+
+To deploy the built-in contract, use the [`Deploy()`](#deploy) method.
 
 ### `Deploy()`
 
