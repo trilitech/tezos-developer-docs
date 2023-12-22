@@ -144,8 +144,8 @@ This refutation game happens as many times as is necessary to eliminate incorrec
 Because the node that ran the PVM correctly is guaranteed to win the refutation game, a single honest node is enough to ensure that the Smart Rollup is running correctly.
 This kind of Smart Rollup is called a Smart Optimistic Rollup because the commitments are assumed to be correct until they are proven wrong by an honest rollup node.
 
-When there is only one commitment left, either because all nodes published identical commitments or the refutation game eliminated all incorrect commitments, this correct commitment is said to be _cemented_ and therefore final and unchangeable.
-A commitment can't be cemented until the end of the refutation period and until all previous commitments are cemented.
+When there is only one commitment left, either because all nodes published identical commitments or the refutation game eliminated all incorrect commitments, this correct commitment is said to be _cemented_ and becomes final and unchangeable.
+A commitment can't be cemented all previous commitments are cemented.
 The commitments for the next commitment period build on this cemented commitment.
 
 The refutation period lasts 2 weeks on Mainnet; it can be different on other networks.
