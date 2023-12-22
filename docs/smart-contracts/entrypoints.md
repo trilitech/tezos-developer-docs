@@ -13,7 +13,7 @@ The entrypoints in a Tezos smart contract must meet these specifications:
 - Entrypoints may accept parameters, which can be of almost any data type that Tezos supports.
 
 Unlike functions and API endpoints, entrypoints do not return a value.
-To return a value from a smart contract, see [Views](./views).
+To return a value from a smart contract, see [Views](./views) and [Events](./events).
 
 For examples of contracts, see [Examples of contracts](https://opentezos.com/smart-contracts/simplified-contracts/) on opentezos.com.
 
