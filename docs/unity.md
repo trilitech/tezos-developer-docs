@@ -2,7 +2,7 @@
 title: Tezos SDK for Unity
 authors: Tim McMackin
 last_update:
-  date: 19 December 2023
+  date: 22 December 2023
 ---
 
 The Tezos SDK for Unity provides tools that let you access user wallets and Tezos in games and other Unity projects.
@@ -20,9 +20,8 @@ For a walkthrough of installing and using the SDK in an existing Unity project, 
 
 ## Tutorial scenes
 
-The SDK includes Tutorial scenes that demonstrate how to use the SDK.
-To open the scenes, install the SDK and in the Project panel, expand **TezosSDK > Tutorials**.
-For information about each scene, see [Tutorial scenes](./unity/scenes).
+The SDK includes tutorial scenes that demonstrate how to use the SDK.
+For information about setting up and using the scenes, see [Tutorial scenes](./unity/scenes).
 
 ## SDK objects
 
@@ -44,7 +43,7 @@ You can use this object to deploy the contract and call the contract's entrypoin
 
 ## Dependencies
 
-The Tezos SDK utilizes modified versions of the following libraries for communication:
+The Tezos SDK uses modified versions of the following libraries for communication:
 
 - **Airgap Beacon SDK**: Interacts with Tezos wallets through the Beacon standard for iOS, Android, and WebGL platforms.
 - **Netezos**: Interacts with Tezos wallets through the Beacon standard for Windows, Linux, and MacOS platforms. Also prepares parameters for smart contract calls and interprets complex data returned by the ReadView method.

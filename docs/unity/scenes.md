@@ -3,15 +3,37 @@ title: Unity SDK tutorial scenes
 sidebar_label: Tutorial scenes
 authors: Tim McMackin
 last_update:
-  date: 20 December 2023
+  date: 22 December 2023
 ---
 
 The SDK includes tutorial scenes that demonstrate how to use the SDK.
-To open the scenes, install the SDK and in the Project panel, expand **TezosSDK > Tutorials**.
-The tutorials are in individual folders.
 
 Before using any of the scenes, install a Tezos-compatible wallet on a mobile device and get some test tez tokens that you can use to pay transaction fees.
 For instructions, see [Installing and funding a wallet](./developing/wallet-setup).
+
+## Setup instructions
+
+Before you can use the scenes, you must add them to the build settings:
+
+1. Enable copy and paste as described in [Enabling WebGL support](./quickstart#enabling-webgl-support).
+1. Click **File > Build Settings**.
+1. Drag these scenes from the Project panel to the **Scenes in Build** list:
+
+   - `Tutorials/ContractAndMinting/_ContractAndMinting`
+   - `Tutorials/IPFSUpload/_IPFSUpload`
+   - `Tutorials/TransferToken/_TransferToken`
+   - `Tutorials/WalletConnection/_WalletConnection`
+
+   The Build Settings window looks like this:
+
+   ![The Build Settings window, showing the tutorial scenes that are included in the build](/img/unity/unity-tutorial-scene-build.png)
+
+Now you can run the Tutorials scene, which is in the `Tutorials` folder.
+This scene links to the other tutorial scenes.
+
+## Tutorials scene
+
+This scene includes buttons that link to the other scenes.
 
 ## WalletConnection scene
 
@@ -77,9 +99,7 @@ The SDK comes with a sample smart contract that allows a Unity project to create
 You can customize these tokens, give them to users, and treat them like the players' in-game inventories.
 
 Like the WalletConnection scene, you must first connect to a wallet.
-Then the scene shows the address of the connected account and enables the "Deploy Contract" and "Mint Token" buttons:
-
-<img src="/img/unity/unity-contract-scene-connected.png" alt="The start of the WalletConnection scene with an account connected" style={{width: 500}} />
+Then the scene shows the address of the connected account and enables the "Deploy Contract" and "Mint Token" buttons.
 
 When you click "Deploy Contract," your connected wallet prompts you to confirm the transaction and pay the transaction fees.
 Because you are connected to the test network, these are worthless testnet tokens and not real currency.
@@ -88,7 +108,7 @@ This process can take some time.
 The scene calls the [`TokenContract.Deploy()`](./reference/TokenContract#deploy) method to deploy the contract to Tezos.
 
 When you confirm the transaction in the wallet app, you must wait for the contract to be deployed on Tezos.
-The log in the Console panel shows a message that looks like `Received operation with hash oopFjLYGTbZTEFsTh4p1YPnHR1Up1SNnvE5xk2SRaGH6PZ4ry56`, which is the address of the Tezos operation that deployed the contract.
+The log in the Console panel shows a message that looks like `Received operation with hash oopFjLYGTbZTEFsTh4p1YPnHR1Up1SNnvE5xk2SRaGH6PZ4ry56`, which is the address of the Tezos transaction that deployed the contract.
 This process can take a few minutes.
 
 For example, this is what the transaction looks like in the Temple wallet:
@@ -106,7 +126,7 @@ Currently, the block explorer shows only the origination transaction, which depl
 
 Now you can go back to the Simulation panel in the Unity Editor and click "Mint Token."
 The project gets approval in your wallet and then sends a transaction to the smart contract to create (mint) a token.
-Like the deployment operation, it can take time for the transaction to complete and be confirmed on Tezos.
+Like the deployment transaction, it can take time for the transaction to complete and be confirmed on Tezos.
 
 When the mint transaction is complete, the "Tokens Count" text in the scene updates to show the number of token types that have been minted with this contract.
 The mint process creates a random number of tokens with this type.
@@ -148,7 +168,7 @@ To transfer a token, make sure that the scene shows the address of the contract.
 Then, fill in the fields and click the Transfer button.
 The scene looks like this:
 
-<img src="/img/unity/unity-transfer-scene-address.png" alt="The Transfer scene, showing information about the token to transfer" style={{width: 500}} />
+<img src="/img/unity/unity-transfer-scene-address.png" alt="The Transfer scene, showing information about the token to transfer" style={{width: 300}} />
 
 After you approve the transaction in your wallet app, the contract transfers the token to the new owner.
 You can see the token owners by looking at the contract storage in a block explorer.
@@ -183,7 +203,7 @@ This scene shows how to upload files to IPFS with the Pinata API.
 The InterPlanetary File System (IPFS) is a protocol and peer-to-peer network for storing and sharing data in a distributed file system.
 Blockchain developers use it to store data such as token images and metadata.
 
-To use the scene, select the `DontDestroyOnLoad/TezosManager` object and add your Pinata API key, as in this picture:
+To use the scene, open the IPFSUpload scene in the editor, click the `TezosManager` object in the Hierarchy pane, and add your Pinata API key in the Inspector pane, as in this picture:
 
 <img src="/img/unity/unity-ipfs-scene-api-key.png" alt="Adding the Pinata API key to the TezosManager object" style={{width: 300}} />
 
