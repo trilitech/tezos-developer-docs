@@ -17,7 +17,7 @@ The compiled code of a Smart Rollup must be provided publicly, so that anyone ca
 This code, called the _kernel_, must behave in a deterministic manner and according to a given semantics, which guarantees that results are reproducible by any rollup node with the same kernel.
 The semantics is precisely defined by a reference virtual machine called a proof-generating virtual machine (PVM), able to generate a proof that executing a program in a given context results in a given state.
 This guarantees that if a divergence in results is found, it can be tracked down to a single elementary step that was not executed correctly by some node.
-In this way, multiple nodes can run the same code to create a single state for the rollup, and other nodes can verify the state of the rollup.
+In this way, multiple nodes can run the same rollup, and each node can verify the state of the rollup.
 
 For a tutorial on Smart Rollups, see [Deploy a Smart Rollup](../tutorials/smart-rollup).
 
