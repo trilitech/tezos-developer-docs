@@ -61,7 +61,7 @@ For information about entrypoints, see [entrypoints](../../smart-contracts/entry
 
 ### Constructors
 
-The `TokenContract` class has constructors, but they are for internal use.
+The `TokenContract` class constructors are for internal use.
 Use the `Deploy()` method instead.
 
 ### `Deploy()`
@@ -71,6 +71,8 @@ void Deploy(Action<string> completedCallback)
 ```
 
 Deploys (originates) a contract based on the built-in contract, including prompting the connected wallet to pay the origination fees.
+
+The SDK stores the address of the contract with the Unity [PlayerPrefs](https://docs.unity3d.com/ScriptReference/PlayerPrefs.html).
 
 Parameters:
 
