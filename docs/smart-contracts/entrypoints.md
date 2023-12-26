@@ -2,7 +2,7 @@
 title: Entrypoints
 authors: 'Mathias Hiron (Nomadic Labs), Sasha Aldrick (TriliTech), Tim McMackin (TriliTech)'
 last_update:
-  date: 22 December 2023
+  date: 26 December 2023
 ---
 
 The entrypoints of a contract represent the different ways that it can be called, similar to a method or function in many programming languages or an endpoint of an API.
@@ -53,6 +53,9 @@ The contract in the tutorial [Create a smart contract](../tutorials/smart-contra
 Even though your higher-level code may have separate codeblocks for each entrypoint, the compiled Michelson code uses a single codeblock with a single entrypoint, known as the default entrypoint.
 This default entrypoint uses the parameter that clients pass to decide which code to run.
 
+In most cases, developers can ignore the default entrypoint and imagine that the compiled Michelson code has multiple entrypoints like the higher-level code.
+However, in some cases, you may need to consider how the contract actually decides which code to run and how clients trigger this code.
+
 For example, when you compile the contract in the tutorial [Create a smart contract](../tutorials/smart-contract) to Michelson, its first line defines the parameter type that the contract accepts:
 
 ```
@@ -61,17 +64,17 @@ parameter (or (unit %reset) (or (int %decrement) (int %increment)))
 
 To call the `reset` entrypoint, clients technically call the default entrypoint and pass the Michelson-encoded parameter `Left Unit`.
 This parameter value means that the left value of the parameter type, which is annotated `%reset`, is set to the value `Unit`, which means no value.
-The Michelson code uses the `IF_LEFT` command to check if the left value of the parameter is defined and if so, runs the `reset` entrypoint code.
+In its logic, the compiled Michelson code uses the `IF_LEFT` command to check if the left value of the parameter is defined and if so, it runs the `reset` entrypoint code.
 
-In this way, these Octez client commands are the same; one passes `Unit` to the `reset` entrypoint and the other passes `Left Unit` to the default entrypoint:
+In this way, the following Octez client commands are equivalent; one passes `Unit` to the `reset` entrypoint and the other passes `Left Unit` to the default entrypoint:
 
 ```bash
-octez-client --wait none transfer 0 from myaccount to myContract \
+octez-client --wait none transfer 0 from myAccount to myContract \
   --entrypoint 'reset' --arg 'Unit' --burn-cap 0.1
 ```
 
 ```bash
-octez-client --wait none transfer 0 from myaccount to myContract \
+octez-client --wait none transfer 0 from myAccount to myContract \
   --arg 'Left Unit' --burn-cap 0.1
 ```
 
