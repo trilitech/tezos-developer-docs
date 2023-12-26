@@ -136,7 +136,7 @@ Because the PVM is deterministic and all of the inputs are the same for all node
 As long as nodes publish matching commitments, they continue running normally.
 
 During the refutation period for a commitment period, if two or more nodes publish different commitments, two of them play a _refutation game_ to identify the correct commitment.
-The nodes automatically play the refutation game by stepping through their logic to identify the point at which they differ.
+The nodes automatically play the refutation game by stepping through their logic using the PVM to identify the point at which they differ.
 At this point, the PVM is used to identify the correct commitment, if any.
 
 Each refutation game has one of two results:
