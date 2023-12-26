@@ -399,10 +399,6 @@ Now when you run the application, it shows the current value of the contract sto
 
 Note that anyone can call this contract, so the storage value may change between your calls.
 
-<!--
-Mention Beacon, diagram about key custody, dapp is never concerned about keys
--->
-
 ## Next steps
 
 Now that you have an application that can call a smart contract, you can deploy your own smart contracts to use with your dApps.
