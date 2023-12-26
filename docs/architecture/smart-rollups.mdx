@@ -117,7 +117,7 @@ After it is originated, anyone can run a Smart Rollup node based on this informa
 ### Commitment periods
 
 Starting from the rollup origination level, levels are partitioned into _commitment periods_ of 60 consecutive layer 1 blocks.
-During each commitment period, the each rollup node receives the messages in the rollup inbox, processes them, and updates its state.
+During each commitment period, each rollup node receives the messages in the rollup inbox, processes them, and updates its state.
 
 Because Smart Rollup nodes behave in a deterministic manner, their states should all be the same if they have processed the same inbox messages with the same kernel starting from the same origination level.
 This state is referred to as the "state of the rollup."
