@@ -104,20 +104,17 @@ For MD, get image nodes, like this:
   "position": {...}
 },
 */
-const getImagesInAst = (ast, filePath) => {
+const getImagesInAst = (ast, /*filePath*/) => {
   const imagePathsInFile = [];
-  if (path.extname(filePath) === '.mdx') {
-    // MDX files
-    visit(ast, mdxTestFunction, (node) => {
-      const srcAttribute = node.attributes.find((attr => attr.name === 'src'));
-      imagePathsInFile.push(srcAttribute.value);
-    });
-  } else if (path.extname(filePath) === '.md'){
-    // MD files
-    visit(ast, markdownTestFunction, (node) => {
-      imagePathsInFile.push(node.url);
-    });
-  }
+  // MDX elements
+  visit(ast, mdxTestFunction, (node) => {
+    const srcAttribute = node.attributes.find((attr => attr.name === 'src'));
+    imagePathsInFile.push(srcAttribute.value);
+  });
+  // MD images
+  visit(ast, markdownTestFunction, (node) => {
+    imagePathsInFile.push(node.url);
+  });
   // Filter out external links to files
   return imagePathsInFile.filter((oneLink) =>
     !oneLink.startsWith('http://') && !oneLink.startsWith('https://')
