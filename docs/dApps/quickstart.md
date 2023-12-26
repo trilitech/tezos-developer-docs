@@ -8,6 +8,8 @@ last_update:
 This quickstart shows you how to get started with a simple dApp that calls an existing smart contract on the Tezos blockchain.
 It uses the [Svelte](https://svelte.dev/) framework and JavaScript, but you can use any JavaScript/TypeScript framework and get similar results.
 
+For the completed web application, see https://github.com/trilitech/tutorial-applications/tree/main/quickstartdapp.
+
 ## Prerequisites
 
 To follow this quickstart, you need [Node.JS and NPM](https://nodejs.org/) installed.
