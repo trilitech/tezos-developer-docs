@@ -354,11 +354,52 @@ Enter a number and click one of the buttons to send a transaction and see your w
 
 In the next section, you will read the contract's storage to get the current value of the counter.
 
+## Getting a contract's storage
+
+Smart contacts can have persistent storage.
+This storage is public, so your application can read the current value of the storage before and after users send transactions to the contract.
+
+1. Add this import to the `App.svelte` file:
+
+   ```javascript
+   import { onMount } from "svelte";
+   ```
+
+1. Add a variable to represent the current value of the storage:
+
+   ```javascript
+   let currentValue;
+   ```
+
+1. Add a function that retrieves the current value of the contract storage and updates it on the UI:
+
+   ```javascript
+   const updateCounterValue = async () => {
+     const contract = await Tezos.wallet.at(contractAddress);
+      currentValue = await contract.storage();
+   }
+   onMount(updateCounterValue);
+   ```
+
+1. Add the code `await updateCounterValue();` to the end of the `connectWallet`, `increment`, and `decrement` functions.
+
+1. In the `main` section, above the `{#if wallet}` code, add a text field to show the current value of the storage:
+
+   ```html
+   <p>
+     Current counter value: {currentValue}
+   </p>
+   ```
+
+Now when you run the application, it shows the current value of the contract storage:
+
+<img src="/img/dApps/quickstart-connecte-with-counter-value.png" alt="The quickstart dApp, showing the current value of the counter" style={{width: 500}} />
+
+Note that anyone can call this contract, so the storage value may change between your calls.
 
 <!--
 Mention Beacon, diagram about key custody, dapp is never concerned about keys
 -->
-
 
 ## Next steps
 
