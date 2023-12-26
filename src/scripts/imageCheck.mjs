@@ -13,6 +13,8 @@ import { mdxFromMarkdown } from 'mdast-util-mdx'
 import { mdxjs } from 'micromark-extension-mdxjs'
 import { visit } from 'unist-util-visit';
 
+import { exampleAstWithBrokenLinks, expectedImagesInAst } from './resources/imageCheckTestResources.mjs';
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const docsFolder = path.resolve(__dirname, '../../docs');
@@ -121,4 +123,16 @@ const getImagesInAst = (ast, /*filePath*/) => {
   );
 }
 
-checkImages();
+const testgetImagesInAst = () => {
+  const imagesFoundInAst = getImagesInAst(exampleAstWithBrokenLinks);
+  let result = true;
+  expectedImagesInAst.forEach(oneExpectedImage => {
+    if (!imagesFoundInAst.includes(oneExpectedImage)) {
+      console.error("Image check test failed. getImagesInAst did not find an image it should have:", oneExpectedImage);
+      result = false;
+    }
+  });
+  return result;
+}
+
+if (testgetImagesInAst()) checkImages();
