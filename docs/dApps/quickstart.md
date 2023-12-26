@@ -2,7 +2,7 @@
 title: dApp quickstart
 authors: "Tim McMackin"
 last_update:
-  date: 19 December 2023
+  date: 26 December 2023
 ---
 
 This quickstart shows you how to get started with a simple dApp that calls an existing smart contract on the Tezos blockchain.
@@ -22,8 +22,8 @@ Run these steps to set up a simple web application:
 1. In a terminal window, run these commands to start a Svelte application:
 
    ```bash
-   npm create vite@latest quickstartApp -- --template svelte
-   cd quickstartApp
+   npm create vite@latest quickstartdapp -- --template svelte
+   cd quickstartdapp
    npm install
    ```
 
@@ -347,12 +347,17 @@ Therefore, the dApp needs a number field for the amount to increment or decremen
    </style>
    ```
 
+Now the application shows a number input field and buttons that either increment or decrement the contract's number by that amount.
+Enter a number and click one of the buttons to send a transaction and see your wallet application prompt you to approve the transaction.
+
+<img src="/img/dApps/quickstart-increment-buttons.png" alt="The quickstart dApp, showing the number field and increment and decrement buttons" style={{width: 500}} />
+
+In the next section, you will read the contract's storage to get the current value of the counter.
 
 
-
-
+<!--
 Mention Beacon, diagram about key custody, dapp is never concerned about keys
-
+-->
 
 
 ## Next steps
