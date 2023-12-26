@@ -138,8 +138,14 @@ As long as nodes publish matching commitments, they continue running normally.
 During the refutation period for a commitment period, if two or more nodes publish different commitments, two of them play a _refutation game_ to identify the correct commitment.
 The nodes automatically play the refutation game by stepping through their logic to identify the point at which they differ.
 At this point, layer 1 uses the PVM to identify the correct commitment.
-Then the protocol gives half of the incorrect commitment's stake to the correct commitment's stake, and burns the other half.
-The protocol eliminates the incorrect commitment or commitments because they have no stake.
+
+Each refutation game has one of two results:
+
+- Neither commitment is correct.
+In this case, the protocol burns both commitments' stakes and eliminates both commitments.
+
+- One commitment is correct and the other is not.
+In this case, the protocol eliminates the incorrect commitment, burns half of the incorrect commitment's stake, and gives the other half to the correct commitment's stake.
 
 This refutation game happens as many times as is necessary to eliminate incorrect commitments.
 Because the node that ran the PVM correctly is guaranteed to win the refutation game, a single honest node is enough to ensure that the Smart Rollup is running correctly.
