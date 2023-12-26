@@ -207,7 +207,7 @@ Follow these steps to allow wallets to connect to your application:
 
 After your wallet connects, the dApp shows your account address, as in this picture:
 
-![The quickstart dApp, showing the account address and the disconnect button](/img/dApps/quickstart-connected.wallet.png)
+<img src="/img/dApps/quickstart-connected-wallet.png" alt="The quickstart dApp, showing the account address and the disconnect button" style={{width: 500}} />
 
 Now your dApp can connect to users' Tezos wallets.
 In the next section, you will add the ability for a user to send a transaction to Tezos.
