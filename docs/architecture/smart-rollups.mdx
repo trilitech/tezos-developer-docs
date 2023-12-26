@@ -122,14 +122,13 @@ During each commitment period, each rollup node receives the messages in the rol
 Because Smart Rollup nodes behave in a deterministic manner, their states should all be the same if they have processed the same inbox messages with the same kernel starting from the same origination level.
 This state is referred to as the "state of the rollup."
 
-At the end of a commitment period, the next commitment period starts.
+At the end of a commitment period, the next commitment period starts and at the same time a refutation period starts for the commitment period that just ended.
+
 Any time after each commitment period, at least one rollup node must publish a hash of its state to layer 1, which is called its _commitment_.
 Each commitment builds on the previous commitment, and so on, back to the genesis commitment from when the Smart Rollup was originated.
 
 Nodes must stake 10,000 tez along with their commitments.
 When nodes make identical commitments, their stakes are combined into a single stake for the commitment.
-
-Then a refutation period for the commitment period begins, and a new commitment period begins.
 
 ### Refutation periods
 
