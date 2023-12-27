@@ -6,3 +6,5 @@ node_modules
 out
 build
 
+# Vale
+test/styles/write-good
