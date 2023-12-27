@@ -26,3 +26,15 @@ jobs:
           aws-region: eu-west-1
       - run: aws s3 sync ./build ${{ secrets.AWS_S3_STAGE_PATH }} --delete
       - run: aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_DISTRIBUTION_STAGE }} --paths '/*'
+
+  vale:
+    name: runner / vale
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: errata-ai/vale-action@reviewdog
+        with:
+          files: docs
+          reporter: github-pr-check
+          filter_mode: added
+          vale_flags: "--glob=*.{md,mdx} --config='.vale.ini'"
