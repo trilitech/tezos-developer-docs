@@ -610,7 +610,7 @@ To test the application, you must have a Tezos wallet and a small amount of XTZ 
 
    1. Put the wallet account address in the **Or fund any address** field.
 
-   1. Click the button to request 100 tokens and wait for the browser to complete the operation.
+   1. Click the button to request 5 tez and wait for the browser to complete the operation.
 
    1. When you see a message that the tokens are sent to your address, open your wallet and verify that the tokens are there.
    It can take a few minutes for them to appear.
