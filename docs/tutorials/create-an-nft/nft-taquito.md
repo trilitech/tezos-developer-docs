@@ -166,18 +166,6 @@ type transfer =
 }
 ```
 
-The type `fa2_entry_points` is a special type that the contract's `main` function uses to define the entrypoints.
-It maps the entry points to the type of parameter that they accept:
-
-```ocaml
-type fa2_entry_points =
-  | Transfer of transfer list
-  | Balance_of of balance_of_param
-  | Update_operators of update_operator list
-  | Mint of mint_params
-  | Burn of token_id
-```
-
 ### Error messages
 
 The contract defines a series of error messages, and comments in the code describe what each error message means.
