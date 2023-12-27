@@ -6,5 +6,5 @@ node_modules
 out
 build
 
-filesToTest.txt
-
+# Vale
+test/styles/write-good
