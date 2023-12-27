@@ -21,9 +21,11 @@ OCaml
 off-chain
 on-chain
 Oxhead Alpha
-SDKs?
 Rollups?
 Sapling
+SDKs?
+stablecoin
+supermajority
 syntax(es)?
 Taquito
 Taqueria
@@ -33,6 +35,7 @@ Tezos
 [Tt]zStats
 Umami
 URIs?
+validator
 Vite
 VSCode
 Vue
