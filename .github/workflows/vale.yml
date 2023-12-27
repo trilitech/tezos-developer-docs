@@ -13,4 +13,4 @@ jobs:
           files: docs
           reporter: github-pr-check
           filter_mode: added
-          vale_flags: "--glob=*.{md,mdx} --config='.vale.ini'"
+          vale_flags: "--glob=*.{md,mdx}"
