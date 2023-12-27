@@ -281,6 +281,14 @@ The IDE opens a blank contract file and shows commands for the file on the left-
 1. Paste the contents of the `contract/NFTS_contract.mligo` file into the editor.
 The IDE saves the file automatically.
 
+1. Remove the module name:
+
+   1. Click **Project Settings**.
+
+   1. Clear the **Module name (optional)** field.
+
+   1. Close the Project Settings window.
+
 1. Click **Compile** and then in the "Compile" window, click **Compile**.
 The IDE compiles the contract code to Michelson, the base language that all Tezos contracts use.
 At the bottom of the window, it prints the message `wrote output to .workspaces/NFT tutorial/build/contracts/Contract.tz`.
