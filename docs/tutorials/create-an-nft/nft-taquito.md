@@ -443,7 +443,7 @@ In these steps, you configure the backend application with your Pinata informati
 
 ## Run the frontend application
 
-The front application accepts information about a new NFT from the user, sends the image and metadata to the backend, and calls the smart contract to mint the NFT.
+The frontend application accepts information about a new NFT from the user, sends the image and metadata to the backend, and calls the smart contract to mint the NFT.
 Follow these steps to configure and start the frontend application:
 
 1. In your command-line window, go to the `frontend` folder of the tutorial application.
