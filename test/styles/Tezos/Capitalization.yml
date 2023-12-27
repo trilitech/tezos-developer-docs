@@ -1,0 +1,6 @@
+extends: substitution
+message: "Always capitalize '%s'"
+level: error
+swap:
+  '[Ss]mart rollup': "Smart Rollup"
+  'smart [Rr]ollup': "Smart Rollup"
