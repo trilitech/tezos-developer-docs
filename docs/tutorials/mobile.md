@@ -15,7 +15,7 @@ There are two categories of web3 gaming dapp:
 - The ones including web3 parts like NFT or fungible tokens but represent generally less than 25% of the application
 - The ones which are 100% onchain, like on this tutorial, where all the logic is coded inside the smart contract
 
-You will learn :
+You will learn:
 
 - How to create import a Ligo smart contract library containing the game logic.
 - How to create a mobile app with Ionic.

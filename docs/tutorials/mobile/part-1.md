@@ -7,13 +7,13 @@ last_update:
 
 On this first section, you will:
 
-- create the game smart contract importing an existing Ligo library
-- deploy your smart contract to the Ghostnet
-- get the Shifumi Git repository folders to copy the game UI and CSS for the second party
+- Create the game smart contract importing an existing Ligo library
+- Deploy your smart contract to the Ghostnet
+- Get the Shifumi Git repository folders to copy the game UI and CSS for the second party
 
 ## Smart contract
 
-1. Clone the repository and start a new Taqueria project
+1. Clone the repository and start a new Taqueria project:
 
    ```bash
    git clone https://github.com/marigold-dev/training-dapp-shifumi.git
@@ -22,20 +22,20 @@ On this first section, you will:
    taq install @taqueria/plugin-ligo
    ```
 
-1. Download the Ligo Shifumi template, and copy the files to Taqueria **contracts** folder
+1. Download the Ligo Shifumi template, and copy the files to Taqueria **contracts** folder:
 
    ```bash
    TAQ_LIGO_IMAGE=ligolang/ligo:1.2.0 taq ligo --command "init contract --template shifumi-jsligo shifumiTemplate"
    cp -r shifumiTemplate/src/* contracts/
    ```
 
-1. Compile the contract. It creates the default required file `main.storageList.jsligo`
+1. Compile the contract. It creates the default required file `main.storageList.jsligo`:
 
    ```bash
    TAQ_LIGO_IMAGE=ligolang/ligo:1.2.0 taq compile main.jsligo
    ```
 
-1. Edit `main.storageList.jsligo` initial storage and save it
+1. Edit `main.storageList.jsligo` initial storage and save it:
 
    ```ligolang
    #import "main.jsligo" "Contract"
@@ -78,13 +78,13 @@ On this first section, you will:
    }
    ```
 
-1. Compile again
+1. Compile again:
 
    ```bash
    TAQ_LIGO_IMAGE=ligolang/ligo:1.2.0 taq compile main.jsligo
    ```
 
-1. Deploy to Ghostnet
+1. Deploy to Ghostnet:
 
    ```bash
    taq install @taqueria/plugin-taquito
@@ -108,7 +108,7 @@ On this first section, you will:
    > }
    > ```
 
-   Your smart contract is ready on Ghostnet !
+   Your smart contract is ready on Ghostnet!
 
    ```logs
    ┌──────────┬──────────────────────────────────────┬───────┐

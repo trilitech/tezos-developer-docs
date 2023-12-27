@@ -11,27 +11,27 @@ A web3 mobile application is not different from a web2 one in terms of its basic
 
 [Ionic React](https://ionicframework.com/docs/react) is a good hybrid solution for creating mobile applications and compatible with the Typescript version of the [BeaconSDK](https://github.com/airgap-it/beacon-sdk). The behavior is equivalent to a classical web development, so for a web developer the ramp up is easy.
 
-> Beacon : the protocol of communication between the dapp and the wallet.
+> Beacon: the protocol of communication between the dapp and the wallet.
 
-> Note : As of today, it is not recommended to develop a native dapp in Flutter, React Native or native tools as it requires additional UI works (ex : missing wallet popup mechanism to confirm transactions).
+> Note: As of today, it is not recommended to develop a native dApp in Flutter, React Native or native tools as it requires additional UI works (ex: missing wallet popup mechanism to confirm transactions).
 
-1. Install Ionic
+1. Install Ionic:
 
    ```bash
    npm install -g @ionic/cli
    ionic start app blank --type react
    ```
 
-1. Generate smart contract types from taqueria plugin.
+1. Generate smart contract types from the taqueria plugin:
 
-   It generates Typescript classes from Smart contract interface definition that is used on the frontend.
+   This command generates Typescript classes from the smart contract interface definition that is used on the frontend.
 
    ```bash
    taq install @taqueria/plugin-contract-types
    taq generate types ./app/src
    ```
 
-1. Uninstall conflicting old jest libraries/react-scripts, install required Tezos web3 dependencies and Vite framework.
+1. Uninstall the conflicting old jest libraries/react-scripts and install the required Tezos web3 dependencies and Vite framework:
 
    ```bash
    cd app
@@ -44,30 +44,30 @@ A web3 mobile application is not different from a web2 one in terms of its basic
    npm install -S -D @airgap/beacon-types vite @vitejs/plugin-react-swc @types/react @types/node  @types/react@18.2.42
    ```
 
-1. Polyfill issues fix
+1. Polyfill issues fix:
 
-   > :warning: Polyfill issues fix : Add the following dependencies in order to not get polyfill issues. The reason is that some dependencies are Node APIs and are not included in browsers.
+   > :warning: Polyfill issues fix: Add the following dependencies in order to avoid polyfill issues. The reason is that some dependencies are Node APIs and are not included in browsers.
 
-   1. Install missing libraries
+   1. Install the missing libraries:
 
       ```bash
       npm i -D process buffer crypto-browserify stream-browserify assert stream-http https-browserify os-browserify url path-browserify
       ```
 
-   1. Create a new file `nodeSpecific.ts` in the src folder of your project.
+   1. Create a new file `nodeSpecific.ts` in the `src` folder of your project:
 
       ```bash
       touch src/nodeSpecific.ts
       ```
 
-   1. Edit it
+   1. Edit it to look like this:
 
       ```js
       import { Buffer } from 'buffer';
       globalThis.Buffer = Buffer;
       ```
 
-   1. Edit `vite.config.ts` file.
+   1. Edit the `vite.config.ts` file:
 
       ```js
       import react from '@vitejs/plugin-react-swc';
@@ -112,9 +112,9 @@ A web3 mobile application is not different from a web2 one in terms of its basic
       };
       ```
 
-1. Adapt Ionic for Vite.
+1. Adapt Ionic for Vite:
 
-   1. Edit `index.html`, it fixes the Node buffer issue with `nodeSpecific.ts` file and points to the CSS file :
+   1. Edit `index.html` to fix the Node buffer issue with `nodeSpecific.ts` file and point to the CSS file:
 
       ```html
       <!DOCTYPE html>
@@ -151,7 +151,7 @@ A web3 mobile application is not different from a web2 one in terms of its basic
       </html>
       ```
 
-   1. Edit **src/main.tsx** to force dark mode and remove React strict mode.
+   1. Edit **src/main.tsx** to force dark mode and remove React strict mode:
 
       ```typescript
       import { createRoot } from 'react-dom/client';
@@ -166,7 +166,7 @@ A web3 mobile application is not different from a web2 one in terms of its basic
       root.render(<App />);
       ```
 
-   1. Modify the default **package.json** default scripts to use Vite instead of default react scripts.
+   1. Modify the default **package.json** default scripts to use Vite instead of the default React scripts:
 
       ```json
         "scripts": {
@@ -180,9 +180,7 @@ A web3 mobile application is not different from a web2 one in terms of its basic
         },
       ```
 
-1. Edit the default Application file to configure page routing and add the style.
-
-   Edit **src/App.tsx** main file.
+1. Edit the default application file `src/App.tsx` to configure page routing and add the style:
 
    ```typescript
    import {
@@ -450,40 +448,34 @@ A web3 mobile application is not different from a web2 one in terms of its basic
    export default App;
    ```
 
-   Explanations :
+   Explanations:
 
-   - `import "@ionic..."` : Default standard Ionic imports.
-   - `import ... from "@airgap/beacon-types" ... from "@taquito/beacon-wallet" ... from "@taquito/taquito"` : Require libraries to interact with the Tezos node and the wallet.
-   - `export class Action implements ActionCisor, ActionPaper, ActionStone {...}` : Representation of the ligo variant `Action` in Typescript, it is needed when passing arguments on `Play` function.
-   - `export type Session = {...}` : Taqueria export the global Storage type but sadly not this sub-type from the Storage type, it is needed for later, so extract a copy.
+   - `import "@ionic..."`: Default standard Ionic imports.
+   - `import ... from "@airgap/beacon-types" ... from "@taquito/beacon-wallet" ... from "@taquito/taquito"`: Require libraries to interact with the Tezos node and the wallet.
+   - `export class Action implements ActionCisor, ActionPaper, ActionStone {...}`: Representation of the Ligo variant `Action` in Typescript, which is needed when passing arguments on `Play` function.
+   - `export type Session = {...}`: Taqueria exports the global storage type but not this sub-type from the storage type; it is needed for later, so extract a copy.
    - `export const UserContext = React.createContext<UserContextType | null>(null)`: Global React context that is passed along pages. More info on React context [here](https://beta.reactjs.org/learn/passing-data-deeply-with-context).
-   - `const refreshStorage = async (event?: CustomEvent<RefresherEventDetail>): Promise<void> => {...` : useful function to force the smart contract Storage to refresh on React state changes (user balance, state of the game).
-   - `useEffect(() => { ... Tezos.setStreamProvider(...) ... Tezos.stream.subscribeEvent({...` : During Application initialization, it configures the wallet, the websocket listening to smart contract events.
-   - `<IonApp><UserContext.Provider ... ><IonReactRouter><IonRouterOutlet><Route path={PAGES.HOME} component={HomeScreen} /> ... ` : It injects the React context to all pages. Declare the global routing of the application.
-   - `export enum PAGES {  HOME = "/home", ...` : Declaration of the global routes.
+   - `const refreshStorage = async (event?: CustomEvent<RefresherEventDetail>): Promise<void> => {...`: A useful function to force the smart contract storage to refresh on React state changes (user balance, state of the game).
+   - `useEffect(() => { ... Tezos.setStreamProvider(...) ... Tezos.stream.subscribeEvent({...`: During application initialization, it configures the wallet, the websocket listening to smart contract events.
+   - `<IonApp><UserContext.Provider ... ><IonReactRouter><IonRouterOutlet><Route path={PAGES.HOME} component={HomeScreen} /> ... `: Injects the React context to all pages and declares the global routing of the application.
+   - `export enum PAGES {  HOME = "/home", ...`: Declaration of the global routes.
 
-1. Add the default theming (CSS, pictures, etc...) via copying the content of the git repository folder named **assets** folder to your local project (considering you cloned the repo and assets folder is on root folder).
+1. Add the default theming (CSS, pictures, etc.) via copying the content of the git repository folder named **assets** folder to your local project (considering you cloned the repo and assets folder is on root folder).
 
    ```bash
    cp -r ../../assets/* .
    ```
 
-1. Connect / disconnect the wallet
+1. Create two React Button components to connect and disconnect the wallet and add code to fetch the user public hash key and balanceL
 
-   Declare two React Button components and fetch the user public hash key + balance.
-
-   1. Create the 2 missing src component files.
-
-      On `app` folder, create these files.
+   1. Create the 2 missing component files in the `app` folder:
 
       ```bash
       touch src/ConnectWallet.tsx
       touch src/DisconnectWallet.tsx
       ```
 
-   1. ConnectWallet button creates an instance wallet, get user permissions via a popup and then retrieve account information.
-
-      Edit `ConnectWallet.tsx`.
+   1. In the `ConnectWallet.tsx` file, create a button that creates an instance of the wallet, gets user permissions via a popup, and retrieves account information.
 
       ```typescript
       import { NetworkType } from '@airgap/beacon-types';
@@ -537,7 +529,7 @@ A web3 mobile application is not different from a web2 one in terms of its basic
       export default ConnectButton;
       ```
 
-   1. DisconnectWallet button cleans the wallet instance and all linked objects.
+   1. In the `DisconnectWallet.tsx` file, create a button that cleans the wallet instance and all linked objects:
 
       ```typescript
       import { IonFab, IonFabButton, IonIcon } from '@ionic/react';
@@ -575,9 +567,9 @@ A web3 mobile application is not different from a web2 one in terms of its basic
       export default DisconnectButton;
       ```
 
-   1. Save both file.
+   1. Save both files.
 
-1. Create the missing pages and the error utility class.
+1. Create the missing pages and the error utility class:
 
    ```bash
    touch src/pages/HomeScreen.tsx
@@ -587,11 +579,11 @@ A web3 mobile application is not different from a web2 one in terms of its basic
    touch src/TransactionInvalidBeaconError.ts
    ```
 
-   `TransactionInvalidBeaconError.ts` utility class is used to display human readable message from Beacon errors
+   The `TransactionInvalidBeaconError.ts` utility class is used to display human readable message from Beacon errors.
 
-1. Edit all files.
+1. Make these updates to the files:
 
-   - HomeScreen.tsx : the home page where you can access all other pages.
+   - HomeScreen.tsx: the home page where you can access all other pages.
 
      ```typescript
      import {
@@ -955,18 +947,18 @@ A web3 mobile application is not different from a web2 one in terms of its basic
      };
      ```
 
-     Explanation :
+     Explanation:
 
-     - `const createGameModal` : The popup to create a new game.
-     - `const selectGameModal` : The popup to select a game to join.
-     - `const [newPlayer, setNewPlayer] = useState<address>("" as address)` : Used on `New Game` popup form to add an opponent.
-     - `const [total_rounds, setTotal_rounds] = useState<nat>(new BigNumber(1) as nat)` : Used on `New Game` popup form to set number of round for one game.
-     - `const [myGames, setMyGames] = useState<Map<nat, Session>>()` : Used on `Join Game` popup window to display the games created or with invitation.
-     - `Array.from(storage.sessions.keys()).forEach((key) => { ... if (session.players.indexOf(userAddress as address) >= 0 && "inplay" in session.result ...` : On storage change event, fetch and filter only games which the user can join and play (i.e with `inplay` status and where user appears on player list).
-     - `const createSession = async (...) => { ...  const op = await mainWalletType!.methods.createSession([userAddress as address, newPlayer], total_rounds).send(); ... ` : createSession function is calling the Smart contract entrypoint passing on arguments : current user address,opponent address and total rounds, then it redirects to the newly created game page.
-     - `{...<IonButton ... routerLink={PAGES.SESSION + "/" + key.toString()}` : If you click on a game button from the list it redirects you to the game to play.
+     - `const createGameModal`: The popup to create a new game.
+     - `const selectGameModal`: The popup to select a game to join.
+     - `const [newPlayer, setNewPlayer] = useState<address>("" as address)`: Used on the `New Game` popup form to add an opponent.
+     - `const [total_rounds, setTotal_rounds] = useState<nat>(new BigNumber(1) as nat)`: Used on the `New Game` popup form to set number of round for one game.
+     - `const [myGames, setMyGames] = useState<Map<nat, Session>>()`: Used on the `Join Game` popup window to display the games created or with invitation.
+     - `Array.from(storage.sessions.keys()).forEach((key) => { ... if (session.players.indexOf(userAddress as address) >= 0 && "inplay" in session.result ...`: On storage change event, fetch and filter only games which the user can join and play (that is, with `inplay` status and where user appears on the player list).
+     - `const createSession = async (...) => { ...  const op = await mainWalletType!.methods.createSession([userAddress as address, newPlayer], total_rounds).send(); ... `: This function calls the smart contract entrypoint passing these arguments: current user address, opponent address, and total rounds. Then it redirects to the newly created game page.
+     - `{...<IonButton ... routerLink={PAGES.SESSION + "/" + key.toString()}`: If you click on a game button from the list it redirects you to the game to play.
 
-   - SessionScreen.tsx : it is the game page where you can play on limited rounds and where the result of the game is displayed at the end.
+   - `SessionScreen.tsx`: This page lets you play on limited rounds and shows the result of the game.
 
      ```typescript
      import { IonPage } from '@ionic/react';
@@ -977,9 +969,9 @@ A web3 mobile application is not different from a web2 one in terms of its basic
      };
      ```
 
-     Leave it empty for now and edit it later and explain what to write.
+     You will add more to this file later.
 
-   - TopPlayersScreen.tsx : it is the player ranking page.
+   - TopPlayersScreen.tsx: The player ranking page.
 
      ```typescript
      import { IonPage } from '@ionic/react';
@@ -990,9 +982,9 @@ A web3 mobile application is not different from a web2 one in terms of its basic
      };
      ```
 
-     Leave it empty for now and edit it later too.
+     You will add more to this file later.
 
-   - Rules.tsx : just some information about game rules.
+   - Rules.tsx: Just some information about game rules.
 
      ```typescript
      import {
@@ -1071,7 +1063,7 @@ A web3 mobile application is not different from a web2 one in terms of its basic
      };
      ```
 
-   - TransactionInvalidBeaconError.ts the utility class that formats Beacon errors.
+   - TransactionInvalidBeaconError.ts: The utility class that formats Beacon errors.
 
      ```typescript
      export class TransactionInvalidBeaconError {
@@ -1084,7 +1076,7 @@ A web3 mobile application is not different from a web2 one in terms of its basic
        data_message: string;
 
        /**
-           * 
+           *
            * @param transactionInvalidBeaconError  {
            "name": "UnknownBeaconError",
            "title": "Aborted",
@@ -1125,33 +1117,33 @@ A web3 mobile application is not different from a web2 one in terms of its basic
                : '';
            this.data_message =
              (this.data_contract_handle
-               ? 'Error on contract : ' + this.data_contract_handle + ' '
+               ? 'Error on contract: ' + this.data_contract_handle + ' '
                : '') +
              (this.data_expected_form
-               ? 'error : ' + this.data_expected_form + ' '
+               ? 'error: ' + this.data_expected_form + ' '
                : '');
          }
        }
      }
      ```
 
-1. Test it.
+1. Test the application:
 
-   To test in web mode.
+   To test in web mode, run this command:
 
    ```bash
    npm run dev
    ```
 
-   Considering that your wallet is well configured and has some Tez on Ghostnet, click on the **Connect** button.
+   Make sure that your wallet is has some tez on Ghostnet and click on the **Connect** button.
 
-   > Note : If you don't have tokens, to get some free XTZ on Ghostnet, follow this link to the [faucet](https://faucet.marigold.dev/).
+   > Note: If you don't have tokens, to get some free XTZ on Ghostnet, follow this link to the [faucet](https://faucet.marigold.dev/).
 
-   On the popup, select your Wallet, then your account and connect.
+   On the popup, select your wallet, then your account and connect.
 
    You are _logged_.
 
-   Optional : Click on the Disconnect button to test the logout.
+   Optional: Click the Disconnect button to test the logout.
 
 ## Summary
 
