@@ -199,46 +199,16 @@ let get_balance (p, ledger : balance_of_param * ledger) : operation =
   Tezos.transaction responses 0mutez p.callback
 ```
 
-### Main function
+### Entrypoint functions
 
-The `main` function is a special function that defines the entrypoints in the contract.
-In this case, it accepts the entrypoint that the transaction sender called and the current state of the contract's storage.
-Then the function branches based on the entrypoint.
-
-For example, if the sender calls the `balance_of` entrypoint, the function calls the `get_balance` function and passes the parameters that the sender passed and the current state of the contract's ledger:
+Each entrypoint in the contract is a function with the `@entry` annotation.
+For example, the `mint` entrypoint calls an internal function to handle minting tokens based on the parameters that are defined in the `mint_params` type:
 
 ```ocaml
-  | Balance_of p ->
-    let op = get_balance (p, storage.ledger) in
-    [op], storage
-```
-
-Here is the complete code of the `main` function:
-
-```ocaml
-let main (param, storage : fa2_entry_points * nft_token_storage)
-    : (operation  list) * nft_token_storage =
-  match param with
-  | Transfer txs ->
-    let (new_ledger, new_reverse_ledger) = transfer
-      (txs, default_operator_validator, storage.operators, storage.ledger, storage.reverse_ledger) in
-    let new_storage = { storage with ledger = new_ledger; reverse_ledger = new_reverse_ledger } in
-    ([] : operation list), new_storage
-
-  | Balance_of p ->
-    let op = get_balance (p, storage.ledger) in
-    [op], storage
-
-  | Update_operators updates ->
-    let new_ops = fa2_update_operators (updates, storage.operators) in
-    let new_storage = { storage with operators = new_ops; } in
-    ([] : operation list), new_storage
-
-  | Mint p ->
+(** Mint NFT entrypoint *)
+[@entry]
+let mint (p : mint_params) (storage : nft_token_storage) : returnValue =
     ([]: operation list), mint (p, storage)
-
-  | Burn p ->
-    ([]: operation list), burn (p, storage)
 ```
 
 ### Initial storage state
