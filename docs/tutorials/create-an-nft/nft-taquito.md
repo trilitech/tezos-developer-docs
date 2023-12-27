@@ -419,7 +419,7 @@ In these steps, you configure the backend application with your Pinata informati
    ```
 
    This metadata object includes several standard fields for Tezos tokens, including a name, description, symbol to show in wallets, and URIs to preview pictures and thumbnails.
-   The `decimals` field is set to 0 because the NFT cannot be divided into decimal amounts like fungible tokens can.
+   The `decimals` field is set to 0 because there is only one of each NFT.
 
    If both of the pins were successful, the endpoint returns the IPFS URIs of the image and metadata to the frontend application:
 
