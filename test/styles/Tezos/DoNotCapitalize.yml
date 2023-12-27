@@ -1,0 +1,7 @@
+extends: substitution
+message: "Do not capitalize '%s'"
+level: error
+swap:
+  'Smart Contracts?': 'smart contract'
+  'Smart contracts?': 'smart contract'
+  'smart Contracts?': 'smart contract'
