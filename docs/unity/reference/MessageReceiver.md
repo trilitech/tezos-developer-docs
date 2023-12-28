@@ -3,7 +3,7 @@ title: Unity SDK MessageReceiver object
 sidebar_label: MessageReceiver object
 authors: Tim McMackin
 last_update:
-  date: 6 December 2023
+  date: 28 December 2023
 ---
 
 The Unity SDK class `TezosSDK.Beacon.WalletMessageReceiver`, which is available at runtime as the `TezosManager.Instance.MessageReceiver` object, provides events that you can add listeners to.
@@ -80,3 +80,7 @@ Returns a `TezosSDK.Beacon.PairingDoneData` object with details about the pairin
 
 Runs when the user signs a payload.
 Returns a `TezosSDK.Beacon.PairingDoneData` object with the signed payload.
+
+### `public event void SDKInitialized`
+
+Runs when the SDK loads.
