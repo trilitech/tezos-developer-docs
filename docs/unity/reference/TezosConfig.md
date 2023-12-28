@@ -10,6 +10,7 @@ The Unity SDK class `TezosSDK.Tezos.TezosConfig`, which is available at runtime 
 
 ## Properties
 
+- `DefaultTimeoutSeconds`: The timeout duration in seconds
 - `Network`: The type of network, as a Beacon SDK [`NetworkType`](https://typedocs.walletbeacon.io/enums/networktype.html) enumeration
 - `RpcBaseUrl`: The URL of the RPC node to use
 
