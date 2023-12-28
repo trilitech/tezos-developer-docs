@@ -27,7 +27,7 @@ Parameters:
   - `walletProvider`: The type of wallet to connect to, including `WalletProviderType.beacon` for TZIP-10 wallets (most Tezos wallets) and `WalletProviderType.kukai` for Kukai wallets.
   - `withRedirectToWallet`: When running on a mobile platform, whether to open the connected mobile app after connecting to a wallet.
 
-This method triggers the `AccountConnected` or `AccountConnectionFailed` events, depending on whether the connection was successful or not.
+This method triggers the `WalletConnected` or `AccountConnectionFailed` events, depending on whether the connection was successful or not.
 
 When the `walletProvider` parameter is set to `WalletProviderType.beacon`, this method automatically picks the correct way to connect to wallets:
 
@@ -56,7 +56,7 @@ void Disconnect()
 
 Disconnects from the currently connected wallet.
 
-This method triggers the `AccountDisconnected` event.
+This method triggers the `WalletDisconnected` event.
 
 ### `GetActiveAddress()`
 
