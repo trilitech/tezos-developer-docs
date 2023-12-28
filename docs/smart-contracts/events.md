@@ -2,7 +2,7 @@
 title: Events
 authors: Tim McMackin
 last_update:
-  date: 22 December 2023
+  date: 28 December 2023
 ---
 
 Events are operations that allow smart contracts to send information to off-chain applications.
@@ -143,7 +143,9 @@ The event data is in Michelson format, so an event from the `reset` entrypoint o
 }
 ```
 
-<!-- TODO how to convert those bytes to an address string? -->
+Note that the address field is returned as a byte value.
+To convert the bytes to an address, use the `encodePubKey` function in `@taquito/utils`.
+<!-- I reported this to the Taquito people and they are asking the core team if the RPC node could return the address as an address instead of as bytes. -->
 
 ## Implementation details
 
