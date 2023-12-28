@@ -214,17 +214,11 @@ const sidebars = {
             type: 'doc',
           },
           items: [
-            {
-              type: "category",
-              label: "Objects",
-              items: [
-                'unity/reference/API',
-                'unity/reference/DAppMetadata',
-                'unity/reference/MessageReceiver',
-                'unity/reference/TokenContract',
-                'unity/reference/Wallet',
-              ],
-            },
+            'unity/reference/API',
+            'unity/reference/DAppMetadata',
+            'unity/reference/MessageReceiver',
+            'unity/reference/TokenContract',
+            'unity/reference/Wallet',
           ],
         },
       ],
