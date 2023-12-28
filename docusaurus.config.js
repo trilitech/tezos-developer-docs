@@ -23,6 +23,30 @@ const config = {
     mermaid: true,
   },
 
+  headTags: [
+    {
+      tagName: 'meta',
+      attributes: {
+        'http-equiv': 'Content-Security-Policy',
+      content: `
+        default-src 'none';
+        prefetch-src 'self';
+        base-uri 'self';
+        manifest-src 'self';
+        script-src 'self' 'unsafe-inline' https://*.googletagmanager.com;
+        style-src 'self' 'unsafe-inline';
+        font-src 'self';
+        img-src 'self' https://*.googletagmanager.com https://*.google-analytics.com data:;
+        media-src 'self';
+        form-action 'self';
+        frame-ancestors 'none';
+        connect-src 'self' https://*.algolia.net https://*.algolianet.com https://*.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com;
+        frame-src https://tezosbot.vercel.app https://calendly.com/ lucid.app;
+        `,
+      },
+    },
+  ],
+
   themes: ['@docusaurus/theme-mermaid'],
 
   presets: [
