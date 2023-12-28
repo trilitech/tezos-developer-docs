@@ -2,7 +2,7 @@ Airgap
 API
 big_map
 blockchain
-cameLIGO
+CameLIGO
 Carthagenet
 cryptocurrency
 Completium
@@ -12,9 +12,9 @@ deserializ(ed)?
 Dailynet
 Flextesa
 Ghostnet
-jsLIGO
+JsLIGO
 Kukai
-L[Ii][Gg][Oo]
+LIGO
 Mainnet
 Merkle
 Mumbainet
