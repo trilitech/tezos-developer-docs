@@ -7,4 +7,9 @@ out
 build
 
 # Vale
-test/styles/write-good
+test/styles/*
+!test/styles/Vocab/
+!test/styles/Tezos/
+
+test/styles/Vocab/*
+!test/styles/Vocab/Tezos
