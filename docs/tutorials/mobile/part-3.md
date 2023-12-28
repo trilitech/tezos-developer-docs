@@ -5,25 +5,26 @@ last_update:
   date: 12 December 2023
 ---
 
-In this section, you will create the pages to :
+In this section, you will create the pages to:
 
-- Create a game : you interact with the modal **createGameModal** from the **HomeScreen.tsx** page to create a game session.
-- Join a game : it redirects you to an existing game session on the **SessionScreen.tsx** page. This modal is coded on the **HomeScreen.tsx** page.
-- Play a session : once you are on a game session against someone, you can play some action
-  - Choose a move : Scissor , Stone or Paper
-  - Reveal your move to resolve the game round. A game session can have several rounds
-- Visualize the top player results
+- Create a game: you interact with the modal `createGameModal` from the `HomeScreen.tsx` page to create a game session.
+- Join a game: it redirects you to an existing game session on the `SessionScreen.tsx` page. This modal is coded on the `HomeScreen.tsx` page.
+- Play a session: when you are in a game session against someone, you can play some action
+  - Choose a move: Scissor, Stone, or Paper
+  - Reveal your move to resolve the game round. A game session can have several rounds.
+- Visualize the top player results.
 
-## Play on a game session
+## Play a game session
 
-1. Click on `New Game` button from Home page and then create a new game
-   Confirm the operation with your wallet.
+1. Click the `New Game` button from the home page and then create a new game.
+
+1. Confirm the operation with your wallet.
 
    You are redirected the new game session page (that is blank page right now).
 
-   > Note : don't hesitate to look at the code of the modal **createGameModal** from the **HomeScreen.tsx** page to understand how it works
+   > Note: you can look at the code of the modal `createGameModal` from the `HomeScreen.tsx` page to understand how it works.
 
-1. Edit the file `./src/SessionScreen.tsx`.
+1. Edit the file `./src/SessionScreen.tsx` to look like this:
 
    ```typescript
    import {
@@ -107,7 +108,7 @@ In this section, you will create the pages to :
                await revealPlay();
              } else
                console.warn(
-                 'Warning : here we ignore this transaction event for session ',
+                 'Warning: here we ignore this transaction event for session ',
                  id
                );
            });
@@ -118,11 +119,11 @@ In this section, you will create the pages to :
                (!e.result.errors || e.result.errors.length === 0) &&
                (e.payload as MichelsonV1ExpressionBase).int === id
              ) {
-               console.log('on new round event :', e);
+               console.log('on new round event:', e);
                refreshStorage();
              } else
                console.log(
-                 'Warning : here we ignore this transaction event',
+                 'Warning: here we ignore this transaction event',
                  e
                );
            });
@@ -543,13 +544,13 @@ In this section, you will create the pages to :
              <>
                <IonList inset={true} style={{ textAlign: 'left' }}>
                  {status !== STATUS.FINISHED ? (
-                   <IonItem className="nopm">Status : {status}</IonItem>
+                   <IonItem className="nopm">Status: {status}</IonItem>
                  ) : (
                    ''
                  )}
                  <IonItem className="nopm">
                    <span>
-                     Opponent :{' '}
+                     Opponent:{' '}
                      {storage?.sessions
                        .get(new BigNumber(id) as nat)
                        .players.find((userItem) => userItem !== userAddress)}
@@ -558,7 +559,7 @@ In this section, you will create the pages to :
 
                  {status !== STATUS.FINISHED ? (
                    <IonItem className="nopm">
-                     Round :
+                     Round:
                      {Array.from(
                        Array(
                          storage?.sessions
@@ -599,7 +600,7 @@ In this section, you will create the pages to :
 
                  {status !== STATUS.FINISHED ? (
                    <IonItem className="nopm">
-                     {'Remaining time :' + remainingTime + ' s'}
+                     {'Remaining time:' + remainingTime + ' s'}
                    </IonItem>
                  ) : (
                    ''
@@ -688,25 +689,25 @@ In this section, you will create the pages to :
    };
    ```
 
-   Explanations :
+   Explanations:
 
-   - `export enum STATUS {...` : This enum is used to guess what is the actual status of the game based on different field values. It gives for connected user the next action to do, and so control the display of the buttons.
-   - `const subReveal = Tezos.stream.subscribeEvent({tag: "reveal",...` : Websocket subscription to smart contract `reveal` event. When is time to reveal, it can trigger the action from the mobile without asking the user to click on the button.
-   - `const subNewRound = Tezos.stream.subscribeEvent({tag: "newRound",...` : Websocket subscription to smart contract `newround` event. when a new round is ready, this event notifies the mobile to refresh the current game so the player can play on next round.
-   - `const buildSessionStorageKey ...` : This function is an helper to store on browser storage a unique secret key of the player. This secret is a salt that is added to encrypt the Play action and then to decrypt the Reveal action.
-   - `const buildSessionStorageValue ...` : Same as above but for the value stored as a string.
-   - `const play = async (action: Action) => { ... ` : Play action. It creates a player secret for this Play action randomly `Math.round(Math.random() * 63)` and store it on the browser storage `localStorage.setItem(buildSessionStorageKey(...`. Then it packs and encrypt the Play action calling `create_bytes(action, secret)`, it estimates the cost of the transaction and add an extra for the event cost `mainWalletType!.methods.play(encryptedAction,current_session!.current_round,session_id) ... Tezos.estimate.transfer(...) ... preparedCall.send({gasLimit: gasLimit + 1000, ...`. 1 XTZ is asked for each player doing a Play action. This money is stacked on the contract and free/dispatched when game is ended. Shifumi game does not take any extra fee by default. Only players win or lose money.
-   - `const revealPlay = async () => {...` : Reveal action. It fetches the secret from `localStorage.getItem(...`, then it packs the secret action and reveal what was the secret `mainWalletType!.methods.revealPlay(encryptedAction as bytes,new BigNumber(secretAction.secret) as nat,current_session!.current_round,session_id);`. It adds again some extra gas limit `gasLimit: gasLimit * 3`. Note on why to increase the gas limit : the reason is because if two players reveal actions are on the same block, the primary estimation of gas made by the wallet is not be enough. The reason is that the execution of the second reveal play action executes another business logic because the first action is modifying the initial state, so the estimation at this time (i.e with this previous state) is no more valid.
-   - `const getFinalResult` : Based on some fields, it gives the final Status of the game once is ended. when game is ended the winner gets the money stacked by the loser. In case of draw, stacked money is sent back to the players.
-   - `const stopSession = async () => {...`: There is a countdown of 10min while inaction. If no player wants to play anymore and the game is unfinished, someone can claim the victory and close the game calling `mainWalletType!.methods.stopSession(`. The smart contract looks at different configuration to guess if there is someone guilty or it is just a draw because no one want to play anymore. Gains are sent to the winner or in a case of draw, it is sent back to players.
+   - `export enum STATUS {...`: This enum is used to guess the actual status of the game based on different field values. It gives the connected user the next action to do, and so control the display of the buttons.
+   - `const subReveal = Tezos.stream.subscribeEvent({tag: "reveal",...`: Websocket subscription to the smart contract `reveal` event. When is time to reveal, it can trigger the action from the mobile app without asking the user to click the button.
+   - `const subNewRound = Tezos.stream.subscribeEvent({tag: "newRound",...`: Websocket subscription to smart contract `newround` event. When a new round is ready, this event notifies the mobile to refresh the current game so the player can play the next round.
+   - `const buildSessionStorageKey ...`: This function is a helper to store on browser storage a unique secret key of the player. This secret is a salt that is added to encrypt the Play action and then to decrypt the Reveal action.
+   - `const buildSessionStorageValue ...`: Same as above but for the value stored as a string.
+   - `const play = async (action: Action) => { ... `: Play action. It creates a player secret for this Play action randomly `Math.round(Math.random() * 63)` and stores it on the browser storage `localStorage.setItem(buildSessionStorageKey(...`. Then it packs and encrypts the Play action calling `create_bytes(action, secret)`. It estimates the cost of the transaction and adds an extra for the event cost `mainWalletType!.methods.play(encryptedAction,current_session!.current_round,session_id) ... Tezos.estimate.transfer(...) ... preparedCall.send({gasLimit: gasLimit + 1000, ...`. It asks for 1 XTZ from each player doing a Play action. This money is staked on the contract and freed when the game is ended. The Shifumi game itself does not take any extra fee by default. Only players win or lose money.
+   - `const revealPlay = async () => {...`: Reveal action. It fetches the secret from `localStorage.getItem(...`, then it packs the secret action and reveals what was the secret: `mainWalletType!.methods.revealPlay(encryptedAction as bytes,new BigNumber(secretAction.secret) as nat,current_session!.current_round,session_id);`. It adds again some extra gas limit `gasLimit: gasLimit * 3`. It increases the gas limit because if two players reveal actions on the same block, the primary estimation of gas made by the wallet is not enough. The reason is that the execution of the second reveal play action executes another business logic because the first action is modifying the initial state, so the estimation at this time (with this previous state) is no longer valid.
+   - `const getFinalResult`: Based on some fields, it gives the final status of the game when it is ended. When the game is ended the winner gets the money staked by the loser. In case of a draw, the staked money is sent back to the players.
+   - `const stopSession = async () => {...`: There is a countdown of 10 minutes. If no player wants to play any more and the game is unfinished, someone can claim the victory and close the game calling `mainWalletType!.methods.stopSession(`. The smart contract looks at different configurations to guess if there is someone guilty or it is just a draw because no one wants to play any more. Gains are sent to the winner or in a case of draw, the tez is sent back to players.
 
    When the page refreshes, you can see the game session.
 
-1. Create the Top player score page.
+1. Create the Top player score page:
 
-   Last step is to see the score of all players.
+   The last step is to see the score of all players.
 
-   Edit `TopPlayersScreen.tsx`.
+   Edit `TopPlayersScreen.tsx` to look like this:
 
    ```typescript
    import {
@@ -817,15 +818,15 @@ In this section, you will create the pages to :
    };
    ```
 
-   Explanations :
+   Explanations:
 
-   - `let ranking = new Map()` : It prepares a map to count the score for each winner. Looping of all sessions `storage.sessions.keys()).forEach` , it takes only where there is a winner `if ("winner" in result)`then it increments the score `if (score) score++;else score = 1` and push it to the map `ranking.set(winner, score);`.
+   - `let ranking = new Map()`: It prepares a map to count the score for each winner. Looping through all sessions with `storage.sessions.keys()).forEach`, it takes only where there is a winner `if ("winner" in result)` then it increments the score `if (score) score++;else score = 1` and pushes it to the map `ranking.set(winner, score);`.
 
-   All pages are ready. The Game is done !
+   All pages are ready. The Game is done!
 
 ## Summary
 
-You have successfully create a web3 game that runs 100% onchain.
+You have successfully create a Web3 game that runs 100% on-chain.
 The next step is to build and distribute your game as an Android app.
 
 When you are ready, continue to [Part 4: Publish on the Android store](./part-4).

@@ -13,7 +13,7 @@ Your game will be more successful if you publish it on the Android or Apple stor
 
 1. Modify the name of your app, open the `capacitor.config.json` file and change `"appId":"dev.marigold.shifumi"` and `"appName": "Tezos Shifumi"` properties.
 
-1. Hack : to build on Android, change **vite.config.ts** to remove **global** field from the configuration.
+1. Hack: to build on Android, change **vite.config.ts** to remove **global** field from the configuration.
 
    ```javascript
    export default defineConfig({
@@ -48,11 +48,11 @@ Your game will be more successful if you publish it on the Android or Apple stor
 
    Open Android Studio and do a `Build` or `Make Project` action.
 
-   > Note 1 : in case of broken Gradle : `ionic capacitor sync android` and click on **sync** on **Android studio > build**.
+   > Note 1: in case of broken Gradle: `ionic capacitor sync android` and click on **sync** on **Android studio > build**.
 
-   > Note 2 : If you have `WSL2` and difficulties to run an emulator on it, I advice you to install Android studio on Windows and build, test and package all on this OS. Push your files on your git repo, and check on .gitignore for `android` folder that there is no filters on assets.
+   > Note 2: If you have `WSL2` and difficulties to run an emulator on it, I advice you to install Android studio on Windows and build, test and package all on this OS. Push your files on your git repo, and check on .gitignore for `android` folder that there is no filters on assets.
    >
-   > 1. Comment end lines on file `app/android/.gitignore` :
+   > 1. Comment end lines on file `app/android/.gitignore`:
    >
    >    ```bash
    >    # Cordova plugins for Capacitor
@@ -74,7 +74,7 @@ Your game will be more successful if you publish it on the Android or Apple stor
    >    #/dist
    >    ```
    >
-   > 1. Force it to be included on committed files : `git add -f android/app/src/main/assets/  ; git add -f android/capacitor-cordova-android-plugins/ ;  git add -f node_modules ;` and push to git.
+   > 1. Force it to be included on committed files: `git add -f android/app/src/main/assets/  ; git add -f android/capacitor-cordova-android-plugins/ ;  git add -f node_modules ;` and push to git.
    > 1. Try again `Build` or `Make Project` action on Android Studio.
 
    ![build.png](/img/tutorials/mobile-build.png)
@@ -114,9 +114,9 @@ Your game will be more successful if you publish it on the Android or Apple stor
 1. Publish your app to Google Play store.
 
    To publish your app to Android store, read the Google documentation.
-   You need a developer account : https://developer.android.com/distribute/console/
+   You need a developer account: https://developer.android.com/distribute/console/
 
-   It costs 25\$ for life (for information : Apple developer account costs 99$/ year ...).
+   It costs 25\$ for life (for information: Apple developer account costs 99$/ year ...).
 
 1. On Android studio, go to Build > Generate Signed bundle / APK...
 
