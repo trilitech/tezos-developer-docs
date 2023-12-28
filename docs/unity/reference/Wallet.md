@@ -14,6 +14,10 @@ The Unity SDK class `TezosSDK.Tezos.Wallet.WalletProvider`, which is available a
 
 Returns true if a wallet is currently connected.
 
+### `HandshakeData`
+
+An object with a field named `PairingData` with the data that applications need to connect to the wallet.
+
 ## Methods
 
 ### `Connect()`
