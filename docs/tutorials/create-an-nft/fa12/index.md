@@ -34,7 +34,7 @@ storage with initial values. The two values we are interested in are the number
 of tokens and the address that will own the initial supply.
 
 Before we originate the contract, we need a Tezos address, along with some Tezos
-tokens, to pay for the gas costs associated with calling the Smart Contract. Gas
+tokens, to pay for the gas costs associated with calling the smart contract. Gas
 costs get paid using Tezos tokens, not the tokens represented within our soon to
 be created asset contract.
 
