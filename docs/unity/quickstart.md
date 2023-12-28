@@ -2,7 +2,7 @@
 title: Quickstart
 authors: Tim McMackin
 last_update:
-  date: 22 December 2023
+  date: 28 December 2023
 ---
 
 Follow these steps to install the Tezos SDK for Unity in an existing Unity project and start using it.
@@ -61,7 +61,7 @@ For more information about them, see [Prefabs](./prefabs).
    Whether it shows the QR code or buttons depends on whether the project is running in standalone, mobile, or WebGL mode.
 
 1. Add features to your project to use the connected account.
-For example, the `Tutorials/Common/Scripts/WalletInfoUI.cs` file responds to the `AccountConnected` event, which runs when the user approves the connection in their wallet application.
+For example, the `Tutorials/Common/Scripts/WalletInfoUI.cs` file responds to the `WalletConnected` event, which runs when the user approves the connection in their wallet application.
 You can use this event to get the address of the connected account, as in this code:
 
    ```csharp
@@ -70,19 +70,19 @@ You can use this event to get the address of the connected account, as in this c
        addressText.text = NOT_CONNECTED_TEXT;
 
        // Subscribe to events;
-       TezosManager.Instance.MessageReceiver.AccountConnected += OnAccountConnected;
-       TezosManager.Instance.MessageReceiver.AccountDisconnected += OnAccountDisconnected;
+       TezosManager.Instance.MessageReceiver.WalletConnected += OnWalletConnected;
+       TezosManager.Instance.MessageReceiver.WalletDisconnected += OnWalletDisconnected;
    }
 
-   private void OnAccountConnected(AccountInfo accountInfo)
+   private void OnWalletConnected(WalletInfo walletInfo)
    {
        // We can get the address from the wallet
        addressText.text = TezosManager.Instance.Wallet.GetActiveAddress();
        // Or from the event data
-       addressText.text = accountInfo.Address;
+       addressText.text = walletInfo.Address;
    }
 
-   private void OnAccountDisconnected(AccountInfo accountInfo)
+   private void OnWalletDisconnected(WalletInfo walletInfo)
    {
        addressText.text = NOT_CONNECTED_TEXT;
    }
@@ -228,13 +228,13 @@ This example prints information about the tokens that the account owns to the lo
 private void Start()
 {
     // Subscribe to account connection event
-    TezosManager.Instance.MessageReceiver.AccountConnected += OnAccountConnected;
+    TezosManager.Instance.MessageReceiver.WalletConnected += OnWalletConnected;
 }
 
-private void OnAccountConnected(AccountInfo accountInfo)
+private void OnWalletConnected(WalletInfo walletInfo)
 {
     // Address of the connected wallet
-    var address = accountInfo.Address;
+    var address = walletInfo.Address;
 
     // Prepare the coroutine to fetch the tokens
     var routine = TezosManager.Instance.Tezos.API.GetTokensForOwner(
