@@ -55,7 +55,7 @@ As the protocol on `Ghostnet` migrates to the newly adopted amendment a few days
 
 #### Getting tez testnet tokens
 
-In order to get Tez tokens to use when testing your application on testnet, you can use a faucet. You
+In order to get tez tokens to use when testing your application on testnet, you can use a faucet. You
 can request some tokens from the [Ghostnet faucet](https://faucet.ghostnet.teztnets.xyz/)
 
 

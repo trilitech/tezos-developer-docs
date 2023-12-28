@@ -199,7 +199,7 @@ The default Tezos testing testnet is called **Ghostnet**.
      }
      ```
 
-   - Choice N°2: use the Taqueria generated account. Copy the account **privateKey** from the **.taq/config.local.testing.json** config file. Open your Temple browser extension on your computer or on your mobile phone and do the [initial setup](https://www.youtube.com/watch?v=S8_tL8PfCts). Once you are done, go to Settings (click on the avatar icon, or display Temple in full page) and click on **Import account > Private key** tab. Paste the **privateKey** to Temple text input and confirm. Send free Tez to your new account via this web faucet [Marigold faucet](https://faucet.marigold.dev/). Connect your wallet on **Ghostnet** and ask for free tez.
+   - Choice N°2: use the Taqueria generated account. Copy the account **privateKey** from the **.taq/config.local.testing.json** config file. Open your Temple browser extension on your computer or on your mobile phone and do the [initial setup](https://www.youtube.com/watch?v=S8_tL8PfCts). Once you are done, go to Settings (click on the avatar icon, or display Temple in full page) and click on **Import account > Private key** tab. Paste the **privateKey** to Temple text input and confirm. Send free tez to your new account via this web faucet [Marigold faucet](https://faucet.marigold.dev/). Connect your wallet on **Ghostnet** and ask for free tez.
 
    Now you have some money to play with.
 
