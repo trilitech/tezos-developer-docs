@@ -2,7 +2,7 @@
 title: Accounts
 authors: "Tim McMackin"
 last_update:
-  date: 6 December 2023
+  date: 28 December 2023
 ---
 
 Tezos uses these types of accounts:
@@ -18,4 +18,3 @@ See [Smart contracts](../smart-contracts).
 - Smart Rollup accounts are another type of originated account.
 Their addresses start with `SR1`.
 See [Smart Optimistic Rollups](./smart-rollups).
-TODO info about what a SR1 account can store.
