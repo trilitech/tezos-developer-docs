@@ -31,9 +31,9 @@ where:
 - `GAZ_FEE` is a specified maximal fee the user is willing to pay for this operation (using the --burn-cap parameter).
 
 ### Deploying via online IDE
-As for deploying through your online IDE, if you are using Ligo or SmartPy programming languages, you can simply deploy your smart contracts through their respective online IDEs.
+As for deploying through your online IDE, if you are using LIGO or SmartPy programming languages, you can simply deploy your smart contracts through their respective online IDEs.
 - [SmartPy online IDE](https://smartpy.io/)
-- [Ligo online IDE](https://ligolang.org/?lang=jsligo)
+- [LIGO online IDE](https://ligolang.org/?lang=jsligo)
 
 ## Interacting with the contract
 Once you have successfully originated the smart contract and it is included in a baked block, there are two ways to interact with it: through command lines or through a block explorer.
