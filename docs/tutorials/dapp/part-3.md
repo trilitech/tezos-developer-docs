@@ -82,7 +82,7 @@ Minting is the action of creating ticket from void. In general, minting operatio
 
    > Note: to simplify, there is no security around this entrypoint, but in Production it should.
 
-   Tickets are very special objects that cannot be **DUPLICATED**. During compilation to Michelson, using a variable twice, copying a structure holding tickets are generating `DUP` command. To avoid our contract to fail at runtime, Ligo parses statically our code during compilation time to detect any DUP on tickets.
+   Tickets are very special objects that cannot be **DUPLICATED**. During compilation to Michelson, using a variable twice, copying a structure holding tickets are generating `DUP` command. To avoid our contract to fail at runtime, LIGO parses statically our code during compilation time to detect any DUP on tickets.
 
    To solve most of issues, segregate ticket objects from the rest of the storage, or structures containing ticket objects in order to avoid compilation errors. To do this, just destructure any object until you get tickets isolated.
 

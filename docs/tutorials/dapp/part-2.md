@@ -84,7 +84,7 @@ sequenceDiagram
 
    Explanation:
 
-   - `...store` do a copy by value of your object. [Have a look on the Functional updates documentation](https://ligolang.org/docs/language-basics/maps-records/#functional-updates). Note: you cannot do assignment like this `store.pokeTraces=...` in jsLigo, there are no concept of Classes, use `Functional updates` instead.
+   - `...store` do a copy by value of your object. [Have a look on the Functional updates documentation](https://ligolang.org/docs/language-basics/maps-records/#functional-updates). Note: you cannot do assignment like this `store.pokeTraces=...` in jsLIGO, there are no concept of Classes, use `Functional updates` instead.
    - `Map.add(...`: Add a key, value entry to a map. For more information about [Map](https://ligolang.org/docs/language-basics/maps-records/#maps).
    - `export type storage = {...};` a `Record` type is declared, it is an [object structure](https://ligolang.org/docs/language-basics/maps-records#records).
    - `Tezos.get_self_address()` is a native function that returns the current contract address running this code. Have a look on [Tezos native functions](https://ligolang.org/docs/reference/current-reference).
@@ -408,7 +408,7 @@ sequenceDiagram
 
 ## Write mutation tests
 
-Ligo provides mutations testing through the Test library. Mutation tests are like `testing your tests` to see if your unit tests coverage is strong enough. Bugs, or mutants, are automatically inserted into your code. Your tests are run on each mutant.
+LIGO provides mutations testing through the Test library. Mutation tests are like `testing your tests` to see if your unit tests coverage is strong enough. Bugs, or mutants, are automatically inserted into your code. Your tests are run on each mutant.
 
 If your tests fail then the mutant is killed. If your tests passed, the mutant survived.
 The higher the percentage of mutants killed, the more effective your tests are.
