@@ -37,7 +37,7 @@ Deep link | The application opens the user's wallet app directly | Yes | Yes | N
 Social wallets | The application opens the user's Kukai web-based wallet | Yes | No | No
 
 Regardless of the connection method, the Tezos SDK for Unity runs the `WalletConnected` or `AccountConnectionFailed` event, as appropriate.
-For more information about events, see the [Unity SDK MessageReceiver object](./reference/MessageReceiver).
+For more information about events, see the [Unity SDK EventManager object](./reference/EventManager).
 
 <!-- TODO info about handshakes? -->
 <!-- TODO info about persistent Beacon connections; do developers need to know where to store them? Do they put them in a database or something? -->
