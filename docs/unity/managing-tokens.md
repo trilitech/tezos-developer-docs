@@ -103,10 +103,10 @@ This example prints information about the tokens that the account owns to the lo
 ```csharp
 void Start()
 {
-    TezosManager.Instance.MessageReceiver.AccountConnected += OnAccountConnected;
+    TezosManager.Instance.MessageReceiver.WalletConnected += OnWalletConnected;
 }
 
-private void OnAccountConnected(AccountInfo accountInfo)
+private void OnWalletConnected(AccountInfo accountInfo)
 {
     var address = TezosManager.Instance.Wallet.GetActiveAddress();
     var routine = TezosManager.Instance.Tezos.API.GetTokensForOwner(

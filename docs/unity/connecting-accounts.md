@@ -36,7 +36,7 @@ QR code | Users scan a QR code with a wallet app | Yes | No | Yes
 Deep link | The application opens the user's wallet app directly | Yes | Yes | No
 Social wallets | The application opens the user's Kukai web-based wallet | Yes | No | No
 
-Regardless of the connection method, the Tezos SDK for Unity runs the `AccountConnected` or `AccountConnectionFailed` event, as appropriate.
+Regardless of the connection method, the Tezos SDK for Unity runs the `WalletConnected` or `AccountConnectionFailed` event, as appropriate.
 For more information about events, see the [Unity SDK MessageReceiver object](./reference/MessageReceiver).
 
 <!-- TODO info about handshakes? -->
@@ -51,7 +51,7 @@ This method generates a QR code that a user scans with their wallet application:
 1. From the handshake information, the SDK generates a QR code.
 The `TezosAuthenticator` prefab handles the QR code generation with the `TezosSDK.View.QRCodeView` class.
 1. The user scans the QR code with their wallet app and approves the connection.
-1. The SDK receives the connection approval, which triggers the `OnAccountConnected` event and includes information about the connected account.
+1. The SDK receives the connection approval, which triggers the `WalletConnected` event and includes information about the connected account.
 
 ### Deep link connections
 
@@ -64,7 +64,7 @@ The Beacon SDK detects that it is running in a web application and opens a popup
    <img src="/img/unity/unity-connecting-beacon-popup.png" alt="Beacon popup window with wallet types including Temple and Umami" style={{width: 300}} />
 
 1. The [Beacon](https://walletbeacon.io/) SDK handles the process of connecting to the wallet.
-1. The SDK receives the connection approval, which triggers the `OnAccountConnected` event and includes information about the connected account.
+1. The SDK receives the connection approval, which triggers the `WalletConnected` event and includes information about the connected account.
 
 ### Social connections
 
