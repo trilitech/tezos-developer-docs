@@ -146,7 +146,7 @@ Jakarta's main changes are:
 
 * Transactional optimistic rollups (or TORU), an experimental implementation of optimistic rollups on Tezos. TORU provide a way to enable higher throughput (TPS) of transactions by moving their validation away from the main chain, to 'Layer 2'.
 
-* A new improved design for the integration of Sapling transactions into Smart Contracts. The Sapling protocol uses advanced cryptography to enable the protection of users' privacy and transparency with regard to regulators.
+* A new improved design for the integration of Sapling transactions into smart contracts. The Sapling protocol uses advanced cryptography to enable the protection of users' privacy and transparency with regard to regulators.
 
 * A redesign and renaming of the Liquidity Baking Escape Hatch mechanism, now called "Liquidity Baking Toggle Vote".
 
