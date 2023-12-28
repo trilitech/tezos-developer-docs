@@ -430,7 +430,7 @@ Update the unit tests files to see if you can still poke.
    yarn dev
    ```
 
-1. Connect with any wallet with enough Tez, and Poke your own contract.
+1. Connect with any wallet with enough tez, and Poke your own contract.
 
    ![pokefail](/img/tutorials/dapp-pokefail.png)
 
