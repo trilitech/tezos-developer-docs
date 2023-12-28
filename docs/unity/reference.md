@@ -11,7 +11,7 @@ These pages provide reference for the most important of these objects:
 
 - [API object](./reference/API): Provides information about the Tezos blockchain, such as what tokens accounts or contracts control
 - [DAppMetadata object](./reference/DAppMetadata): Provides read-only properties that describe the project
-- [MessageReceiver object](./reference/MessageReceiver): Provides events that you can add listeners to, such as when users connect their wallets
+- [EventManager object](./reference/EventManager): Provides events that you can add listeners to, such as when users connect their wallets
 - [TezosConfig object](./reference/TezosConfig): sets the [RPC](../architecture/rpc) node that the SDK uses to send transactions to Tezos
 - [TokenContract object](./reference/TokenContract): Provides a built-in FA2-compatible smart contract and convenience methods to work with it
 - [Wallet object](./reference/Wallet): Provides methods to connect to wallets and send transactions from the connected account

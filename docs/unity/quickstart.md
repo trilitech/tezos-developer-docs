@@ -70,8 +70,8 @@ You can use this event to get the address of the connected account, as in this c
        addressText.text = NOT_CONNECTED_TEXT;
 
        // Subscribe to events;
-       TezosManager.Instance.MessageReceiver.WalletConnected += OnWalletConnected;
-       TezosManager.Instance.MessageReceiver.WalletDisconnected += OnWalletDisconnected;
+       TezosManager.Instance.EventManager.WalletConnected += OnWalletConnected;
+       TezosManager.Instance.EventManager.WalletDisconnected += OnWalletDisconnected;
    }
 
    private void OnWalletConnected(WalletInfo walletInfo)
@@ -91,7 +91,7 @@ You can use this event to get the address of the connected account, as in this c
    You can use this address as a user's account ID because Tezos account addresses are unique.
 
 1. To respond to other events, add listeners for the events that the SDK provides.
-You can see these events and their return values in the [MessageReceiver object](./reference/MessageReceiver).
+You can see these events and their return values in the [EventManager object](./reference/EventManager).
 
 Note that if you stop the project while your wallet is connected and restart the project later, the project remembers the wallet's connection status by using the data saved at [Application.persistentDataPath](https://docs.unity3d.com/ScriptReference/Application-persistentDataPath.html).
 The SDK uses the [Beacon](https://docs.walletbeacon.io/) SDK to connect to wallets.
@@ -228,7 +228,7 @@ This example prints information about the tokens that the account owns to the lo
 private void Start()
 {
     // Subscribe to account connection event
-    TezosManager.Instance.MessageReceiver.WalletConnected += OnWalletConnected;
+    TezosManager.Instance.EventManager.WalletConnected += OnWalletConnected;
 }
 
 private void OnWalletConnected(WalletInfo walletInfo)
@@ -317,7 +317,7 @@ string payload = "This message came from my account.";
 private void Start()
 {
     // Subscribe to the wallet event
-    TezosManager.Instance.MessageReceiver.PayloadSigned += OnPayloadSigned;
+    TezosManager.Instance.EventManager.PayloadSigned += OnPayloadSigned;
 
     TezosManager.Instance.Wallet.RequestSignPayload(SignPayloadType.micheline, payload);
 }

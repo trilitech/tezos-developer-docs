@@ -31,7 +31,7 @@ The SDK provides these objects:
 
 - [`Wallet`](./unity/reference/Wallet): An object that provides information about the connected wallet and allows you to send transactions from the user's account.
 
-- [`MessageReceiver`](./unity/reference/MessageReceiver): An object that provides events that you can add listeners to.
+- [`EventManager`](./unity/reference/EventManager): An object that provides events that you can add listeners to.
 You can see these events and their return values in the `WalletEventManager.cs` file.
 
 - [`TezosConfig`](./unity/reference/TezosConfig): An object that sets the [RPC](../architecture/rpc) node that the SDK uses to send transactions to Tezos

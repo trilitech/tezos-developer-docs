@@ -91,7 +91,7 @@ For example, this code prompts the user to sign the message "This message came f
 ```csharp
 string payload = "This message came from my account.";
 
-TezosManager.Instance.MessageReceiver.PayloadSigned += OnPayloadSigned;
+TezosManager.Instance.EventManager.PayloadSigned += OnPayloadSigned;
 TezosManager.Instance.Wallet.RequestSignPayload(SignPayloadType.micheline, payload);
 ```
 
