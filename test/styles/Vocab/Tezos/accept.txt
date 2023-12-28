@@ -1,3 +1,4 @@
+Airgap
 API
 big_map
 blockchain
@@ -8,6 +9,7 @@ Completium
 dApps?
 delegator
 deserializ(ed)?
+Dailynet
 Flextesa
 Ghostnet
 jsLIGO
@@ -20,6 +22,7 @@ NFT
 OCaml
 off-chain
 on-chain
+Oxhead
 Oxhead Alpha
 Rollups?
 Sapling
