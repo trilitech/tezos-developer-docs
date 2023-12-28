@@ -44,7 +44,8 @@ private void HandleTezosBalance(ulong balanceMutez)
 ### `ReadView()`
 
 ```csharp
-IEnumerator ReadView(string contractAddress,
+IEnumerator ReadView(
+    string contractAddress,
     string entrypoint,
     string input,
     Action<JsonElement> callback);
@@ -261,7 +262,7 @@ private void HandleIsHolderOfToken(bool response)
 
 ```csharp
 IEnumerator GetTokenMetadata(
-    Action<JsonElement> callback,
+    Action<TokenMetadata> callback,
     string contractAddress,
     uint tokenId);
 ```
