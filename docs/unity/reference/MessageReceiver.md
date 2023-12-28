@@ -13,43 +13,43 @@ For example, if your project makes multiple calls to smart contracts, the `Contr
 
 ## Example
 
-This code adds a listener for the `AccountConnected` and `AccountDisconnected` events:
+This code adds a listener for the `WalletConnected` and `WalletDisconnected` events:
 
 ```csharp
 private void Start()
 {
-    TezosManager.Instance.MessageReceiver.AccountConnected += OnAccountConnected;
-    TezosManager.Instance.MessageReceiver.AccountDisconnected += OnAccountDisconnected;
+    TezosManager.Instance.MessageReceiver.WalletConnected += OnWalletConnected;
+    TezosManager.Instance.MessageReceiver.WalletDisconnected += OnWalletDisconnected;
 }
 
-private void OnAccountConnected(AccountInfo accountInfo)
+private void OnWalletConnected(WalletInfo walletInfo)
 {
-    Debug.Log(accountInfo.Address);
+    Debug.Log(walletInfo.Address);
 }
 
-private void OnAccountDisconnected(AccountInfo accountInfo)
+private void OnWalletDisconnected(WalletInfo walletInfo)
 {
-    Debug.Log(accountInfo.Address);
-    Debug.Log("Account disconnected.");
+    Debug.Log(walletInfo.Address);
+    Debug.Log("Wallet disconnected.");
 }
 ```
 
 ## Events
 
-### `public event Action<AccountInfo> AccountConnected`
+### `public event Action<WalletInfo> WalletConnected`
 
-Runs when an account connects successfully.
-Returns a `TezosSDK.Beacon.AccountInfo` object with information that includes the address of the connected account.
+Runs when a wallet connects successfully.
+Returns a `TezosSDK.Beacon.WalletInfo` object with information that includes the address of the connected account.
 
 ### `public event Action<ErrorInfo> AccountConnectionFailed`
 
 Runs when a connection to an account fails.
 Returns a `TezosSDK.Beacon.ErrorInfo` object with an error message.
 
-### `public event Action<AccountInfo> AccountDisconnected`
+### `public event Action<WalletInfo> WalletDisconnected`
 
-Runs when an account disconnects successfully.
-Returns a `TezosSDK.Beacon.AccountInfo` object with information that includes the address of the connected account.
+Runs when a wallet disconnects successfully.
+Returns a `TezosSDK.Beacon.WalletInfo` object with information that includes the address of the connected account.
 
 ### `public event Action<OperationResult> ContractCallCompleted`
 
