@@ -20,7 +20,7 @@ The RPC protocol can't provide this information directly, so you would have to s
 Instead, you can use an indexer that records information about each operation.
 This kind of indexer can provide information about a specific operation by its hash or a list of operations sent by a certain account.
 
-## Hosted indexers
+## Public indexers
 
 You can get data from these indexers via their APIs:
 
@@ -28,10 +28,17 @@ You can get data from these indexers via their APIs:
 - [TzPro](https://docs.tzpro.io/)
 
 For instance, [TzKT](https://github.com/baking-bad/tzkt) is a lightweight Tezos blockchain indexer with an advanced API created by [Baking Bad](https://baking-bad.org/docs).
-You can install your own copy with the instructions at https://github.com/baking-bad/tzkt and configure it for the network that you want to use.
 
-You can also run a copy of the Blockwatch indexer [TzIndex](https://github.com/blockwatch-cc/tzindex), which is used for the [TzStats explorer](https://tzstats.com/).
+## Hosted indexers
+
+You can run your own copy of TzKT with the instructions at https://github.com/baking-bad/tzkt and configure it for the network that you want to use.
+
+These other hosted indexers are available:
+
+- The Blockwatch indexer [TzIndex](https://github.com/blockwatch-cc/tzindex), which is used for the [TzStats explorer](https://tzstats.com/).
 This indexer replaces the slow and expensive SQL datastore with a high-performance columnar database that allows for extremely fast analytical queries.
+
+- The lightweight indexer [Que Pasa](https://github.com/tzConnectBerlin/que-pasa), which indexes information about a specific list of smart contracts.
 
 ## Custom indexers
 
