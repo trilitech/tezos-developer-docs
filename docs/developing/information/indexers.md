@@ -9,6 +9,10 @@ Indexers are off-chain applications that retrieve blockchain data, process it, a
 Indexers are an important component of [Block explorers](./block-explorers).
 
 You can use indexers to provide the data that you need for your dApps.
+For example, assume that you want information about an operation and all you have is its hash.
+The [RPC protocol](../../architecture/rpc) can't provide this information directly, so you would have to search each block until you found the block with this operation, which is very inefficient.
+Instead, you can use an indexer that records information about each operation.
+Similarly, indexers can provide a list of operations sent by a certain account.
 
 ## Hosted indexers
 
@@ -17,18 +21,29 @@ You can get data from these indexers via their APIs:
 - [TzKT](https://api.tzkt.io/)
 - [TzPro](https://docs.tzpro.io/)
 
+For instance, [TzKT](https://github.com/baking-bad/tzkt) is a lightweight Tezos blockchain indexer with an advanced API created by [Baking Bad](https://baking-bad.org/docs).
+You can install your own copy with the instructions at https://github.com/baking-bad/tzkt and configure it for the network that you want to use.
+
 ## Custom indexers
 
-You can use a framework to set up your own indexer to provide the data you need in the format that you need.
+You can use a framework to set up your own indexer to provide the data that you need in the format that you need.
 See [Custom indexers](./custom-indexers).
 
-## TzKT
+## How indexers work
 
-For instance, [TzKT](https://github.com/baking-bad/tzkt) is a lightweight Tezos blockchain indexer with an advanced API created by [Baking Bad](https://baking-bad.org/docs).The indexer fetches raw data from the Tezos node, then processes it and stores it in the database in such a way as to provide effective access to the blockchain data. For example, getting operations by hash, getting all operations of the particular account, or getting detailed baking rewards, etc. None of this can be accessed via node RPC, but TzKT indexer makes this data (and much more) available.
+You can imagine indexers as the card catalog in a library.
+Libraries typically sort books by genre and author name, so readers can find a book if they know its genre or author.
 
-You can [install](https://github.com/baking-bad/tzkt#installation-docker) or [build](https://github.com/baking-bad/tzkt#installation-from-source) it, and [configure](https://github.com/baking-bad/tzkt#install-tzkt-indexer-and-api-for-testnets) it for the testnet.
+However, suppose a reader wants to find a poem about acacia trees, a story about a gas station architect, or every book written in 1962.
+Without any other information, they must check all the books in the library until they find what they are looking for.
 
-To work with the **TzKT API** you can use this [public endpoint](https://api.tzkt.io/#section/Introduction).
+To simplify the process of searching for books, libraries add each new book they receive to their card catalogs.
+Card catalogs list all of the books on a certain topic and provide other metadata such as the authors' names and publication dates.
+Readers can look up a topic in the catalog and get a list of all books on that topic.
+Libraries can index books in as many ways as are necessary to help people search for books more efficiently.
+
+Similarly, relational databases can have indexes to speed up queries.
+In the same way, blockchain indexers create a database with the blockchain data organized in certain ways.
 
 ### Traditional Blockchain Explorer Backends
 
@@ -51,18 +66,6 @@ It's a custom-made database for blockchain analytics. Avoiding the storage bottl
 > **Storage bottleneck** is a situation where the flow of data gets impaired or stopped completely due to bad performance or lack of resources.
 
 State updates happen at each block, which means all the balance updates are always verified, and the indexer will follow chain reorganizations in real-time.
-
-
-## A simple explanation of how indexers work
-
-Understanding indexers is easy if we use a library as an example. There are thousands of books on the shelves in the library. They are usually sorted by genre and authors' names. The reader will quickly find the stand with novels or gardening books.
-
-But let's say the reader wants to find something specific: a poem about an acacia tree, a story about a gas station architect, or all the books written in 1962. They will have to check all the books in the library until they come across what they are looking for.
-
-The librarian got themselves ready for such visitors and compiled a special database. He wrote down the details of each book in separate indexes. For example, one index would list all the names of the characters of every book in alphabetical order and the name of the book where they appear. The second index will contain the key events, and the third—unique terms like “horcruxes” or “shai-hulud,” etc. The librarian can make as many indexes as he needs to simplify the search for a specific book.
-
-Now let’s return to the blockchain. To find a transaction by its hash or by the address of the caller, you will have to check every transaction in every block. The best way out is to create a separate database with all the contents of the blockchain with pointers to search for information on specific queries and access it quickly. This is what indexers do.
-
 
 ## Why blockchain indexers are needed
 
