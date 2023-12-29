@@ -4,6 +4,12 @@
 const math = require('remark-math');
 const katex = require('rehype-katex');
 
+// script-src causes development builds to fail
+// But unsafe-eval should NOT be in production builds
+const scriptSrc = process.env.NODE_ENV === 'development' ?
+  `'self' 'unsafe-inline' 'unsafe-eval' https://*.googletagmanager.com;`
+  : `'self' 'unsafe-inline' https://*.googletagmanager.com;`;
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Tezos Developer Documentation',
@@ -22,6 +28,28 @@ const config = {
   markdown: {
     mermaid: true,
   },
+
+  headTags: [
+    {
+      tagName: 'meta',
+      attributes: {
+        'http-equiv': 'Content-Security-Policy',
+      content: `
+        default-src 'none';
+        base-uri 'self';
+        manifest-src 'self';
+        script-src ${scriptSrc}
+        style-src 'self' 'unsafe-inline';
+        font-src 'self';
+        img-src 'self' https://*.googletagmanager.com https://*.google-analytics.com data:;
+        media-src 'self';
+        form-action 'self';
+        connect-src 'self' https://*.algolia.net https://*.algolianet.com https://*.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com;
+        frame-src https://tezosbot.vercel.app https://calendly.com/ lucid.app;
+        `,
+      },
+    },
+  ],
 
   themes: ['@docusaurus/theme-mermaid'],
 
