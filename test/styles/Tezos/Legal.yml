@@ -1,0 +1,12 @@
+extends: existence
+message: "Do not use the term '%s'"
+level: error
+ignorecase: true
+tokens:
+   - 'official Tezos'
+   - 'official tezos'
+   - 'ICO'
+   - 'investors?'
+   - 'initial coin offering'
+   - 'chapter'
+   - 'article'

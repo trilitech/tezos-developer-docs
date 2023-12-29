@@ -1,6 +1,0 @@
-extends: existence
-message: "Tezos is decentralized; there is no official entity in charge of Tezos"
-level: error
-tokens:
-   - 'official Tezos'
-   - 'official tezos'
