@@ -40,7 +40,7 @@ In the same way, blockchain indexers create a database with the blockchain data 
 
 There are two main types of blockchain indexers: full and selective.
 
-## Full indexers
+### Full indexers
 
 Full indexers process and write all data from blocks, from simple transactions to validator's node software versions.
 Blockchain explorers commonly use them to provide users with advanced blockchain analytics and allow them to search for any type of on-chain data.
@@ -51,7 +51,7 @@ You can get data from these full indexers, which allow you to find almost any in
 - [TzKT](https://api.tzkt.io/)
 - [TzPro](https://docs.tzpro.io/)
 
-## Selective indexers
+### Selective indexers
 
 Selective indexers store only selected data, which means that they need less space and resources to maintain.
 
