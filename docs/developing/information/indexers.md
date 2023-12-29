@@ -54,17 +54,24 @@ Libraries can index books in as many ways as are necessary to help people search
 Similarly, relational databases can have indexes to speed up queries.
 In the same way, blockchain indexers create a database with the blockchain data organized in certain ways.
 
-The exact list of tables, indexes schemas, and command syntax depends on the indexer and database it uses. While using TzKT, a query for a USDT balance will look like this:
+## Using indexers
+
+The exact list of tables, index schemas, and command syntax depend on the indexer and database it uses.
+
+For example, this TzKT query gets an account's balance of the USDT token:
 
 ```
 https://api.tzkt.io/v1/tokens/balances?token.contract=KT1XnTn74bUtxHfDtBmm2bGZAQfhPbvKWR8o&account=tz1a1RTsGUbads3VucUQDxJF4EDXkDWcDHPK
 ```
 
-Let's look at the different parts of this url:
-- `https://api.tzkt.io/v1/`: link to TzKT API
-- `tokens/balances`: the path to the table with token balances
-- `?token.contract=KT1XnTn74bUtxHfDtBmm2bGZAQfhPbvKWR8o`: first search filter, where we specify the contract address we need
-- `&account=tz1a1RTsGUbads3VucUQDxJF4EDXkDWcDHPK`: second search filter, where we specify holder address
+The URL contains these parts:
+
+- `https://api.tzkt.io/v1/`: Base URL for the TzKT API
+- `tokens/balances`: The path to the table with token balances
+- `?token.contract=KT1XnTn74bUtxHfDtBmm2bGZAQfhPbvKWR8o`: A search filter for the contract that manages the USDT token
+- `&account=tz1a1RTsGUbads3VucUQDxJF4EDXkDWcDHPK`: A search filter for the holder's address
+
+<!-- TODO is this description of "the path to the table" accurate? It looks more like a REST resource. -->
 
 In addition to search speed, indexing has another advantage: the ability to modify indexing rules. For example, TzKT provides an additional index, where each Tezos FA1.2 and FA2 token has its internal id. So instead of comparing relatively long contract addresses, it will compare small numbers and retrieve data even faster.
 
