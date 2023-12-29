@@ -9,10 +9,15 @@ Indexers are off-chain applications that retrieve blockchain data, process it, a
 Indexers are an important component of [Block explorers](./block-explorers).
 
 You can use indexers to provide the data that you need for your dApps.
+
+## Why indexers are needed
+
+Tezos nodes store copies of blocks, but they provide only certain information about those blocks through the [RPC protocol](../../architecture/rpc).
+
 For example, assume that you want information about an operation and all you have is its hash.
-The [RPC protocol](../../architecture/rpc) can't provide this information directly, so you would have to search each block until you found the block with this operation, which is very inefficient.
+The RPC protocol can't provide this information directly, so you would have to search each block until you found the block with this operation, which is very inefficient.
 Instead, you can use an indexer that records information about each operation.
-Similarly, indexers can provide a list of operations sent by a certain account.
+This kind of indexer can provide information about a specific operation by its hash or a list of operations sent by a certain account.
 
 ## Hosted indexers
 
@@ -47,63 +52,6 @@ Libraries can index books in as many ways as are necessary to help people search
 
 Similarly, relational databases can have indexes to speed up queries.
 In the same way, blockchain indexers create a database with the blockchain data organized in certain ways.
-
-## Why blockchain indexers are needed
-
-Blockchain protocols work thanks to nodes that process transactions, ensure network security, and, most importantly, store copies of blocks in chronological order. Validator nodes are conditionally divided into light ones with a copy of the last blocks and archival ones with an entire blockchain. Users can get on-chain data from their nodes or third-party nodes using the Remote Procedure Call API to request data about the blockchain.
-
-However, nodes and RPC API aren't designed to work with complex searches and queries.
-For example, a developer can access an operation's details only if they know where to look for them.
-
-Let's try to get data about this transaction using Tezos client and RPC API — [opRjkzJxJ1xZaUnBDykGUjrRV8qgHFvchcYnbkkcotS1Y7idCSL](https://tzstats.com/opRjkzJxJ1xZaUnBDykGUjrRV8qgHFvchcYnbkkcotS1Y7idCSL).
-
-```
-user:~/tezos % tezos-client rpc get /chains/main/blocks/2283690/operations/3/2
-
-Disclaimer:
-The Tezos network is a new blockchain technology.
-Users are solely responsible for any risks associated
-with usage of the Tezos network. Users should do their
-own research to determine if Tezos is the appropriate
-platform for their needs and should apply judgement and
-care in their network interactions.
-
-{ "protocol": "Psithaca2MLRFYargivpo7YvUr7wUDqyxrdhC5CQq78mRvimz6A",
-"chain_id": "NetXdQprcVkpawu",
-"hash": "opRjkzJxJ1xZaUnBDykGUjrRV8qgHFvchcYnbkkcotS1Y7idCSL",
-"branch": "BLPELRQsDcAbeXzVcKnqtT7XG7qmtcSuleddD6235sCyN4x21q6",
-"contents":
-[ { "kind": "transaction",
-"source": "tzlUEQzJbuaGJgwvkekké6HwGwaKvjZ7rr9v4", "fee": "543",
-"counter": "18321546", "gas_limit": "1521", "storage_limit": "@",
-"amount": "1500000",
-"destination": "tz1dFq5gcAMi6éTAUJarNJeP6DffyjrPXzhid" } ],
-"signature":
-"sigPWea9tsDXrornNziEMWPeEpFfTkf4YdPz7GmgPDPVXQyKwsrpze7wLIXDgZCglL2aaciMa8J1QHAUr2b9zhrK26kpvv8Jz" }
-
-user:~/tezos %
-```
-
-
-The highlighted part at the top of the screenshot is the command we used:
-
-`tezos-client rpc get /chains/main/blocks/2283698/operations/3/2`
-
-The numbers in the command mean the following:
-
-- 2283698 — the level of the block in which the operation took place.
-- 3 — the index of the operation's source type. "3" means the user initiated it.
-- 2 — the index of the operation in a particular block.
-
-To get the details of a specific operation, we need to know its location in the blockchain: when it was included, what operation type table it was written in, and its number in that index. To know it, we need to check all blocks in turn for the presence of the specified hash, which is very slow and ineffective.
-
-Indexers simplify the task of getting the data you need from the blockchain. They request whole blocks from public nodes and write them to their databases. Then indexers create indexes—-additional data structures optimized for fast data retrieval that store either the data or a link to the corresponding place in the central database. When searching for any data, the indexer looks for it in the corresponding index, not in the central database. For even faster searching, some indexers don't store all data in one table but create separate tables for any valuable data.
-
-![](/img/usdt_que_pasa.png)
-
-Here is a USDT contract indexed with Que Pasa. It made tables for every entry point and big_map in the contract and an index for every table. It is an efficient way to fetch data. For example, the execution of a query to find a balance of a random USDT holder took only 0.064 milliseconds.
-
-![](/img/que_pasa_sql.png)
 
 The exact list of tables, indexes schemas, and command syntax depends on the indexer and database it uses. While using TzKT, a query for a USDT balance will look like this:
 
