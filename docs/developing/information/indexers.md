@@ -20,31 +20,6 @@ The RPC protocol can't provide this information directly, so you would have to s
 Instead, you can use an indexer that records information about each operation.
 This kind of indexer can provide information about a specific operation by its hash or a list of operations sent by a certain account.
 
-## Public indexers
-
-You can get data from these indexers via their APIs:
-
-- [TzKT](https://api.tzkt.io/)
-- [TzPro](https://docs.tzpro.io/)
-
-For instance, [TzKT](https://github.com/baking-bad/tzkt) is a lightweight Tezos blockchain indexer with an advanced API created by [Baking Bad](https://baking-bad.org/docs).
-
-## Hosted indexers
-
-You can run your own copy of TzKT with the instructions at https://github.com/baking-bad/tzkt and configure it for the network that you want to use.
-
-These other hosted indexers are available:
-
-- The Blockwatch indexer [TzIndex](https://github.com/blockwatch-cc/tzindex), which is used for the [TzStats explorer](https://tzstats.com/).
-This indexer replaces the slow and expensive SQL datastore with a high-performance columnar database that allows for extremely fast analytical queries.
-
-- The lightweight indexer [Que Pasa](https://github.com/tzConnectBerlin/que-pasa), which indexes information about a specific list of smart contracts.
-
-## Custom indexers
-
-You can use a framework to set up your own indexer to provide the data that you need in the format that you need.
-See [Custom indexers](./custom-indexers).
-
 ## How indexers work
 
 You can imagine indexers as the card catalog in a library.
@@ -61,9 +36,51 @@ Libraries can index books in as many ways as are necessary to help people search
 Similarly, relational databases can have indexes to speed up queries.
 In the same way, blockchain indexers create a database with the blockchain data organized in certain ways.
 
+## Types of indexers
+
+There are two main types of blockchain indexers: full and selective.
+
+## Full indexers
+
+Full indexers process and write all data from blocks, from simple transactions to validator's node software versions.
+Blockchain explorers commonly use them to provide users with advanced blockchain analytics and allow them to search for any type of on-chain data.
+Also, those who host full indexers often offer public APIs that other projects can use without hosting the indexer themselves.
+
+You can get data from these full indexers, which allow you to find almost any information in the Tezos blockchain:
+
+- [TzKT](https://api.tzkt.io/)
+- [TzPro](https://docs.tzpro.io/)
+
+## Selective indexers
+
+Selective indexers store only selected data, which means that they need less space and resources to maintain.
+
+Usually, they are used in projects that require only specific on-chain data, such as active user balances, balances of their smart contracts, and NFT metadata.
+You can optimize a custom selective indexer for fast execution of specific project queries.
+
+Popular selective indexers like [Que Pasa](https://github.com/tzConnectBerlin/que-pasa) and frameworks like [DipDup](https://dipdup.io/) and [Dappetizer](https://dappetizer.dev/) can be used to build the indexer you need.
+For example, [Teia.art](https://teia.art/) and other NFT marketplaces use their indexers based on DipDup, optimized for working with NFTs.
+
+### Hosted indexers
+
+You can run your own copy of TzKT with the instructions at https://github.com/baking-bad/tzkt and configure it for the network that you want to use.
+
+These other hosted indexers are available:
+
+- The Blockwatch indexer [TzIndex](https://github.com/blockwatch-cc/tzindex), which is used for the [TzStats explorer](https://tzstats.com/).
+This indexer replaces the slow and expensive SQL datastore with a high-performance columnar database that allows for extremely fast analytical queries.
+
+- The lightweight indexer [Que Pasa](https://github.com/tzConnectBerlin/que-pasa), which indexes information about a specific list of smart contracts.
+
+### Custom indexers
+
+You can use a framework to set up your own indexer to provide the data that you need in the format that you need.
+See [Custom indexers](./custom-indexers).
+
 ## Using indexers
 
 The exact list of tables, index schemas, and command syntax depend on the indexer and database it uses.
+For information about how to use a specific indexer, see its documentation.
 
 For example, this TzKT query gets an account's balance of the USDT token:
 
@@ -90,16 +107,6 @@ kenId":"0","standard":"fal.2","firstLevel":1330112,"firstTime":"2021-
 02-04T05:43:23Z","lastLevel":2667753,"lastTime":"2022-08-
 30T20:13:29Z", "transfersCount":323378,"balancesCount":9030, "holdersCo unt":3854,"totalMinted":"31442022884393231737144909","totalBurned":"2 9832264735683726828828184","totalSupply":"1609758148709504908316725", "metadata":{"name":"Kolibri USD","symbol": "kUSD","decimals":"18"}}]
 ```
-
-There are two types of blockchain indexers: full and selective.
-
-Full indexers process and write all data from blocks, from simple transactions to validator's node software versions. Blockchain explorers commonly use them to provide users with advanced blockchain analytics and allow them to search for any type of on-chain data. Also, those who host full indexers often offer public APIs that other projects can use without hosting the indexer themselves.
-
-The best examples of full indexers with APIs are [TzKT](https://tzkt.io/) and [TzPro](https://tzpro.io/). They allow you to find almost any information that once got into the Tezos blockchain.
-
-Selective indexers store only selected data. Usually, they find their use in projects requiring only specific on-chain data: active user balances, balances of their smart contracts, and NFT metadata. A custom selective indexer can be optimized for fast execution of specific project queries and also needs less space and resources to maintain.
-
-Popular selective indexers like [Que Pasa](https://github.com/tzConnectBerlin/que-pasa) and frameworks like [DipDup](https://dipdup.io/) and [Dappetizer](https://dappetizer.dev/) can be used to build the indexer you need. For example, [Teia.art](https://teia.art/) and other NFT marketplaces use their indexers based on DipDup, optimized for working with NFTs.
 
 ## What data can be obtained through a blockchain indexer
 
