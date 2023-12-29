@@ -97,8 +97,14 @@ The URL contains these parts:
 
 <!-- TODO is this description of "the path to the table" accurate? It looks more like a REST resource. -->
 
-In addition to search speed, indexing has another advantage: the ability to modify indexing rules. For example, TzKT provides an additional index, where each Tezos FA1.2 and FA2 token has its internal id. So instead of comparing relatively long contract addresses, it will compare small numbers and retrieve data even faster.
+<!-- In addition to search speed, indexing has another advantage: the ability to modify indexing rules. For example, TzKT provides an additional index, where each Tezos FA1.2 and FA2 token has its internal id. So instead of comparing relatively long contract addresses, it will compare small numbers and retrieve data even faster. -->
 
+<!-- TODO what does this mean? Is it the convenience of having `id=5` instead of having to remember the address of the contract? Here's my rewrite: -->
+
+Indexers can organize data in custom ways.
+For example, TzKT indexes FA1.2 and FA2 tokens and gives each an internal ID.
+
+<!-- This command no worky -->
 ```
 staging.api.tzkt.io/v1/tokens?id=85
 [{"id":85,"contract":
