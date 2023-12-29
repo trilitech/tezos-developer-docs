@@ -1,25 +1,26 @@
 ---
 title: Indexers
-authors: Tezos Ukraine
+authors: Tezos Ukraine, Tim McMackin
 last_update:
-  date: 10 July 2023
+  date: 29 December 2023
 ---
 
-:::note
-If you're just looking for API docs for a hosted indexer, [here is the one from TzKT](https://api.tzkt.io/), and [here is the one from TzPro](https://docs.tzpro.io/)
-:::
+Indexers are off-chain applications that retrieve blockchain data, process it, and store it in a way that makes it easier to search and use.
+Indexers are an important component of [Block explorers](./block-explorers).
 
-## What is an indexer ?
-A block explorer, or an app that tracks activity on the blockchain, is typically made of:
+You can use indexers to provide the data that you need for your dApps.
 
-- an indexer that is a node operator that extracts the on-chain data and stores it in a database
-- an API that queries the database
-- a frontend that displays the data
+## Hosted indexers
 
-Since the on-chain data is already in the database of the node itself, why is an indexer needed? The indexer is relevant because it optimizes the way a node stores data. The purpose is to provide very quick access to blockchain data according to some specific criteria related to a given address.
+You can get data from these indexers via their APIs:
 
-So, the indexer is the part of the explorer that fetches the raw data from the node, then processes it and stores it in the database in an efficient way. They simplify querying and searching through blockchain data. Almost any decentralized application uses indexers, and if you want to build your dApp, chances are you’ll need to use them too.
+- [TzKT](https://api.tzkt.io/)
+- [TzPro](https://docs.tzpro.io/)
 
+## Custom indexers
+
+You can use a framework to set up your own indexer to provide the data you need in the format that you need.
+See [Custom indexers](./custom-indexers).
 
 ## TzKT
 
