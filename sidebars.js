@@ -327,7 +327,7 @@ const sidebars = {
         },
         {
           type: 'category',
-          label: 'Create a mobile game on Tezos',
+          label: 'Create a mobile game',
           link: {
             type: 'doc',
             id: 'tutorials/mobile',

@@ -1,5 +1,5 @@
 ---
-title: Create a mobile game on Tezos
+title: Create a mobile game
 authors: 'Benjamin Fuentes'
 last_update:
   date: 12 December 2023
