@@ -205,6 +205,7 @@ const sidebars = {
         // 'reference/encoding', // TODO
         // 'reference/merkle-formats', // TODO
         // 'reference/ocaml-apis', // TODO
+        'reference/style-guide',
         {
           type: 'link',
           label: 'Whitepaper',
