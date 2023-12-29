@@ -48,14 +48,6 @@ Libraries can index books in as many ways as are necessary to help people search
 Similarly, relational databases can have indexes to speed up queries.
 In the same way, blockchain indexers create a database with the blockchain data organized in certain ways.
 
-### Traditional Blockchain Explorer Backends
-
-Indexers are node operators. The **ETL** extract, transform and load data into the **SQL database** by mapping the data into a pre-defined schema of tables with referential integrity in order to provide indexing and query processing services via the **API**.
-
-* A **Tezos Node** is the heart of the blockchain, it manages the protocol.
-* **ETL** stands for _extract, transform, and load_. The process of ETL plays a key role in data integration strategies. ETL allows businesses to gather data from multiple sources and consolidate it into a single, centralized location.
-* **API** is the acronym for _Application Programming Interface_, which is a software intermediary that allows two applications to talk to each other.
-
 ## Why blockchain indexers are needed
 
 Blockchain protocols work thanks to nodes that process transactions, ensure network security, and, most importantly, store copies of blocks in chronological order. Validator nodes are conditionally divided into light ones with a copy of the last blocks and archival ones with an entire blockchain. Users can get on-chain data from their nodes or third-party nodes using the Remote Procedure Call API to request data about the blockchain.
