@@ -16,6 +16,7 @@ Tezos nodes store copies of blocks, but they provide only certain information ab
 
 For example, assume that you want information about an operation and all you have is its hash.
 The RPC protocol can't provide this information directly, so you would have to search each block until you found the block with this operation, which is very inefficient.
+
 Instead, you can use an indexer that records information about each operation.
 This kind of indexer can provide information about a specific operation by its hash or a list of operations sent by a certain account.
 
