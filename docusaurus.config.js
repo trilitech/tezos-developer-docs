@@ -5,19 +5,13 @@ const math = require('remark-math');
 const katex = require('rehype-katex');
 const fs = require('fs').promises;
 
-// script-src causes development builds to fail
-// But unsafe-eval should NOT be in production builds
-const scriptSrc = process.env.NODE_ENV === 'development' ?
-  `'self' 'unsafe-inline' 'unsafe-eval' https://*.googletagmanager.com`
-  : `'self' 'unsafe-inline' https://*.googletagmanager.com`;
-
 const metaTagStringToReplace = 'contentOfContentSecurityPolicyGoesHere';
 
 const contentSecurityPolicy = `
 default-src 'none';
 base-uri 'self';
 manifest-src 'self';
-script-src ${scriptSrc};
+script-src 'self' 'unsafe-inline' https://*.googletagmanager.com;
 style-src 'self' 'unsafe-inline';
 font-src 'self';
 img-src 'self' https://*.googletagmanager.com https://*.google-analytics.com data:;
