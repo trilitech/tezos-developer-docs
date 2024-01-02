@@ -40,6 +40,6 @@ Here are some commonly used Tezos block explorers:
 - [Arronax](https://arronax.io)
 - [Baking Bad](https://baking-bad.org)
 - [Better Call Dev](https://better-call.dev)
-- [https://explorus.io/](https://explorus.io/)
+- [Explorus](https://explorus.io/)
 - [Etherlink Explorer](https://explorer.etherlink.com/)
-- [https://tzflow.com/](https://tzflow.com/)
+- [TzFlow](https://tzflow.com/)
