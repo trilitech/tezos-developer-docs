@@ -33,6 +33,12 @@ const updateMetaTag = async (outDir, route) => {
   await fs.writeFile(filePath, updatedFileContent, 'utf8');
 }
 
+// script-src causes development builds to fail
+// But unsafe-eval should NOT be in production builds
+const scriptSrc = process.env.NODE_ENV === 'development' ?
+  `'self' 'unsafe-inline' 'unsafe-eval' https://*.googletagmanager.com;`
+  : `'self' 'unsafe-inline' https://*.googletagmanager.com;`;
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Tezos Developer Documentation',
