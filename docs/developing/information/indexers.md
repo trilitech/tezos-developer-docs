@@ -2,7 +2,7 @@
 title: Indexers
 authors: Tezos Ukraine, Tim McMackin
 last_update:
-  date: 29 December 2023
+  date: 2 January 2024
 ---
 
 Indexers are off-chain applications that retrieve blockchain data, process it, and store it in a way that makes it easier to search and use.
@@ -44,7 +44,7 @@ There are two main types of blockchain indexers: full and selective.
 
 Full indexers process and write all data from blocks, from simple transactions to validator's node software versions.
 Blockchain explorers commonly use them to provide users with advanced blockchain analytics and allow them to search for any type of on-chain data.
-Also, those who host full indexers often offer public APIs that other projects can use without hosting the indexer themselves.
+Also, those who host full indexers can offer public APIs that other projects can use without hosting the indexer themselves.
 
 You can get data from these full indexers, which allow you to find almost any information in the Tezos blockchain:
 
@@ -58,7 +58,7 @@ Selective indexers store only selected data, which means that they need less spa
 Usually, they are used in projects that require only specific on-chain data, such as active user balances, balances of their smart contracts, and NFT metadata.
 You can optimize a custom selective indexer for fast execution of specific project queries.
 
-Popular selective indexers like [Que Pasa](https://github.com/tzConnectBerlin/que-pasa) and frameworks like [DipDup](https://dipdup.io/) and [Dappetizer](https://dappetizer.dev/) can be used to build the indexer you need.
+[Que Pasa](https://github.com/tzConnectBerlin/que-pasa) is a popular selective indexer, and frameworks like [DipDup](https://dipdup.io/) and [Dappetizer](https://dappetizer.dev/) can be used to build the indexer you need.
 For example, [Teia.art](https://teia.art/) and other NFT marketplaces use their indexers based on DipDup, optimized for working with NFTs.
 
 ### Hosted indexers
@@ -88,30 +88,65 @@ For example, this TzKT query gets an account's balance of the USDT token:
 https://api.tzkt.io/v1/tokens/balances?token.contract=KT1XnTn74bUtxHfDtBmm2bGZAQfhPbvKWR8o&account=tz1a1RTsGUbads3VucUQDxJF4EDXkDWcDHPK
 ```
 
+For information about the TZKT indexer's API, see https://api.tzkt.io.
+
+<!--
 The URL contains these parts:
 
 - `https://api.tzkt.io/v1/`: Base URL for the TzKT API
 - `tokens/balances`: The path to the table with token balances
 - `?token.contract=KT1XnTn74bUtxHfDtBmm2bGZAQfhPbvKWR8o`: A search filter for the contract that manages the USDT token
 - `&account=tz1a1RTsGUbads3VucUQDxJF4EDXkDWcDHPK`: A search filter for the holder's address
-
+-->
 <!-- TODO is this description of "the path to the table" accurate? It looks more like a REST resource. -->
 
 <!-- In addition to search speed, indexing has another advantage: the ability to modify indexing rules. For example, TzKT provides an additional index, where each Tezos FA1.2 and FA2 token has its internal id. So instead of comparing relatively long contract addresses, it will compare small numbers and retrieve data even faster. -->
 
 <!-- TODO what does this mean? Is it the convenience of having `id=5` instead of having to remember the address of the contract? Here's my rewrite: -->
+<!-- This token now appears to have the ID 42290944933889; is that really better than the contract address? The example used id=85. -->
 
 Indexers can organize data in custom ways.
 For example, TzKT indexes FA1.2 and FA2 tokens and gives each an internal ID.
+This ID can be faster and easier to work with and compare than the contract ID.
 
-<!-- This command no worky -->
+This TzKT query gets information about an FA1.2 token based on its internal ID instead of its contract address:
+
 ```
-staging.api.tzkt.io/v1/tokens?id=85
-[{"id":85,"contract":
-{"alias":"kUSD", "address":"KT1K9gCRgaLRFKTErYt1wVxA3Frb9FjasjTV"},"to
-kenId":"0","standard":"fal.2","firstLevel":1330112,"firstTime":"2021-
-02-04T05:43:23Z","lastLevel":2667753,"lastTime":"2022-08-
-30T20:13:29Z", "transfersCount":323378,"balancesCount":9030, "holdersCo unt":3854,"totalMinted":"31442022884393231737144909","totalBurned":"2 9832264735683726828828184","totalSupply":"1609758148709504908316725", "metadata":{"name":"Kolibri USD","symbol": "kUSD","decimals":"18"}}]
+https://staging.api.tzkt.io/v1/tokens?id=42290944933889
+```
+
+The response provides information about the token:
+
+```json
+[
+  {
+    "id": 42290944933889,
+    "contract": {
+      "alias": "kUSD",
+      "address": "KT1K9gCRgaLRFKTErYt1wVxA3Frb9FjasjTV"
+    },
+    "tokenId": "0",
+    "standard": "fa1.2",
+    "firstMinter": {
+      "address": "tz1eDj5UuChVcZpA7gofUtyVS6mdQAcyEbZ5"
+    },
+    "firstLevel": 1330112,
+    "firstTime": "2021-02-04T05:43:23Z",
+    "lastLevel": 4855848,
+    "lastTime": "2024-01-02T16:20:53Z",
+    "transfersCount": 555405,
+    "balancesCount": 11265,
+    "holdersCount": 5312,
+    "totalMinted": "34973675265285298272345497",
+    "totalBurned": "33809058060274650139662474",
+    "totalSupply": "1164617205010648132683023",
+    "metadata": {
+      "name": "Kolibri USD",
+      "symbol": "kUSD",
+      "decimals": "18"
+    }
+  }
+]
 ```
 
 ## What data can be obtained through a blockchain indexer
