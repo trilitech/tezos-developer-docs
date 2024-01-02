@@ -69,6 +69,10 @@ You can use these frameworks to create your own selective indexer to provide the
 
 For example, [Teia.art](https://teia.art/) and other NFT marketplaces use their indexers based on DipDup, optimized for working with NFTs.
 
+## Setting up indexers
+
+For information on setting up indexers, see the documentation for the indexer or [Indexers](https://opentezos.com/dapp/indexers/introduction/) on OpenTezos.
+
 ## Using indexers
 
 The exact list of tables, index schemas, and command syntax depend on the indexer and database it uses.
