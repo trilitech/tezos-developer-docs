@@ -7,8 +7,8 @@ const katex = require('rehype-katex');
 // script-src causes development builds to fail
 // But unsafe-eval should NOT be in production builds
 const scriptSrc = process.env.NODE_ENV === 'development' ?
-  `self unsafe-inline unsafe-eval https://*.googletagmanager.com;`
-  : `self unsafe-inline https://*.googletagmanager.com;`;
+  `self 'unsafe-inline' 'unsafe-eval' https://*.googletagmanager.com;`
+  : `self 'unsafe-inline' https://*.googletagmanager.com;`;
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -39,7 +39,7 @@ const config = {
         base-uri self;
         manifest-src self;
         script-src ${scriptSrc}
-        style-src self unsafe-inline;
+        style-src self 'unsafe-inline';
         font-src self;
         img-src self https://*.googletagmanager.com https://*.google-analytics.com data:;
         media-src self;
