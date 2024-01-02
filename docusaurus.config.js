@@ -3,12 +3,41 @@
 
 const math = require('remark-math');
 const katex = require('rehype-katex');
+const fs = require('fs').promises;
 
 // script-src causes development builds to fail
 // But unsafe-eval should NOT be in production builds
 const scriptSrc = process.env.NODE_ENV === 'development' ?
-  `'self' 'unsafe-inline' 'unsafe-eval' https://*.googletagmanager.com;`
-  : `'self' 'unsafe-inline' https://*.googletagmanager.com;`;
+  `'self' 'unsafe-inline' 'unsafe-eval' https://*.googletagmanager.com`
+  : `'self' 'unsafe-inline' https://*.googletagmanager.com`;
+
+const metaTagStringToReplace = 'contentOfContentSecurityPolicyGoesHere';
+
+const contentSecurityPolicy = `
+default-src 'none';
+base-uri 'self';
+manifest-src 'self';
+script-src ${scriptSrc};
+style-src 'self' 'unsafe-inline';
+font-src 'self';
+img-src 'self' https://*.googletagmanager.com https://*.google-analytics.com data:;
+media-src 'self';
+form-action 'self';
+connect-src 'self' https://*.algolia.net https://*.algolianet.com https://*.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com;
+frame-src https://tezosbot.vercel.app https://calendly.com/ lucid.app;`;
+
+// Update the CSP tsg after builds
+// because docusaurus always escapes the quotes
+// https://github.com/facebook/docusaurus/issues/9686
+const updateMetaTag = async (outDir, route) => {
+  const filePath = route.endsWith('.html')
+    ? outDir + route
+    : outDir + route + '/index.html';
+  const fileContent = await fs.readFile(filePath,
+  'utf8');
+  const updatedFileContent = fileContent.replace(metaTagStringToReplace, contentSecurityPolicy);
+  await fs.writeFile(filePath, updatedFileContent, 'utf8');
+}
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -34,19 +63,7 @@ const config = {
       tagName: 'meta',
       attributes: {
         'http-equiv': 'Content-Security-Policy',
-      content: `
-        default-src 'none';
-        base-uri 'self';
-        manifest-src 'self';
-        script-src ${scriptSrc}
-        style-src 'self' 'unsafe-inline';
-        font-src 'self';
-        img-src 'self' https://*.googletagmanager.com https://*.google-analytics.com data:;
-        media-src 'self';
-        form-action 'self';
-        connect-src 'self' https://*.algolia.net https://*.algolianet.com https://*.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com;
-        frame-src https://tezosbot.vercel.app https://calendly.com/ lucid.app;
-        `,
+      content: metaTagStringToReplace,
       },
     },
   ],
@@ -78,6 +95,13 @@ const config = {
 
   plugins: [
     'plugin-image-zoom',
+    () => ({
+      async postBuild({ routesPaths, outDir }) {
+        await Promise.all(routesPaths.map((oneRoute) =>
+          updateMetaTag(outDir, oneRoute)
+        ));
+      },
+    }),
   ],
 
   themeConfig:
