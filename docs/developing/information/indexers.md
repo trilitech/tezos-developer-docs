@@ -82,6 +82,8 @@ See [Custom indexers](./custom-indexers).
 The exact list of tables, index schemas, and command syntax depend on the indexer and database it uses.
 For information about how to use a specific indexer, see its documentation.
 
+Some indexers provide information about networks other than Mainnet, so check the indexer's documentation for information about selecting a network.
+
 For example, this TzKT query gets an account's balance of the USDT token:
 
 ```
@@ -149,21 +151,28 @@ The response provides information about the token:
 ]
 ```
 
-## What data can be obtained through a blockchain indexer
+## Data available on indexers
 
-The exact list of queries and filters depends on the selected indexer. But in general, from a full indexer, you can get information about:
+The exact list of queries and filters depends on the selected indexer.
+Here are some examples of information you can get from full indexers:
 
-- Account: tez balance, transaction history, address type, and status like "baker" or “delegator,” etc.
-- Block: header, content, and metadata like address and socials of the baker who made the block.
-- Contract: description, entry points, balance, code in Michelson, storage, and the content of a specific big map.
-- Bakers and delegators: who earned how much, who endorsed a particular block, how much users delegate.
-- Protocol: what cycle is now, what is on the vote, how many tez are in circulation.
+- Account: Balance in tez, transaction history, address type, and status like "baker" or "delegator"
+- Block: Header, content, and metadata like address and socials of the baker who made the block
+- Contract: Description, entrypoints, balance, code in Michelson, storage, and the content of a specific big map
+- Bakers and delegators: Who earned how much, who endorsed a particular block, and how much users delegate
+- Protocol: What cycle is now, what is on the vote, how many tez are in circulation
 
-We took some interesting and simple examples for calling BetterCallDev and TzKT indexers. Follow the links and paste your address instead of tz1…9v4 into the address bar to get data about your wallet:
+For example, here are some examples for getting information from TzKT.
+Follow the links and paste your address instead of `tz1…9v4` into the address bar to get data about your account:
 
-- [fxhash NFTs you own](https://api.tzkt.io/v1/tokens/balances?account=tz1UEQzJbuaGJgwvkekk6HwGwaKvjZ7rr9v4&token.contract=KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton). The fxhash contract address filters the query, so try to change the address to see your NFTs from other marketplaces.
-- [Your balance history in tez](https://api.tzkt.io/v1/accounts/tz1UEQzJbuaGJgwvkekk6HwGwaKvjZ7rr9v4/balance_history). Nodes and indexers display balances without decimals, and ""balance": 500000" means only five tez.
+- [fxhash NFTs you own](https://api.tzkt.io/v1/tokens/balances?account=tz1UEQzJbuaGJgwvkekk6HwGwaKvjZ7rr9v4&token.contract=KT1RJ6PbjHpwc3M5rw5s2Nbmefwbuwbdxton).
+The fxhash contract address filters the query, so try to change the address to see your NFTs from other marketplaces.
+- [Your balance history in tez](https://api.tzkt.io/v1/accounts/tz1UEQzJbuaGJgwvkekk6HwGwaKvjZ7rr9v4/balance_history).
+Nodes and indexers display balances without decimals, and ""balance": 500000" means only five tez.
 - [List of FA1.2 and FA2 token transfers](https://api.tzkt.io/v1/tokens/transfers?from=tz1UEQzJbuaGJgwvkekk6HwGwaKvjZ7rr9v4) where you were the sender. Change "from" to "to" in the query to see the list of transfers where you were a recipient.
+
+TzKT provides information about Ghostnet.
+For example, you can run any of the previous queries on Ghostnet by changing the host name in the URL to `https://api.ghostnet.tzkt.io/`.
 
 ## Where Indexers Are Used
 
