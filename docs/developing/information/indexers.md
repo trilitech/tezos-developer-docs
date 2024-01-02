@@ -84,16 +84,6 @@ https://api.tzkt.io/v1/tokens/balances?token.contract=KT1XnTn74bUtxHfDtBmm2bGZAQ
 
 For information about the TZKT indexer's API, see https://api.tzkt.io.
 
-<!--
-The URL contains these parts:
-
-- `https://api.tzkt.io/v1/`: Base URL for the TzKT API
-- `tokens/balances`: The path to the table with token balances
-- `?token.contract=KT1XnTn74bUtxHfDtBmm2bGZAQfhPbvKWR8o`: A search filter for the contract that manages the USDT token
-- `&account=tz1a1RTsGUbads3VucUQDxJF4EDXkDWcDHPK`: A search filter for the holder's address
--->
-<!-- TODO is this description of "the path to the table" accurate? It looks more like a REST resource. -->
-
 <!-- In addition to search speed, indexing has another advantage: the ability to modify indexing rules. For example, TzKT provides an additional index, where each Tezos FA1.2 and FA2 token has its internal id. So instead of comparing relatively long contract addresses, it will compare small numbers and retrieve data even faster. -->
 
 <!-- TODO what does this mean? Is it the convenience of having `id=5` instead of having to remember the address of the contract? Here's my rewrite: -->
