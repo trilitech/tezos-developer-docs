@@ -55,11 +55,18 @@ You can get data from these full indexers, which allow you to find almost any in
 ### Selective indexers
 
 Selective indexers store only selected data, which means that they need less space and resources to maintain.
+Creating a selective indexer requires you to write the logic for the indexes, including what data to fetch, how to process it, and how to store it.
 
 Usually, they are used in projects that require only specific on-chain data, such as active user balances, balances of their smart contracts, and NFT metadata.
 You can optimize a custom selective indexer for fast execution of specific project queries.
+You can also use them to work with data in the way that you want to, such as storing token amounts with decimal places.
 
-[Que Pasa](https://github.com/tzConnectBerlin/que-pasa) is a popular selective indexer, and frameworks like [DipDup](https://dipdup.io/) and [Dappetizer](https://dappetizer.dev/) can be used to build the indexer you need.
+You can use these frameworks to create your own selective indexer to provide the data that you need in the format that you need:
+
+- [Que Pasa](https://github.com/tzConnectBerlin/que-pasa)
+- [DipDup](https://dipdup.io/)
+- [Dappetizer](https://dappetizer.dev/)
+
 For example, [Teia.art](https://teia.art/) and other NFT marketplaces use their indexers based on DipDup, optimized for working with NFTs.
 
 ## Using indexers
