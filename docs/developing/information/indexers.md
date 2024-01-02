@@ -50,6 +50,7 @@ You can get data from these full indexers, which allow you to find almost any in
 
 - [TzKT](https://api.tzkt.io/)
 - [TzPro](https://docs.tzpro.io/)
+- [TzIndex](https://github.com/blockwatch-cc/tzindex)
 
 ### Selective indexers
 
@@ -60,22 +61,6 @@ You can optimize a custom selective indexer for fast execution of specific proje
 
 [Que Pasa](https://github.com/tzConnectBerlin/que-pasa) is a popular selective indexer, and frameworks like [DipDup](https://dipdup.io/) and [Dappetizer](https://dappetizer.dev/) can be used to build the indexer you need.
 For example, [Teia.art](https://teia.art/) and other NFT marketplaces use their indexers based on DipDup, optimized for working with NFTs.
-
-### Hosted indexers
-
-You can run your own copy of TzKT with the instructions at https://github.com/baking-bad/tzkt and configure it for the network that you want to use.
-
-These other hosted indexers are available:
-
-- The Blockwatch indexer [TzIndex](https://github.com/blockwatch-cc/tzindex), which is used for the [TzStats explorer](https://tzstats.com/).
-This indexer replaces the slow and expensive SQL datastore with a high-performance columnar database that allows for extremely fast analytical queries.
-
-- The lightweight indexer [Que Pasa](https://github.com/tzConnectBerlin/que-pasa), which indexes information about a specific list of smart contracts.
-
-### Custom indexers
-
-You can use a framework to set up your own indexer to provide the data that you need in the format that you need.
-See [Custom indexers](./custom-indexers).
 
 ## Using indexers
 
