@@ -178,18 +178,26 @@ For example, you can run any of the previous queries on Ghostnet by changing the
 
 Many applications that work with on-chain data use an indexer.
 
-The simplest example of working with an indexer is a blockchain wallet. For example, to display a user's token balances, Temple Wallet queries data from the TzKT indexer and gets tokens' tickers and logos from the contract metadata.
+The simplest example of working with an indexer is a blockchain wallet.
+For example, to display a user's token balances, Temple Wallet queries data from the TzKT indexer and gets tokens' tickers and logos from the contract metadata.
 
-Try it yourself: [Go here](https://api.tzkt.io/v1/tokens/balances?account=tz1UEQzJbuaGJgwvkekk6HwGwaKvjZ7rr9v4) and replace tz1...9v4 with your wallet address to see which tokens you have. This is the same query to TzKT API that Temple uses: '/tokens/balances' in constants getTokenBalances and getNFTBalances.
+You can do the same thing by calling the `GET tokens/balances` endpoint TzKT API and including your address as the value of the `account` parameter, as in this example:
 
-In the same way, Temple Wallet receives transaction details and displays NFTs, delegation rewards, the value of your tokens, and other data. For different queries, it uses various sources. For example, it requests the XTZ price from Coingecko.
+```
+https://api.tzkt.io/v1/tokens/balances?account=tz1UEQzJbuaGJgwvkekk6HwGwaKvjZ7rr9v4
+```
 
-Other blockchain applications work similarly:
+In the same way, Temple Wallet receives transaction details and displays NFTs, delegation rewards, the value of your tokens, and other data.
+It uses other sources for other data.
+For example, it requests the XTZ price from Coingecko.
 
-- Decentralized exchanges' websites use indexers to obtain historical data on the balances of each pool, transactions with them, and the value of tez. Based on this data, they calculate the volume of transactions in tez and dollars, as well as the historical prices of tokens in dollars.
-- NFT marketplaces' websites index transactions with their contracts to display new NFTs, transaction history, and statistics of the most popular tokens.
-- Blockchain explorers display data from all blocks with the help of indexers and allow users to find anything, like operation details by its hash. Thanks to this, users can find the information they need in a user-friendly graphical interface. Browsers also run public APIs that other projects use.
+Other blockchain applications use indexers in similar ways:
 
+- Decentralized exchanges use indexers to get historical data on the balances of each pool, transactions with them, and the value of tez.
+Based on this data, they calculate the volume of transactions in tez and other currencies, as well as the historical prices of tokens in fiat currencies.
+- NFT marketplace websites index transactions with their contracts to display new NFTs, transaction history, and statistics of the most popular tokens.
+- Block explorers display data from all blocks with the help of indexers and allow users to find anything, like operation details by hash.
+Thanks to this, users can find the information they need in a user-friendly graphical interface.
 
 ## Self study
 
