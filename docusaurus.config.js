@@ -63,7 +63,7 @@ const config = {
       tagName: 'meta',
       attributes: {
         'http-equiv': 'Content-Security-Policy',
-      content: metaTagStringToReplace,
+        content: metaTagStringToReplace,
       },
     },
   ],
