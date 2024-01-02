@@ -174,13 +174,11 @@ Nodes and indexers display balances without decimals, and ""balance": 500000" me
 TzKT provides information about Ghostnet.
 For example, you can run any of the previous queries on Ghostnet by changing the host name in the URL to `https://api.ghostnet.tzkt.io/`.
 
-## Where Indexers Are Used
+## Where indexers are used
 
 Many applications that work with on-chain data use an indexer.
 
-The simplest example of working with an indexer is a blockchain wallet. For example, to display a user's token balances, Temple Wallet queries this data from the TzKT indexer and gets tokens' tickers and logos from the contract metadata.
-
-![temple query](/img/temple_query.png)
+The simplest example of working with an indexer is a blockchain wallet. For example, to display a user's token balances, Temple Wallet queries data from the TzKT indexer and gets tokens' tickers and logos from the contract metadata.
 
 Try it yourself: [Go here](https://api.tzkt.io/v1/tokens/balances?account=tz1UEQzJbuaGJgwvkekk6HwGwaKvjZ7rr9v4) and replace tz1...9v4 with your wallet address to see which tokens you have. This is the same query to TzKT API that Temple uses: '/tokens/balances' in constants getTokenBalances and getNFTBalances.
 
