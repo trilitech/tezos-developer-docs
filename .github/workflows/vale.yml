@@ -1,16 +1,25 @@
 name: Vale
 
-on: [pull_request]
+on:
+  pull_request:
+    paths:
+      - 'docs/**'
 
 jobs:
   vale:
     name: runner / vale
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: errata-ai/vale-action@reviewdog
+      - name: Check out repo
+        uses: actions/checkout@v3
+
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v35
         with:
-          files: docs
-          reporter: github-pr-review
-          filter_mode: added
-          # vale_flags: "--glob=*.{md,mdx}"
+          files: content/**
+
+      - name: Run Vale
+        uses: errata-ai/vale-action@reviewdog
+        with:
+          files: '${{ steps.changed-files.outputs.all_changed_files }}'
