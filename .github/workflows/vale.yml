@@ -11,6 +11,6 @@ jobs:
       - uses: errata-ai/vale-action@reviewdog
         with:
           files: docs
-          reporter: github-pr-check
+          reporter: github-pr-review
           filter_mode: added
           # vale_flags: "--glob=*.{md,mdx}"
