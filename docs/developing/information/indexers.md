@@ -95,9 +95,9 @@ For information about the TZKT indexer's API, see https://api.tzkt.io.
 
 Indexers can organize data in custom ways.
 For example, TzKT indexes FA1.2 and FA2 tokens and gives each an internal ID.
-This ID can be faster and easier to work with and compare than the contract ID.
+This ID can be faster and easier to work with and compare than using the contract ID and token ID.
 
-This TzKT query gets information about an FA1.2 token based on its internal ID instead of its contract address:
+This TzKT query gets information about an FA1.2 token based on its internal ID instead of its contract address and token ID:
 
 ```
 https://api.tzkt.io/v1/tokens?id=42290944933889
