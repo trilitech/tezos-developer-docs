@@ -56,7 +56,7 @@ Do not capitalize these terms unless they are the first word in a sentence or if
 
 Use emphasis sparingly to avoid making the page too visually busy or complex.
 
-- Use backticks for file names, variable names, and command names, not to emphasize words or denote technical terms.
+- Use backticks for file names, variable names, and command names, not to emphasize words or denote technical terms
 
 - Use bold for:
 
