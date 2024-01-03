@@ -13,6 +13,6 @@ jobs:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           files: docs
-          reporter: github-pr-check
+          reporter: github-pr-review
           filter_mode: added
           # vale_flags: "--glob=*.{md,mdx}"
