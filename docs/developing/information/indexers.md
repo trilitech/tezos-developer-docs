@@ -100,7 +100,7 @@ This ID can be faster and easier to work with and compare than the contract ID.
 This TzKT query gets information about an FA1.2 token based on its internal ID instead of its contract address:
 
 ```
-https://staging.api.tzkt.io/v1/tokens?id=42290944933889
+https://api.tzkt.io/v1/tokens?id=42290944933889
 ```
 
 The response provides information about the token:
@@ -120,14 +120,14 @@ The response provides information about the token:
     },
     "firstLevel": 1330112,
     "firstTime": "2021-02-04T05:43:23Z",
-    "lastLevel": 4855848,
-    "lastTime": "2024-01-02T16:20:53Z",
-    "transfersCount": 555405,
-    "balancesCount": 11265,
-    "holdersCount": 5312,
-    "totalMinted": "34973675265285298272345497",
-    "totalBurned": "33809058060274650139662474",
-    "totalSupply": "1164617205010648132683023",
+    "lastLevel": 4860455,
+    "lastTime": "2024-01-03T12:23:49Z",
+    "transfersCount": 556579,
+    "balancesCount": 11270,
+    "holdersCount": 5313,
+    "totalMinted": "34975975281693622711131319",
+    "totalBurned": "33819058060274650139662474",
+    "totalSupply": "1156917221418972571468845",
     "metadata": {
       "name": "Kolibri USD",
       "symbol": "kUSD",
