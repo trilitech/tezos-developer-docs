@@ -28,4 +28,4 @@ For more information about how Tezos handles proof of stake, see https://tezos.g
 
 ## Tezos accepts multiple languages
 
-Tezos lets developers use languages that make sense for their use case, including versions of Python and JavaScript/TypeScript. For more information, see [An Introduction to Smart Contracts](../smart-contracts/languages/).
+Tezos lets developers use languages that make sense for their use case, including versions of Python and JavaScript/TypeScript. For more information, see [Languages](../smart-contracts/languages/).

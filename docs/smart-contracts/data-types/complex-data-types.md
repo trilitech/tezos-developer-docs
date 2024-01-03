@@ -54,7 +54,7 @@ $$O(\log_2 (size))$$, whereas for a right comb, it's $$O(size)$$.
 
 ### Implementation details
 
-- Michelson: [Operations on pairs and right combs](https://archetype-lang.org/docs/reference/instructions/operation)
+- Michelson: [Operations on pairs and right combs](https://tezos.gitlab.io/active/michelson.html#operations-on-pairs-and-right-combs)
 - LIGO: [Tuples](https://ligolang.org/docs/language-basics/sets-lists-tuples#tuples)
 - SmartPy: [Tuples and Records](https://smartpy.io/manual/syntax/tuples-and-records)
 - Archetype: [Composite types](https://archetype-lang.org/docs/language-basics/composite#tuple), [Tuple](https://archetype-lang.org/docs/reference/types#tuple)

@@ -17,7 +17,7 @@ Waiting for the next block every time you inject a new transaction takes a lot o
 
 To make testing a lot faster, options are available, depending on the language and tools you are using, that don't use a network or even a single node at all, and skip all the consensus mechanism steps.
 
-- The **Michelson interpreter** is an OCaml function that can be used by tools to simulate a call to any entry point of any smart contract, given an initial value of the storage and parameters. Some programming languages like **Ligo** or **Smartpy** use this as part of their testing frameworks.
+- The **Michelson interpreter** is an OCaml function that can be used by tools to simulate a call to any entry point of any smart contract, given an initial value of the storage and parameters. Some programming languages like **LIGO** or **Smartpy** use this as part of their testing frameworks.
 
 - The **mockup mode** of `octez-client` can be used to test contract calls and other features such as some RPC calls, all without running an actual node, saving the time of going through the consensus mechanism and waiting to get blocks created and validated. Tools like **Completium**, built by the team behind the **Archetype** language, use this for their testing framework. Find out more in the [documentation of the mockup mode](https://tezos.gitlab.io/user/mockup.html).
 
@@ -55,7 +55,7 @@ As the protocol on `Ghostnet` migrates to the newly adopted amendment a few days
 
 #### Getting tez testnet tokens
 
-In order to get Tez tokens to use when testing your application on testnet, you can use a faucet. You
+In order to get tez tokens to use when testing your application on testnet, you can use a faucet. You
 can request some tokens from the [Ghostnet faucet](https://faucet.ghostnet.teztnets.xyz/)
 
 

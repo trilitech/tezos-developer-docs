@@ -2,7 +2,7 @@
 title: Deploy a smart contract with CameLIGO
 authors: 'John Joubert, Sasha Aldrick, Claude Barde, Tim McMackin'
 last_update:
-  date: 5 December 2023
+  date: 3 January 2024
 ---
 
 This tutorial covers writing and deploying a simple smart contract with the LIGO programming language.
@@ -204,6 +204,11 @@ Before you can deploy the contract to Tezos, you must compile it to Michelson, t
       Then it shows the new value of the storage.
       You can test the decrement and reset functions in the same way.
       If you see any errors, make sure that the code of your contract matches the code in the previous section.
+
+   1. Test the `Reset` entrypoint in the same way, but pass `unit` as the input parameter and any integer in the storage field.
+   The `Reset` entrypoint takes no parameters, but technically it accepts the value `unit`, which means no parameter.
+
+      The Result field shows the response `(LIST_EMPTY(), 0)`, which means that the storage value is now 0.
 
 1. On the left side of the page, under **Actions**, click **Compile**, and in the Compile window, click **Compile** again.
 

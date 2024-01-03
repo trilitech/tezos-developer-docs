@@ -23,7 +23,7 @@ The _Taquito_ library is made of several modules:
 - [@taquito/ledger-signer](https://www.npmjs.com/package/@taquito/ledger-signer): Provides ledger signing functionality.
 - [@taquito/rpc](https://www.npmjs.com/package/@taquito/rpc): Provides low-level methods and types to interact with an RPC node.
 - [@taquito/utils](https://www.npmjs.com/package/@taquito/utils): Provides utility methods to verify Tezos-specific data and convert data types.
-- [@taquito/michelson-encoder](https://www.npmjs.com/package/@taquito/michelson-encoder): Provides a JavaScript abstraction based on a Tezos Smart contracts code, parameters and storage.
+- [@taquito/michelson-encoder](https://www.npmjs.com/package/@taquito/michelson-encoder): Provides a JavaScript abstraction based on a Tezos smart contracts code, parameters and storage.
 - [@taquito/michel-codec](https://www.npmjs.com/package/@taquito/michel-codec): Michelson parser/validator/formatter.
 - [@taquito/local-forging](https://www.npmjs.com/package/@taquito/local-forging): Provides local forging functionality.
 - [@taquito/signer](https://www.npmjs.com/package/@taquito/signer): Provides signing functionality.

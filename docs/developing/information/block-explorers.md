@@ -1,7 +1,7 @@
 ---
 title: Block Explorers
 last_update:
-  date: 10 July 2023
+  date: 22 December 2023
 ---
 
 **What is a blockchain explorer?**
@@ -35,5 +35,11 @@ Block explorers are also used by:
 
 Here are some commonly used Tezos block explorers:
 
-1. [TzStats](https://tzstats.com/)
-2. [TzKT](https://tzkt.io/)
+- [TzStats](https://tzstats.com/)
+- [TzKT](https://tzkt.io/)
+- [Arronax](https://arronax.io)
+- [Baking Bad](https://baking-bad.org)
+- [Better Call Dev](https://better-call.dev)
+- [Explorus](https://explorus.io/)
+- [Etherlink Explorer](https://explorer.etherlink.com/)
+- [TzFlow](https://tzflow.com/)
