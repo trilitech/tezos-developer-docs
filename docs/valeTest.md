@@ -13,3 +13,7 @@ We have l1 and l2, which is smart rollups.
 We love smart rollups.
 
 The term Smart Contracts should not be capitalized.
+
+What if I failed to capitalize smart rollups on a different line?
+
+
