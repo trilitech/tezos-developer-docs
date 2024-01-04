@@ -85,7 +85,7 @@ export default function Footer() {
         <div className={clsx(styles.footerSeparator)}></div>
         <div className={clsx(styles.footerLinksContainer)}>
           <div className={clsx(styles.footerLeftLinks)}>
-            <span className={clsx(styles.footerCopyright)}>© 2023 Tezos<span className={clsx(styles.footerCopyrightLine)}> | </span>Built with Docusaurus</span>
+            <span className={clsx(styles.footerCopyright)}>© 2023-{new Date().getFullYear()} Tezos<span className={clsx(styles.footerCopyrightLine)}> | </span>Built with Docusaurus</span>
           </div>
           <div className={clsx(styles.footerRightLinks)}>
             <ul className={clsx(styles.footerLinks)}>
