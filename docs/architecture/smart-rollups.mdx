@@ -2,7 +2,7 @@
 title: Smart Rollups
 authors: 'Nomadic Labs, TriliTech, Tim McMackin'
 last_update:
-  date: 26 December 2023
+  date: 4 Jan 2024
 ---
 
 import LucidDiagram from '@site/src/components/LucidDiagram';
@@ -135,7 +135,7 @@ When nodes make identical commitments, their stakes are combined into a single s
 Because the PVM is deterministic and all of the inputs are the same for all nodes, any honest node that runs the same Smart Rollup produces the same commitment.
 As long as nodes publish matching commitments, they continue running normally.
 
-When the first commitment for a past commitment period is published, a *refutation period* starts, during which any rollup node can publish its own commitment for the same commitment period, especially if it did not achieve the same state.
+When the first commitment for a past commitment period is published, a refutation period starts, during which any rollup node can publish its own commitment for the same commitment period, especially if it did not achieve the same state.
 During the refutation period for a commitment period, if two or more nodes publish different commitments, two of them play a _refutation game_ to identify the correct commitment.
 The nodes automatically play the refutation game by stepping through their logic using the PVM to identify the point at which they differ.
 At this point, the PVM is used to identify the correct commitment, if any.
