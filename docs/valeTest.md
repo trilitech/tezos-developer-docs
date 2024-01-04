@@ -16,4 +16,5 @@ The term Smart Contracts should not be capitalized.
 
 What if I failed to capitalize smart rollups on a different line?
 
+Adding another line about smart rollups.
 
