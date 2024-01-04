@@ -1,6 +1,7 @@
 extends: substitution
 message: "Always capitalize '%s'"
 level: error
+ignorecase: true
 swap:
-  '[Ss]mart rollup': "Smart Rollup"
-  'smart [Rr]ollup': "Smart Rollup"
+  smart rollup: Smart Rollup
+  smart rollups: Smart Rollups
