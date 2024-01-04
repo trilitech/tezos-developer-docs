@@ -58,7 +58,7 @@ For example, users can add messages to the inbox with the Octez client `send sma
 Similarly, smart contracts can add messages in a way similar to calling a smart contract entrypoint, by using the Michelson `TRANSFER_TOKENS` instruction.
 The messages that smart contracts add to the inbox are called _internal messages_.
 
-Each block also contains these internal messages, which are created by the protocol:
+Each block also contains the following internal messages, which are created by the protocol:
 
 - `Start of level`, which indicates the beginning of the block
 - `Info per level`, which includes the timestamp and block hash of the preceding block
