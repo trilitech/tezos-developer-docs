@@ -18,4 +18,4 @@ See [Smart contracts](../smart-contracts).
 - Smart Rollup accounts are another type of originated account.
 Their addresses start with `SR1`.
 They have a tree of commitments attached to them.
-For more information, see [Smart Rollups](../architecture/smart-rollups).
+For more information, see [Smart Rollups](./smart-rollups).
