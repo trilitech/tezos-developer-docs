@@ -2,5 +2,5 @@ extends: substitution
 message: "Always capitalize '%s'"
 level: error
 swap:
-  '([S|s])mart rollup': "Smart Rollup"
-  'smart ([R|r])ollup': "Smart Rollup"
+  '(?:[S|s])mart rollup': "Smart Rollup"
+  'smart (?:[R|r])ollup': "Smart Rollup"
