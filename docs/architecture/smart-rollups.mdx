@@ -2,19 +2,18 @@
 title: Smart Rollups
 authors: 'Nomadic Labs, TriliTech, Tim McMackin'
 last_update:
-  date: 4 Jan 2024
+  date: 5 Jan 2024
 ---
 
 import LucidDiagram from '@site/src/components/LucidDiagram';
 
 Smart Rollups play a crucial part in providing high scalability on Tezos.
-They handle transactions and logic in a separate environment that doesn't need to follow all of the same rules as the main Tezos network.
-For this reason, they are not subject to the same block delays and data space constraints as the main Tezos network.
+They handle logic in a separate environment that can run transactions at a much higher rate and can use larger amounts of data than the main Tezos network.
 
 The transactions and logic that Smart Rollups run is called _layer 2_ to differentiate it from the main network, which is called _layer 1_.
 
-The compiled code of a Smart Rollup must be provided publicly, so that anyone can run a Smart Rollup node to execute that code and verify that other nodes are running it correctly, just like anyone can run nodes, bakers, and accusers on layer 1.
-This code, called the _kernel_, must behave in a deterministic manner and according to a given semantics, which guarantees that results are reproducible by any rollup node with the same kernel.
+Anyone can run a node based on a Smart Rollup to execute its code and verify that other nodes are running it correctly, just like anyone can run nodes, bakers, and accusers on layer 1.
+This code, called the _kernel_, runs in a deterministic manner and according to a given semantics, which guarantees that results are reproducible by any rollup node with the same kernel.
 The semantics is precisely defined by a reference virtual machine called a proof-generating virtual machine (PVM), able to generate a proof that executing a program in a given context results in a given state.
 This guarantees that if a divergence in results is found, it can be tracked down to a single elementary step that was not executed correctly by some node.
 In this way, multiple nodes can run the same rollup, and each node can verify the state of the rollup.
