@@ -303,7 +303,7 @@ The network changes to the Ghostnet testnet, as in this picture:
 
 1. Send funds to the account from the testnet faucet:
 
-   1. Go to the Ghostnet faucet at https://faucet.ghostnet.teztnets.xyz/.
+   1. Go to the Ghostnet faucet at https://faucet.ghostnet.teztnets.com/.
 
    1. Put the new account address in the **Or fund any address** field.
 
@@ -640,7 +640,7 @@ To test the application, you must have a Tezos wallet and a small amount of XTZ 
 
 1. Send funds to the wallet from the testnet faucet:
 
-   1. Go to the Ghostnet faucet at https://faucet.ghostnet.teztnets.xyz/.
+   1. Go to the Ghostnet faucet at https://faucet.ghostnet.teztnets.com/.
 
    1. Put the wallet account address in the **Or fund any address** field.
 

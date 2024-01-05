@@ -6,7 +6,7 @@ last_update:
 ---
 
 :::note
-The Tezos testnets are overseen and coordinated by [Oxhead Alpha](https://oxheadalpha.com/). The current testnets and a description of what each is used for are listed at https://teztnets.xyz/.
+The Tezos testnets are overseen and coordinated by [Oxhead Alpha](https://oxheadalpha.com/). The current testnets and a description of what each is used for are listed at https://teztnets.com/.
 :::
 
 ## Testing without a node
@@ -56,7 +56,7 @@ As the protocol on `Ghostnet` migrates to the newly adopted amendment a few days
 #### Getting tez testnet tokens
 
 In order to get tez tokens to use when testing your application on testnet, you can use a faucet. You
-can request some tokens from the [Ghostnet faucet](https://faucet.ghostnet.teztnets.xyz/)
+can request some tokens from the [Ghostnet faucet](https://faucet.ghostnet.teztnets.com/)
 
 
 ### Protocol test networks
@@ -93,7 +93,7 @@ The two periodic protocols currently are `Mondaynet` and `Dailynet`.
 
 ### Public nodes and faucets
 
-To connect to existing public nodes for these networks, or to get some testnet-only tez on these from a faucet, check [https://teztnets.xyz](https://teztnets.xyz/). The faucets and infrastructure for deploying test networks are maintained by [Oxhead Alpha](https://www.oxheadalpha.com/).
+To connect to existing public nodes for these networks, or to get some testnet-only tez on these from a faucet, check [https://teztnets.com](https://teztnets.com/). The faucets and infrastructure for deploying test networks are maintained by [Oxhead Alpha](https://www.oxheadalpha.com/).
 
 Other sources of public nodes include:
 

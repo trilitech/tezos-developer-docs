@@ -78,7 +78,7 @@ Make sure to start Docker Desktop after you install it.
    tznft init
    ```
 
-   The resulting file, named `tznft.config`, contains information about the Tezos networks that are available for you to work with, including the [Ghostnet](https://teztnets.xyz/ghostnet-about) test network and the local sandbox that you set up in the next steps.
+   The resulting file, named `tznft.config`, contains information about the Tezos networks that are available for you to work with, including the [Ghostnet](https://teztnets.com/ghostnet-about) test network and the local sandbox that you set up in the next steps.
    The `tznft` tool requires this file, so the commands in the following steps work only from the directory that you ran `tznft init` in.
 
 4. Check that the default active network is "sandbox:"
@@ -465,7 +465,7 @@ You can do this in either of these two ways:
          tznft add-alias my-account $TEZOS_PRIVATE_KEY
          ```
 
-      1. Add funds to the new wallet by going to the Ghostnet faucet at https://faucet.ghostnet.teztnets.xyz/, pasting the wallet's hash in the "Or fund any address" field, and clicking a button to request tokens.
+      1. Add funds to the new wallet by going to the Ghostnet faucet at https://faucet.ghostnet.teztnets.com/, pasting the wallet's hash in the "Or fund any address" field, and clicking a button to request tokens.
       The wallet needs tokens to pay the fees to create the collection and mint the tokens on Ghostnet.
 
 1. Create the collection on the testnet.

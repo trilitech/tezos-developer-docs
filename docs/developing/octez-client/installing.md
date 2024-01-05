@@ -58,12 +58,12 @@ Then, initialize it to use the RPC node of your choice:
 1. Set the RPC node to use:
 
    1. Get the URL of a public RPC node or a private node that you have access to.
-   For example, you can get the URL of a testnet node from https://teztnets.xyz/, such as `https://rpc.ghostnet.teztnets.xyz` for Ghostnet.
+   For example, you can get the URL of a testnet node from https://teztnets.com/, such as `https://rpc.ghostnet.teztnets.com` for Ghostnet.
 
    1. Set your Octez client to use this node by running this command on the command line, replacing the Ghostnet URL with the URL that you copied:
 
       ```bash
-      octez-client --endpoint https://rpc.ghostnet.teztnets.xyz config update
+      octez-client --endpoint https://rpc.ghostnet.teztnets.com config update
       ```
 
       If you are using a testnet, Octez shows a warning that you are not using Mainnet.
