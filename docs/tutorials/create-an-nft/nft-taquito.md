@@ -2,7 +2,7 @@
 title: Create a contract and web app that mints NFTs
 authors: 'Sol Lederer, Tim McMackin'
 last_update:
-  date: 20 September 2023
+  date: 5 January 2024
 ---
 
 This tutorial covers how to set up a decentralized web application (dApp) that allows users to create NFTs on Tezos.
@@ -207,7 +207,7 @@ For example, the `mint` entrypoint calls an internal function to handle minting 
 ```ocaml
 (** Mint NFT entrypoint *)
 [@entry]
-let mint (p : mint_params) (storage : nft_token_storage) : returnValue =
+let mint (p : mint_params) (storage : nft_token_storage) : return_value =
     ([]: operation list), mint (p, storage)
 ```
 
