@@ -35,9 +35,9 @@ const getFilePaths = async () => {
     return glob(docsFolder + '/**/*.{md,mdx}');
   }
 }
-const filePathsPromise = getFilePaths();
+const filePaths = await getFilePaths();
 
-const getImagePaths = () => glob(imageFolder + '/**/*.{png,jpeg,jpg,gif,svg}');
+const availableImagePaths = await glob(imageFolder + '/**/*.{png,jpeg,jpg,gif,svg}');
 
 // https://unifiedjs.com/learn/guide/using-unified/
 const processor = unified()
@@ -106,28 +106,25 @@ it('Verify that the test gets images from ASTs', () => {
   });
 });
 
-const checkImagesInFile = async (filePath, availableImagePaths) => {
-  it('Check image paths in ' + filePath, async () => {
-    // Get the AST and the links to images in that AST
-    const ast = await getAst(filePath);
-    const imagesInAst = getImagesInAst(ast, filePath);
-    // Find images that are missing
-    imagesInAst.forEach((oneImageInAst) =>
-      expect(availableImagePaths,
-          'Missing image ' + oneImageInAst
-        ).to.include(imageFolder + oneImageInAst)
-    );
-  });
-}
-
 describe('Test for broken image links', async () => {
-  const filePaths = await filePathsPromise;
+  console.log('Filepaths: ', filePaths);
   if (filePaths.length === 0) {
     console.log('No files to test.');
-  } else {
-    const availableImagePaths = await getImagePaths();
-    filePaths.forEach((filePath) => checkImagesInFile(filePath, availableImagePaths));
+    return;
   }
+  filePaths.forEach((filePath) => {
+    it('Check image paths in ' + filePath, async () => {
+      // Get the AST and the links to images in that AST
+      const ast = await getAst(filePath);
+      const imagesInAst = getImagesInAst(ast, filePath);
+      // Find images that are missing
+      imagesInAst.forEach((oneImageInAst) =>
+        expect(availableImagePaths,
+            'Missing image ' + oneImageInAst
+          ).to.include(imageFolder + oneImageInAst)
+      );
+    });
+  })
 })
 
 // Convert file to AST, using the correct processors for MD and MDX files
