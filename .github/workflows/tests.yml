@@ -28,16 +28,12 @@ jobs:
         with:
           node-version: 18
       - run: npm ci
-      - run: npm run test -- --reporter JSON --reporter-option output=mocha-results.json --filesToCheck=${{ needs.checkChangedFiles.outputs.files }}
+      - run: npm run test -- --reporter JSON --reporter-option output=mocha.json --filesToCheck=${{ needs.checkChangedFiles.outputs.files }}
         continue-on-error: true
-      - uses: actions/upload-artifact@v2
-        with:
-          name: mocha-results
-          path: mocha-results.json
+      - run: ls
       - uses: dorny/test-reporter@v1
         with:
-          artifact: mocha-results
-          name: mocha-results
-          path: 'artifacts\mocha-results.json'
+          artifact: test-results
+          name: Mocha tests
+          path: mocha.json
           reporter: mocha-json
-          only-summary: 'false'
