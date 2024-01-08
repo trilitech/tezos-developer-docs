@@ -12,7 +12,9 @@
     "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+    "writeFilesToTest": "node ./test/writeFilesToTest.mjs",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
+    "testold": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "dependencies": {
     "@docusaurus/core": "3.0.1",
