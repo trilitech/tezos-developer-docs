@@ -178,7 +178,7 @@ The default Tezos testing testnet is called **Ghostnet**.
    Warning: the faucet field in network configs has been deprecated and will be ignored.
    A keypair with public key hash tz1XXXXXXXXXXXXXXXXXXXXXX was generated for you.
    To fund this account:
-   1. Go to https://teztnets.xyz and click "Faucet" of the target testnet.
+   1. Go to https://teztnets.com and click "Faucet" of the target testnet.
    2. Copy and paste the above key into the 'wallet address field.
    3. Request some Tez (Note that you might need to wait for a few seconds for the network to register the funds).
    No operations performed.

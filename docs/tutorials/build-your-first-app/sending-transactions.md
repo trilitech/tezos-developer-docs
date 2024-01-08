@@ -370,10 +370,10 @@ Here is the completed code of the `App.svelte` file at the end of this section:
       <p>Its balance in tez is {balance}.</p>
       <p>
         To get tez, go to <a
-          href="https://faucet.ghostnet.teztnets.xyz/"
+          href="https://faucet.ghostnet.teztnets.com/"
           target="_blank"
         >
-          https://faucet.ghostnet.teztnets.xyz/
+          https://faucet.ghostnet.teztnets.com/
         </a>.
       </p>
       <p>

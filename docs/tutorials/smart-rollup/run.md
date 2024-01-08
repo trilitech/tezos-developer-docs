@@ -111,6 +111,6 @@ To continue your work with Smart Rollups, you can you can explore examples from 
 - [Smart Rollup kernel SDK](https://gitlab.com/tezos/tezos/-/tree/master/src/kernel_sdk)
 - [Smart Rollup kernel examples](https://gitlab.com/tezos/kernel-gallery/-/tree/main/)
 - [Tezos Smart Rollups resources](https://airtable.com/shrvwpb63rhHMiDg9/tbl2GNV1AZL4dkGgq)
-- [Tezos testnets](https://teztnets.xyz/)
+- [Tezos testnets](https://teztnets.com/)
 - [Originating the installer kernel](https://tezos.stackexchange.com/questions/4784/how-to-originating-a-smart-rollup-with-an-installer-kernel/5794#5794)
 - [Docker documentation](https://docs.docker.com/get-started/)

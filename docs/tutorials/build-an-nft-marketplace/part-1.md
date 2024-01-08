@@ -318,14 +318,14 @@ Follow these steps to create a contract that is based on the template and implem
      ```
 
      Then make sure that the account has tez on Ghostnet.
-     Use the faucet at https://faucet.ghostnet.teztnets.xyz to get tez if you need it.
+     Use the faucet at https://faucet.ghostnet.teztnets.com to get tez if you need it.
 
    - To let Taqueria generate an account for you, follow these steps:
 
      1. Run the command `taq deploy nft.tz -e "testing"`, which will fail because you do not have an account configured in Taqueria.
         The response includes the address of an account that Taqueria generated for you and added to the `.taq/config.local.testing.json` file automatically.
 
-     1. Fund the account from the faucet at https://faucet.ghostnet.teztnets.xyz.
+     1. Fund the account from the faucet at https://faucet.ghostnet.teztnets.com.
 
 1. Compile and deploy the contract to Ghostnet by running this command:
 
