@@ -17,8 +17,8 @@ import { exampleAstWithBrokenLinks, expectedImagesInAst } from './resources/imag
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-const docsFolder = path.resolve(__dirname, '../../docs');
-const imageFolder = path.resolve(__dirname, '../../static');
+const docsFolder = path.resolve(__dirname, '../docs');
+const imageFolder = path.resolve(__dirname, '../static');
 
 const getFilePaths = () => glob(docsFolder + '/**/*.{md,mdx}');
 const getImagePaths = () => glob(imageFolder + '/**/*.{png,jpeg,jpg,gif,svg}');

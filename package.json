@@ -12,7 +12,7 @@
     "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
-    "checkImages": "node ./src/scripts/imageCheck.mjs"
+    "checkImages": "node ./test/imageCheck.mjs"
   },
   "dependencies": {
     "@docusaurus/core": "3.0.1",
