@@ -123,7 +123,6 @@ The FA2 standard creates a framework for how tokens behave on Tezos, including f
 It provides a standard API to transfer tokens, check token balances, manage operators (addresses that are permitted to transfer tokens on behalf of the token owner), and manage token metadata.
 
 The full details of the smart contract are beyond the scope of this tutorial, but the major parts of the contract have descriptions in comments.
-For more examples of smart contracts, see [oxheadalpha/smart-contracts](https://github.com/oxheadalpha/smart-contracts) on GitHub.
 
 ### Contract entrypoints
 
