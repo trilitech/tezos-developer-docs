@@ -29,6 +29,7 @@ jobs:
           node-version: 18
       - run: npm ci
       - run: npm run test -- --reporter JSON --reporter-option output=mocha.json --filesToCheck=${{ needs.checkChangedFiles.outputs.files }}
+        continue-on-error: true
       - uses: dorny/test-reporter@v1
         with:
           artifact: test-results
