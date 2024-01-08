@@ -9,6 +9,8 @@ When creating a frontend application that uses the Tezos blockchain, you will mo
 
 There are some best practices to follow when you use one of these frameworks to make sure that your code is safe, your app behaves in the intended way and your users enjoy a great experience. Here are the most important ones.
 
+![smorg](/img/whatever.jpg)
+
 ## Dapp lifecycle
 
 The JS framework of your choice probably introduces different functions or models to manage the lifecycles of your application: when it's mounted, when it's updated, and when it's unmounted.
