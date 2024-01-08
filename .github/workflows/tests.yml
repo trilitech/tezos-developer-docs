@@ -12,10 +12,6 @@ jobs:
       files: ${{ steps.files.outputs.added_modified }}
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 18
-      - run: npm ci
       - id: files
         uses: Ana06/get-changed-files@v1.2
         with:
