@@ -18,9 +18,7 @@ jobs:
         uses: Ana06/get-changed-files@v1.2
         with:
           format: 'csv'
-          filter: |
-            *.md
-            *.mdx
+          filter: '*.md,*.mdx'
       - run: npm run test -- --filesToCheck=${{ steps.files.outputs.added_modified }}
 
   test:
