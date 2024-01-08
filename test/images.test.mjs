@@ -12,21 +12,25 @@ import { fromMarkdown } from 'mdast-util-from-markdown';
 import { mdxFromMarkdown } from 'mdast-util-mdx'
 import { mdxjs } from 'micromark-extension-mdxjs'
 import { visit } from 'unist-util-visit';
+import { expect } from 'chai';
+import minimist from 'minimist';
+
+const argv = minimist(process.argv.slice(2));
 
 import { exampleAstWithBrokenLinks, expectedImagesInAst } from './resources/imageCheckTestResources.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const filesToTestPath = path.resolve(__dirname, '../filesToTest.txt');
 
 const docsFolder = path.resolve(__dirname, '../docs');
 const imageFolder = path.resolve(__dirname, '../static');
-
 // Get file names passed in the command or if none were passed, use all files
 const getFilePaths = async () => {
-  if (fs.existsSync(filesToTestPath)) {
-    const fileData = await fs.promises.readFile(filesToTestPath, 'utf8');
-    const filesToTest = fileData.split('\n');
-    return filesToTest;
+  if (argv.filesToCheck) {
+    return argv.filesToCheck
+      .split(',')
+      .map((oneFilePath) =>
+        path.resolve(__dirname, '../', oneFilePath)
+    );
   } else {
     return glob(docsFolder + '/**/*.{md,mdx}');
   }
@@ -93,27 +97,38 @@ const processor = unified()
     );
   }
 
-  test('Verify that the test gets images from ASTs', () => {
-    const imagesFoundInAst = getImagesInAst(exampleAstWithBrokenLinks);
-    expectedImagesInAst.forEach(oneExpectedImage => {
-      expect(imagesFoundInAst,
-        'Image check test failed. getImagesInAst did not find an image it should have:' + oneExpectedImage)
-        .toContain(oneExpectedImage);
-    });
+it('Verify that the test gets images from ASTs', () => {
+  const imagesFoundInAst = getImagesInAst(exampleAstWithBrokenLinks);
+  expectedImagesInAst.forEach(oneExpectedImage => {
+    expect(imagesFoundInAst,
+        'Image check test failed. getImagesInAst did not find an image it should have:' + oneExpectedImage
+      ).to.include(oneExpectedImage);
   });
-
-test.each(await filePathsPromise)('Check image paths in %s', async (filePath) => {
-  const availableImagePaths = await getImagePaths();
-  // Get the AST and the links to images in that AST
-  const ast = await getAst(filePath);
-  const imagesInAst = getImagesInAst(ast, filePath);
-  // Find images that are missing
-  imagesInAst.forEach((oneImageInAst) =>
-    expect(availableImagePaths,
-      'Missing image ' + oneImageInAst + ' in file ' + filePath
-      ).toContain(imageFolder + oneImageInAst)
-  );
 });
+
+const checkImagesInFile = async (filePath, availableImagePaths) => {
+  it('Check image paths in ' + filePath, async () => {
+    // Get the AST and the links to images in that AST
+    const ast = await getAst(filePath);
+    const imagesInAst = getImagesInAst(ast, filePath);
+    // Find images that are missing
+    imagesInAst.forEach((oneImageInAst) =>
+      expect(availableImagePaths,
+          'Missing image ' + oneImageInAst
+        ).to.include(imageFolder + oneImageInAst)
+    );
+  });
+}
+
+describe('Test for broken image links', async () => {
+  const filePaths = await filePathsPromise;
+  if (filePaths.length === 0) {
+    console.log('No files to test.');
+  } else {
+    const availableImagePaths = await getImagePaths();
+    filePaths.forEach((filePath) => checkImagesInFile(filePath, availableImagePaths));
+  }
+})
 
 // Convert file to AST, using the correct processors for MD and MDX files
 const getAst = async (filePath) => {
