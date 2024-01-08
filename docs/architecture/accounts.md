@@ -15,7 +15,7 @@ Any wallet application or the Octez command-line tool can create user accounts.
 Smart contracts have addresses that start with "KT1."
 See [Smart contracts](../smart-contracts).
 
-- Smart Rollups also have accounts.
+- Smart Rollups have addresses, but are not accounts because they cannot store tez.
 Their addresses start with "SR1".
 They have a tree of commitments attached to them.
 See [Smart Optimistic Rollups](./smart-rollups).
