@@ -31,6 +31,7 @@ const getFilePaths = () => {
     return glob(docsFolder + '/**/*.{md,mdx}');
   }
 }
+const filePathsPromise = getFilePaths();
 
 const getImagePaths = () => glob(imageFolder + '/**/*.{png,jpeg,jpg,gif,svg}');
 
@@ -40,34 +41,18 @@ const processor = unified()
   .use(remarkRehype)
   .use(rehypeStringify);
 
-const checkImages = async () => {
-  const filePaths = await getFilePaths();
+test.each(await filePathsPromise)('Check image paths in %s', async (filePath) => {
   const availableImagePaths = await getImagePaths();
-
-  const allFileResults = await Promise.all(filePaths.map(async (oneFilePath) => {
-    // Get the AST and the links to images in that AST
-    const ast = await getAst(oneFilePath);
-    const imagesInAst = getImagesInAst(ast, oneFilePath);
-
-    // Find images that are missing
-    const missingImages = imagesInAst.filter((oneImagePath) => {
-      const fullImagePath = imageFolder + oneImagePath;
-      return !availableImagePaths.includes(fullImagePath);
-    });
-
-    // Return the file path and the images that are missing
-    return { file: oneFilePath, missingImages };
-  }));
-
-  // Filter out files with no missing images
-  const allFilesWithMissingImages = allFileResults.filter(({ missingImages }) => missingImages.length > 0);
-
-  if (allFilesWithMissingImages.length > 0) {
-    console.log(allFilesWithMissingImages);
-  } else {
-    console.log('No missing images found in ' + filePaths.length + ' files.');
-  }
-}
+  // Get the AST and the links to images in that AST
+  const ast = await getAst(filePath);
+  const imagesInAst = getImagesInAst(ast, filePath);
+  // Find images that are missing
+  imagesInAst.forEach((oneImageInAst) =>
+    expect(availableImagePaths,
+      'Missing image ' + oneImageInAst + ' in file ' + filePath
+      ).toContain(imageFolder + oneImageInAst)
+  );
+});
 
 // Convert file to AST, using the correct processors for MD and MDX files
 const getAst = async (filePath) => {
@@ -134,16 +119,11 @@ const getImagesInAst = (ast, /*filePath*/) => {
   );
 }
 
-const testgetImagesInAst = () => {
+test('Verify that the test gets images from ASTs', () => {
   const imagesFoundInAst = getImagesInAst(exampleAstWithBrokenLinks);
-  let result = true;
   expectedImagesInAst.forEach(oneExpectedImage => {
-    if (!imagesFoundInAst.includes(oneExpectedImage)) {
-      console.error("Image check test failed. getImagesInAst did not find an image it should have:", oneExpectedImage);
-      result = false;
-    }
+    expect(imagesFoundInAst,
+      'Image check test failed. getImagesInAst did not find an image it should have:' + oneExpectedImage)
+      .toContain(oneExpectedImage);
   });
-  return result;
-}
-
-if (testgetImagesInAst()) checkImages();
+});
