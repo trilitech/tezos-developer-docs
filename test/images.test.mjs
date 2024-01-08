@@ -107,7 +107,6 @@ it('Verify that the test gets images from ASTs', () => {
 });
 
 describe('Test for broken image links', async () => {
-  console.log('Filepaths: ', filePaths);
   if (filePaths.length === 0) {
     console.log('No files to test.');
     return;
