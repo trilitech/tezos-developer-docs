@@ -201,7 +201,7 @@ sequenceDiagram
 
    - `#import "./pokeGame.jsligo" "PokeGame"` to import the source file as module in order to call functions and use object definitions.
    - `export type main_fn` it will be useful later for the mutation tests to point to the main function to call/mutate.
-   - `Test.reset_state ( 2...` this creates two implicit accounts on the test environment.
+   - `Test.reset_state ( 2...` this creates two user accounts on the test environment.
    - `Test.nth_bootstrap_account` this return the nth account from the environment.
    - `Test.to_contract(taddr)` and `Tezos.address(contr)` are util functions to convert typed addresses, contract and contract addresses.
    - `let _testPoke = (s : address) : unit => {...}` declaring function starting with `_` is escaping the test for execution. Use this to factorize tests changing only the parameters of the function for different scenarios.

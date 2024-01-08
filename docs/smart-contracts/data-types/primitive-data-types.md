@@ -160,16 +160,16 @@ The following operations are supported on timestamps:
 
 ## Addresses {#addresses}
 
-On Tezos, each account is uniquely identified by its `address`, whether it is a user account (implicit account) or a contract (originated account).
+On Tezos, each account is uniquely identified by its `address`.
 
 Internally, addresses take the form of a `string` type.
-For implicit accounts, the string starts with "tz1", "tz2", "tz3" or "tz4".
-For originated accounts, the string starts with "KT1".
+For user accounts, the string starts with "tz1", "tz2", "tz3" or "tz4".
+For smart contract accounts, the string starts with "KT1".
 
 | Type of Account | Example |
 | --- | --- |
-| Implicit Account | `tz1YWK1gDPQx9N1Jh4JnmVre7xN6xhGGM4uC` |
-| Originated Account | `KT1S5hgipNSTFehZo7v81gq6fcLChbRwptqy` |
+| User account | `tz1YWK1gDPQx9N1Jh4JnmVre7xN6xhGGM4uC` |
+| Smart contract account | `KT1S5hgipNSTFehZo7v81gq6fcLChbRwptqy` |
 
 The next part of the string is a `Base58` encoded hash, followed by a 4-byte checksum.
 
