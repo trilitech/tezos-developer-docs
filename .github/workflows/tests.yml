@@ -20,9 +20,7 @@ jobs:
         uses: Ana06/get-changed-files@v1.2
         with:
           format: 'csv'
-          filter: |
-            *.md
-            *.mdx
+          filter: '*.mdx?'
 
   test:
     runs-on: ubuntu-latest
