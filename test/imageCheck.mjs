@@ -12,6 +12,9 @@ import { fromMarkdown } from 'mdast-util-from-markdown';
 import { mdxFromMarkdown } from 'mdast-util-mdx'
 import { mdxjs } from 'micromark-extension-mdxjs'
 import { visit } from 'unist-util-visit';
+import minimist from 'minimist';
+
+const argv = minimist(process.argv.slice(2));
 
 import { exampleAstWithBrokenLinks, expectedImagesInAst } from './resources/imageCheckTestResources.mjs';
 
@@ -20,7 +23,15 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const docsFolder = path.resolve(__dirname, '../docs');
 const imageFolder = path.resolve(__dirname, '../static');
 
-const getFilePaths = () => glob(docsFolder + '/**/*.{md,mdx}');
+// Get file names passed in the command or if none were passed, use all files
+const getFilePaths = () => {
+  if (argv._.length > 0) {
+    return argv._.map((filePath) => path.resolve(__dirname, '../', filePath));
+  } else {
+    return glob(docsFolder + '/**/*.{md,mdx}');
+  }
+}
+
 const getImagePaths = () => glob(imageFolder + '/**/*.{png,jpeg,jpg,gif,svg}');
 
 // https://unifiedjs.com/learn/guide/using-unified/
