@@ -21,7 +21,6 @@ jobs:
           filter: |
             *.md
             *.mdx
-      - run: npm run test -- --filesToCheck=${{ steps.files.outputs.added_modified }}
 
   test:
     runs-on: ubuntu-latest
