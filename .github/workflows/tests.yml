@@ -28,6 +28,11 @@ jobs:
         with:
           node-version: 18
       - run: npm ci
+      - uses: errata-ai/vale-action@reviewdog
+        with:
+          files: docs
+          reporter: github-pr-review
+          filter_mode: added
       - run: npm run test -- --reporter JSON --reporter-option output=mocha.json --filesToCheck=${{ needs.checkChangedFiles.outputs.files }}
         continue-on-error: true
       - run: ls

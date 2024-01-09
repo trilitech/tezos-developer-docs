@@ -40,7 +40,13 @@ Finally, open [http://localhost:3000](http://localhost:3000) in your browser to 
 ## Tests
 
 The workflow `.github/workflows/tests.yml` runs automated tests on pull requests.
-To run tests locally, run `npm run test -- --filesToCheck=docs/developing.md,docs/architecture.mdx`, where `--filesToCheck` is a comma-separated list of the MD and MDX files to test.
+It includes these tests:
+
+- Mocha tests that check for broken links to images.
+To run these tests locally, run `npm run test -- --filesToCheck=docs/developing.md,docs/architecture.mdx`, where `--filesToCheck` is a comma-separated list of the MD and MDX files to test.
+
+- Vale tests for style, spelling, and capitalization.
+To run these tests locally, install [Vale](https://vale.sh/) and run `npm run vale`.
 
 Docusaurus automatically checks for broken links and markdown-encoded images when you run `npm run build`.
 
