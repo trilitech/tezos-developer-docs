@@ -106,7 +106,6 @@ const sidebars = {
               ],
             },
             'developing/information/indexers',
-            'developing/information/custom-indexers',
           ],
         },
       ],

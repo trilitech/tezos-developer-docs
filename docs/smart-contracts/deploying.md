@@ -25,15 +25,15 @@ octez-client originate contract CONTRACT_NAME transferring AMOUNT_TEZ from FROM_
 where:
 - `CONTRACT_NAME` is the name given to the contract.
 - `MICHELSON_FILE` is the path for the Michelson smart contract code (.tz file).
-- `AMOUNT_TEZ` is the quantity of Tez being transferred to the newly deployed contract. If a contract balance reaches 0 then it is deactivated.
-- `FROM_USER` account from which the Tez are taken (and transferred to the new contract).
+- `AMOUNT_TEZ` is the quantity of tez being transferred to the newly deployed contract. If a contract balance reaches 0 then it is deactivated.
+- `FROM_USER` account from which the tez are taken (and transferred to the new contract).
 - `INITIAL_STORAGE` is a Michelson expression. The --init parameter is used to specify the initial state of the storage.
 - `GAZ_FEE` is a specified maximal fee the user is willing to pay for this operation (using the --burn-cap parameter).
 
 ### Deploying via online IDE
-As for deploying through your online IDE, if you are using Ligo or SmartPy programming languages, you can simply deploy your smart contracts through their respective online IDEs.
+As for deploying through your online IDE, if you are using LIGO or SmartPy programming languages, you can simply deploy your smart contracts through their respective online IDEs.
 - [SmartPy online IDE](https://smartpy.io/)
-- [Ligo online IDE](https://ligolang.org/?lang=jsligo)
+- [LIGO online IDE](https://ligolang.org/?lang=jsligo)
 
 ## Interacting with the contract
 Once you have successfully originated the smart contract and it is included in a baked block, there are two ways to interact with it: through command lines or through a block explorer.
@@ -70,7 +70,7 @@ Where:
 - `KT1Vsw5kh4P1Vn...`: Contract address.
 - `tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb`: User's account address.
 - `'42'`: New integer value you wish to pass to the update_data entrypoint.
-- `0.05`: Maximum amount of Tez you're willing to pay in fees.
+- `0.05`: Maximum amount of tez you're willing to pay in fees.
 
 :::note
 Always ensure that you check the documentation specific to the smart contract you are interacting with, as the expected arguments (`--arg`) and the name of the entrypoint (`--entrypoint`) can vary widely depending on the contract's design and purpose.

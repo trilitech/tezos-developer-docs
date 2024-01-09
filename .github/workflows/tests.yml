@@ -1,0 +1,38 @@
+name: Tests
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+jobs:
+
+  checkChangedFiles:
+    runs-on: ubuntu-latest
+    outputs:
+      files: ${{ steps.files.outputs.added_modified }}
+    steps:
+      - uses: actions/checkout@v2
+      - id: files
+        uses: Ana06/get-changed-files@v1.2
+        with:
+          format: 'csv'
+          filter: '*.mdx?'
+
+  test:
+    runs-on: ubuntu-latest
+    needs: checkChangedFiles
+    if: ${{ needs.checkChangedFiles.outputs.files != '' }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 18
+      - run: npm ci
+      - run: npm run test -- --reporter JSON --reporter-option output=mocha.json --filesToCheck=${{ needs.checkChangedFiles.outputs.files }}
+        continue-on-error: true
+      - run: ls
+      - uses: dorny/test-reporter@v1
+        with:
+          name: Mocha tests
+          path: 'mocha.json'
+          reporter: mocha-json

@@ -1,5 +1,5 @@
 ---
-title: Ligo
+title: LIGO
 last_update:
   date: 29 June 2023
 ---

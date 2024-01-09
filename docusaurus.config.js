@@ -4,6 +4,26 @@
 const math = require('remark-math');
 const katex = require('rehype-katex');
 
+// script-src causes development builds to fail
+// But unsafe-eval should NOT be in production builds
+// Also, put GTM first because sometimes the ';' in the escaped single quotes causes the browser to think it's the end
+const scriptSrc = process.env.NODE_ENV === 'development' ?
+  `https://*.googletagmanager.com 'self' 'unsafe-inline' 'unsafe-eval'`
+  : `https://*.googletagmanager.com 'self' 'unsafe-inline'`;
+
+const contentSecurityPolicy = `
+default-src 'none';
+base-uri 'self';
+manifest-src 'self';
+script-src ${scriptSrc};
+style-src 'self' 'unsafe-inline';
+font-src 'self';
+img-src 'self' https://*.googletagmanager.com https://*.google-analytics.com data:;
+media-src 'self';
+form-action 'self';
+connect-src 'self' https://*.algolia.net https://*.algolianet.com https://*.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com;
+frame-src https://tezosbot.vercel.app https://calendly.com/ lucid.app;`;
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Tezos Developer Documentation',
@@ -22,6 +42,16 @@ const config = {
   markdown: {
     mermaid: true,
   },
+
+  headTags: [
+    {
+      tagName: 'meta',
+      attributes: {
+        'http-equiv': 'Content-Security-Policy',
+        content: contentSecurityPolicy,
+      },
+    },
+  ],
 
   themes: ['@docusaurus/theme-mermaid'],
 

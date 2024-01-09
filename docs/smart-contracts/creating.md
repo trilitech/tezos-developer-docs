@@ -34,7 +34,7 @@ The online editor is the quickest and easiest way to get started.
 
 For example:
 - For smartpy user, we recommend to use the [SmartPy online IDE](https://smartpy.io/)
-- For Ligo user, we recommend to use the [Ligo online IDE](https://ligolang.org/?lang=jsligo)
+- For LIGO user, we recommend to use the [LIGO online IDE](https://ligolang.org/?lang=jsligo)
 
 
 ### Defining contract storage
