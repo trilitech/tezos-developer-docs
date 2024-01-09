@@ -2,7 +2,7 @@
 title: Create a contract and web app that mints NFTs
 authors: 'Sol Lederer, Tim McMackin'
 last_update:
-  date: 20 September 2023
+  date: 5 January 2024
 ---
 
 This tutorial covers how to set up a decentralized web application (dApp) that allows users to create NFTs on Tezos.
@@ -165,18 +165,6 @@ type transfer =
 }
 ```
 
-The type `fa2_entry_points` is a special type that the contract's `main` function uses to define the entrypoints.
-It maps the entry points to the type of parameter that they accept:
-
-```ocaml
-type fa2_entry_points =
-  | Transfer of transfer list
-  | Balance_of of balance_of_param
-  | Update_operators of update_operator list
-  | Mint of mint_params
-  | Burn of token_id
-```
-
 ### Error messages
 
 The contract defines a series of error messages, and comments in the code describe what each error message means.
@@ -210,46 +198,16 @@ let get_balance (p, ledger : balance_of_param * ledger) : operation =
   Tezos.transaction responses 0mutez p.callback
 ```
 
-### Main function
+### Entrypoint functions
 
-The `main` function is a special function that defines the entrypoints in the contract.
-In this case, it accepts the entrypoint that the transaction sender called and the current state of the contract's storage.
-Then the function branches based on the entrypoint.
-
-For example, if the sender calls the `balance_of` entrypoint, the function calls the `get_balance` function and passes the parameters that the sender passed and the current state of the contract's ledger:
+Each entrypoint in the contract is a function with the `@entry` annotation.
+For example, the `mint` entrypoint calls an internal function to handle minting tokens based on the parameters that are defined in the `mint_params` type:
 
 ```ocaml
-  | Balance_of p ->
-    let op = get_balance (p, storage.ledger) in
-    [op], storage
-```
-
-Here is the complete code of the `main` function:
-
-```ocaml
-let main (param, storage : fa2_entry_points * nft_token_storage)
-    : (operation  list) * nft_token_storage =
-  match param with
-  | Transfer txs ->
-    let (new_ledger, new_reverse_ledger) = transfer
-      (txs, default_operator_validator, storage.operators, storage.ledger, storage.reverse_ledger) in
-    let new_storage = { storage with ledger = new_ledger; reverse_ledger = new_reverse_ledger } in
-    ([] : operation list), new_storage
-
-  | Balance_of p ->
-    let op = get_balance (p, storage.ledger) in
-    [op], storage
-
-  | Update_operators updates ->
-    let new_ops = fa2_update_operators (updates, storage.operators) in
-    let new_storage = { storage with operators = new_ops; } in
-    ([] : operation list), new_storage
-
-  | Mint p ->
+(** Mint NFT entrypoint *)
+[@entry]
+let mint (p : mint_params) (storage : nft_token_storage) : return_value =
     ([]: operation list), mint (p, storage)
-
-  | Burn p ->
-    ([]: operation list), burn (p, storage)
 ```
 
 ### Initial storage state
@@ -321,6 +279,14 @@ The IDE opens a blank contract file and shows commands for the file on the left-
 
 1. Paste the contents of the `contract/NFTS_contract.mligo` file into the editor.
 The IDE saves the file automatically.
+
+1. Remove the module name:
+
+   1. Click **Project Settings**.
+
+   1. Clear the **Module name (optional)** field.
+
+   1. Close the Project Settings window.
 
 1. Click **Compile** and then in the "Compile" window, click **Compile**.
 The IDE compiles the contract code to Michelson, the base language that all Tezos contracts use.
@@ -452,7 +418,7 @@ In these steps, you configure the backend application with your Pinata informati
    ```
 
    This metadata object includes several standard fields for Tezos tokens, including a name, description, symbol to show in wallets, and URIs to preview pictures and thumbnails.
-   The `decimals` field is set to 0 because the NFT cannot be divided into decimal amounts like fungible tokens can.
+   The `decimals` field is set to 0 because there is only one of each NFT.
 
    If both of the pins were successful, the endpoint returns the IPFS URIs of the image and metadata to the frontend application:
 
@@ -476,7 +442,7 @@ In these steps, you configure the backend application with your Pinata informati
 
 ## Run the frontend application
 
-The front application accepts information about a new NFT from the user, sends the image and metadata to the backend, and calls the smart contract to mint the NFT.
+The frontend application accepts information about a new NFT from the user, sends the image and metadata to the backend, and calls the smart contract to mint the NFT.
 Follow these steps to configure and start the frontend application:
 
 1. In your command-line window, go to the `frontend` folder of the tutorial application.
@@ -643,7 +609,7 @@ To test the application, you must have a Tezos wallet and a small amount of XTZ 
 
    1. Put the wallet account address in the **Or fund any address** field.
 
-   1. Click the button to request 100 tokens and wait for the browser to complete the operation.
+   1. Click the button to request 5 tez and wait for the browser to complete the operation.
 
    1. When you see a message that the tokens are sent to your address, open your wallet and verify that the tokens are there.
    It can take a few minutes for them to appear.
