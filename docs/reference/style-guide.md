@@ -2,7 +2,7 @@
 title: Documentation style guide
 authors: Tim McMackin
 last_update:
-  date: 29 December 2023
+  date: 9 January 2024
 ---
 
 ## Overall Tezos-related issues
@@ -10,7 +10,8 @@ last_update:
 - Tezos is decentralized.
 There is no official Tezos documentation, no official Tezos strategy, and no official entity in charge of Tezos.
 
-- Do not compare Tezos to other blockchains.
+- Do not compare Tezos to other specific blockchains.
+You can say that Tezos has advantages over other blockchains, but don't say that Tezos is better than or does  things differently from another specific blockchain.
 
 - Use "tez" to describe the currency instead of "XTZ" unless there is a specific reason to use the ISO code/ticker symbol "XTZ," such as in accounting systems, exchange rates with other currencies, and anything that needs a standardized code.
 
