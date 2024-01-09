@@ -33,7 +33,6 @@ jobs:
       - run: ls
       - uses: dorny/test-reporter@v1
         with:
-          artifact: test-results
           name: Mocha tests
-          path: mocha.json
+          path: 'mocha.json'
           reporter: mocha-json
