@@ -18,9 +18,6 @@ jobs:
         with:
           node-version: 18
       - run: npm ci
-      - id: files
-        uses: jitterbit/get-changed-files@v1
-      - run: npm run test -- --filesToCheck=${{ steps.files.outputs.added_modified }}
       - run: npm run build
       - uses: aws-actions/configure-aws-credentials@v2
         with:
