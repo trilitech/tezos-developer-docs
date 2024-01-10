@@ -70,7 +70,9 @@ When a client calls the `reset` entrypoint, it emits an event that is tagged wit
 
 Smart contracts cannot respond to events.
 
-Taquito includes tools to listen for and respond to events.
+Off-chain applications can listen for and respond to events by monitoring the event operations in blocks.
+
+For example, Taquito includes tools to listen for and respond to events.
 For example, this code listens for events from the contract with the address `contractAddress` and the tag `tagName`:
 
 ```javascript
@@ -146,6 +148,9 @@ The event data is in Michelson format, so an event from the `reset` entrypoint o
 Note that the address field is returned as a byte value.
 To convert the bytes to an address, use the `encodePubKey` function in `@taquito/utils`.
 <!-- I reported this to the Taquito people and they are asking the core team if the RPC node could return the address as an address instead of as bytes. -->
+
+You can see the complete content of the event operation by looking up the operation hash in a block explorer.
+For example, to see the operation in the previous example, look up the operation `onw8EwWVnZbx2yBHhL72ECRdCPBbw7z1d5hVCJxp7vzihVELM2m`.
 
 ## Implementation details
 
