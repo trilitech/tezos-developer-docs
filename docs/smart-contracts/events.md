@@ -2,7 +2,7 @@
 title: Events
 authors: Tim McMackin
 last_update:
-  date: 28 December 2023
+  date: 10 January 2024
 ---
 
 Events are operations that allow smart contracts to send information to off-chain applications.
