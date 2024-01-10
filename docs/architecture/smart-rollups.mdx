@@ -16,7 +16,7 @@ Anyone can run a node based on a Smart Rollup to execute its code and verify tha
 This code, called the _kernel_, runs in a deterministic manner and according to a given semantics, which guarantees that results are reproducible by any rollup node with the same kernel.
 The semantics is precisely defined by a reference virtual machine called a proof-generating virtual machine (PVM), able to generate a proof that executing a program in a given context results in a given state.
 This guarantees that if a divergence in results is found, it can be tracked down to a single elementary step that was not executed correctly by some node.
-In this way, multiple nodes can run the same rollup, and each node can verify the state of the rollup.
+In this way, multiple nodes can run the same rollup and each node can verify the state of the rollup.
 
 For a tutorial on Smart Rollups, see [Deploy a Smart Rollup](../tutorials/smart-rollup).
 
@@ -34,7 +34,7 @@ This diagram shows a high-level view of how Smart Rollups interact with layer 1:
 
 - Smart Rollups allow you to avoid some transaction fees and storage fees.
 
-- Smart Rollups can retrieve data from outside the blockchain in specific ways that smart contracts can't do.
+- Smart Rollups can retrieve data from outside the blockchain in specific ways that smart contracts can't.
 
 - Smart Rollups can implement different execution environments, such as execution environments that are compatible with other blockchains.
 For example, Smart Rollups enable [Etherlink](https://www.etherlink.com/), which makes it possible to run EVM applications (originally written for Ethereum) on Tezos.
@@ -91,9 +91,9 @@ Eventually include:
 The general flow of a Smart Rollup goes through these phases:
 
 1. Origination: A user called the _rollup operator_ originates the Smart Rollup to layer 1 and one or more users start nodes based on that Smart Rollup to independently verify its operation.
-1. Commitment periods: The Smart Rollup nodes receive the messages in the Smart Rollup inbox, run processing based on those messages, and publish a hash of their state at the end of the period.
+1. Commitment periods: The Smart Rollup nodes receive the messages in the Smart Rollup inbox, run processing based on those messages, generate but do not run outbox messages, and publish a hash of their state at the end of the period.
 1. Refutation periods: Nodes can publish a concurrent commitment to refute a published commitment.
-1. Triggering outbox messages: When the commitment can no longer be refuted, any client can trigger operations from the Smart Rollup.
+1. Triggering outbox messages: When the commitment can no longer be refuted, any client can trigger outbox messages, which create transactions.
 
 Here is more information on each of these phases:
 
@@ -107,7 +107,7 @@ The origination process stores data about the rollup on layer 1, including:
 
 - An address for the rollup, which starts with `sr1`
 - The type of proof-generating virtual machine (PVM) for the rollup, which defines the execution engine of the rollup kernel; currently only the `wasm_2_0_0` PVM is supported
-- The code of the rollup, which is a WebAssembly program referred to as the rollup's _kernel_
+- The installer kernel, which is a WebAssembly program that allows nodes to download and install the complete rollup kernel
 - The Michelson data type of the messages it receives from layer 1
 - The genesis commitment that forms the basis for commitments that rollups nodes publish in the future
 
