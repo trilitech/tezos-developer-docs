@@ -5,7 +5,7 @@ last_update:
   date: 10 January 2024
 ---
 
-Events are operations that allow smart contracts to send information to off-chain applications.
+Events are a type of internal operation on Tezos.
 Smart contracts emit events and off-chain applications can listen for events to know when things happen on the chain.
 
 ## Event data
