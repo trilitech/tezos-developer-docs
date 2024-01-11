@@ -167,6 +167,7 @@ const sidebars = {
         'smart-contracts/serialization',
         'smart-contracts/sapling',
         'smart-contracts/views',
+        'smart-contracts/events',
         'smart-contracts/delegation',
         // 'smart-contracts/multisig-specialized',
         // 'smart-contracts/multisig-usage',
