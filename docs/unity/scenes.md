@@ -104,7 +104,7 @@ At the bottom of the scene there is a logout button that closes the connection.
 
 <img src="/img/unity/unity-walletconnection-scene-connected.png" alt="The Wallet Connection scene with a connected account" style={{width: 300}} />
 
-## Contract scene
+## ContractAndMinting scene
 
 This scene shows how to deploy a smart contract to Tezos and create tokens with it.
 

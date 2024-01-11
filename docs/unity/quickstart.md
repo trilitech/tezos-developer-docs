@@ -105,6 +105,8 @@ You can see these events and their return values in the [EventManager object](./
 Note that if you stop the project while your wallet is connected and restart the project later, the project remembers the wallet's connection status by using the data saved at [Application.persistentDataPath](https://docs.unity3d.com/ScriptReference/Application-persistentDataPath.html).
 The SDK uses the [Beacon](https://docs.walletbeacon.io/) SDK to connect to wallets.
 
+For an example, see the [WalletConnection tutorial scene](./scenes#wallet-connection-scene).
+
 ## Deploying contracts
 
 Contracts are backend programs that run on the Tezos blockchains.
@@ -139,6 +141,8 @@ private void OnContractDeployed(string contractAddress)
 The project sends the deployment transaction to the connected wallet, which must approve the transaction and pay the related fees.
 The SDK stores the address of the contract as [`TokenContract.address`](./reference/TokenContract).
 
+For an example, see the [ContractAndMinting tutorial scene](./scenes/#contractandminting-scene).
+
 ## Creating tokens
 
 To create a token type, call the contract's `mint` entrypoint and pass these parameters:
@@ -156,7 +160,6 @@ var initialOwner = TezosManager
     .Instance
     .Wallet
     .GetWalletAddress();
-
 
 // To preview the IPFS-hosted image:
 // https://ipfs.io/ipfs/QmX4t8ikQgjvLdqTtL51v6iVun9tNE7y7Txiw4piGQVNgK
@@ -192,7 +195,7 @@ private void OnTokenMinted(TokenBalance tokenBalance)
 }
 ```
 
-For a complete example of creating tokens, see the file `Tutorials/ContractAndMinting/Scripts/MintToken.cs` and the ContractAndMinting tutorial scene.
+For an example, see the [ContractAndMinting tutorial scene](./scenes/#contractandminting-scene).
 
 ## Transferring tokens
 
@@ -225,7 +228,7 @@ private void TransferCompleted(string txHash)
 }
 ```
 
-For a complete example, see the Transfer tutorial scene.
+For a complete example, see the [Transfer tutorial scene](./scenes/#transfer-scene).
 
 ## Getting token balances
 
@@ -233,7 +236,6 @@ To get the tokens that the connected account owns, call the [`API.GetTokensForOw
 This example prints information about the tokens that the account owns to the log:
 
 ```csharp
-
 private void Start()
 {
     // Subscribe to account connection event
@@ -285,19 +287,21 @@ Blockchain developers use it to store data such as token images and metadata.
 
 The SDK provides tools to upload to IPFS by using the [Pinata](https://pinata.cloud/) API, but you can set up IPFS upload in other ways.
 
-To use the SDK, see the code in the `Tutorials/IPFSUpload/Scripts/UploadImageButton.cs` file, which handles uploading files in the IPFSUpload scene.
+To use the SDK, create instances of the Tezos Configuration and Data Provider Configuration objects and put your Pinata JWT (not the API key or secret) in the `TezosConfigSO` object's Pinata Api Key field.
+
+To use the SDK, see the code in the `UploadImageButton.cs` file, which handles uploading files in the IPFSUpload scene.
 It has a UI upload button that triggers this method, which uses the built-in Pinata uploader to upload the file and get the URL for it:
 
 ```csharp
 public void HandleUploadClick()
 {
-    if (string.IsNullOrEmpty(TezosManager.PinataApiKey))
+    if (string.IsNullOrEmpty(TezosManager.Instance.Config.PinataApiKey))
     {
         Logger.LogError("Can not proceed without Pinata API key.");
         return;
     }
 
-    var uploader = UploaderFactory.GetPinataUploader(TezosManager.PinataApiKey);
+    var uploader = UploaderFactory.GetPinataUploader(TezosManager.Instance.Config.PinataApiKey);
 
     var uploadCoroutine = uploader.UploadFile(ipfsUrl =>
     {
@@ -308,9 +312,7 @@ public void HandleUploadClick()
 }
 ```
 
-This code assumes that you have set your Pinata API key on the `TezosManager` prefab.
-
-For a complete example, see the IPFSUpload scene.
+For a complete example, see the [IPFSUpload tutorial scene](./scenes#ipfsupload-scene).
 
 ## Signing messages
 
@@ -347,11 +349,8 @@ As described in [The RPC protocol](../architecture/rpc), Tezos clients including
 By default, the SDK sends requests to a public RPC node that uses the Ghostnet test network, where you can test transactions without spending real tez.
 For more information about test networks, see [Using sandboxes and testnets](../developing/testnets).
 
-If you need to change the RPC node that the SDK uses, such as if the default node is overloaded or if you are ready to send transactions to Mainnet, you can change the RPC node by setting the values of the `TezosConfig.RpcBaseUrl` and `TezosConfig.Network` properties, as in this code:
+If you need to change the RPC node that the SDK uses, such as if the default node is overloaded or if you are ready to send transactions to Mainnet, you can set the RPC node by creating an instance of the Tezos Configuration object and setting the node in the **Rpc Url Format** field, as in this picture:
 
-```csharp
-TezosConfig.Instance.RpcBaseUrl = "https://mainnet.smartpy.io";
-TezosConfig.Instance.Network = NetworkType.mainnet;
-```
+<img src="/img/unity/unity-ipfs-scene-config.png" alt="Adding the Pinata API key and the data provider to the TezosConfigSO object" style={{width: 300}} />
 
-For more examples of how to work with the SDK, see the scenes in the `TezosSDK/Examples` folder, which are described in [Tutorial scenes](./scenes).
+For more examples of how to work with the SDK, see [Tutorial scenes](./scenes).
