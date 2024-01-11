@@ -1,6 +1,6 @@
 ---
 title: 'Part 2: Inter-contract calls and testing'
-authors: 'Benjamin Fuentes'
+authors: 'Benjamin Fuentes (Marigold)'
 last_update:
   date: 28 November 2023
 ---

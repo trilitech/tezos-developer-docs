@@ -1,5 +1,6 @@
 ---
 title: Build an NFT marketplace
+authors: 'Benjamin Fuentes (Marigold)'
 lastUpdated: 8nd November 2023
 ---
 

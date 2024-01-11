@@ -326,6 +326,20 @@ const sidebars = {
             'tutorials/build-an-nft-marketplace/part-4',
           ],
         },
+        {
+          type: 'category',
+          label: 'Create a mobile game',
+          link: {
+            type: 'doc',
+            id: 'tutorials/mobile',
+          },
+          items: [
+            'tutorials/mobile/part-1',
+            'tutorials/mobile/part-2',
+            'tutorials/mobile/part-3',
+            'tutorials/mobile/part-4',
+          ],
+        },
       ],
     },
   ],
