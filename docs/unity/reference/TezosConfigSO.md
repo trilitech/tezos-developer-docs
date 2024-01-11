@@ -7,6 +7,10 @@ last_update:
 
 The TezosConfigSO scriptable object sets the RPC node that the SDK sends Tezos transactions to.
 
+To use this object, create an instance of it, put your information in its fields, and then drag this instance of the TezosConfigSO scriptable object to the Config field of the TezosManager prefab.
+
+<img src="/img/unity/unity-ipfs-scene-config.png" alt="Adding the Pinata API key and the data provider to the TezosConfigSO object" style={{width: 300}} />
+
 ## Properties
 
 - `Script`: The attached script that implements the object
