@@ -169,7 +169,7 @@ For smart contract accounts, the string starts with "KT1".
 | Type of Account | Example |
 | --- | --- |
 | User account | `tz1YWK1gDPQx9N1Jh4JnmVre7xN6xhGGM4uC` |
-| Smart contract account | `KT1S5hgipNSTFehZo7v81gq6fcLChbRwptqy` |
+| Smart contract | `KT1S5hgipNSTFehZo7v81gq6fcLChbRwptqy` |
 
 The next part of the string is a `Base58` encoded hash, followed by a 4-byte checksum.
 
