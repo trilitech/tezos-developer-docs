@@ -216,7 +216,9 @@ const sidebars = {
           items: [
             'unity/reference/API',
             'unity/reference/DAppMetadata',
+            'unity/reference/DataProviderConfigSO',
             'unity/reference/EventManager',
+            'unity/reference/TezosConfigSO',
             'unity/reference/TokenContract',
             'unity/reference/Wallet',
           ],

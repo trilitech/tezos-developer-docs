@@ -2,7 +2,7 @@
 title: Tezos SDK for Unity
 authors: Tim McMackin
 last_update:
-  date: 22 December 2023
+  date: 11 January 2024
 ---
 
 The Tezos SDK for Unity provides tools that let you access user wallets and Tezos in games and other Unity projects.
@@ -25,21 +25,8 @@ For information about setting up and using the scenes, see [Tutorial scenes](./u
 
 ## SDK objects
 
-The SDK provides these objects:
-
-- [`DAppMetadata`](./unity/reference/DAppMetadata): Read-only metadata about the project, including the Name, Url, Icon, and Description fields that you set on the TezosManager prefab in the Unity Editor.
-
-- [`Wallet`](./unity/reference/Wallet): An object that provides information about the connected wallet and allows you to send transactions from the user's account.
-
-- [`EventManager`](./unity/reference/EventManager): An object that provides events that you can add listeners to.
-You can see these events and their return values in the `WalletEventManager.cs` file.
-
-- [`TezosConfig`](./unity/reference/TezosConfig): An object that sets the [RPC](../architecture/rpc) node that the SDK uses to send transactions to Tezos
-
-- [`TokenContract`](./unity/reference/TokenContract): An object that provides an FA2 contract and convenience methods to access it.
-You can use this object to deploy the contract and call the contract's entrypoints to create and transfer tokens.
-
-- [`API`](./unity/reference/API): An object that provides methods to access data from Tezos, such as an account's balance in tez or the metadata for a token.
+The SDK provides objects that you can use to interact with user wallets and with Tezos.
+See [Unity SDK reference](./unity/reference).
 
 ## Dependencies
 
