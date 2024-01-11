@@ -129,7 +129,7 @@ The following is adapted from this [Agora post](https://forum.tezosagora.org/t/n
     In the context, each account is associated with a balance (an amount of
     tez available).
 
-    An account can be a user account, a smart contract account, or a Smart Rollup account.
+    An account can be a user account or a smart contract.
 
 - **Baker**
 
