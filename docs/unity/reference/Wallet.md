@@ -64,10 +64,10 @@ Disconnects from the currently connected wallet.
 
 This method triggers the `WalletDisconnected` event.
 
-### `GetActiveAddress()`
+### `GetWalletAddress()`
 
 ```csharp
-void GetActiveAddress()
+void GetWalletAddress()
 ```
 
 Returns the address (public key hash) of the currently connected account, or NULL if no wallet is connected.

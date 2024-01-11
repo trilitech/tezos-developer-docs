@@ -129,7 +129,7 @@ Example:
 var initialOwner = TezosManager
     .Instance
     .Wallet
-    .GetActiveAddress();
+    .GetWalletAddress();
 
 const string imageAddress = "ipfs://QmX4t8ikQgjvLdqTtL51v6iVun9tNE7y7Txiw4piGQVNgK";
 

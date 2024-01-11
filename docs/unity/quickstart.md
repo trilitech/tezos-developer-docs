@@ -86,7 +86,7 @@ You can use this event to get the address of the connected account, as in this c
    private void OnWalletConnected(WalletInfo walletInfo)
    {
        // We can get the address from the wallet
-       addressText.text = TezosManager.Instance.Wallet.GetActiveAddress();
+       addressText.text = TezosManager.Instance.Wallet.GetWalletAddress();
        // Or from the event data
        addressText.text = walletInfo.Address;
    }
@@ -155,7 +155,7 @@ For example, this code creates a token type with a quantity of 100:
 var initialOwner = TezosManager
     .Instance
     .Wallet
-    .GetActiveAddress();
+    .GetWalletAddress();
 
 
 // To preview the IPFS-hosted image:
@@ -255,7 +255,7 @@ private void OnWalletConnected(WalletInfo walletInfo)
 
 private void OnTokensFetched(IEnumerable<TokenBalance> tokenBalances)
 {
-    var walletAddress = TezosManager.Instance.Wallet.GetActiveAddress();
+    var walletAddress = TezosManager.Instance.Wallet.GetWalletAddress();
     var contractAddress = TezosManager.Instance.Tezos.TokenContract.Address;
 
     var tokens = new List<TokenBalance>(tokenBalances);

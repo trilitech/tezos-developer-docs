@@ -162,7 +162,7 @@ The file's `HandleMint` function creates the token by generating random numbers,
 public void HandleMint()
 {
     var tokenMetadata = CreateRandomTokenMetadata();
-    var destinationAddress = TezosManager.Instance.Wallet.GetActiveAddress();
+    var destinationAddress = TezosManager.Instance.Wallet.GetWalletAddress();
     var randomAmount = new Random().Next(1, 1024);
 
     TezosManager.Instance.Tezos.TokenContract.Mint(OnTokenMinted, tokenMetadata, destinationAddress, randomAmount);
