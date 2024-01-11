@@ -104,6 +104,8 @@ You can see these events and their return values in the [EventManager object](./
 
 For an example, see the [WalletConnection tutorial scene](./scenes#wallet-connection-scene).
 
+For an example, see the [WalletConnection tutorial scene](./scenes#wallet-connection-scene).
+
 ## Deploying contracts
 
 Contracts are backend programs that run on the Tezos blockchains.
