@@ -3,7 +3,7 @@ title: Unity SDK prefabs
 sidebar_label: Prefabs
 authors: Tim McMackin
 last_update:
-  date: 20 December 2023
+  date: 11 January 2024
 ---
 
 The Tezos SDK for Unity provides these prefabs:
@@ -31,6 +31,6 @@ The prefab's `LoginPanel` object includes objects that connect to wallets in dif
 - The `LoginButtonDeepLink` object shows a button that opens a wallet app on a mobile device or a wallet browser extension in a web browser via the Beacon SDK
 - The `SocialLoginButton` object shows a button that opens a social wallet, such as Kukai
 
-For details about how the prefab works, see the file `Runtime/View/TezosAuthenticator.cs`.
+For details about how the prefab works, see the file `TezosAuthenticator.cs`.
 
 For an example of the prefab in use, see the [WalletConnection tutorial scene](./scenes#walletconnection-scene).
