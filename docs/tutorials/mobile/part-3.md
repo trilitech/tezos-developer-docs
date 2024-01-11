@@ -1,6 +1,6 @@
 ---
 title: 'Part 3: Create the game pages'
-authors: 'Benjamin Fuentes'
+authors: 'Benjamin Fuentes (Marigold)'
 last_update:
   date: 12 December 2023
 ---
@@ -122,10 +122,7 @@ In this section, you will create the pages to:
                console.log('on new round event:', e);
                refreshStorage();
              } else
-               console.log(
-                 'Warning: here we ignore this transaction event',
-                 e
-               );
+               console.log('Warning: here we ignore this transaction event', e);
            });
 
          console.log(

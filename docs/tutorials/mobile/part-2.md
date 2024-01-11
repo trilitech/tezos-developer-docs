@@ -1,6 +1,6 @@
 ---
 title: 'Part 2: Create an Ionic mobile application'
-authors: 'Benjamin Fuentes'
+authors: 'Benjamin Fuentes (Marigold)'
 last_update:
   date: 12 December 2023
 ---

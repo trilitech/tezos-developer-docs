@@ -1,6 +1,6 @@
 ---
 title: 'Part 4: Publish on the Android store'
-authors: 'Benjamin Fuentes'
+authors: 'Benjamin Fuentes (Marigold)'
 last_update:
   date: 12 December 2023
 ---
