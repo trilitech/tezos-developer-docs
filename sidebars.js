@@ -313,6 +313,15 @@ const sidebars = {
         },
         {
           type: 'category',
+          label: 'Implement a Files Archive with the DAL and a Smart Rollup',
+          link: {
+            type: 'doc',
+            id: 'tutorials/build-files-archive-with-dal',
+          },
+          items: [],
+        },
+        {
+          type: 'category',
           label: 'Build an NFT marketplace',
           link: {
             type: 'doc',
