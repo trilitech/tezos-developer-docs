@@ -41,9 +41,9 @@ private void OnWalletDisconnected(WalletInfo walletInfo)
 Runs when a wallet connects successfully.
 Returns a `TezosSDK.Beacon.WalletInfo` object with information that includes the address of the connected account.
 
-### `public event Action<ErrorInfo> AccountConnectionFailed`
+### `public event Action<ErrorInfo> WalletConnectionFailed`
 
-Runs when a connection to an account fails.
+Runs when a connection to a wallet fails.
 Returns a `TezosSDK.Beacon.ErrorInfo` object with an error message.
 
 ### `public event Action<WalletInfo> WalletDisconnected`
