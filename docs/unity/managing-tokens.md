@@ -2,7 +2,7 @@
 title: Managing tokens
 authors: Tim McMackin
 last_update:
-  date: 12 December 2023
+  date: 11 January 2024
 ---
 
 The SDK's built-in contract is compatible with the [FA2 token standard](../architecture/tokens/FA2), which means that you can use a single smart contract to manage any number of types of tokens, including:
@@ -101,43 +101,46 @@ To get the tokens that the connected account owns, call the [`API.GetTokensForOw
 This example prints information about the tokens that the account owns to the log:
 
 ```csharp
-void Start()
+private void Start()
 {
+    // Subscribe to account connection event
     TezosManager.Instance.EventManager.WalletConnected += OnWalletConnected;
 }
 
-private void OnWalletConnected(AccountInfo accountInfo)
+private void OnWalletConnected(WalletInfo walletInfo)
 {
-    var address = TezosManager.Instance.Wallet.GetActiveAddress();
+    // Address of the connected wallet
+    var address = walletInfo.Address;
+
+    // Prepare the coroutine to fetch the tokens
     var routine = TezosManager.Instance.Tezos.API.GetTokensForOwner(
-        callback: onTokenBalances,
-        owner: address,
-        withMetadata: true,
-        maxItems: 10_000,
-        orderBy: new TokensForOwnerOrder.ByLastTimeAsc(0)
-    );
+        OnTokensFetched, // Callback to be called when the tokens are fetched
+        address, true, 10_000, new TokensForOwnerOrder.ByLastTimeAsc(0));
+
     StartCoroutine(routine);
 }
 
-private void onTokenBalances(IEnumerable<TokenBalance> tokenBalances)
+private void OnTokensFetched(IEnumerable<TokenBalance> tokenBalances)
 {
-    var address = TezosManager.Instance.Wallet.GetActiveAddress();
+    var walletAddress = TezosManager.Instance.Wallet.GetWalletAddress();
+    var contractAddress = TezosManager.Instance.Tezos.TokenContract.Address;
 
-    List<TokenBalance> tokens = new List<TokenBalance>(tokenBalances);
-    // Filter to the tokens in the active contract
-    List<TokenBalance> filteredTokens = tokens.Where(tb => tb.TokenContract.Address == TezosManager.Instance.Tezos.TokenContract.Address).ToList();
+    var tokens = new List<TokenBalance>(tokenBalances);
+
+    // Filter the tokens by the current contract address
+    var filteredTokens = tokens.Where(tb => tb.TokenContract.Address == contractAddress).ToList();
+
     if (filteredTokens.Count > 0)
     {
         foreach (var tb in filteredTokens)
         {
-            Debug.Log(
-                $"{address} has {tb.Balance} tokens on contract {tb.TokenContract.Address}");
+            Debug.Log($"{walletAddress} has {tb.Balance} tokens on contract {tb.TokenContract.Address}");
             Debug.Log(tb.TokenMetadata);
         }
     }
     else
     {
-        Debug.Log($"{address} has no tokens in the active contract");
+        Debug.Log($"{walletAddress} has no tokens in the active contract");
     }
 }
 ```

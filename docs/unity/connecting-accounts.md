@@ -2,7 +2,7 @@
 title: Connecting accounts
 authors: Tim McMackin
 last_update:
-  date: 20 December 2023
+  date: 11 January 2024
 ---
 
 Connecting to a user's wallet is a prerequisite to working with Tezos in any application.
@@ -12,7 +12,7 @@ Users still confirm or reject all transactions in their wallet application, so y
 Using a wallet application in this way saves you from having to implement payment processing and security in your application.
 Game developers can also use the wallet and its account as a unique account identifier and as the user's inventory.
 
-For an example of connecting to wallets, see the WalletConnection tutorial scene.
+For an example of connecting to wallets, see the [WalletConnection tutorial scene](./scenes#wallet-connection-scene).
 
 ## Best practices
 
@@ -36,7 +36,7 @@ QR code | Users scan a QR code with a wallet app | Yes | No | Yes
 Deep link | The application opens the user's wallet app directly | Yes | Yes | No
 Social wallets | The application opens the user's Kukai web-based wallet | Yes | No | No
 
-Regardless of the connection method, the Tezos SDK for Unity runs the `WalletConnected` or `AccountConnectionFailed` event, as appropriate.
+Regardless of the connection method, the Tezos SDK for Unity runs the `WalletConnected` or `WalletConnectionFailed` event, as appropriate.
 For more information about events, see the [Unity SDK EventManager object](./reference/EventManager).
 
 <!-- TODO info about handshakes? -->
@@ -69,11 +69,10 @@ The Beacon SDK detects that it is running in a web application and opens a popup
 ### Social connections
 
 Social wallets exist as accounts managed by web apps such as [Kukai](https://kukai.app/).
-WebGL applications can connect to social wallets like this:
 
-1. The Unity WebGL application calls [`Wallet.Connect()`](./reference/Wallet#connect) with the `walletProvider` parameter set to `WalletProviderType.kukai`.
+To connect to a social wallet, the Unity WebGL application calls [`Wallet.Connect()`](./reference/Wallet#connect) with the `walletProvider` parameter set to `WalletProviderType.kukai`.
 
-<!-- TODO this doesn't work for me -->
+<!-- TODO Get this working and cover the steps -->
 
 ## Disconnecting
 
