@@ -2,7 +2,7 @@
 title: Quickstart
 authors: Tim McMackin
 last_update:
-  date: 28 December 2023
+  date: 11 January 2024
 ---
 
 Follow these steps to install the Tezos SDK for Unity in an existing Unity project and start using it.
@@ -17,19 +17,26 @@ These instructions cover:
 
 ## Installing the SDK
 
-To install the SDK, follow the instructions at https://github.com/trilitech/tezos-unity-sdk.
+1. In your Unity project, in the Package Manager panel, click the `+` symbol and then click **Add package from git URL**.
 
-To work with the SDK, ensure that you have a Tezos-compatible wallet configured for the Ghostnet testnet on your mobile device.
+1. Enter the url `https://github.com/trilitech/tezos-unity-sdk.git` and click **Add**.
+
+   The Package Manager panel downloads and installs the SDK.
+   You can see its assets in the Project panel under Packages > Tezos Unity SDK.
+
+1. Ensure that you have a Tezos-compatible wallet configured for the Ghostnet testnet on your mobile device.
 For instructions, see [Installing and funding a wallet](../developing/wallet-setup).
 
-If you want to publish the project to WebGL, follow the steps in [Enabling WebGL support](#enabling-webgl-support).
+1. If you want to publish the project to WebGL, follow the steps in [Enabling WebGL support](#enabling-webgl-support).
+
+1. To import the tutorial scenes, see [Scenes](./scenes).
 
 ## Enabling WebGL support
 
 The Unity SDK provides a WebGL template that you can use to publish Unity projects to run in a web browser.
 Follow these steps to set up the Tezos SDK to work with WebGL:
 
-1. In the Unity Editor, go to the Project panel and find the `TezosSDK` folder.
+1. In the Unity Editor, go to the Project panel and expand the **Packages > Tezos Unity SDK > WebGLFrontend** folder.
 1. From the `WebGLFrontend/output` folder, copy the `StreamingAssets` and `WebGLTemplates` folders into the `Assets` folder of your project.
 
 1. Select the AirGap template to use in the WebGL build:
@@ -37,9 +44,11 @@ Follow these steps to set up the Tezos SDK to work with WebGL:
    1. Click **Edit > Project Settings**.
    1. Go to the **Player** tab.
    1. On the Player tab, go to the **WebGL settings** tab.
-   1. Under **Resolution and Presentation**, select the AirGap WebGL template.
+   1. Under **Resolution and Presentation**, select the AirGap WebGL template, as shown in this picture:
 
-1. To enable copy and paste in the WebGL build, double-click `WebGLCopyAndPaste.unitypackage`, which is in the `WebGLFrontend/output` folder of the SDK, to install it.
+      <img src="/img/unity/unity-webgl-template.png" alt="The project settings, with the Airgap WebGL template selected" style={{width: 500}} />
+
+1. To enable copy and paste in the WebGL build, double-click `_WebGLCopyAndPaste.unitypackage`, which is in the `WebGLFrontend/output` folder of the SDK, to install it.
 
    This package automatically enables copy and paste on selectable text fields, such as the account address field in the WalletConnection tutorial scene.
 
