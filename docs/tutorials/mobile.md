@@ -1,6 +1,6 @@
 ---
 title: Create a mobile game
-authors: 'Benjamin Fuentes'
+authors: 'Benjamin Fuentes (Marigold)'
 last_update:
   date: 12 December 2023
 ---
@@ -17,19 +17,19 @@ There are two categories of web3 gaming dapp:
 
 You will learn:
 
-- How to create import a Ligo smart contract library containing the game logic.
+- How to import a Ligo smart contract library containing the game logic.
 - How to create a mobile app with Ionic.
 - How to integrate the taquito library to connect a wallet.
 - How to develop the UI and interact with your smart contract.
-- How to use build and deploy your game to the Android store.
+- How to build and deploy your game to the Android store.
 
 ## Prerequisites
 
-This tutorial uses Typescript, so it will be easier if you are familiar with JavaScript.
+This tutorial uses TypeScript, so it will be easier if you are familiar with JavaScript.
 
 1. Make sure that you have installed these tools:
 
-   - [Node.JS and NPM](https://nodejs.org/en/download/): NPM is required to install the web application's dependencies.
+   - [Node.JS and NPM](https://nodejs.org/en/download/): NPM is required to install the web application's dependencies. (currently using v18.15.0 on the solution)
    - [Taqueria](https://taqueria.io/), version 0.46.0 or later: Taqueria is a platform that makes it easier to develop and test dApps.
    - [Docker](https://docs.docker.com/engine/install/): Docker is required to run Taqueria.
    - [jq](https://stedolan.github.io/jq/download/): Some commands use the `jq` program to extract JSON data.
