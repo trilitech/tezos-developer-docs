@@ -187,7 +187,6 @@ const sidebars = {
         'dApps/wallets',
         'dApps/sending-transactions',
         'dApps/taquito',
-        'dApps/unity',
         // 'dApps/frameworks', // TODO
         // Hide defi for now because the content is very outdated
         // 'dApps/defi',
@@ -195,6 +194,36 @@ const sidebars = {
         // 'dApps/testing',
         // 'dApps/deploying',
         'dApps/best-practices',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Tezos SDK for Unity',
+      link: {
+        id: 'unity',
+        type: 'doc',
+      },
+      items: [
+        'unity/quickstart',
+        'unity/scenes',
+        'unity/prefabs',
+        {
+          type: 'category',
+          label: 'Reference',
+          link: {
+            id: 'unity/reference',
+            type: 'doc',
+          },
+          items: [
+            'unity/reference/API',
+            'unity/reference/DAppMetadata',
+            'unity/reference/DataProviderConfigSO',
+            'unity/reference/EventManager',
+            'unity/reference/TezosConfigSO',
+            'unity/reference/TokenContract',
+            'unity/reference/Wallet',
+          ],
+        },
       ],
     },
     {
