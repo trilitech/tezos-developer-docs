@@ -104,8 +104,6 @@ You can see these events and their return values in the [EventManager object](./
 
 For an example, see the [WalletConnection tutorial scene](./scenes#wallet-connection-scene).
 
-For an example, see the [WalletConnection tutorial scene](./scenes#wallet-connection-scene).
-
 ## Deploying contracts
 
 Contracts are backend programs that run on the Tezos blockchains.
@@ -337,6 +335,7 @@ private void OnPayloadSigned(SignResult obj)
     // Result is true if the message is signed correctly
     // And that it came from the currently-connected wallet
     var result = TezosManager.Instance.Wallet.VerifySignedPayload(SignPayloadType.micheline, payload);
+
     Debug.Log($"Payload verification response: {result}");
 }
 ```

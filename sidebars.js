@@ -233,35 +233,6 @@ const sidebars = {
       type: 'category',
       label: 'Reference',
       items: [
-        'dApps/unity/quickstart',
-        'dApps/unity/scenes',
-        {
-          type: 'category',
-          label: 'Reference',
-          link: {
-            id: 'unity/reference',
-            type: 'doc',
-          },
-          items: [
-            {
-              type: "category",
-              label: "Objects",
-              items: [
-                'unity/reference/API',
-                'unity/reference/DAppMetadata',
-                'unity/reference/MessageReceiver',
-                'unity/reference/TokenContract',
-                'unity/reference/Wallet',
-              ],
-            },
-          ],
-        },
-      ],
-    },
-    {
-      type: 'category',
-      label: 'Reference',
-      items: [
         // 'reference/rpc', // TODO
         // 'reference/encoding', // TODO
         // 'reference/merkle-formats', // TODO

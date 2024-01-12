@@ -211,23 +211,6 @@ public void HandleTransfer()
 }
 ```
 
-The transfer tutorial scene uses the [`TokenContract.Transfer()`](./reference/TokenContract#transfer) method to transfer the token:
-
-```csharp
-public void HandleTransfer()
-{
-    TezosManager
-        .Instance
-        .Tezos
-        .TokenContract
-        .Transfer(
-            completedCallback: TransferCompleted,
-            destination: address.text,
-            tokenId: int.Parse(id.text),
-            amount: int.Parse(amount.text));
-}
-```
-
 This ledger of token ownership is stored in a big-map data type, which is serialized on Tezos to save space.
 
 ## IPFSUpload scene
