@@ -392,7 +392,7 @@ The ticket's information is public and can be read by any contract that holds th
 
 Contracts can pass tickets to entrypoints to change which contract is in control of the ticket.
 If contract A passes a ticket to contract B, contract A loses all access to the ticket.
-Contracts can pass tickets only to other contracts because the entrypoint must accept a ticket of the correct type; contracts cannot pass tickets to user accounts.
+Contracts can pass tickets to other contracts via entrypoints accepting a ticket of the correct type; contracts can also pass tickets to user accounts.
 
 ### Ticket features
 
