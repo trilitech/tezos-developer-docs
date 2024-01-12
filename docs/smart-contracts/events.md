@@ -25,7 +25,7 @@ The compiled Michelson code uses the `EMIT` command to emit the event.
 
 For example, this contract stores a number and emits events when that amount changes:
 
-jsLIGO
+JsLIGO
 
 ```ligo
 type storage = int;
