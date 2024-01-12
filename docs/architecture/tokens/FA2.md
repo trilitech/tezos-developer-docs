@@ -2,7 +2,7 @@
 title: FA2 tokens
 authors: "Claude Barde, Aymeric Bethencourt, Tim McMackin"
 last_update:
-  date: 28 November 2023
+  date: 29 December 2023
 ---
 
 The FA2 standard supports several different token types, including:
@@ -18,6 +18,10 @@ Because a single FA2 contract can define multiple types of tokens, each token ty
 If the contract has only one type of token, its ID must be 0, but if it has multiple types of tokens, the IDs can be any value.
 
 For the full details of the FA2 standard, see [Tezos Improvement Proposal 12 (TZIP-12)](https://gitlab.com/tezos/tzip/-/blob/master/proposals/tzip-12/tzip-12.md), which defines the standard.
+
+## Examples
+
+For examples of FA2 contracts, see [Sample smart contracts](../../smart-contracts/samples).
 
 ## Metadata
 

@@ -26,9 +26,9 @@ On testnets, tokens are free so you don't have to spend real currency to work wi
 The process for changing the network is different for each wallet type.
 These steps are for the Temple wallet:
 
-1. Go to https://teztnets.xyz/, which lists Tezos testnets.
+1. Go to https://teztnets.com/, which lists Tezos testnets.
 1. Click **Ghostnet**.
-1. Copy one of the public RPC endpoints for Ghostnet, such as `https://rpc.ghostnet.teztnets.xyz`.
+1. Copy one of the public RPC endpoints for Ghostnet, such as `https://rpc.ghostnet.teztnets.com`.
 These URLs accept Tezos transactions from wallets and other applications.
 1. In the Temple app, open the settings and then click **Default node (RPC)**.
 1. Click the plus `+` symbol to add an RPC node.
@@ -47,7 +47,7 @@ Follow these steps to get testnet tez for the wallet:
 1. From your wallet, get the address of your account, which starts with `tz1`.
 This is the address that applications use to work with your wallet.
 
-1. Go to the Ghostnet faucet at https://faucet.ghostnet.teztnets.xyz.
+1. Go to the Ghostnet faucet at https://faucet.ghostnet.teztnets.com.
 
 1. On the faucet page, paste your wallet address into the input field labeled "Or fund any address" and click the button for the amount of tez to add to your wallet.
 20 tez is enough to work with, and you can return to the faucet later if you need more tez.

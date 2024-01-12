@@ -167,6 +167,7 @@ const sidebars = {
         'smart-contracts/serialization',
         'smart-contracts/sapling',
         'smart-contracts/views',
+        'smart-contracts/events',
         'smart-contracts/delegation',
         // 'smart-contracts/multisig-specialized',
         // 'smart-contracts/multisig-usage',
@@ -186,7 +187,6 @@ const sidebars = {
         'dApps/wallets',
         'dApps/sending-transactions',
         'dApps/taquito',
-        'dApps/unity',
         // 'dApps/frameworks', // TODO
         // Hide defi for now because the content is very outdated
         // 'dApps/defi',
@@ -194,6 +194,36 @@ const sidebars = {
         // 'dApps/testing',
         // 'dApps/deploying',
         'dApps/best-practices',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Tezos SDK for Unity',
+      link: {
+        id: 'unity',
+        type: 'doc',
+      },
+      items: [
+        'unity/quickstart',
+        'unity/scenes',
+        'unity/prefabs',
+        {
+          type: 'category',
+          label: 'Reference',
+          link: {
+            id: 'unity/reference',
+            type: 'doc',
+          },
+          items: [
+            'unity/reference/API',
+            'unity/reference/DAppMetadata',
+            'unity/reference/DataProviderConfigSO',
+            'unity/reference/EventManager',
+            'unity/reference/TezosConfigSO',
+            'unity/reference/TokenContract',
+            'unity/reference/Wallet',
+          ],
+        },
       ],
     },
     {
@@ -323,6 +353,20 @@ const sidebars = {
             'tutorials/build-an-nft-marketplace/part-2',
             'tutorials/build-an-nft-marketplace/part-3',
             'tutorials/build-an-nft-marketplace/part-4',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Create a mobile game',
+          link: {
+            type: 'doc',
+            id: 'tutorials/mobile',
+          },
+          items: [
+            'tutorials/mobile/part-1',
+            'tutorials/mobile/part-2',
+            'tutorials/mobile/part-3',
+            'tutorials/mobile/part-4',
           ],
         },
       ],

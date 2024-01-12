@@ -2,7 +2,7 @@
 title: Sample smart contracts
 author: "Tim McMackin"
 last_update:
-  date: 26 December 2023
+  date: 29 December 2023
 ---
 
 Here are some places to find sample smart contacts:
@@ -12,3 +12,8 @@ Here are some places to find sample smart contacts:
 - For examples of contracts in LIGO, see https://packages.ligolang.org/contracts
 - For examples of contracts in Archetype, see https://archetype-lang.org/docs/templates/overview
 - For examples of contracts in SmartPy, see https://smartpy.io/guides/examples/
+
+For examples of FA2 smart contracts, see:
+
+- The SmartPy [FA2 library](https://smartpy.io/guides/FA2-lib/overview)
+- [oxheadalpha/smart-contracts](https://github.com/oxheadalpha/smart-contracts)

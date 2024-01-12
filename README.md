@@ -37,6 +37,12 @@ npm run start
 
 Finally, open [http://localhost:3000](http://localhost:3000) in your browser to view the website.
 
+## Tests
+
+The workflow `.github/workflows/tests.yml` runs automated tests on pull requests.
+To run tests locally, run `npm run test -- --filesToCheck=docs/developing.md,docs/architecture.mdx`, where `--filesToCheck` is a comma-separated list of the MD and MDX files to test.
+
+Docusaurus automatically checks for broken links and markdown-encoded images when you run `npm run build`.
 
 ## License
 

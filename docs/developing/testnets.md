@@ -2,11 +2,11 @@
 title: Using sandboxes and testnets
 authors: 'Mathias Hiron, Nomadic Labs, Tim McMackin, TriliTech'
 last_update:
-  date: 18 October 2023
+  date: 29 December 2023
 ---
 
 :::note
-The Tezos testnets are overseen and coordinated by [Oxhead Alpha](https://oxheadalpha.com/). The current testnets and a description of what each is used for are listed at https://teztnets.xyz/.
+The current testnets and a description of what each is used for are listed at https://teztnets.com/.
 :::
 
 ## Testing without a node
@@ -43,7 +43,7 @@ _Permanent test networks_ are networks that are meant to run indefinitely. In pa
 
 For the `Ghostnet` permanent network, the governance is controlled by a single entity that manages the network, with a special upgrade mechanism.
 
-At the moment, the main such network is `Ghostnet`. It follows the currently active protocol on `Mainnet`, and upgrades to the next protocol during the Adoption period on `Mainnet`. That is, after the last round of voting and before it activates on `Mainnet`. The objective is to provide a rehearsal event for `Mainnet` migration. This process is controlled by the Oxhead Alpha team.
+At the moment, the main such network is `Ghostnet`. It follows the currently active protocol on `Mainnet`, and upgrades to the next protocol during the Adoption period on `Mainnet`. That is, after the last round of voting and before it activates on `Mainnet`. The objective is to provide a rehearsal event for `Mainnet` migration.
 
 For developers, using a permanent network like `Ghostnet` is convenient compared to other public networks, as it makes it possible to keep contracts running for a long time without having to deal with the trouble of setting things up on a new network when the previous one gets shut down. Services such as indexers, explorers, or public nodes also tend to keep running more reliably on `Ghostnet` than on non-permanent networks.
 
@@ -56,14 +56,14 @@ As the protocol on `Ghostnet` migrates to the newly adopted amendment a few days
 #### Getting tez testnet tokens
 
 In order to get tez tokens to use when testing your application on testnet, you can use a faucet. You
-can request some tokens from the [Ghostnet faucet](https://faucet.ghostnet.teztnets.xyz/)
+can request some tokens from the [Ghostnet faucet](https://faucet.ghostnet.teztnets.com/)
 
 
 ### Protocol test networks
 
 _Protocol test networks_ are networks that are created specifically for a given version of the protocol.
 
-When an amendment is proposed, a corresponding network is usually created by the Oxhead Alpha team. This network gets joined by more bakers as the proposal is selected and moves through the different periods of the self-amendment process. If the protocol passes the 3 votes of the amendment, joining a test protocol early gives you about 2.5 months to test all the changes that will be made to Mainnet. If the protocol is not adopted, it usually gets discarded. Otherwise, it remains active until a different protocol is adopted.
+When an amendment is proposed, a corresponding network is created. This network gets joined by more bakers as the proposal is selected and moves through the different periods of the self-amendment process. If the protocol passes the 3 votes of the amendment, joining a test protocol early gives you about 2.5 months to test all the changes that will be made to Mainnet. If the protocol is not adopted, it usually gets discarded. Otherwise, it remains active until a different protocol is adopted.
 
 This means there is usually one or two such running networks: one for the current version of the protocol running on `Mainnet`, and possibly one for the proposed protocol that is going through the amendment process, if there is one.
 
@@ -93,7 +93,7 @@ The two periodic protocols currently are `Mondaynet` and `Dailynet`.
 
 ### Public nodes and faucets
 
-To connect to existing public nodes for these networks, or to get some testnet-only tez on these from a faucet, check [https://teztnets.xyz](https://teztnets.xyz/). The faucets and infrastructure for deploying test networks are maintained by [Oxhead Alpha](https://www.oxheadalpha.com/).
+To connect to existing public nodes for these networks, or to get some testnet-only tez on these from a faucet, check [https://teztnets.com](https://teztnets.com/).
 
 Other sources of public nodes include:
 
