@@ -357,6 +357,22 @@ const sidebars = {
         },
         {
           type: 'category',
+          label: 'Running the DAL as a Weeklynet baker, in 5 steps',
+          link: {
+            type: 'doc',
+            id: 'tutorials/running-the-dal-as-a-weeklynet-baker-in-5-steps',
+          },
+          items: [
+            'tutorials/running-the-dal-as-a-weeklynet-baker-in-5-steps/get-octez',
+            'tutorials/running-the-dal-as-a-weeklynet-baker-in-5-steps/run-node',
+            'tutorials/running-the-dal-as-a-weeklynet-baker-in-5-steps/prepare-account',
+            'tutorials/running-the-dal-as-a-weeklynet-baker-in-5-steps/run-dal-node',
+            'tutorials/running-the-dal-as-a-weeklynet-baker-in-5-steps/run-baker',
+            'tutorials/running-the-dal-as-a-weeklynet-baker-in-5-steps/conclusion',
+          ],
+        },
+        {
+          type: 'category',
           label: 'Build an NFT marketplace',
           link: {
             type: 'doc',
