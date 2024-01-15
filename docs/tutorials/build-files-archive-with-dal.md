@@ -319,7 +319,7 @@ they are subscribed to with the `--producer-profiles` command line argument. In
 our case, we will first subscribe to the slot index 0.
 
 ```bash
-octez-dal-node --endpoint ${ENDPOINT} \
+octez-dal-node run --endpoint ${ENDPOINT} \
     --producer-profiles=0 --data-dir _dal_node
 ```
 
