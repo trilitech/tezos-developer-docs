@@ -137,10 +137,10 @@ const config = {
       },
       algolia: {
         // The application ID provided by Algolia
-        appId: process.env.NEXT_PUBLIC_DOCSEARCH_APP_ID || "QPBQ67WNIG",
+        appId: "QPBQ67WNIG",
         // Public API key: it is safe to commit it
-        apiKey: process.env.NEXT_PUBLIC_DOCSEARCH_API_KEY || "cd621124ed2d83249bf003f4a69f391c",
-        indexName: process.env.NEXT_PUBLIC_DOCSEARCH_INDEX_NAME || "crawler_tezos-test",
+        apiKey: "cd621124ed2d83249bf003f4a69f391c",
+        indexName: "crawler_tezos-test",
         // Optional: see doc section below
         contextualSearch: true,
         // Optional: Specify domains where the navigation should occur through window.location instead on history.push. Useful when our Algolia config crawls multiple documentation sites and we want to navigate with window.location.href to them.
