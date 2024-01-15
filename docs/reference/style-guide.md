@@ -28,7 +28,8 @@ See https://tezos.gitlab.io/user/key-management.html#getting-keys-for-fundraiser
 
 - The fields in a contract's storage are called "properties."
 
-- Don't use abbreviations for layers, as in "l1" or "l2." Say "layer 1" or "layer 2."
+- Use the full forms "layer 1" and "layer 2" when talking about layers.
+The abbreviations "L1" and "L2" (always capitalized) are acceptable later after you have introduced the concept of layers.
 
 ## Capitalization
 
