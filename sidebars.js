@@ -343,7 +343,7 @@ const sidebars = {
         },
         {
           type: 'category',
-          label: 'Implement a Files Archive with the DAL and a Smart Rollup',
+          label: 'Implement a file archive with the DAL',
           link: {
             type: 'doc',
             id: 'tutorials/build-files-archive-with-dal',

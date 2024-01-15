@@ -1,5 +1,5 @@
 ---
-title: Implementing a Files Archive with the DAL and a Smart Rollup
+title: Implementing a File Archive with the DAL and a Smart Rollup
 authors: 'Tezos Core Developers'
 last_update:
   date: 10 January 2024
@@ -15,7 +15,7 @@ Tezos ethos, the DAL is decentralized (anyone can join and participate to the
 network) and permissionless (anyone can post data to the network), and its
 security is entrusted to Tezos’ ~400 bakers.
 
-In this article, we will see how it becomes possible to build a “files archive:”
+In this article, we will see how it becomes possible to build a “file archive:”
 users will be able to post files to the DAL, and a Smart Rollup will fetch and
 index these files. Anyone starting a Smart Rollup node for our archive rollup
 will get a copy of the archive. We will be testing our Smart Rollup on
@@ -58,7 +58,7 @@ additional trusted third-parties.
 ## The Big Picture
 
 Before diving into the code, we will first take a moment to understand how our
-files archive will work. It can be broken down into 6 steps: 
+file archive will work. It can be broken down into 6 steps:
 
 1. Users can post their file directly to the DAL, through a DAL node (they can
    use one set-up by third-parties, or start their own). They get some kind of
@@ -70,9 +70,9 @@ files archive will work. It can be broken down into 6 steps:
    they attest it with a dedicated operation. They have a certain number of
    blocks to do so, and if they don’t by the end of this period, the certificate
    is considered bogus and the related data is dropped.
-4. In parallel, new Tezos blocks are produced. Each time, our files archive
+4. In parallel, new Tezos blocks are produced. Each time, our file archive
    Smart Rollup get some execution time (as all Smart Rollups do). Everytime this
-   happens, our files archive Smart Rollup will try to fetch the latest
+   happens, our file archive Smart Rollup will try to fetch the latest
    attested data published on the DAL.
 5. When that happens, the rollup node connects to a DAL node, to request the
    file. The DAL node being connected to the DAL network has already downloaded
@@ -84,11 +84,11 @@ files archive will work. It can be broken down into 6 steps:
 
 The overall workflow is summarized in the following figure.
 
-![The Big Picture of our files archive](/img/tutorials/dal-tutorial.png)
+![The Big Picture of our file archive](/img/tutorials/dal-tutorial.png)
 
 This can feel a bit overwhelming, and to some extend it is. But what is
 interesting here is that the difficult part (that is, steps 3 and 5) are
-performed automatically by the various daemons provided in Octez. 
+performed automatically by the various daemons provided in Octez.
 
 ## Implementing the Kernel
 
@@ -115,7 +115,7 @@ As a reminder, the kernel of a Smart Rollup is a WASM program. You need to
 install the `wasm32-unknown-unknwon` target with rustup. The `proto-alpha`
 feature is necessary to get access to the functions specific to the DAL.
 
-Since the files archive kernel is simple enough, we will put all its code in the
+Since the file archive kernel is simple enough, we will put all its code in the
 file `src/lib.rs`.
 
 ### Task 1. Fetching the DAL Parameters
@@ -199,7 +199,7 @@ cp target/wasm32-unknown-unknown/release/files_archive.wasm .
 As of today, the Smart Rollup Installer does not support DAL as a
 Data-Availability solution. This means we will need to rely on the reveal
 channel to initialize our Smart Rollup correctly (which is not ideal for a
-decentralized files archive).
+decentralized file archive).
 :::
 
 We will use `_rollup_node/` as the data directory for our rollup node.
@@ -274,7 +274,7 @@ alias="${1}"
 
 set -e
 
-cargo build --release --target wasm32-unknown-unknown 
+cargo build --release --target wasm32-unknown-unknown
 
 rm -rf _rollup_node
 
@@ -365,7 +365,7 @@ every new Tezos block. The change in `src/lib.rs` is reasonable.
 +
 +    Ok(())
 +}
- 
+
  pub fn entry<R: Runtime>(host: &mut R) {
      let param = host.reveal_dal_parameters();
      debug_msg!(host, "{:?}\n", param);
@@ -375,7 +375,7 @@ every new Tezos block. The change in `src/lib.rs` is reasonable.
 +        Err(_) => debug_msg!(host, "Something went wrong for some reasons"),
 +    }
  }
- 
+
  kernel_entry!(entry);
 ```
 
@@ -485,7 +485,7 @@ This will return the certificate we mention at the beginning of this article.
 
 :::warning Use the correct encoding
 As hinted by the `Content-Type` header passed to `curl`, it is important that
-argument given with `--data` is a valid JSON string. 
+argument given with `--data` is a valid JSON string.
 :::
 
 To post this certificate, takes the `commitment` and `commitment_proof` value
@@ -557,7 +557,7 @@ you wanted to publish is indeed the one fetched by the Smart Rollup.
 
 ### Task 4. Fetching and Storing the Full Slot
 
-There is only one thing left in order to complete our files archive. We can do
+There is only one thing left in order to complete our file archive. We can do
 that by modifying the `run` function as follows.
 
 
@@ -674,7 +674,7 @@ the size of a slot is fixed, the DAL node pads the value it receives from
 
 ## Conclusion
 
-Our files archive is now completed. At least, the features we wanted to
+Our file archive is now completed. At least, the features we wanted to
 implement are there: a Smart Rollup storing in its durable storage the slots
 attested at a given index.
 
