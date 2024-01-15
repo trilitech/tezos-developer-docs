@@ -94,7 +94,8 @@ When linking to an external site, consider mentioning the target site, as in "fo
 
 - Do not describe documentation in terms of "chapters" or "articles."
 
-- Avoid meta-phrases that make the documentation sound like a lecture or textbook, such as "we will see" and "the goal of this information is to."
+- Avoid meta-phrases that don't add information.
+For example, instead of "We will see how you can deploy smart contracts to Tezos by...," say "You can deploy smart contracts to Tezos by..."
 
 - When writing steps that the user must follow, make it clear what the user must do by following these guidelines:
 
