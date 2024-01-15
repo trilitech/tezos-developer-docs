@@ -13,7 +13,7 @@ In essence, the DAL is a companion peer-to-peer network for the Tezos
 blockchain, designed to provide additional bandwidth to Smart Rollups. True to
 Tezos ethos, the DAL is decentralized (anyone can join and participate to the
 network) and permissionless (anyone can post data to the network), and its
-security is entrusted to Tezos’ 400+ bakers.
+security is entrusted to Tezos’ ~400 bakers.
 
 In this article, we will see how it becomes possible to build a “files archive:”
 users will be able to post files to the DAL, and a Smart Rollup will fetch and
