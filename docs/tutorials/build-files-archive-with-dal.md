@@ -214,7 +214,7 @@ smart-rollup-installer get-reveal-installer \
 ```
 
 To deploy it, we need an implicit account of Weeklynet with enough tez.
-Fortunately, you can use [a faucet for getting XTZ for free on
+Fortunately, you can use [a faucet for getting tez for free on
 Weeklynet](https://teztnets.xyz/weeklynet-about) (but keep in mind that the
 network is reset every Wednesday, so if you try to test this tutorial after a
 reset you will need to request new XTZ).
