@@ -2,13 +2,14 @@
 title: Documentation style guide
 authors: Tim McMackin
 last_update:
-  date: 9 January 2024
+  date: 15 January 2024
 ---
 
 ## Overall Tezos-related issues
 
 - Tezos is decentralized.
 There is no official Tezos documentation, no official Tezos strategy, and no official entity in charge of Tezos.
+However, there can be official documentation for a Tezos-related tool.
 
 - Do not compare Tezos to other specific blockchains.
 You can say that Tezos has advantages over other blockchains, but don't say that Tezos is better than or does  things differently from another specific blockchain.
