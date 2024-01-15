@@ -106,6 +106,6 @@ For example, instead of "We will see how you can deploy smart contracts to Tezos
   - Use language that makes it clear that the user must do something and what that action is.
   For example, instead of "4. In the file `myFile.js`:", say "4. Add this code to the file `myFile.js`."
 
-- Structure lists and headings in a parallel way.
+- Structure lists and headings in a consistent way.
   For example, make sure each list item is capitalized and punctuated in the same way.
   List items should be all complete sentences or all sentence fragments, not a mix.
