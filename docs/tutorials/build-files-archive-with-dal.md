@@ -149,8 +149,7 @@ remaining fields also deserve our attention.
   every execution step of a Smart Rollup needs to be provable to the Layer 1 in
   order for the refutation game to work, breaking down a slot into smaller
   pieces (pages, in this case) is necessary.
-- The `attestation_lag` field gives the number of blocks bakers have to attest
-  that a slot has been published onto the DAL.
+- To attest that a slot has been published, bakers have some time which is expressed as a number of blocks. This number is `attestation_lag`.
 
 Let’s revisit the Big Picture with this additional knowledge, in order to refine
 it. Step 1 does not change: users keep posting data to DAL nodes, and get back
