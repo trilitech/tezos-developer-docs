@@ -440,7 +440,7 @@ DAL works as expected on Weeklynet is one thing, but we will not stop there.
 The next task for us is to publish data of our own, and to verify our kernel is
 indeed able to fetch it.
 
-We will use the slot index 10 for this experiments.
+We will use the slot index 10 for this experiment.
 
 :::note Planning ahead
 Before trying to run the code yourself, have a look at Explorus and choose a
