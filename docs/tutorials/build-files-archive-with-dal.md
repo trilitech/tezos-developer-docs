@@ -680,7 +680,7 @@ attested at a given index.
 
 From there, the sky’s the limit. More features could be implemented, like
 having the files publishers pay for the storage they are using in Layer 2 (by
-allowing them to deposit XTZ to the Smart Rollup, and sign the files they
+allowing them to deposit tez to the Smart Rollup, and sign the files they
 publish). We could also build a frontend to visualize the files published in
 our archive. Or, we could deal with the fact that for now, it is not possible
 for a consumer of the file to know it’s original size (we could fix that by
