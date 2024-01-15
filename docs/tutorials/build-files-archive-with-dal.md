@@ -295,7 +295,7 @@ octez-smart-rollup-node --endpoint ${ENDPOINT} \
 ### Task 2. Fetching Slots from the DAL
 
 DAL is enabled on Weeklynet (otherwise, the `reveal_dal_parameters`
-function would not have worked). Some slots (typically the at index 0 and 28)
+function would not have worked). Some slots (typically the ones at index 0, 30, and 31)
 are used for running regression tests, as witnessed by Explorus’ [dedicated
 page](https://beta.explorus.io/dal) to see the state (absent, published,
 attested).
