@@ -75,7 +75,7 @@ Dailynet is a network that restarts every day, with the latest Docker build as a
 
 To work with the periodic test networks, you must use tools that use exactly the same version as the network.
 For this reason, wallets typically don't work with these networks.
-For example, you can look up information about Weeklynet at https://teztnets.xyz/weeklynet-about.
+For example, you can look up information about Weeklynet at https://teztnets.com/weeklynet-about.
 This page shows the URL of a Weeklynet RPC endpoint to use and instructions for connecting to the network in different ways, including by loading a Docker image with the correct version of the Octez suite and by building the Octez suite from a specific Git commit.
 
 ## Public nodes and faucets
