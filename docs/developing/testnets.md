@@ -45,7 +45,7 @@ On the other hand, as transactions and blocks keep accumulating over time, synch
 
 Because the protocol on Ghostnet migrates to the newly adopted amendment a few days before Mainnet does, it can serve as a rehearsal for the actual migration on Mainnet. Both bakers and developers can check that they are ready for the migration and that nothing in their configuration breaks when it happens.
 
-### Protocol test networks
+## Protocol test networks
 
 Protocol test networks are networks that are created specifically for a specific version of the protocol.
 
@@ -61,7 +61,7 @@ Once the protocol is activated, the corresponding protocol test network can be a
 
 On the other hand, it may be less convenient for smart contract or dApp developers to use, because it has a limited life span and tends to be less supported by services like indexers and other tools.
 
-### Periodic test networks
+## Periodic test networks
 
 Periodic test networks allow developers to test new features that are under development before those features become part of a proposal or reach Tezos Mainnet.
 These networks are based on Alpha development versions of the Tezos economic protocol and the Octez suite.
@@ -78,7 +78,7 @@ For this reason, wallets typically don't work with these networks.
 For example, you can look up information about Weeklynet at https://teztnets.xyz/weeklynet-about.
 This page shows the URL of a Weeklynet RPC endpoint to use and instructions for connecting to the network in different ways, including by loading a Docker image with the correct version of the Octez suite and by building the Octez suite from a specific Git commit.
 
-### Public nodes and faucets
+## Public nodes and faucets
 
 To connect to existing public nodes for these networks, or to get some testnet-only tez on these from a faucet, check [https://teztnets.com](https://teztnets.com/).
 
