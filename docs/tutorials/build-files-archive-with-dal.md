@@ -450,7 +450,7 @@ slot that is not currently being used.
 Kill your DAL node, and restart it with a new `--producer-profiles` argument.
 
 ```bash
-octez-dal-node --endpoint https://rpc.weeklynet-2024-01-03.teztnets.com \
+octez-dal-node run --endpoint https://rpc.weeklynet-2024-01-03.teztnets.com \
     --producer-profiles=10 --data-dir _dal_node
 ```
 
