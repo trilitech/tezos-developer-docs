@@ -25,30 +25,27 @@ If you are new to Smart Rollups, see the tutorial [Deploy a Smart Rollup](./smar
 
 ## Why the DAL?
 
-The DAL has earned the nickname “Rollup Booster,” from its ability to address
+The DAL has earned the nickname "Rollup Booster" from its ability to address
 the last bottleneck Smart Rollups developers could not overcome without
-sacrificing decentralization: block space. See, Smart Rollups offload
-*computation* from Layer 1, but the transactions they process still need to
+sacrificing decentralization: block space. Smart Rollups offload
+*computation* from layer 1, but the transactions that they process still need to
 originate from somewhere.
 
-By default, that “somewhere” is the Layer 1’s blocks, yet the size of a Tezos’
+By default, that "somewhere" is the layer 1 blocks, yet the size of a Tezos
 block is limited to around 500KBytes. In this model, while Smart Rollups do not
-compete for Layer 1 gas anymore, they still compete for block space and this
-does not scale very well, does it?
+compete for layer 1 gas anymore, they still compete for block space.
 
 Additionally, a Smart Rollup can fetch data from an additional source called the
-“reveal channel,” which allows to retreive arbitrary data from its Blake2B hash.
-The reveal channel is a pretty powerful primitive, as it allows Smart Rollups
-operator to post hashes instead of full blown data onto the Layer 1. But it is a
-double-edge sword, because nothing enforces the availability of the data in the
+reveal data channel, which allows them to retrieve arbitrary data.
+The reveal channel is a powerful way to share data, because it allows a Smart Rollup
+operator to post hashes instead of full data files on layer 1. But it is a
+double-edged sword, because nothing enforces the availability of the data in the
 first place. [Solutions exist to address this
 challenge](https://research-development.nomadic-labs.com/introducing-data-availability-committees.html),
-but they are purely off-chain ones, coming with no guarantee from Layer 1.
+but they are purely off-chain ones, coming with no guarantee from layer 1.
 
-Enters the DAL. Without entering too much into the details, the DAL is here for
-third-parties to publish data, and the bakers attest they did. Once attested,
-said data can be retreived by the Smart Rollup, without the need for
-additional trusted third-parties.
+The DAL allows third parties to publish data and have bakers attest that the data is available.
+When enough bakers have attested that the data is available, Smart Rollups can retrieve the data without the need for additional trusted third-parties.
 
 ## The Big Picture
 
