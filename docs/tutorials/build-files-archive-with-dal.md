@@ -2,7 +2,7 @@
 title: Implementing a File Archive with the DAL and a Smart Rollup
 authors: 'Tezos Core Developers'
 last_update:
-  date: 10 January 2024
+  date: 16 January 2024
 ---
 
 The Data-Availability Layer (DAL) is an exciting feature expected to reach
@@ -112,7 +112,7 @@ tezos-smart-rollup = { version = "0.2.2", features = [ "proto-alpha" ] }
 ```
 
 As a reminder, the kernel of a Smart Rollup is a WASM program. You need to
-install the `wasm32-unknown-unknwon` target with rustup. The `proto-alpha`
+install the `wasm32-unknown-unknown` target with rustup by running the command `rustup target add wasm32-unknown-unknown`. The `proto-alpha`
 feature is necessary to get access to the functions specific to the DAL.
 
 Since the file archive kernel is simple enough, we will put all its code in the
@@ -188,7 +188,7 @@ pub fn entry<R: Runtime>(host: &mut R) {
 kernel_entry!(entry);
 ```
 
-We can build it using Cargo.
+Next, build the rollup using Cargo.
 
 ```bash
 cargo build --release --target wasm32-unknown-unknown
@@ -661,7 +661,7 @@ file indeed exists (and later use `hexdump -C` to inspect its contents.
 
 ```bash
 curl "http://localhost:8932/global/block/head/durable/wasm_2_0_0/value?key=/${hash}" \
-    -H 'Content-Type: application/octet-stream'
+    -H 'Content-Type: application/octet-stream' \
     -o slot.bin
 ```
 
