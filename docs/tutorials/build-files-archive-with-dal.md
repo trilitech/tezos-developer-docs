@@ -5,28 +5,23 @@ last_update:
   date: 16 January 2024
 ---
 
-The Data-Availability Layer (DAL) is an exciting feature expected to reach
-Tezos’ Mainnet in 2024, and it is arguably [the missing piece to complete the
-Tezos’ Layer 2
-landscape](https://research-development.nomadic-labs.com/data-availability-layer-tezos.html).
-In essence, the DAL is a companion peer-to-peer network for the Tezos
-blockchain, designed to provide additional bandwidth to Smart Rollups. True to
-Tezos ethos, the DAL is decentralized (anyone can join and participate to the
-network) and permissionless (anyone can post data to the network), and its
-security is entrusted to Tezos’ ~400 bakers.
+The data availability layer (DAL) is a companion peer-to-peer network for the Tezos blockchain, designed to provide additional bandwidth to Smart Rollups.
+It allows users to share large amounts of data in a way that is decentralized and permissionless, because anyone can join the network and post and read data on it.
+For more information about the DAL, see [The Rollup Booster: A Data-Availability Layer for Tezos](https://research-development.nomadic-labs.com/data-availability-layer-tezos.html)
 
-In this article, we will see how it becomes possible to build a “file archive:”
-users will be able to post files to the DAL, and a Smart Rollup will fetch and
-index these files. Anyone starting a Smart Rollup node for our archive rollup
-will get a copy of the archive. We will be testing our Smart Rollup on
-Weeklynet, as [the DAL is already available
-there](https://teztnets.xyz/weeklynet-about).
+In this tutorial, you will learn:
 
-:::note Prerequisites
-This article assumes some familarity with Smart Rollups. If this is not the
-case for you, there are plenty of resources available [on the Smart Rollups
-developer portal](https://tezos.com/developers/smart-rollups).
-:::
+- How data is organized and shared with the DAL and the reveal data channel
+- How to read data from the DAL in a Smart Rollup
+- How to host a DAL node
+- How to publish data and files with the DAL
+
+Because the DAL is not yet available on Tezos Mainnet, this tutorial uses the [Weeklynet test network](https://teztnets.xyz/weeklynet-about), which runs on a newer version of the protocol that includes the DAL.i
+
+## Prerequisites
+
+This article assumes some familiarity with Smart Rollups.
+If you are new to Smart Rollups, see the tutorial [Deploy a Smart Rollup](./smart-rollup).
 
 ## Why the DAL?
 
