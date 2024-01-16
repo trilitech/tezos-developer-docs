@@ -350,7 +350,7 @@ every new Tezos block. The change in `src/lib.rs` is reasonable.
 +        debug_msg!(
 +            host,
 +            "Attested slot at index {} for level {}: {:?}\n",
-+            index
++            index,
 +            target_level,
 +            &buffer.as_slice()[0..10]
 +        );
