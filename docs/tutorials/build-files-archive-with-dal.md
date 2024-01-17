@@ -23,6 +23,16 @@ Because the DAL is not yet available on Tezos Mainnet, this tutorial uses the [W
 This article assumes some familiarity with Smart Rollups.
 If you are new to Smart Rollups, see the tutorial [Deploy a Smart Rollup](./smart-rollup).
 
+To run this tutorial, install Rust by running the following command.
+The application in this tutorial uses Rust because of its support for WebAssembly (WASM), the language that Smart Rollups use to communicate.
+Rollups can use any language that has WASM compilation support.
+
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
+
+You can see other ways of installing Rust at https://www.rust-lang.org.
+
 ## Why the DAL?
 
 The DAL has earned the nickname "Rollup Booster" from its ability to address
