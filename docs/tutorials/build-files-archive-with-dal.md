@@ -16,7 +16,7 @@ In this tutorial, you will learn:
 - How to host a DAL node
 - How to publish data and files with the DAL
 
-Because the DAL is not yet available on Tezos Mainnet, this tutorial uses the [Weeklynet test network](https://teztnets.xyz/weeklynet-about), which runs on a newer version of the protocol that includes the DAL.i
+Because the DAL is not yet available on Tezos Mainnet, this tutorial uses the [Weeklynet test network](https://teztnets.xyz/weeklynet-about), which runs on a newer version of the protocol that includes the DAL.
 
 ## Prerequisites
 
