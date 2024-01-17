@@ -350,6 +350,8 @@ const sidebars = {
           },
           items: [
             'tutorials/build-files-archive-with-dal/get-dal-params',
+            'tutorials/build-files-archive-with-dal/get-slot-info',
+            'tutorials/build-files-archive-with-dal/publishing-on-the-dal',
           ],
         },
         {
