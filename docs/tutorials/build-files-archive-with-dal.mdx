@@ -93,6 +93,7 @@ By default, that "somewhere" is the layer 1 blocks, yet the size of a Tezos
 block is limited to around 500KBytes. In this model, while Smart Rollups do not
 compete for layer 1 gas anymore, they still compete for block space.
 
+{/* Is this info about the reveal data channel needed here? */}
 Additionally, a Smart Rollup can fetch data from an additional source called the
 reveal data channel, which allows them to retrieve arbitrary data.
 The reveal channel is a powerful way to share data, because it allows a Smart Rollup
@@ -105,21 +106,21 @@ but they are purely off-chain ones, coming with no guarantee from layer 1.
 The DAL allows third parties to publish data and have bakers attest that the data is available.
 When enough bakers have attested that the data is available, Smart Rollups can retrieve the data without the need for additional trusted third-parties.
 
-## Tutorial application
+## How the DAL works
 
-In this tutorial, you create a file archive application that allows clients to upload files to store on the DAL.
-You also create a Smart Rollup that listens to the DAL and responds to those files.
+In this tutorial, you create a file archive application that allows clients to upload data to the DAL.
+You also create a Smart Rollup that listens to the DAL and responds to that data.
 
-The application works like this:
+The DAL works like this:
 
-1. Users post files to a DAL node.
+1. Users post data to a DAL node.
 1. The DAL node returns a certificate.
-This certificate includes a commitment that the file is available and a proof of the data.
-1. Users post the certificate to layer 1 via the Octez client, which is much cheaper than posting the entire file.
-1. Other DAL nodes get the file from the initial DAL node through the peer-to-peer network.
-1. After the certificate is available in a block, Tezos bakers attempt to download the file from the DAL.
-1. If the bakers succeed, they add an operation that attests that the file is available.
-They have a certain number of blocks to do so, and if they don’t by the end of this period, the certificate is considered bogus and the related data is dropped.
+This certificate includes a commitment that the data is available and a proof of the data.
+1. Users post the certificate to layer 1 via the Octez client, which is much cheaper than posting the complete data.
+1. When the certificate is confirmed in a block, layer 1 splits the data into shards and assigns those shards to bakers, who verify that the data is available.
+1. Bakers verify that the data is available and attest that the data is available in their usual block attestations to layer 1.
+They have a certain number of blocks to do so, known as the _attestation lag_, and if they don't by the end of this period, the certificate is considered bogus and the related data is dropped.
+1. Other DAL nodes get the data from the initial DAL node through the peer-to-peer network.
 1. The Smart Rollup node monitors the blocks and when it sees attested DAL data, it connects to a DAL node to request the data.
 1. The Smart Rollup node stores the file in its durable storage, addressed by its hash.
 1. Users who know the hash of the file can download it from the Smart Rollup node.
@@ -130,111 +131,6 @@ The overall workflow is summarized in the following figure:
 
 There are many steps in the DAL process, but the most complicated parts (storing and sharing files) are handled automatically by the various daemons in the Octez suite.
 
-## Implementing the Kernel
-
-Thanks to the [Rust SDK](https://crates.io/crates/tezos-smart-rollup),
-implementing a Smart Rollup kernel is fairly accessible.
-
-We start with the following `Cargo.toml` file.
-
-
-```toml
-[package]
-name = "files_archive"
-version = "0.1.0"
-edition = "2021"
-
-[lib]
-crate-type = ["cdylib", "lib"]
-
-[dependencies]
-tezos-smart-rollup = { version = "0.2.2", features = [ "proto-alpha" ] }
-```
-
-As a reminder, the kernel of a Smart Rollup is a WASM program. You need to
-install the `wasm32-unknown-unknown` target with rustup by running the command `rustup target add wasm32-unknown-unknown`. The `proto-alpha`
-feature is necessary to get access to the functions specific to the DAL.
-
-Since the file archive kernel is simple enough, we will put all its code in the
-file `src/lib.rs`.
-
-### Task 1. Fetching the DAL Parameters
-
-Up until this point, we kept the discussion at a fairly high level of
-abstraction. It is now time to be a bit more precise about how the DAL works.
-
-For every Tezos block, the DAL allocates several byte-vectors called *slots*.
-The size of a slot and the number of slots available for each Layer 1 block are
-parameters of the network. It is possible for a kernel to get access to these
-parameters using the `reveal_dal_parameters` function implemented in the
-`tezos-smart-rollup-host`.
-
-This function will return a value of the following type.
-
-```rust
-pub struct RollupDalParameters {
-    pub number_of_slots: u64,
-    pub attestation_lag: u64,
-    pub slot_size: u64,
-    pub page_size: u64,
-}
-```
-
-In addition of `number_of_slots` and `slot_size`, the two
-remaining fields also deserve our attention.
-
-- From the perspective of the Smart Rollup, a slot is divided into _pages_, and
-  a kernel can only fetch one page at a time. This is because, depending on the
-  size of a slot, it might not be possible to fit it in a Tezos operation. Since
-  every execution step of a Smart Rollup needs to be provable to the Layer 1 in
-  order for the refutation game to work, breaking down a slot into smaller
-  pieces (pages, in this case) is necessary.
-- To attest that a slot has been published, bakers have some time which is expressed as a number of blocks. This number is `attestation_lag`.
-
-Let’s revisit the Big Picture with this additional knowledge, in order to refine
-it. Step 1 does not change: users keep posting data to DAL nodes, and get back
-“certificates” they can forward to Layer 1. However, when they do (that is, step
-2), they have to specify which slot they want to “fill” with their data, using
-its index (from $0$ to $\mathrm{number\_of\_slots} - 1$). Since the DAL is a
-permissionless network, any user can try to fill any slot. If two users compete
-to use the same slot in the same Tezos block, the first operation of the block
-wins the slot (leaving the baker creating the block the ultimate judge in the
-matter).
-
-So, to summarize:
-
-- A slot for and index $I$ is published at a Tezos level $L$.
-- Bakers responsible for attesting the slot $I$ have $\mathrm{attestation\_lag}$ blocks
-  to do so.
-- After $\mathrm{attestation\_lag}$ block, either the slot is indexed (if enough
-  bakers have published the expected operation) or it is dropped and will never
-  be accessible to Smart Rollups.
-- Every attested slots can be retreived by a kernel.
-
-As of January, 2024, Weeklynet’s DAL has 32 slots of 65KBytes usable per Tezos
-block. You do not have to take my word for it, though. We can deploy a kernel on
-Weeklynet to make sure of it.
-
-Add this contents to `src/lib.rs`.
-
-```rust
-use tezos_smart_rollup::{kernel_entry, prelude::*};
-
-pub fn entry<R: Runtime>(host: &mut R) {
-    let param = host.reveal_dal_parameters();
-    debug_msg!(host, "{:?}\n", param);
-}
-
-kernel_entry!(entry);
-```
-
-Next, build the rollup using Cargo.
-
-```bash
-cargo build --release --target wasm32-unknown-unknown
-cp target/wasm32-unknown-unknown/release/files_archive.wasm .
-```
-
 :::note The Smart Rollup does not support the DAL
 As of today, the Smart Rollup Installer does not support DAL as a
 Data-Availability solution. This means we will need to rely on the reveal
@@ -242,95 +138,8 @@ channel to initialize our Smart Rollup correctly (which is not ideal for a
 decentralized file archive).
 :::
 
-We will use `_rollup_node/` as the data directory for our rollup node.
+When your environment is ready, get started by going to [Part 1: Getting the DAL parameters](./build-files-archive-with-dal/get-dal-params).
 
-```bash
-cargo install tezos-smart-rollup-installer
-export PATH="${HOME}/.local/bin:${PATH}"
-smart-rollup-installer get-reveal-installer \
-    -P _rollup_node/wasm_2_0_0 \
-    -u files_archive.wasm \
-    -o installer.hex
-```
-
-To deploy it, we need an implicit account of Weeklynet with enough tez.
-Fortunately, you can use [a faucet for getting tez for free on
-Weeklynet](https://teztnets.xyz/weeklynet-about) (but keep in mind that the
-network is reset every Wednesday, so if you try to test this tutorial after a
-reset you will need to request new tez).
-
-:::warning Before interacting with Weeklynet
-When interacting with Weeklynet, be sure to use the proper version of Octez,
-as explained
-[here](https://teztnets.xyz/weeklynet-about#join-the-weeklynet-network).
-This article assumes your `PATH` has been updated accordingly.
-
-Similarly, we assume the `ENDPOINT` environment variable has been set to the
-public endpoint provided by the Teztnets infrastructure.
-:::
-
-Assuming `alice` is a valid alias for a provisioned implicit account,
-originating our rollup is as simple as:
-
-```bash
-octez-client --endpoint ${ENDPOINT} \
-    originate smart rollup files_archive from alice \
-    of kind wasm_2_0_0 of type unit with kernel "$(cat installer.hex)" \
-    --burn-cap 2.0 --force
-```
-
-And starting a rollup node in observer mode for this rollup can be done with
-the following command.
-
-```bash
-octez-smart-rollup-node --endpoint ${ENDPOINT} \
-    run observer for files_archive with operators \
-    --data-dir ./_rollup_node --log-kernel-debug
-```
-
-To check that everything works as expected, we can have a look at the logs
-generated by the kernel every block.
-
-```bash
-tail -F _rollup_node/kernel.log
-```
-
-```
-RollupDalParameters { number_of_slots: 32, attestation_lag: 4, slot_size: 65536, page_size: 4096 }
-RollupDalParameters { number_of_slots: 32, attestation_lag: 4, slot_size: 65536, page_size: 4096 }
-RollupDalParameters { number_of_slots: 32, attestation_lag: 4, slot_size: 65536, page_size: 4096 }
-RollupDalParameters { number_of_slots: 32, attestation_lag: 4, slot_size: 65536, page_size: 4096 }
-RollupDalParameters { number_of_slots: 32, attestation_lag: 4, slot_size: 65536, page_size: 4096 }
-```
-
-We will deploy several (if not many) Smart Rollups in the course of this article.
-As such, I suggest you save the following script at the root of your working
-directory. It will come handy.
-
-```bash
-#!/usr/bin/bash
-
-alias="${1}"
-
-set -e
-
-cargo build --release --target wasm32-unknown-unknown
-
-rm -rf _rollup_node
-
-cp target/wasm32-unknown-unknown/release/files_archive.wasm .
-
-smart-rollup-installer get-reveal-installer -P _rollup_node/wasm_2_0_0 \
-  -u files_archive.wasm -o installer.hex
-
-octez-client --endpoint ${ENDPOINT} \
-  originate smart rollup files_archive from "${alias}" of kind wasm_2_0_0 \
-  of type unit with kernel "$(cat installer.hex)" --burn-cap 2.0 --force
-
-octez-smart-rollup-node --endpoint ${ENDPOINT} \
-  run observer for files_archive with operators --data-dir _rollup_node \
-  --dal-node http://localhost:10732 --log-kernel-debug
-```
 
 ### Task 2. Fetching Slots from the DAL
 

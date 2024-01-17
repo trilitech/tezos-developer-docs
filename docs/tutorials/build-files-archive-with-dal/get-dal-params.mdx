@@ -1,0 +1,169 @@
+---
+title: "Part 1: Getting the DAL parameters"
+authors: 'Tezos Core Developers'
+last_update:
+  date: 17 January 2024
+---
+
+import LucidDiagram from '@site/src/components/LucidDiagram';
+
+The data availability layer stores information about the available data in layer 1 blocks.
+Each block has several byte-vectors called _slots_, each with a maximum size.
+DAL users can add information about the available data as _pages_ in these slots, as shown in this figure:
+
+<LucidDiagram width="640px" height="480px" src="https://lucid.app/documents/embedded/46fa8412-8443-4491-82f6-305aafaf85f2" id="Hxs62lrO0C4d" />
+
+The data in a slot is broken into pages to ensure that each piece of data can fit in a single Tezos operation.
+This data must fit in a single operation to allow the Smart Rollup refutation game to work, in which every execution step of the Smart Rollup must be provable to layer 1.
+{/* TODO link to Smart Rollup topic for more info on the refutation game */}
+
+When clients add data, they must specify which slot to add it to.
+Note that because the DAL is permissionless, clients may try to add data to the same slot in the same block and exceed the slot capacity.
+In this case, the first operation in the block takes precedence, which leaves the baker that creates the block in control of which data makes it into the block.
+
+The number and size of these slots can change.
+Different networks can have different DAL parameters.
+Future changes to the protocol may allow the DAL to resize dynamically based on usage.
+
+Therefore, clients must get information about the DAL before sending data to it.
+In these steps, you set up a simple Smart Rollup to get the current DAL parameters and print them to the log.
+
+## Prerequisites
+
+Before you begin, make sure that you have installed the prerequisites and set up an environment and an account as described in [Implementing a File Archive with the DAL and a Smart Rollup](../build-files-archive-with-dal).
+
+## Fetching the DAL parameters in a kernel
+
+To get the DAL parameters, you can use built-in functions in the Tezos [Rust SDK](https://crates.io/crates/tezos-smart-rollup).
+
+1. In a folder for your project, create a file named `Cargo.toml` with this code:
+
+   ```toml
+   [package]
+   name = "files_archive"
+   version = "0.1.0"
+   edition = "2021"
+
+   [lib]
+   crate-type = ["cdylib", "lib"]
+
+   [dependencies]
+   tezos-smart-rollup = { version = "0.2.2", features = [ "proto-alpha" ] }
+   ```
+
+   As a reminder, the kernel of a Smart Rollup is a WASM program.
+   The `proto-alpha` feature is necessary to get access to the functions specific to the DAL.
+
+1. Create a file named `src/lib.rs` to be the kernel.
+
+1. In the `src/lib.rs` file, add this code:
+
+   ```rust
+   use tezos_smart_rollup::{kernel_entry, prelude::*};
+
+   pub fn entry<R: Runtime>(host: &mut R) {
+       let param = host.reveal_dal_parameters();
+       debug_msg!(host, "{:?}\n", param);
+   }
+
+   kernel_entry!(entry);
+   ```
+
+   This function gets the DAL parameters of the currently connected network and prints them to the log.
+
+1. Build the kernel:
+
+   ```bash
+   cargo build --release --target wasm32-unknown-unknown
+   cp target/wasm32-unknown-unknown/release/files_archive.wasm .
+   ```
+
+1. Get the installer kernel:
+
+   ```bash
+   cargo install tezos-smart-rollup-installer
+   export PATH="${HOME}/.local/bin:${PATH}"
+   smart-rollup-installer get-reveal-installer \
+       -P _rollup_node/wasm_2_0_0 \
+       -u files_archive.wasm \
+       -o installer.hex
+   ```
+
+Now the Smart Rollup is ready to deploy.
+
+## Deploying the Smart Rollup and starting a node
+
+Follow these steps to deploy the Smart Rollup to Weeklynet and start a node:
+
+1. Run this command to deploy the Smart Rollup, replacing `$MY_ACCOUNT` with your account alias and `$ENDPOINT` with the RPC endpoint:
+
+   ```bash
+   octez-client --endpoint ${ENDPOINT} \
+       originate smart rollup files_archive from ${MY_ACCOUNT} \
+       of kind wasm_2_0_0 of type unit with kernel "$(cat installer.hex)" \
+       --burn-cap 2.0 --force
+   ```
+
+1. Start the node with this command:
+
+   ```bash
+   octez-smart-rollup-node --endpoint ${ENDPOINT} \
+       run observer for files_archive with operators \
+       --data-dir ./_rollup_node --log-kernel-debug
+   ```
+
+1. Open a new terminal window and run this command to watch the node's log:
+
+   ```bash
+   tail -F _rollup_node/kernel.log
+   ```
+
+The log prints the current DAL parameters, as in this example:
+
+```
+RollupDalParameters { number_of_slots: 32, attestation_lag: 4, slot_size: 65536, page_size: 4096 }
+RollupDalParameters { number_of_slots: 32, attestation_lag: 4, slot_size: 65536, page_size: 4096 }
+RollupDalParameters { number_of_slots: 32, attestation_lag: 4, slot_size: 65536, page_size: 4096 }
+RollupDalParameters { number_of_slots: 32, attestation_lag: 4, slot_size: 65536, page_size: 4096 }
+RollupDalParameters { number_of_slots: 32, attestation_lag: 4, slot_size: 65536, page_size: 4096 }
+```
+
+These parameters are:
+
+- `number_of_slots`: The number of slots in each block
+- `slot_size`: The size of each slot in bytes
+- `page_size`: The size of each page in bytes
+- `attestation_lag`: The number of subsequent blocks in which bakers can attest that the data is available; if enough attestations are available by the time this number of blocks have been created, the data becomes available to Smart Rollups
+
+## Setting up a deployment script
+
+In later parts of this tutorial, you will update and redeploy the Smart Rollup multiple times.
+To simplify the process, you can use this script.
+To use it, pass the alias of your account in the Octez client:
+
+```bash
+#!/usr/bin/bash
+
+alias="${1}"
+
+set -e
+
+cargo build --release --target wasm32-unknown-unknown
+
+rm -rf _rollup_node
+
+cp target/wasm32-unknown-unknown/release/files_archive.wasm .
+
+smart-rollup-installer get-reveal-installer -P _rollup_node/wasm_2_0_0 \
+  -u files_archive.wasm -o installer.hex
+
+octez-client --endpoint ${ENDPOINT} \
+  originate smart rollup files_archive from "${alias}" of kind wasm_2_0_0 \
+  of type unit with kernel "$(cat installer.hex)" --burn-cap 2.0 --force
+
+octez-smart-rollup-node --endpoint ${ENDPOINT} \
+  run observer for files_archive with operators --data-dir _rollup_node \
+  --dal-node http://localhost:10732 --log-kernel-debug
+```
+
+In the next section, you will get information about the state of slots in the DAL.
