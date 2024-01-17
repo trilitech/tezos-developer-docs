@@ -70,7 +70,8 @@ You also create a Smart Rollup that listens to the DAL and responds to those fil
 
 The application works like this:
 
-1. Users post files to a DAL node and receive a certificate in return.
+1. Users post files to a DAL node.
+1. The DAL node returns a certificate.
 This certificate includes a commitment that the file is available and a proof of the data.
 1. Users post the certificate to layer 1 via the Octez client, which is much cheaper than posting the entire file.
 1. Other DAL nodes get the file from the initial DAL node through the peer-to-peer network.
