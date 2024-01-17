@@ -2,7 +2,7 @@
 title: Implementing a File Archive with the DAL and a Smart Rollup
 authors: 'Tezos Core Developers'
 last_update:
-  date: 16 January 2024
+  date: 17 January 2024
 ---
 
 The data availability layer (DAL) is a companion peer-to-peer network for the Tezos blockchain, designed to provide additional bandwidth to Smart Rollups.
@@ -57,40 +57,29 @@ but they are purely off-chain ones, coming with no guarantee from layer 1.
 The DAL allows third parties to publish data and have bakers attest that the data is available.
 When enough bakers have attested that the data is available, Smart Rollups can retrieve the data without the need for additional trusted third-parties.
 
-## The Big Picture
+## Tutorial application
 
-Before diving into the code, we will first take a moment to understand how our
-file archive will work. It can be broken down into 6 steps:
+In this tutorial, you create a file archive application that allows clients to upload files to store on the DAL.
+You also create a Smart Rollup that listens to the DAL and responds to those files.
 
-1. Users can post their file directly to the DAL, through a DAL node (they can
-   use one set-up by third-parties, or start their own). They get some kind of
-   certificate back (comprising a “commitment” and a “proof”).
-2. They post this certificate to Layer 1 with an Octez client. The operation is
-   way cheaper than effectively posting the file directly.
-3. Following the creation of a block containing the certificate, a subset of
-   Tezos’ bakers tries to download the file from the DAL, and if they succeed
-   they attest it with a dedicated operation. They have a certain number of
-   blocks to do so, and if they don’t by the end of this period, the certificate
-   is considered bogus and the related data is dropped.
-4. In parallel, new Tezos blocks are produced. Each time, our file archive
-   Smart Rollup get some execution time (as all Smart Rollups do). Everytime this
-   happens, our file archive Smart Rollup will try to fetch the latest
-   attested data published on the DAL.
-5. When that happens, the rollup node connects to a DAL node, to request the
-   file. The DAL node being connected to the DAL network has already downloaded
-   the file when it was published.
-6. Once it has got access to the file, the Smart Rollup stores it in its durable
-   storage addressed by its hash. Since the rollup node exposes a RPC to read
-   the contents of its durable storage, it means users who know the hash of a
-   file will be able to download it.
+The application works like this:
 
-The overall workflow is summarized in the following figure.
+1. Users post files to a DAL node and receive a certificate in return.
+This certificate includes a commitment that the file is available and a proof of the data.
+1. Users post the certificate to layer 1 via the Octez client, which is much cheaper than posting the entire file.
+1. Other DAL nodes get the file from the initial DAL node through the peer-to-peer network.
+1. After the certificate is available in a block, Tezos bakers attempt to download the file from the DAL.
+1. If the bakers succeed, they add an operation that attests that the file is available.
+They have a certain number of blocks to do so, and if they don’t by the end of this period, the certificate is considered bogus and the related data is dropped.
+1. The Smart Rollup node monitors the blocks and when it sees attested DAL data, it connects to a DAL node to request the data.
+1. The Smart Rollup node stores the file in its durable storage, addressed by its hash.
+1. Users who know the hash of the file can download it from the Smart Rollup node.
 
-![The Big Picture of our file archive](/img/tutorials/dal-tutorial.png)
+The overall workflow is summarized in the following figure:
 
-This can feel a bit overwhelming, and to some extend it is. But what is
-interesting here is that the difficult part (that is, steps 3 and 5) are
-performed automatically by the various daemons provided in Octez.
+![The big picture of our file archive](/img/tutorials/dal-tutorial.png)
+
+There are many steps in the DAL process, but the most complicated parts (storing and sharing files) are handled automatically by the various daemons in the Octez suite.
 
 ## Implementing the Kernel
 
