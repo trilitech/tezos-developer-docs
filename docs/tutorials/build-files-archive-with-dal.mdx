@@ -5,6 +5,8 @@ last_update:
   date: 17 January 2024
 ---
 
+import LucidDiagram from '@site/src/components/LucidDiagram';
+
 The data availability layer (DAL) is a companion peer-to-peer network for the Tezos blockchain, designed to provide additional bandwidth to Smart Rollups.
 It allows users to share large amounts of data in a way that is decentralized and permissionless, because anyone can join the network and post and read data on it.
 For more information about the DAL, see [The Rollup Booster: A Data-Availability Layer for Tezos](https://research-development.nomadic-labs.com/data-availability-layer-tezos.html)
@@ -84,7 +86,7 @@ They have a certain number of blocks to do so, and if they don’t by the end of
 
 The overall workflow is summarized in the following figure:
 
-![The big picture of our file archive](/img/tutorials/dal-tutorial.png)
+<LucidDiagram width="640px" height="480px" src="https://lucid.app/documents/embedded/cc422278-7319-4a2f-858a-a7b72e1ea3a6" id="ljs6hoejIr1H" />
 
 There are many steps in the DAL process, but the most complicated parts (storing and sharing files) are handled automatically by the various daemons in the Octez suite.
 
