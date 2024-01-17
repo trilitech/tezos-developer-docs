@@ -348,7 +348,9 @@ const sidebars = {
             type: 'doc',
             id: 'tutorials/build-files-archive-with-dal',
           },
-          items: [],
+          items: [
+            'tutorials/build-files-archive-with-dal/get-dal-params',
+          ],
         },
         {
           type: 'category',
