@@ -90,6 +90,8 @@ The DAL node provides an RPC endpoint for clients to send data to be added to a 
 You can also send raw bytes to the DAL node with the header `Content-Type: application/octet-stream`.
 In this case, you must prefix the data with its size due to limitations of the DAL.
 
+1. Install the `jq` and `xxd` programs.
+
 1. Create a file named `upload_file.sh` and add this code:
 
    ```bash
