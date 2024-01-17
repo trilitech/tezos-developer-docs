@@ -25,6 +25,46 @@ Because the DAL is not yet available on Tezos Mainnet, this tutorial uses the [W
 This article assumes some familiarity with Smart Rollups.
 If you are new to Smart Rollups, see the tutorial [Deploy a Smart Rollup](./smart-rollup).
 
+### Set up a Weeklynet environment and account
+
+Because Weeklynet requires a specific version of the Octez suite, you can't use most wallet applications and installations of the Octez suite with it.
+Instead, you must set up an environment with a specific version of the Octez suite and use it to create and fund an account.
+Note that Weeklynet is reset every Wednesday, so you must recreate your environment and account after the network resets.
+
+The easiest way to do this is to use the Docker image that is generated each time Weeklynet is reset and recreated.
+As another option, you can build the specific version of the Octez suite locally.
+For instructions, see the Weeklynet page at https://teztnets.xyz/weeklynet-about.
+
+To set up an environment and account in a Docker container, follow these steps:
+
+1. From the [Weeklynet](https://teztnets.xyz/weeklynet-about) page, find the Docker command to create a container from the correct Docker image, as in this example:
+
+   ```bash
+   docker run -it --entrypoint=/bin/sh tezos/tezos:master_7f3bfc90_20240116181914
+   ```
+
+   The image tag in this command changes each time the network is reset.
+
+1. Copy the URL of the public RPC endpoint for Weeklynet, such as `https://rpc.weeklynet-2024-01-17.teztnets.com`.
+For convenience, you may want to set this endpoint as the value of the `ENDPOINT` environment variable.
+This endpoint also changes each time the network is reset.
+
+1. In the container, initialize the Octez client with that endpoint, such as this example:
+
+   ```bash
+   octez-client -E https://rpc.weeklynet-2024-01-17.teztnets.com config init
+   ```
+
+1. Create an account with the command `octez-client gen keys $MY_ACCOUNT`, where `$MY_ACCOUNT` is an alias for your account.
+
+1. Get the public key hash of the new account by running the command `octez-client show address $MY_ACCOUNT`.
+
+1. From the [Weeklynet](https://teztnets.xyz/weeklynet-about) page, open the Weeklynet faucet and send some tez to the account.
+
+Now you can use this account to deploy Smart Rollups.
+
+### Install Rust
+
 To run this tutorial, install Rust by running the following command.
 The application in this tutorial uses Rust because of its support for WebAssembly (WASM), the language that Smart Rollups use to communicate.
 Rollups can use any language that has WASM compilation support.
