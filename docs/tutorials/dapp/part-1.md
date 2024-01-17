@@ -164,7 +164,7 @@ Taqueria is generating the `.tz` Michelson file on the `artifacts` folder. The M
 
 The default Tezos testing testnet is called **Ghostnet**.
 
-> :warning: You need an account to deploy a contract with some `tez` (the Tezos native currency). The first time you deploy a contract with Taqueria, it is generating a new implicit account with `0 tez`.
+> :warning: You need an account to deploy a contract with some `tez` (the Tezos native currency). The first time you deploy a contract with Taqueria, it is generating a new user account with `0 tez`.
 
 1. Deploy your contract to the `testing` environment. Ut forces Taqueria to generate a default account on a testing config file.
 
