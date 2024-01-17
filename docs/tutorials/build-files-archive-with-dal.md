@@ -31,6 +31,12 @@ Rollups can use any language that has WASM compilation support.
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
+Then, add WASM as a compilation target for Rust by running this command:
+
+```bash
+rustup target add wasm32-unknown-unknown
+```
+
 You can see other ways of installing Rust at https://www.rust-lang.org.
 
 ## Why the DAL?
