@@ -46,7 +46,7 @@ Follow these steps to update the Smart Rollup to access information about slot 0
    pub fn run<R: Runtime>(
        host: &mut R,
        param: &RollupDalParameters,
-       index: u8,
+       slot_index: u8,
    ) -> Result<(), RuntimeError> {
        let sol = host.read_input()?.unwrap();
 
@@ -54,13 +54,13 @@ Follow these steps to update the Smart Rollup to access information about slot 0
 
        let mut buffer = vec![0u8; param.page_size as usize];
 
-       let bytes_read = host.reveal_dal_page(target_level as i32, index, 0, &mut buffer)?;
+       let bytes_read = host.reveal_dal_page(target_level as i32, slot_index, 0, &mut buffer)?;
 
        if 0 < bytes_read {
            debug_msg!(
                host,
                "Attested slot at index {} for level {}: {:?}\n",
-               index,
+               slot_index,
                target_level,
                &buffer.as_slice()[0..10]
            );
@@ -68,7 +68,7 @@ Follow these steps to update the Smart Rollup to access information about slot 0
            debug_msg!(
                host,
                "No attested slot at index {} for level {}\n",
-               index,
+               slot_index,
                target_level
            );
        }
