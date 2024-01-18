@@ -124,14 +124,14 @@ This certificate includes a commitment that the data is available and a proof of
 They have a certain number of blocks to do so, known as the _attestation lag_, and if they don't by the end of this period, the certificate is considered bogus and the related data is dropped.
 1. Other DAL nodes get the data from the initial DAL node through the peer-to-peer network.
 1. The Smart Rollup node monitors the blocks and when it sees attested DAL data, it connects to a DAL node to request the data.
-1. The Smart Rollup node stores the file in its durable storage, addressed by its hash.
-1. Users who know the hash of the file can download it from the Smart Rollup node.
+1. The Smart Rollup node stores the data in its durable storage, addressed by its hash.
+1. Users who know the hash of the data can download it from the Smart Rollup node.
 
 The overall workflow is summarized in the following figure:
 
 <LucidDiagram width="640px" height="480px" src="https://lucid.app/documents/embedded/cc422278-7319-4a2f-858a-a7b72e1ea3a6" id="ljs6hoejIr1H" />
 
-There are many steps in the DAL process, but the most complicated parts (storing and sharing files) are handled automatically by the various daemons in the Octez suite.
+There are many steps in the DAL process, but the most complicated parts (storing and sharing data) are handled automatically by the various daemons in the Octez suite.
 
 :::note The Smart Rollup does not support the DAL
 As of today, the Smart Rollup Installer does not support the DAL as a
