@@ -125,6 +125,12 @@ In this case, you must prefix the data with its size due to limitations of the D
 
    The script accepts three arguments: the file to send, the account alias to use and the slot index to use.
    This script also assumes that the `PATH` and `ENDPOINT` environment variables are correctly set.
+   For example:
+
+   ```bash
+   ./upload_file.sh myFile.txt $MY_ACCOUNT 10
+   ```
+
    Again, by inspecting the kernel logs, you should be able to see that the file that you wanted to publish is indeed the one fetched by the Smart Rollup.
 
 Now you can publish data to the DAL and use it in a Smart Rollup.
