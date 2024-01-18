@@ -19,7 +19,7 @@ You will learn:
 - How to host a DAL node
 - How to publish data and files with the DAL
 
-Because the DAL is not yet available on Tezos Mainnet, this tutorial uses the [Weeklynet test network](https://teztnets.xyz/weeklynet-about), which runs on a newer version of the protocol that includes the DAL.
+Because the DAL is not yet available on Tezos Mainnet, this tutorial uses the [Weeklynet test network](https://teztnets.com/weeklynet-about), which runs on a newer version of the protocol that includes the DAL.
 
 ## Prerequisites
 
@@ -34,11 +34,11 @@ Note that Weeklynet is reset every Wednesday, so you must recreate your environm
 
 The easiest way to do this is to use the Docker image that is generated each time Weeklynet is reset and recreated.
 As another option, you can build the specific version of the Octez suite locally.
-For instructions, see the Weeklynet page at https://teztnets.xyz/weeklynet-about.
+For instructions, see the Weeklynet page at https://teztnets.com/weeklynet-about.
 
 To set up an environment and account in a Docker container, follow these steps:
 
-1. From the [Weeklynet](https://teztnets.xyz/weeklynet-about) page, find the Docker command to create a container from the correct Docker image, as in this example:
+1. From the [Weeklynet](https://teztnets.com/weeklynet-about) page, find the Docker command to create a container from the correct Docker image, as in this example:
 
    ```bash
    docker run -it --entrypoint=/bin/sh tezos/tezos:master_7f3bfc90_20240116181914
@@ -61,7 +61,7 @@ This endpoint also changes each time the network is reset.
 
 1. Get the public key hash of the new account by running the command `octez-client show address $MY_ACCOUNT`.
 
-1. From the [Weeklynet](https://teztnets.xyz/weeklynet-about) page, open the Weeklynet faucet and send some tez to the account.
+1. From the [Weeklynet](https://teztnets.com/weeklynet-about) page, open the Weeklynet faucet and send some tez to the account.
 
 Now you can use this account to deploy Smart Rollups.
 
