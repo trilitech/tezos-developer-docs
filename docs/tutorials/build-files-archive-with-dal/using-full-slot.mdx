@@ -19,7 +19,7 @@ In this case, you change the kernel to retrieve data of the exact size of the sl
    pub fn run<R: Runtime>(
        host: &mut R,
        param: &RollupDalParameters,
-       index: u8,
+       slot_index: u8,
    ) -> Result<(), RuntimeError> {
        // Reading one message from the shared inbox is always safe,
        // because the shared inbox contains at least 3 messages per
@@ -30,13 +30,13 @@ In this case, you change the kernel to retrieve data of the exact size of the sl
 
        let mut buffer = vec![0u8; param.slot_size as usize];
 
-       let bytes_read = host.reveal_dal_page(target_level as i32, index, 0, &mut buffer)?;
+       let bytes_read = host.reveal_dal_page(target_level as i32, slot_index, 0, &mut buffer)?;
 
        if bytes_read == 0 {
            debug_msg!(
                host,
                "No attested slot at index {} for level {}\n",
-               index,
+               slot_index,
                target_level
            );
 
@@ -46,7 +46,7 @@ In this case, you change the kernel to retrieve data of the exact size of the sl
        debug_msg!(
            host,
            "Attested slot at index {} for level {}\n",
-           index,
+           slot_index,
            target_level
        );
 
@@ -55,7 +55,7 @@ In this case, you change the kernel to retrieve data of the exact size of the sl
        for page_index in 1..num_pages {
            let _result = host.reveal_dal_page(
                target_level as i32,
-               index,
+               slot_index,
                page_index.try_into().unwrap(),
                &mut buffer[page_index as usize * (param.page_size as usize)
                    ..(page_index as usize + 1) * (param.page_size as usize)],
