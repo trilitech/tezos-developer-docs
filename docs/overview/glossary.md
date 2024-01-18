@@ -129,7 +129,7 @@ The following is adapted from this [Agora post](https://forum.tezosagora.org/t/n
     In the context, each account is associated with a balance (an amount of
     tez available).
 
-    An account can be either an originated account or an implicit account.
+    An account can be a user account or a smart contract.
 
 - **Baker**
 
@@ -190,9 +190,9 @@ The following is adapted from this [Agora post](https://forum.tezosagora.org/t/n
 
 - **Delegate**
 
-    An implicit account that can participate in consensus and in governance.
+    A user account that can participate in consensus and in governance.
     Actual participation is under further provisions, like having a minimal stake.
-    An implicit account becomes a delegate by registering as such.
+    A user account becomes a delegate by registering as such.
     Through delegation, other accounts can delegate their rights to a delegate account.
     The delegate's rights are calculated based on its stake.
     Note that `tz4` accounts cannot be delegates.
@@ -252,15 +252,7 @@ The following is adapted from this [Agora post](https://forum.tezosagora.org/t/n
 
 - **Implicit account**
 
-    An account that is linked to a public key. Contrary to a smart
-    contract, an implicit account cannot include a script and it
-    cannot reject incoming transactions.
-
-    If *registered*, an implicit account can act as a delegate.
-
-    The address of an implicit account always starts with the
-    letters tz followed by 1, 2, 3, or 4 (depending on the
-    signature scheme) and finally the hash of the public key.
+    See [User account](#user-account).
 
 - **Layer 1**
 
@@ -344,6 +336,20 @@ The following is adapted from this [Agora post](https://forum.tezosagora.org/t/n
 
     An operation to transfer tez between two accounts, or to run the code of a
     smart contract.
+
+<a name="user-account"/>
+
+- **User account**
+
+    An account that is linked to a public key. Contrary to a smart
+    contract, a user account cannot include a script and it
+    cannot reject incoming transactions.
+
+    If *registered*, a user account can act as a delegate.
+
+    The address of a user account always starts with the
+    letters tz followed by 1, 2, 3, or 4 (depending on the
+    signature scheme) and finally the hash of the public key.
 
 - **Validation pass**
 

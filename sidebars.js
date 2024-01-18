@@ -176,10 +176,10 @@ const sidebars = {
     {
       type: 'category',
       label: 'Decentralized applications (dApps)',
-      // link: { // TODO
-      //   id: 'dApps',
-      //   type: 'doc',
-      // },
+      link: {
+        id: 'dApps',
+        type: 'doc',
+      },
       items: [
         // 'dApps/first-dapp', // TODO
         'dApps/samples',
