@@ -38,7 +38,7 @@ At this point, the `my_baker` account owns enough stake to bake but has still no
 octez-client --endpoint "$TEZTNETS_RPC_ENDPOINT" register key my_baker as delegate
 ```
 
-A few cycles later, our baker will start receiving rights. To see for instance its consensus attestation rights in the current cycle, we can use the following RPC:
+Seven cycles later (about 1h40 on Weeklynet), our baker will start receiving rights. To see for instance its consensus attestation rights in the current cycle, we can use the following RPC:
 
 ```
 octez-client --endpoint "$TEZTNETS_RPC_ENDPOINT" rpc get /chains/main/blocks/head/helpers/attestation_rights\?delegate="$MY_BAKER"
