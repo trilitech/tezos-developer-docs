@@ -129,6 +129,7 @@ They have a certain number of blocks to do so, known as the _attestation lag_, a
 1. Other DAL nodes get the data from the initial DAL node through the peer-to-peer network.
 1. The Smart Rollup node monitors the blocks and when it sees attested DAL data, it connects to a DAL node to request the data.
 1. The Smart Rollup node stores the data in its durable storage, addressed by its hash.
+Smart Rollups must store the data because it is available on the DAL for only a short time.
 1. Users who know the hash of the data can download it from the Smart Rollup node.
 
 The overall workflow is summarized in the following figure:
