@@ -10,7 +10,7 @@ This article is a tutorial for bakers willing to test the DAL on the weeklynet n
 
 /!\ Warning: This tutorial uses a very simple setup running all required daemons on the same machine. In a production environment, we advise against running a DAL attester node under the same IP address than a baker's node because the DAL node may leak the IP address and ease DOS attacks on the baker. See also [the DAL documentation page on baking](https://tezos.gitlab.io/shell/dal_bakers.html).
 
-/!\ Warning: This article was written in January 2024 to help bakers experiment with the DAL. If you are reading this article in the future, the UX of the DAL components will probably have changed with the feedback we got, in particular from the testers following this tutorial.
+/!\ Warning: The UX of the DAL components will be subject to changes with the feedback from the testers following this tutorial, so this tutorial will be updated accordingly. Feel free to file issues if it's not up-to-date.
 
 - [Step 1: get a Weeklynet-compatible Octez](./running-the-dal-as-a-weeklynet-baker-in-5-steps/get-octez)
 - [Step 2: run an Octez node on Weeklynet](./running-the-dal-as-a-weeklynet-baker-in-5-steps/run-node)
