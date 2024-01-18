@@ -1,5 +1,4 @@
-
-## Step 4: run an Octez DAL node on Weeklynet
+# Step 4: run an Octez DAL node on Weeklynet
 
 ```
 octez-dal-node run &>> "$HOME/octez-dal-node.log"

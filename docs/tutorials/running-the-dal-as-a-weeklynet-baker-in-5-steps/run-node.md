@@ -1,4 +1,4 @@
-## Step 2: run an Octez node on Weeklynet
+# Step 2: run an Octez node on Weeklynet
 
 Once the Octez node has been configured to join Weeklynet, it's possible to launch it.
 

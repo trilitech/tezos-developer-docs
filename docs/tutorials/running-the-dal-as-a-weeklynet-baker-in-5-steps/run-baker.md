@@ -1,4 +1,4 @@
-### Step 5: run an Octez baking deamon on Weeklynet
+# Step 5: run an Octez baking deamon on Weeklynet
 
 The baking daemon is launched almost as usual, the only difference is that we use the `--dal-node http://127.0.0.1` option to tell it to connect to the DAL node that we just launched in the previous step.
 
