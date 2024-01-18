@@ -19,4 +19,4 @@ The DAL node we have launched connects to the DAL network but it is not yet subs
 curl http://localhost:10732/p2p/gossipsub/topics
 ```
 
-In particular, it won't collect the shards assigned to our baker until it is subscribed to the corresponding topics. We could explicitly instruct the DAL node to subscribe to them by launching it in attester profile (by adding the `--attester-profiles="$MY_BAKER"` option) but this is not required because the baker daemon will automatically ask the DAL to subscribe to the relevent topics anyway.
+In particular, it won't collect the shards assigned to our baker until it is subscribed to the corresponding topics. Don't worry, the baker daemon will automatically ask the DAL to subscribe to the relevant topics.
