@@ -2,7 +2,7 @@
 title: Smart Rollups
 authors: 'Nomadic Labs, TriliTech, Tim McMackin'
 last_update:
-  date: 10 Jan 2024
+  date: 18 January 2024
 ---
 
 import LucidDiagram from '@site/src/components/LucidDiagram';
@@ -15,7 +15,9 @@ The transactions and logic that Smart Rollups run is called _layer 2_ to differe
 Anyone can run a node based on a Smart Rollup to execute its code and verify that other nodes are running it correctly, just like anyone can run nodes, bakers, and accusers on layer 1.
 This code, called the _kernel_, runs in a deterministic manner and according to a given semantics, which guarantees that results are reproducible by any rollup node with the same kernel.
 The semantics is precisely defined by a reference virtual machine called a proof-generating virtual machine (PVM), able to generate a proof that executing a program in a given context results in a given state.
-This guarantees that if a divergence in results is found, it can be tracked down to a single elementary step that was not executed correctly by some node.
+During normal execution, the Smart Rollup can use any virtual machine that is compatible with the PVM semantics, which allows the Smart Rollup to be more efficient.
+
+Using the PVM and optionally a compatible VM guarantees that if a divergence in results is found, it can be tracked down to a single elementary step that was not executed correctly by some node.
 In this way, multiple nodes can run the same rollup and each node can verify the state of the rollup.
 
 For a tutorial on Smart Rollups, see [Deploy a Smart Rollup](../tutorials/smart-rollup).
