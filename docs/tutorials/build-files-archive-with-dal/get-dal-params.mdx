@@ -18,8 +18,9 @@ This data must fit in a single operation to allow the Smart Rollup refutation ga
 {/* TODO link to Smart Rollup topic for more info on the refutation game */}
 
 When clients add data, they must specify which slot to add it to.
-Note that because the DAL is permissionless, clients may try to add data to the same slot in the same block and exceed the slot capacity.
+Note that because the DAL is permissionless, clients may try to add data to the same slot in the same block.
 In this case, the first operation in the block takes precedence, which leaves the baker that creates the block in control of which data makes it into the block.
+Other operations that try to add data to the same slot fail.
 
 The number and size of these slots can change.
 Different networks can have different DAL parameters.
