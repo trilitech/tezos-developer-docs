@@ -151,8 +151,9 @@ Indeed, they are not: because the size of a slot is fixed, the DAL node pads the
 Now you know how to send files to the DAL and use a Smart Rollup to store the data.
 
 From there, the sky's the limit.
-You can implement other features implemented, such as having the file publishers pay for the storage they are using in Layer 2 (by allowing them to deposit tez to the Smart Rollup and sign the files they publish).
-You could also build a frontend to visualize the files published in the archive.
-Or, you could deal with the fact that for now, it is not possible
-for a consumer of the file to know its original size.
-You could fix that by modifying the script to prefix the file with its size.
+You can implement many other features, such as:
+
+- Handling more than one file per level
+- Having file publishers pay for the storage that they are using in layer 2 by allowing them to deposit tez to the Smart Rollup and sign the files they publish
+- Building a frontend to visualize the files in the archive
+- Providing the original size of the file by modifying the script to prefix the file with its size
