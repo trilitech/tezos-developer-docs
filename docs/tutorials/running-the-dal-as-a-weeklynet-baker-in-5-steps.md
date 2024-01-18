@@ -2,7 +2,7 @@
 
 Tezos' [Data-Availability Layer](https://tezos.gitlab.io/shell/dal.html) (DAL for short), is an experimental feature which is, at the time of writing, not available on Tezos Mainnet but planned to be proposed in a protocol amendment in the near future.
 
-The DAL is a key component for the scalability of Tezos. In a nutshell, the DAL is about increasing the data bandwidth available for Tezos Smart Rollups thanks to a new parallel P2P network on which rollups could connect to fetch inputs but without compromising their security and in particular the possibility for any participant to detect fraud attempts from rollup operators and refute them in the Tezos protocol.
+The DAL is a key component for the scalability of Tezos. In a nutshell, the DAL is about increasing the data bandwidth available for Tezos Smart Rollups thanks to a new parallel P2P network on which rollups could connect to fetch inputs without compromising their security.
 
 In order for the DAL to be as secure as the Tezos Layer 1 itself, bakers need to play a very important role in it. Currently, bakers on the L1 network are not only responsible for producing blocks but also for attesting that blocks are published on the L1 network. They are rewarded for this contribution through protocol incentives and they also monitor the behaviour of other bakers to denounce cheating attempts. Similarly, the role of bakers in the DAL would be to attest the publication of data on the DAL's P2P network. They would in turn be rewarded for this through (potentially different) protocol incentives and they would also denounce cheating attempts from other bakers.
 
