@@ -1,4 +1,4 @@
-## Step 3: prepare an account for baking on Weeklynet
+## Step 3: setting up a baker account on Weeklynet
 
 Our baker needs an implicit account consisting of a pair of keys and an address. The simplest to get them is to ask the Octez client to randomly generate them and associate them to the `my_baker` alias:
 

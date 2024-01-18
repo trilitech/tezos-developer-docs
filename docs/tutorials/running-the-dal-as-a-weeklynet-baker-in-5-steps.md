@@ -16,7 +16,7 @@ This tutorial targets Tezos bakers willing to join our tests efforts on [Weeklyn
 
 - [Step 1: get a Weeklynet-compatible Octez version](./running-the-dal-as-a-weeklynet-baker-in-5-steps/get-octez)
 - [Step 2: run an Octez node on Weeklynet](./running-the-dal-as-a-weeklynet-baker-in-5-steps/run-node)
-- [Step 3: prepare an account for baking on Weeklynet](./running-the-dal-as-a-weeklynet-baker-in-5-steps/prepare-account)
+- [Step 3: setting up a baker account on Weeklynet](./running-the-dal-as-a-weeklynet-baker-in-5-steps/prepare-account)
 - [Step 4: run an Octez DAL node on Weeklynet](./running-the-dal-as-a-weeklynet-baker-in-5-steps/run-dal-node)
 - [Step 5: run an Octez baking daemon on Weeklynet](./running-the-dal-as-a-weeklynet-baker-in-5-steps/run-baker)
 - [Conclusion](./running-the-dal-as-a-weeklynet-baker-in-5-steps/conclusion)
