@@ -16,5 +16,5 @@ This article is a tutorial for bakers willing to test the DAL on the weeklynet n
 - [Step 2: run an Octez node on Weeklynet](./running-the-dal-as-a-weeklynet-baker-in-5-steps/run-node)
 - [Step 3: prepare an account for baking on Weeklynet](./running-the-dal-as-a-weeklynet-baker-in-5-steps/prepare-account)
 - [Step 4: run an Octez DAL node on Weeklynet](./running-the-dal-as-a-weeklynet-baker-in-5-steps/run-dal-node)
-- [Step 5: run an Octez baking deamon on Weeklynet](./running-the-dal-as-a-weeklynet-baker-in-5-steps/run-baker)
+- [Step 5: run an Octez baking daemon on Weeklynet](./running-the-dal-as-a-weeklynet-baker-in-5-steps/run-baker)
 - [Conclusion](./running-the-dal-as-a-weeklynet-baker-in-5-steps/conclusion)
