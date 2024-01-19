@@ -21,12 +21,12 @@ Smart Rollups are processing units that run outside the Tezos network but commun
 These processing units can run arbitrarily large amounts of code without waiting for Tezos baking nodes to run and verify that code.
 Smart Rollups use Tezos for information and transactions but can run large applications at their own speed, independently of the Tezos baking system.
 
-In this way, Smart Rollups allow Tezos to scale to support large, complex applications without slowing Tezos itself.
+In this way, Smart Rollups allow Tezos to scale to support large, complex applications without slowing Tezos itself or incurring large transaction and storage fees.
 The processing that runs on Tezos itself via smart contracts is referred to as _layer 1_ and the processing that Smart Rollups run is referred to as _layer 2_.
 To learn about running code in smart contracts, see the tutorial [Deploy a smart contract](./smart-contract).
 
 Rollups also have an outbox, which consists of calls to smart contracts on layer 1.
-These calls are how rollups send messages back to Tezos.
+These calls are how rollups send messages back to layer 1.
 
 Smart Rollups can run any kind of applications that they want, such as:
 
