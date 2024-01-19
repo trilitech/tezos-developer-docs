@@ -1,0 +1,72 @@
+---
+title: The data availability layer
+authors: "Tim McMackin"
+last_update:
+  date: 19 January 2024
+---
+
+:::note Experimental
+The data availability layer is an experimental feature that is not yet available on Tezos Mainnet.
+The way the DAL works may change significantly before it is generally available.
+:::
+
+The data availability layer (DAL) is a companion peer-to-peer network for the Tezos blockchain, designed to provide additional data bandwidth to Smart Rollups.
+It allows users to share large amounts of data in a way that is decentralized and permissionless, because anyone can join the network and post and read data on it.
+
+For a tutorial on how to use the DAL, see [Implementing a file archive with the DAL and a Smart Rollup](../tutorials/build-files-archive-with-dal).
+
+## How the DAL works
+
+The DAL relies on a network of DAL nodes that distribute data via a peer-to-peer network.
+Layer 1 bakers verify that the data is available.
+Then, the DAL nodes provide the data to Smart Rollups.
+Smart Rollups that need the data must store it, because it is available only temporarily on the DAL.
+
+The DAL works like this:
+
+1. Users post data to a DAL node.
+1. The DAL node returns a certificate, which includes two parts:
+
+   - The _commitment_ is like a hash of the data but has the additional ability to identify individual shards of the data and reconstruct the original data with at least half of the shards.
+   - The _proof_ certifies the length of the data to prevent malicious users from overloading the layer with data.
+
+1. Users post the certificate to layer 1 via the Octez client.
+1. When the certificate is confirmed in a block, layer 1 splits the data into shards and assigns those shards to bakers, who verify that the data is available.
+1. Bakers verify that the data is available and attest that the data is available in their usual block attestations to layer 1.
+They have a certain number of blocks to do so, known as the _attestation lag_, and if they don't by the end of this period, the certificate is considered bogus and the related data is dropped.
+1. Other DAL nodes get the data from the initial DAL node through the peer-to-peer network.
+1. The Smart Rollup node monitors the blocks and when it sees attested DAL data, it connects to a DAL node to request the data.
+1. The Smart Rollup node stores the data in its durable storage, addressed by its hash.
+Smart Rollups must store the data if they need it because it is available on the DAL for only a short time.
+1. Users who know the hash of the data can download it from the Smart Rollup node.
+
+The overall workflow is summarized in the following figure:
+
+<LucidDiagram width="640px" height="480px" src="https://lucid.app/documents/embedded/cc422278-7319-4a2f-858a-a7b72e1ea3a6" id="ljs6hoejIr1H" />
+
+## Data structure
+
+The data availability layer stores information about the available data in layer 1 blocks.
+Each block has several byte-vectors called _slots_, each with a maximum size.
+DAL users can add information about the available data as _pages_ in these slots, as shown in this figure:
+
+<LucidDiagram width="640px" height="480px" src="https://lucid.app/documents/embedded/46fa8412-8443-4491-82f6-305aafaf85f2" id="Hxs62lrO0C4d" />
+
+The data in a slot is broken into pages to ensure that each piece of data can fit in a single Tezos operation.
+This data must fit in a single operation to allow the Smart Rollup refutation game to work, in which every execution step of the Smart Rollup must be provable to layer 1.
+
+When clients add data, they must specify which slot to add it to.
+Note that because the DAL is permissionless, clients may try to add data to the same slot in the same block.
+In this case, the first operation in the block takes precedence, which leaves the baker that creates the block in control of which data makes it into the block.
+Other operations that try to add data to the same slot fail.
+
+The number and size of these slots can change.
+Different networks can have different DAL parameters.
+Future changes to the protocol may allow the DAL to resize dynamically based on usage.
+
+{/* TODO how to get the current DAL params of a network */}
+
+
+## Reference
+
+For more information about the DAL, see [DAL overview](https://tezos.gitlab.io/shell/dal_overview.html) in the Octez documentation.
