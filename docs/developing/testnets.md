@@ -2,7 +2,7 @@
 title: Testing on sandboxes and testnets
 authors: 'Mathias Hiron, Nomadic Labs, Tim McMackin, TriliTech'
 last_update:
-  date: 16 January 2024
+  date: 19 January 2024
 ---
 
 :::note
@@ -73,10 +73,44 @@ Weeklynet is a network that restarts every Wednesday, with the latest Docker bui
 
 Dailynet is a network that restarts every day, with the latest Docker build as a reference. This network is mainly used by protocol developers.
 
-To work with the periodic test networks, you must use tools that use exactly the same version as the network.
+## Working with periodic test networks
+
+To work with the periodic test networks, you must use exactly the same version of the Octez suite as the network.
 For this reason, wallets typically don't work with these networks.
 For example, you can look up information about Weeklynet at https://teztnets.com/weeklynet-about.
-This page shows the URL of a Weeklynet RPC endpoint to use and instructions for connecting to the network in different ways, including by loading a Docker image with the correct version of the Octez suite and by building the Octez suite from a specific Git commit.
+This page shows the URL of a Weeklynet RPC endpoint to use and instructions for connecting to the network in different ways.
+
+There are two main ways to use periodic test networks:
+
+- Run the Docker image with the correct version of the Octez suite
+- Build the Octez suite from the specific Git commit that is listed on the test network page
+
+In either case, you must connect the Octez suite to the test network RPC endpoint.
+For example, if the Weeklynet endpoint on https://teztnets.com/weeklynet-about is `https://rpc.weeklynet-2024-01-17.teztnets.com`, you can connect the Octez client by running this command:
+
+```bash
+octez-client -E https://rpc.weeklynet-2024-01-17.teztnets.com config init
+```
+
+Then you can create a local wallet by running `octez-client gen keys my_account` and fund it with the network faucet.
+
+For convenience, teztnets.com provides information about the test networks at https://teztnets.com/teztnets.json.
+You can use the data from this file to set up your environment, such as setting environment variables.
+
+For example, to get information about Weeklynet, install the `curl` and `jq` programs and run this command:
+
+```bash
+curl https://teztnets.com/teztnets.json | jq '.[] | select(.human_name == "Weeklynet")'
+```
+
+You can use the response to set environment variables like the RPC endpoint, as in this code:
+
+```bash
+curl https://teztnets.xyz/teztnets.json | jq '.[] | select(.human_name == "Weeklynet")' > weeklynet.json
+export WEEKLYNET_ENDPOINT=$(jq -r .rpc_url weeklynet.json)
+export WEEKLYNET_COMMIT=$(jq -r .git_ref weeklynet.json)
+export DOCKER_IMAGE=$(jq -r .docker_build weeklynet.json)
+```
 
 ## Public nodes and faucets
 
