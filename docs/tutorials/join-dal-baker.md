@@ -1,4 +1,4 @@
-# Running the DAL as a Weeklynet baker, in 5 steps
+# How to join the Tezos DAL as a baker, in 5 steps
 
 Tezos' [Data-Availability Layer](https://tezos.gitlab.io/shell/dal.html) (DAL for short), is an experimental feature which is, at the time of writing, not available on Tezos Mainnet but planned to be proposed in a protocol amendment in the near future.
 
@@ -14,9 +14,9 @@ This incentive-free version of the DAL is already available on the weeklynet tes
 
 /!\ Warning: The UX of the DAL components will be subject to changes with the feedback from the testers following this tutorial, so this tutorial will be updated accordingly. Feel free to file issues if it's not up-to-date.
 
-- [Step 1: get a Weeklynet-compatible Octez version](./running-the-dal-as-a-weeklynet-baker-in-5-steps/get-octez)
-- [Step 2: run an Octez node on Weeklynet](./running-the-dal-as-a-weeklynet-baker-in-5-steps/run-node)
-- [Step 3: setting up a baker account on Weeklynet](./running-the-dal-as-a-weeklynet-baker-in-5-steps/prepare-account)
-- [Step 4: run an Octez DAL node on Weeklynet](./running-the-dal-as-a-weeklynet-baker-in-5-steps/run-dal-node)
-- [Step 5: run an Octez baking daemon on Weeklynet](./running-the-dal-as-a-weeklynet-baker-in-5-steps/run-baker)
-- [Conclusion](./running-the-dal-as-a-weeklynet-baker-in-5-steps/conclusion)
+- [Step 1: get a Weeklynet-compatible Octez version](./join-dal-baker/get-octez)
+- [Step 2: run an Octez node on Weeklynet](./join-dal-baker/run-node)
+- [Step 3: setting up a baker account on Weeklynet](./join-dal-baker/prepare-account)
+- [Step 4: run an Octez DAL node on Weeklynet](./join-dal-baker/run-dal-node)
+- [Step 5: run an Octez baking daemon on Weeklynet](./join-dal-baker/run-baker)
+- [Conclusion](./join-dal-baker/conclusion)

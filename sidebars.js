@@ -360,15 +360,15 @@ const sidebars = {
           label: 'Join the DAL as a Weeklynet baker',
           link: {
             type: 'doc',
-            id: 'tutorials/running-the-dal-as-a-weeklynet-baker-in-5-steps',
+            id: 'tutorials/join-dal-baker',
           },
           items: [
-            'tutorials/running-the-dal-as-a-weeklynet-baker-in-5-steps/get-octez',
-            'tutorials/running-the-dal-as-a-weeklynet-baker-in-5-steps/run-node',
-            'tutorials/running-the-dal-as-a-weeklynet-baker-in-5-steps/prepare-account',
-            'tutorials/running-the-dal-as-a-weeklynet-baker-in-5-steps/run-dal-node',
-            'tutorials/running-the-dal-as-a-weeklynet-baker-in-5-steps/run-baker',
-            'tutorials/running-the-dal-as-a-weeklynet-baker-in-5-steps/conclusion',
+            'tutorials/join-dal-baker/get-octez',
+            'tutorials/join-dal-baker/run-node',
+            'tutorials/join-dal-baker/prepare-account',
+            'tutorials/join-dal-baker/run-dal-node',
+            'tutorials/join-dal-baker/run-baker',
+            'tutorials/join-dal-baker/conclusion',
           ],
         },
         {
