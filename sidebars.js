@@ -343,6 +343,20 @@ const sidebars = {
         },
         {
           type: 'category',
+          label: 'Implement a file archive with the DAL',
+          link: {
+            type: 'doc',
+            id: 'tutorials/build-files-archive-with-dal',
+          },
+          items: [
+            'tutorials/build-files-archive-with-dal/get-dal-params',
+            'tutorials/build-files-archive-with-dal/get-slot-info',
+            'tutorials/build-files-archive-with-dal/publishing-on-the-dal',
+            'tutorials/build-files-archive-with-dal/using-full-slot',
+          ],
+        },
+        {
+          type: 'category',
           label: 'Build an NFT marketplace',
           link: {
             type: 'doc',
