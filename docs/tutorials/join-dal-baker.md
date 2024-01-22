@@ -10,9 +10,13 @@ Given that setting up a new P2P network with several hundred active participants
 
 This incentive-free version of the DAL is already available on the Weeklynet test network. In this tutorial you will learn how to join Weeklynet as a baker and attest the publication of data on the DAL network.
 
-/!\ Warning: This tutorial uses a very simple setup running all required daemons on the same machine. In a production environment, we advise against running a DAL attester node under the same IP address than a baker's node because the DAL node may leak the IP address and ease DOS attacks on the baker. See also [the DAL documentation page on baking](https://tezos.gitlab.io/shell/dal_bakers.html).
+:::warning
+This tutorial uses a very simple setup running all required daemons on the same machine. In a production environment, we advise against running a DAL attester node under the same IP address than a baker's node because the DAL node may leak the IP address and ease DOS attacks on the baker. See also [the DAL documentation page on baking](https://tezos.gitlab.io/shell/dal_bakers.html).
+:::
 
-/!\ Warning: The UX of the DAL components will be subject to changes with the feedback from the testers following this tutorial, so this tutorial will be updated accordingly. Feel free to file issues if it's not up-to-date.
+:::warning
+The UX of the DAL components will be subject to changes with the feedback from the testers following this tutorial, so this tutorial will be updated accordingly. Feel free to file issues if it's not up-to-date.
+:::
 
 - [Step 1: get a Weeklynet-compatible Octez version](./join-dal-baker/get-octez)
 - [Step 2: run an Octez node on Weeklynet](./join-dal-baker/run-node)
