@@ -1,7 +1,7 @@
 # Step 4: run an Octez DAL node on Weeklynet
 
 ```
-octez-dal-node run &>> "$HOME/octez-dal-node.log"
+octez-dal-node run >> "$HOME/octez-dal-node.log 2>&1"
 ```
 
 This, too, may take some time to launch the first time because it needs to generate a new identity file, this time for the DAL network.
