@@ -29,7 +29,8 @@ The DAL works like this:
 1. Users post data to a DAL node.
 1. The DAL node returns a certificate, which includes two parts:
 
-   - The _commitment_ is like a hash of the data but has the additional ability to identify individual shards of the data and reconstruct the original data from a certain percentage of the shards, depending on the redundancy factor.
+   - The _commitment_ is like a hash of the data but has the additional ability to identify individual shards of the data and reconstruct the original data from a certain percentage of the shards.
+   The number of shards needed depends on how the data is spread across shards, which is controlled by a parameter called the _redundancy factor_.
    - The _proof_ certifies the length of the data to prevent malicious users from overloading the layer with data.
 
 1. Users post the certificate to layer 1 via the Octez client.
@@ -38,8 +39,7 @@ The DAL works like this:
 They have a certain number of blocks to do so, known as the _attestation lag_, and if enough shards are not attested by the end of this period, the certificate is considered bogus and the related data is dropped.
 1. Other DAL nodes get the data from the initial DAL node through the peer-to-peer network.
 1. The Smart Rollup node monitors the blocks and when it sees attested DAL data, it connects to a DAL node to request the data.
-1. The Smart Rollup node stores the data in its durable storage, addressed by its hash.
-1. Users who know the hash of the data can download it from the Smart Rollup node.
+1. The Smart Rollup node uses and stores the data.
 
 The overall workflow is summarized in the following figure:
 
@@ -74,6 +74,7 @@ These parameters include:
 - `slot_size`: The size of each slot in bytes
 - `page_size`: The size of each page in bytes
 - `attestation_lag`: The number of subsequent blocks in which bakers can attest that the data is available; if enough attestations are available by the time this number of blocks have been created, the data becomes available to Smart Rollups
+- `redundancy_factor`: How much redundancy is used to split the data into shards; for example, a redundancy factor of 2 means that half of all shards are enough to reconstruct the original data and a redundancy factor of 4 means that 25% of all shards are required
 
 ## Sending data to the DAL
 
