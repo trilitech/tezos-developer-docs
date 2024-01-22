@@ -2,7 +2,7 @@
 title: Implement a file archive with the DAL and a Smart Rollup
 authors: 'Tezos Core Developers'
 last_update:
-  date: 17 January 2024
+  date: 22 January 2024
 ---
 
 import LucidDiagram from '@site/src/components/LucidDiagram';
@@ -143,11 +143,9 @@ The overall workflow is summarized in the following figure:
 
 There are many steps in the DAL process, but the most complicated parts (storing and sharing data) are handled automatically by the various daemons in the Octez suite.
 
-:::note The Smart Rollup installer does not support the DAL
-As of today, the Smart Rollup installer does not support the DAL as a
-data availability solution. This means we will need to rely on the reveal
-channel to initialize our Smart Rollup correctly (which is not ideal for a
-decentralized file archive).
+:::note
+When you install a Smart Rollup, you provide only the installer kernel on layer 1 and the full kernel via the reveal data channel.
+Currently, you cannot send the full kernel data over the data availability layer, so this tutorial relies on the reveal data channel to install the kernel as usual.
 :::
 
 When your environment is ready, get started by going to [Part 1: Getting the DAL parameters](./build-files-archive-with-dal/get-dal-params).
