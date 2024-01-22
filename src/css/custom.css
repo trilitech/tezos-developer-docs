@@ -148,6 +148,18 @@ nav.navbar {
   color: #0D61FF;
 }
 
+/* Headings for tutorials sidebar */
+.menu__divider {
+  font-family: 'GT Eesti Display', sans-serif;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 26px;
+  color: #4A4E52;
+  transition: color 0.3s;
+  padding-left: var(--ifm-menu-link-padding-horizontal);
+  padding-top: 30px;
+}
+
 /* breadcrumbs menu */
 .breadcrumbs__item--active .breadcrumbs__link {
   color: #0D61FF;
