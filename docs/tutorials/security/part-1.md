@@ -120,7 +120,7 @@ taq simulate 3-bitwise.tz --param 3-bitwise.parameter.shiftRight257times.tz
 - The first example shifts 2n (0x0010) one time to the left, so it gives 4n (0x0100)
 - The second example shifts 2n (0x0010) 257 times to the right, as the limit is 256 shifts, it produces an error `unexpected arithmetic overflow`
 
-&rarr; **SOLUTION**: To avoid this, one should always check the size of the input and the shift amount before applying the Bitwise instructions. Here you should check if the number of shifts is <= 256, otherwise, you raise an error
+&rarr; **SOLUTION**: To avoid this, one should always check the size of the input and the shift amount before applying the Bitwise instructions. Here you should check if the number of shifts is less than or equal to 256, otherwise, you raise an error
 
 4. Sender vs Source confusion
 
