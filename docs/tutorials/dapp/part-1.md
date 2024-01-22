@@ -1,6 +1,6 @@
 ---
-title: "Part 1: Create your minimum dApp on Tezos"
-authors: "Benjamin Fuentes"
+title: 'Part 1: Create your minimum dApp on Tezos'
+authors: 'Benjamin Fuentes (Marigold)'
 last_update:
   date: 27 November 2023
 ---
@@ -164,7 +164,7 @@ Taqueria is generating the `.tz` Michelson file on the `artifacts` folder. The M
 
 The default Tezos testing testnet is called **Ghostnet**.
 
-> :warning: You need an account to deploy a contract with some `tez` (the Tezos native currency). The first time you deploy a contract with Taqueria, it is generating a new implicit account with `0 tez`.
+> :warning: You need an account to deploy a contract with some `tez` (the Tezos native currency). The first time you deploy a contract with Taqueria, it is generating a new user account with `0 tez`.
 
 1. Deploy your contract to the `testing` environment. Ut forces Taqueria to generate a default account on a testing config file.
 
@@ -273,7 +273,7 @@ Then follow the prompts. Choose React and then Typescript+SWC:
    ```
 
    ```js
-   import { Buffer } from "buffer";
+   import { Buffer } from 'buffer';
 
    globalThis.Buffer = Buffer;
    ```
@@ -291,12 +291,12 @@ Then follow the prompts. Choose React and then Typescript+SWC:
 1. Open the `vite.config.ts` file and replace it with:
 
    ```js
-   import react from "@vitejs/plugin-react-swc";
-   import path from "path";
-   import { defineConfig } from "vite";
+   import react from '@vitejs/plugin-react-swc';
+   import path from 'path';
+   import { defineConfig } from 'vite';
    // https://vitejs.dev/config/
    export default ({ command }) => {
-     const isBuild = command === "build";
+     const isBuild = command === 'build';
 
      return defineConfig({
        define: {},
@@ -310,23 +310,23 @@ Then follow the prompts. Choose React and then Typescript+SWC:
          alias: {
            // dedupe @airgap/beacon-sdk
            // I almost have no idea why it needs `cjs` on dev and `esm` on build, but this is how it works 🤷‍♂️
-           "@airgap/beacon-sdk": path.resolve(
+           '@airgap/beacon-sdk': path.resolve(
              path.resolve(),
              `./node_modules/@airgap/beacon-sdk/dist/${
-               isBuild ? "esm" : "cjs"
+               isBuild ? 'esm' : 'cjs'
              }/index.js`
            ),
-           stream: "stream-browserify",
-           os: "os-browserify/browser",
-           util: "util",
-           process: "process/browser",
-           buffer: "buffer",
-           crypto: "crypto-browserify",
-           assert: "assert",
-           http: "stream-http",
-           https: "https-browserify",
-           url: "url",
-           path: "path-browserify",
+           stream: 'stream-browserify',
+           os: 'os-browserify/browser',
+           util: 'util',
+           process: 'process/browser',
+           buffer: 'buffer',
+           crypto: 'crypto-browserify',
+           assert: 'assert',
+           http: 'stream-http',
+           https: 'https-browserify',
+           url: 'url',
+           path: 'path-browserify',
          },
        },
      });
@@ -361,21 +361,21 @@ Declare two React Button components and display the user address and his balance
 Edit **src/App.tsx** file.
 
 ```typescript
-import { NetworkType } from "@airgap/beacon-types";
-import { BeaconWallet } from "@taquito/beacon-wallet";
-import { TezosToolkit } from "@taquito/taquito";
-import * as api from "@tzkt/sdk-api";
-import { useEffect, useState } from "react";
-import "./App.css";
-import ConnectButton from "./ConnectWallet";
-import DisconnectButton from "./DisconnectWallet";
+import { NetworkType } from '@airgap/beacon-types';
+import { BeaconWallet } from '@taquito/beacon-wallet';
+import { TezosToolkit } from '@taquito/taquito';
+import * as api from '@tzkt/sdk-api';
+import { useEffect, useState } from 'react';
+import './App.css';
+import ConnectButton from './ConnectWallet';
+import DisconnectButton from './DisconnectWallet';
 
 function App() {
-  api.defaults.baseUrl = "https://api.ghostnet.tzkt.io";
+  api.defaults.baseUrl = 'https://api.ghostnet.tzkt.io';
 
-  const Tezos = new TezosToolkit("https://ghostnet.tezos.marigold.dev");
+  const Tezos = new TezosToolkit('https://ghostnet.tezos.marigold.dev');
   const wallet = new BeaconWallet({
-    name: "Training",
+    name: 'Training',
     preferredNetwork: NetworkType.GHOSTNET,
   });
   Tezos.setWalletProvider(wallet);
@@ -391,7 +391,7 @@ function App() {
     })();
   }, []);
 
-  const [userAddress, setUserAddress] = useState<string>("");
+  const [userAddress, setUserAddress] = useState<string>('');
   const [userBalance, setUserBalance] = useState<number>(0);
 
   return (
@@ -433,10 +433,10 @@ export default App;
 1. Edit **ConnectWallet.tsx**
 
    ```typescript
-   import { NetworkType } from "@airgap/beacon-sdk";
-   import { BeaconWallet } from "@taquito/beacon-wallet";
-   import { TezosToolkit } from "@taquito/taquito";
-   import { Dispatch, SetStateAction } from "react";
+   import { NetworkType } from '@airgap/beacon-sdk';
+   import { BeaconWallet } from '@taquito/beacon-wallet';
+   import { TezosToolkit } from '@taquito/taquito';
+   import { Dispatch, SetStateAction } from 'react';
 
    type ButtonProps = {
      Tezos: TezosToolkit;
@@ -456,7 +456,7 @@ export default App;
          await wallet.requestPermissions({
            network: {
              type: NetworkType.GHOSTNET,
-             rpcUrl: "https://ghostnet.tezos.marigold.dev",
+             rpcUrl: 'https://ghostnet.tezos.marigold.dev',
            },
          });
          // gets user's address
@@ -487,8 +487,8 @@ export default App;
    The button cleans the wallet instance and all linked objects.
 
    ```typescript
-   import { BeaconWallet } from "@taquito/beacon-wallet";
-   import { Dispatch, SetStateAction } from "react";
+   import { BeaconWallet } from '@taquito/beacon-wallet';
+   import { Dispatch, SetStateAction } from 'react';
 
    interface ButtonProps {
      wallet: BeaconWallet;
@@ -502,9 +502,9 @@ export default App;
      setUserBalance,
    }: ButtonProps): JSX.Element => {
      const disconnectWallet = async (): Promise<void> => {
-       setUserAddress("");
+       setUserAddress('');
        setUserBalance(0);
-       console.log("disconnecting wallet");
+       console.log('disconnecting wallet');
        await wallet.clearActiveAccount();
      };
 
@@ -558,7 +558,7 @@ Instead of querying heavily the rpc node to search where are located all other s
        setContracts(
          await api.contractsGetSimilar(import.meta.env.VITE_CONTRACT_ADDRESS, {
            includeStorage: true,
-           sort: { desc: "id" },
+           sort: { desc: 'id' },
          })
        );
      })();
@@ -595,7 +595,7 @@ Instead of querying heavily the rpc node to search where are located all other s
 1. Import the Taqueria generated types on **app/src/App.tsx**.
 
    ```typescript
-   import { PokeGameWalletType } from "./pokeGame.types";
+   import { PokeGameWalletType } from './pokeGame.types';
    ```
 
 1. Add this new function after the previous fetch function, it calls the entrypoint for poking.
@@ -603,12 +603,12 @@ Instead of querying heavily the rpc node to search where are located all other s
    ```typescript
    const poke = async (contract: api.Contract) => {
      let c: PokeGameWalletType = await Tezos.wallet.at<PokeGameWalletType>(
-       "" + contract.address
+       '' + contract.address
      );
      try {
        const op = await c.methods.default().send();
        await op.confirmation();
-       alert("Tx done");
+       alert('Tx done');
      } catch (error: any) {
        console.table(`Error: ${JSON.stringify(error, null, 2)}`);
      }

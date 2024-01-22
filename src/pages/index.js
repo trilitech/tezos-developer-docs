@@ -3,7 +3,6 @@ import clsx from 'clsx';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
-import CalendlyEmbed from '@site/src/components/CalendlyEmbed.jsx';
 import styles from './index.module.css';
 import BuildSection from '@site/src/components/BuildSection';
 import Footer from '@site/src/components/Footer';
@@ -30,11 +29,6 @@ export default function Home() {
       <HomepageHeader />
       <main>
         <HomepageFeatures />
-        <div className={clsx(styles.text__booking)} id="office-hours">
-          <h1 className={clsx(styles.homeTitle)}>We are here <span className={clsx(styles.homeTitleBlue)}>for you</span></h1>
-          <p className={clsx(styles.homeContent)}>Book a 15 min, 1 to 1 session hosted by the TriliTech Developer Success team to discuss and answer your technical questions.</p>
-        </div>
-        <CalendlyEmbed />
         <BuildSection />
       </main>
       <Footer />

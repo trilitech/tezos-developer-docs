@@ -1,5 +1,6 @@
 ---
-title: "Part 2: Buying and selling tokens"
+title: 'Part 2: Buying and selling tokens'
+authors: 'Benjamin Fuentes (Marigold)'
 last_update:
   date: 8 November 2023
 ---
@@ -218,10 +219,10 @@ The contract storage must store the tokens that are offered for sale and their p
 1. Open the sale page in the `./src/OffersPage.tsx` file and replace it with this code:
 
    ```typescript
-   import { InfoOutlined } from "@mui/icons-material";
-   import SellIcon from "@mui/icons-material/Sell";
+   import { InfoOutlined } from '@mui/icons-material';
+   import SellIcon from '@mui/icons-material/Sell';
 
-   import * as api from "@tzkt/sdk-api";
+   import * as api from '@tzkt/sdk-api';
 
    import {
      Box,
@@ -238,25 +239,25 @@ The contract storage must store the tokens that are offered for sale and their p
      Tooltip,
      Typography,
      useMediaQuery,
-   } from "@mui/material";
-   import Paper from "@mui/material/Paper";
-   import BigNumber from "bignumber.js";
-   import { useFormik } from "formik";
-   import { useSnackbar } from "notistack";
-   import React, { Fragment, useEffect, useState } from "react";
-   import * as yup from "yup";
-   import { UserContext, UserContextType } from "./App";
-   import ConnectButton from "./ConnectWallet";
-   import { TransactionInvalidBeaconError } from "./TransactionInvalidBeaconError";
-   import { address, nat } from "./type-aliases";
+   } from '@mui/material';
+   import Paper from '@mui/material/Paper';
+   import BigNumber from 'bignumber.js';
+   import { useFormik } from 'formik';
+   import { useSnackbar } from 'notistack';
+   import React, { Fragment, useEffect, useState } from 'react';
+   import * as yup from 'yup';
+   import { UserContext, UserContextType } from './App';
+   import ConnectButton from './ConnectWallet';
+   import { TransactionInvalidBeaconError } from './TransactionInvalidBeaconError';
+   import { address, nat } from './type-aliases';
 
    const itemPerPage: number = 6;
 
    const validationSchema = yup.object({
      price: yup
        .number()
-       .required("Price is required")
-       .positive("ERROR: The number must be greater than 0!"),
+       .required('Price is required')
+       .positive('ERROR: The number must be greater than 0!'),
    });
 
    type Offer = {
@@ -265,7 +266,7 @@ The contract storage must store the tokens that are offered for sale and their p
    };
 
    export default function OffersPage() {
-     api.defaults.baseUrl = "https://api.ghostnet.tzkt.io";
+     api.defaults.baseUrl = 'https://api.ghostnet.tzkt.io';
 
      const [selectedTokenId, setSelectedTokenId] = React.useState<number>(0);
      const [currentPageIndex, setCurrentPageIndex] = useState<number>(1);
@@ -297,14 +298,14 @@ The contract storage must store the tokens that are offered for sale and their p
        },
        validationSchema: validationSchema,
        onSubmit: (values) => {
-         console.log("onSubmit: (values)", values, selectedTokenId);
+         console.log('onSubmit: (values)', values, selectedTokenId);
          sell(selectedTokenId, values.price);
        },
      });
 
      const initPage = async () => {
        if (storage) {
-         console.log("context is not empty, init page now");
+         console.log('context is not empty, init page now');
          ownerTokenIds = new Set();
          offersTokenIDMap = new Map();
 
@@ -313,7 +314,7 @@ The contract storage must store the tokens that are offered for sale and their p
          ).id.toNumber();
 
          const token_ids = await api.bigMapsGetKeys(token_metadataBigMapId, {
-           micheline: "Json",
+           micheline: 'Json',
            active: true,
          });
 
@@ -330,35 +331,35 @@ The contract storage must store the tokens that are offered for sale and their p
                  offersTokenIDMap.set(token_idKey.key, ownerOffers);
 
                console.log(
-                 "found for " +
+                 'found for ' +
                    owner +
-                   " on token_id " +
+                   ' on token_id ' +
                    token_idKey.key +
-                   " with balance " +
+                   ' with balance ' +
                    1
                );
              } else {
-               console.log("skip to next token id");
+               console.log('skip to next token id');
              }
            })
          );
          setOwnerTokenIds(new Set(ownerTokenIds)); //force refresh
          setOffersTokenIDMap(new Map(offersTokenIDMap)); //force refresh
        } else {
-         console.log("context is empty, wait for parent and retry ...");
+         console.log('context is empty, wait for parent and retry ...');
        }
      };
 
      useEffect(() => {
        (async () => {
-         console.log("after a storage changed");
+         console.log('after a storage changed');
          await initPage();
        })();
      }, [storage]);
 
      useEffect(() => {
        (async () => {
-         console.log("on Page init");
+         console.log('on Page init');
          await initPage();
        })();
      }, []);
@@ -375,14 +376,14 @@ The contract storage must store the tokens that are offered for sale and their p
          await op?.confirmation(2);
 
          enqueueSnackbar(
-           "Wine collection (token_id=" +
+           'Wine collection (token_id=' +
              token_id +
-             ") offer for " +
+             ') offer for ' +
              1 +
-             " units at price of " +
+             ' units at price of ' +
              price +
-             " XTZ",
-           { variant: "success" }
+             ' XTZ',
+           { variant: 'success' }
          );
 
          refreshUserContextOnPageReload(); //force all app to refresh the context
@@ -391,18 +392,18 @@ The contract storage must store the tokens that are offered for sale and their p
          let tibe: TransactionInvalidBeaconError =
            new TransactionInvalidBeaconError(error);
          enqueueSnackbar(tibe.data_message, {
-           variant: "error",
+           variant: 'error',
            autoHideDuration: 10000,
          });
        }
      };
 
-     const isDesktop = useMediaQuery("(min-width:1100px)");
-     const isTablet = useMediaQuery("(min-width:600px)");
+     const isDesktop = useMediaQuery('(min-width:1100px)');
+     const isTablet = useMediaQuery('(min-width:600px)');
 
      return (
        <Paper>
-         <Typography style={{ paddingBottom: "10px" }} variant="h5">
+         <Typography style={{ paddingBottom: '10px' }} variant="h5">
            Sell my bottles
          </Typography>
          {ownerTokenIds && ownerTokenIds.size != 0 ? (
@@ -430,18 +431,18 @@ The contract storage must store the tokens that are offered for sale and their p
                      : false
                  )
                  .map(([token_id]) => (
-                   <Card key={token_id + "-" + token_id.toString()}>
+                   <Card key={token_id + '-' + token_id.toString()}>
                      <CardHeader
                        avatar={
                          <Tooltip
                            title={
                              <Box>
                                <Typography>
-                                 {" "}
-                                 {"ID : " + token_id.toString()}{" "}
+                                 {' '}
+                                 {'ID : ' + token_id.toString()}{' '}
                                </Typography>
                                <Typography>
-                                 {"Description : " +
+                                 {'Description : ' +
                                    nftContratTokenMetadataMap.get(token_id)
                                      ?.description}
                                </Typography>
@@ -454,14 +455,14 @@ The contract storage must store the tokens that are offered for sale and their p
                        title={nftContratTokenMetadataMap.get(token_id)?.name}
                      />
                      <CardMedia
-                       sx={{ width: "auto", marginLeft: "33%" }}
+                       sx={{ width: 'auto', marginLeft: '33%' }}
                        component="img"
                        height="100px"
                        image={nftContratTokenMetadataMap
                          .get(token_id)
                          ?.thumbnailUri?.replace(
-                           "ipfs://",
-                           "https://gateway.pinata.cloud/ipfs/"
+                           'ipfs://',
+                           'https://gateway.pinata.cloud/ipfs/'
                          )}
                      />
 
@@ -469,14 +470,14 @@ The contract storage must store the tokens that are offered for sale and their p
                        <Box>
                          <Typography variant="body2">
                            {offersTokenIDMap.get(token_id)
-                             ? "Traded : " +
+                             ? 'Traded : ' +
                                1 +
-                               " (price : " +
+                               ' (price : ' +
                                offersTokenIDMap
                                  .get(token_id)
                                  ?.price.dividedBy(1000000) +
-                               " Tz)"
-                             : ""}
+                               ' Tz)'
+                             : ''}
                          </Typography>
                        </Box>
                      </CardContent>
@@ -496,7 +497,7 @@ The contract storage must store the tokens that are offered for sale and their p
                          </Box>
                        ) : (
                          <form
-                           style={{ width: "100%" }}
+                           style={{ width: '100%' }}
                            onSubmit={(values) => {
                              setSelectedTokenId(Number(token_id));
                              formik.handleSubmit(values);
@@ -536,11 +537,11 @@ The contract storage must store the tokens that are offered for sale and their p
                        )}
                      </CardActions>
                    </Card>
-                 ))}{" "}
+                 ))}{' '}
              </ImageList>
            </Fragment>
          ) : (
-           <Typography sx={{ py: "2em" }} variant="h4">
+           <Typography sx={{ py: '2em' }} variant="h4">
              Sorry, you don't own any bottles, buy or mint some first
            </Typography>
          )}
@@ -586,8 +587,8 @@ In this section, you add a catalog page to show the bottles that are on sale and
 1. Open the file `./src/WineCataloguePage.tsx` and replace it with this code:
 
    ```typescript
-   import { InfoOutlined } from "@mui/icons-material";
-   import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+   import { InfoOutlined } from '@mui/icons-material';
+   import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
    import {
      Box,
      Button,
@@ -600,19 +601,19 @@ In this section, you add a catalog page to show the bottles that are on sale and
      Pagination,
      Tooltip,
      useMediaQuery,
-   } from "@mui/material";
-   import Paper from "@mui/material/Paper";
-   import Typography from "@mui/material/Typography";
+   } from '@mui/material';
+   import Paper from '@mui/material/Paper';
+   import Typography from '@mui/material/Typography';
 
-   import BigNumber from "bignumber.js";
-   import { useFormik } from "formik";
-   import { useSnackbar } from "notistack";
-   import React, { Fragment, useState } from "react";
-   import * as yup from "yup";
-   import { UserContext, UserContextType } from "./App";
-   import ConnectButton from "./ConnectWallet";
-   import { TransactionInvalidBeaconError } from "./TransactionInvalidBeaconError";
-   import { address, nat } from "./type-aliases";
+   import BigNumber from 'bignumber.js';
+   import { useFormik } from 'formik';
+   import { useSnackbar } from 'notistack';
+   import React, { Fragment, useState } from 'react';
+   import * as yup from 'yup';
+   import { UserContext, UserContextType } from './App';
+   import ConnectButton from './ConnectWallet';
+   import { TransactionInvalidBeaconError } from './TransactionInvalidBeaconError';
+   import { address, nat } from './type-aliases';
 
    const itemPerPage: number = 6;
 
@@ -646,7 +647,7 @@ In this section, you add a catalog page to show the bottles that are on sale and
        },
        validationSchema: validationSchema,
        onSubmit: (values) => {
-         console.log("onSubmit: (values)", values, selectedOfferEntry);
+         console.log('onSubmit: (values)', values, selectedOfferEntry);
          buy(selectedOfferEntry!);
        },
      });
@@ -668,13 +669,13 @@ In this section, you add a catalog page to show the bottles that are on sale and
          await op?.confirmation(2);
 
          enqueueSnackbar(
-           "Bought " +
+           'Bought ' +
              1 +
-             " unit of Wine collection (token_id:" +
+             ' unit of Wine collection (token_id:' +
              selectedOfferEntry[0] +
-             ")",
+             ')',
            {
-             variant: "success",
+             variant: 'success',
            }
          );
 
@@ -684,16 +685,16 @@ In this section, you add a catalog page to show the bottles that are on sale and
          let tibe: TransactionInvalidBeaconError =
            new TransactionInvalidBeaconError(error);
          enqueueSnackbar(tibe.data_message, {
-           variant: "error",
+           variant: 'error',
            autoHideDuration: 10000,
          });
        }
      };
-     const isDesktop = useMediaQuery("(min-width:1100px)");
-     const isTablet = useMediaQuery("(min-width:600px)");
+     const isDesktop = useMediaQuery('(min-width:1100px)');
+     const isTablet = useMediaQuery('(min-width:600px)');
      return (
        <Paper>
-         <Typography style={{ paddingBottom: "10px" }} variant="h5">
+         <Typography style={{ paddingBottom: '10px' }} variant="h5">
            Wine catalogue
          </Typography>
 
@@ -722,24 +723,24 @@ In this section, you add a catalog page to show the bottles that are on sale and
                      : false
                  )
                  .map(([token_id, offer]) => (
-                   <Card key={offer.owner + "-" + token_id.toString()}>
+                   <Card key={offer.owner + '-' + token_id.toString()}>
                      <CardHeader
                        avatar={
                          <Tooltip
                            title={
                              <Box>
                                <Typography>
-                                 {" "}
-                                 {"ID : " + token_id.toString()}{" "}
+                                 {' '}
+                                 {'ID : ' + token_id.toString()}{' '}
                                </Typography>
                                <Typography>
-                                 {"Description : " +
+                                 {'Description : ' +
                                    nftContratTokenMetadataMap.get(
                                      token_id.toString()
                                    )?.description}
                                </Typography>
                                <Typography>
-                                 {"Seller : " + offer.owner}{" "}
+                                 {'Seller : ' + offer.owner}{' '}
                                </Typography>
                              </Box>
                            }
@@ -753,24 +754,24 @@ In this section, you add a catalog page to show the bottles that are on sale and
                        }
                      />
                      <CardMedia
-                       sx={{ width: "auto", marginLeft: "33%" }}
+                       sx={{ width: 'auto', marginLeft: '33%' }}
                        component="img"
                        height="100px"
                        image={nftContratTokenMetadataMap
                          .get(token_id.toString())
                          ?.thumbnailUri?.replace(
-                           "ipfs://",
-                           "https://gateway.pinata.cloud/ipfs/"
+                           'ipfs://',
+                           'https://gateway.pinata.cloud/ipfs/'
                          )}
                      />
 
                      <CardContent>
                        <Box>
                          <Typography variant="body2">
-                           {" "}
-                           {"Price : " +
+                           {' '}
+                           {'Price : ' +
                              offer.price.dividedBy(1000000) +
-                             " XTZ"}
+                             ' XTZ'}
                          </Typography>
                        </Box>
                      </CardContent>
@@ -790,7 +791,7 @@ In this section, you add a catalog page to show the bottles that are on sale and
                          </Box>
                        ) : (
                          <form
-                           style={{ width: "100%" }}
+                           style={{ width: '100%' }}
                            onSubmit={(values) => {
                              setSelectedOfferEntry([token_id, offer]);
                              formik.handleSubmit(values);
@@ -807,7 +808,7 @@ In this section, you add a catalog page to show the bottles that are on sale and
              </ImageList>
            </Fragment>
          ) : (
-           <Typography sx={{ py: "2em" }} variant="h4">
+           <Typography sx={{ py: '2em' }} variant="h4">
              Sorry, there is not NFT to buy yet, you need to mint or sell
              bottles first
            </Typography>

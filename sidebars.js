@@ -167,6 +167,7 @@ const sidebars = {
         'smart-contracts/serialization',
         'smart-contracts/sapling',
         'smart-contracts/views',
+        'smart-contracts/events',
         'smart-contracts/delegation',
         // 'smart-contracts/multisig-specialized',
         // 'smart-contracts/multisig-usage',
@@ -175,10 +176,10 @@ const sidebars = {
     {
       type: 'category',
       label: 'Decentralized applications (dApps)',
-      // link: { // TODO
-      //   id: 'dApps',
-      //   type: 'doc',
-      // },
+      link: {
+        id: 'dApps',
+        type: 'doc',
+      },
       items: [
         // 'dApps/first-dapp', // TODO
         'dApps/samples',
@@ -186,7 +187,6 @@ const sidebars = {
         'dApps/wallets',
         'dApps/sending-transactions',
         'dApps/taquito',
-        'dApps/unity',
         // 'dApps/frameworks', // TODO
         // Hide defi for now because the content is very outdated
         // 'dApps/defi',
@@ -194,6 +194,36 @@ const sidebars = {
         // 'dApps/testing',
         // 'dApps/deploying',
         'dApps/best-practices',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Tezos SDK for Unity',
+      link: {
+        id: 'unity',
+        type: 'doc',
+      },
+      items: [
+        'unity/quickstart',
+        'unity/scenes',
+        'unity/prefabs',
+        {
+          type: 'category',
+          label: 'Reference',
+          link: {
+            id: 'unity/reference',
+            type: 'doc',
+          },
+          items: [
+            'unity/reference/API',
+            'unity/reference/DAppMetadata',
+            'unity/reference/DataProviderConfigSO',
+            'unity/reference/EventManager',
+            'unity/reference/TezosConfigSO',
+            'unity/reference/TokenContract',
+            'unity/reference/Wallet',
+          ],
+        },
       ],
     },
     {
@@ -313,6 +343,36 @@ const sidebars = {
         },
         {
           type: 'category',
+          label: 'Implement a file archive with the DAL',
+          link: {
+            type: 'doc',
+            id: 'tutorials/build-files-archive-with-dal',
+          },
+          items: [
+            'tutorials/build-files-archive-with-dal/get-dal-params',
+            'tutorials/build-files-archive-with-dal/get-slot-info',
+            'tutorials/build-files-archive-with-dal/publishing-on-the-dal',
+            'tutorials/build-files-archive-with-dal/using-full-slot',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Join the DAL as a Weeklynet baker',
+          link: {
+            type: 'doc',
+            id: 'tutorials/join-dal-baker',
+          },
+          items: [
+            'tutorials/join-dal-baker/get-octez',
+            'tutorials/join-dal-baker/run-node',
+            'tutorials/join-dal-baker/prepare-account',
+            'tutorials/join-dal-baker/run-dal-node',
+            'tutorials/join-dal-baker/run-baker',
+            'tutorials/join-dal-baker/conclusion',
+          ],
+        },
+        {
+          type: 'category',
           label: 'Build an NFT marketplace',
           link: {
             type: 'doc',
@@ -325,7 +385,6 @@ const sidebars = {
             'tutorials/build-an-nft-marketplace/part-4',
           ],
         },
-
         {
           type: 'category',
           label: 'Learn and play with security',
@@ -338,6 +397,20 @@ const sidebars = {
             'tutorials/security/part-2',
             'tutorials/security/part-3',
             'tutorials/security/part-4',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Create a mobile game',
+          link: {
+            type: 'doc',
+            id: 'tutorials/mobile',
+          },
+          items: [
+            'tutorials/mobile/part-1',
+            'tutorials/mobile/part-2',
+            'tutorials/mobile/part-3',
+            'tutorials/mobile/part-4',
           ],
         },
       ],

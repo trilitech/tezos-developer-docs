@@ -89,13 +89,13 @@ Tezos.setWalletProvider(wallet)
 
 ## Getting data from the Tezos blockchain
 
-Taquito provides methods to get different types of data from the Tezos blockchain, for example, the balance of an implicit account, the storage of a contract or token metadata.
+Taquito provides methods to get different types of data from the Tezos blockchain, for example, the balance of a user account, the storage of a contract or token metadata.
 
 > Note: querying data from the blockchain doesn't create a new transaction.
 
 ### Getting the balance of an account
 
-Taquito allows developers to get the current balance in tez of an implicit account. The `getBalance` method is available on the instance of the TezosToolkit and requires a parameter of type `string` that represents the address of the account.
+Taquito allows developers to get the current balance in tez of a user account. The `getBalance` method is available on the instance of the TezosToolkit and requires a parameter of type `string` that represents the address of the account.
 
 The returned value is of type `BigNumber`:
 
