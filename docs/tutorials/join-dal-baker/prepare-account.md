@@ -50,7 +50,7 @@ To see the DAL attestation rights of all bakers, we can use the following RPC:
 octez-client --endpoint "$ENDPOINT" rpc get /chains/main/blocks/head/context/dal/shards
 ```
 
-This returns an array of DAL attestation rights indicating for each active baker the slice of shard indices it is expected to attest in the head block where a slice is given by a pair consisting of the first index and the length of the slice. So to check if some rights were assigned to us we can look for the address of our baker in the result of this RPC:
+This command returns an array of DAL attestation rights. The 2048 shards which are expected to be attested at this level are shared between active bakers proportionally to their stake. Each baker is assigned a slice of shard indices represented in the output of this command by a pair consisting of the first index and the length of the slice. So to check if some rights were assigned to us we can filter the array to our baker by running this command:
 
 ```
 octez-client --endpoint "$ENDPOINT" rpc get /chains/main/blocks/head/context/dal/shards | grep "$MY_BAKER"
