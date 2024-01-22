@@ -22,5 +22,5 @@ We can also look at the baker logs to see if it manages to inject the expected o
 Optionally, we can also launch an accuser which will monitor the behaviour of the other Weeklynet bakers and denounce them to the Tezos protocol if they are caught double-signing any block or consensus operation.
 
 ```
-octez-accuser-alpha run >> $HOME/octez-accuser.log 2>&1
+octez-accuser-alpha run >> "$HOME/octez-accuser.log" 2>&1
 ```
