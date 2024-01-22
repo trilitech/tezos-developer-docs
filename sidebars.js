@@ -396,7 +396,6 @@ const sidebars = {
             'tutorials/security/part-1',
             'tutorials/security/part-2',
             'tutorials/security/part-3',
-            'tutorials/security/part-4',
           ],
         },
         {
