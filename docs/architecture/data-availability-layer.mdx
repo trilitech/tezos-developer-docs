@@ -29,7 +29,7 @@ The DAL works like this:
 1. Users post data to a DAL node.
 1. The DAL node returns a certificate, which includes two parts:
 
-   - The _commitment_ is like a hash of the data but has the additional ability to identify individual shards of the data and reconstruct the original data with at least half of the shards.
+   - The _commitment_ is like a hash of the data but has the additional ability to identify individual shards of the data and reconstruct the original data from a certain percentage of the shards, depending on the redundancy factor.
    - The _proof_ certifies the length of the data to prevent malicious users from overloading the layer with data.
 
 1. Users post the certificate to layer 1 via the Octez client.
