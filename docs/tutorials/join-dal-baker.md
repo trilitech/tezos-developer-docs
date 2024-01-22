@@ -8,7 +8,7 @@ In order for the DAL to be as secure as the Tezos Layer 1 itself, bakers need to
 
 Given that setting up a new P2P network with several hundred active participants may take some time, the first proposed version of the DAL for Tezos Mainnet will not provide any participation incentives. This will let plenty of time for bakers to join the DAL network without risking any reward loss, ensuring a smooth transition.
 
-This incentive-free version of the DAL is already available on the weeklynet test network. In this tutorial you will learn how to join Weeklynet as a baker and attest the publication of data on the DAL network.
+This incentive-free version of the DAL is already available on the Weeklynet test network. In this tutorial you will learn how to join Weeklynet as a baker and attest the publication of data on the DAL network.
 
 /!\ Warning: This tutorial uses a very simple setup running all required daemons on the same machine. In a production environment, we advise against running a DAL attester node under the same IP address than a baker's node because the DAL node may leak the IP address and ease DOS attacks on the baker. See also [the DAL documentation page on baking](https://tezos.gitlab.io/shell/dal_bakers.html).
 
