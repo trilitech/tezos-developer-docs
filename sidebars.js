@@ -48,7 +48,7 @@ const sidebars = {
         // },
         'architecture/rpc',
         'architecture/smart-rollups',
-        // 'architecture/data-availability', // TODO
+        'architecture/data-availability-layer',
         {
           type: 'category',
           label: 'Governance',
