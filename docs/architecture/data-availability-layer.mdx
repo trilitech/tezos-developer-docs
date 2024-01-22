@@ -15,13 +15,13 @@ The way the DAL works may change significantly before it is generally available.
 The data availability layer (DAL) is a companion peer-to-peer network for the Tezos blockchain, designed to provide additional data bandwidth to Smart Rollups.
 It allows users to share large amounts of data in a way that is decentralized and permissionless, because anyone can join the network and post and read data on it.
 
-For a tutorial on how to use the DAL, see [Implementing a file archive with the DAL and a Smart Rollup](../tutorials/build-files-archive-with-dal).
+For a tutorial on how to use the DAL, see [Implement a file archive with the DAL and a Smart Rollup](../tutorials/build-files-archive-with-dal).
 
 ## How the DAL works
 
 The DAL relies on a network of DAL nodes that distribute data via a peer-to-peer network.
 Layer 1 bakers verify that the data is available.
-Then, the DAL nodes provide the data to Smart Rollups.
+After the bakers attest that the data is available, the DAL nodes provide the data to Smart Rollups.
 Smart Rollups that need the data must store it, because it is available only temporarily on the DAL.
 
 The DAL works like this:
@@ -35,7 +35,7 @@ The DAL works like this:
 1. Users post the certificate to layer 1 via the Octez client.
 1. When the certificate is confirmed in a block, layer 1 splits the data into shards and assigns those shards to bakers, who verify that the data is available.
 1. Bakers verify that the data is available and attest that the data is available in their usual block attestations to layer 1.
-They have a certain number of blocks to do so, known as the _attestation lag_, and if they don't by the end of this period, the certificate is considered bogus and the related data is dropped.
+They have a certain number of blocks to do so, known as the _attestation lag_, and if enough shards are not attested by the end of this period, the certificate is considered bogus and the related data is dropped.
 1. Other DAL nodes get the data from the initial DAL node through the peer-to-peer network.
 1. The Smart Rollup node monitors the blocks and when it sees attested DAL data, it connects to a DAL node to request the data.
 1. The Smart Rollup node stores the data in its durable storage, addressed by its hash.
