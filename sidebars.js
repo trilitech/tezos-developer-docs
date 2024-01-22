@@ -357,6 +357,22 @@ const sidebars = {
         },
         {
           type: 'category',
+          label: 'Join the DAL as a Weeklynet baker',
+          link: {
+            type: 'doc',
+            id: 'tutorials/join-dal-baker',
+          },
+          items: [
+            'tutorials/join-dal-baker/get-octez',
+            'tutorials/join-dal-baker/run-node',
+            'tutorials/join-dal-baker/prepare-account',
+            'tutorials/join-dal-baker/run-dal-node',
+            'tutorials/join-dal-baker/run-baker',
+            'tutorials/join-dal-baker/conclusion',
+          ],
+        },
+        {
+          type: 'category',
           label: 'Build an NFT marketplace',
           link: {
             type: 'doc',
