@@ -13,7 +13,7 @@ A public RPC endpoint URL for Weeklynet is linked from the https://teztnets.com/
 ENDPOINT="<URL of the RPC endpoint linked from https://teztnets.com/weeklynet-about>"
 ```
 
-For example:
+For example, for the Weeklynet launched on January 17 2024, the endpoint was:
 
 ```
 ENDPOINT=https://rpc.weeklynet-2024-01-17.teztnets.com
