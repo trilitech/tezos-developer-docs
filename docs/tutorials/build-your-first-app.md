@@ -1,5 +1,5 @@
 ---
-title: Build your first app on Tezos
+title: Build a simple web application
 authors: 'Claude Barde, Tim McMackin'
 last_update:
   date: 17 October 2023

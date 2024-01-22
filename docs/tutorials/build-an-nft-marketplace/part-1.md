@@ -386,7 +386,7 @@ To save time, this tutorial provides a starter React application.
    ```
 
    This application contains basic navigation and the ability to connect to wallets.
-   For a tutorial that includes connecting to wallets, see [Build your first app on Tezos](../build-your-first-app).
+   For a tutorial that includes connecting to wallets, see [Build a simple web application](../build-your-first-app).
 
    Because Taqueria automatically keeps track of your deployed contract, the application automatically accesses the contract and shows that there are no NFTs in it yet.
    The application looks like this:
