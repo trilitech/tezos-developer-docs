@@ -2,7 +2,7 @@
 title: The data availability layer
 authors: "Tim McMackin"
 last_update:
-  date: 19 January 2024
+  date: 22 January 2024
 ---
 
 import LucidDiagram from '@site/src/components/LucidDiagram';
@@ -66,8 +66,13 @@ The number and size of these slots can change.
 Different networks can have different DAL parameters.
 Future changes to the protocol may allow the DAL to resize dynamically based on usage.
 
-{/* TODO how to get the current DAL params of a network */}
+Clients can get information about the current DAL parameters from the RPC endpoint `GET /chains/main/blocks/head/context/constants`.
+These parameters include:
 
+- `number_of_slots`: The number of slots in each block
+- `slot_size`: The size of each slot in bytes
+- `page_size`: The size of each page in bytes
+- `attestation_lag`: The number of subsequent blocks in which bakers can attest that the data is available; if enough attestations are available by the time this number of blocks have been created, the data becomes available to Smart Rollups
 
 ## Reference
 
