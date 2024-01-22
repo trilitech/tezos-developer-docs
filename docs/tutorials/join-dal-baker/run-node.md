@@ -1,4 +1,4 @@
-# Step 2: run an Octez node on Weeklynet
+# Step 2: Run an Octez node on Weeklynet
 
 Once the Octez node has been configured to join Weeklynet, you can launch it and make its RPC available on the port that the DAL node expects to use:
 
