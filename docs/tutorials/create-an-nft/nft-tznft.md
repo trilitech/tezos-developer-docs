@@ -1,5 +1,5 @@
 ---
-title: Create NFTs with the `tznft` tool
+title: Create NFTs from the command line
 authors: 'Sol Lederer, Tim McMackin'
 last_update:
   date: 18 September 2023
