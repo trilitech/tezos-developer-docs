@@ -44,7 +44,7 @@ Seven cycles later (about 1h40 on Weeklynet), our baker will start receiving rig
 octez-client --endpoint "$ENDPOINT" rpc get /chains/main/blocks/head/helpers/attestation_rights\?delegate="$MY_BAKER"
 ```
 
-To see its DAL attestation rights, we can use the following RPC:
+To see the DAL attestation rights of all bakers, we can use the following RPC:
 
 ```
 octez-client --endpoint "$ENDPOINT" rpc get /chains/main/blocks/head/context/dal/shards
