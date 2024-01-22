@@ -65,13 +65,83 @@ The number and size of these slots can change.
 Different networks can have different DAL parameters.
 Future changes to the protocol may allow the DAL to resize dynamically based on usage.
 
-Clients can get information about the current DAL parameters from the RPC endpoint `GET /chains/main/blocks/head/context/constants`.
+## Getting the DAL parameters
+
+Clients can get information about the current DAL parameters from the RPC endpoint `GET /chains/main/blocks/head/context/constants` or the Smart Rollup kernel SDK function `reveal_dal_parameters`.
 These parameters include:
 
 - `number_of_slots`: The number of slots in each block
 - `slot_size`: The size of each slot in bytes
 - `page_size`: The size of each page in bytes
 - `attestation_lag`: The number of subsequent blocks in which bakers can attest that the data is available; if enough attestations are available by the time this number of blocks have been created, the data becomes available to Smart Rollups
+
+## Sending data to the DAL
+
+Sending data to the DAL is a two-step process:
+
+1. Send the data to a DAL node by passing it to its `POST /slot` endpoint, as in this example:
+
+   ```bash
+   curl -X POST http://dal-node.example.com:10732/slot --data '"Hello, world!"' -H 'Content-Type: application/json'
+   ```
+
+   The DAL node returns the commitment and proof of the data, as in this abbreviated example:
+
+   ```json
+   {
+     "commitment": "sh1u3tr3YKPDY",
+     "commitment_proof": "8229c63b8e858d9a9"
+   }
+   ```
+
+1. Send an operation to include the commitment and proof in a block by running this Octez client command, using an RPC endpoint for `$ENDPOINT` and an account alias or address for `MY_ACCOUNT`:
+
+   ```bash
+   commitment="sh1u3tr3YKPDY"
+   proof="8229c63b8e858d9a9"
+   octez-client --endpoint ${ENDPOINT} \
+     publish dal commitment "${commitment}" from ${MY_ACCOUNT} for slot 10 \
+     with proof "${proof}"
+   ```
+
+For an example of sending larger amounts of data, see [Implement a file archive with the DAL and a Smart Rollup](../tutorials/build-files-archive-with-dal).
+
+## Getting data from the DAL
+
+Smart Rollups can use data from the DAL only after it has been attested by the bakers.
+Therefore, they cannot access DAL data in the current level, because not enough blocks have elapsed to allow bakers to attest the data.
+
+The latest level that Smart Rollups can access is the current level minus the attestation lag.
+They can access the data in that level with the Smart Rollup kernel SDK function `reveal_dal_page`, which accepts the level, slot, and page to receive, as in this example:
+
+```rust
+let param = host.reveal_dal_parameters();
+
+let sol = host.read_input()?.unwrap();
+
+let target_level = sol.level as usize - param.attestation_lag as usize;
+
+let mut buffer = vec![0u8; param.page_size as usize];
+
+let bytes_read = host.reveal_dal_page(target_level as i32, slot_index, 0, &mut buffer)?;
+
+if 0 < bytes_read {
+    debug_msg!(
+        host,
+        "Attested slot at index {} for level {}: {:?}\n",
+        slot_index,
+        target_level,
+        &buffer.as_slice()[0..10]
+    );
+} else {
+    debug_msg!(
+        host,
+        "No attested slot at index {} for level {}\n",
+        slot_index,
+        target_level
+    );
+}
+```
 
 ## Reference
 
