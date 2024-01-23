@@ -2,16 +2,31 @@
 title: Testing locally
 authors: 'Yuxin Li'
 last_update:
-  date: 16 January 2024
+  date: 23 January 2024
 ---
 
 Tezos smart contracts are immutable after deployment, so you must rigorously test them before deploying them to ensure functionality, prevent errors, and avoid potential financial losses. Importantly, contract testing doesn't require any tokens or a wallet account to execute.
 
 ## Tools for local testing
 
-- The Michelson interpreter is an OCaml function that can be used by tools to simulate a call to any entry point of any smart contract, given an initial value of the storage and parameters. Some programming languages like LIGO or Smartpy use this as part of their testing frameworks.
+- The Michelson interpreter is an OCaml function that can be used by tools to simulate a call to any entry point of any smart contract, given an initial value of the storage and parameters. Some programming languages like LIGO or SmartPy use this as part of their testing frameworks.
 
 - The mockup mode of `octez-client` can be used to test contract calls and other features such as some RPC calls, all without running an actual node, saving the time of going through the consensus mechanism and waiting to get blocks created and validated. Tools like Completium, built by the team behind the Archetype language, use this for their testing framework. Find out more in the [documentation of the mockup mode](https://tezos.gitlab.io/user/mockup.html).
+
+   For example, when you compile the contract in the tutorial [Create a smart contract](../tutorials/smart-contract) to Michelson, its first line defines the parameter type that the contract accepts:
+
+   ```
+   parameter (or (unit %reset) (or (int %decrement) (int %increment)))
+   ```
+
+   You can call this contract in mockup mode by passing the compiled contract file, the storage value as a Michelson expression, and the parameter value to pass as a Michelson expression.
+   For example, this command sets the storage to 4 and passes 5 to the `Increment` entrypoint:
+
+   ```bash
+   octez-client --mode mockup run script Counter.tz on storage 4 and input "(Right (Right 5))"
+   ```
+
+   The response in the console shows the new value of the storage and any operations emitted.
 
 ## Testing in high-level languages
 
