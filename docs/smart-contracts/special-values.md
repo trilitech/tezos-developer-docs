@@ -27,7 +27,7 @@ For example, assume that user A called contract B that in turn called contract C
   When C runs, `source` is the address of A, while `caller` is the address of B.
 
 :::warning Access permissions
-It is best practice to implement permissioning based on `caller` instead of `source` because any implicit account can call any entrypoint on Tezos.
+It is best practice to implement permissioning based on `caller` instead of `source` because any user account can call any entrypoint on Tezos.
 :::
 
 - `self`: The address of the contract itself.

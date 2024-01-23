@@ -1,6 +1,6 @@
 ---
 title: Create your minimum dapp on Tezos
-authors: "Benjamin Fuentes"
+authors: 'Benjamin Fuentes (Marigold)'
 last_update:
   date: 27 November 2023
 ---

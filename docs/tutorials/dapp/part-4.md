@@ -1,6 +1,6 @@
 ---
-title: "Part 4: Smart contract upgrades"
-authors: "Benjamin Fuentes"
+title: 'Part 4: Smart contract upgrades'
+authors: 'Benjamin Fuentes (Marigold)'
 last_update:
   date: 29 November 2023
 ---
@@ -1118,28 +1118,28 @@ const default_storage = {
 1. Edit `./app/src/App.tsx` and change the contract address, display, etc ...
 
    ```typescript
-   import { NetworkType } from "@airgap/beacon-types";
-   import { BeaconWallet } from "@taquito/beacon-wallet";
-   import { PackDataResponse } from "@taquito/rpc";
-   import { MichelCodecPacker, TezosToolkit } from "@taquito/taquito";
-   import * as api from "@tzkt/sdk-api";
-   import { useEffect, useState } from "react";
-   import "./App.css";
-   import ConnectButton from "./ConnectWallet";
-   import DisconnectButton from "./DisconnectWallet";
+   import { NetworkType } from '@airgap/beacon-types';
+   import { BeaconWallet } from '@taquito/beacon-wallet';
+   import { PackDataResponse } from '@taquito/rpc';
+   import { MichelCodecPacker, TezosToolkit } from '@taquito/taquito';
+   import * as api from '@tzkt/sdk-api';
+   import { useEffect, useState } from 'react';
+   import './App.css';
+   import ConnectButton from './ConnectWallet';
+   import DisconnectButton from './DisconnectWallet';
    import {
      Storage as ContractStorage,
      PokeGameWalletType,
-   } from "./pokeGame.types";
-   import { Storage as ProxyStorage, ProxyWalletType } from "./proxy.types";
-   import { address, bytes } from "./type-aliases";
+   } from './pokeGame.types';
+   import { Storage as ProxyStorage, ProxyWalletType } from './proxy.types';
+   import { address, bytes } from './type-aliases';
 
    function App() {
-     api.defaults.baseUrl = "https://api.ghostnet.tzkt.io";
+     api.defaults.baseUrl = 'https://api.ghostnet.tzkt.io';
 
-     const Tezos = new TezosToolkit("https://ghostnet.tezos.marigold.dev");
+     const Tezos = new TezosToolkit('https://ghostnet.tezos.marigold.dev');
      const wallet = new BeaconWallet({
-       name: "Training",
+       name: 'Training',
        preferredNetwork: NetworkType.GHOSTNET,
      });
      Tezos.setWalletProvider(wallet);
@@ -1156,7 +1156,7 @@ const default_storage = {
              import.meta.env.VITE_CONTRACT_ADDRESS,
              {
                includeStorage: true,
-               sort: { desc: "id" },
+               sort: { desc: 'id' },
              }
            );
          setContracts(tzktcontracts);
@@ -1171,30 +1171,30 @@ const default_storage = {
            const s: ProxyStorage = await c.storage();
            try {
              let firstEp: { addr: address; method: string } | undefined =
-               await s.entrypoints.get("Poke");
+               await s.entrypoints.get('Poke');
 
              if (firstEp) {
                let underlyingContract: PokeGameWalletType =
-                 await Tezos.wallet.at("" + firstEp!.addr);
+                 await Tezos.wallet.at('' + firstEp!.addr);
                map.set(c.address, {
                  ...s,
                  ...(await underlyingContract.storage()),
                });
              } else {
                console.log(
-                 "proxy is not well configured ... for contract " + c.address
+                 'proxy is not well configured ... for contract ' + c.address
                );
                continue;
              }
            } catch (error) {
              console.log(error);
              console.log(
-               "final contract is not well configured ... for contract " +
+               'final contract is not well configured ... for contract ' +
                  c.address
              );
            }
          }
-         console.log("map", map);
+         console.log('map', map);
          setContractStorages(map);
        })();
      };
@@ -1210,34 +1210,34 @@ const default_storage = {
        })();
      }, []);
 
-     const [userAddress, setUserAddress] = useState<string>("");
+     const [userAddress, setUserAddress] = useState<string>('');
      const [userBalance, setUserBalance] = useState<number>(0);
-     const [contractToPoke, setContractToPoke] = useState<string>("");
+     const [contractToPoke, setContractToPoke] = useState<string>('');
      //poke
      const poke = async (
        e: React.MouseEvent<HTMLButtonElement>,
        contract: api.Contract
      ) => {
        e.preventDefault();
-       let c: ProxyWalletType = await Tezos.wallet.at("" + contract.address);
+       let c: ProxyWalletType = await Tezos.wallet.at('' + contract.address);
        try {
-         console.log("contractToPoke", contractToPoke);
+         console.log('contractToPoke', contractToPoke);
 
          const p = new MichelCodecPacker();
          let contractToPokeBytes: PackDataResponse = await p.packData({
            data: { string: contractToPoke },
-           type: { prim: "address" },
+           type: { prim: 'address' },
          });
-         console.log("packed", contractToPokeBytes.packed);
+         console.log('packed', contractToPokeBytes.packed);
 
          const op = await c.methods
            .callContract(
-             "PokeAndGetFeedback",
+             'PokeAndGetFeedback',
              contractToPokeBytes.packed as bytes
            )
            .send();
          await op.confirmation();
-         alert("Tx done");
+         alert('Tx done');
        } catch (error: any) {
          console.log(error);
          console.table(`Error: ${JSON.stringify(error, null, 2)}`);
@@ -1250,22 +1250,22 @@ const default_storage = {
        contract: api.Contract
      ) => {
        e.preventDefault();
-       let c: ProxyWalletType = await Tezos.wallet.at("" + contract.address);
+       let c: ProxyWalletType = await Tezos.wallet.at('' + contract.address);
        try {
-         console.log("contractToPoke", contractToPoke);
+         console.log('contractToPoke', contractToPoke);
          const p = new MichelCodecPacker();
          let initBytes: PackDataResponse = await p.packData({
            data: {
-             prim: "Pair",
-             args: [{ string: userAddress }, { int: "1" }],
+             prim: 'Pair',
+             args: [{ string: userAddress }, { int: '1' }],
            },
-           type: { prim: "Pair", args: [{ prim: "address" }, { prim: "nat" }] },
+           type: { prim: 'Pair', args: [{ prim: 'address' }, { prim: 'nat' }] },
          });
          const op = await c.methods
-           .callContract("Init", initBytes.packed as bytes)
+           .callContract('Init', initBytes.packed as bytes)
            .send();
          await op.confirmation();
-         alert("Tx done");
+         alert('Tx done');
        } catch (error: any) {
          console.log(error);
          console.table(`Error: ${JSON.stringify(error, null, 2)}`);
@@ -1306,10 +1306,10 @@ const default_storage = {
                <tbody>
                  {contracts.map((contract) => (
                    <tr>
-                     <td style={{ borderStyle: "dotted" }}>
+                     <td style={{ borderStyle: 'dotted' }}>
                        {contract.address}
                      </td>
-                     <td style={{ borderStyle: "dotted" }}>
+                     <td style={{ borderStyle: 'dotted' }}>
                        {contractStorages.get(contract.address!) !== undefined &&
                        contractStorages.get(contract.address!)!.pokeTraces
                          ? Array.from(
@@ -1319,19 +1319,19 @@ const default_storage = {
                            ).map(
                              (e) =>
                                e[1].receiver +
-                               " " +
+                               ' ' +
                                e[1].feedback +
-                               " " +
+                               ' ' +
                                e[0] +
-                               ","
+                               ','
                            )
-                         : ""}
+                         : ''}
                      </td>
-                     <td style={{ borderStyle: "dotted" }}>
+                     <td style={{ borderStyle: 'dotted' }}>
                        <input
                          type="text"
                          onChange={(e) => {
-                           console.log("e", e.currentTarget.value);
+                           console.log('e', e.currentTarget.value);
                            setContractToPoke(e.currentTarget.value);
                          }}
                          placeholder="enter contract address here"

@@ -21,7 +21,7 @@ One exception is tickets, which are directly stored and managed by smart contrac
 To learn about tokens, see these tutorials:
 
 - [Create an NFT](../tutorials/create-an-nft)
-- [Build your first app on Tezos](../tutorials/build-your-first-app)
+- [Build a simple web application](../tutorials/build-your-first-app)
 
 ## Fungible and non-fungible tokens
 
