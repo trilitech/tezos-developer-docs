@@ -16,7 +16,7 @@ You will learn:
 
 ## Prerequisites
 
-This tutorial uses [Javascript](https://www.javascript.com/), so it will be easier if you are familiar with JavaScript.
+This tutorial uses [JavaScript](https://www.javascript.com/), so it will be easier if you are familiar with JavaScript.
 
 - You do not need any familiarity with any of the libraries in the tutorial, including [Taquito](https://tezostaquito.io/), a JavaScript library that helps developers access Tezos.
 

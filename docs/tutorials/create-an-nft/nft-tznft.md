@@ -505,7 +505,7 @@ The command is the same as for the sandbox:
 
    The block explorer shows information about the contract that manages the NFTs, including a list of all NFTs in the contract, who owns them, and a list of recent transactions.
 
-Now the NFTs are on Tezos ghostnet and you can transfer and manipulate them just like you did in the sandbox.
+Now the NFTs are on Tezos Ghostnet and you can transfer and manipulate them just like you did in the sandbox.
 You may need to create and fund more account aliases to transfer them, but the commands are the same.
 For example, to transfer NFTs to an account with the alias `other-account`, run this command:
 
