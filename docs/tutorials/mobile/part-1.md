@@ -7,7 +7,7 @@ last_update:
 
 On this first section, you will:
 
-- Create the game smart contract importing an existing Ligo library
+- Create the game smart contract importing an existing LIGO library
 - Deploy your smart contract to the Ghostnet
 - Get the Shifumi Git repository folders to copy the game UI and CSS for the second party
 
@@ -22,7 +22,7 @@ On this first section, you will:
    taq install @taqueria/plugin-ligo
    ```
 
-1. Download the Ligo Shifumi template, and copy the files to Taqueria **contracts** folder:
+1. Download the LIGO Shifumi template, and copy the files to Taqueria **contracts** folder:
 
    ```bash
    TAQ_LIGO_IMAGE=ligolang/ligo:1.2.0 taq ligo --command "init contract --template shifumi-jsligo shifumiTemplate"

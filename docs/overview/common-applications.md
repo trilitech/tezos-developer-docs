@@ -22,7 +22,7 @@ Tezos is being used by the French Armies and Gendarmerie's Information Center to
 
 In recent years, the concept of Central Bank Digital Currencies (CBDCs) has gained traction, with several countries around the world exploring their own CBDC projects. Société Générale carried out a series of successful tests [using Tezos](https://decrypt.co/112127/societe-generales-crypto-division-lands-regulatory-approval-france) to explore the potential of CBDCs. In September 2020, the bank announced that it had completed a pilot program using a custom-built version of the Tezos blockchain to simulate the issuance and circulation of CBDCs. The pilot involved testing the technology's ability to handle transactions, make payments, and settle transactions in a digital environment.
 
-The Califonia DMV is also using Tezos for its project to [put car titles on the blockchain](https://fortune.com/crypto/2023/01/26/california-announces-dmv-run-blockchain-through-partnership-with-tezos/).
+The California DMV is also using Tezos for its project to [put car titles on the blockchain](https://fortune.com/crypto/2023/01/26/california-announces-dmv-run-blockchain-through-partnership-with-tezos/).
 
 [Sword Group](https://www.sword-group.com/2020/09/28/sword-launches-tezos-digisign/) an international technology company, launched DigiSign, an open-source tool built on Tezos that enables users to digitally sign, certify, and verify the authenticity of digital documents.
 

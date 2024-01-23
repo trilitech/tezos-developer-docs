@@ -10,7 +10,7 @@ It uses the completium-cli command-line tool, which lets you work with Archetype
 
 - If you are more familiar with Python, try [Deploy a smart contract with SmartPy](./smartpy).
 - If you are more familiar with OCaml, try [Deploy a smart contract with CameLIGO](./cameligo).
-- If you are more familiar with JavaScript, try [Deploy a smart contract with jsLIGO](./jsligo).
+- If you are more familiar with JavaScript, try [Deploy a smart contract with JsLIGO](./jsligo).
 
 In this tutorial, you will learn how to:
 
