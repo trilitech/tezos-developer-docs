@@ -137,8 +137,8 @@ For more information about serialization, see [Serialization](../serialization).
 
 Boolean types on Tezos (`bool`) work the same way as in most programming languages.
 
-- A boolean value can be `True` or `False`
-- Comparison operators produce boolean values
+- A Boolean value can be `True` or `False`
+- Comparison operators produce Boolean values
 - Boolean values can be used in conditional statements or `while` loops
 - The usual logic operators are supported: `AND`, `OR`, `XOR`, `NOT`
 

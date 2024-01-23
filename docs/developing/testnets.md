@@ -17,7 +17,7 @@ Waiting for the next block every time you inject a new transaction takes a lot o
 
 To make testing a lot faster, options are available, depending on the language and tools you are using, that don't use a network or even a single node at all, and skip all the consensus mechanism steps.
 
-- The **Michelson interpreter** is an OCaml function that can be used by tools to simulate a call to any entry point of any smart contract, given an initial value of the storage and parameters. Some programming languages like **LIGO** or **Smartpy** use this as part of their testing frameworks.
+- The **Michelson interpreter** is an OCaml function that can be used by tools to simulate a call to any entry point of any smart contract, given an initial value of the storage and parameters. Some programming languages like **LIGO** or **SmartPy** use this as part of their testing frameworks.
 
 - The **mockup mode** of `octez-client` can be used to test contract calls and other features such as some RPC calls, all without running an actual node, saving the time of going through the consensus mechanism and waiting to get blocks created and validated. Tools like **Completium**, built by the team behind the **Archetype** language, use this for their testing framework. Find out more in the [documentation of the mockup mode](https://tezos.gitlab.io/user/mockup.html).
 

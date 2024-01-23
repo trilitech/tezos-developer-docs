@@ -15,7 +15,7 @@ These properties are read-only:
 - `Name`: The name of the project, which is shown in wallet applications when users connect to the project
 - `Url`: The home page of the project
 - `Icon`: The URL to a favicon for the project
-- `Description`: A description of hte project
+- `Description`: A description of the project
 
 ## Methods
 

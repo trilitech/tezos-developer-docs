@@ -22,7 +22,7 @@ sequenceDiagram
 You will learn :
 
 - How to create a Tezos project with Taqueria.
-- How to create a smart contract in jsLIGO.
+- How to create a smart contract in JsLIGO.
 - How to deploy the smart contract a real testnet named Ghostnet.
 - How to create a frontend dApp using Taquito library and interact with a Tezos browser wallet.
 - How to use an indexer like TZKT.
