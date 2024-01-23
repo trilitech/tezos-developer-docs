@@ -22,7 +22,7 @@ img-src 'self' https://*.googletagmanager.com https://*.google-analytics.com dat
 media-src 'self';
 form-action 'self';
 connect-src 'self' https://*.algolia.net https://*.algolianet.com https://*.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com;
-frame-src https://tezosbot.vercel.app https://calendly.com/ lucid.app;`;
+frame-src https://tezosbot.vercel.app lucid.app;`;
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -121,7 +121,7 @@ const config = {
       },
       prism: {
         theme: require('prism-react-renderer/themes/github'),
-        additionalLanguages: ['csharp'],
+        additionalLanguages: ['csharp', 'toml'],
       },
       // https://github.com/flexanalytics/plugin-image-zoom
       // Enable click to zoom in to large images

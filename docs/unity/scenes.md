@@ -56,7 +56,7 @@ This scene includes buttons that link to the other scenes.
 
 ## Wallet Connection scene
 
-This scene shows how to to use the TezosAuthenticator prefab to connect to a user's wallet and get information about their account.
+This scene shows how to use the TezosAuthenticator prefab to connect to a user's wallet and get information about their account.
 
 The scene uses the platform type to determine how to connect to a user's wallet.
 In the TezosAuthenticator `SetPlatformFlags` function, it checks what platform it is running on:

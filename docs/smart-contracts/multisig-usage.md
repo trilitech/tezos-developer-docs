@@ -58,7 +58,7 @@ Note, this section uses the
 
 The Generic Multisig allows us to set administrators of the contract
 (`signerKeys`) and the number of those administrators required to sign
-(`threshold`). As of writing, the command line tool only allows `tz1` implicit
+(`threshold`). As of writing, the command line tool only allows `tz1` user
 accounts to be administrators, though the contract allows `KT1` originated
 accounts as well.
 

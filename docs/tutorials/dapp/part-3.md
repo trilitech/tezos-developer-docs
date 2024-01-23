@@ -49,7 +49,7 @@ Tickets features:
 
 - Not comparable: it makes no sense to compare tickets because tickets from same type are all equals and can be merged into a single ticket. When ticket types are different then it is no more comparable.
 - Transferable: you can send ticket into a Transaction parameter.
-- Storable: only on smart contract storage for the moment (Note: a new protocol release will enable it for implicit account soon).
+- Storable: only on smart contract storage for the moment (Note: a new protocol release will enable it for user account soon).
 - Non dupable: you cannot copy or duplicate a ticket, it is a unique singleton object living in specific blockchain instance.
 - Splittable: if amount is > 2 then you can split ticket object into 2 objects.
 - Mergeable: you can merge ticket from same ticketer and same type.

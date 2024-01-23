@@ -1,0 +1,141 @@
+---
+title: "Part 3: Publishing on the DAL"
+authors: 'Tezos Core Developers'
+last_update:
+  date: 17 January 2024
+---
+
+Now that you can get information about the DAL, the next step is to publish data to it and verify that the kernel can access it.
+
+:::note Planning ahead
+Before trying to run the code yourself, look at [Explorus](https://explorus.io/dal), select Weeklynet, and choose a slot that is not currently being used.
+:::
+
+The examples in this tutorial use slot 10.
+
+## Switching slots
+
+When you have selected a slot that does not appear to be in use, follow these steps to restart the Smart Rollup and DAL node:
+
+1. Stop the DAL node and restart it with a new `--producer-profiles` argument.
+For example, this command uses slot 10:
+
+   ```bash
+   octez-dal-node run --endpoint ${ENDPOINT} \
+       --producer-profiles=10 --data-dir _dal_node
+   ```
+
+1. Update the kernel to monitor that slot by updating this line:
+
+   ```rust
+   match run(host, &param, 0) {
+   ```
+
+   For example, to monitor slot 10, change the 0 to a 10, as in this code:
+
+   ```rust
+   match run(host, &param, 10) {
+   ```
+
+1. Run the commands to build and deploy the Smart Rollup and start the node.
+You can use the script in [Part 1: Getting the DAL parameters](./get-dal-params) to simplify the process.
+
+## Publishing messages
+
+The DAL node provides an RPC endpoint for clients to send data to be added to a slot: `POST /slot`, whose body is the contents of the slot.
+
+1. Run this command to publish a message to the DAL:
+
+   ```bash
+   curl localhost:10732/slot --data '"Hello, world!"' -H 'Content-Type: application/json'
+   ```
+
+   This command assumes that you have not changed the default RPC server address.
+
+   The command returns the certificate from the DAL node, which looks like this example:
+
+   ```json
+   {
+     "commitment": "sh1u3tr3YKPDYUp2wWKCfmV5KZb82FREhv8GtDeR3EJccsBerWGwJYKufsDNH8rk4XqGrXdooZ",
+     "commitment_proof":"8229c63b8e858d9a96321c80a204756020dd13243621c11bec61f182a23714cf6e0985675fff45f1164657ad0c7b9418"
+   }
+   ```
+
+   Note that the value of the message is in double quotes because it must be a valid JSON string, as hinted by the `Content-Type` header.
+
+1. Using the values of the commitment and proof from the previous command, post the certificate to layer 1 with this command:
+
+   ```bash
+   commitment="sh1u3tr3YKPDYUp2wWKCfmV5KZb82FREhv8GtDeR3EJccsBerWGwJYKufsDNH8rk4XqGrXdooZ"
+   proof="8229c63b8e858d9a96321c80a204756020dd13243621c11bec61f182a23714cf6e0985675fff45f1164657ad0c7b9418"
+   octez-client --endpoint ${ENDPOINT} \
+       publish dal commitment "${commitment}" from ${MY_ACCOUNT} for slot 10 \
+       with proof "${proof}"
+   ```
+
+   After 4 blocks, you should see a message in the kernel log that looks like this:
+
+   ```
+   RollupDalParameters { number_of_slots: 32, attestation_lag: 4, slot_size: 65536, page_size: 4096 }
+   Attested slot at index 10 for level 57293: [72, 101, 108, 108, 111, 44, 32, 119, 111, 114]
+   See you in the next level
+   ```
+
+   You can verify your message by converting the bytes in the message back to the first 10 characters of the string "Hello, World!"
+
+   If you see a message that says "A slot header for this slot was already proposed," another transaction tried to write to that slot in the same block, so you must try again.
+
+   If you don't see information about the attested slot, check the page at https://explorus.io/dal.
+   If that page shows red (unattested) slots, it's possible that the attesters for the network are offline.
+
+## Publishing files
+
+You can also send raw bytes to the DAL node with the header `Content-Type: application/octet-stream`.
+In this case, you must prefix the data with its size due to limitations of the DAL.
+
+1. Install the `jq` and `xxd` programs.
+
+1. Create a file named `upload_file.sh` and add this code:
+
+   ```bash
+   #!/usr/bin/bash
+
+   path="${1}"
+   alias="${2}"
+   index="${3}"
+
+   target="$(mktemp)"
+   echo "storing temporary file at ${target}"
+   file_size="$(cat "${path}" | wc -c)"
+   slot_size_bin="$(printf "%08x" "${file_size}")"
+   slot_contents="$(cat ${path} | xxd -p)"
+
+   echo -n "${slot_size_bin}${slot_contents}" | xxd -p -r > "${target}"
+
+   certificate="$(curl localhost:10732/slot --data-binary "@${target}" -H 'Content-Type: application/octet-stream')"
+
+   echo "${certificate}"
+
+   commitment="$(echo -n ${certificate} | jq '.commitment' -r)"
+   proof="$(echo -n ${certificate} | jq '.commitment_proof' -r)"
+
+   octez-client --endpoint ${ENDPOINT} \
+       publish dal commitment "${commitment}" from "${alias}" \
+       for slot "${index}" with proof "${proof}"
+
+   rm "${target}"
+   ```
+
+   The script accepts three arguments: the file to send, the account alias to use and the slot index to use.
+   This script also assumes that the `PATH` and `ENDPOINT` environment variables are correctly set.
+   For example:
+
+   ```bash
+   ./upload_file.sh myFile.txt $MY_ACCOUNT 10
+   ```
+
+   Again, by inspecting the kernel logs, you should be able to see that the file that you wanted to publish is indeed the one fetched by the Smart Rollup.
+
+Now you can publish data to the DAL and use it in a Smart Rollup.
+In the next section, you write to and retrieve the entire slot.
+When you are ready, go to [Part 4: Using the entire slot](./using-full-slot).

@@ -250,125 +250,153 @@ const sidebars = {
   ],
   tutorialsSidebar: [
     {
+      type: 'doc',
+      label: 'Tutorials home',
+      id: 'tutorials',
+    },
+    {
+      type: 'html',
+      value: '<div>Beginner</div>',
+      className: 'menu__divider',
+    },
+    {
       type: 'category',
-      label: 'Tutorials',
+      label: 'Deploy a smart contract',
       link: {
         type: 'doc',
-        id: 'tutorials',
+        id: 'tutorials/smart-contract',
       },
       items: [
-        {
-          type: 'category',
-          label: 'Deploy a smart contract',
-          link: {
-            type: 'doc',
-            id: 'tutorials/smart-contract',
-          },
-          items: [
-            'tutorials/smart-contract/jsligo',
-            'tutorials/smart-contract/cameligo',
-            'tutorials/smart-contract/smartpy',
-            'tutorials/smart-contract/archetype',
-          ],
-        },
-        {
-          type: 'category',
-          label: 'Create an NFT',
-          link: {
-            type: 'doc',
-            id: 'tutorials/create-an-nft',
-          },
-          items: [
-            'tutorials/create-an-nft/nft-tznft',
-            'tutorials/create-an-nft/nft-taquito',
-            {
-              type: 'category',
-              label: 'Mint NFTs from a web app',
-              link: {
-                type: 'doc',
-                id: 'tutorials/create-an-nft/nft-web-app',
-              },
-              items: [
-                'tutorials/create-an-nft/nft-web-app/setting-up-app',
-                'tutorials/create-an-nft/nft-web-app/defining-functions',
-                'tutorials/create-an-nft/nft-web-app/lets-play',
-              ],
-            },
-          ],
-        },
-        {
-          type: 'category',
-          label: 'Build your first app',
-          link: {
-            type: 'doc',
-            id: 'tutorials/build-your-first-app',
-          },
-          items: [
-            'tutorials/build-your-first-app/setting-up-app',
-            'tutorials/build-your-first-app/wallets-tokens',
-            'tutorials/build-your-first-app/sending-transactions',
-            'tutorials/build-your-first-app/getting-information',
-          ],
-        },
-
-        {
-          type: 'category',
-          label: 'Start with a minimum dApp and add new features',
-          link: {
-            type: 'doc',
-            id: 'tutorials/dapp',
-          },
-          items: [
-            'tutorials/dapp/part-1',
-            'tutorials/dapp/part-2',
-            'tutorials/dapp/part-3',
-            'tutorials/dapp/part-4',
-          ],
-        },
-
-        {
-          type: 'category',
-          label: 'Deploy a smart rollup',
-          link: {
-            type: 'doc',
-            id: 'tutorials/smart-rollup',
-          },
-          items: [
-            'tutorials/smart-rollup/set-up',
-            'tutorials/smart-rollup/debug',
-            'tutorials/smart-rollup/optimize',
-            'tutorials/smart-rollup/deploy',
-            'tutorials/smart-rollup/run',
-          ],
-        },
-        {
-          type: 'category',
-          label: 'Build an NFT marketplace',
-          link: {
-            type: 'doc',
-            id: 'tutorials/build-an-nft-marketplace',
-          },
-          items: [
-            'tutorials/build-an-nft-marketplace/part-1',
-            'tutorials/build-an-nft-marketplace/part-2',
-            'tutorials/build-an-nft-marketplace/part-3',
-            'tutorials/build-an-nft-marketplace/part-4',
-          ],
-        },
-        {
-          type: 'category',
-          label: 'Create a mobile game',
-          link: {
-            type: 'doc',
-            id: 'tutorials/mobile',
-          },
-          items: [
-            'tutorials/mobile/part-1',
-            'tutorials/mobile/part-2',
-            'tutorials/mobile/part-3',
-            'tutorials/mobile/part-4',
-          ],
-        },
+        'tutorials/smart-contract/jsligo',
+        'tutorials/smart-contract/cameligo',
+        'tutorials/smart-contract/smartpy',
+        'tutorials/smart-contract/archetype',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Mint NFTs from a web app',
+      link: {
+        type: 'doc',
+        id: 'tutorials/create-an-nft/nft-web-app',
+      },
+      items: [
+        'tutorials/create-an-nft/nft-web-app/setting-up-app',
+        'tutorials/create-an-nft/nft-web-app/defining-functions',
+        'tutorials/create-an-nft/nft-web-app/lets-play',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Start with a minimum dApp and add new features',
+      link: {
+        type: 'doc',
+        id: 'tutorials/dapp',
+      },
+      items: [
+        'tutorials/dapp/part-1',
+        'tutorials/dapp/part-2',
+        'tutorials/dapp/part-3',
+        'tutorials/dapp/part-4',
+      ],
+    },
+    {
+      type: 'html',
+      value: '<div>Intermediate</div>',
+      className: 'menu__divider',
+    },
+    {
+      type: 'category',
+      label: 'Build a simple web application',
+      link: {
+        type: 'doc',
+        id: 'tutorials/build-your-first-app',
+      },
+      items: [
+        'tutorials/build-your-first-app/setting-up-app',
+        'tutorials/build-your-first-app/wallets-tokens',
+        'tutorials/build-your-first-app/sending-transactions',
+        'tutorials/build-your-first-app/getting-information',
+      ],
+    },
+    'tutorials/create-an-nft/nft-taquito',
+    'tutorials/create-an-nft/nft-tznft',
+    {
+      type: 'html',
+      value: '<div>Advanced</div>',
+      className: 'menu__divider',
+    },
+    {
+      type: 'category',
+      label: 'Deploy a Smart Rollup',
+      link: {
+        type: 'doc',
+        id: 'tutorials/smart-rollup',
+      },
+      items: [
+        'tutorials/smart-rollup/set-up',
+        'tutorials/smart-rollup/debug',
+        'tutorials/smart-rollup/optimize',
+        'tutorials/smart-rollup/deploy',
+        'tutorials/smart-rollup/run',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Build an NFT marketplace',
+      link: {
+        type: 'doc',
+        id: 'tutorials/build-an-nft-marketplace',
+      },
+      items: [
+        'tutorials/build-an-nft-marketplace/part-1',
+        'tutorials/build-an-nft-marketplace/part-2',
+        'tutorials/build-an-nft-marketplace/part-3',
+        'tutorials/build-an-nft-marketplace/part-4',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Create a mobile game',
+      link: {
+        type: 'doc',
+        id: 'tutorials/mobile',
+      },
+      items: [
+        'tutorials/mobile/part-1',
+        'tutorials/mobile/part-2',
+        'tutorials/mobile/part-3',
+        'tutorials/mobile/part-4',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Implement a file archive with the DAL',
+      link: {
+        type: 'doc',
+        id: 'tutorials/build-files-archive-with-dal',
+      },
+      items: [
+        'tutorials/build-files-archive-with-dal/get-dal-params',
+        'tutorials/build-files-archive-with-dal/get-slot-info',
+        'tutorials/build-files-archive-with-dal/publishing-on-the-dal',
+        'tutorials/build-files-archive-with-dal/using-full-slot',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Join the DAL as a Weeklynet baker',
+      link: {
+        type: 'doc',
+        id: 'tutorials/join-dal-baker',
+      },
+      items: [
+        'tutorials/join-dal-baker/get-octez',
+        'tutorials/join-dal-baker/run-node',
+        'tutorials/join-dal-baker/prepare-account',
+        'tutorials/join-dal-baker/run-dal-node',
+        'tutorials/join-dal-baker/run-baker',
+        'tutorials/join-dal-baker/conclusion',
       ],
     },
   ],

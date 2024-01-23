@@ -23,7 +23,27 @@ The event can also include these optional fields:
 Each high-level language has its own way of creating events.
 The compiled Michelson code uses the `EMIT` command to emit the event.
 
-For example, this SmartPy contract stores a number and emits events when that amount changes:
+For example, this contract stores a number and emits events when that amount changes:
+
+JsLIGO
+
+```ligolang
+type storage = int;
+
+@entry
+const add = (addAmount: int, s: storage): [list<operation>, storage] =>
+    [list([Tezos.emit("%add",{ source: Tezos.get_source(), addAmount: addAmount })]),
+     s + addAmount
+    ];
+
+@entry
+const reset = (_: unit, s: storage): [list<operation>, storage] =>
+    [list([Tezos.emit("%reset",{ source: Tezos.get_source(), previousValue: s })]),
+     0
+    ];
+```
+
+SmartPy
 
 ```python
 import smartpy as sp
@@ -82,7 +102,7 @@ Tezos.setStreamProvider(
   Tezos.getFactory(PollingSubscribeProvider)({
     shouldObservableSubscriptionRetry: true,
     pollingIntervalMilliseconds: 1500,
-  }),
+  })
 );
 
 try {
@@ -91,7 +111,7 @@ try {
     address: contractAddress,
   });
 
-  sub.on("data", console.log);
+  sub.on('data', console.log);
 } catch (e) {
   console.log(e);
 }
@@ -103,50 +123,47 @@ The event data is in Michelson format, so an event from the `reset` entrypoint o
 
 ```json
 {
-    "opHash": "onw8EwWVnZbx2yBHhL72ECRdCPBbw7z1d5hVCJxp7vzihVELM2m",
-    "blockHash": "BM1avumf2rXSFYKf4JS7YJePAL3gutRJwmazvqcSAoaqVBPAmTf",
-    "level": 4908983,
-    "kind": "event",
-    "source": "KT1AJ6EjaJHmH6WiExCGc3PgHo3JB5hBMhEx",
-    "nonce": 0,
-    "type": {
-        "prim": "pair",
-        "args": [
-            {
-                "prim": "int",
-                "annots": [
-                    "%previousValue"
-                ]
-            },
-            {
-                "prim": "address",
-                "annots": [
-                    "%source"
-                ]
-            }
-        ]
-    },
-    "tag": "reset",
-    "payload": {
-        "prim": "Pair",
-        "args": [
-            {
-                "int": "17"
-            },
-            {
-                "bytes": "000032041dca76bac940b478aae673e362bd15847ed8"
-            }
-        ]
-    },
-    "result": {
-        "status": "applied",
-        "consumed_milligas": "100000"
-    }
+  "opHash": "onw8EwWVnZbx2yBHhL72ECRdCPBbw7z1d5hVCJxp7vzihVELM2m",
+  "blockHash": "BM1avumf2rXSFYKf4JS7YJePAL3gutRJwmazvqcSAoaqVBPAmTf",
+  "level": 4908983,
+  "kind": "event",
+  "source": "KT1AJ6EjaJHmH6WiExCGc3PgHo3JB5hBMhEx",
+  "nonce": 0,
+  "type": {
+    "prim": "pair",
+    "args": [
+      {
+        "prim": "int",
+        "annots": ["%previousValue"]
+      },
+      {
+        "prim": "address",
+        "annots": ["%source"]
+      }
+    ]
+  },
+  "tag": "reset",
+  "payload": {
+    "prim": "Pair",
+    "args": [
+      {
+        "int": "17"
+      },
+      {
+        "bytes": "000032041dca76bac940b478aae673e362bd15847ed8"
+      }
+    ]
+  },
+  "result": {
+    "status": "applied",
+    "consumed_milligas": "100000"
+  }
 }
 ```
 
 Note that the address field is returned as a byte value.
 To convert the bytes to an address, use the `encodePubKey` function in `@taquito/utils`.
+
 <!-- I reported this to the Taquito people and they are asking the core team if the RPC node could return the address as an address instead of as bytes. -->
 
 You can see the complete content of the event operation by looking up the operation hash in a block explorer.

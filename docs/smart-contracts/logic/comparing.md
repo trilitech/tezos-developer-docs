@@ -17,7 +17,7 @@ How values are compared depends on the type of the values:
 - Strings, `bytes`, `key_hash`, `key`, `signature` and `chain_id` values are compared lexicographically.
 - Boolean values are compared so that false is strictly less than true.
 - Address are compared as follows:
-  - Addresses of implicit accounts are strictly less than addresses of originated accounts.
+  - Addresses of user accounts are strictly less than addresses of smart contracts.
   - Addresses of the same type are compared lexicographically.
 - Pair values (and therefore records) are compared component by component, starting with the first component.
 - Options are compared as follows:
