@@ -2,7 +2,7 @@
 title: The data availability layer
 authors: "Tim McMackin"
 last_update:
-  date: 22 January 2024
+  date: 24 January 2024
 ---
 
 import LucidDiagram from '@site/src/components/LucidDiagram';
@@ -22,7 +22,7 @@ For a tutorial on how to use the DAL, see [Implement a file archive with the DAL
 The DAL relies on a network of DAL nodes that distribute data via a peer-to-peer network.
 Layer 1 bakers verify that the data is available.
 After the bakers attest that the data is available, the DAL nodes provide the data to Smart Rollups.
-Smart Rollups that need the data must store it, because it is available only temporarily on the DAL.
+Smart Rollups that need the data must use it or store it promptly, because it is available only temporarily on the DAL.
 
 The DAL works like this:
 
@@ -39,7 +39,7 @@ The DAL works like this:
 They have a certain number of blocks to do so, known as the _attestation lag_, and if enough shards are not attested by the end of this period, the certificate is considered bogus and the related data is dropped.
 1. Other DAL nodes get the data from the initial DAL node through the peer-to-peer network.
 1. The Smart Rollup node monitors the blocks and when it sees attested DAL data, it connects to a DAL node to request the data.
-1. The Smart Rollup node uses and stores the data.
+1. The Smart Rollup node uses or stores the data.
 
 The overall workflow is summarized in the following figure:
 
@@ -51,7 +51,7 @@ The data availability layer stores information about the available data in layer
 Each block has several byte-vectors called _slots_, each with a maximum size.
 DAL users can add information about the available data as _pages_ in these slots, as shown in this figure:
 
-<LucidDiagram width="640px" height="480px" src="https://lucid.app/documents/embedded/46fa8412-8443-4491-82f6-305aafaf85f2" id="Hxs62lrO0C4d" />
+<LucidDiagram width="640px" height="240px" src="https://lucid.app/documents/embedded/46fa8412-8443-4491-82f6-305aafaf85f2" id="Hxs62lrO0C4d" />
 
 The data in a slot is broken into pages to ensure that each piece of data can fit in a single Tezos operation.
 This data must fit in a single operation to allow the Smart Rollup refutation game to work, in which every execution step of the Smart Rollup must be provable to layer 1.
@@ -95,7 +95,7 @@ Sending data to the DAL is a two-step process:
    }
    ```
 
-1. Send an operation to include the commitment and proof in a block by running this Octez client command, using an RPC endpoint for `$ENDPOINT` and an account alias or address for `MY_ACCOUNT`:
+1. Send an operation to include the commitment and proof in a block by running this Octez client command, using an RPC endpoint for `$ENDPOINT` and an account alias or address for `$MY_ACCOUNT`:
 
    ```bash
    commitment="sh1u3tr3YKPDY"
