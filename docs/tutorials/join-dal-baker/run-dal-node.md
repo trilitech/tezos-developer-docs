@@ -26,6 +26,8 @@ You can see the topics that the DAL node is subscribed to by running this RPC ca
 curl http://localhost:10732/p2p/gossipsub/topics
 ```
 
+If you are using the `tezos/tezos` Docker image, you can install the `curl` program by running the command `sudo apk add curl`.
+
 In the results, each topic contains a shard and the address of the baker that is assigned to it.
 Now you can run a baker to verify these shards.
 Continue to [Step 5: Run an Octez baking daemon on Weeklynet](./run-baker).
