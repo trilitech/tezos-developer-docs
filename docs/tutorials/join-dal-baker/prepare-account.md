@@ -62,5 +62,4 @@ This command returns an array of DAL attestation rights. The 2048 shards which a
 octez-client rpc get /chains/main/blocks/head/context/dal/shards | grep "$MY_BAKER"
 ```
 
-No rights are assigned to our baker yet.
-Continue to [Step 4: Run an Octez DAL node on Weeklynet](./run-dal-node.md).
+When attestation rights are assigned to your baker, continue to [Step 4: Run an Octez DAL node on Weeklynet](./run-dal-node.md).
