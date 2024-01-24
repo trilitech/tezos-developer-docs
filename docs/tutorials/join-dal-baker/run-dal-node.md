@@ -27,3 +27,5 @@ curl http://localhost:10732/p2p/gossipsub/topics
 ```
 
 In the results, each topic contains a shard and the address of the baker that is assigned to it.
+Now you can run a baker to verify these shards.
+Continue to [Step 5: Run an Octez baking daemon on Weeklynet](./run-baker).

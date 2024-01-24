@@ -17,3 +17,4 @@ This takes a variable amount of time depending on how long it has been since the
 At worst, if the network has been running for nearly a week, it can take a few hours.
 
 Fortunately, we can continue to set up our Weeklynet baking infrastructure while the node is bootstrapping.
+Continue to [Step 3: Set up a baker account on Weeklynet](./prepare-account).

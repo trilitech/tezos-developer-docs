@@ -63,3 +63,4 @@ octez-client rpc get /chains/main/blocks/head/context/dal/shards | grep "$MY_BAK
 ```
 
 No rights are assigned to our baker yet.
+Continue to [Step 4: Run an Octez DAL node on Weeklynet](./run-dal-node.md).

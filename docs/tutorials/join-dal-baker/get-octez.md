@@ -41,3 +41,4 @@ This endpoint also changes each time the network is reset.
    ```
 
 Now you have the Octez client and node configured to work with Weeklynet.
+The next step is to start an Octez node; continue to [Step 2: Run an Octez node on Weeklynet](./run-node).

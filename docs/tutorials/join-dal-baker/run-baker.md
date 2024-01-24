@@ -29,3 +29,6 @@ Optionally, we can also launch an accuser which will monitor the behaviour of th
 ```bash
 octez-accuser-alpha run >> "$HOME/octez-accuser.log" 2>&1
 ```
+
+Now you have a complete DAL baking setup.
+For a summary, see [Conclusion](./conclusion).
