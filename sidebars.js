@@ -11,6 +11,7 @@ const sidebars = {
       },
       items: [
         'overview/tezos-different',
+        'overview/support',
         // 'overview/quickstart', // TODO
         'overview/common-applications',
         'overview/glossary',
