@@ -30,7 +30,7 @@ At this point, the balance of the `my_baker` account is still empty as can be se
 octez-client get balance for my_baker
 ```
 
-In order to get some consensus and DAL rights, we need to put some tez in the account. Fortunately, getting free testnet tez is easy thanks to the testnet faucet. To use it, we need to enter the generated address in the Weeklynet faucet linked from https://teztnets.com/weeklynet-about. We need at least 6k tez for running a baker but the more tez we have the more rights we will get and the shorter we will have to wait to produce blocks and attestations; that being said, baking with too much stake would prevent us from leaving the network without disturbing or even halting it so to avoid breaking the network for all other testers let's not be too greedy. 50k tez is enough to get enough rights to easily check if our baker behaves as expected while not much disturbing the network when our baker stops operating.
+In order to get some consensus and DAL rights, we need to put some tez in the account. Fortunately, getting free testnet tez is easy thanks to the testnet faucet. To use it, we need to enter the generated address in the Weeklynet faucet linked from https://teztnets.com/weeklynet-about. We need at least 6k tez for running a baker but the more tez we have the more rights we will get and the shorter we will have to wait to produce blocks and attestations. That being said, baking with too much stake prevents us from leaving the network without disturbing or even halting it so to avoid breaking the network for all other testers let's not be too greedy. 50k tez is enough to get enough rights to easily check if our baker behaves as expected while not disturbing the network too much when our baker stops operating.
 
 We can verify that the faucet sent the tez to the account with the  same `get balance` command:
 
@@ -61,3 +61,5 @@ This command returns an array of DAL attestation rights. The 2048 shards which a
 ```bash
 octez-client rpc get /chains/main/blocks/head/context/dal/shards | grep "$MY_BAKER"
 ```
+
+No rights are assigned to our baker yet.
