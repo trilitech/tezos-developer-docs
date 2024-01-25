@@ -49,7 +49,7 @@ This method generates a QR code that a user scans with their wallet application:
 1. The Unity application calls the [`Wallet.Connect()`](./reference/Wallet#connect) method with the `walletProvider` parameter set to `WalletProviderType.beacon` to send a connection request to a wallet application via the [TZIP-10 protocol](https://gitlab.com/tezos/tzip/-/tree/master/proposals/tzip-10).
 1. The wallet returns a handshake that includes pairing information for the wallet, which triggers the `HandshakeReceived` event.
 1. From the handshake information, the SDK generates a QR code.
-The `TezosAuthenticator` prefab handles the QR code generation with the `TezosSDK.View.QRCodeView` class.
+The `TezosAuthenticator` prefab handles the QR code generation with the `QrCodeGenerator` class.
 1. The user scans the QR code with their wallet app and approves the connection.
 1. The SDK receives the connection approval, which triggers the `WalletConnected` event and includes information about the connected account.
 
