@@ -4,7 +4,7 @@ last_update:
   date: 24 January 2024
 ---
 
-If you don't find enough explanations in the documentation, or need a clarification, there are many places that you can use to reach out for developer support, see <https://tezos.com/community/>.
+If you don't find enough explanations in the documentation, or need a clarification, there are many places that you can use to reach out for developer support, see https://tezos.com/community/.
 
 - Tezos Discord: https://discord.gg/yXaPy6s5Nr
 - Tezos sub-reddit: https://www.reddit.com/r/tezos/
