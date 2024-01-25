@@ -18,7 +18,7 @@ The current website (https://docs.tezos.com/) is not exhaustive. It aims coverin
 The current website (<https://docs.tezos.com/>) is not exhaustive. It aims covering the main topics concerning Tezos developers and the major features of Tezos, in the form of documentation and tutorials.
 More detailed developer (and user) documentation on Tezos in general or on specific tools in the Tezos ecosystem is available at these sites:
 
-- https://opentezos.com/ for all developer-related concepts
+- https://opentezos.com/ is a complete course for learning Tezos concepts, mainly for developers but also for bakers and other users, in the form of tutorials with exercises
 - https://tezos.gitlab.io/ for the Octez suite
 - https://taqueria.io/ for Taqueria
 - https://tezostaquito.io/ for Taquito
