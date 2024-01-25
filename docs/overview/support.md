@@ -21,7 +21,7 @@ More detailed developer (and user) documentation on Tezos in general or on speci
 - https://opentezos.com/ is a complete course for learning Tezos concepts, mainly for developers but also for bakers and other users, in the form of tutorials with exercises
 - https://tezos.gitlab.io/ is the official documentation of the Octez suite, which contains a complete implementation of the Tezos platform (including a node, a baker, a client, and other tools)
 - https://taqueria.io/docs/intro/ is the official documentation of [Taqueria](https://taqueria.io/), a flexible framework for building Web3 applications on Tezos 
-- https://tezostaquito.io/ for Taquito
+- https://tezostaquito.io/docs/quick_start is the official documentation of [Taquito](https://tezostaquito.io/), a TypeScript library for developing Tezos applications faster and easier
 - https://ligolang.org/ for LIGO
 - https://smartpy.io/ for SmartPy
 - https://docs.etherlink.com/ is the official documentation for [Etherlink](https://www.etherlink.com), an EVM-compatible layer-2 blockchain running on Tezos, implemented as a [smart rollup](../architecture/smart-rollups)
