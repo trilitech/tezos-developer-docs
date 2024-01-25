@@ -2,7 +2,7 @@
 title: Implement a file archive with the DAL and a Smart Rollup
 authors: 'Tezos Core Developers'
 last_update:
-  date: 22 January 2024
+  date: 25 January 2024
 ---
 
 import LucidDiagram from '@site/src/components/LucidDiagram';
@@ -91,6 +91,46 @@ rustup target add wasm32-unknown-unknown
 ```
 
 You can see other ways of installing Rust at https://www.rust-lang.org.
+
+### Install Clang
+
+Clang and LLVM are required for compilation to WebAssembly.
+Version 11 or later of Clang is required.
+Here are instructions for installing the appropriate tools on different operating systems:
+
+**MacOS**
+
+```bash
+brew install llvm
+export CC="$(brew --prefix llvm)/bin/clang"
+```
+
+**Ubuntu**
+
+```bash
+sudo apt-get install clang-11
+export CC=clang-11
+```
+
+**Fedora**
+
+```bash
+dnf install clang
+export CC=clang
+```
+
+**Arch Linux**
+
+```bash
+pacman -S clang
+export CC=clang
+```
+
+The `export CC` command sets Clang as the default C/C++ compiler.
+
+After you run these commands, run `$CC --version` to verify that you have version 11 or greater installed.
+
+Also, ensure that your version of Clang `wasm32` target with by running the command `$CC -print-targets | grep wasm32` and verifying that the results include `wasm32`.
 
 ## Why the DAL?
 
