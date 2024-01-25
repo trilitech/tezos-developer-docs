@@ -14,7 +14,7 @@ If you don't find enough explanations in the documentation, or need a clarificat
 
 For more social media links, see https://tezos.com/community/.
 
-Other Tezos developer documentation is available at these sites:
+More detailed developer (and user) documentation on Tezos in general or on specific tools in the Tezos ecosystem is available at these sites:
 
 - https://opentezos.com/ for all developer-related concepts
 - https://tezos.gitlab.io/ for the Octez suite
