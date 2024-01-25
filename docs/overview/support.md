@@ -23,4 +23,4 @@ More detailed developer (and user) documentation on Tezos in general or on speci
 - https://tezostaquito.io/ for Taquito
 - https://ligolang.org/ for LIGO
 - https://smartpy.io/ for SmartPy
-- https://docs.etherlink.com/ for Etherlink
+- https://docs.etherlink.com/ is the official documentation for [Etherlink](https://www.etherlink.com), an EVM-compatible layer-2 blockchain running on Tezos, implemented as a [smart rollup](../architecture/smart-rollups)
