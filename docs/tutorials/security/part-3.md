@@ -7,7 +7,7 @@ last_update:
 
 > Note : clone this [project](https://github.com/marigold-dev/training-security-3.git) for compiling and testing this tutorial
 
-1. Governance :
+## Governance :
 
 A decentralized system is not enough to ensure the security and efficiency of a blockchain network. It also requires a robust governance model that can handle conflicts, upgrades, and innovations. Moreover, the distribution of the native token that powers the network should be fair and balanced, avoiding the concentration of power and wealth among a few actors. If these conditions are not met, the decentralized system may suffer from instability, stagnation, or manipulation. Therefore, it is important to design and implement a governance model and a token distribution strategy that align with the goals and values of the network and its users
 
@@ -28,7 +28,7 @@ One of the challenges of designing and deploying a smart contract is to define t
   If the contract itself does not contain a function to resolve it, no resolution can happen onchain.
   &rarr; **SOLUTION**: Use onchain dispute if available, or off-chain dispute but this latter introduces additional complexities such as Know Your Customer (KYC) regulations and legal considerations. KYC regulations require businesses to verify the identity of their clients. This can be difficult in the context of blockchain transactions, which are often pseudonymous. Legal considerations can also be complex, especially in cross-border transactions where different jurisdictions may have different laws.
 
-2. Lambda, mutable code and dynamic entrypoints
+## Lambda, mutable code and dynamic entrypoints
 
 A smart contract is immutable but not the storage that represents the mutable state.
 A common way to change the behavior of a smart contract is to store some mutable code inside its storage and then execute it from the smart contract itself.
@@ -40,7 +40,7 @@ For example, if the lambda is called in a function to update a static data confi
 
 [An excellent tutorial here about smart contract upgrades using Lambda and proxies](https://github.com/marigold-dev/training-dapp-4)
 
-3. (Trustable) oracles
+## (Trustable) oracles
 
 Blockchain oracles are third-party services that provide smart contracts with external information1. They serve as bridges between blockchains and the outside world, allowing smart contracts to access off-chain data. Oracles verify, query, and authenticate external data sources, and transmit any valuable data.
 

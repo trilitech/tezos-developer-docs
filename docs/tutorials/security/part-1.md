@@ -9,7 +9,7 @@ last_update:
 
 Programming errors in web3 are mistakes or bugs that occur when writing smart contracts.
 
-1. Bugs
+## Bugs
 
 Writing Michelson code requires careful attention to detail and rigorous testing. If the code contains errors or inconsistencies, it may result in a failed transaction that consumes gas and storage fees. Therefore, it is advisable to use high-level languages that compile to Michelson, such as LIGO, and to verify the generated code before deploying it on the node.
 
@@ -35,7 +35,7 @@ Run the code
 taq simulate 1-bugs.tz --param 1-bugs.parameter.default_parameter.tz
 ```
 
-Modify the michelson file **./artifacts/1-bugs.tz** to not check the diff and run again
+Modify the Michelson file **./artifacts/1-bugs.tz** to not check the diff and run again
 
 ```michelson
 { parameter (or (unit %reset) (or (mutez %decrement) (mutez %increment))) ;
@@ -58,7 +58,7 @@ Underflowing subtraction of 0 tez and 0.000001 tez
 
 &rarr; **SOLUTION**: use the LIGO compiler to prevent runtime errors
 
-2. Rounding issues
+## Rounding issues
 
 Michelson does not support floats, so some rounding issues after a division can happen if it is not done carefully. This can cause a smart contract to halt in some situations.
 
@@ -103,7 +103,7 @@ taq simulate 2-rounding.tz --param 2-rounding.parameter.default_parameter.tz
 
 All good now =)
 
-3. Unsecure bitwise operations
+## Unsecure bitwise operations
 
 A bitwise operation is a type of computation that operates on the individual bits of a binary number. A bitwise shift moves the bits of the operand to the left or right by a certain number of positions, filling the vacated bits with zeros.
 
@@ -122,7 +122,7 @@ taq simulate 3-bitwise.tz --param 3-bitwise.parameter.shiftRight257times.tz
 
 &rarr; **SOLUTION**: To avoid this, one should always check the size of the input and the shift amount before applying the Bitwise instructions. Here you should check if the number of shifts is less than or equal to 256, otherwise, you raise an error
 
-4. Sender vs Source confusion
+## Sender vs Source confusion
 
 When a transaction is sent by a user, it can create other transactions on other smart contracts. Depending on the transaction, the original sender's address could be different from the direct sender of the transaction.
 
@@ -166,31 +166,31 @@ Failwith: "You are not the admin to do this action"
 
 > Note : On some specific cases it is important to authorize an intermediary contract to communicate with our contract. We should not always check the source as the default behavior for rejection
 
-5. Library updates
+## Library updates
 
 This is a DEVOPS issue. If a CI recompiles the code before deploying a new version and there are dependencies to fetch, maybe the new behavior will not be compatible with your code logic and bring new security flaws
 
 &rarr; **SOLUTION**: Do more unit tests and publish CI test reports
 
-6. Private data
+## Private data
 
 One of the most important security considerations for smart contract developers is to avoid storing any sensitive or confidential information on the contract storage. This is because the contract storage is public and immutable, meaning that anyone can read its contents and it cannot be erased or modified. Therefore, any secret value, such as a private key, a password, or a personal identification number, should never be stored on the contract storage. Doing so would expose the secret value to potential attackers and compromise the security and privacy of the contract and its users.
 
 &rarr; **SOLUTION**: Instead, secret values should be stored off-chain, such as in a secure database or a hardware wallet, and only communicated to the contract when necessary using encryption with Commit&Reveal pattern or zero-knowledge proofs.
 
-7. Predictable information used as a random value
+## Predictable information used as a random value
 
 Due to the deterministic nature of blockchain execution, it is not possible to generate random numbers or values within a smart contract. This means that any logic that relies on randomness, such as games, lotteries, or auctions, cannot be implemented securely and fairly on a blockchain. Therefore, smart contract developers need to find alternative ways to introduce randomness into their applications, such as using external sources of randomness (oracles) or cryptographic techniques (commit-reveal schemes).
 
 &rarr; **SOLUTION** :
 
 - Use block timestamp: This approach has a low cost but also a high risk of being compromised, as the time parameter is too coarse and can be easily estimated based on the average block time
-- use contract origination address: This approach has a low cost but also a high risk of being compromised, as it is composed of hash of operation concatenated with an origination index
+- use contract origination address: This approach has a low cost but also a high risk of being compromised, as it is composed of the hash of the operation concatenated with an origination index
 - Multi-participant random seed: One possible way to generate a multi-participant random seed is to ask each participant to submit a random number in a secure and verifiable way. This can be done using a commit-reveal scheme, where each participant first commits to their number by sending a hash of it, and then reveals it later by sending the actual number. The hash function ensures that the participants cannot change their numbers after committing, and the reveal phase allows everyone to verify that the numbers match the hashes. The final seed can be computed by combining all the revealed numbers using some deterministic function, such as XOR or modular addition.
   However, this method has some drawbacks, such as requiring two rounds of communication and being vulnerable to a locked situation, where some participants do not reveal their numbers and prevent the seed from being generated. To avoid this, there should be some incentive mechanism or timeout mechanism to ensure that everyone reveals their numbers in time, or else they are penalized or excluded from the seed generation.
 - Good randomness oracle: Creating a good off-chain random Oracle is not easy, as it requires a way to prove that the numbers are indeed random and not manipulated by anyone. One possible solution is to use a verifiable random function (VRF), which is a cryptographic algorithm that generates a random output from an input and a secret key. It produces a proof that the output was correctly computed. The proof can be verified by anyone who knows the input and the public key, but not the secret key. Chainlink is a decentralized network of Oracles that offers a VRF-based randomness Oracle for smart contracts. It claims to be one of the few, if not the only reasonably good available randomness Oracle in the market. However, it has some limitations, such as being only compatible with Ethereum and not with Tezos, which is another popular smart contract platform. Moreover, it still relies on the trustworthiness of a third party, namely the Chainlink node operators that hold the secret keys and generate the random numbers and proofs.
 
-8. Blocked state
+## Blocked state
 
 One of the possible scenarios in a blockchain smart contract is to have a blocked state, where the contract execution is paused until a certain condition is met by one of the participants. For example, a contract that implements a simple escrow service might have a blocked state where the seller has to confirm the delivery of the goods before the buyer can release the payment. This way, the contract ensures that both parties are satisfied with the transaction and no one can cheat or withdraw from the agreement.
 

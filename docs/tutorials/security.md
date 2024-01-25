@@ -56,13 +56,13 @@ In this training session, we will use a hands-on approach to learn how to identi
 
 To run the code, a Ligo compiler is required and can be installed at this [location](https://ligolang.org/docs/intro/installation/?lang=jsligo)
 
-Compile the contract with the Ligo compiler
+For later usage, to compile a contract with the Ligo compiler, run this command :
 
 ```bash
 ligo compile contract ./contracts/<MY_CONTRACT_FILE>.jsligo
 ```
 
-or though Taqueria
+or through Taqueria
 
 ```bash
 npm i

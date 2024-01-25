@@ -7,7 +7,7 @@ last_update:
 
 > Note : clone this [project](https://github.com/marigold-dev/training-security-2.git) for compiling and testing this tutorial
 
-1. Replay attack
+## Replay attack
 
 A replay attack on a smart contract is a type of security vulnerability that allows an attacker to reuse a signed valid transaction multiple times. We saw in the previous chapter how to do offchain replay attacks, but it is possible to do also onchain replay attacks.
 Besides, Tezos prevents this kind of vulnerability, it is possible to write a code that does this attack sending the same operation several times for execution.
@@ -34,7 +34,7 @@ Then, the Tezos will detect the flaw
   "message": "(transaction) proto.017-PtNairob.internal_operation_replay"
 ```
 
-2. Memory overflow
+## Memory overflow
 
 Memory overflow is a kind of attack that fulfills the memory of a smart contract resulting in making this contract unusable. Even simply loading the data into memory and deserializing it at the beginning of the call, could use so much gas that any call to the contract would fail. All the funds would be forever locked into the contract.
 
@@ -53,11 +53,11 @@ Here is the list of dangerous types to use carefully :
 
 Example with the current FA1.2 implementation: https://inference.ag/blog/2023-10-09-FA12_spenders/
 
-You can have a look in the LIGO implementation of fa1.2 on the Ligo registry [here](https://packages.ligolang.org/package/ligo_fa1.2)
+You can have a look at the LIGO implementation of fa1.2 on the Ligo registry [here](https://packages.ligolang.org/package/ligo_fa1.2)
 
 The code follows the standard but you can see that the [Allowance type is a map](https://github.com/frankhillard/ligoFA12/blob/main/lib/asset/allowance.mligo#L3C8-L3C8). It would have been better to change the Standard and use a `big_map` instead of a `map`. If you implement the Standard differently, then your smart contract storage definition and entrypoint signatures will not match anymore and will not be supported by other platforms
 
-3. Re-entrancy
+## Re-entrancy
 
 These attacks allow an attacker to repeatedly call a contract function in a way that drains the contract’s resources, leading to a denial of service (DoS) attack
 
@@ -248,7 +248,7 @@ and rerun the scenario from scratch redeploying the contracts. It should be impo
 
 - Call third-party security experts or employ automated security tools: If you are not sure about your code, they will identify weaknesses and validate the contract’s security measures.
 
-4. Overflow
+## Overflow
 
 Manipulating arithmetic operations can lead to overflows and underflows
 
