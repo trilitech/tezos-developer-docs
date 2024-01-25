@@ -14,6 +14,7 @@ If you don't find enough explanations in the documentation, or need a clarificat
 
 For more social media links, see https://tezos.com/community/.
 
+The current website (<https://docs.tezos.com/>) is not exhaustive. It aims covering the main topics concerning Tezos developers and the major features of Tezos, in the form of documentation and tutorials.
 More detailed developer (and user) documentation on Tezos in general or on specific tools in the Tezos ecosystem is available at these sites:
 
 - https://opentezos.com/ for all developer-related concepts
