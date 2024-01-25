@@ -19,7 +19,7 @@ The current website (<https://docs.tezos.com/>) is not exhaustive. It aims cover
 More detailed developer (and user) documentation on Tezos in general or on specific tools in the Tezos ecosystem is available at these sites:
 
 - https://opentezos.com/ is a complete course for learning Tezos concepts, mainly for developers but also for bakers and other users, in the form of tutorials with exercises
-- https://tezos.gitlab.io/ for the Octez suite
+- https://tezos.gitlab.io/ is the official documentation of the Octez suite, which contains a complete implementation of the Tezos platform (including a node, a baker, a client, and other tools)
 - https://taqueria.io/ for Taqueria
 - https://tezostaquito.io/ for Taquito
 - https://ligolang.org/ for LIGO
