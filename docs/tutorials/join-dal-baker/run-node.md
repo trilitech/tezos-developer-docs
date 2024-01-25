@@ -32,8 +32,7 @@ Now that the Octez node is configured to join Weeklynet, we can launch it and ma
    ```
 
 At first launch, the node generates a fresh identity file used to identify itself on the Weeklynet L1 network.
-Then it bootstraps the chain, which means that it downloads and applies all the blocks that have been created since the origin or since the snapshot was created.
-This takes a variable amount of time depending on how many blocks need to be loaded.
+Then it bootstraps the chain, which takes a variable amount of time depending on how many blocks need to be loaded.
 At worst, if the network has been running for nearly a week, it can take a few hours.
 
 Fortunately, we can continue to set up our Weeklynet baking infrastructure while the node is bootstrapping.
