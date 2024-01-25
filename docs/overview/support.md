@@ -23,5 +23,5 @@ More detailed developer (and user) documentation on Tezos in general or on speci
 - https://taqueria.io/docs/intro/ is the official documentation of [Taqueria](https://taqueria.io/), a flexible framework for building Web3 applications on Tezos 
 - https://tezostaquito.io/docs/quick_start is the official documentation of [Taquito](https://tezostaquito.io/), a TypeScript library for developing Tezos applications faster and easier
 - https://ligolang.org/docs/intro/introduction is the official documentation of the [LIGO](https://ligolang.org/) language for writing Tezos smart contracts
-- https://smartpy.io/ for SmartPy
+- https://smartpy.io/manual/introduction/overview is the official documentation of the [SmartPy](https://smartpy.io/) language for writing Tezos smart contracts
 - https://docs.etherlink.com/ is the official documentation for [Etherlink](https://www.etherlink.com), an EVM-compatible layer-2 blockchain running on Tezos, implemented as a [smart rollup](../architecture/smart-rollups)
