@@ -16,8 +16,6 @@ Now that the Octez node is configured to join Weeklynet, we can launch it and ma
       wget -O snapshot_file https://snapshots.eu.tzinit.org/weeklynet/rolling
       ```
 
-   1. Verify that the snapshot is
-
    1. Load the snapshot in the node by running this command:
 
       ```bash
