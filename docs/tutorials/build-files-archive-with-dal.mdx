@@ -80,6 +80,11 @@ To run this tutorial, install Rust by running the following command.
 The application in this tutorial uses Rust because of its support for WebAssembly (WASM), the language that Smart Rollups use to communicate.
 Rollups can use any language that has WASM compilation support.
 
+First, make sure that the `curl` program is installed.
+If you are using the Tezos Docker container, run `sudo apk add curl`.
+
+Then, run this command to install Rust:
+
 ```bash
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
