@@ -207,6 +207,9 @@ const sidebars = {
         'unity/quickstart',
         'unity/scenes',
         'unity/prefabs',
+        'unity/connecting-accounts',
+        'unity/managing-contracts',
+        'unity/managing-tokens',
         {
           type: 'category',
           label: 'Reference',
