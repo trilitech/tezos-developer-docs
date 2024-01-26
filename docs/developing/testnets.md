@@ -112,6 +112,14 @@ export WEEKLYNET_COMMIT=$(jq -r .git_ref weeklynet.json)
 export DOCKER_IMAGE=$(jq -r .docker_build weeklynet.json)
 ```
 
+Here are some other tips for using the Docker images for periodic test networks:
+
+- The Docker images for each instance of the periodic test networks are listed on the information page for the network.
+For example, Weeklynet information is here: https://teztnets.com/weeklynet-about
+- The Docker images are based on Alpine Linux, which uses the `apk` package manager.
+For example, to install the `curl` program, run `sudo apk add curl`.
+- The shell interpreter path is `/bin/sh`, not `/usr/bin/bash` as on many Linux distributions.
+
 ## Public nodes and faucets
 
 To connect to existing public nodes for these networks, or to get some testnet-only tez on these from a faucet, check [https://teztnets.com](https://teztnets.com/).
