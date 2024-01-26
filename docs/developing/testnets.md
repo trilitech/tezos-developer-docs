@@ -2,7 +2,7 @@
 title: Testing on sandboxes and testnets
 authors: 'Mathias Hiron, Nomadic Labs, Tim McMackin, TriliTech'
 last_update:
-  date: 19 January 2024
+  date: 26 January 2024
 ---
 
 :::note
@@ -29,7 +29,7 @@ Depending on your needs, you can pick between the types of networks listed below
 
 Regardless of the type of network, if you intend to do intense testing, you can run your own nodes on these networks to avoid availability issues and limitations.
 
-## Permanent test networks
+### Permanent test networks
 
 Permanent test networks are networks that are meant to run indefinitely. Just like Mainnet, they migrate to new versions of the protocol when proposals are adopted.
 
@@ -45,7 +45,7 @@ On the other hand, as transactions and blocks keep accumulating over time, synch
 
 Because the protocol on Ghostnet migrates to the newly adopted amendment a few days before Mainnet does, it can serve as a rehearsal for the actual migration on Mainnet. Both bakers and developers can check that they are ready for the migration and that nothing in their configuration breaks when it happens.
 
-## Protocol test networks
+### Protocol test networks
 
 Protocol test networks are networks that are created specifically for a specific version of the protocol.
 
@@ -61,7 +61,7 @@ Once the protocol is activated, the corresponding protocol test network can be a
 
 On the other hand, it may be less convenient for smart contract or dApp developers to use, because it has a limited life span and tends to be less supported by services like indexers and other tools.
 
-## Periodic test networks
+### Periodic test networks
 
 Periodic test networks allow developers to test new features that are under development before those features become part of a proposal or reach Tezos Mainnet.
 These networks are based on Alpha development versions of the Tezos economic protocol and the Octez suite.
@@ -73,7 +73,7 @@ Weeklynet is a network that restarts every Wednesday, with the latest Docker bui
 
 Dailynet is a network that restarts every day, with the latest Docker build as a reference. This network is mainly used by protocol developers.
 
-## Working with periodic test networks
+### Working with periodic test networks
 
 To work with the periodic test networks, you must use exactly the same version of the Octez suite as the network.
 For this reason, wallets typically don't work with these networks.
