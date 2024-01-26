@@ -1,20 +1,10 @@
 ---
 title: Other sources of documentation and support
 last_update:
-  date: 25 January 2024
+  date: 26 January 2024
 ---
 
 If you need don't find the information that you need on this site, there are many other places that you can look:
-
-## Social media
-
-- Tezos Discord: https://discord.gg/yXaPy6s5Nr
-- Tezos sub-reddit: https://www.reddit.com/r/tezos/
-- Tezos Stack Exchange: https://tezos.stackexchange.com
-- Tezos Element community: https://riot.tzchat.org/
-- #tezos channel on Freenode
-
-For more social media links, see https://tezos.com/community/.
 
 ## Documentation
 
@@ -29,3 +19,14 @@ More detailed developer and user documentation on Tezos in general or on specifi
 - https://smartpy.io/manual/introduction/overview is the official documentation of the [SmartPy](https://smartpy.io/) language for writing Tezos smart contracts
 - https://archetype-lang.org/docs/introduction/ is the official documentation of the Archetype language for writing Tezos smart contracts
 - https://docs.etherlink.com/ is the official documentation for [Etherlink](https://www.etherlink.com), an EVM-compatible layer-2 blockchain running on Tezos, implemented as a [smart rollup](../architecture/smart-rollups)
+
+## Social media
+
+- Tezos Discord: https://discord.gg/yXaPy6s5Nr
+- Tezos sub-reddit: https://www.reddit.com/r/tezos/
+- Tezos Stack Exchange: https://tezos.stackexchange.com
+- Tezos Element community: https://riot.tzchat.org/
+- #tezos channel on Freenode
+
+For more social media links, see https://tezos.com/community/.
+
