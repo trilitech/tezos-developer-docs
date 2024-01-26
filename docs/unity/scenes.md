@@ -9,7 +9,7 @@ last_update:
 The SDK includes tutorial scenes that demonstrate how to use the SDK.
 
 Before using any of the scenes, install a Tezos-compatible wallet on a mobile device and get some test tez tokens that you can use to pay transaction fees.
-For instructions, see [Installing and funding a wallet](./developing/wallet-setup).
+For instructions, see [Installing and funding a wallet](../developing/wallet-setup).
 
 ## Setup instructions
 
