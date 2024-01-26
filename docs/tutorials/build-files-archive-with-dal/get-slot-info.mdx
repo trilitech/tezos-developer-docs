@@ -2,7 +2,7 @@
 title: "Part 2: Getting slot information"
 authors: 'Tezos Core Developers'
 last_update:
-  date: 17 January 2024
+  date: 26 January 2024
 ---
 
 When clients send data to the DAL, they must choose which slot to put it in.
@@ -43,6 +43,8 @@ Follow these steps to update the Smart Rollup to access information about slot 0
    use tezos_smart_rollup::{host::RuntimeError, kernel_entry, prelude::*};
    use tezos_smart_rollup_host::dal_parameters::RollupDalParameters;
 
+   const SLOT_TO_MONITOR: u8 = 0;
+
    pub fn run<R: Runtime>(
        host: &mut R,
        param: &RollupDalParameters,
@@ -80,7 +82,7 @@ Follow these steps to update the Smart Rollup to access information about slot 0
        let param = host.reveal_dal_parameters();
        debug_msg!(host, "{:?}\n", param);
 
-       match run(host, &param, 0) {
+       match run(host, &param, slot_to_monitor) {
            Ok(()) => debug_msg!(host, "See you in the next level\n"),
            Err(_) => debug_msg!(host, "Something went wrong for some reasons"),
        }
