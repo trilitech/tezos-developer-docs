@@ -22,11 +22,4 @@ More detailed developer and user documentation on Tezos in general or on specifi
 
 ## Social media
 
-- Tezos Discord: https://discord.gg/yXaPy6s5Nr
-- Tezos sub-reddit: https://www.reddit.com/r/tezos/
-- Tezos Stack Exchange: https://tezos.stackexchange.com
-- Tezos Element community: https://riot.tzchat.org/
-- #tezos channel on Freenode
-
-For more social media links, see https://tezos.com/community/.
-
+For links to social media accounts and forums where you can get in contact with Tezos developers and users, see https://tezos.com/community/.
