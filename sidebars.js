@@ -207,6 +207,9 @@ const sidebars = {
         'unity/quickstart',
         'unity/scenes',
         'unity/prefabs',
+        'unity/connecting-accounts',
+        'unity/managing-contracts',
+        'unity/managing-tokens',
         {
           type: 'category',
           label: 'Reference',
@@ -234,6 +237,7 @@ const sidebars = {
         // 'reference/encoding', // TODO
         // 'reference/merkle-formats', // TODO
         // 'reference/ocaml-apis', // TODO
+        'reference/style-guide',
         {
           type: 'link',
           label: 'Whitepaper',
