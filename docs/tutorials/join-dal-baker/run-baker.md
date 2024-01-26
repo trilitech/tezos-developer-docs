@@ -3,7 +3,7 @@
 The baking daemon is launched almost as usual, the only difference is that we use the `--dal-node http://127.0.0.1` option to tell it to connect to the DAL node that we just launched in the previous step.
 
 ```
-octez-baker-alpha run with local node "$HOME/.tezos-node" my_baker --liquidity-baking-toggle-vote on --adaptive-issuance-vote on --dal-node http://127.0.0.1 >> "$HOME/octez-baker.log" 2>&1
+octez-baker-alpha run with local node "$HOME/.tezos-node" my_baker --liquidity-baking-toggle-vote on --adaptive-issuance-vote on --dal-node http://127.0.0.1:10732 >> "$HOME/octez-baker.log" 2>&1
 ```
 
 We can check that the DAL is now subscribed to the relevant topics by retrying the following RPC, which should now return all the topics of the form `{"slot_index":<index>,"pkh":"<ADDRESS OF OUR BAKER>"}` where `index` varies between `0` included and the number of slot indexes (`32` on Weeklynet) excluded:
