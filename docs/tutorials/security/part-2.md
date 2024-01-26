@@ -15,6 +15,7 @@ Besides, Tezos prevents this kind of vulnerability, it is possible to write a co
 Compile and simulate the replay attack :
 
 ```bash
+taq init
 taq compile 1-replay.jsligo
 taq simulate 1-replay.tz --param=1-replay.parameter.parameter.tz
 ```

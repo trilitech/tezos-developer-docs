@@ -22,6 +22,7 @@ option<tez> = 1mutez - 2mutez;
 Run the code and watch the generated Michelson code
 
 ```bash
+taq init
 taq compile 1-bugs.jsligo
 more ./artifacts/1-bugs.tz
 ```
