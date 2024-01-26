@@ -94,11 +94,12 @@ You can also send raw bytes to the DAL node with the header `Content-Type: appli
 In this case, you must prefix the data with its size due to limitations of the DAL.
 
 1. Install the `jq` and `xxd` programs.
+If you are using the Tezos Docker image, you can run `sudo apk add jq xxd`.
 
 1. Create a file named `upload_file.sh` and add this code:
 
    ```bash
-   #!/usr/bin/bash
+   #!/bin/sh
 
    path="${1}"
    alias="${2}"
@@ -128,11 +129,16 @@ In this case, you must prefix the data with its size due to limitations of the D
 
    The script accepts three arguments: the file to send, the account alias to use and the slot index to use.
    This script also assumes that the `PATH` and `ENDPOINT` environment variables are correctly set.
-   For example:
+   For example, if you create a file named `myFile.txt` and are using slot 10, you can run this command:
 
    ```bash
    ./upload_file.sh myFile.txt $MY_ACCOUNT 10
    ```
+
+   If you run this script and see an error that says that the file was not found, update the first line of the script (the shebang) to the path to your shell interpreter.
+   For example, if you are using the Tezos Docker image, the path is `/bin/sh`.
+
+   If you see the error "Wrong value for command line option --endpoint," make sure that the `ENDPOINT` environment variable is set and then make it available to the script by running `export ENDPOINT=$ENDPOINT`.
 
    Again, by inspecting the kernel logs, you should be able to see that the file that you wanted to publish is indeed the one fetched by the Smart Rollup.
 
