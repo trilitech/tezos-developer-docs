@@ -5,7 +5,7 @@ last_update:
   date: 6 November 2023
 ---
 ## Introduction
-This documentation provides step-by-step instructions for creating smart contracts on Tezos. After creating the contract, you can find the resources on [testing](testing.md) and [deploying](deploying.md).
+This documentation provides step-by-step instructions for creating smart contracts on Tezos. After creating the contract, you can find the resources on [testing](../developing/testing) and [deploying](deploying.md).
 
 ## Choosing your smart contract language
 Tezos supports a variety of smart contract [languages](./languages): Michelson, SmartPy, LIGO, Archetype.
