@@ -7,7 +7,7 @@ last_update:
 
 > Note : clone this [project](https://github.com/marigold-dev/training-security-3.git) for compiling and testing this tutorial
 
-## Governance :
+## Governance
 
 A decentralized system is not enough to ensure the security and efficiency of a blockchain network. It also requires a robust governance model that can handle conflicts, upgrades, and innovations. Moreover, the distribution of the native token that powers the network should be fair and balanced, avoiding the concentration of power and wealth among a few actors. If these conditions are not met, the decentralized system may suffer from instability, stagnation, or manipulation. Therefore, it is important to design and implement a governance model and a token distribution strategy that align with the goals and values of the network and its users
 
