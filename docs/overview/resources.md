@@ -1,5 +1,5 @@
 ---
-title: Other sources of documentation and support
+title: Other resources
 last_update:
   date: 26 January 2024
 ---
