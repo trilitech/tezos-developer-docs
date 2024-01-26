@@ -85,30 +85,31 @@ If you are using the Tezos Docker container, run `sudo apk add curl`.
 
 1. Run this command to install Rust:
 
-```bash
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-```
+   ```bash
+   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+   ```
 
 1. Follow the instructions in the Rust installation program.
 For example, it may prompt you to run `source "$HOME/.cargo/env"` to configure your current terminal window to run Rust.
 
 1. Add WASM as a compilation target for Rust by running this command:
 
-```bash
-rustup target add wasm32-unknown-unknown
-```
+   ```bash
+   rustup target add wasm32-unknown-unknown
+   ```
 
-You can see other ways of installing Rust at https://www.rust-lang.org.
+   You can see other ways of installing Rust at https://www.rust-lang.org.
 
 ### Install Clang
 
 Clang and LLVM are required for compilation to WebAssembly.
 Version 11 or later of Clang is required.
 
-If you are using the Tezos Docker container, run this command:
+If you are using the Tezos Docker container, run these commands:
 
 ```bash
 sudo apk add clang
+export CC=clang
 ```
 
 Here are instructions for installing the appropriate tools on different operating systems:
