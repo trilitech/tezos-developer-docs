@@ -337,8 +337,6 @@ The following is adapted from this [Agora post](https://forum.tezosagora.org/t/n
     An operation to transfer tez between two accounts, or to run the code of a
     smart contract.
 
-<a name="user-account"/>
-
 ### User account
 
     An account that is linked to a public key. Contrary to a smart
