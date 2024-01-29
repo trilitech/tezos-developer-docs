@@ -24,7 +24,7 @@ Before start creating this dApp, we will need a [wallet](../../dApps/wallets) an
 
 ## The smart contract
 
-The backbone of this application is the smart contract deployed on the Tezos blockchain. The contract we'll be using is already deployed and is written in [SmartPy](../../smart-contracts/languages/smartpy). It defines the rules and processes for interactions with the Tezos blockchain, such as minting NFTs. All you need to do is integrate it into your web app.
+The backbone of this application is the smart contract deployed on the Tezos blockchain. The contract we'll be using is already deployed and is written in [SmartPy](../../languages/smartpy). It defines the rules and processes for interactions with the Tezos blockchain, such as minting NFTs. All you need to do is integrate it into your web app.
 
 
 ## The tutorial application

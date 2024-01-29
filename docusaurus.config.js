@@ -107,6 +107,33 @@ const config = {
             label: 'Documentation'
           },
           {
+            type: 'dropdown',
+            position: 'left',
+            label: 'Languages',
+            items: [
+              {
+                type: 'doc',
+                docId: 'languages/ligo',
+                label: 'LIGO',
+              },
+              {
+                type: 'doc',
+                docId: 'languages/smartpy',
+                label: 'SmartPy',
+              },
+              {
+                type: 'doc',
+                docId: 'languages/archetype',
+                label: 'Archetype',
+              },
+              {
+                type: 'doc',
+                docId: 'languages/michelson',
+                label: 'Michelson',
+              },
+            ],
+          },
+          {
             type: 'docSidebar',
             sidebarId: 'tutorialsSidebar',
             position: 'left',
