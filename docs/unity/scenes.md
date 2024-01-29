@@ -170,8 +170,7 @@ public void HandleMint()
 ```
 
 In your projects, you can set the metadata to store information about what the token represents.
-For more information about creating tokens with Tezos, see [Tokens](../architecture/tokens) and the tutorials [Create an NFT](../tutorials/create-an-nft) and [Build an NFT marketplace](../../tutorials/build-an-nft-marketplace).
-<!-- TODO link to unity-specific topic on managing tokens -->
+For more information about working with Tokens, see [Managing tokens](./managing-tokens) and the tutorials [Create an NFT](../tutorials/create-an-nft) and [Build an NFT marketplace](../../tutorials/build-an-nft-marketplace).
 
 ## Transfer scene
 
