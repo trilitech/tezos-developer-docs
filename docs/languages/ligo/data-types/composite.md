@@ -1,3 +1,0 @@
----
-title: Composite data types
----

@@ -1,5 +1,7 @@
 /** @type {import('@docusaurus/plugin-content-docs').SidebarsConfig} */
 
+import { ligoSidebar } from './src/sidebars/ligoSidebar';
+
 const sidebars = {
   documentationSidebar: [
     {
@@ -253,68 +255,8 @@ const sidebars = {
       ],
     },
   ],
-  ligoSidebar: [
-    {
-      type: 'ref',
-      id: 'languages',
-      label: '<< Back to main',
-    },
-    {
-      type: 'doc',
-      label: 'LIGO overview',
-      id: 'languages/ligo',
-    },
-    'languages/ligo/faq',
-    {
-      type: 'category',
-      label: 'Data types',
-      link: {
-        type: 'doc',
-        id: 'languages/ligo/data-types',
-      },
-      items: [
-        'languages/ligo/data-types/simple',
-        'languages/ligo/data-types/composite',
-        'languages/ligo/data-types/type-annotations',
-        'languages/ligo/data-types/booleans',
-        'languages/ligo/data-types/records',
-        'languages/ligo/data-types/tuples',
-        'languages/ligo/data-types/numbers',
-      ],
-    },
-    'languages/ligo/constants-variables',
-    'languages/ligo/functions',
-    'languages/ligo/entrypoints',
-    'languages/ligo/error-handling',
-    'languages/ligo/loops',
-    'languages/ligo/patterns',
-    'languages/ligo/attributes',
-    'languages/ligo/views',
-    'languages/ligo/operations',
-    'languages/ligo/domain-specific',
-    {
-      type: 'category',
-      label: 'Combining code',
-      items: [
-        'languages/ligo/combining-code/modules',
-        'languages/ligo/combining-code/global-constants',
-        'languages/ligo/combining-code/package-management',
-      ],
-    },
-    {
-      type: 'category',
-      label: 'Testing',
-      link: {
-        type: 'doc',
-        id: 'languages/ligo/testing',
-      },
-      items: [
-        'languages/ligo/testing/mutation',
-        'languages/ligo/testing/michelson',
-      ],
-    },
-    'languages/ligo/advanced',
-  ],
+
+  ligoSidebar,
 
   smartpySidebar: [
     {
@@ -332,7 +274,7 @@ const sidebars = {
       label: 'Data types',
       link: {
         type: 'doc',
-        id: 'languages/ligo/data-types',
+        id: 'languages/smartpy/data-types',
       },
       items: [
         'languages/smartpy/data-types/integers',
