@@ -40,7 +40,7 @@ const d : int = 10 / 3n;   // int / nat yields int
 The binary operator `mod` returns the <em>positive modulo</em> of the
 Euclidean division, that is, the following holds:
 
-> (n*(a/n)+(a%n) == a) && (0n <= a % n) && (a % n < abs(n))
+`(n*(a/n)+(a%n) == a) && (0n <= a % n) && (a % n < abs(n))`
 
 It is overloaded as the Euclidean division `/` to allow for
 all four combinations of natural numbers and integers.
@@ -58,7 +58,7 @@ let c : nat = 120  mod 9n // int mod nat yields nat
 The binary operator `%` returns the <em>positive modulo</em> of the
 Euclidean division, that is, the following holds:
 
-> (n*(a/n)+(a%n) == a) && (0n <= a % n) && (a % n < abs(n))
+`(n*(a/n)+(a%n) == a) && (0n <= a % n) && (a % n < abs(n))`
 
 It is overloaded as the Euclidean division `/` to allow for all four
 combinations of natural numbers and integers.
