@@ -164,13 +164,13 @@ In the command above, `Increment` is the (capitalized) name of the entry point t
 
 <Syntax syntax="cameligo">
 
-![Clicking on Dry Run in the WebIDE](img-entrypoint-contracts/webide-mligo.png)
+![Clicking on Dry Run in the WebIDE](/img/languages/ligo/webide-mligo.png)
 
 </Syntax>
 
 <Syntax syntax="jsligo">
 
-![Clicking on Dry Run in the WebIDE](img-entrypoint-contracts/webide-jsligo.png)
+![Clicking on Dry Run in the WebIDE](/img/languages/ligo/webide-jsligo.png)
 
 </Syntax>
 

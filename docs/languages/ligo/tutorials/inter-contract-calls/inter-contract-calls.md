@@ -222,20 +222,20 @@ Now imagine that `B %foo` emits another operation, e.g. it calls back to `A %foo
 
 Notice how this callback gets executed _after_ `C %bar`. If we construct a tree of internal operations, such queuing would be analogous to a breadth-first search (BFS):
 
-![BFS order of execution](./assets/bfs_order.png)
+![BFS order of execution](/img/languages/ligo/bfs_order.png)
 
 This BFS execution order is very different from Ethereum's direct synchronous method calls, which are analogous to depth-first search. Here is how the transactions would be ordered in Ethereum:
 
-![DFS order of execution](./assets/dfs_order.png)
+![DFS order of execution](/img/languages/ligo/dfs_order.png)
 
 Here is a more complex scenario featuring a graph of 12 different operations. We omit the contract and entrypoint names and use lowercase letters and numbers to identify operations.
 1. BFS order (Tezos):
 
-![BFS order of execution](./assets/complex_bfs.png)
+![BFS order of execution](/img/languages/ligo/complex_bfs.png)
 
 2. DFS order (Ethereum):
 
-![DFS order of execution](./assets/complex_dfs.png)
+![DFS order of execution](/img/languages/ligo/complex_dfs.png)
 
 
 In practice, you should always bear in mind that the internal operations are queued and not executed immediately. It means that:

@@ -5,7 +5,7 @@ title: Longer term
 
 Soon enough, the Schema for the front-end will look like this:
 
-![LIGO Overview](/img/generic-front-end.png)
+![LIGO Overview](/img/languages/ligo/generic-front-end.png)
 
 Basically, as we support more syntaxes (up to half a dozen), we’ll have a bigger need for a unified representation and generation of the helpers around it.
 For instance:
@@ -14,7 +14,7 @@ Displayers. The idea is that if you can parse and display code in a given syntax
 BNFs. BNF grammars are a common formalism to represent grammars. They are understood by many tools, and are an easy way to document a given syntax.
 ## Super Type System
 Soon enough, the Schema for the middle-end will look like this:
-![LIGO Overview](/img/super-type-system.png)
+![LIGO Overview](/img/languages/ligo/super-type-system.png)
 Basically, this schema shows that the Back-End will stop being the main consumer of the Typed AST, and the External World will in its stead.
 As such, annotating the AST with quality information, documenting it and exposing the libraries that produced the information in the first place will be paramount.
 The imagined type-system so far is a mixture of MLF, extensible data-types and Algebraic Effects.

@@ -5,7 +5,7 @@ title: Overview
 
 After going through the design principles and a few considerations linked to them, getting the Big Picture needs diving in technical matters.
 
-![LIGO Overview](/img/big-picture-overview.png)
+![LIGO Overview](/img/languages/ligo/big-picture-overview.png)
 
 As shown in the Schema, LIGO’s compiler is separated in roughly 3 separate parts:
 
