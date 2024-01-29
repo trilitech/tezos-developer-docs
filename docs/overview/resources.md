@@ -4,7 +4,7 @@ last_update:
   date: 26 January 2024
 ---
 
-If you need don't find the information that you need on this site, there are many other places that you can look:
+If you don't find the information that you need on this site, there are many other places that you can look.
 
 ## Documentation
 
