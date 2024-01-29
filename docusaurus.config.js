@@ -80,6 +80,7 @@ const config = {
 
   plugins: [
     'plugin-image-zoom',
+    '@ligo/syntax',
   ],
 
   themeConfig:
