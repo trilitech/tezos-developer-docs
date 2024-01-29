@@ -1,5 +1,5 @@
 ---
-title: Other resources
+title: Other resources and technical support
 last_update:
   date: 26 January 2024
 ---
