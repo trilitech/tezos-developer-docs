@@ -13,13 +13,19 @@ Programming errors in web3 are mistakes or bugs that occur when writing smart co
 
 Writing Michelson code requires careful attention to detail and rigorous testing. If the code contains errors or inconsistencies, it may result in a failed transaction that consumes gas and storage fees. Therefore, it is advisable to use high-level languages that compile to Michelson, such as LIGO, and to verify the generated code before deploying it on the node.
 
-In the below example, LIGO is verifying that the subtraction is failing as it returns an optional value.
+In the below example, LIGO is verifying that the subtraction is failing as it returns an optional value. **tez / mutez** are only positive values
 
 ```ligolang
-option<tez> = 1mutez - 2mutez;
+option<tez> = 0mutez - 1mutez;
 ```
 
-Run the code and watch the generated Michelson code
+In the source code `.contracts/1-bugs.jsligo`, we have also a subtraction returning an optional
+
+```ligolang
+    match(store - delta) {
+```
+
+Compile the code and watch the generated Michelson code
 
 ```bash
 taq init
@@ -27,16 +33,18 @@ taq compile 1-bugs.jsligo
 more ./artifacts/1-bugs.tz
 ```
 
-After dividing `SUB_MUTEZ`, a check will be done with `IF_NONE` instruction.
-LIGO is not compiling if you forget to manage the optional value and return the result directly
+Look on line 6 for the decrement entrypoint, after dividing `SUB_MUTEZ`, a check will be done with `IF_NONE` instruction.
+LIGO is not compiling if you forget to manage the optional value and you return the result directly
 
-Run the code
+Run the code for the decrement of 0 by 1. 0 is the default value of the storage you can find on the **1-bugs.storageList.jsligo** file. 1 is the parameter passed on the simulation you can find on the **1-bugs.parameterList.jsligo** file.
 
 ```bash
 taq simulate 1-bugs.tz --param 1-bugs.parameter.default_parameter.tz
 ```
 
-Modify the Michelson file **./artifacts/1-bugs.tz** to not check the diff and run again
+All goes well as if there is an error on the subtraction, it is caught and returns an unchanged value
+
+Modify directly the Michelson file **./artifacts/1-bugs.tz** to not check the diff. Using **SUB** will not do specific checks for mutez and will not wrap it into an optional.
 
 ```michelson
 { parameter (or (unit %reset) (or (mutez %decrement) (mutez %increment))) ;
@@ -49,9 +57,13 @@ Modify the Michelson file **./artifacts/1-bugs.tz** to not check the diff and ru
          PAIR } }
 ```
 
+Run it again
+
 ```bash
 taq simulate 1-bugs.tz --param 1-bugs.parameter.default_parameter.tz
 ```
+
+This time you have an error
 
 ```logs
 Underflowing subtraction of 0 tez and 0.000001 tez

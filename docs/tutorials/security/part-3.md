@@ -5,8 +5,6 @@ last_update:
   date: 11 January 2024
 ---
 
-> Note : clone this [project](https://github.com/marigold-dev/training-security-3.git) for compiling and testing this tutorial
-
 ## Governance
 
 A decentralized system is not enough to ensure the security and efficiency of a blockchain network. It also requires a robust governance model that can handle conflicts, upgrades, and innovations. Moreover, the distribution of the native token that powers the network should be fair and balanced, avoiding the concentration of power and wealth among a few actors. If these conditions are not met, the decentralized system may suffer from instability, stagnation, or manipulation. Therefore, it is important to design and implement a governance model and a token distribution strategy that align with the goals and values of the network and its users
@@ -15,7 +13,7 @@ One of the challenges of designing and deploying a smart contract is to define t
 
 - Who can create, modify, or terminate the contract?
   - Creation: A smart contract is generally deployed by a DevOps person or a CI pipeline. Apart from knowing the creator's address and the fees he paid, there is no critical event that can appear at this moment. The only hack here would be to impersonate another company's smart contract, as discussed in the introduction of this training
-  - Update: By design, a smart contract code cannot be modified because it is immutable. There is an exception below in the Chapter 2
+  - Update: By design, a smart contract code cannot be modified because it is immutable. However, lambdas are an exception, as described in the next section.
   - Deletion: By design, a smart contract cannot be deleted because the code is stored on a block forever and can be called/executed at any time. The only way to terminate a smart contract would be to programmatically have a boolean to enable/disable all entrypoints
 - Who can invoke, monitor, or verify the contract functions?
   - Invocation: This depends on the role-based access set on each entrypoints. By default, all annotated `@entry` functions are exposed and are callable.
@@ -36,13 +34,13 @@ A common way to change the behavior of a smart contract is to store some mutable
 This feature presents a **high risk and breaks the trust** you can have in the execution of the contract. If the governance is not clear and transparent, an administrator can potentially push any function and drain your funds from this contract. It is recommended to read carefully the code to see which kind of action can be done through this lambda. A lambda can access the contract's state and call other functions.
 For example, if the lambda is called in a function to update a static data configuration that has few impacts, then it is not necessarily dangerous. But if the lambda can create an operation that can be executed or is returning false information to fool the user over a transaction, then it is a red flag
 
-> Other technics exist to update a dapp like the proxy pattern. It does not change the code of the smart contract, but deployed a new version of it and a proxy contract will redirect the user transaction to this new contract. The risk is located on the proxy contract. If this contract is hacked and badly protected, anyone can deploy a malicious contract and redirect to it
+> Other techniques exist to update a dApp, like the proxy pattern. It does not change the code of the smart contract, but deployed a new version of it and a proxy contract will redirect the user transaction to this new contract. The risk is located on the proxy contract. If this contract is hacked and badly protected, anyone can deploy a malicious contract and redirect to it
 
-[An excellent tutorial here about smart contract upgrades using Lambda and proxies](https://github.com/marigold-dev/training-dapp-4)
+For an example of upgrading smart contracts with lambdas and proxies, see [Create your minimum dapp on Tezos](../dapp).
 
 ## (Trustable) oracles
 
-Blockchain oracles are third-party services that provide smart contracts with external information1. They serve as bridges between blockchains and the outside world, allowing smart contracts to access off-chain data. Oracles verify, query, and authenticate external data sources, and transmit any valuable data.
+Blockchain oracles are third-party services that provide smart contracts with external information. They serve as bridges between blockchains and the outside world, allowing smart contracts to access off-chain data. Oracles verify, query, and authenticate external data sources, and transmit any valuable data.
 
 An Oracle is made of two parts:
 

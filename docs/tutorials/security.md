@@ -20,15 +20,15 @@ Offchain attacks are a serious threat to the security and reliability of decentr
 - Bugs: A bug is a flaw or error in the code or logic of a smart contract or a frontend. For instance, a frontend may point to a non-existent smart contract address, or invoke an entrypoint with incorrect parameters. This can result in loss of funds, incorrect execution, or denial of service. Bugs can be avoided by proper testing, auditing, and maintenance of the code.
 - Impersonation: An impersonation attack is when an attacker pretends to be someone else, such as a legitimate service provider, a trusted party, or a user. For example, an attacker may create a phishing UI that mimics the appearance and functionality of a real frontend, but sends the user's funds or data to the attacker's address. Alternatively, an attacker may deploy a copy of a contract on the network, with slight modifications that benefit the attacker. Impersonation attacks can be prevented by verifying the identity and authenticity of the parties involved, such as using digital signatures, checksums, or domain verification.
 - Replay attacks: A replay attack is when an attacker reuses a valid transaction from one context to another, without the consent or knowledge of the original sender. For example, an attacker may copy a L1 transaction to a L2 transaction, and execute it on a different chain or layer. This can result in double-spending, unauthorized actions, or inconsistent states. Replay attacks can be mitigated by introducing nonce and chain_id fields in the transactions, which ensure that each transaction is unique and valid for a specific context. Alternatively, a timestamp can be used as a nonce, which makes it easy to detect outdated or replayed transactions.
-- Trusting and no verifying: This situation occurs when a user or a contract blindly accepts or relies on data or information from an offchain source, without verifying its accuracy or integrity. For example, a user may trust an offchain API that provides market data from oracle or exchange, without checking if the data is correct, manipulated or even inexistent. Similarly, a user may sign any transaction payload from a wallet, without inspecting its content or destination. Trust and no verification can lead to false assumptions, incorrect decisions, or malicious actions. Trust and no verification can be avoided by applying the principle of "trust but verify", which means that any offchain data or information should be validated by multiple sources, cross-checked with onchain data, or confirmed by the user before using it.
+- Trusting and no verifying: This situation occurs when a user or a contract blindly accepts or relies on data or information from an offchain source, without verifying its accuracy or integrity. For example, a user may trust an offchain API that provides market data from an oracle or an exchange, without checking if the data is correct, manipulated or even inexistent. Similarly, a user may sign any transaction payload from a wallet, without inspecting its content or destination. Trust and no verification can lead to false assumptions, incorrect decisions, or malicious actions. Trust and no verification can be avoided by applying the principle of "trust but verify", which means that any offchain data or information should be validated by multiple sources, cross-checked with onchain data, or confirmed by the user before using it.
 - FrontRunning and MEV (Maximum Extractable Value): MEV is an economic phenomenon that can be exploited by miners, validators, and sequencers who can arbitrarily include, exclude, or re-order transactions within the blocks they produce. MEV strategies involve executing a set of on-chain interactions prepared by offchain actors like humans or bots.
   It can be done by the baker itself as the list is known in advance at each period, or any bots listening to the gossip network.
   Examples of common MEV strategies :
 
-  - Sandwiching: When a large order is spotted on mempool
-    - the attacker buys before and sells the tokens after. The large transaction will raise the price of the token, if you buy before the price increases and sell after the price rises, then you make the difference on your pocket. If you cannot reorder the transaction yourself like a baker does, you will have to put higher gas, it is called PGA or Priority Gas Auctions.
+  - Sandwiching: When a large order is spotted on mempool, the attacker buys before and sells the tokens after. The large transaction will raise the price of the token, if you buy before the price increases and sell after the price rises, then you make the difference on your pocket. If you cannot reorder the transaction yourself like a baker does, you will have to put higher gas, it is called PGA or Priority Gas Auctions.
+
   - Front running: Bakers and sequencers can simulate any transaction extracted from the mempool and look at the wallet increase of balance. If it is an arbitrage opportunity, then the attacker can decide to copy and place his own transaction before the others
-    - Arbitrage: Arbitrage is the process of buying and selling the same assets across different markets to capitalize on price discrepancies between them. It is not even considered as a hack as it is the job of common traders and regulate the global market price
+    - Arbitrage: Arbitrage is the process of buying and selling the same assets across different markets to capitalize on price discrepancies between them. It is not even considered a hack as it is the job of common traders and regulate the global market price
 
   &rarr; **SOLUTION**: Against MEV, there are a few solutions :
 
@@ -54,20 +54,21 @@ In this training session, we will use a hands-on approach to learn how to identi
 
 ## Prerequisites
 
-To run the code, a Ligo compiler is required and can be installed at this [location](https://ligolang.org/docs/intro/installation/?lang=jsligo)
+In the next sections, some code needs to be executed. [Taqueria requires to be installed on your machine](https://taqueria.io/docs/getting-started/installation/).
 
-For later usage, to compile a contract with the Ligo compiler, run this command :
-
-```bash
-ligo compile contract ./contracts/<MY_CONTRACT_FILE>.jsligo
-```
-
-or through Taqueria
+To compile the code, run
 
 ```bash
 npm i
 TAQ_LIGO_IMAGE=ligolang/ligo:1.1.0 taq compile <MY_CONTRACT_FILE>.jsligo
 ```
+
+> Alternative : You can use the Ligo compiler directly and it can be installed [here](https://ligolang.org/docs/intro/installation/?lang=jsligo)
+> You will have to compile the parameters and the storage yourself. Instead of using the taq command, use this one :
+>
+> ```bash
+> ligo compile contract ./contracts/<MY_CONTRACT_FILE>.jsligo
+> ```
 
 ---
 

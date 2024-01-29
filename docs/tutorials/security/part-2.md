@@ -37,7 +37,7 @@ Then, the Tezos will detect the flaw
 
 ## Memory overflow
 
-Memory overflow is a kind of attack that fulfills the memory of a smart contract resulting in making this contract unusable. Even simply loading the data into memory and deserializing it at the beginning of the call, could use so much gas that any call to the contract would fail. All the funds would be forever locked into the contract.
+Memory overflow is a kind of attack that overloads the memory of a smart contract resulting in making this contract unusable. Even simply loading the data into memory and deserializing it at the beginning of the call could use so much gas that any call to the contract would fail. All the funds would be forever locked into the contract.
 
 Here is the list of dangerous types to use carefully :
 
@@ -89,13 +89,13 @@ sequenceDiagram
   Note right of LedgerContract: ... Once finish ... UpdateBalance
 ```
 
-Why this scenario is not possible on Solidity?
-On Solidity, the operation will call directly the smart contract like doing a stop, calling a synchronous execution and continuing the flow.
+Why this scenario is possible on Solidity?
+On Solidity, the operation will call directly the smart contract, stopping the execution, calling a synchronous execution and resuming the flow. If someone calls several times and very quickly the withdraw operation, as the state is not updated yet, the call will succeed and drain more than the developer expected.
 
 Why this scenario is not possible on Tezos?
 On Tezos, the first transaction will update the state and will execute a list of operations at the end of execution. Next executions will encounter an updated state
 
-Let's implement a more complex scenario, now :
+Let's implement a more complex scenario where the OfferContract and LedgerContract are separated. The OfferContract will naively send the money back to MaliciousContract because it relies on the **not yet modified** state of the LedgerContract. There are two operations and the modification of the state will come in second position.
 
 ```mermaid
 sequenceDiagram
@@ -208,10 +208,10 @@ taq compile 3-reentrancyLedgerContract.jsligo
 taq call 3-reentrancyLedgerContract --param 3-reentrancyLedgerContract.parameter.default_parameter.tz -e testing
 ```
 
-Context is ready :
+Context is ready:
 
-- the Malicious contract has cookies on the Ledger contract
-- all deployed contract points to the correct addresses
+- The Malicious contract has cookies on the Ledger contract
+- All deployed contract points to the correct addresses
 
 Now the Malicious contract will try to steal funds from the Offer contract, run the command to start the attack the transaction flow
 
@@ -259,7 +259,7 @@ Manipulating arithmetic operations can lead to overflows and underflows
 
 &rarr; **SOLUTION** :
 
-- For large Tez values, do operation on int or nat as it has larger memory values
+- For large tez values, do operation on int or nat as it has larger memory values
 - There is no other solution than using types with larger values as the default behavior is to reject the transaction in case of overflow
 
 > Do not confuse with [Ligo MathLib library](https://packages.ligolang.org/package/@ligo/math-lib) providing manipulation of floats and rationals instead of using basic types.
