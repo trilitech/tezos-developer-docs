@@ -1,5 +1,6 @@
 ---
-title: "Part 1: Minting tokens"
+title: 'Part 1: Minting tokens'
+authors: 'Benjamin Fuentes (Marigold)'
 lastUpdated: 8th November 2023
 ---
 
@@ -318,14 +319,14 @@ Follow these steps to create a contract that is based on the template and implem
      ```
 
      Then make sure that the account has tez on Ghostnet.
-     Use the faucet at https://faucet.ghostnet.teztnets.xyz to get tez if you need it.
+     Use the faucet at https://faucet.ghostnet.teztnets.com to get tez if you need it.
 
    - To let Taqueria generate an account for you, follow these steps:
 
      1. Run the command `taq deploy nft.tz -e "testing"`, which will fail because you do not have an account configured in Taqueria.
         The response includes the address of an account that Taqueria generated for you and added to the `.taq/config.local.testing.json` file automatically.
 
-     1. Fund the account from the faucet at https://faucet.ghostnet.teztnets.xyz.
+     1. Fund the account from the faucet at https://faucet.ghostnet.teztnets.com.
 
 1. Compile and deploy the contract to Ghostnet by running this command:
 
@@ -385,7 +386,7 @@ To save time, this tutorial provides a starter React application.
    ```
 
    This application contains basic navigation and the ability to connect to wallets.
-   For a tutorial that includes connecting to wallets, see [Build your first app on Tezos](../build-your-first-app).
+   For a tutorial that includes connecting to wallets, see [Build a simple web application](../build-your-first-app).
 
    Because Taqueria automatically keeps track of your deployed contract, the application automatically accesses the contract and shows that there are no NFTs in it yet.
    The application looks like this:
@@ -564,17 +565,17 @@ The mint page uses a form that accepts information and an image and sends a tran
 
    ```typescript
    const validationSchema = yup.object({
-     name: yup.string().required("Name is required"),
-     description: yup.string().required("Description is required"),
-     symbol: yup.string().required("Symbol is required"),
+     name: yup.string().required('Name is required'),
+     description: yup.string().required('Description is required'),
+     symbol: yup.string().required('Symbol is required'),
    });
 
    const formik = useFormik({
      initialValues: {
-       name: "",
-       description: "",
+       name: '',
+       description: '',
        token_id: 0,
-       symbol: "WINE",
+       symbol: 'WINE',
      } as TZIP21TokenMetadata,
      validationSchema: validationSchema,
      onSubmit: (values) => {
@@ -586,7 +587,7 @@ The mint page uses a form that accepts information and an image and sends a tran
 1. After this code, add state variables for the image and its URL:
 
    ```typescript
-   const [pictureUrl, setPictureUrl] = useState<string>("");
+   const [pictureUrl, setPictureUrl] = useState<string>('');
    const [file, setFile] = useState<File | null>(null);
    ```
 
@@ -605,9 +606,9 @@ The mint page uses a form that accepts information and an image and sends a tran
    const toggleDrawer =
      (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
        if (
-         event.type === "keydown" &&
-         ((event as React.KeyboardEvent).key === "Tab" ||
-           (event as React.KeyboardEvent).key === "Shift")
+         event.type === 'keydown' &&
+         ((event as React.KeyboardEvent).key === 'Tab' ||
+           (event as React.KeyboardEvent).key === 'Shift')
        ) {
          return;
        }
@@ -625,29 +626,29 @@ The mint page uses a form that accepts information and an image and sends a tran
        //IPFS
        if (file) {
          const formData = new FormData();
-         formData.append("file", file);
+         formData.append('file', file);
 
          const requestHeaders: HeadersInit = new Headers();
          requestHeaders.set(
-           "pinata_api_key",
+           'pinata_api_key',
            `${import.meta.env.VITE_PINATA_API_KEY}`
          );
          requestHeaders.set(
-           "pinata_secret_api_key",
+           'pinata_secret_api_key',
            `${import.meta.env.VITE_PINATA_API_SECRET}`
          );
 
          const resFile = await fetch(
-           "https://api.pinata.cloud/pinning/pinFileToIPFS",
+           'https://api.pinata.cloud/pinning/pinFileToIPFS',
            {
-             method: "post",
+             method: 'post',
              body: formData,
              headers: requestHeaders,
            }
          );
 
          const responseJson = await resFile.json();
-         console.log("responseJson", responseJson);
+         console.log('responseJson', responseJson);
 
          const thumbnailUri = `ipfs://${responseJson.IpfsHash}`;
          setPictureUrl(
@@ -667,13 +668,13 @@ The mint page uses a form that accepts information and an image and sends a tran
          //close directly the form
          setFormOpen(false);
          enqueueSnackbar(
-           "Wine collection is minting ... it will be ready on next block, wait for the confirmation message before minting another collection",
-           { variant: "info" }
+           'Wine collection is minting ... it will be ready on next block, wait for the confirmation message before minting another collection',
+           { variant: 'info' }
          );
 
          await op.confirmation(2);
 
-         enqueueSnackbar("Wine collection minted", { variant: "success" });
+         enqueueSnackbar('Wine collection minted', { variant: 'success' });
 
          refreshUserContextOnPageReload(); //force all app to refresh the context
        }
@@ -682,7 +683,7 @@ The mint page uses a form that accepts information and an image and sends a tran
        let tibe: TransactionInvalidBeaconError =
          new TransactionInvalidBeaconError(error);
        enqueueSnackbar(tibe.data_message, {
-         variant: "error",
+         variant: 'error',
          autoHideDuration: 10000,
        });
      }
@@ -700,7 +701,7 @@ The mint page uses a form that accepts information and an image and sends a tran
    useEffect(() => {
      (async () => {
        if (nftContratTokenMetadataMap && nftContratTokenMetadataMap.size > 0) {
-         formik.setFieldValue("token_id", nftContratTokenMetadataMap.size);
+         formik.setFieldValue('token_id', nftContratTokenMetadataMap.size);
        }
      })();
    }, [nftContratTokenMetadataMap?.size]);
@@ -709,8 +710,8 @@ The mint page uses a form that accepts information and an image and sends a tran
 1. Replace the imports at the top of the file with these imports:
 
    ```typescript
-   import { AddCircleOutlined, Close } from "@mui/icons-material";
-   import OpenWithIcon from "@mui/icons-material/OpenWith";
+   import { AddCircleOutlined, Close } from '@mui/icons-material';
+   import OpenWithIcon from '@mui/icons-material/OpenWith';
    import {
      Box,
      Button,
@@ -719,18 +720,18 @@ The mint page uses a form that accepts information and an image and sends a tran
      TextField,
      Toolbar,
      useMediaQuery,
-   } from "@mui/material";
-   import Paper from "@mui/material/Paper";
-   import Typography from "@mui/material/Typography";
-   import { useFormik } from "formik";
-   import React, { useEffect, useState } from "react";
-   import * as yup from "yup";
-   import { TZIP21TokenMetadata, UserContext, UserContextType } from "./App";
-   import { useSnackbar } from "notistack";
-   import { BigNumber } from "bignumber.js";
-   import { address, bytes, nat } from "./type-aliases";
-   import { char2Bytes } from "@taquito/utils";
-   import { TransactionInvalidBeaconError } from "./TransactionInvalidBeaconError";
+   } from '@mui/material';
+   import Paper from '@mui/material/Paper';
+   import Typography from '@mui/material/Typography';
+   import { useFormik } from 'formik';
+   import React, { useEffect, useState } from 'react';
+   import * as yup from 'yup';
+   import { TZIP21TokenMetadata, UserContext, UserContextType } from './App';
+   import { useSnackbar } from 'notistack';
+   import { BigNumber } from 'bignumber.js';
+   import { address, bytes, nat } from './type-aliases';
+   import { char2Bytes } from '@taquito/utils';
+   import { TransactionInvalidBeaconError } from './TransactionInvalidBeaconError';
    ```
 
 1. Save the file.
@@ -790,7 +791,7 @@ Follow these steps to show the tokens that you have minted:
 1. In the `MintPage.tsx` file, replace the `"//TODO"` comment with this code:
 
    ```typescript
-   <Box sx={{ width: "70vw" }}>
+   <Box sx={{ width: '70vw' }}>
      <SwipeableViews
        axis="x"
        index={activeStep}
@@ -801,15 +802,15 @@ Follow these steps to show the tokens that you have minted:
          ([token_id, token]) => (
            <Card
              sx={{
-               display: "block",
-               maxWidth: "80vw",
-               overflow: "hidden",
+               display: 'block',
+               maxWidth: '80vw',
+               overflow: 'hidden',
              }}
              key={token_id.toString()}
            >
              <CardHeader
                titleTypographyProps={
-                 isTablet ? { fontSize: "1.5em" } : { fontSize: "1em" }
+                 isTablet ? { fontSize: '1.5em' } : { fontSize: '1em' }
                }
                title={token.name}
              />
@@ -818,24 +819,24 @@ Follow these steps to show the tokens that you have minted:
                sx={
                  isTablet
                    ? {
-                       width: "auto",
-                       marginLeft: "33%",
-                       maxHeight: "50vh",
+                       width: 'auto',
+                       marginLeft: '33%',
+                       maxHeight: '50vh',
                      }
-                   : { width: "100%", maxHeight: "40vh" }
+                   : { width: '100%', maxHeight: '40vh' }
                }
                component="img"
                image={token.thumbnailUri?.replace(
-                 "ipfs://",
-                 "https://gateway.pinata.cloud/ipfs/"
+                 'ipfs://',
+                 'https://gateway.pinata.cloud/ipfs/'
                )}
              />
 
              <CardContent>
                <Box>
-                 <Typography>{"ID : " + token_id}</Typography>
-                 <Typography>{"Symbol : " + token.symbol}</Typography>
-                 <Typography>{"Description : " + token.description}</Typography>
+                 <Typography>{'ID : ' + token_id}</Typography>
+                 <Typography>{'Symbol : ' + token.symbol}</Typography>
+                 <Typography>{'Description : ' + token.description}</Typography>
                </Box>
              </CardContent>
            </Card>
@@ -893,8 +894,8 @@ Follow these steps to show the tokens that you have minted:
 1. Replace the imports at the top of the file with these imports:
 
    ```typescript
-   import SwipeableViews from "react-swipeable-views";
-   import OpenWithIcon from "@mui/icons-material/OpenWith";
+   import SwipeableViews from 'react-swipeable-views';
+   import OpenWithIcon from '@mui/icons-material/OpenWith';
    import {
      Box,
      Button,
@@ -906,26 +907,26 @@ Follow these steps to show the tokens that you have minted:
      TextField,
      Toolbar,
      useMediaQuery,
-   } from "@mui/material";
-   import Card from "@mui/material/Card";
-   import CardContent from "@mui/material/CardContent";
+   } from '@mui/material';
+   import Card from '@mui/material/Card';
+   import CardContent from '@mui/material/CardContent';
    import {
      AddCircleOutlined,
      Close,
      KeyboardArrowLeft,
      KeyboardArrowRight,
-   } from "@mui/icons-material";
-   import Paper from "@mui/material/Paper";
-   import Typography from "@mui/material/Typography";
-   import { useFormik } from "formik";
-   import React, { useEffect, useState } from "react";
-   import * as yup from "yup";
-   import { TZIP21TokenMetadata, UserContext, UserContextType } from "./App";
-   import { useSnackbar } from "notistack";
-   import { BigNumber } from "bignumber.js";
-   import { address, bytes, nat } from "./type-aliases";
-   import { char2Bytes } from "@taquito/utils";
-   import { TransactionInvalidBeaconError } from "./TransactionInvalidBeaconError";
+   } from '@mui/icons-material';
+   import Paper from '@mui/material/Paper';
+   import Typography from '@mui/material/Typography';
+   import { useFormik } from 'formik';
+   import React, { useEffect, useState } from 'react';
+   import * as yup from 'yup';
+   import { TZIP21TokenMetadata, UserContext, UserContextType } from './App';
+   import { useSnackbar } from 'notistack';
+   import { BigNumber } from 'bignumber.js';
+   import { address, bytes, nat } from './type-aliases';
+   import { char2Bytes } from '@taquito/utils';
+   import { TransactionInvalidBeaconError } from './TransactionInvalidBeaconError';
    ```
 
 1. Open the web page in the browser again and see that the NFT you created is shown, as in this picture:

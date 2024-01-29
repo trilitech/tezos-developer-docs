@@ -1,12 +1,12 @@
 ---
-title: Deploy a smart contract with jsLIGO
+title: Deploy a smart contract with JsLIGO
 authors: 'John Joubert, Sasha Aldrick, Claude Barde, Tim McMackin'
 last_update:
-  date: 5 December 2023
+  date: 3 January 2024
 ---
 
 This tutorial covers writing and deploying a simple smart contract with the LIGO programming language.
-Specifically, this tutorial uses the jsLIGO version of LIGO, which has syntax similar to JavaScript, but you don't need any experience with JavaScript or LIGO to do this tutorial.
+Specifically, this tutorial uses the JsLIGO version of LIGO, which has syntax similar to JavaScript, but you don't need any experience with JavaScript or LIGO to do this tutorial.
 
 - If you are more familiar with Python, try [Deploy a smart contract with SmartPy](./smartpy).
 - If you are more familiar with OCaml, try [Deploy a smart contract with CameLIGO](./cameligo).
@@ -70,7 +70,7 @@ Ghostnet is a network for testing Tezos applications where tokens are free so yo
 1. From your wallet, get the address of your account, which starts with `tz1`.
 This is the address that applications use to work with your wallet.
 
-1. Go to the Ghostnet faucet page at https://faucet.ghostnet.teztnets.xyz.
+1. Go to the Ghostnet faucet page at https://faucet.ghostnet.teztnets.com.
 
 1. On the faucet page, paste your wallet address into the input field labeled "Or fund any address" and click the button for the amount of tez to add to your wallet.
 20 tez is enough to work with the tutorial contract, and you can return to the faucet later if you need more tez.
@@ -220,6 +220,11 @@ Before you can deploy the contract to Tezos, you must compile it to Michelson, t
       You can test the decrement and reset functions in the same way.
       If you see any errors, make sure that the code of your contract matches the code in the previous section.
 
+   1. Test the `Reset` entrypoint in the same way, but pass `unit` as the input parameter and any integer in the storage field.
+   The `Reset` entrypoint takes no parameters, but technically it accepts the value `unit`, which means no parameter.
+
+      The Result field shows the response `(LIST_EMPTY(), 0)`, which means that the storage value is now 0.
+
 1. On the left side of the page, under **Actions**, click **Compile**, and in the Compile window, click **Compile** again.
 
 If the compilation succeeds, the IDE prints the compiled code to the terminal and saves it to the file `build/contracts/Contract.tz`.
@@ -298,5 +303,5 @@ It also allows you to call the contract.
 Now the contract is running on the Tezos blockchain.
 You or any other user can call it from any source that can send transactions to Tezos, including Octez, dApps, and other contracts.
 
-If you want to continue working with this contract, try creating a dApp to call it from a web application, similar to the dApp that you create in the tutorial [Build your first app on Tezos](../build-your-first-app/).
+If you want to continue working with this contract, try creating a dApp to call it from a web application, similar to the dApp that you create in the tutorial [Build a simple web application](../build-your-first-app/).
 You can also try adding your own endpoints and originating a new contract, but you cannot update the existing contract after it is deployed.

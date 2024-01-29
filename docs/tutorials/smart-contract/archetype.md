@@ -10,7 +10,7 @@ It uses the completium-cli command-line tool, which lets you work with Archetype
 
 - If you are more familiar with Python, try [Deploy a smart contract with SmartPy](./smartpy).
 - If you are more familiar with OCaml, try [Deploy a smart contract with CameLIGO](./cameligo).
-- If you are more familiar with JavaScript, try [Deploy a smart contract with jsLIGO](./jsligo).
+- If you are more familiar with JavaScript, try [Deploy a smart contract with JsLIGO](./jsligo).
 
 In this tutorial, you will learn how to:
 
@@ -92,9 +92,9 @@ https://github.com/completium/completium-cli/issues/45
 Before you deploy your contract to the main Tezos network (referred to as *Mainnet*), you can deploy it to a testnet.
 Testnets are useful for testing Tezos operations because testnets provide tokens for free so you can work with them without spending real tokens.
 
-Tezos testnets are listed on this site: https://teztnets.xyz/.
+Tezos testnets are listed on this site: https://teztnets.com/.
 
-The [Ghostnet](https://teztnets.xyz/ghostnet-about) testnet is a good choice for testing because it is intended to be long-lived, as opposed to shorter-term testnets that allow people to test new Tezos features.
+The [Ghostnet](https://teztnets.com/ghostnet-about) testnet is a good choice for testing because it is intended to be long-lived, as opposed to shorter-term testnets that allow people to test new Tezos features.
 
 By default, completium-cli uses Ghostnet, but these steps verify the network:
 
@@ -143,7 +143,7 @@ You could use the default accounts that are included in completium-cli, but foll
 1. Copy the address for the account, which is labeled as the "public key hash" in the response to the previous command.
 The address starts with "tz1".
 
-1. On the testnets page at https://teztnets.xyz/, click the faucet link for the Ghostnet testnet, which is at https://faucet.ghostnet.teztnets.xyz.
+1. On the testnets page at https://teztnets.com/, click the faucet link for the Ghostnet testnet, which is at https://faucet.ghostnet.teztnets.com.
 
 1. On the faucet page, paste your wallet address into the input field labeled "Or fund any address" and click the button for the amount of XTZ to add to your wallet.
 1 XTZ is enough for the tutorial.
@@ -324,5 +324,5 @@ Then, you can verify the updated storage on the block explorer or by running the
 Now the contract is running on the Tezos blockchain.
 You or any other user can call it from any source that can send transactions to Tezos, including command-line clients, dApps, and other contracts.
 
-If you want to continue working with this contract, try creating a dApp to call it from a web application, similar to the dApp that you create in the tutorial [Build your first app on Tezos](../build-your-first-app/).
+If you want to continue working with this contract, try creating a dApp to call it from a web application, similar to the dApp that you create in the tutorial [Build a simple web application](../build-your-first-app/).
 You can also try adding your own endpoints and originating a new contract, but you cannot update the existing contract after it is deployed.

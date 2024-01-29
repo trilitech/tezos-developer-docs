@@ -1,6 +1,6 @@
 ---
-title: "Part 1: Create your minimum dApp on Tezos"
-authors: "Benjamin Fuentes"
+title: 'Part 1: Create your minimum dApp on Tezos'
+authors: 'Benjamin Fuentes (Marigold)'
 last_update:
   date: 27 November 2023
 ---
@@ -16,7 +16,7 @@ Taqueria manages the project structure and keeps it up to date.
 For example, when you deploy a new smart contract, Taqueria automatically updates the web app to send transactions to that new smart contract.
 Follow these steps to set up a Taqueria project:
 
-On the command-line terminal, run these commands to set up a Taqueria project and install the Ligo and Taquito plugins:
+On the command-line terminal, run these commands to set up a Taqueria project and install the LIGO and Taquito plugins:
 
 ```bash
 taq init training
@@ -44,13 +44,13 @@ taq create contract pokeGame.jsligo
    Every contract has to follow these rules :
 
    - At least one entrypoint, annotated with **@entry** , with a mandatory signature taking 2 arguments **\*(parameter, storage)** and a return type. An entrypoint is function that is exposed as an external API.
-     - **parameter**: the entrypoint parameter. Mandatory and can be of any type. For example: an (ignored) variable starting with`_` here, and of type `unit` (the type void on Ligo).
-     - **storage**: the on-chain storage. Mandatory and can be of any type. For example, here we use the type `unit`. It is recommended to add an `export` keyword before the type definition as it is a good practice to export it when you require to write unit tests from another Ligo file.
+     - **parameter**: the entrypoint parameter. Mandatory and can be of any type. For example: an (ignored) variable starting with`_` here, and of type `unit` (the type void on LIGO).
+     - **storage**: the on-chain storage. Mandatory and can be of any type. For example, here we use the type `unit`. It is recommended to add an `export` keyword before the type definition as it is a good practice to export it when you require to write unit tests from another LIGO file.
      - **return\_**: a mandatory pair of list of `operation` and the storage type (defined earlier). Return type naming is free but don't use an existing keyword like **return**.
 
    [Have a look on the Entrypoints contracts documentation](/smart-contracts/entrypoints)>
 
-   > Note: Previous versions of LIGO used a single main function instead of a function for each entrypoint. This syntax is still valid, but it is harder to read and deprecated in Ligo V1.
+   > Note: Previous versions of LIGO used a single main function instead of a function for each entrypoint. This syntax is still valid, but it is harder to read and deprecated in LIGO V1.
    >
    > A `Poke` variant parameter is generated from the `poke` entrypoint function under the hood. A variant is more or less equivalent of the Enum type in Javascript. A default main function is generated and act like as a dispatcher for each of your entrypoints. It means that this painful boilerplate is no more needed on the new syntax.
 
@@ -77,7 +77,7 @@ taq create contract pokeGame.jsligo
 
    Explanation:
 
-   - The Ligo Set library has a function **add** to add one element to the Set of items. There is no concept of Class in Ligo, you use a library to apply functions on objects.
+   - The LIGO Set library has a function **add** to add one element to the Set of items. There is no concept of Class in LIGO, you use a library to apply functions on objects.
    - A list of operation is required to return. An empty list is returned here as there is no other contract to call.
 
    [Have a look on the Set library documentation](https://ligolang.org/docs/language-basics/sets-lists-tuples#sets)
@@ -90,11 +90,11 @@ taq create contract pokeGame.jsligo
 
 ## Simulate a call on your smart contract
 
-The Ligo command-line provides sub-commands to test your Ligo code.
+The LIGO command-line provides sub-commands to test your LIGO code.
 
 [Have a look on the Testing Framework documentation](https://ligolang.org/docs/advanced/testing)
 
-1. Compile the contract with Taqueria (Force to use a specific Ligo version with `TAQ_LIGO_IMAGE` Taqueria environment variable).
+1. Compile the contract with Taqueria (Force to use a specific LIGO version with `TAQ_LIGO_IMAGE` Taqueria environment variable).
 
 ```bash
 TAQ_LIGO_IMAGE=ligolang/ligo:1.1.0 taq compile pokeGame.jsligo
@@ -124,7 +124,7 @@ Taqueria is generating the `.tz` Michelson file on the `artifacts` folder. The M
 
    It compiles both source code and storage.
 
-   Before deployment, to simulate a call to our entrypoint **poke**, Taq has a **taq simulate** command.  
+   Before deployment, to simulate a call to our entrypoint **poke**, Taq has a **taq simulate** command.
    The contract parameter `Poke()` and the initial storage with the default empty set is passed to the execution.
 
 1. Edit the second file **pokeGame.parameterList.jsligo**
@@ -164,7 +164,7 @@ Taqueria is generating the `.tz` Michelson file on the `artifacts` folder. The M
 
 The default Tezos testing testnet is called **Ghostnet**.
 
-> :warning: You need an account to deploy a contract with some `tez` (the Tezos native currency). The first time you deploy a contract with Taqueria, it is generating a new implicit account with `0 tez`.
+> :warning: You need an account to deploy a contract with some `tez` (the Tezos native currency). The first time you deploy a contract with Taqueria, it is generating a new user account with `0 tez`.
 
 1. Deploy your contract to the `testing` environment. Ut forces Taqueria to generate a default account on a testing config file.
 
@@ -178,7 +178,7 @@ The default Tezos testing testnet is called **Ghostnet**.
    Warning: the faucet field in network configs has been deprecated and will be ignored.
    A keypair with public key hash tz1XXXXXXXXXXXXXXXXXXXXXX was generated for you.
    To fund this account:
-   1. Go to https://teztnets.xyz and click "Faucet" of the target testnet.
+   1. Go to https://teztnets.com and click "Faucet" of the target testnet.
    2. Copy and paste the above key into the 'wallet address field.
    3. Request some Tez (Note that you might need to wait for a few seconds for the network to register the funds).
    No operations performed.
@@ -199,7 +199,7 @@ The default Tezos testing testnet is called **Ghostnet**.
      }
      ```
 
-   - Choice N°2: use the Taqueria generated account. Copy the account **privateKey** from the **.taq/config.local.testing.json** config file. Open your Temple browser extension on your computer or on your mobile phone and do the [initial setup](https://www.youtube.com/watch?v=S8_tL8PfCts). Once you are done, go to Settings (click on the avatar icon, or display Temple in full page) and click on **Import account > Private key** tab. Paste the **privateKey** to Temple text input and confirm. Send free Tez to your new account via this web faucet [Marigold faucet](https://faucet.marigold.dev/). Connect your wallet on **Ghostnet** and ask for free tez.
+   - Choice N°2: use the Taqueria generated account. Copy the account **privateKey** from the **.taq/config.local.testing.json** config file. Open your Temple browser extension on your computer or on your mobile phone and do the [initial setup](https://www.youtube.com/watch?v=S8_tL8PfCts). Once you are done, go to Settings (click on the avatar icon, or display Temple in full page) and click on **Import account > Private key** tab. Paste the **privateKey** to Temple text input and confirm. Send free tez to your new account via this web faucet [Marigold faucet](https://faucet.marigold.dev/). Connect your wallet on **Ghostnet** and ask for free tez.
 
    Now you have some money to play with.
 
@@ -273,7 +273,7 @@ Then follow the prompts. Choose React and then Typescript+SWC:
    ```
 
    ```js
-   import { Buffer } from "buffer";
+   import { Buffer } from 'buffer';
 
    globalThis.Buffer = Buffer;
    ```
@@ -291,12 +291,12 @@ Then follow the prompts. Choose React and then Typescript+SWC:
 1. Open the `vite.config.ts` file and replace it with:
 
    ```js
-   import react from "@vitejs/plugin-react-swc";
-   import path from "path";
-   import { defineConfig } from "vite";
+   import react from '@vitejs/plugin-react-swc';
+   import path from 'path';
+   import { defineConfig } from 'vite';
    // https://vitejs.dev/config/
    export default ({ command }) => {
-     const isBuild = command === "build";
+     const isBuild = command === 'build';
 
      return defineConfig({
        define: {},
@@ -310,23 +310,23 @@ Then follow the prompts. Choose React and then Typescript+SWC:
          alias: {
            // dedupe @airgap/beacon-sdk
            // I almost have no idea why it needs `cjs` on dev and `esm` on build, but this is how it works 🤷‍♂️
-           "@airgap/beacon-sdk": path.resolve(
+           '@airgap/beacon-sdk': path.resolve(
              path.resolve(),
              `./node_modules/@airgap/beacon-sdk/dist/${
-               isBuild ? "esm" : "cjs"
+               isBuild ? 'esm' : 'cjs'
              }/index.js`
            ),
-           stream: "stream-browserify",
-           os: "os-browserify/browser",
-           util: "util",
-           process: "process/browser",
-           buffer: "buffer",
-           crypto: "crypto-browserify",
-           assert: "assert",
-           http: "stream-http",
-           https: "https-browserify",
-           url: "url",
-           path: "path-browserify",
+           stream: 'stream-browserify',
+           os: 'os-browserify/browser',
+           util: 'util',
+           process: 'process/browser',
+           buffer: 'buffer',
+           crypto: 'crypto-browserify',
+           assert: 'assert',
+           http: 'stream-http',
+           https: 'https-browserify',
+           url: 'url',
+           path: 'path-browserify',
          },
        },
      });
@@ -361,21 +361,21 @@ Declare two React Button components and display the user address and his balance
 Edit **src/App.tsx** file.
 
 ```typescript
-import { NetworkType } from "@airgap/beacon-types";
-import { BeaconWallet } from "@taquito/beacon-wallet";
-import { TezosToolkit } from "@taquito/taquito";
-import * as api from "@tzkt/sdk-api";
-import { useEffect, useState } from "react";
-import "./App.css";
-import ConnectButton from "./ConnectWallet";
-import DisconnectButton from "./DisconnectWallet";
+import { NetworkType } from '@airgap/beacon-types';
+import { BeaconWallet } from '@taquito/beacon-wallet';
+import { TezosToolkit } from '@taquito/taquito';
+import * as api from '@tzkt/sdk-api';
+import { useEffect, useState } from 'react';
+import './App.css';
+import ConnectButton from './ConnectWallet';
+import DisconnectButton from './DisconnectWallet';
 
 function App() {
-  api.defaults.baseUrl = "https://api.ghostnet.tzkt.io";
+  api.defaults.baseUrl = 'https://api.ghostnet.tzkt.io';
 
-  const Tezos = new TezosToolkit("https://ghostnet.tezos.marigold.dev");
+  const Tezos = new TezosToolkit('https://ghostnet.tezos.marigold.dev');
   const wallet = new BeaconWallet({
-    name: "Training",
+    name: 'Training',
     preferredNetwork: NetworkType.GHOSTNET,
   });
   Tezos.setWalletProvider(wallet);
@@ -391,7 +391,7 @@ function App() {
     })();
   }, []);
 
-  const [userAddress, setUserAddress] = useState<string>("");
+  const [userAddress, setUserAddress] = useState<string>('');
   const [userBalance, setUserBalance] = useState<number>(0);
 
   return (
@@ -433,10 +433,10 @@ export default App;
 1. Edit **ConnectWallet.tsx**
 
    ```typescript
-   import { NetworkType } from "@airgap/beacon-sdk";
-   import { BeaconWallet } from "@taquito/beacon-wallet";
-   import { TezosToolkit } from "@taquito/taquito";
-   import { Dispatch, SetStateAction } from "react";
+   import { NetworkType } from '@airgap/beacon-sdk';
+   import { BeaconWallet } from '@taquito/beacon-wallet';
+   import { TezosToolkit } from '@taquito/taquito';
+   import { Dispatch, SetStateAction } from 'react';
 
    type ButtonProps = {
      Tezos: TezosToolkit;
@@ -456,7 +456,7 @@ export default App;
          await wallet.requestPermissions({
            network: {
              type: NetworkType.GHOSTNET,
-             rpcUrl: "https://ghostnet.tezos.marigold.dev",
+             rpcUrl: 'https://ghostnet.tezos.marigold.dev',
            },
          });
          // gets user's address
@@ -487,8 +487,8 @@ export default App;
    The button cleans the wallet instance and all linked objects.
 
    ```typescript
-   import { BeaconWallet } from "@taquito/beacon-wallet";
-   import { Dispatch, SetStateAction } from "react";
+   import { BeaconWallet } from '@taquito/beacon-wallet';
+   import { Dispatch, SetStateAction } from 'react';
 
    interface ButtonProps {
      wallet: BeaconWallet;
@@ -502,9 +502,9 @@ export default App;
      setUserBalance,
    }: ButtonProps): JSX.Element => {
      const disconnectWallet = async (): Promise<void> => {
-       setUserAddress("");
+       setUserAddress('');
        setUserBalance(0);
-       console.log("disconnecting wallet");
+       console.log('disconnecting wallet');
        await wallet.clearActiveAccount();
      };
 
@@ -558,7 +558,7 @@ Instead of querying heavily the rpc node to search where are located all other s
        setContracts(
          await api.contractsGetSimilar(import.meta.env.VITE_CONTRACT_ADDRESS, {
            includeStorage: true,
-           sort: { desc: "id" },
+           sort: { desc: 'id' },
          })
        );
      })();
@@ -595,7 +595,7 @@ Instead of querying heavily the rpc node to search where are located all other s
 1. Import the Taqueria generated types on **app/src/App.tsx**.
 
    ```typescript
-   import { PokeGameWalletType } from "./pokeGame.types";
+   import { PokeGameWalletType } from './pokeGame.types';
    ```
 
 1. Add this new function after the previous fetch function, it calls the entrypoint for poking.
@@ -603,12 +603,12 @@ Instead of querying heavily the rpc node to search where are located all other s
    ```typescript
    const poke = async (contract: api.Contract) => {
      let c: PokeGameWalletType = await Tezos.wallet.at<PokeGameWalletType>(
-       "" + contract.address
+       '' + contract.address
      );
      try {
        const op = await c.methods.default().send();
        await op.confirmation();
-       alert("Tx done");
+       alert('Tx done');
      } catch (error: any) {
        console.table(`Error: ${JSON.stringify(error, null, 2)}`);
      }
@@ -631,8 +631,8 @@ Instead of querying heavily the rpc node to search where are located all other s
 
 ## Summary
 
-Now, you are able to create any Smart Contract using Ligo and create a complete Dapp via Taqueria/Taquito.
+Now, you are able to create any Smart Contract using LIGO and create a complete Dapp via Taqueria/Taquito.
 
-In the next section, you will learn how to call a Smart contract from a Smart Contract using callbacks, and also write unit and mutation tests.
+In the next section, you will learn how to call a smart contract from a smart contract using callbacks, and also write unit and mutation tests.
 
 When you are ready, continue to [Part 2: Inter-contract calls and testing](./part-2).

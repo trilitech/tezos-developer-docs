@@ -20,7 +20,7 @@ By default, RPC servers are private and do not accept all requests from every cl
 
 When you work with a Tezos client, such as the Octez command-line client or the Taquito SDK, you select a public RPC node to send transactions to, or you can use a private RPC node that you have access to.
 
-If you're using a testnet, you can get a list of public RPC nodes for that network at https://teztnets.xyz.
+If you're using a testnet, you can get a list of public RPC nodes for that network at https://teztnets.com.
 
 Other sources of public nodes include:
 

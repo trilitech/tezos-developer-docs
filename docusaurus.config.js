@@ -4,6 +4,26 @@
 const math = require('remark-math');
 const katex = require('rehype-katex');
 
+// script-src causes development builds to fail
+// But unsafe-eval should NOT be in production builds
+// Also, put GTM first because sometimes the ';' in the escaped single quotes causes the browser to think it's the end
+const scriptSrc = process.env.NODE_ENV === 'development' ?
+  `https://*.googletagmanager.com 'self' 'unsafe-inline' 'unsafe-eval'`
+  : `https://*.googletagmanager.com 'self' 'unsafe-inline'`;
+
+const contentSecurityPolicy = `
+default-src 'none';
+base-uri 'self';
+manifest-src 'self';
+script-src ${scriptSrc};
+style-src 'self' 'unsafe-inline';
+font-src 'self';
+img-src 'self' https://*.googletagmanager.com https://*.google-analytics.com data:;
+media-src 'self';
+form-action 'self';
+connect-src 'self' https://*.algolia.net https://*.algolianet.com https://*.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com;
+frame-src https://tezosbot.vercel.app lucid.app;`;
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Tezos Developer Documentation',
@@ -22,6 +42,16 @@ const config = {
   markdown: {
     mermaid: true,
   },
+
+  headTags: [
+    {
+      tagName: 'meta',
+      attributes: {
+        'http-equiv': 'Content-Security-Policy',
+        content: contentSecurityPolicy,
+      },
+    },
+  ],
 
   themes: ['@docusaurus/theme-mermaid'],
 
@@ -91,6 +121,7 @@ const config = {
       },
       prism: {
         theme: require('prism-react-renderer/themes/github'),
+        additionalLanguages: ['csharp', 'toml'],
       },
       // https://github.com/flexanalytics/plugin-image-zoom
       // Enable click to zoom in to large images
@@ -111,7 +142,7 @@ const config = {
         apiKey: process.env.NEXT_PUBLIC_DOCSEARCH_API_KEY || "57d6a376a3528866784a143809cc7427",
         indexName: process.env.NEXT_PUBLIC_DOCSEARCH_INDEX_NAME || "tezosdocs",
         // Optional: see doc section below
-        contextualSearch: false,
+        contextualSearch: true,
         // Optional: Specify domains where the navigation should occur through window.location instead on history.push. Useful when our Algolia config crawls multiple documentation sites and we want to navigate with window.location.href to them.
         // externalUrlRegex: 'external\\.com|domain\\.com',
         // Optional: Replace parts of the item URLs from Algolia. Useful when using the same search index for multiple deployments using a different baseUrl. You can use regexp or string in the `from` param. For example: localhost:3000 vs myCompany.com/docs

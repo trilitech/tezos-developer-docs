@@ -1,6 +1,6 @@
 ---
-title: "Part 3: Tickets"
-authors: "Benjamin Fuentes"
+title: 'Part 3: Tickets'
+authors: 'Benjamin Fuentes (Marigold)'
 last_update:
   date: 29 November 2023
 ---
@@ -49,7 +49,7 @@ Tickets features:
 
 - Not comparable: it makes no sense to compare tickets because tickets from same type are all equals and can be merged into a single ticket. When ticket types are different then it is no more comparable.
 - Transferable: you can send ticket into a Transaction parameter.
-- Storable: only on smart contract storage for the moment (Note: a new protocol release will enable it for implicit account soon).
+- Storable: only on smart contract storage for the moment (Note: a new protocol release will enable it for user account soon).
 - Non dupable: you cannot copy or duplicate a ticket, it is a unique singleton object living in specific blockchain instance.
 - Splittable: if amount is > 2 then you can split ticket object into 2 objects.
 - Mergeable: you can merge ticket from same ticketer and same type.
@@ -82,7 +82,7 @@ Minting is the action of creating ticket from void. In general, minting operatio
 
    > Note: to simplify, there is no security around this entrypoint, but in Production it should.
 
-   Tickets are very special objects that cannot be **DUPLICATED**. During compilation to Michelson, using a variable twice, copying a structure holding tickets are generating `DUP` command. To avoid our contract to fail at runtime, Ligo parses statically our code during compilation time to detect any DUP on tickets.
+   Tickets are very special objects that cannot be **DUPLICATED**. During compilation to Michelson, using a variable twice, copying a structure holding tickets are generating `DUP` command. To avoid our contract to fail at runtime, LIGO parses statically our code during compilation time to detect any DUP on tickets.
 
    To solve most of issues, segregate ticket objects from the rest of the storage, or structures containing ticket objects in order to avoid compilation errors. To do this, just destructure any object until you get tickets isolated.
 
@@ -430,7 +430,7 @@ Update the unit tests files to see if you can still poke.
    yarn dev
    ```
 
-1. Connect with any wallet with enough Tez, and Poke your own contract.
+1. Connect with any wallet with enough tez, and Poke your own contract.
 
    ![pokefail](/img/tutorials/dapp-pokefail.png)
 
@@ -443,24 +443,24 @@ Update the unit tests files to see if you can still poke.
 1. Add a new button for minting on a specific contract, replace the full content of `App.tsx` with:
 
    ```typescript
-   import { NetworkType } from "@airgap/beacon-types";
-   import { BeaconWallet } from "@taquito/beacon-wallet";
-   import { TezosToolkit } from "@taquito/taquito";
-   import * as api from "@tzkt/sdk-api";
-   import { BigNumber } from "bignumber.js";
-   import { useEffect, useState } from "react";
-   import "./App.css";
-   import ConnectButton from "./ConnectWallet";
-   import DisconnectButton from "./DisconnectWallet";
-   import { PokeGameWalletType, Storage } from "./pokeGame.types";
-   import { address, nat } from "./type-aliases";
+   import { NetworkType } from '@airgap/beacon-types';
+   import { BeaconWallet } from '@taquito/beacon-wallet';
+   import { TezosToolkit } from '@taquito/taquito';
+   import * as api from '@tzkt/sdk-api';
+   import { BigNumber } from 'bignumber.js';
+   import { useEffect, useState } from 'react';
+   import './App.css';
+   import ConnectButton from './ConnectWallet';
+   import DisconnectButton from './DisconnectWallet';
+   import { PokeGameWalletType, Storage } from './pokeGame.types';
+   import { address, nat } from './type-aliases';
 
    function App() {
-     api.defaults.baseUrl = "https://api.ghostnet.tzkt.io";
+     api.defaults.baseUrl = 'https://api.ghostnet.tzkt.io';
 
-     const Tezos = new TezosToolkit("https://ghostnet.tezos.marigold.dev");
+     const Tezos = new TezosToolkit('https://ghostnet.tezos.marigold.dev');
      const wallet = new BeaconWallet({
-       name: "Training",
+       name: 'Training',
        preferredNetwork: NetworkType.GHOSTNET,
      });
      Tezos.setWalletProvider(wallet);
@@ -477,7 +477,7 @@ Update the unit tests files to see if you can still poke.
              import.meta.env.VITE_CONTRACT_ADDRESS,
              {
                includeStorage: true,
-               sort: { desc: "id" },
+               sort: { desc: 'id' },
              }
            );
          setContracts(tzktcontracts);
@@ -509,9 +509,9 @@ Update the unit tests files to see if you can still poke.
        })();
      }, []);
 
-     const [userAddress, setUserAddress] = useState<string>("");
+     const [userAddress, setUserAddress] = useState<string>('');
      const [userBalance, setUserBalance] = useState<number>(0);
-     const [contractToPoke, setContractToPoke] = useState<string>("");
+     const [contractToPoke, setContractToPoke] = useState<string>('');
 
      //poke
      const poke = async (
@@ -519,13 +519,13 @@ Update the unit tests files to see if you can still poke.
        contract: api.Contract
      ) => {
        e.preventDefault();
-       let c: PokeGameWalletType = await Tezos.wallet.at("" + contract.address);
+       let c: PokeGameWalletType = await Tezos.wallet.at('' + contract.address);
        try {
          const op = await c.methods
            .pokeAndGetFeedback(contractToPoke as address)
            .send();
          await op.confirmation();
-         alert("Tx done");
+         alert('Tx done');
        } catch (error: any) {
          console.log(error);
          console.table(`Error: ${JSON.stringify(error, null, 2)}`);
@@ -538,14 +538,14 @@ Update the unit tests files to see if you can still poke.
        contract: api.Contract
      ) => {
        e.preventDefault();
-       let c: PokeGameWalletType = await Tezos.wallet.at("" + contract.address);
+       let c: PokeGameWalletType = await Tezos.wallet.at('' + contract.address);
        try {
-         console.log("contractToPoke", contractToPoke);
+         console.log('contractToPoke', contractToPoke);
          const op = await c.methods
            .init(userAddress as address, new BigNumber(1) as nat)
            .send();
          await op.confirmation();
-         alert("Tx done");
+         alert('Tx done');
        } catch (error: any) {
          console.log(error);
          console.table(`Error: ${JSON.stringify(error, null, 2)}`);
@@ -587,8 +587,8 @@ Update the unit tests files to see if you can still poke.
              <tbody>
                {contracts.map((contract) => (
                  <tr>
-                   <td style={{ borderStyle: "dotted" }}>{contract.address}</td>
-                   <td style={{ borderStyle: "dotted" }}>
+                   <td style={{ borderStyle: 'dotted' }}>{contract.address}</td>
+                   <td style={{ borderStyle: 'dotted' }}>
                      {contractStorages.get(contract.address!) !== undefined &&
                      contractStorages.get(contract.address!)!.pokeTraces
                        ? Array.from(
@@ -598,19 +598,19 @@ Update the unit tests files to see if you can still poke.
                          ).map(
                            (e) =>
                              e[1].receiver +
-                             " " +
+                             ' ' +
                              e[1].feedback +
-                             " " +
+                             ' ' +
                              e[0] +
-                             ","
+                             ','
                          )
-                       : ""}
+                       : ''}
                    </td>
-                   <td style={{ borderStyle: "dotted" }}>
+                   <td style={{ borderStyle: 'dotted' }}>
                      <input
                        type="text"
                        onChange={(e) => {
-                         console.log("e", e.currentTarget.value);
+                         console.log('e', e.currentTarget.value);
                          setContractToPoke(e.currentTarget.value);
                        }}
                        placeholder="enter contract address here"

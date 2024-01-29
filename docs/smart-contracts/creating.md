@@ -10,7 +10,7 @@ This documentation provides step-by-step instructions for creating smart contrac
 ## Choosing your smart contract language
 Tezos supports a variety of smart contract [languages](./languages): Michelson, SmartPy, LIGO, Archetype.
 
-You can select a language based on your familarity with programming paragims, the complexity of the contract you want to deploy, and the specific features you require. Here's a more detailed table for each language:
+You can select a language based on your familiarity with programming paradigms, the complexity of the contract you want to deploy, and the specific features you require. Here's a more detailed table for each language:
 
 |                  |                        **Michelson**                       |                      **SmartPy**                      |                                        **LIGO**                                       |                                   **Archetype**                                   |
 |:----------------:|:----------------------------------------------------------:|:-----------------------------------------------------:|:-------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------:|
@@ -18,7 +18,7 @@ You can select a language based on your familarity with programming paragims, th
 | **Capabilities** |   Full control over contract, optimal for gas efficiency   | Easy to write, automatically manages stack operations |                        Statically-typed, strong error checking                        |                Specialized for formal verification and correctness                |
 |   **Use Cases**  | Optimized contracts, developers with blockchain experience |          Python developers, rapid prototyping         | Developers familiar with static typing, variety of mainstream programming backgrounds | High-security contracts, developers looking for formal proof of contract behavior |
 
-For beginners, we recommand **SmartPy** or **LIGO** for their higher-level more abstracted approach.
+For beginners, we recommend **SmartPy** or **LIGO** for their higher-level more abstracted approach.
 
 
 ## Making a strategic choice
@@ -34,7 +34,7 @@ The online editor is the quickest and easiest way to get started.
 
 For example:
 - For smartpy user, we recommend to use the [SmartPy online IDE](https://smartpy.io/)
-- For Ligo user, we recommend to use the [Ligo online IDE](https://ligolang.org/?lang=jsligo)
+- For LIGO user, we recommend to use the [LIGO online IDE](https://ligolang.org/?lang=jsligo)
 
 
 ### Defining contract storage

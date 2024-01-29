@@ -1,6 +1,6 @@
 ---
 title: Create your minimum dapp on Tezos
-authors: "Benjamin Fuentes"
+authors: 'Benjamin Fuentes (Marigold)'
 last_update:
   date: 27 November 2023
 ---
@@ -22,7 +22,7 @@ sequenceDiagram
 You will learn :
 
 - How to create a Tezos project with Taqueria.
-- How to create a smart contract in jsLigo.
+- How to create a smart contract in JsLIGO.
 - How to deploy the smart contract a real testnet named Ghostnet.
 - How to create a frontend dApp using Taquito library and interact with a Tezos browser wallet.
 - How to use an indexer like TZKT.

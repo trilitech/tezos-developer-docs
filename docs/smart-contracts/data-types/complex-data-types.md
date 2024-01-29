@@ -54,7 +54,7 @@ $$O(\log_2 (size))$$, whereas for a right comb, it's $$O(size)$$.
 
 ### Implementation details
 
-- Michelson: [Operations on pairs and right combs](https://archetype-lang.org/docs/reference/instructions/operation)
+- Michelson: [Operations on pairs and right combs](https://tezos.gitlab.io/active/michelson.html#operations-on-pairs-and-right-combs)
 - LIGO: [Tuples](https://ligolang.org/docs/language-basics/sets-lists-tuples#tuples)
 - SmartPy: [Tuples and Records](https://smartpy.io/manual/syntax/tuples-and-records)
 - Archetype: [Composite types](https://archetype-lang.org/docs/language-basics/composite#tuple), [Tuple](https://archetype-lang.org/docs/reference/types#tuple)
@@ -392,7 +392,7 @@ The ticket's information is public and can be read by any contract that holds th
 
 Contracts can pass tickets to entrypoints to change which contract is in control of the ticket.
 If contract A passes a ticket to contract B, contract A loses all access to the ticket.
-Contracts can pass tickets only to other contracts (implicit accounts) because the entrypoint must accept a ticket of the correct type; contracts cannot pass tickets to user accounts.
+Contracts can pass tickets to other contracts via entrypoints accepting a ticket of the correct type; contracts can also pass tickets to user accounts.
 
 ### Ticket features
 

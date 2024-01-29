@@ -1,5 +1,6 @@
 ---
-title: "Part 4: Handling multi-asset tokens"
+title: 'Part 4: Handling multi-asset tokens'
+authors: 'Benjamin Fuentes (Marigold)'
 last_update:
   date: 8 November 2023
 ---
@@ -254,11 +255,11 @@ Now that the contract handles both token IDs and quantities, you must update the
 
    ```typescript
    const refreshUserContextOnPageReload = async () => {
-     console.log("refreshUserContext");
+     console.log('refreshUserContext');
      //CONTRACT
      try {
        let c = await Tezos.contract.at(nftContractAddress, tzip12);
-       console.log("nftContractAddress", nftContractAddress);
+       console.log('nftContractAddress', nftContractAddress);
 
        let nftContrat: NftWalletType = await Tezos.wallet.at<NftWalletType>(
          nftContractAddress
@@ -270,7 +271,7 @@ Now that the contract handles both token IDs and quantities, you must update the
        ).id.toNumber();
 
        const token_ids = await api.bigMapsGetKeys(token_metadataBigMapId, {
-         micheline: "Json",
+         micheline: 'Json',
          active: true,
        });
        await Promise.all(
@@ -287,7 +288,7 @@ Now that the contract handles both token IDs and quantities, you must update the
        setNftContrat(nftContrat);
        setStorage(storage);
      } catch (error) {
-       console.log("error refreshing nft contract: ", error);
+       console.log('error refreshing nft contract: ', error);
      }
 
      //USER
@@ -298,7 +299,7 @@ Now that the contract handles both token IDs and quantities, you must update the
        setUserBalance(balance.toNumber());
      }
 
-     console.log("refreshUserContext ended.");
+     console.log('refreshUserContext ended.');
    };
    ```
 
@@ -312,8 +313,8 @@ Now that the contract handles both token IDs and quantities, you must update the
      Close,
      KeyboardArrowLeft,
      KeyboardArrowRight,
-   } from "@mui/icons-material";
-   import OpenWithIcon from "@mui/icons-material/OpenWith";
+   } from '@mui/icons-material';
+   import OpenWithIcon from '@mui/icons-material/OpenWith';
    import {
      Box,
      Button,
@@ -325,21 +326,21 @@ Now that the contract handles both token IDs and quantities, you must update the
      TextField,
      Toolbar,
      useMediaQuery,
-   } from "@mui/material";
-   import Card from "@mui/material/Card";
-   import CardContent from "@mui/material/CardContent";
-   import Paper from "@mui/material/Paper";
-   import Typography from "@mui/material/Typography";
-   import { char2Bytes } from "@taquito/utils";
-   import { BigNumber } from "bignumber.js";
-   import { useFormik } from "formik";
-   import { useSnackbar } from "notistack";
-   import React, { useEffect, useState } from "react";
-   import SwipeableViews from "react-swipeable-views";
-   import * as yup from "yup";
-   import { TZIP21TokenMetadata, UserContext, UserContextType } from "./App";
-   import { TransactionInvalidBeaconError } from "./TransactionInvalidBeaconError";
-   import { address, bytes, nat } from "./type-aliases";
+   } from '@mui/material';
+   import Card from '@mui/material/Card';
+   import CardContent from '@mui/material/CardContent';
+   import Paper from '@mui/material/Paper';
+   import Typography from '@mui/material/Typography';
+   import { char2Bytes } from '@taquito/utils';
+   import { BigNumber } from 'bignumber.js';
+   import { useFormik } from 'formik';
+   import { useSnackbar } from 'notistack';
+   import React, { useEffect, useState } from 'react';
+   import SwipeableViews from 'react-swipeable-views';
+   import * as yup from 'yup';
+   import { TZIP21TokenMetadata, UserContext, UserContextType } from './App';
+   import { TransactionInvalidBeaconError } from './TransactionInvalidBeaconError';
+   import { address, bytes, nat } from './type-aliases';
 
    export default function MintPage() {
      const {
@@ -350,7 +351,7 @@ Now that the contract handles both token IDs and quantities, you must update the
        storage,
      } = React.useContext(UserContext) as UserContextType;
      const { enqueueSnackbar } = useSnackbar();
-     const [pictureUrl, setPictureUrl] = useState<string>("");
+     const [pictureUrl, setPictureUrl] = useState<string>('');
      const [file, setFile] = useState<File | null>(null);
 
      const [activeStep, setActiveStep] = React.useState(0);
@@ -368,21 +369,21 @@ Now that the contract handles both token IDs and quantities, you must update the
      };
 
      const validationSchema = yup.object({
-       name: yup.string().required("Name is required"),
-       description: yup.string().required("Description is required"),
-       symbol: yup.string().required("Symbol is required"),
+       name: yup.string().required('Name is required'),
+       description: yup.string().required('Description is required'),
+       symbol: yup.string().required('Symbol is required'),
        quantity: yup
          .number()
-         .required("Quantity is required")
-         .positive("ERROR: The number must be greater than 0!"),
+         .required('Quantity is required')
+         .positive('ERROR: The number must be greater than 0!'),
      });
 
      const formik = useFormik({
        initialValues: {
-         name: "",
-         description: "",
+         name: '',
+         description: '',
          token_id: 0,
-         symbol: "WINE",
+         symbol: 'WINE',
          quantity: 1,
        } as TZIP21TokenMetadata & { quantity: number },
        validationSchema: validationSchema,
@@ -407,7 +408,7 @@ Now that the contract handles both token IDs and quantities, you must update the
            nftContratTokenMetadataMap &&
            nftContratTokenMetadataMap.size > 0
          ) {
-           formik.setFieldValue("token_id", nftContratTokenMetadataMap.size);
+           formik.setFieldValue('token_id', nftContratTokenMetadataMap.size);
          }
        })();
      }, [nftContratTokenMetadataMap?.size]);
@@ -419,29 +420,29 @@ Now that the contract handles both token IDs and quantities, you must update the
          //IPFS
          if (file) {
            const formData = new FormData();
-           formData.append("file", file);
+           formData.append('file', file);
 
            const requestHeaders: HeadersInit = new Headers();
            requestHeaders.set(
-             "pinata_api_key",
+             'pinata_api_key',
              `${import.meta.env.VITE_PINATA_API_KEY}`
            );
            requestHeaders.set(
-             "pinata_secret_api_key",
+             'pinata_secret_api_key',
              `${import.meta.env.VITE_PINATA_API_SECRET}`
            );
 
            const resFile = await fetch(
-             "https://api.pinata.cloud/pinning/pinFileToIPFS",
+             'https://api.pinata.cloud/pinning/pinFileToIPFS',
              {
-               method: "post",
+               method: 'post',
                body: formData,
                headers: requestHeaders,
              }
            );
 
            const responseJson = await resFile.json();
-           console.log("responseJson", responseJson);
+           console.log('responseJson', responseJson);
 
            const thumbnailUri = `ipfs://${responseJson.IpfsHash}`;
            setPictureUrl(
@@ -462,13 +463,13 @@ Now that the contract handles both token IDs and quantities, you must update the
            //close directly the form
            setFormOpen(false);
            enqueueSnackbar(
-             "Wine collection is minting ... it will be ready on next block, wait for the confirmation message before minting another collection",
-             { variant: "info" }
+             'Wine collection is minting ... it will be ready on next block, wait for the confirmation message before minting another collection',
+             { variant: 'info' }
            );
 
            await op.confirmation(2);
 
-           enqueueSnackbar("Wine collection minted", { variant: "success" });
+           enqueueSnackbar('Wine collection minted', { variant: 'success' });
 
            refreshUserContextOnPageReload(); //force all app to refresh the context
          }
@@ -477,7 +478,7 @@ Now that the contract handles both token IDs and quantities, you must update the
          let tibe: TransactionInvalidBeaconError =
            new TransactionInvalidBeaconError(error);
          enqueueSnackbar(tibe.data_message, {
-           variant: "error",
+           variant: 'error',
            autoHideDuration: 10000,
          });
        }
@@ -488,16 +489,16 @@ Now that the contract handles both token IDs and quantities, you must update the
      const toggleDrawer =
        (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
          if (
-           event.type === "keydown" &&
-           ((event as React.KeyboardEvent).key === "Tab" ||
-             (event as React.KeyboardEvent).key === "Shift")
+           event.type === 'keydown' &&
+           ((event as React.KeyboardEvent).key === 'Tab' ||
+             (event as React.KeyboardEvent).key === 'Shift')
          ) {
            return;
          }
          setFormOpen(open);
        };
 
-     const isTablet = useMediaQuery("(min-width:600px)");
+     const isTablet = useMediaQuery('(min-width:600px)');
 
      return (
        <Paper>
@@ -508,21 +509,21 @@ Now that the contract handles both token IDs and quantities, you must update the
              }
              sx={{
                p: 1,
-               position: "absolute",
-               right: "0",
-               display: formOpen ? "none" : "block",
+               position: 'absolute',
+               right: '0',
+               display: formOpen ? 'none' : 'block',
                zIndex: 1,
              }}
              onClick={toggleDrawer(!formOpen)}
            >
-             {" Mint Form " +
+             {' Mint Form ' +
                (storage!.administrators.indexOf(userAddress! as address) < 0
-                 ? " (You are not admin)"
-                 : "")}
+                 ? ' (You are not admin)'
+                 : '')}
              <OpenWithIcon />
            </Button>
          ) : (
-           ""
+           ''
          )}
 
          <SwipeableDrawer
@@ -535,32 +536,32 @@ Now that the contract handles both token IDs and quantities, you must update the
            <Toolbar
              sx={
                isTablet
-                 ? { marginTop: "0", marginRight: "0" }
-                 : { marginTop: "35px", marginRight: "125px" }
+                 ? { marginTop: '0', marginRight: '0' }
+                 : { marginTop: '35px', marginRight: '125px' }
              }
            />
            <Box
              sx={{
-               width: isTablet ? "40vw" : "60vw",
-               borderColor: "text.secondary",
-               borderStyle: "solid",
-               borderWidth: "1px",
+               width: isTablet ? '40vw' : '60vw',
+               borderColor: 'text.secondary',
+               borderStyle: 'solid',
+               borderWidth: '1px',
 
-               height: "calc(100vh - 64px)",
+               height: 'calc(100vh - 64px)',
              }}
            >
              <Button
                sx={{
-                 position: "absolute",
-                 right: "0",
-                 display: !formOpen ? "none" : "block",
+                 position: 'absolute',
+                 right: '0',
+                 display: !formOpen ? 'none' : 'block',
                }}
                onClick={toggleDrawer(!formOpen)}
              >
                <Close />
              </Button>
              <form onSubmit={formik.handleSubmit}>
-               <Stack spacing={2} margin={2} alignContent={"center"}>
+               <Stack spacing={2} margin={2} alignContent={'center'}>
                  <Typography variant="h5">Mint a new collection</Typography>
 
                  <TextField
@@ -634,7 +635,7 @@ Now that the contract handles both token IDs and quantities, you must update the
                  {pictureUrl ? (
                    <img height={100} width={100} src={pictureUrl} />
                  ) : (
-                   ""
+                   ''
                  )}
                  <Button variant="contained" component="label" color="primary">
                    <AddCircleOutlined />
@@ -664,7 +665,7 @@ Now that the contract handles both token IDs and quantities, you must update the
          <Typography variant="h5">Mint your wine collection</Typography>
 
          {nftContratTokenMetadataMap.size != 0 ? (
-           <Box sx={{ width: "70vw" }}>
+           <Box sx={{ width: '70vw' }}>
              <SwipeableViews
                axis="x"
                index={activeStep}
@@ -675,15 +676,15 @@ Now that the contract handles both token IDs and quantities, you must update the
                  ([token_id, token]) => (
                    <Card
                      sx={{
-                       display: "block",
-                       maxWidth: "80vw",
-                       overflow: "hidden",
+                       display: 'block',
+                       maxWidth: '80vw',
+                       overflow: 'hidden',
                      }}
                      key={token_id.toString()}
                    >
                      <CardHeader
                        titleTypographyProps={
-                         isTablet ? { fontSize: "1.5em" } : { fontSize: "1em" }
+                         isTablet ? { fontSize: '1.5em' } : { fontSize: '1em' }
                        }
                        title={token.name}
                      />
@@ -692,25 +693,25 @@ Now that the contract handles both token IDs and quantities, you must update the
                        sx={
                          isTablet
                            ? {
-                               width: "auto",
-                               marginLeft: "33%",
-                               maxHeight: "50vh",
+                               width: 'auto',
+                               marginLeft: '33%',
+                               maxHeight: '50vh',
                              }
-                           : { width: "100%", maxHeight: "40vh" }
+                           : { width: '100%', maxHeight: '40vh' }
                        }
                        component="img"
                        image={token.thumbnailUri?.replace(
-                         "ipfs://",
-                         "https://gateway.pinata.cloud/ipfs/"
+                         'ipfs://',
+                         'https://gateway.pinata.cloud/ipfs/'
                        )}
                      />
 
                      <CardContent>
                        <Box>
-                         <Typography>{"ID : " + token_id}</Typography>
-                         <Typography>{"Symbol : " + token.symbol}</Typography>
+                         <Typography>{'ID : ' + token_id}</Typography>
+                         <Typography>{'Symbol : ' + token.symbol}</Typography>
                          <Typography>
-                           {"Description : " + token.description}
+                           {'Description : ' + token.description}
                          </Typography>
                        </Box>
                      </CardContent>
@@ -750,7 +751,7 @@ Now that the contract handles both token IDs and quantities, you must update the
              />
            </Box>
          ) : (
-           <Typography sx={{ py: "2em" }} variant="h4">
+           <Typography sx={{ py: '2em' }} variant="h4">
              Sorry, there is not NFT yet, you need to mint bottles first
            </Typography>
          )}
@@ -762,9 +763,9 @@ Now that the contract handles both token IDs and quantities, you must update the
 1. Replace the content of the `src/OffersPage.tsx` file with this code:
 
    ```typescript
-   import { InfoOutlined } from "@mui/icons-material";
-   import SellIcon from "@mui/icons-material/Sell";
-   import * as api from "@tzkt/sdk-api";
+   import { InfoOutlined } from '@mui/icons-material';
+   import SellIcon from '@mui/icons-material/Sell';
+   import * as api from '@tzkt/sdk-api';
 
    import {
      Box,
@@ -781,29 +782,29 @@ Now that the contract handles both token IDs and quantities, you must update the
      Tooltip,
      Typography,
      useMediaQuery,
-   } from "@mui/material";
-   import Paper from "@mui/material/Paper";
-   import BigNumber from "bignumber.js";
-   import { useFormik } from "formik";
-   import { useSnackbar } from "notistack";
-   import React, { Fragment, useEffect, useState } from "react";
-   import * as yup from "yup";
-   import { UserContext, UserContextType } from "./App";
-   import ConnectButton from "./ConnectWallet";
-   import { TransactionInvalidBeaconError } from "./TransactionInvalidBeaconError";
-   import { address, nat } from "./type-aliases";
+   } from '@mui/material';
+   import Paper from '@mui/material/Paper';
+   import BigNumber from 'bignumber.js';
+   import { useFormik } from 'formik';
+   import { useSnackbar } from 'notistack';
+   import React, { Fragment, useEffect, useState } from 'react';
+   import * as yup from 'yup';
+   import { UserContext, UserContextType } from './App';
+   import ConnectButton from './ConnectWallet';
+   import { TransactionInvalidBeaconError } from './TransactionInvalidBeaconError';
+   import { address, nat } from './type-aliases';
 
    const itemPerPage: number = 6;
 
    const validationSchema = yup.object({
      price: yup
        .number()
-       .required("Price is required")
-       .positive("ERROR: The number must be greater than 0!"),
+       .required('Price is required')
+       .positive('ERROR: The number must be greater than 0!'),
      quantity: yup
        .number()
-       .required("Quantity is required")
-       .positive("ERROR: The number must be greater than 0!"),
+       .required('Quantity is required')
+       .positive('ERROR: The number must be greater than 0!'),
    });
 
    type Offer = {
@@ -812,7 +813,7 @@ Now that the contract handles both token IDs and quantities, you must update the
    };
 
    export default function OffersPage() {
-     api.defaults.baseUrl = "https://api.ghostnet.tzkt.io";
+     api.defaults.baseUrl = 'https://api.ghostnet.tzkt.io';
 
      const [selectedTokenId, setSelectedTokenId] = React.useState<number>(0);
      const [currentPageIndex, setCurrentPageIndex] = useState<number>(1);
@@ -845,14 +846,14 @@ Now that the contract handles both token IDs and quantities, you must update the
        },
        validationSchema: validationSchema,
        onSubmit: (values) => {
-         console.log("onSubmit: (values)", values, selectedTokenId);
+         console.log('onSubmit: (values)', values, selectedTokenId);
          sell(selectedTokenId, values.quantity, values.price);
        },
      });
 
      const initPage = async () => {
        if (storage) {
-         console.log("context is not empty, init page now");
+         console.log('context is not empty, init page now');
          ledgerTokenIDMap = new Map();
          offersTokenIDMap = new Map();
 
@@ -861,7 +862,7 @@ Now that the contract handles both token IDs and quantities, you must update the
          ).id.toNumber();
 
          const owner_token_ids = await api.bigMapsGetKeys(ledgerBigMapId, {
-           micheline: "Json",
+           micheline: 'Json',
            active: true,
          });
 
@@ -885,37 +886,37 @@ Now that the contract handles both token IDs and quantities, you must update the
                  offersTokenIDMap.set(Number(key.nat), ownerOffers);
 
                console.log(
-                 "found for " +
+                 'found for ' +
                    key.address +
-                   " on token_id " +
+                   ' on token_id ' +
                    key.nat +
-                   " with balance " +
+                   ' with balance ' +
                    ownerBalance
                );
              } else {
-               console.log("skip to next owner");
+               console.log('skip to next owner');
              }
            })
          );
          setLedgerTokenIDMap(new Map(ledgerTokenIDMap)); //force refresh
          setOffersTokenIDMap(new Map(offersTokenIDMap)); //force refresh
 
-         console.log("ledgerTokenIDMap", ledgerTokenIDMap);
+         console.log('ledgerTokenIDMap', ledgerTokenIDMap);
        } else {
-         console.log("context is empty, wait for parent and retry ...");
+         console.log('context is empty, wait for parent and retry ...');
        }
      };
 
      useEffect(() => {
        (async () => {
-         console.log("after a storage changed");
+         console.log('after a storage changed');
          await initPage();
        })();
      }, [storage]);
 
      useEffect(() => {
        (async () => {
-         console.log("on Page init");
+         console.log('on Page init');
          await initPage();
        })();
      }, []);
@@ -933,14 +934,14 @@ Now that the contract handles both token IDs and quantities, you must update the
          await op?.confirmation(2);
 
          enqueueSnackbar(
-           "Wine collection (token_id=" +
+           'Wine collection (token_id=' +
              token_id +
-             ") offer for " +
+             ') offer for ' +
              quantity +
-             " units at price of " +
+             ' units at price of ' +
              price +
-             " XTZ",
-           { variant: "success" }
+             ' XTZ',
+           { variant: 'success' }
          );
 
          refreshUserContextOnPageReload(); //force all app to refresh the context
@@ -949,18 +950,18 @@ Now that the contract handles both token IDs and quantities, you must update the
          let tibe: TransactionInvalidBeaconError =
            new TransactionInvalidBeaconError(error);
          enqueueSnackbar(tibe.data_message, {
-           variant: "error",
+           variant: 'error',
            autoHideDuration: 10000,
          });
        }
      };
 
-     const isDesktop = useMediaQuery("(min-width:1100px)");
-     const isTablet = useMediaQuery("(min-width:600px)");
+     const isDesktop = useMediaQuery('(min-width:1100px)');
+     const isTablet = useMediaQuery('(min-width:600px)');
 
      return (
        <Paper>
-         <Typography style={{ paddingBottom: "10px" }} variant="h5">
+         <Typography style={{ paddingBottom: '10px' }} variant="h5">
            Sell my bottles
          </Typography>
          {ledgerTokenIDMap && ledgerTokenIDMap.size != 0 ? (
@@ -988,18 +989,18 @@ Now that the contract handles both token IDs and quantities, you must update the
                      : false
                  )
                  .map(([token_id, balance]) => (
-                   <Card key={token_id + "-" + token_id.toString()}>
+                   <Card key={token_id + '-' + token_id.toString()}>
                      <CardHeader
                        avatar={
                          <Tooltip
                            title={
                              <Box>
                                <Typography>
-                                 {" "}
-                                 {"ID : " + token_id.toString()}{" "}
+                                 {' '}
+                                 {'ID : ' + token_id.toString()}{' '}
                                </Typography>
                                <Typography>
-                                 {"Description : " +
+                                 {'Description : ' +
                                    nftContratTokenMetadataMap.get(
                                      token_id.toString()
                                    )?.description}
@@ -1016,32 +1017,32 @@ Now that the contract handles both token IDs and quantities, you must update the
                        }
                      />
                      <CardMedia
-                       sx={{ width: "auto", marginLeft: "33%" }}
+                       sx={{ width: 'auto', marginLeft: '33%' }}
                        component="img"
                        height="100px"
                        image={nftContratTokenMetadataMap
                          .get(token_id.toString())
                          ?.thumbnailUri?.replace(
-                           "ipfs://",
-                           "https://gateway.pinata.cloud/ipfs/"
+                           'ipfs://',
+                           'https://gateway.pinata.cloud/ipfs/'
                          )}
                      />
 
                      <CardContent>
                        <Box>
                          <Typography variant="body2">
-                           {"Owned : " + balance.toNumber()}
+                           {'Owned : ' + balance.toNumber()}
                          </Typography>
                          <Typography variant="body2">
                            {offersTokenIDMap.get(token_id)
-                             ? "Traded : " +
+                             ? 'Traded : ' +
                                offersTokenIDMap.get(token_id)?.quantity +
-                               " (price : " +
+                               ' (price : ' +
                                offersTokenIDMap
                                  .get(token_id)
                                  ?.price.dividedBy(1000000) +
-                               " Tz/b)"
-                             : ""}
+                               ' Tz/b)'
+                             : ''}
                          </Typography>
                        </Box>
                      </CardContent>
@@ -1061,7 +1062,7 @@ Now that the contract handles both token IDs and quantities, you must update the
                          </Box>
                        ) : (
                          <form
-                           style={{ width: "100%" }}
+                           style={{ width: '100%' }}
                            onSubmit={(values) => {
                              setSelectedTokenId(token_id);
                              formik.handleSubmit(values);
@@ -1070,7 +1071,7 @@ Now that the contract handles both token IDs and quantities, you must update the
                            <span>
                              <TextField
                                type="number"
-                               sx={{ width: "40%" }}
+                               sx={{ width: '40%' }}
                                name="price"
                                label="price/bottle"
                                placeholder="Enter a price"
@@ -1087,9 +1088,9 @@ Now that the contract handles both token IDs and quantities, you must update the
                              />
                              <TextField
                                sx={{
-                                 width: "60%",
+                                 width: '60%',
                                  bottom: 0,
-                                 position: "relative",
+                                 position: 'relative',
                                }}
                                type="number"
                                label="quantity"
@@ -1128,11 +1129,11 @@ Now that the contract handles both token IDs and quantities, you must update the
                        )}
                      </CardActions>
                    </Card>
-                 ))}{" "}
+                 ))}{' '}
              </ImageList>
            </Fragment>
          ) : (
-           <Typography sx={{ py: "2em" }} variant="h4">
+           <Typography sx={{ py: '2em' }} variant="h4">
              Sorry, you don't own any bottles, buy or mint some first
            </Typography>
          )}
@@ -1144,8 +1145,8 @@ Now that the contract handles both token IDs and quantities, you must update the
 1. Replace the content of the `src/WineCataloguePage.tsx` file with this code:
 
    ```typescript
-   import { InfoOutlined } from "@mui/icons-material";
-   import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+   import { InfoOutlined } from '@mui/icons-material';
+   import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
    import {
      Box,
      Button,
@@ -1160,19 +1161,19 @@ Now that the contract handles both token IDs and quantities, you must update the
      TextField,
      Tooltip,
      useMediaQuery,
-   } from "@mui/material";
-   import Paper from "@mui/material/Paper";
-   import Typography from "@mui/material/Typography";
+   } from '@mui/material';
+   import Paper from '@mui/material/Paper';
+   import Typography from '@mui/material/Typography';
 
-   import BigNumber from "bignumber.js";
-   import { useFormik } from "formik";
-   import { useSnackbar } from "notistack";
-   import React, { Fragment, useState } from "react";
-   import * as yup from "yup";
-   import { UserContext, UserContextType } from "./App";
-   import ConnectButton from "./ConnectWallet";
-   import { TransactionInvalidBeaconError } from "./TransactionInvalidBeaconError";
-   import { address, nat } from "./type-aliases";
+   import BigNumber from 'bignumber.js';
+   import { useFormik } from 'formik';
+   import { useSnackbar } from 'notistack';
+   import React, { Fragment, useState } from 'react';
+   import * as yup from 'yup';
+   import { UserContext, UserContextType } from './App';
+   import ConnectButton from './ConnectWallet';
+   import { TransactionInvalidBeaconError } from './TransactionInvalidBeaconError';
+   import { address, nat } from './type-aliases';
 
    const itemPerPage: number = 6;
 
@@ -1186,8 +1187,8 @@ Now that the contract handles both token IDs and quantities, you must update the
    const validationSchema = yup.object({
      quantity: yup
        .number()
-       .required("Quantity is required")
-       .positive("ERROR: The number must be greater than 0!"),
+       .required('Quantity is required')
+       .positive('ERROR: The number must be greater than 0!'),
    });
 
    export default function WineCataloguePage() {
@@ -1211,7 +1212,7 @@ Now that the contract handles both token IDs and quantities, you must update the
        },
        validationSchema: validationSchema,
        onSubmit: (values) => {
-         console.log("onSubmit: (values)", values, selectedOfferEntry);
+         console.log('onSubmit: (values)', values, selectedOfferEntry);
          buy(values.quantity, selectedOfferEntry!);
        },
      });
@@ -1234,13 +1235,13 @@ Now that the contract handles both token IDs and quantities, you must update the
          await op?.confirmation(2);
 
          enqueueSnackbar(
-           "Bought " +
+           'Bought ' +
              quantity +
-             " unit of Wine collection (token_id:" +
+             ' unit of Wine collection (token_id:' +
              selectedOfferEntry[0][1] +
-             ")",
+             ')',
            {
-             variant: "success",
+             variant: 'success',
            }
          );
 
@@ -1250,16 +1251,16 @@ Now that the contract handles both token IDs and quantities, you must update the
          let tibe: TransactionInvalidBeaconError =
            new TransactionInvalidBeaconError(error);
          enqueueSnackbar(tibe.data_message, {
-           variant: "error",
+           variant: 'error',
            autoHideDuration: 10000,
          });
        }
      };
-     const isDesktop = useMediaQuery("(min-width:1100px)");
-     const isTablet = useMediaQuery("(min-width:600px)");
+     const isDesktop = useMediaQuery('(min-width:1100px)');
+     const isTablet = useMediaQuery('(min-width:600px)');
      return (
        <Paper>
-         <Typography style={{ paddingBottom: "10px" }} variant="h5">
+         <Typography style={{ paddingBottom: '10px' }} variant="h5">
            Wine catalogue
          </Typography>
 
@@ -1290,23 +1291,23 @@ Now that the contract handles both token IDs and quantities, you must update the
                      : false
                  )
                  .map(([key, offer]) => (
-                   <Card key={key[0] + "-" + key[1].toString()}>
+                   <Card key={key[0] + '-' + key[1].toString()}>
                      <CardHeader
                        avatar={
                          <Tooltip
                            title={
                              <Box>
                                <Typography>
-                                 {" "}
-                                 {"ID : " + key[1].toString()}{" "}
+                                 {' '}
+                                 {'ID : ' + key[1].toString()}{' '}
                                </Typography>
                                <Typography>
-                                 {"Description : " +
+                                 {'Description : ' +
                                    nftContratTokenMetadataMap.get(
                                      key[1].toString()
                                    )?.description}
                                </Typography>
-                               <Typography>{"Seller : " + key[0]} </Typography>
+                               <Typography>{'Seller : ' + key[0]} </Typography>
                              </Box>
                            }
                          >
@@ -1318,27 +1319,27 @@ Now that the contract handles both token IDs and quantities, you must update the
                        }
                      />
                      <CardMedia
-                       sx={{ width: "auto", marginLeft: "33%" }}
+                       sx={{ width: 'auto', marginLeft: '33%' }}
                        component="img"
                        height="100px"
                        image={nftContratTokenMetadataMap
                          .get(key[1].toString())
                          ?.thumbnailUri?.replace(
-                           "ipfs://",
-                           "https://gateway.pinata.cloud/ipfs/"
+                           'ipfs://',
+                           'https://gateway.pinata.cloud/ipfs/'
                          )}
                      />
 
                      <CardContent>
                        <Box>
                          <Typography variant="body2">
-                           {" "}
-                           {"Price : " +
+                           {' '}
+                           {'Price : ' +
                              offer.price.dividedBy(1000000) +
-                             " XTZ/bottle"}
+                             ' XTZ/bottle'}
                          </Typography>
                          <Typography variant="body2">
-                           {"Available units : " + offer.quantity}
+                           {'Available units : ' + offer.quantity}
                          </Typography>
                        </Box>
                      </CardContent>
@@ -1358,7 +1359,7 @@ Now that the contract handles both token IDs and quantities, you must update the
                          </Box>
                        ) : (
                          <form
-                           style={{ width: "100%" }}
+                           style={{ width: '100%' }}
                            onSubmit={(values) => {
                              setSelectedOfferEntry([key, offer]);
                              formik.handleSubmit(values);
@@ -1366,7 +1367,7 @@ Now that the contract handles both token IDs and quantities, you must update the
                          >
                            <TextField
                              type="number"
-                             sx={{ bottom: 0, position: "relative" }}
+                             sx={{ bottom: 0, position: 'relative' }}
                              fullWidth
                              name="quantity"
                              label="quantity"
@@ -1403,7 +1404,7 @@ Now that the contract handles both token IDs and quantities, you must update the
              </ImageList>
            </Fragment>
          ) : (
-           <Typography sx={{ py: "2em" }} variant="h4">
+           <Typography sx={{ py: '2em' }} variant="h4">
              Sorry, there is not NFT to buy yet, you need to mint or sell
              bottles first
            </Typography>

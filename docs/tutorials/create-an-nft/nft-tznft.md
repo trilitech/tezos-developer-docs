@@ -1,5 +1,5 @@
 ---
-title: Create NFTs with the `tznft` tool
+title: Create NFTs from the command line
 authors: 'Sol Lederer, Tim McMackin'
 last_update:
   date: 18 September 2023
@@ -78,7 +78,7 @@ Make sure to start Docker Desktop after you install it.
    tznft init
    ```
 
-   The resulting file, named `tznft.config`, contains information about the Tezos networks that are available for you to work with, including the [Ghostnet](https://teztnets.xyz/ghostnet-about) test network and the local sandbox that you set up in the next steps.
+   The resulting file, named `tznft.config`, contains information about the Tezos networks that are available for you to work with, including the [Ghostnet](https://teztnets.com/ghostnet-about) test network and the local sandbox that you set up in the next steps.
    The `tznft` tool requires this file, so the commands in the following steps work only from the directory that you ran `tznft init` in.
 
 4. Check that the default active network is "sandbox:"
@@ -465,7 +465,7 @@ You can do this in either of these two ways:
          tznft add-alias my-account $TEZOS_PRIVATE_KEY
          ```
 
-      1. Add funds to the new wallet by going to the Ghostnet faucet at https://faucet.ghostnet.teztnets.xyz/, pasting the wallet's hash in the "Or fund any address" field, and clicking a button to request tokens.
+      1. Add funds to the new wallet by going to the Ghostnet faucet at https://faucet.ghostnet.teztnets.com/, pasting the wallet's hash in the "Or fund any address" field, and clicking a button to request tokens.
       The wallet needs tokens to pay the fees to create the collection and mint the tokens on Ghostnet.
 
 1. Create the collection on the testnet.
@@ -505,7 +505,7 @@ The command is the same as for the sandbox:
 
    The block explorer shows information about the contract that manages the NFTs, including a list of all NFTs in the contract, who owns them, and a list of recent transactions.
 
-Now the NFTs are on Tezos ghostnet and you can transfer and manipulate them just like you did in the sandbox.
+Now the NFTs are on Tezos Ghostnet and you can transfer and manipulate them just like you did in the sandbox.
 You may need to create and fund more account aliases to transfer them, but the commands are the same.
 For example, to transfer NFTs to an account with the alias `other-account`, run this command:
 

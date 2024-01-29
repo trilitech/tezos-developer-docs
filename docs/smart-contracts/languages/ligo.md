@@ -1,5 +1,5 @@
 ---
-title: Ligo
+title: LIGO
 last_update:
   date: 29 June 2023
 ---
@@ -8,7 +8,7 @@ LIGO is a functional programming language that is intended to be both user-frien
 
 LIGO offers two syntaxes:
 
-- JsLIGO, a sytax that is inspired by TypeScript/JavaScript
+- JsLIGO, a syntax that is inspired by TypeScript/JavaScript
 - CameLIGO, a syntax that is inspired by OCaml
 
 You can use either syntax and compile to Michelson to run on Tezos.
@@ -16,7 +16,7 @@ You can use either syntax and compile to Michelson to run on Tezos.
 To learn LIGO, see these tutorials:
 
 - [Deploy a smart contract with CameLIGO](../../tutorials/smart-contract/cameligo)
-- [Deploy a smart contract with jsLIGO](../../tutorials/smart-contract/jsligo)
+- [Deploy a smart contract with JsLIGO](../../tutorials/smart-contract/jsligo)
 
 Let's define a LIGO contract in the two flavours above.
 
