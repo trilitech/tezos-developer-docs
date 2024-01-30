@@ -1,6 +1,7 @@
 /** @type {import('@docusaurus/plugin-content-docs').SidebarsConfig} */
 
 import { ligoSidebar } from './src/sidebars/ligoSidebar';
+import { smartpySidebar } from './src/sidebars/smartpySidebar';
 
 const sidebars = {
   documentationSidebar: [
@@ -258,55 +259,8 @@ const sidebars = {
 
   ligoSidebar,
 
-  smartpySidebar: [
-    {
-      type: 'ref',
-      id: 'languages',
-      label: '<< Back to main',
-    },
-    {
-      type: 'doc',
-      label: 'SmartPy overview',
-      id: 'languages/smartpy',
-    },
-    {
-      type: 'category',
-      label: 'Data types',
-      link: {
-        type: 'doc',
-        id: 'languages/smartpy/data-types',
-      },
-      items: [
-        'languages/smartpy/data-types/integers',
-        'languages/smartpy/data-types/bytes',
-        'languages/smartpy/data-types/booleans',
-        'languages/smartpy/data-types/unit',
-        'languages/smartpy/data-types/timestamps',
-        'languages/smartpy/data-types/tuples',
-        'languages/smartpy/data-types/options',
-        'languages/smartpy/data-types/lists',
-        'languages/smartpy/data-types/lambdas',
-        'languages/smartpy/data-types/signatures',
-        'languages/smartpy/data-types/exceptions',
-        'languages/smartpy/data-types/tickets',
-        'languages/smartpy/data-types/bls',
-        'languages/smartpy/data-types/records',
-        'languages/smartpy/data-types/types',
-      ],
-    },
-    'languages/smartpy/operations',
-    'languages/smartpy/utils',
-    'languages/smartpy/error-handling',
-    {
-      type: 'category',
-      label: 'Testing',
-      items: [
-        'languages/smartpy/testing/contracts',
-        'languages/smartpy/testing/simulation',
-        'languages/smartpy/testing/cryptography',
-      ],
-    },
-  ],
+  smartpySidebar,
+
   tutorialsSidebar: [
     {
       type: 'doc',
