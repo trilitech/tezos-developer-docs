@@ -248,7 +248,7 @@ const tail: option<list<int>> = List.tail_opt(my_list); // [2,2]
 </Syntax>
 
 However, the canonical way to destructure lists is using [pattern
-matching](unit-option-pattern-matching.md#matching-lists).
+matching](./unit-option-pattern-matching#matching-lists).
 
 ### Functional Iteration over Lists
 

@@ -3,6 +3,8 @@ id: getting-started
 title: Getting started
 ---
 
+import Syntax from '@site/src/components/Syntax';
+
 This section is aimed at newcomers to Ligo and Tezos smart-contracts.
 In this tutorial, we will go through the following steps :
 
@@ -23,7 +25,7 @@ Two choices are offered, ideal if you want to work with Ligo :
 
 We will use a simple  smart contract in this section and the following one. A counter that is available on a homepage.
 
-First, create a `ligo_tutorial` folder on your computer.  
+First, create a `ligo_tutorial` folder on your computer.
 `mligo` is the extension of cameligo file and `jsligo` for the jsligo file.
 
 <Syntax syntax="cameligo">
@@ -312,7 +314,7 @@ octez-client call counter from <my_tz_address...> \
 ```
 
 
-arg is obtained by compiling ligo expression onto michelson 
+arg is obtained by compiling ligo expression onto michelson
 
 <Syntax syntax="cameligo">
 

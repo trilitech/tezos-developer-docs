@@ -65,7 +65,7 @@ desired.
 ## What do I do?
 
 See the [How to deal with the change of the default datatype layout to
-`@layout comb` ?](layout-comb-how.md) doc for advice on how to deal
+`@layout comb` ?](./layout-comb-how) doc for advice on how to deal
 with this breaking change.
 
 <!-- updated use of entry -->

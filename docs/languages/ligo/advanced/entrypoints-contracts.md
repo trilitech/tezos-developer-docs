@@ -486,7 +486,7 @@ const owner_only = (action: parameter, store: storage): result => {
 
 > Note that we do not use `Tezos.get_source`, but instead
 > `Tezos.get_sender`. In our [tutorial about
-> security](../tutorials/security/security.md#incorrect-authorisation-checks)
+> security](../tutorials/security#incorrect-authorisation-checks)
 > you can read more about it.
 
 ### Inter-Contract Invocations
