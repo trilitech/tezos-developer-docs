@@ -1,11 +1,11 @@
-import Syntax from '@theme/Syntax';
+import Syntax from '@site/src/components/Syntax';
 
 # Dynamic entrypoints
 
 ## Definition
 
-Dynamic entrypoints are lazy entrypoints stored in the contract within a big_map. They can then be updated or removed without deploying a new contract.  
-A contract with dynamic entrypoints must have at least one `@entry` declaration (as any other contract); must obey some convention on storage type definition and have at least one `@dyn_entry` declaration.  
+Dynamic entrypoints are lazy entrypoints stored in the contract within a big_map. They can then be updated or removed without deploying a new contract.
+A contract with dynamic entrypoints must have at least one `@entry` declaration (as any other contract); must obey some convention on storage type definition and have at least one `@dyn_entry` declaration.
 LIGO will then include the defined dynamic entries into the contract initial storage.
 
 ### Storage
@@ -47,7 +47,7 @@ e.g.
 
 ### `@dyn_entry` declaration
 
-Dynamic entries, just like static entries must be declared in contract's top-level and have the type of an entrypoint.  
+Dynamic entries, just like static entries must be declared in contract's top-level and have the type of an entrypoint.
 
 <Syntax syntax="cameligo">
 
@@ -127,7 +127,7 @@ const opted_out = (_t: ticket<int>, _i: int) : [list<operation>, int] => (Extern
 
 ## Set and call dynamic entrypoints
 
-Once your dynamic entrypoints defined you can now update or call them.  
+Once your dynamic entrypoints defined you can now update or call them.
 One important thing is that the variables associated to dynamic entrypoints are understood by LIGO as typed keys into the `dynamic_entrypoints` big map.
 <Syntax syntax="cameligo">
 
@@ -193,19 +193,19 @@ LIGO standard library exposes three function to help you set and call your dynam
 (* module Dynamic_entry *)
 val set :
   ('p, 's) dynamic_entrypoint
-  -> ('p, 's) entrypoint option 
-  -> dynamic_entrypoints 
+  -> ('p, 's) entrypoint option
+  -> dynamic_entrypoints
   -> dynamic_entrypoints
 
-val get : 
+val get :
   ('p, 's) dynamic_entrypoint
-  -> dynamic_entrypoints 
+  -> dynamic_entrypoints
   -> ('p, 's) entrypoint option
 
-val set_bytes : 
+val set_bytes :
   ('p, 's) dynamic_entrypoint
   -> bytes option
-  -> dynamic_entrypoints 
+  -> dynamic_entrypoints
   -> dynamic_entrypoints
 ```
 
@@ -331,7 +331,7 @@ When using `compile storage` on a contract holding dynamic entrypoints, you are 
 
 ### testing
 
-In the testing framework, you can use to 'Test.storage_with_dynamic_entrypoints' to obtain your contract initial storage. 
+In the testing framework, you can use to 'Test.storage_with_dynamic_entrypoints' to obtain your contract initial storage.
 
 <Syntax syntax="cameligo">
 

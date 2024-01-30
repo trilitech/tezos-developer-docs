@@ -3,7 +3,7 @@ id: functions
 title: Functions
 ---
 
-import Syntax from '@theme/Syntax';
+import Syntax from '@site/src/components/Syntax';
 
 LIGO functions are the basic building block of contracts. For example,
 entrypoints are functions and each smart contract needs a main

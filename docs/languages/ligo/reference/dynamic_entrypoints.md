@@ -1,12 +1,12 @@
 ---
 id: dynamic-entrypoints-reference
 title: Dynamic_entrypoints
-description: Lazy entrypoints stored in the contract within a big_map. They can then be updated or removed without deploying a new contract.  
+description: Lazy entrypoints stored in the contract within a big_map. They can then be updated or removed without deploying a new contract.
 hide_table_of_contents: true
 ---
 
-import Syntax from '@theme/Syntax';
-import SyntaxTitle from '@theme/SyntaxTitle';
+import Syntax from '@site/src/components/Syntax';
+import SyntaxTitle from '@site/src/components/SyntaxTitle';
 
 > Important: The `Test` module is only available inside the `ligo run test` command. See also [Testing LIGO](../advanced/testing.md).
 
@@ -17,8 +17,8 @@ import SyntaxTitle from '@theme/SyntaxTitle';
 ```cameligo skip
 val set :
   ('p, 's) dynamic_entrypoint
-  -> ('p, 's) entrypoint option 
-  -> dynamic_entrypoints 
+  -> ('p, 's) entrypoint option
+  -> dynamic_entrypoints
   -> dynamic_entrypoints
 ```
 
@@ -64,9 +64,9 @@ const set_one = (one_v2 : entrypoint<unit, int>, s : storage) : [list<operation>
 <Syntax syntax="cameligo">
 
 ```cameligo skip
-val get : 
+val get :
   ('p, 's) dynamic_entrypoint
-  -> dynamic_entrypoints 
+  -> dynamic_entrypoints
   -> ('p, 's) entrypoint option
   ```
 
@@ -118,10 +118,10 @@ const call_one = ([], s : storage) : [list<operation>, storage] =>
 <Syntax syntax="cameligo">
 
 ```cameligo skip
-val set_bytes : 
+val set_bytes :
   ('p, 's) dynamic_entrypoint
   -> bytes option
-  -> dynamic_entrypoints 
+  -> dynamic_entrypoints
   -> dynamic_entrypoints
 ```
 

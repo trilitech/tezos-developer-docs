@@ -3,7 +3,7 @@ id: decorators
 title: Attributes or Decorators
 ---
 
-import Syntax from '@theme/Syntax';
+import Syntax from '@site/src/components/Syntax';
 
 <Syntax syntax="cameligo">
 

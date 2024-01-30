@@ -4,8 +4,8 @@ title: Ithaca
 description: Ithaca changes
 ---
 
-import Syntax from '@theme/Syntax';
-import SyntaxTitle from '@theme/SyntaxTitle';
+import Syntax from '@site/src/components/Syntax';
+import SyntaxTitle from '@site/src/components/SyntaxTitle';
 
 ## API
 

@@ -3,7 +3,7 @@ id: composite-types
 title: Composite Types
 ---
 
-import Syntax from '@theme/Syntax';
+import Syntax from '@site/src/components/Syntax';
 
 ## Structured types
 

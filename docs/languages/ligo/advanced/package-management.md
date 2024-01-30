@@ -3,7 +3,7 @@ id: package-management
 title: Package management
 ---
 
-import Syntax from '@theme/Syntax';
+import Syntax from '@site/src/components/Syntax';
 import Link from '@docusaurus/Link';
 
 

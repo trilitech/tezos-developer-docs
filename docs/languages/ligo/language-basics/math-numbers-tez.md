@@ -3,7 +3,7 @@ id: math-numbers-tez
 title: Math, Numbers & Tez
 ---
 
-import Syntax from '@theme/Syntax';
+import Syntax from '@site/src/components/Syntax';
 
 LIGO offers three built-in numerical types: `int`, `nat` and
 `tez`. Values of type `int` are integers; values of type `nat` are

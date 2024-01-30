@@ -5,8 +5,8 @@ description: A lazily deserialised map that is intended to store large amounts o
 hide_table_of_contents: true
 ---
 
-import Syntax from '@theme/Syntax';
-import SyntaxTitle from '@theme/SyntaxTitle';
+import Syntax from '@site/src/components/Syntax';
+import SyntaxTitle from '@site/src/components/SyntaxTitle';
 
 A lazily deserialised map that is intended to store large amounts of
 data. Here, "lazily" means that storage is read or written per key on

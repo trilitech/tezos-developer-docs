@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 
 // THE PROBLEM IS USE THEME CONTEXT ==>>>>
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
-import { SyntaxContext } from "@theme/Syntax";
+import { SyntaxContext } from "@site/src/components/Syntax";
 
 import defaultTheme from "prism-react-renderer/themes/palenight";
 

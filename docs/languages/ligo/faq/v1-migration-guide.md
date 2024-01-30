@@ -3,7 +3,7 @@ id: v1-migration-guide
 title: Migration to LIGO v. 1.0
 ---
 
-import Syntax from '@theme/Syntax';
+import Syntax from '@site/src/components/Syntax';
 
 # Migration to LIGO v. 1.0
 

@@ -3,7 +3,7 @@ id: include
 title: Including Other Contracts
 ---
 
-import Syntax from '@theme/Syntax';
+import Syntax from '@site/src/components/Syntax';
 
 Let us say that we have a contract that is getting a too large. If it
 has a modular structure, you might find it useful to use the

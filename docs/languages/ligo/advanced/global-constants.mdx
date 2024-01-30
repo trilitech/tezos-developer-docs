@@ -3,7 +3,8 @@ id: global-constants
 title: Global constants
 ---
 
-import Syntax from '@theme/Syntax';
+import Syntax from '@site/src/components/Syntax';
+import SyntaxTitle from '@site/src/components/SyntaxTitle';
 import Link from '@docusaurus/Link';
 
 Since the update to Hangzhou protocol, global constants can be
@@ -14,13 +15,13 @@ contracts that (after expansion) surpass size limit for contracts.
 
 ## API primer
 
-<SyntaxTitle syntax="cameligo">
+{/* <SyntaxTitle syntax="cameligo">
 val constant : string -> 'a
 </SyntaxTitle>
 
 <SyntaxTitle syntax="jsligo">
 let constant : string => 'a
-</SyntaxTitle>
+</SyntaxTitle> */}
 
 The primitive `Tezos.constant` allows you to use a predefined constant already registered on chain.
 It accepts a hash in the form of a string and will require a type annotation.
@@ -165,7 +166,7 @@ ligo compile constant cameligo "helper" --init-file ./gitlab-pages/docs/advanced
 # Michelson constant as JSON string:
 # "{ UNPAIR ;\n  PUSH int 2 ;\n  PUSH int 3 ;\n  DIG 3 ;\n  MUL ;\n  DIG 2 ;\n  SIZE ;\n  ADD ;\n  ADD }"
 # This string can be passed in `--constants` argument when compiling a contract.
-# 
+#
 # Remember to register it in the network, e.g.:
 # > tezos-client register global constant "{ UNPAIR ;
 #   PUSH int 2 ;
@@ -176,7 +177,7 @@ ligo compile constant cameligo "helper" --init-file ./gitlab-pages/docs/advanced
 #   SIZE ;
 #   ADD ;
 #   ADD }" from bootstrap1
-# 
+#
 # Constant hash:
 # exprv547Y7U5wKLbQGmkDU9Coh5tKPzvEJjyUed7px9yGt9nrkELXf
 ```
@@ -191,7 +192,7 @@ ligo compile constant jsligo "helper" --init-file ./gitlab-pages/docs/advanced/s
 # Michelson constant as JSON string:
 # "{ UNPAIR ;\n  PUSH int 2 ;\n  PUSH int 3 ;\n  DIG 3 ;\n  MUL ;\n  DIG 2 ;\n  SIZE ;\n  ADD ;\n  ADD }"
 # This string can be passed in `--constants` argument when compiling a contract.
-# 
+#
 # Remember to register it in the network, e.g.:
 # > tezos-client register global constant "{ UNPAIR ;
 #   PUSH int 2 ;
@@ -202,7 +203,7 @@ ligo compile constant jsligo "helper" --init-file ./gitlab-pages/docs/advanced/s
 #   SIZE ;
 #   ADD ;
 #   ADD }" from bootstrap1
-# 
+#
 # Constant hash:
 # exprv547Y7U5wKLbQGmkDU9Coh5tKPzvEJjyUed7px9yGt9nrkELXf
 ```

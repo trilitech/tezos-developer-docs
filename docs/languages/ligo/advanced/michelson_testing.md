@@ -3,7 +3,7 @@ id: michelson_testing
 title: Testing Michelson code
 ---
 
-import Syntax from '@theme/Syntax';
+import Syntax from '@site/src/components/Syntax';
 
 ## Testing Michelson code
 

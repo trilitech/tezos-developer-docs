@@ -6,8 +6,8 @@ hide_table_of_contents: true
 ---
 
 
-import Syntax from '@theme/Syntax';
-import SyntaxTitle from '@theme/SyntaxTitle';
+import Syntax from '@site/src/components/Syntax';
+import SyntaxTitle from '@site/src/components/SyntaxTitle';
 
 > Important: The `Test` module is only available inside the `ligo run test` command. See also [Testing LIGO](../advanced/testing.md).
 
@@ -354,7 +354,7 @@ val storage_with_dynamic_entrypoints : 'contract ->
 <Syntax syntax="jsligo">
 
 ```jsligo skip
-let storage_with_dynamic_entrypoints = (contract: module_contract<'param, 'storage>, 'storage) => 
+let storage_with_dynamic_entrypoints = (contract: module_contract<'param, 'storage>, 'storage) =>
   {
    dynamic_entrypoints : dynamic_entrypoints;
    storage : 'storage

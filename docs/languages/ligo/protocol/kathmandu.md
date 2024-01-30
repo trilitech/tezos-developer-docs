@@ -4,8 +4,8 @@ title: Kathmandu
 description: Kathmandu changes
 ---
 
-import Syntax from '@theme/Syntax';
-import SyntaxTitle from '@theme/SyntaxTitle';
+import Syntax from '@site/src/components/Syntax';
+import SyntaxTitle from '@site/src/components/SyntaxTitle';
 
 > Note: as LIGO uses Mumbai protocol to Michelson type-check your programs, the flag `--disable-michelson-typechecking` is recommended to compile contracts to Kathmandu when using tickets / chest.
 
@@ -83,7 +83,7 @@ let test_foo =
 ```jsligo test-ligo group=test_ex
 namespace C {
   @entry
-  let main = (p: [int, int], _s : unit) => { 
+  let main = (p: [int, int], _s : unit) => {
     let op1 = Tezos.emit("%foo", p);
     let op2 = Tezos.emit("%foo", p[0]);
     return [list([op1, op2]), unit];

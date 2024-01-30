@@ -3,7 +3,7 @@ id: optimisation
 title: Optimisation guide
 ---
 
-import Syntax from '@theme/Syntax';
+import Syntax from '@site/src/components/Syntax';
 
 
 Imagine you develop a contract and try to adhere to all the business

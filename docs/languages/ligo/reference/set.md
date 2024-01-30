@@ -5,8 +5,8 @@ description: Set operations
 hide_table_of_contents: true
 ---
 
-import Syntax from '@theme/Syntax';
-import SyntaxTitle from '@theme/SyntaxTitle';
+import Syntax from '@site/src/components/Syntax';
+import SyntaxTitle from '@site/src/components/SyntaxTitle';
 
 Sets are unordered collections of unique values of the same type.
 

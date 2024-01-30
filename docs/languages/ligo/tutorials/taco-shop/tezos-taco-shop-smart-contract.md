@@ -3,7 +3,7 @@ id: tezos-taco-shop-smart-contract
 title: The Taco Shop Smart Contract
 ---
 
-import Syntax from '@theme/Syntax';
+import Syntax from '@site/src/components/Syntax';
 import Link from '@docusaurus/Link';
 
 <div>
@@ -128,7 +128,7 @@ function buy_taco(taco_kind_index: nat, taco_shop_storage: taco_shop_storage): [
 
 </Syntax>
 
-It's already possible to compile your contract by running : 
+It's already possible to compile your contract by running :
 
 <Syntax syntax="jsligo">
 
@@ -167,7 +167,7 @@ module TacoShop = struct
   let buy_taco (taco_kind_index : nat) (taco_shop_storage : taco_shop_storage) : operation list * taco_shop_storage =
     [], taco_shop_storage
 
-end 
+end
 ```
 
 </Syntax>
@@ -179,7 +179,7 @@ end
 namespace TacoShop {
   type taco_supply = { current_stock: nat, max_price: tez };
   export type taco_shop_storage = map<nat, taco_supply>;
-  
+
   @entry
   function buy_taco(taco_kind_index: nat, taco_shop_storage: taco_shop_storage): [
     list<operation>,
@@ -205,8 +205,8 @@ ligo compile contract taco_shop.mligo -m TacoShop
 
 When deploying contract, it is crucial to provide a correct
 initial storage value.  In our case the storage is type-checked as
-`taco_shop_storage`, because the default storage is not directly used in the code, 
-we encourage to declare the type, if your storage mutate, your default_storage will be in error. 
+`taco_shop_storage`, because the default storage is not directly used in the code,
+we encourage to declare the type, if your storage mutate, your default_storage will be in error.
 Reflecting [Pedro's daily offer](tezos-taco-shop-smart-contract.md#daily-offer),
 our storage's value will be defined as follows:
 
@@ -521,7 +521,7 @@ const test = (
           clasico_kind,
           1000000mutez
         );
-      
+
         match(ok_case) {
           when (Success(_s)):
             do {
@@ -559,7 +559,7 @@ const test = (
           clasico_kind,
           2000000mutez
         );
-      
+
         assert_string_failure(
           nok_wrong_price,
           "Sorry, the taco you are trying to purchase has a different price"
