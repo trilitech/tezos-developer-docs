@@ -125,7 +125,7 @@ The issue here is clearly that we send money without updating the state first
 
 &rarr; **SOLUTION** :
 
-- Mutex safeguard: The goal is to avoid multiple internal operations being generated. A boolean `isRunning` will lock only one operation for the full transaction flow.
+- Mutex safeguard: To prevent the contract from generating multiple internal operations, we can add a Mutual Exclusive semaphore Boolean named `isRunning` that is true when an operation is running. This variable locks the contract while the full transaction flow runs.
 
   1. Check the isRunning is false
   2. Set isRunning to true

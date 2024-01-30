@@ -13,7 +13,9 @@ Programming errors in web3 are mistakes or bugs that occur when writing smart co
 
 Writing Michelson code requires careful attention to detail and rigorous testing. If the code contains errors or inconsistencies, it may result in a failed transaction that consumes gas and storage fees. Therefore, it is advisable to use high-level languages that compile to Michelson, such as LIGO, and to verify the generated code before deploying it on the node.
 
-In the below example, LIGO is verifying that the subtraction is failing as it returns an optional value. **tez / mutez** are only positive values
+For example, LIGO uses the Option type to safely work with values that may or may not exist.  
+If you subtract two tez or mutez variables, the result may be a negative number, which is not valid for the tez and mutez types.  
+For this reason, LIGO requires you to wrap the result in an Option type, even if you are confident that the result is a positive number, as in this example:
 
 ```ligolang
 option<tez> = 0mutez - 1mutez;
@@ -33,7 +35,9 @@ taq compile 1-bugs.jsligo
 more ./artifacts/1-bugs.tz
 ```
 
-Look on line 6 for the decrement entrypoint, after dividing `SUB_MUTEZ`, a check will be done with `IF_NONE` instruction.
+Line 6 of the compiled Michelson uses the `SUB_MUTEZ` instruction to subtract the two values.  
+Next, it uses the `IF_NONE` instruction to check whether the subtraction instruction returned a result.  
+If it did, it returns the number.  
 LIGO is not compiling if you forget to manage the optional value and you return the result directly
 
 Run the code for the decrement of 0 by 1. 0 is the default value of the storage you can find on the **1-bugs.storageList.jsligo** file. 1 is the parameter passed on the simulation you can find on the **1-bugs.parameterList.jsligo** file.
@@ -69,13 +73,15 @@ This time you have an error
 Underflowing subtraction of 0 tez and 0.000001 tez
 ```
 
+In this way, using the LIGO compiler instead of coding Michelson directly helps you avoid problems.
+
 &rarr; **SOLUTION**: use the LIGO compiler to prevent runtime errors
 
 ## Rounding issues
 
 Michelson does not support floats, so some rounding issues after a division can happen if it is not done carefully. This can cause a smart contract to halt in some situations.
 
-Let's take an example of the division of 101 by 4. We have 2 users who would like to redeem the contract balance 3/4 for user A and 1/4 for user B
+Let's take an example of the division of 101 by 4. In the file `2-rounding.jsligo` we have 2 users who would like to redeem the contract balance, with the user Alice receiving 3/4 and user Bob receiving 1/4. The contract calculates Alice's amount as the total minus 1/4 and Bob's amount as the total minus 3/4. Due to rounding, the total amount to withdraw from the contract can exceed the contract balance.
 
 Run the following code
 
@@ -152,7 +158,7 @@ In this example, transaction tx2 on SmartContract2 has :
 - The **User** as the source
 - The **SmartContract1** as the sender
 
-**Man-in-the-middle attack**: The victim contract is checking the source `Tezos.get_source()` to give access to an endpoint. If we have a phishing contract in the middle, it can grab even some money in addition to any malicious action
+**Man-in-the-middle attack**: The victim contract is checking the source `Tezos.get_source()` to give access to an endpoint. If we have a phishing contract in the middle, it can call the endpoint while appearing to be the authorized caller. In this case, it can even grab some money in addition to the malicious action.
 
 Run the following test
 
@@ -175,6 +181,17 @@ taq test 4-manInTheMiddleTest.jsligo
 
 ```logs
 Failwith: "You are not the admin to do this action"
+Trace:
+File "contracts/4-manInTheMiddleTest.jsligo", line 51, character 2 to line 59, character 3 ,
+File "contracts/4-manInTheMiddleTest.jsligo", line 51, character 2 to line 59, character 3 ,
+File "contracts/4-manInTheMiddleTest.jsligo", line 69, characters 17-24
+
+===
+┌─────────────────────────────┬──────────────────────┐
+│ Contract │ Test Results │
+├─────────────────────────────┼──────────────────────┤
+│ 4-manInTheMiddleTest.jsligo │ Some tests failed :( │
+└─────────────────────────────┴──────────────────────┘
 ```
 
 > Note : On some specific cases it is important to authorize an intermediary contract to communicate with our contract. We should not always check the source as the default behavior for rejection
