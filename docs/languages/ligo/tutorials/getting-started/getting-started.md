@@ -265,9 +265,9 @@ ligo run test main.jsligo
 The command will run every function main with `test` and return their values.
 
 More on the syntax for the test framework
-[here](https://ligolang.org/docs/advanced/testing#testing-with-test)
+[here](../../advanced/testing#testing-with-test)
 and more on how to write and test namespace/module contracts
-[here](https://ligolang.org/docs/next/language-basics/modules#modules-as-contracts).
+[here](../../language-basics/modules#modules-as-contracts).
 
 # Publishing the contract
 
@@ -339,4 +339,4 @@ It can be annoying to deploy you contract onto a node to test it. We advise test
 
 This conclude this part of our tutorial.
 You should now be able to compile, test, publish and call a contract.
-Now you can go to the [tacos shop tutorial](https://ligolang.org/docs/tutorials/taco-shop/tezos-taco-shop-smart-contract) to know more about programming with LIGO or you can start developing your own contract using the LIGO syntax you are more familiar with.
+Now you can go to the [tacos shop tutorial](../../tutorials/taco-shop/tezos-taco-shop-smart-contract) to know more about programming with LIGO or you can start developing your own contract using the LIGO syntax you are more familiar with.
