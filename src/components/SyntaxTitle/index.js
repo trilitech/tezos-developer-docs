@@ -69,6 +69,13 @@ Prism.languages = {
   jsligo: Prism.languages.typescript,
 };
 
+// Mocked version
+
+function SyntaxTitle(props) {
+  return props.children;
+}
+
+/*
 function SyntaxTitle(props) {
   const {
     siteConfig: {
@@ -131,5 +138,5 @@ function SyntaxTitle(props) {
     </SyntaxContext.Consumer>
   );
 }
-
+*/
 export default SyntaxTitle;
