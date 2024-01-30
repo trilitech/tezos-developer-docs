@@ -1,1 +1,0 @@
-let length : nat = String.size "Alice" // length = 5n

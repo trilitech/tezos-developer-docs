@@ -1,1 +1,0 @@
-const zero : delta = {kind: "reset"};

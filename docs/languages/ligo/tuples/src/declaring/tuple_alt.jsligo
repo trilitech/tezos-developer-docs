@@ -1,2 +1,0 @@
-type couple = [string, string];
-const friends : couple = ["Alice", "Bob"];

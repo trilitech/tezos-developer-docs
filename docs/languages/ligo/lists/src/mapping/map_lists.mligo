@@ -1,1 +1,0 @@
-let plus_one = List.map (fun i -> i + 1) [6; 2; 3; 3]

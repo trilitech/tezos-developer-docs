@@ -1,1 +1,0 @@
-let s : string = {|\n|} // String made of two characters

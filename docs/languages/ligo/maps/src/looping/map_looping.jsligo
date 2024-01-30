@@ -1,6 +1,0 @@
-function sum_val (m: map<int,int>) {
-  let sum = 0;
-  // The key is discarded.
-  for (const [_key, val] of m) sum = sum + val;
-  return sum;
-};
