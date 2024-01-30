@@ -1,74 +1,114 @@
 ---
-title: LIGO
+title: LIGO, a Smart Contract Language built for Tezos
 last_update:
-  date: 29 June 2023
+  date: 30 January 2024
 ---
 
-LIGO is a functional programming language that is intended to be both user-friendly and to avoid patterns that make formal verification difficult.
+LIGO is a programming language for writing [smart contracts](https://opentezos.com/tezos-basics/smart-contracts), compiling in [Michelson](https://opentezos.com/michelson) and deployable on [Tezos blockchain](https://tezos.com/).
 
-LIGO offers two syntaxes:
+Our hope is to have a simple, strongly typed language with
+a low footprint. Most useful smart contracts can express their core functionality in under a
+thousand lines of code.
 
-- JsLIGO, a syntax that is inspired by TypeScript/JavaScript
-- CameLIGO, a syntax that is inspired by OCaml
+### LIGO, for newcomers or confirmed developpers
 
-You can use either syntax and compile to Michelson to run on Tezos.
+Even if LIGO currently offers **two syntaxes**, you'll need to **choose only one**:
 
-To learn LIGO, see these tutorials:
+  - **JsLIGO**, ideal for web developers, is a TypeScript/JavaScript inspired syntax without unnecessary complexity, which is not helpful in smart contract development. A quick way to produce your first dApp!
 
-- [Deploy a smart contract with CameLIGO](../../tutorials/smart-contract/cameligo)
-- [Deploy a smart contract with JsLIGO](../../tutorials/smart-contract/jsligo)
 
-Let's define a LIGO contract in the two flavours above.
+```jsligo
+  type storage = string;
 
-## CameLIGO
-
-```
-type storage = int
-
-type parameter =
-  Increment of int
-| Decrement of int
-| Reset
-
-type return = operation list * storage
-
-let main (action, store : parameter * storage) : return =
-  [],
-  (match action with
-     Increment n -> store + n
-   | Decrement n -> store - n
-   | Reset       -> 0)
+  @entry
+  const store_hello = (delta: int, store: storage): [list<operation>, storage] =>
+    [list([]), "Hello"];
 ```
 
-## JsLIGO
+  - **CameLIGO** is designed for developers with a background in
+    functional programming, in particular OCaml. An
+    [OCaml-inspired](https://ocaml.org/) syntax allows you to write in
+    a functional style.
 
-```
-type storage = int;
 
-type parameter =
-  ["Increment", int]
-| ["Decrement", int]
-| ["Reset"];
+```cameligo
+  type storage = string
 
-type return_ = [list<operation>, storage];
-
-let main = (action: parameter, store: storage) : return_ => {
-  return [
-    list([]),
-    match(action, {
-      Increment: n => store + n,
-      Decrement: n => store - n,
-      Reset:     ()       => 0
-    })
-  ];
-};
+  [@entry]
+  let store_hello (delta : int) (store : storage) : operation list * storage = [], "Hello"
 ```
 
-This LIGO contract accepts the following LIGO expressions: `Increment(n)`, `Decrement(n)` and `Reset`. Those serve as `entrypoint` identification.
+A significant advantage of the multi-syntax feature is to share knowledge, toolings, and [modules](https://ligolang.org/docs/language-basics/modules) (like [libraries](https://ligolang.org/docs/advanced/package-management) onto [registry](https://packages.ligolang.org/packages)) in a larger community.
 
-## Further reading
+### LIGO, designed to be cost-effective
 
-- [LIGO documentation](https://ligolang.org/docs/intro/introduction?lang=jsligo)
-- [LIGO tutorials](https://ligolang.org/docs/tutorials/getting-started?lang=jsligo)
-- [OpenTezos](https://opentezos.com/ligo)
+Unlike desktop, mobile, or web application development, smart
+contracts cannot rely on cheap CPU time and memory.  All resources
+contracts use are expensive and tracked as
+['gas costs'](https://ligolang.org/docs/tutorials/optimisation/#tezos-gas-model).
 
+The LIGO compiler generates optimised Michelson code, which will
+be cost-effective on Tezos.
+
+
+### LIGO, designed for your security
+
+Tezos smart contract live on the blockchain forever if a bug exists,
+they cannot be patched or amended.  Smart contracts often directly
+control money or assets, which if stolen, could be a large financial
+loss to the contracts and their users.
+
+LIGO will **bring people to web3** and by design **reduce the risk**
+ that your smart contract will lose its balance to an
+ [avoidable exploit](https://www.wired.com/2016/06/50-million-hack-just-showed-dao-human/).
+
+But compiler design is insufficient, and LIGO uses **static analysis** to
+encourage people to write simple code, avoid anti-patterns, and use
+the
+[robust test framework](https://ligolang.org/docs/advanced/testing)
+which can simulate Tezos blockchain and offer
+[mutation tests](https://ligolang.org/docs/advanced/mutation-testing)
+
+For critical code, LIGO also keeps its compiled output unbloated making **possible to formally verify** the compiled output using a project like
+[Mi-Cho-Coq](https://gitlab.com/nomadic-labs/mi-cho-coq/).
+
+### A set of tools already available
+
+- Quickly explore LIGO using [webide](https://ide.ligolang.org/local)
+- Quickly bootstrap a project with [registry](https://packages.ligolang.org/packages)
+- Improve development experience with our LSP server available in the
+  [VS Code extension](https://marketplace.visualstudio.com/items?itemName=ligolang-publish.ligo-vscode)
+- Understand and troubleshoot your code with the debugger available in [vscode extension](https://marketplace.visualstudio.com/items?itemName=ligolang-publish.ligo-vscode)
+- Integrate LIGO to your pipeline with [ligo github action](https://github.com/marigold-dev/ligo-action)
+- Test your documentation with [ligo-mdx](https://github.com/ligolang/ligo-mdx)
+
+---
+
+## Where to start
+
+### Do you want to try LIGO?
+
+For a quick overview, [get-started]( https://ligolang.org/docs/tutorials/getting-started) is a good choice. [Webide](https://ide.ligolang.org/) can be used to avoid installation onto your laptop.
+
+### Do you want to learn LIGO?
+
+Your choice to learn LIGO is already available:
+- Read [basics](https://ligolang.org/docs/language-basics/types) to have a basic comprehension
+- Write your first [smart contract](https://ligolang.org/docs/tutorials/taco-shop/tezos-taco-shop-smart-contract).
+- Others resources are available on [marigold.dev](https://www.marigold.dev/learn)
+
+### Do you want to build a production-ready project?
+
+You will need a deeper comprehension:
+- Teach yourself how to structure your code with [Combining code](https://ligolang.org/docs/next/language-basics/modules) section
+- Learn how to [write tests](https://ligolang.org/docs/next/advanced/testing?lang=jsligo) we strongly encourage to use [breathalyzer library from the LIGO registry.](https://packages.ligolang.org/package/ligo-breathalyzer)
+- Understand how to [secure a contract](https://ligolang.org/docs/tutorials/security)
+
+### Dig deeper
+
+In the end, maybe you will want to:
+- [Optimize your code](https://ligolang.org/docs/tutorials/optimisation/),
+- Understand [link between LIGO and Michelson](https://ligolang.org/docs/advanced/michelson-and-ligo)
+- [Interact with other contracts](https://ligolang.org/docs/tutorials/inter-contract-calls/)
+
+<!-- updated use of entry -->

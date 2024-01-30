@@ -131,7 +131,7 @@ const sidebars = {
             id: 'languages',
           },
           items: [
-            { type: 'ref', id: 'languages/ligo' },
+            { type: 'ref', id: 'languages/ligo', label: 'LIGO' },
             { type: 'ref', id: 'languages/smartpy'},
             'languages/archetype',
             'languages/michelson',
