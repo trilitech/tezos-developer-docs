@@ -12,7 +12,6 @@ const sidebars = {
       items: [
         'overview/tezos-different',
         'overview/resources',
-        // 'overview/quickstart', // TODO
         'overview/common-applications',
         'overview/glossary',
       ],
@@ -119,7 +118,6 @@ const sidebars = {
         type: 'doc',
       },
       items: [
-        // 'smart-contracts/quickstart',  // TODO
         'smart-contracts/samples',
         {
           type: 'category',
