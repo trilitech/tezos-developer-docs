@@ -11,7 +11,7 @@ const sidebars = {
       },
       items: [
         'overview/tezos-different',
-        // 'overview/quickstart', // TODO
+        'overview/resources',
         'overview/common-applications',
         'overview/glossary',
       ],
@@ -118,7 +118,6 @@ const sidebars = {
         type: 'doc',
       },
       items: [
-        // 'smart-contracts/quickstart',  // TODO
         'smart-contracts/samples',
         {
           type: 'category',
@@ -207,6 +206,9 @@ const sidebars = {
         'unity/quickstart',
         'unity/scenes',
         'unity/prefabs',
+        'unity/connecting-accounts',
+        'unity/managing-contracts',
+        'unity/managing-tokens',
         {
           type: 'category',
           label: 'Reference',
@@ -234,6 +236,7 @@ const sidebars = {
         // 'reference/encoding', // TODO
         // 'reference/merkle-formats', // TODO
         // 'reference/ocaml-apis', // TODO
+        'reference/style-guide',
         {
           type: 'link',
           label: 'Whitepaper',

@@ -9,7 +9,7 @@ last_update:
 The SDK includes tutorial scenes that demonstrate how to use the SDK.
 
 Before using any of the scenes, install a Tezos-compatible wallet on a mobile device and get some test tez tokens that you can use to pay transaction fees.
-For instructions, see [Installing and funding a wallet](./developing/wallet-setup).
+For instructions, see [Installing and funding a wallet](../developing/wallet-setup).
 
 ## Setup instructions
 
@@ -56,7 +56,7 @@ This scene includes buttons that link to the other scenes.
 
 ## Wallet Connection scene
 
-This scene shows how to to use the TezosAuthenticator prefab to connect to a user's wallet and get information about their account.
+This scene shows how to use the TezosAuthenticator prefab to connect to a user's wallet and get information about their account.
 
 The scene uses the platform type to determine how to connect to a user's wallet.
 In the TezosAuthenticator `SetPlatformFlags` function, it checks what platform it is running on:
@@ -170,8 +170,7 @@ public void HandleMint()
 ```
 
 In your projects, you can set the metadata to store information about what the token represents.
-For more information about creating tokens with Tezos, see [Tokens](../architecture/tokens) and the tutorials [Create an NFT](../tutorials/create-an-nft) and [Build an NFT marketplace](../../tutorials/build-an-nft-marketplace).
-<!-- TODO link to unity-specific topic on managing tokens -->
+For more information about working with Tokens, see [Managing tokens](./managing-tokens) and the tutorials [Create an NFT](../tutorials/create-an-nft) and [Build an NFT marketplace](../../tutorials/build-an-nft-marketplace).
 
 ## Transfer scene
 

@@ -22,7 +22,7 @@ A web3 mobile application is not different from a web2 one in terms of its basic
    ionic start app blank --type react
    ```
 
-1. Generate smart contract types from the taqueria plugin:
+1. Generate smart contract types from the Taqueria plugin:
 
    This command generates Typescript classes from the smart contract interface definition that is used on the frontend.
 
@@ -452,7 +452,7 @@ A web3 mobile application is not different from a web2 one in terms of its basic
 
    - `import "@ionic..."`: Default standard Ionic imports.
    - `import ... from "@airgap/beacon-types" ... from "@taquito/beacon-wallet" ... from "@taquito/taquito"`: Require libraries to interact with the Tezos node and the wallet.
-   - `export class Action implements ActionCisor, ActionPaper, ActionStone {...}`: Representation of the Ligo variant `Action` in Typescript, which is needed when passing arguments on `Play` function.
+   - `export class Action implements ActionCisor, ActionPaper, ActionStone {...}`: Representation of the LIGO variant `Action` in Typescript, which is needed when passing arguments on `Play` function.
    - `export type Session = {...}`: Taqueria exports the global storage type but not this sub-type from the storage type; it is needed for later, so extract a copy.
    - `export const UserContext = React.createContext<UserContextType | null>(null)`: Global React context that is passed along pages. More info on React context [here](https://beta.reactjs.org/learn/passing-data-deeply-with-context).
    - `const refreshStorage = async (event?: CustomEvent<RefresherEventDetail>): Promise<void> => {...`: A useful function to force the smart contract storage to refresh on React state changes (user balance, state of the game).
