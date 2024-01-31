@@ -17,7 +17,6 @@ function SyntaxSwitch(props) {
 
   const onSyntaxChange = useCallback(
     (value) => {
-      console.log('syntaxchange')
       if (typeof window === "undefined") return;
       history.replace({
         search: `?lang=${value}`,
