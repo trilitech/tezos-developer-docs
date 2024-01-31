@@ -90,7 +90,7 @@ taq compile 2-rounding.jsligo
 taq simulate 2-rounding.tz --param 2-rounding.parameter.default_parameter.tz
 ```
 
-It will fail as the result will be negative, Alice will have 101-25=76 and Bob 101-(3\*25)=26, so the total to redeem is 102 greater than the initial 101
+It will fail because the result is negative. Alice will have 101-25=76 and Bob 101-(3\*25)=26, so the total to redeem is 102, which is greater than the initial 101.
 
 ```logs
 script reached FAILWITH instruction
@@ -137,7 +137,7 @@ taq simulate 3-bitwise.tz --param 3-bitwise.parameter.shiftRight257times.tz
 ```
 
 - The first example shifts 2n (0x0010) one time to the left, so it gives 4n (0x0100)
-- The second example shifts 2n (0x0010) 257 times to the right, as the limit is 256 shifts, it produces an error `unexpected arithmetic overflow`
+- The second example shifts 2n (0x0010) 257 times to the right. Because the limit is 256 shifts, it produces the error `unexpected arithmetic overflow`.
 
 &rarr; **SOLUTION**: To avoid this, one should always check the size of the input and the shift amount before applying the Bitwise instructions. Here you should check if the number of shifts is less than or equal to 256, otherwise, you raise an error
 
@@ -214,9 +214,9 @@ Due to the deterministic nature of blockchain execution, it is not possible to g
 
 &rarr; **SOLUTION** :
 
-- Use block timestamp: This approach has a low cost but also a high risk of being compromised, as the time parameter is too coarse and can be easily estimated based on the average block time
-- use contract origination address: This approach has a low cost but also a high risk of being compromised, as it is composed of the hash of the operation concatenated with an origination index
-- Multi-participant random seed: One possible way to generate a multi-participant random seed is to ask each participant to submit a random number in a secure and verifiable way. This can be done using a commit-reveal scheme, where each participant first commits to their number by sending a hash of it, and then reveals it later by sending the actual number. The hash function ensures that the participants cannot change their numbers after committing, and the reveal phase allows everyone to verify that the numbers match the hashes. The final seed can be computed by combining all the revealed numbers using some deterministic function, such as XOR or modular addition.
+- Use block timestamp: This approach has a low cost but also a high risk of being compromised, as the time parameter is too coarse and can be easily estimated based on the average block time.
+- Use contract origination address: This approach has a low cost but also a high risk of being compromised, because it is composed of the hash of the operation concatenated with an origination index.
+- Multi-participant random seed: One possible way to generate a multi-participant random seed is to ask each participant to submit a random number in a secure and verifiable way. This can be done using a commit-reveal scheme, where each participant first commits to their number by sending a hash of it and then reveals it later by sending the actual number. The hash function ensures that the participants cannot change their numbers after committing, and the reveal phase allows everyone to verify that the numbers match the hashes. The final seed can be computed by combining all the revealed numbers using some deterministic function, such as XOR or modular addition.
   However, this method has some drawbacks, such as requiring two rounds of communication and being vulnerable to a locked situation, where some participants do not reveal their numbers and prevent the seed from being generated. To avoid this, there should be some incentive mechanism or timeout mechanism to ensure that everyone reveals their numbers in time, or else they are penalized or excluded from the seed generation.
 - Good randomness oracle: Creating a good off-chain random Oracle is not easy, as it requires a way to prove that the numbers are indeed random and not manipulated by anyone. One possible solution is to use a verifiable random function (VRF), which is a cryptographic algorithm that generates a random output from an input and a secret key. It produces a proof that the output was correctly computed. The proof can be verified by anyone who knows the input and the public key, but not the secret key. Chainlink is a decentralized network of Oracles that offers a VRF-based randomness Oracle for smart contracts. It claims to be one of the few, if not the only reasonably good available randomness Oracle in the market. However, it has some limitations, such as being only compatible with Ethereum and not with Tezos, which is another popular smart contract platform. Moreover, it still relies on the trustworthiness of a third party, namely the Chainlink node operators that hold the secret keys and generate the random numbers and proofs.
 

@@ -41,9 +41,9 @@ Memory overflow is a kind of attack that overloads the memory of a smart contrac
 
 Here is the list of dangerous types to use carefully :
 
-- Integers and nats: as they can be increased to an arbitrarily large value
-- Strings: as there is no limit on their lengths
-- Lists, sets, maps: that can contain an arbitrary number of items
+- Integers and nats: they can be increased to an arbitrarily large value
+- Strings: they have no limit on their lengths
+- Lists, sets, maps: they can contain an arbitrary number of items
 
 &rarr; **SOLUTION**:
 
