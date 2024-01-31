@@ -2,7 +2,7 @@
 title: Sending transactions
 authors: "Tim McMackin"
 last_update:
-  date: 7 November 2023
+  date: 31 January 2024
 ---
 <!-- TODO originating contracts: https://tezostaquito.io/docs/originate -->
 
@@ -82,7 +82,75 @@ try {
 }
 ```
 
-For examples of calling smart contracts, see tutorials such as [Build a simple web application](../tutorials/build-your-first-app) or [Create a contract and web app that mints NFTs](../tutorials/create-an-nft/nft-taquito).
+To call an entrypoint that accepts parameters, you must encode those parameters in the format that the entrypoint requires.
+
+For example, the [FA2](../architecture/tokens/FA2) `transfer` entrypoint accepts an array of token transfers.
+Each transfer object includes the address to take the tokens from and an array of accounts to send the tokens to, as in this example:
+
+```javascript
+const transactionParams = [
+  {
+    from_: sourceAddress,
+    txs: [
+      {
+        to_: targetAddress1,
+        token_id: 7,
+        amount: 2,
+      },
+      {
+        to_: targetAddress2,
+        token_id: 7,
+        amount: 3,
+      },
+    ],
+  },
+];
+```
+
+To call the `transfer` entrypoint, you pass this parameter to the Taquito entrypoint method, as in this example:
+
+```javascript
+Tezos.setWalletProvider(wallet);
+const contract = await Tezos.wallet.at(contractAddress);
+
+const transactionParams = [
+  {
+    from_: sourceAddress,
+    txs: [
+      {
+        to_: targetAddress1,
+        token_id: 7,
+        amount: 2,
+      },
+      {
+        to_: targetAddress2,
+        token_id: 7,
+        amount: 3,
+      },
+    ],
+  },
+];
+
+const estimation = await Tezos.estimate.transfer({
+  to: contractAddress,
+  amount: 0,
+  parameter: contract.methods.transfer(transactionParams).toTransferParams().parameter
+});
+
+const operation = await contract.methods
+  .transfer(transactionParams, estimation)
+  .send();
+
+console.log(`Waiting for ${operation.opHash} to be confirmed...`);
+
+await operation.confirmation(2);
+
+console.log(
+  `Operation injected: https://ghost.tzstats.com/${operation.opHash}`,
+);
+```
+
+For more examples of calling smart contracts, see tutorials such as [Build a simple web application](../tutorials/build-your-first-app) or [Create a contract and web app that mints NFTs](../tutorials/create-an-nft/nft-taquito).
 
 For more information about using Taquito, see [Smart contracts](https://tezostaquito.io/docs/smartcontracts) in the Taquito documentation.
 
