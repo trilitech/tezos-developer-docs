@@ -18,7 +18,7 @@ If you subtract two tez or mutez variables, the result may be a negative number,
 For this reason, LIGO requires you to wrap the result in an Option type, even if you are confident that the result is a positive number, as in this example:
 
 ```ligolang
-option<tez> = 0mutez - 1mutez;
+option<tez> = 2mutez - 1mutez;
 ```
 
 In the source code `.contracts/1-bugs.jsligo`, we have also a subtraction returning an optional value:
