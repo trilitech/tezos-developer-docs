@@ -3,7 +3,7 @@ id: interop
 title: Interop
 ---
 
-import Syntax from '@site/src/components/Syntax';
+import Syntax from '@site/src/theme/Syntax';
 
 LIGO can work together with other smart contract languages on Tezos. However,
 data structures might have different representations in Michelson and not

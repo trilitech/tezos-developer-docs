@@ -3,7 +3,7 @@ id: polymorphism
 title: Polymorphism
 ---
 
-import Syntax from '@site/src/components/Syntax';
+import Syntax from '@site/src/theme/Syntax';
 import Link from '@docusaurus/Link';
 
 LIGO supports simple polymorphism when introducing declarations. This

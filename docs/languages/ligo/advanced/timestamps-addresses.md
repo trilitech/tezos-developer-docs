@@ -3,7 +3,7 @@ id: timestamps-addresses
 title: Timestamps, Addresses
 ---
 
-import Syntax from '@site/src/components/Syntax';
+import Syntax from '@site/src/theme/Syntax';
 
 ## Timestamps
 

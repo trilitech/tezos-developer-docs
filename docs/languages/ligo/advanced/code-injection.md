@@ -3,7 +3,7 @@ id: embedded-michelson
 title: Embedded Michelson
 ---
 
-import Syntax from '@site/src/components/Syntax';
+import Syntax from '@site/src/theme/Syntax';
 
 If you have an existing piece of Michelson code that you want to use
 as-is, LIGO provides the ability to embed Michelson code. This feature

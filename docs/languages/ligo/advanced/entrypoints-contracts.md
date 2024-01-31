@@ -3,7 +3,7 @@ id: entrypoints-contracts
 title: Main functions and Entrypoints
 ---
 
-import Syntax from '@site/src/components/Syntax';
+import Syntax from '@site/src/theme/Syntax';
 
 ## Entry points
 

@@ -3,7 +3,7 @@ id: layout-comb-how
 title: How to deal with the change of the default datatype layout to @layout comb ?
 ---
 
-import Syntax from '@site/src/components/Syntax';
+import Syntax from '@site/src/theme/Syntax';
 
 See [Why did the default datatype layout change to `@layout comb` ?](layout-comb-why.md)
 for background about this change.

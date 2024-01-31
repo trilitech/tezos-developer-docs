@@ -4,8 +4,8 @@ title: Kathmandu
 description: Kathmandu changes
 ---
 
-import Syntax from '@site/src/components/Syntax';
-import SyntaxTitle from '@site/src/components/SyntaxTitle';
+import Syntax from '@site/src/theme/Syntax';
+import SyntaxTitle from '@site/src/theme/SyntaxTitle';
 
 > Note: as LIGO uses Mumbai protocol to Michelson type-check your programs, the flag `--disable-michelson-typechecking` is recommended to compile contracts to Kathmandu when using tickets / chest.
 

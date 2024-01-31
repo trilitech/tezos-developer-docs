@@ -3,7 +3,7 @@ id: catch-error-view
 title: How to catch an error thrown in a view ?
 ---
 
-import Syntax from '@site/src/components/Syntax';
+import Syntax from '@site/src/theme/Syntax';
 
 Error thrown by calling `failwith` cannot be caught, the call is compiled to Michelson's `FAILWITH` instruction.
 

@@ -3,7 +3,7 @@ id: maps-records
 title: Records/Objects and Maps
 ---
 
-import Syntax from '@site/src/components/Syntax';
+import Syntax from '@site/src/theme/Syntax';
 
 So far, we have seen pretty basic data types. LIGO also offers more
 complex built-in constructs, such as *records* and *maps*.

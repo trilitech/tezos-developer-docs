@@ -3,7 +3,7 @@ id: type-annotations
 title: Type Annotations
 ---
 
-import Syntax from '@site/src/components/Syntax';
+import Syntax from '@site/src/theme/Syntax';
 
 ## Annotations
 

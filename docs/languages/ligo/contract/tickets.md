@@ -5,8 +5,8 @@ description: Ticket operations for Tezos
 hide_table_of_contents: true
 ---
 
-import Syntax from '@site/src/components/Syntax';
-import SyntaxTitle from '@site/src/components/SyntaxTitle';
+import Syntax from '@site/src/theme/Syntax';
+import SyntaxTitle from '@site/src/theme/SyntaxTitle';
 
 The following functions are available under the `Tezos.` namespace.
 

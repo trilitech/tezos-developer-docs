@@ -1,4 +1,4 @@
-import Syntax from '@site/src/components/Syntax';
+import Syntax from '@site/src/theme/Syntax';
 
 # Dynamic entrypoints
 

@@ -3,7 +3,7 @@ id: first-contract
 title: First contract
 ---
 
-import Syntax from '@site/src/components/Syntax';
+import Syntax from '@site/src/theme/Syntax';
 
 So far so good, we have learned enough of the LIGO language, we are
 confident enough to write out first smart contract.

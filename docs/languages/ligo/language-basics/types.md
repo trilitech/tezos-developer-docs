@@ -3,7 +3,7 @@ id: types
 title: Simple Types
 ---
 
-import Syntax from '@site/src/components/Syntax';
+import Syntax from '@site/src/theme/Syntax';
 
 *LIGO is strongly and statically typed.* This means that the compiler
 checks how your contract processes data, ensuring that each function's

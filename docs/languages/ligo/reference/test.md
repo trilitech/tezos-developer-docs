@@ -6,8 +6,8 @@ hide_table_of_contents: true
 ---
 
 
-import Syntax from '@site/src/components/Syntax';
-import SyntaxTitle from '@site/src/components/SyntaxTitle';
+import Syntax from '@site/src/theme/Syntax';
+import SyntaxTitle from '@site/src/theme/SyntaxTitle';
 
 > Important: The `Test` module is only available inside the `ligo run test` command. See also [Testing LIGO](../advanced/testing.md).
 

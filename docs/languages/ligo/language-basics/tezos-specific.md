@@ -3,7 +3,7 @@ id: tezos-specific
 title: Tezos Domain-Specific Operations
 ---
 
-import Syntax from '@site/src/components/Syntax';
+import Syntax from '@site/src/theme/Syntax';
 
 LIGO is a programming language for writing Tezos smart contracts. It
 would be a little odd if it did not have any Tezos specific

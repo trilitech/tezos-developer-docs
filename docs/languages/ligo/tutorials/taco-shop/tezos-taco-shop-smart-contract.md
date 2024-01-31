@@ -3,7 +3,7 @@ id: tezos-taco-shop-smart-contract
 title: The Taco Shop Smart Contract
 ---
 
-import Syntax from '@site/src/components/Syntax';
+import Syntax from '@site/src/theme/Syntax';
 import Link from '@docusaurus/Link';
 
 <div>

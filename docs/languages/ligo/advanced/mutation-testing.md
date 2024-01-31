@@ -3,7 +3,7 @@ id: mutation-testing
 title: Mutation testing
 ---
 
-import Syntax from '@site/src/components/Syntax';
+import Syntax from '@site/src/theme/Syntax';
 import Link from '@docusaurus/Link';
 
 We assume that the reader is familiar with LIGO's testing framework. A

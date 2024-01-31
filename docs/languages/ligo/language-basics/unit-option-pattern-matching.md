@@ -3,7 +3,7 @@ id: unit-option-pattern-matching
 title: Unit, Option, Pattern matching
 ---
 
-import Syntax from '@site/src/components/Syntax';
+import Syntax from '@site/src/theme/Syntax';
 
 Optional values are a pervasive programming pattern in OCaml. Since
 Michelson and LIGO are both inspired by OCaml, *optional types* are

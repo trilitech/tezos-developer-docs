@@ -3,7 +3,7 @@ id: exceptions
 title: Exceptions
 ---
 
-import Syntax from '@site/src/components/Syntax';
+import Syntax from '@site/src/theme/Syntax';
 
 In some cases it is necessary to interrupt the flow of execution with
 a failure: this is where the predefined function `failwith` comes in.

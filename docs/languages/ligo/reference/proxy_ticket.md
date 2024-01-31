@@ -5,8 +5,8 @@ description: Helper functions for testing tickets.
 hide_table_of_contents: true
 ---
 
-import Syntax from '@site/src/components/Syntax';
-import SyntaxTitle from '@site/src/components/SyntaxTitle';
+import Syntax from '@site/src/theme/Syntax';
+import SyntaxTitle from '@site/src/theme/SyntaxTitle';
 
 > Note: This module/namespace exists inside the Test module/namespace, to use
 > functions from this module prefix it with Test. e.g. `Test.Proxy_ticket.init_transfer`

@@ -3,7 +3,7 @@ id: sets-lists-tuples
 title: Tuples, Lists, Sets
 ---
 
-import Syntax from '@site/src/components/Syntax';
+import Syntax from '@site/src/theme/Syntax';
 
 Apart from complex data types such as `maps` and `records`, LIGO also
 features `tuples`, `lists` and `sets`.

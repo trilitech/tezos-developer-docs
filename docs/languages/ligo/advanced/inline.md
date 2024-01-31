@@ -3,7 +3,7 @@ id: inline
 title: Inlining
 ---
 
-import Syntax from '@site/src/components/Syntax';
+import Syntax from '@site/src/theme/Syntax';
 
 When compiling a contract in LIGO, declarations will get inlined if they are
 only used once and pure. Inlining often results in larger contracts and is

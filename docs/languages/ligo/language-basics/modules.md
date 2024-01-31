@@ -5,7 +5,7 @@ jsLigoTitle: Namespaces
 hide_title: true
 ---
 
-import Syntax from '@site/src/components/Syntax';
+import Syntax from '@site/src/theme/Syntax';
 
 <Syntax syntax="jsligo">
 

@@ -1,5 +1,6 @@
 import { useHistory, useLocation } from "@docusaurus/router";
 import React, { useCallback, useEffect, useState } from "react";
+import clsx from "clsx";
 
 import styles from "./styles.module.css";
 
@@ -18,6 +19,7 @@ function SyntaxSwitch(props) {
 
   const onSyntaxChange = useCallback(
     (value) => {
+      console.log('syntaxchange')
       if (typeof window === "undefined") return;
       history.replace({
         search: `?lang=${value}`,
@@ -30,9 +32,9 @@ function SyntaxSwitch(props) {
 
   return isNext ? (
     <form>
-      <div className={styles["switch__container"]}>
+      <div className={clsx("switch__container")}>
         <label
-          className={styles["switch__options-jsligo"]}
+          className={clsx("switch__options-jsligo")}
           onClick={() => onSyntaxChange("jsligo")}
         >
           JsLIGO
@@ -40,15 +42,15 @@ function SyntaxSwitch(props) {
         <button
           type="button"
           role="switch"
-          className={styles.switch__button}
+          className={clsx("switch__button")}
           aria-label={`prefer ${props.syntax}`}
           aria-checked={props.syntax === "cameligo"}
           onClick={() => onSyntaxChange(props.syntax === "jsligo" ? "cameligo" : "jsligo")}
         >
-          <span className={styles["switch__button-circle"]}></span>
+          <span className={clsx("switch__button-circle")}></span>
         </button>
         <label
-          className={styles["switch__options-cameligo"]}
+          className={clsx("switch__options-cameligo")}
           onClick={() => onSyntaxChange("cameligo")}
         >
           CameLIGO
@@ -57,7 +59,7 @@ function SyntaxSwitch(props) {
     </form>
   ) : (
     <select
-      className={styles.syntaxSwitch}
+      className={clsx("syntaxSwitch")}
       value={props.syntax}
       onChange={(e) => onSyntaxChange(e.target.value)}
     >

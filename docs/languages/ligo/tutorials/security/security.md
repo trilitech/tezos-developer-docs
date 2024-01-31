@@ -3,7 +3,7 @@ id: security
 title: Smart contract security
 ---
 
-import Syntax from '@site/src/components/Syntax';
+import Syntax from '@site/src/theme/Syntax';
 
 In this article, we will cover the basics of Tezos smart contract security. We will describe several potential vulnerabilities that stem from developers' misconceptions about the distributed nature of blockchains. We will also suggest ways to protect your contracts against these kinds of attacks.
 

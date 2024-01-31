@@ -3,7 +3,7 @@ id: boolean-if-else
 title: Booleans and Conditionals
 ---
 
-import Syntax from '@site/src/components/Syntax';
+import Syntax from '@site/src/theme/Syntax';
 
 ## Booleans
 

@@ -3,7 +3,7 @@ id: getting-started
 title: Getting started
 ---
 
-import Syntax from '@site/src/components/Syntax';
+import Syntax from '@site/src/theme/Syntax';
 
 This section is aimed at newcomers to Ligo and Tezos smart-contracts.
 In this tutorial, we will go through the following steps :

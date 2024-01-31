@@ -3,7 +3,7 @@ id: constants-and-variables
 title: Constants & Variables
 ---
 
-import Syntax from '@site/src/components/Syntax';
+import Syntax from '@site/src/theme/Syntax';
 
 The next building block after types are *constants* and *variables*.
 

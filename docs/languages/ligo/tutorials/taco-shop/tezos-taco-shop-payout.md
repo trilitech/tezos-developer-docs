@@ -3,7 +3,7 @@ id: tezos-taco-shop-payout
 title: Paying out profits from the Taco Shop
 ---
 
-import Syntax from '@site/src/components/Syntax';
+import Syntax from '@site/src/theme/Syntax';
 
 In the
 [previous tutorial](tezos-taco-shop-smart-contract.md)

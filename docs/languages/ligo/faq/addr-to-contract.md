@@ -3,7 +3,7 @@ id: convert-address-to-contract
 title: How to convert an address to a contract in LIGO testing framework ?
 ---
 
-import Syntax from '@site/src/components/Syntax';
+import Syntax from '@site/src/theme/Syntax';
 
 In the context of testing framework,
 if you want to convert an address to a contract,

@@ -3,7 +3,7 @@ id: tz-vs-eth
 title: Migrating from Ethereum
 ---
 
-import Syntax from '@site/src/components/Syntax';
+import Syntax from '@site/src/theme/Syntax';
 
 
 This article is aimed at those who have some experience with

@@ -3,7 +3,7 @@ id: cheat-sheet
 title: Cheat Sheet
 ---
 
-import Syntax from '@site/src/components/Syntax';
+import Syntax from '@site/src/theme/Syntax';
 
 <div className="cheatsheet">
 

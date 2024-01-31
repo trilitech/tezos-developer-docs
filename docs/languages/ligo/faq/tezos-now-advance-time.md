@@ -3,8 +3,8 @@ id: tezos-now-advance-time
 title: Is there a way to advance time in LIGO tests ?
 ---
 
-import Syntax from '@site/src/components/Syntax';
-import SyntaxTitle from '@site/src/components/SyntaxTitle';
+import Syntax from '@site/src/theme/Syntax';
+import SyntaxTitle from '@site/src/theme/SyntaxTitle';
 
 The `Tezos.get_now` function can be used to get the current time, but
 in the tests, we may want to setup a situation where the contracts

@@ -3,7 +3,7 @@ id: loops
 title: Iteration
 ---
 
-import Syntax from '@site/src/components/Syntax';
+import Syntax from '@site/src/theme/Syntax';
 
 ## General Iteration
 
