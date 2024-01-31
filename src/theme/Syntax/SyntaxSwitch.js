@@ -2,8 +2,6 @@ import { useHistory, useLocation } from "@docusaurus/router";
 import React, { useCallback, useEffect, useState } from "react";
 import clsx from "clsx";
 
-import styles from "./styles.module.css";
-
 function SyntaxSwitch(props) {
   const [isNext, setIsNext] = useState(false);
   const location = useLocation();
