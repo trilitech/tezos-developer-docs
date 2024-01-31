@@ -360,6 +360,19 @@ const sidebars = {
     },
     {
       type: 'category',
+      label: 'Learn and play with security',
+      link: {
+        type: 'doc',
+        id: 'tutorials/security',
+      },
+      items: [
+        'tutorials/security/part-1',
+        'tutorials/security/part-2',
+        'tutorials/security/part-3',
+      ],
+    },
+    {
+      type: 'category',
       label: 'Create a mobile game',
       link: {
         type: 'doc',
