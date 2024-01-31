@@ -2,6 +2,11 @@
 
 const ligoSidebar = [
   {
+    type: 'html',
+    value: '<div class="sidebar-header">LIGO language reference</div>',
+    className: 'menu__list-item',
+  },
+  {
     type: 'ref',
     id: 'languages',
     label: '<< Back to main',
