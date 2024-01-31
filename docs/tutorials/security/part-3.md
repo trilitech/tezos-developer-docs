@@ -23,8 +23,8 @@ One of the challenges of designing and deploying a smart contract is to define t
   - Verification: By design, everyone can verify the code. Sometimes the code is audited and a report is available.
     &rarr; **SOLUTION**: Read the audit if available or verify the code yourself. However, the code deployed is in Michelson and the reverse engineering is not easy. Tools are missing for how to reverse engineer contracts; nevertheless if the contract is TZIP16-compliant it can refer to the LIGO source code, so you can recompile and compare the outputs.
 - Who can resolve disputes or enforce penalties in case of contract violations?
-  If the contract itself does not contain a function to resolve it, no resolution can happen onchain.
-  &rarr; **SOLUTION**: Use onchain dispute if available, or off-chain dispute but this latter introduces additional complexities such as Know Your Customer (KYC) regulations and legal considerations. KYC regulations require businesses to verify the identity of their clients. This can be difficult in the context of blockchain transactions, which are often pseudonymous. Legal considerations can also be complex, especially in cross-border transactions where different jurisdictions may have different laws.
+  If the contract itself does not contain a function to resolve it, no resolution can happen on-chain.
+  &rarr; **SOLUTION**: Use on-chain dispute if available, or off-chain dispute but this latter introduces additional complexities such as Know Your Customer (KYC) regulations and legal considerations. KYC regulations require businesses to verify the identity of their clients. This can be difficult in the context of blockchain transactions, which are often pseudonymous. Legal considerations can also be complex, especially in cross-border transactions where different jurisdictions may have different laws.
 
 ## Lambda, mutable code, and dynamic entrypoints
 
@@ -44,8 +44,8 @@ Blockchain oracles are third-party services that provide smart contracts with ex
 
 An Oracle is made of two parts:
 
-- Offchain: The data collector that pushes data to the onchain contract
-- Onchain: The contract that stores the data and exposes it to other contracts. Generally, a call for information involves monetization and so, some fees apply.
+- Off-chain: The data collector that pushes data to the on-chain contract
+- On-chain: The contract that stores the data and exposes it to other contracts. Generally, a call for information involves monetization and so, some fees apply.
 
 Who controls the oracle?
 A single company or person may control the oracle. In this case, they can manipulate the data, be hacked, or the service can go down and block the full flow of execution.
