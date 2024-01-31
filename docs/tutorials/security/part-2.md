@@ -89,11 +89,15 @@ sequenceDiagram
   Note right of LedgerContract: ... Once finish ... UpdateBalance
 ```
 
-Why this scenario is possible on Solidity?
-On Solidity, the operation will call directly the smart contract, stopping the execution, calling a synchronous execution and resuming the flow. If someone calls several times and very quickly the withdraw operation, as the state is not updated yet, the call will succeed and drain more than the developer expected.
+Why is this scenario possible on Solidity?
+In Solidity, when a smart contract calls another smart contract, that operation runs immediately and synchronously.
+The original smart contract pauses, the other smart contract runs, and then the original smart contract resumes.
+If someone calls the original smart contract multiple times very quickly, they can generate multiple operations before the original smart contract updates its state.
+In the example in the previous diagram, a user may be able to run many withdraw operations and drain more than the developer expected.
 
-Why this scenario is not possible on Tezos?
-On Tezos, the first transaction will update the state and will execute a list of operations at the end of execution. Next executions will encounter an updated state
+Why is this scenario not possible on Tezos?
+On Tezos, generated operations don't run until the original smart contract is finished and has updated its state.
+Future operations encounter the contract's updated state.
 
 Let's implement a more complex scenario where the OfferContract and LedgerContract are separated. The OfferContract will naively send the money back to MaliciousContract because it relies on the **not yet modified** state of the LedgerContract. There are two operations and the modification of the state will come in second position.
 
