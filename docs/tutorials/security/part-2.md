@@ -9,7 +9,7 @@ last_update:
 
 ## Replay attack
 
-A replay attack on a smart contract is a type of security vulnerability that allows an attacker to reuse a signed valid transaction multiple times. We saw in the previous part how to do offchain replay attacks, but it is also possible to do onchain replay attacks.
+A replay attack on a smart contract is a type of security vulnerability that allows an attacker to reuse a signed valid transaction multiple times. We saw in the previous part how to do off-chain replay attacks, but it is also possible to do on-chain replay attacks.
 Even though Tezos prevents this kind of attack, you can try it by sending the same operation several times.
 
 Compile and simulate the replay attack:
@@ -50,7 +50,7 @@ Here is the list of dangerous types to use carefully:
 - Ask the user to pay a minimum tez for each call
 - Set a threshold limit
 - Store data in a big_map
-- Avoid unnecessary onchain computation that can be done offchain. For example, do not loop onchain; instead, update a part of a map
+- Avoid unnecessary on-chain computation that can be done off-chain. For example, do not loop on-chain; instead, update a part of a map
 
 Example with the current FA1.2 implementation: https://inference.ag/blog/2023-10-09-FA12_spenders/
 
