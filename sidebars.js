@@ -11,9 +11,9 @@ const sidebars = {
       },
       items: [
         'overview/tezos-different',
-        'overview/resources',
         'overview/common-applications',
         'overview/glossary',
+        'overview/resources',
       ],
     },
     {
