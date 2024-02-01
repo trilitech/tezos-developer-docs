@@ -11,9 +11,9 @@ const sidebars = {
       },
       items: [
         'overview/tezos-different',
-        // 'overview/quickstart', // TODO
         'overview/common-applications',
         'overview/glossary',
+        'overview/resources',
       ],
     },
     {
@@ -119,7 +119,6 @@ const sidebars = {
         type: 'doc',
       },
       items: [
-        // 'smart-contracts/quickstart',  // TODO
         'smart-contracts/samples',
         {
           type: 'category',
@@ -207,6 +206,9 @@ const sidebars = {
         'unity/quickstart',
         'unity/scenes',
         'unity/prefabs',
+        'unity/connecting-accounts',
+        'unity/managing-contracts',
+        'unity/managing-tokens',
         {
           type: 'category',
           label: 'Reference',
@@ -234,6 +236,7 @@ const sidebars = {
         // 'reference/encoding', // TODO
         // 'reference/merkle-formats', // TODO
         // 'reference/ocaml-apis', // TODO
+        'reference/style-guide',
         {
           type: 'link',
           label: 'Whitepaper',
@@ -353,6 +356,19 @@ const sidebars = {
         'tutorials/build-an-nft-marketplace/part-2',
         'tutorials/build-an-nft-marketplace/part-3',
         'tutorials/build-an-nft-marketplace/part-4',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Learn and play with security',
+      link: {
+        type: 'doc',
+        id: 'tutorials/security',
+      },
+      items: [
+        'tutorials/security/part-1',
+        'tutorials/security/part-2',
+        'tutorials/security/part-3',
       ],
     },
     {

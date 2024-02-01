@@ -54,10 +54,7 @@ This entrypoint can be called only by the current administrator account.
 When this field is set to true, tokens can be minted but not transferred between accounts.
 This entrypoint can be called only by the current administrator account.
 
-<!-- For examples of calling these entrypoints, see [Calling the built-in contract](../managing-contracts#calling-the-built-in-contract). -->
-For information about entrypoints, see [entrypoints](../../smart-contracts/entrypoints).
-
-## Methods
+For examples of calling these entrypoints, see [Calling the built-in contract](../managing-contracts#calling-contracts).
 
 ### Constructors
 
