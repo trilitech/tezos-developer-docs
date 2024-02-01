@@ -33,4 +33,4 @@ The prefab's `LoginPanel` object includes objects that connect to wallets in dif
 
 For details about how the prefab works, see the file `TezosAuthenticator.cs`.
 
-For an example of the prefab in use, see the [WalletConnection tutorial scene](./scenes#wallet-connection-scene).
+For an example of the prefab in use, see the [WalletConnection tutorial scene](./scenes#walletconnection-scene).

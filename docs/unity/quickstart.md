@@ -138,7 +138,7 @@ private void OnContractDeployed(string contractAddress)
 The project sends the deployment transaction to the connected wallet, which must approve the transaction and pay the related fees.
 The SDK stores the address of the contract as [`TokenContract.address`](./reference/TokenContract).
 
-For an example, see the [ContractAndMinting tutorial scene](./scenes#contractandminting-scene).
+For an example, see the [ContractAndMinting tutorial scene](./scenes/#contractandminting-scene).
 
 ## Creating tokens
 
@@ -192,7 +192,7 @@ private void OnTokenMinted(TokenBalance tokenBalance)
 }
 ```
 
-For an example, see the [ContractAndMinting tutorial scene](./scenes#contractandminting-scene).
+For an example, see the [ContractAndMinting tutorial scene](./scenes/#contractandminting-scene).
 
 ## Transferring tokens
 
@@ -225,7 +225,7 @@ private void TransferCompleted(string txHash)
 }
 ```
 
-For a complete example, see the [Transfer tutorial scene](./scenes#transfer-scene).
+For a complete example, see the [Transfer tutorial scene](./scenes/#transfer-scene).
 
 ## Getting token balances
 
