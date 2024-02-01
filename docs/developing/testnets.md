@@ -2,7 +2,7 @@
 title: Testing on sandboxes and testnets
 authors: 'Mathias Hiron, Nomadic Labs, Tim McMackin, TriliTech'
 last_update:
-  date: 26 January 2024
+  date: 1 February 2024
 ---
 
 :::note
@@ -25,7 +25,7 @@ These networks behave like Mainnet with a few differences:
 - They either use a modified version of the amendment process or don't use it at all.
 - In some cases, you must use specific versions of tools such as the Octez client to work with them.
 
-Depending on your needs, you can pick between the types of networks listed below. The different test networks provide different foresight into the changes brought by upcoming protocol amendments -- from a week to 6 months, under the current policy of [rolling protocol proposal publication](https://research-development.nomadic-labs.com/regular-scheduling-for-our-tezos-proposals.html).
+Depending on your needs, you can pick between the types of networks listed below. The different test networks provide different foresight into the changes brought by upcoming protocol amendments — from a week to 6 months, under the current policy of [rolling protocol proposal publication](https://research-development.nomadic-labs.com/regular-scheduling-for-our-tezos-proposals.html).
 
 Regardless of the type of network, if you intend to do intense testing, you can run your own nodes on these networks to avoid availability issues and limitations.
 
@@ -33,13 +33,11 @@ Regardless of the type of network, if you intend to do intense testing, you can 
 
 Permanent test networks are networks that are meant to run indefinitely. Just like Mainnet, they migrate to new versions of the protocol when proposals are adopted.
 
-For the Ghostnet permanent network, the governance is controlled by a single entity that manages the network, with a special upgrade mechanism.
-
 At the moment, the main such network is Ghostnet. It follows the currently active protocol on Mainnet and upgrades to the next protocol during the Adoption period on Mainnet, which is after the last round of voting but before the new version activates on Mainnet. The objective is to provide a rehearsal event for Mainnet migration.
 
-For developers, using a permanent network like Ghostnet is convenient compared to other public networks, because they can keep contracts running for a long time without having to deal with the trouble of setting things up on a new network when the previous one gets shut down. Services such as indexers, explorers, or public nodes also tend to keep running more reliably on Ghostnet than on non-permanent networks.
+For developers, using a permanent network like Ghostnet is convenient compared to other public networks because they can keep contracts running for a long time without having to set things up on a new network when the previous one gets shut down. Services such as indexers, explorers, or public nodes also tend to run more reliably on Ghostnet than on non-permanent networks.
 
-For bakers, it is also a good idea to run tests on a permanent network, because it is the environment that is the closest to Mainnet. Ghostnet, in particular, can be used as a staging environment for testing new setups or new versions of software such as new Octez releases.
+Bakers often run tests on a permanent network because they are the closest environment to Mainnet. Ghostnet, in particular, can be used as a staging environment for testing new setups or new versions of software such as new Octez releases.
 
 On the other hand, as transactions and blocks keep accumulating over time, synchronizing with this network can take some time, and the context size gets bigger. This means testing a restart and resynchronization can be time and resource-consuming.
 
