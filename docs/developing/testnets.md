@@ -45,19 +45,19 @@ Because the protocol on Ghostnet migrates to the newly adopted amendment a few d
 
 ### Protocol test networks
 
-Protocol test networks are networks that are created specifically for a specific version of the protocol.
+Protocol test networks are networks that are created for a specific version of the protocol.
 
-When an amendment is proposed, a corresponding network is created. This network gets joined by more bakers as the proposal is selected and moves through the different periods of the self-amendment process. If the protocol passes the 3 votes of the amendment, joining a test protocol early gives you about 2.5 months to test all the changes that will be made to Mainnet. If the protocol is not adopted, it usually gets discarded. Otherwise, it remains active until a different protocol is adopted.
+When an amendment is proposed, a corresponding network is created. This network gets joined by more bakers as the proposal is selected and moves through the different periods of the self-amendment process. If the protocol passes the 3 votes of the amendment, joining a test protocol early gives you about 2.5 months to test all the changes that will be made to Mainnet. If the protocol is not adopted is discarded or sometimes remains active until a different protocol is adopted.
 
 This means there is usually one or two such running networks: one for the current version of the protocol running on Mainnet, and possibly one for the proposed protocol that is going through the amendment process, if there is one.
 
-Whether you are a developer or a baker, testing on the network for a new proposal before it potentially gets activated enables you to check that all your software, smart contracts, dApps, or other tools work well with this new proposal.
+Whether you are a developer or a baker, testing on the network for a new proposal before it gets activated enables you to check that all your software, smart contracts, dApps, and other tools work well with this new proposal.
 
-It also enables you to test any new features of this proposal, so that you can prepare to use them. This can also help you form your own opinion about this proposal and discuss it with the community before voting on it.
+It also enables you to test any new features of this proposal. Trying the features can help you form your own opinion about this proposal and discuss it with the community before voting on it.
 
-Once the protocol is activated, the corresponding protocol test network can be a good network for a baker to do some tests, with the current version of the protocol, and doing so on a network that is lightweight to bootstrap, and with reduced context sizes.
+When the protocol is activated, the corresponding protocol test network can be a good network for a baker to run tests with the current version of the protocol, because these networks are lightweight to bootstrap and have reduced context sizes.
 
-On the other hand, it may be less convenient for smart contract or dApp developers to use, because it has a limited life span and tends to be less supported by services like indexers and other tools.
+On the other hand, these networks may be less convenient for smart contract or dApp developers to use, because they have a limited life span and tend to be less supported by services like indexers and other tools.
 
 ### Periodic test networks
 
