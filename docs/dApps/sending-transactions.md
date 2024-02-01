@@ -2,7 +2,7 @@
 title: Sending transactions
 authors: "Tim McMackin"
 last_update:
-  date: 31 January 2024
+  date: 1 February 2024
 ---
 <!-- TODO originating contracts: https://tezostaquito.io/docs/originate -->
 
@@ -78,14 +78,45 @@ try {
   console.log(`Waiting for ${op.opHash} to be confirmed...`);
   await op.confirmation(2);
 } catch (error) {
-  console.log(`Error: ${JSON.stringify(error, null, 2)}`)
+  console.log(`Error: ${JSON.stringify(error, null, 2)}`);
 }
 ```
 
 To call an entrypoint that accepts parameters, you must encode those parameters in the format that the entrypoint requires.
 
-For example, the [FA2](../architecture/tokens/FA2) `transfer` entrypoint accepts an array of token transfers.
+To see the format for these parameters, create a Taquito object that represents the contract and extract its parameter schema, as in the following example:
+
+```javascript
+const contract = await Tezos.wallet.at(contractAddress);
+const parameterSchema = contract.parameterSchema;
+console.log(parameterSchema.ExtractSignatures());
+```
+
+The response shows the entrypoints in the contract and the parameters that they accept.
+
+For example, the [FA2](../architecture/tokens/FA2) `transfer` entrypoint appears like this:
+
+```json
+[
+  "transfer",
+  {
+    "list": {
+      "from_": "address",
+      "txs": {
+        "list": {
+          "to_": "address",
+          "token_id": "nat",
+          "amount": "nat"
+        }
+      }
+    }
+  }
+]
+```
+
+This `transfer` entrypoint accepts an array of token transfers.
 Each transfer object includes the address to take the tokens from and an array of accounts to send the tokens to, as in this example:
+
 
 ```javascript
 const transactionParams = [
@@ -107,7 +138,7 @@ const transactionParams = [
 ];
 ```
 
-To call the `transfer` entrypoint, you pass this parameter to the Taquito entrypoint method, as in this example:
+To call the `transfer` entrypoint, pass this parameter to the Taquito entrypoint method, as in this example:
 
 ```javascript
 Tezos.setWalletProvider(wallet);
