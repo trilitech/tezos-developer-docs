@@ -96,8 +96,8 @@ If someone calls the original smart contract multiple times very quickly, they c
 In the example in the previous diagram, a user may be able to run many withdraw operations and drain more than the developer expected.
 
 Why is this scenario not possible on Tezos?
-On Tezos, generated operations don't run until the original smart contract is finished and has updated its state.
-Future operations encounter the contract's updated state.
+The transaction mempool queue is processed in sequence.
+When a transaction is processed and involves another smart contract call, the new operation is pushed on the queue and is executed after the current operation ends and updates its state.
 
 Let's implement a more complex scenario where the OfferContract and LedgerContract are separated. The OfferContract will naively send the money back to MaliciousContract because it relies on the **not yet modified** state of the LedgerContract. There are two operations and the modification of the state will come in second position.
 
