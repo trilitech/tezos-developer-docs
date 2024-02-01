@@ -11,9 +11,9 @@ const sidebars = {
       },
       items: [
         'overview/tezos-different',
-        'overview/resources',
         'overview/common-applications',
         'overview/glossary',
+        'overview/resources',
       ],
     },
     {
@@ -356,6 +356,19 @@ const sidebars = {
         'tutorials/build-an-nft-marketplace/part-2',
         'tutorials/build-an-nft-marketplace/part-3',
         'tutorials/build-an-nft-marketplace/part-4',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Learn and play with security',
+      link: {
+        type: 'doc',
+        id: 'tutorials/security',
+      },
+      items: [
+        'tutorials/security/part-1',
+        'tutorials/security/part-2',
+        'tutorials/security/part-3',
       ],
     },
     {
