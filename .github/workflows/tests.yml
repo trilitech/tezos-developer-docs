@@ -35,7 +35,6 @@ jobs:
           filter_mode: added
       - run: npm run test -- --reporter JSON --reporter-option output=mocha.json --filesToCheck=${{ needs.checkChangedFiles.outputs.files }}
         continue-on-error: true
-      - run: ls
       - uses: dorny/test-reporter@v1
         with:
           name: Mocha tests
