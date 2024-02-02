@@ -22,8 +22,8 @@ We can also look at the baker logs to see if it manages to inject the expected o
 - Receive a block proposal (log message: "received new proposal ... at level ..., round ...")
 - Inject a preattestation for it (log message: "injected preattestation ... for my_baker (&lt;address&gt;) for level ..., round ...")
 - Receive a block (log message: "received new head ... at level ..., round ...")
-- Inject an attestation for it (log message: "injected attestation ... for my_baker (&lt;address&gt;) for level ..., round ...")
-- Inject a DAL attestation indicating which of the shards assigned to the baker have been seen on the DAL network (log message: "injected DAL attestation ... for level ..., round ..., with bitset ... for my_baker (&lt;address&gt;) to attest slots published at level ..."); if no shard was seen (either because they did not reach the DAL node for some reason or simply because nothing was published on the DAL at the targeted level), the operation is skipped (log message: "Skipping the injection of the DAL attestation for attestation level ..., round ..., as currently no slot published at level ... is attestable.")
+- Inject a consensus attestation for it (log message: "injected attestation ... for my_baker (&lt;address&gt;) for level ..., round ...")
+- Attach a DAL attestation to it, indicating which of the shards assigned to the baker have been seen on the DAL network (log message: "ready to attach DAL attestation for level ..., round ..., with bitset ... for my_baker (&lt;address&gt;) to attest slots published at level ...")
 
 Optionally, we can also launch an accuser which will monitor the behaviour of the other Weeklynet bakers and denounce them to the Tezos protocol if they are caught double-signing any block or consensus operation.
 
