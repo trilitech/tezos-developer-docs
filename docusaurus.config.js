@@ -72,7 +72,7 @@ const config = {
           customCss: require.resolve('./src/css/custom.css'),
         },
         googleTagManager: {
-          containerId: 'G-Z575XCDLCX',
+          containerId: 'GTM-56M3FZ8',
         },
       }),
     ],
