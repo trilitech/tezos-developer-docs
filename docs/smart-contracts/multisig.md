@@ -134,6 +134,18 @@ The contract uses a counter to ensure that the signatures work only once.
 
 For more information, run the command `octez-client man multisig` and see [Built-in multisig contracts](https://tezos.gitlab.io/user/multisig.html) in the Octez documentation.
 
+## Setting up multi-signature wallets
+
+Some tools create wallets that can store tez and other tokens and manage the process of signing transactions.
+For example, TzSafe provides a front-end application that lets you:
+
+- Create a multisig wallet and store tez, FA1.2 tokens, and FA2 tokens in it
+- Create proposals to transfer tokens
+- Sign or reject proposals
+- Run approved proposals
+
+For more information about TzSafe, see https://docs.tzsafe.marigold.dev.
+
 ## Securing multisig contracts
 
 Like all contracts, you must ensure ensure that multisig contracts won't become compromised or permanently blocked.
