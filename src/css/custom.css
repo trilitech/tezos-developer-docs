@@ -211,13 +211,3 @@ article a[target="_blank"]:after {
   content: url("/img/external_link.svg");
   padding-left: 5px;
 }
-
-/* Language sidebar header */
-.sidebar-header {
-  font-family: 'GT Eesti Display', sans-serif;
-  font-weight: bold;
-  font-size: 16px;
-  line-height: 26px;
-  color: #4A4E52;
-  padding: var(--ifm-menu-link-padding-vertical) var(--ifm-menu-link-padding-horizontal);
-}

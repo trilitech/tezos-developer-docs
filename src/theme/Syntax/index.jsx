@@ -1,14 +1,17 @@
-import clsx from 'clsx';
-import styles from './styles.module.css';
-
-// Mocked version of Syntax component from LIGO repo
+import SyntaxContext from '../SyntaxContext';
 
 function Syntax(props) {
   return (
-  <>
-    <div className={clsx(styles.titleText)}>{props.syntax}</div>
-    {props.children}
-  </>);
+    <SyntaxContext.Consumer>
+      {(({syntax}) => {
+         if (syntax === props.syntax) {
+             return props.children;
+         } else {
+             return <></>
+         }
+      })}
+    </SyntaxContext.Consumer>
+  );
 }
 
-export default Syntax
+export default Syntax;
