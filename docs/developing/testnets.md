@@ -29,6 +29,14 @@ Depending on your needs, you can pick between the types of networks listed below
 
 Regardless of the type of network, if you intend to do intense testing, you can run your own nodes on these networks to avoid availability issues and limitations.
 
+## Types of test networks
+
+Type | Longevity | Target users | Examples
+--- | --- | --- | ---
+[Permanent test networks](#permanent-test-networks) | Permanent | dApp developers and bakers | Ghostnet
+[Protocol test networks](#protocol-test-networks) | During the protocol amendment process | Protocol developers | Nairobinet, Oxfordnet
+[Periodic test networks](#periodic-test-networks) | Week or day | Protocol developers and bakers | Weeklynet, Dailynet
+
 ### Permanent test networks
 
 Permanent test networks are networks that are meant to run indefinitely. Just like Mainnet, they migrate to new versions of the protocol when proposals are adopted.
