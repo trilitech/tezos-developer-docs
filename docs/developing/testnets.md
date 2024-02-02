@@ -2,16 +2,18 @@
 title: Testing on sandboxes and testnets
 authors: 'Mathias Hiron, Nomadic Labs, Tim McMackin, TriliTech'
 last_update:
-  date: 1 February 2024
+  date: 2 February 2024
 ---
 
 :::note
-The current testnets and a description of what each is used for are listed at https://teztnets.com/.
+The current testnets and details about them are at https://teztnets.com/.
 :::
 
 If you are a smart contract developer, testing contracts is a big part of your work. More time is spent testing contracts than writing them. You will often need to test new versions of your contracts and run many tests starting from their deployment to calling every entrypoint in all kinds of ways.
 
 After you have tested contracts locally as described in [Testing locally](./testing), you can deploy them to test networks to test them in a realistic environment.
+
+Similarly, bakers often test their setups on test networks to ensure that they will work on new versions of the Tezos protocol.
 
 ## Testing with public test networks
 
@@ -23,9 +25,7 @@ These networks behave like Mainnet with a few differences:
 - They use different constants than Mainnet, such as reduced block times and shorter cycles for faster testing and reduced windows for inserting rejections in rollups.
 - Tools like public block explorers or indexers may or may not be available, depending on the network.
 - They either use a modified version of the amendment process or don't use it at all.
-- In some cases, you must use specific versions of tools such as the Octez client to work with them.
-
-Depending on your needs, you can pick between the types of networks listed below. The different test networks provide different foresight into the changes brought by upcoming protocol amendments — from a week to 6 months, under the current policy of [rolling protocol proposal publication](https://research-development.nomadic-labs.com/regular-scheduling-for-our-tezos-proposals.html).
+- In some cases, you must use specific versions of tools such as the Octez suite to work with them.
 
 Regardless of the type of network, if you intend to do intense testing, you can run your own nodes on these networks to avoid availability issues and limitations.
 
@@ -53,9 +53,10 @@ Because the protocol on Ghostnet migrates to the newly adopted amendment a few d
 
 ### Protocol test networks
 
-Protocol test networks are networks that are created for a specific version of the protocol.
+Protocol test networks are created for a specific version of the protocol.
+They allow developers and bakers to anticipate the changes brought by upcoming protocol amendments.
 
-When an amendment is proposed, a corresponding network is created. This network gets joined by more bakers as the proposal is selected and moves through the different periods of the self-amendment process. If the protocol passes the 3 votes of the amendment, joining a test protocol early gives you about 2.5 months to test all the changes that will be made to Mainnet. If the protocol is not adopted is discarded or sometimes remains active until a different protocol is adopted.
+When an amendment is proposed, a corresponding network is created. This network gets joined by more bakers as the proposal is selected and moves through the different periods of the self-amendment process. If the protocol passes the 3 votes of the amendment, joining a test protocol early gives you about 2.5 months to test all the changes that will be made to Mainnet. If the protocol is not adopted the network is discarded or sometimes remains active until a different protocol is adopted.
 
 This means there is usually one or two such running networks: one for the current version of the protocol running on Mainnet, and possibly one for the proposed protocol that is going through the amendment process, if there is one.
 
@@ -65,7 +66,7 @@ It also enables you to test any new features of this proposal. Trying the featur
 
 When the protocol is activated, the corresponding protocol test network can be a good network for a baker to run tests with the current version of the protocol, because these networks are lightweight to bootstrap and have reduced context sizes.
 
-On the other hand, these networks may be less convenient for smart contract or dApp developers to use, because they have a limited life span and tend to be less supported by services like indexers and other tools.
+On the other hand, these networks may be less convenient for smart contract or dApp developers to use because they have a limited life span and tend to be less supported by services like indexers and other tools.
 
 ### Periodic test networks
 
@@ -82,7 +83,7 @@ Dailynet is a network that restarts every day, with the latest Docker build as a
 ### Working with periodic test networks
 
 To work with the periodic test networks, you must use exactly the same version of the Octez suite as the network.
-For this reason, wallets typically don't work with these networks.
+For this reason, common wallet apps typically don't work with these networks.
 For example, you can look up information about Weeklynet at https://teztnets.com/weeklynet-about.
 This page shows the URL of a Weeklynet RPC endpoint to use and instructions for connecting to the network in different ways.
 
@@ -121,7 +122,7 @@ export DOCKER_IMAGE=$(jq -r .docker_build weeklynet.json)
 Here are some other tips for using the Docker images for periodic test networks:
 
 - The Docker images for each instance of the periodic test networks are listed on the information page for the network.
-For example, Weeklynet information is here: https://teztnets.com/weeklynet-about
+For example, Weeklynet information is here: https://teztnets.com/weeklynet-about.
 - The Docker images are based on Alpine Linux, which uses the `apk` package manager.
 For example, to install the `curl` program, run `sudo apk add curl`.
 - The shell interpreter path is `/bin/sh`, not `/usr/bin/bash` as on many Linux distributions.
@@ -141,7 +142,7 @@ In some special cases, you may want to run your own private network for your tes
 
 See the [Private blockchain](https://opentezos.com/private) section on OpenTezos to learn how to set up your own network.
 
-## Further reading
+## More information
 
 - [Test networks by Nomadic Labs](https://tezos.gitlab.io/introduction/test_networks.html)
 - Medium post: [Introducing Ghostnet](https://medium.com/the-aleph/introducing-ghostnet-1bf39976e61f)
