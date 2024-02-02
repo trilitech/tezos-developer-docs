@@ -2,7 +2,7 @@
 title: Multi-signature contracts
 authors: Tim McMackin
 last_update:
-  date: 1 February 2024
+  date: 2 February 2024
 ---
 
 Multi-signature (or multisig) contracts require multiple accounts to authorize operations before running them.
@@ -11,6 +11,9 @@ They have many applications, including:
 - Governance: DAOs and other groups can use them to vote on the actions that the organization takes.
 - Funds distribution: Accounts can vote on where funds are sent.
 - Security: Requiring multiple signatures can prevent a single compromised wallet from doing malicious things.
+
+As with any contract, a single account must originate multisig contracts, but that account does not necessarily have any special privileges on the contract.
+The contract originator does not even need to be one of the accounts that can authorize operations.
 
 ## Using proposals
 
