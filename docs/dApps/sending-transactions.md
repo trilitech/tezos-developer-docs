@@ -185,6 +185,8 @@ For more examples of calling smart contracts, see tutorials such as [Build a sim
 
 For more information about using Taquito, see [Smart contracts](https://tezostaquito.io/docs/smartcontracts) in the Taquito documentation.
 
+For a video walkthrough, see [Interacting with FA2 Contracts Using Taquito](https://www.youtube.com/watch?v=xL6jyW1sqmA).
+
 ## Beacon
 
 You can use the Beacon SDK to send transactions from JavaScript/TypeScript code.
