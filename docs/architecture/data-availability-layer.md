@@ -80,7 +80,7 @@ These parameters include:
 - `number_of_slots`: The maximum number of slots in each block
 - `slot_size`: The size of each slot in bytes
 - `page_size`: The size of each page in bytes
-- `attestation_lag`: The number of subsequent blocks in which bakers can attest that the data is available; if enough attestations are available by the time this number of blocks have been created, the data becomes available to Smart Rollups
+- `attestation_lag`: The number of blocks after a certificate is published that bakers attest that the data is available; if enough attestations are available in this block, the data becomes available to Smart Rollups
 - `redundancy_factor`: How much redundancy is used to split the data into shards; for example, a redundancy factor of 2 means that half of all shards are enough to reconstruct the original data and a redundancy factor of 4 means that 25% of all shards are required
 
 ## Sending data to the DAL
