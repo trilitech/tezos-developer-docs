@@ -34,8 +34,16 @@ The DAL works like this:
 1. Users post the certificate to Tezos layer 1 via the Octez client.
 1. When the certificate is confirmed in a block, the DAL splits the data into shards and shares it through the peer-to-peer network.
 1. Layer 1 assigns the shards to bakers.
-1. Bakers verify that they are able to download the shards that they are assigned to and attest that the data is available in their usual block attestations to layer 1.
-They have a certain number of blocks to do so, known as the _attestation lag_, and if enough shards are not attested by the end of this period, the certificate is considered bogus and the related data is dropped.
+1. Bakers verify that they are able to download the shards that they are assigned to.
+1. Bakers attest that the data is available in their usual block attestations to layer 1.
+
+   Each Tezos network has a delay of a certain number of blocks known as the _attestation lag_.
+   This number of blocks determines when bakers attest that the data is available and when the data becomes available to Smart Rollups.
+   For example, if a certificate is included in level 100 and the attestation lag is 4, bakers must attest that the data is available in level 104, along with their usual attestations that build on level 103.
+
+   If enough shards are attested in that level, the data becomes available to Smart Rollups at the end of layer 104.
+   If not enough shards are attested in that level, the certificate is considered bogus and the related data is dropped.
+
 1. The Smart Rollup node monitors the blocks and when it sees attested DAL data, it connects to a DAL node to request the data.
 
 The overall workflow is summarized in the following figure:
