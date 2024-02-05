@@ -45,6 +45,7 @@ The DAL works like this:
    If not enough shards are attested in that level, the certificate is considered bogus and the related data is dropped.
 
 1. The Smart Rollup node monitors the blocks and when it sees attested DAL data, it connects to a DAL node to request the data.
+Smart Rollups must store the data if they need it because it is available on the DAL for only a short time.
 
 The overall workflow is summarized in the following figure:
 
