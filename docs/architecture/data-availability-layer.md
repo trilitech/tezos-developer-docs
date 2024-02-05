@@ -77,7 +77,7 @@ Future changes to the protocol may allow the DAL to resize dynamically based on 
 Clients can get information about the current DAL parameters from the RPC endpoint `GET /chains/main/blocks/head/context/constants` or the Smart Rollup kernel SDK function `reveal_dal_parameters`.
 These parameters include:
 
-- `number_of_slots`: The number of slots in each block
+- `number_of_slots`: The maximum number of slots in each block
 - `slot_size`: The size of each slot in bytes
 - `page_size`: The size of each page in bytes
 - `attestation_lag`: The number of subsequent blocks in which bakers can attest that the data is available; if enough attestations are available by the time this number of blocks have been created, the data becomes available to Smart Rollups
