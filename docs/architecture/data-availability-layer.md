@@ -63,7 +63,7 @@ DAL users can add information about the available data as _pages_ in these slots
 The data in a slot is broken into pages to ensure that each piece of data can fit in a single Tezos operation.
 This data must fit in a single operation to allow the Smart Rollup refutation game to work, in which every execution step of the Smart Rollup must be provable to layer 1.
 
-When clients add data, they must specify which slot to add it to.
+When clients publish data, they must specify which slot to add it to.
 Note that because the DAL is permissionless, clients may try to add data to the same slot in the same block.
 In this case, the first operation in the block takes precedence, which leaves the baker that creates the block in control of which data makes it into the block.
 Other operations that try to add data to the same slot fail.
