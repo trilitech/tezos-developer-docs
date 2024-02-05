@@ -5,8 +5,6 @@ last_update:
   date: 5 February 2024
 ---
 
-import LucidDiagram from '@site/src/components/LucidDiagram';
-
 :::note Experimental
 The Data Availability Layer is an experimental feature that is not yet available on Tezos Mainnet.
 The way the DAL works may change significantly before it is generally available.
@@ -42,7 +40,8 @@ They have a certain number of blocks to do so, known as the _attestation lag_, a
 
 The overall workflow is summarized in the following figure:
 
-<LucidDiagram width="640px" height="480px" src="https://lucid.app/documents/embedded/cc422278-7319-4a2f-858a-a7b72e1ea3a6" id="ljs6hoejIr1H" />
+![Overall diagram of the workflow of the Data Availability Layer](/img/architecture/dal-workflow.png)
+<!-- https://lucid.app/lucidchart/cc422278-7319-4a2f-858a-a7b72e1ea3a6/edit -->
 
 ## Data structure
 
@@ -50,7 +49,8 @@ The Data Availability Layer stores information about the available data in layer
 Each block has several byte-vectors called _slots_, each with a maximum size.
 DAL users can add information about the available data as _pages_ in these slots, as shown in this figure:
 
-<LucidDiagram width="640px" height="240px" src="https://lucid.app/documents/embedded/46fa8412-8443-4491-82f6-305aafaf85f2" id="Hxs62lrO0C4d" />
+![Two example blocks with different DAL slots in use in each](/img/architecture/dal-slots-in-blocks.png)
+<!-- https://lucid.app/lucidchart/46fa8412-8443-4491-82f6-305aafaf85f2/edit -->
 
 The data in a slot is broken into pages to ensure that each piece of data can fit in a single Tezos operation.
 This data must fit in a single operation to allow the Smart Rollup refutation game to work, in which every execution step of the Smart Rollup must be provable to layer 1.
