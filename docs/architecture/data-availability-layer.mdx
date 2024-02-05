@@ -33,7 +33,7 @@ The DAL works like this:
    The number of shards needed depends on how the data is spread across shards, which is controlled by a parameter called the _redundancy factor_.
    - The _proof_ certifies the length of the data to prevent malicious users from overloading the layer with data.
 
-1. Users post the certificate to layer 1 via the Octez client.
+1. Users post the certificate to Tezos layer 1 via the Octez client.
 1. When the certificate is confirmed in a block, layer 1 splits the data into shards and assigns those shards to bakers, who verify that the data is available.
 1. Bakers verify that the data is available and attest that the data is available in their usual block attestations to layer 1.
 They have a certain number of blocks to do so, known as the _attestation lag_, and if enough shards are not attested by the end of this period, the certificate is considered bogus and the related data is dropped.
