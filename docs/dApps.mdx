@@ -2,7 +2,7 @@
 title: Decentralized applications (dApps)
 authors: Benjamin Pilia, Tim McMackin
 last_update:
-  date: 12 January 2024
+  date: 30 January 2024
 ---
 
 import LucidDiagram from '@site/src/components/LucidDiagram';
@@ -17,31 +17,18 @@ In general, dApps have these parts:
 - **Backend**: An on-chain component that consists of one or more [smart contracts](./smart-contracts)
 
 The off-chain component can be nearly any kind of program, including a web application, mobile or desktop app, or command-line interface.
-It relies on wallets and tools to interact with the smart contract on behalf of a user's Tezos account.
+It relies on wallets and tools to interact with the smart contracts on behalf of a user's Tezos account.
 
-<LucidDiagram width="640px" height="480px" src="https://lucid.app/documents/embedded/8caf9ef1-11e4-454a-bbb6-ef4852515959" id=".4NXymECcQqz" />
+![Fundamental diagram of dApps, showing the frontend, indexer, and backend](/img/dApps/dapp-overview.png)
+{/* Source https://lucid.app/lucidchart/8caf9ef1-11e4-454a-bbb6-ef4852515959/edit?page=0_0# */}
 
 Some of these tools that allow an off-chain component to interact with smart contracts include:
 
 - [Taquito](./dApps/taquito), an SDK for JavaScript/TypeScript applications
-- The [Tezos SDK for Unity](./unity), a toolkit for Unity applications
+- The [Tezos SDK for Unity](./unity), a toolkit for the [Unity](https://unity.com/) game development platform
 - [Taqueria](https://taqueria.io/), a development platform for dApps
 
-## Sample dApps
-
-For example dApps, see [Sample dApps](./dApps/samples).
-
-## Best practices
-
-Good programming and design practices make dApps easier to use and provide a better user experience.
-See [Best practices and avoiding flaws](./dApps/best-practices).
-
-## dApp tasks
-
-For information on typical tasks that dApps do, see:
-
-- [Connecting to wallets](./dApps/wallets)
-- [Sending transactions](./dApps/sending-transactions)
+The next pages in this section illustrate dApps with [examples](./dApps/samples), detail the main steps when developing dApps such as [Connecting to wallets](./dApps/wallets) and [Sending transactions](./dApps/sending-transactions), and introduce some [best practices](./dApps/best-practices)
 
 ## Tutorials
 
