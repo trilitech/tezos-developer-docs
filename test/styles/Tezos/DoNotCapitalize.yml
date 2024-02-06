@@ -1,7 +1,6 @@
 extends: substitution
-message: "Do not capitalize '%s'"
+message: "Do not capitalize '%s' except at the beginning of a sentence"
 level: error
 swap:
-  '(?!^)Smart Contracts?': 'smart contract'
-  '(?!^)Smart contracts?': 'smart contract'
+  '(?<!^|\[)Smart [Cc]ontracts?': 'smart contract'
   'smart Contracts?': 'smart contract'
