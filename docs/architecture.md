@@ -5,8 +5,6 @@ last_update:
   date: 6 February 2024
 ---
 
-import LucidDiagram from '@site/src/components/LucidDiagram';
-
 The Tezos blockchain is composed of many Tezos nodes running around the world, complemented by other running daemons, such as bakers and accusers.
 These processes collaborate with the overall goal of maintaining the blockchain data in a decentralized manner.
 
@@ -15,7 +13,8 @@ Users interact with nodes through many different clients, including command-line
 
 This diagram shows a high-level view of the Tezos system:
 
-<LucidDiagram width="640px" height="480px" src="https://lucid.app/documents/embedded/d778aa2a-ad0a-4324-b235-ed3b35742c58" id="Uz-K28y3R8gJ" />
+![A high-level view of the Tezos system, including Tezos nodes, the blockchain data itself, an Indexer, and a few examples of clients](/img/architecture/architecture-overview.png)
+<!-- https://lucid.app/lucidchart/d778aa2a-ad0a-4324-b235-ed3b35742c58/edit -->
 
 ## The blockchain data
 
