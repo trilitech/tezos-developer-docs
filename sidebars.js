@@ -180,7 +180,6 @@ const sidebars = {
         type: 'doc',
       },
       items: [
-        // 'dApps/first-dapp', // TODO
         'dApps/samples',
         // 'dApps/creating', //TODO
         'dApps/wallets',
