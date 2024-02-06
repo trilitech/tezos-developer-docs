@@ -2,7 +2,7 @@
 title: Architecture
 authors: Tim McMackin
 last_update:
-  date: 28 November 2023
+  date: 6 February 2024
 ---
 
 import LucidDiagram from '@site/src/components/LucidDiagram';
@@ -147,6 +147,11 @@ Some typical use cases for nodes are:
 Optionally, this node can open its RPC interface to serve different kinds of requests.
 - A node along with a baker, an accuser, and a signer can be used to bake new blocks, activity which ensures that the blockchain progresses and yields rewards in tokens.
 
+### Indexers and block explorers
+
+Indexers are off-chain applications that retrieve blockchain data, process it, and store it in a way that makes it easier to search and use.
+They are an important part of block explorers, which are applications that provide data about the blockchain.
+
 ## References
 
 For more information about the architecture of Tezos, see:
@@ -155,3 +160,5 @@ For more information about the architecture of Tezos, see:
 - [Tokens](./architecture/tokens)
 - [Smart Optimistic Rollups](./architecture/smart-rollups)
 - [Governance](./architecture/governance)
+- [Indexers](./developing/information/indexers)
+- [Block explorers](./developing/information/block-explorers)
