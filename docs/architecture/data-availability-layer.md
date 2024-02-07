@@ -2,7 +2,7 @@
 title: The Data Availability Layer
 authors: "Tim McMackin"
 last_update:
-  date: 5 February 2024
+  date: 7 February 2024
 ---
 
 :::note Experimental
