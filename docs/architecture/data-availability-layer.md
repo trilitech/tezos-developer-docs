@@ -54,7 +54,7 @@ The overall workflow is summarized in the following figure:
 
 ## Data structure
 
-The Data Availability Layer stores information about the available data in layer 1 blocks.
+Internally, the Data Availability Layer stores information about the available data in layer 1 blocks.
 Each block has several byte-vectors called _slots_, each with a maximum size.
 DAL users can add information about the available data as _pages_ in these slots, as shown in this figure:
 
