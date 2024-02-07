@@ -84,7 +84,7 @@ Follow these steps to update the Smart Rollup to access information about slot 0
        let param = host.reveal_dal_parameters();
        debug_msg!(host, "{:?}\n", param);
 
-       match run(host, &param, slot_to_monitor) {
+       match run(host, &param, SLOT_TO_MONITOR) {
            Ok(()) => debug_msg!(host, "See you in the next level\n"),
            Err(_) => debug_msg!(host, "Something went wrong for some reasons"),
        }
