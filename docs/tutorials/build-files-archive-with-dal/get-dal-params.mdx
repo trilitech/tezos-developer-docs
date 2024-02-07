@@ -2,7 +2,7 @@
 title: "Part 1: Getting the DAL parameters"
 authors: 'Tezos Core Developers'
 last_update:
-  date: 17 January 2024
+  date: 7 February 2024
 ---
 
 import LucidDiagram from '@site/src/components/LucidDiagram';
@@ -143,8 +143,7 @@ These parameters are:
 ## Setting up a deployment script
 
 In later parts of this tutorial, you will update and redeploy the Smart Rollup multiple times.
-To simplify the process, you can use this script.
-To use it, pass the alias of your account in the Octez client:
+To simplify the process, you can use this script:
 
 ```bash
 #!/usr/bin/bash
@@ -169,6 +168,13 @@ octez-client --endpoint ${ENDPOINT} \
 octez-smart-rollup-node --endpoint ${ENDPOINT} \
   run observer for files_archive with operators --data-dir _rollup_node \
   --dal-node http://localhost:10732 --log-kernel-debug
+```
+
+To use it, save it in a file with an `sh` extension, such as `deploy_smart_rollup.sh` and give it executable permission.
+Then you can run it any tme you update the `lib.rs` or `Cargo.toml` files to deploy a new Smart Rollup by passing your account alias, as in this example:
+
+```bash
+./deploy_smart_rollup.sh $MY_ACCOUNT
 ```
 
 If you run this script and see an error that says that the file was not found, update the first line of the script (the shebang) to the path to your shell interpreter.
