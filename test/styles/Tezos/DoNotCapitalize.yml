@@ -1,6 +1,8 @@
-extends: substitution
-message: "Do not capitalize '%s' except at the beginning of a sentence"
+extends: existence
+message: "'%s' should only be capitalized when starting a sentence."
 level: error
-swap:
-  '(?<!^|\[)Smart [Cc]ontracts?': 'smart contract'
-  'smart Contracts?': 'smart contract'
+nonword: true
+vocab: false
+scope: sentence
+tokens:
+  - (?<=\s)Smart [Cc]contract
