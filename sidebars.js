@@ -88,10 +88,10 @@ const sidebars = {
         {
           type: 'category',
           label: 'Getting information about the blockchain',
-          // link: { // TODO
-          //   id: 'developing/information',
-          //   type: 'doc',
-          // },
+          link: {
+            id: 'developing/information',
+            type: 'doc',
+          },
           items: [
             {
               type: 'category',
