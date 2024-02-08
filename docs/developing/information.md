@@ -21,12 +21,12 @@ octez-client get balance for tz1QCVQinE8iVj1H2fckqx6oiM85CNJSK9Sx
 The [RPC](../architecture/rpc) protocol provides information about the blockchain that nodes use to communicate with each other.
 This data is not always in the format that developers and dApps need.
 For example, the RPC interface does not provide a way to get information about a specific operation by its hash.
-It also requires you to specify the level from which to get the information.
 
-For example, this RPC request gets the balance of an account at level 5379360:
+You can get some information about accounts, contracts, and other things from RPC requests.
+For example, this RPC request gets the current balance of an account:
 
 ```bash
-curl -X GET https://rpc.ghostnet.teztnets.com/chains/main/blocks/5379360/context/contracts/tz1QCVQinE8iVj1H2fckqx6oiM85CNJSK9Sx/balance
+curl -X GET https://rpc.ghostnet.teztnets.com/chains/main/blocks/head/context/contracts/tz1QCVQinE8iVj1H2fckqx6oiM85CNJSK9Sx/balance
 ```
 
 ## Indexers
