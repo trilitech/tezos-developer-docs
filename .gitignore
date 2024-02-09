@@ -3,8 +3,7 @@ node_modules
 .env.local
 .DS_Store
 .docusaurus/*
+.vscode/*
 out
 build
-
-filesToTest.txt
 

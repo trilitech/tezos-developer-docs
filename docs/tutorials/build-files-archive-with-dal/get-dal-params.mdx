@@ -7,11 +7,11 @@ last_update:
 
 import LucidDiagram from '@site/src/components/LucidDiagram';
 
-The data availability layer stores information about the available data in layer 1 blocks.
+The Data Availability Layer stores information about the available data in layer 1 blocks.
 Each block has several byte-vectors called _slots_, each with a maximum size.
 DAL users can add information about the available data as _pages_ in these slots, as shown in this figure:
 
-<LucidDiagram width="640px" height="480px" src="https://lucid.app/documents/embedded/46fa8412-8443-4491-82f6-305aafaf85f2" id="Hxs62lrO0C4d" />
+<LucidDiagram width="640px" height="240px" src="https://lucid.app/documents/embedded/46fa8412-8443-4491-82f6-305aafaf85f2" id="Hxs62lrO0C4d" />
 
 The data in a slot is broken into pages to ensure that each piece of data can fit in a single Tezos operation.
 This data must fit in a single operation to allow the Smart Rollup refutation game to work, in which every execution step of the Smart Rollup must be provable to layer 1.
@@ -53,7 +53,7 @@ To get the DAL parameters, you can use built-in functions in the Tezos [Rust SDK
    ```
 
    As a reminder, the kernel of a Smart Rollup is a WASM program.
-   The `proto-alpha` feature is necessary to get access to the functions specific to the DAL.
+   The `proto-alpha` feature is necessary to get access to the functions specific to the DAL because they are not yet released in the main version of the Smart Rollup toolkit.
 
 1. Create a file named `src/lib.rs` to be the kernel.
 
@@ -72,14 +72,14 @@ To get the DAL parameters, you can use built-in functions in the Tezos [Rust SDK
 
    This function gets the DAL parameters of the currently connected network and prints them to the log.
 
-1. Build the kernel:
+1. From the folder that contains the `Cargo.toml` file, run these commands to build the kernel:
 
    ```bash
    cargo build --release --target wasm32-unknown-unknown
    cp target/wasm32-unknown-unknown/release/files_archive.wasm .
    ```
 
-1. Get the installer kernel:
+1. Run these commands to get the installer kernel, which is a version of the kernel that contains only enough information to download and install the full kernel:
 
    ```bash
    cargo install tezos-smart-rollup-installer
@@ -89,6 +89,8 @@ To get the DAL parameters, you can use built-in functions in the Tezos [Rust SDK
        -u files_archive.wasm \
        -o installer.hex
    ```
+
+   For more information about optimizing the kernel and using installer kernels, see the tutorial [Deploy a Smart Rollup](../smart-rollup).
 
 Now the Smart Rollup is ready to deploy.
 
@@ -168,6 +170,9 @@ octez-smart-rollup-node --endpoint ${ENDPOINT} \
   run observer for files_archive with operators --data-dir _rollup_node \
   --dal-node http://localhost:10732 --log-kernel-debug
 ```
+
+If you run this script and see an error that says that the file was not found, update the first line of the script (the shebang) to the path to your shell interpreter.
+For example, if you are using the Tezos Docker image, the path is `/bin/sh`.
 
 In the next section, you will get information about the state of slots in the DAL.
 See [Part 2: Getting slot information](./get-slot-info).

@@ -2,17 +2,17 @@
 title: Implement a file archive with the DAL and a Smart Rollup
 authors: 'Tezos Core Developers'
 last_update:
-  date: 22 January 2024
+  date: 26 January 2024
 ---
 
 import LucidDiagram from '@site/src/components/LucidDiagram';
 
 :::note Experimental
-The data availability layer is an experimental feature that is not yet available on Tezos Mainnet.
+The Data Availability Layer is an experimental feature that is not yet available on Tezos Mainnet.
 The way the DAL works may change significantly before it is generally available.
 :::
 
-The data availability layer (DAL) is a companion peer-to-peer network for the Tezos blockchain, designed to provide additional data bandwidth to Smart Rollups.
+The Data Availability Layer (DAL) is a companion peer-to-peer network for the Tezos blockchain, designed to provide additional data bandwidth to Smart Rollups.
 It allows users to share large amounts of data in a way that is decentralized and permissionless, because anyone can join the network and post and read data on it.
 
 In this tutorial, you will set up a file archive that stores and retrieves files with the DAL.
@@ -80,17 +80,73 @@ To run this tutorial, install Rust by running the following command.
 The application in this tutorial uses Rust because of its support for WebAssembly (WASM), the language that Smart Rollups use to communicate.
 Rollups can use any language that has WASM compilation support.
 
+1. Make sure that the `curl` program is installed.
+If you are using the Tezos Docker container, run `sudo apk add curl`.
+
+1. Run this command to install Rust:
+
+   ```bash
+   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+   ```
+
+1. Follow the instructions in the Rust installation program.
+For example, it may prompt you to run `source "$HOME/.cargo/env"` to configure your current terminal window to run Rust.
+
+1. Add WASM as a compilation target for Rust by running this command:
+
+   ```bash
+   rustup target add wasm32-unknown-unknown
+   ```
+
+   You can see other ways of installing Rust at https://www.rust-lang.org.
+
+### Install Clang
+
+Clang and LLVM are required for compilation to WebAssembly.
+Version 11 or later of Clang is required.
+
+If you are using the Tezos Docker container, run these commands:
+
 ```bash
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+sudo apk add clang
+export CC=clang
 ```
 
-Then, add WASM as a compilation target for Rust by running this command:
+Here are instructions for installing the appropriate tools on different operating systems:
+
+**MacOS**
 
 ```bash
-rustup target add wasm32-unknown-unknown
+brew install llvm
+export CC="$(brew --prefix llvm)/bin/clang"
 ```
 
-You can see other ways of installing Rust at https://www.rust-lang.org.
+**Ubuntu**
+
+```bash
+sudo apt-get install clang-11
+export CC=clang-11
+```
+
+**Fedora**
+
+```bash
+dnf install clang
+export CC=clang
+```
+
+**Arch Linux**
+
+```bash
+pacman -S clang
+export CC=clang
+```
+
+The `export CC` command sets Clang as the default C/C++ compiler.
+
+After you run these commands, run `$CC --version` to verify that you have version 11 or greater installed.
+
+Also, ensure that your version of Clang `wasm32` target with by running the command `$CC -print-targets | grep wasm32` and verifying that the results include `wasm32`.
 
 ## Why the DAL?
 
@@ -145,7 +201,7 @@ There are many steps in the DAL process, but the most complicated parts (storing
 
 :::note
 When you install a Smart Rollup, you provide only the installer kernel on layer 1 and the full kernel via the reveal data channel.
-Currently, you cannot send the full kernel data over the data availability layer, so this tutorial relies on the reveal data channel to install the kernel as usual.
+Currently, you cannot send the full kernel data over the Data Availability Layer, so this tutorial relies on the reveal data channel to install the kernel as usual.
 :::
 
 When your environment is ready, get started by going to [Part 1: Getting the DAL parameters](./build-files-archive-with-dal/get-dal-params).
