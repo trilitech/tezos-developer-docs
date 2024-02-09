@@ -5,8 +5,6 @@ last_update:
   date: 9 February 2024
 ---
 
-import LucidDiagram from '@site/src/components/LucidDiagram';
-
 :::note Experimental
 The Data Availability Layer is an experimental feature that is not yet available on Tezos Mainnet.
 The way the DAL works may change significantly before it is generally available.
@@ -196,7 +194,8 @@ Smart Rollups must store the data because it is available on the DAL for only a 
 
 The overall workflow is summarized in the following figure:
 
-<LucidDiagram width="640px" height="480px" src="https://lucid.app/documents/embedded/cc422278-7319-4a2f-858a-a7b72e1ea3a6" id="ljs6hoejIr1H" />
+![Overall diagram of the workflow of the Data Availability Layer](/img/architecture/dal-workflow.png)
+{/* https://lucid.app/lucidchart/cc422278-7319-4a2f-858a-a7b72e1ea3a6/edit */}
 
 There are many steps in the DAL process, but the most complicated parts (storing and sharing data) are handled automatically by the various daemons in the Octez suite.
 
