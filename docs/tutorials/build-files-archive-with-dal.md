@@ -29,6 +29,17 @@ See these links for more information about the DAL:
 - For technical information about how the DAL works, see [Data Availability Layer](https://tezos.gitlab.io/shell/dal.html) in the Octez documentation.
 - For more information about the approach for the DAL, see [The Rollup Booster: A Data-Availability Layer for Tezos](https://research-development.nomadic-labs.com/data-availability-layer-tezos.html).
 
+## Tutorial applications
+
+In this tutorial, you set up these components:
+
+- The Octez client, which you use to manage a local wallet, deploy a Smart Rollup, and send data to the DAL
+- A Data Availability Layer node (not to be confused with a layer 1 node), which stores data temporarily and distributes it to Smart Rollups
+- A Smart Rollup that listens for data published to the DAL, retrieves it from the DAL node, and stores it locally
+
+For simplicity, you do not set up a layer 1 node or a baker, which are responsible for verifying that the data is available before Smart Rollups can access it.
+Instead, you use the existing nodes and bakers that are running on Weeklynet.
+
 ## Prerequisites
 
 This article assumes some familiarity with Smart Rollups.
