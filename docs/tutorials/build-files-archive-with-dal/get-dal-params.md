@@ -31,7 +31,7 @@ In these steps, you set up a simple Smart Rollup to get the current DAL paramete
 
 ## Prerequisites
 
-Before you begin, make sure that you have installed the prerequisites and set up an environment and an account as described in [Implement a file archive with the DAL and a Smart Rollup](../build-files-archive-with-dal).
+Before you begin, make sure that you have installed the prerequisites and set up an environment and an account as described in [Part 1: Setting up an environment](./set-up-environment).
 
 ## Fetching the DAL parameters in a kernel
 
