@@ -159,7 +159,7 @@ By default, that "somewhere" is the layer 1 blocks, yet the size of a Tezos
 block is limited to around 500KBytes. In this model, while Smart Rollups do not
 compete for layer 1 gas anymore, they still compete for block space.
 
-{/* Is this info about the reveal data channel needed here? */}
+<!-- Is this info about the reveal data channel needed here? -->
 Additionally, a Smart Rollup can fetch data from an additional source called the
 reveal data channel, which allows them to retrieve arbitrary data.
 The reveal channel is a powerful way to share data, because it allows a Smart Rollup
@@ -195,7 +195,7 @@ Smart Rollups must store the data because it is available on the DAL for only a 
 The overall workflow is summarized in the following figure:
 
 ![Overall diagram of the workflow of the Data Availability Layer](/img/architecture/dal-workflow.png)
-{/* https://lucid.app/lucidchart/cc422278-7319-4a2f-858a-a7b72e1ea3a6/edit */}
+<!-- https://lucid.app/lucidchart/cc422278-7319-4a2f-858a-a7b72e1ea3a6/edit -->
 
 There are many steps in the DAL process, but the most complicated parts (storing and sharing data) are handled automatically by the various daemons in the Octez suite.
 
