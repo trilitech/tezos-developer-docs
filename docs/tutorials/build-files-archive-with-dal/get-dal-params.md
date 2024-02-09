@@ -2,17 +2,18 @@
 title: "Part 2: Getting the DAL parameters"
 authors: 'Tezos Core Developers'
 last_update:
-  date: 7 February 2024
+  date: 9 February 2024
 ---
 
 The Data Availability Layer stores information about the available data in layer 1 blocks.
 Each block has several byte-vectors called _slots_, each with a maximum size.
-DAL users can add information about the available data as _pages_ in these slots, as shown in this figure:
+DAL users can add information about the available data as a _commitment_ in a slot.
+These commitments refer to the data that is stored on the DAL, which stores the data in _pages_ as shown in this diagram:
 
 ![Two example blocks with different DAL slots in use in each](/img/architecture/dal-slots-in-blocks.png)
 <!-- https://lucid.app/lucidchart/46fa8412-8443-4491-82f6-305aafaf85f2/edit -->
 
-The data in a slot is broken into pages to ensure that each piece of data can fit in a single Tezos operation.
+The data is broken into pages to ensure that each piece of data can fit in a single Tezos operation.
 This data must fit in a single operation to allow the Smart Rollup refutation game to work, in which every execution step of the Smart Rollup must be provable to layer 1.
 For more information about Smart Rollups, see [Smart Rollups](../../architecture/smart-rollups).
 
