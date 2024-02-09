@@ -36,6 +36,7 @@ In this tutorial, you set up these components:
 - The Octez client, which you use to manage a local wallet, deploy a Smart Rollup, and send data to the DAL
 - A Data Availability Layer node (not to be confused with a layer 1 node), which stores data temporarily and distributes it to Smart Rollups
 - A Smart Rollup that listens for data published to the DAL, retrieves it from the DAL node, and stores it locally
+- A Smart Rollup node that runs your Smart Rollup
 
 For simplicity, you do not set up a layer 1 node or a baker, which are responsible for verifying that the data is available before Smart Rollups can access it.
 Instead, you use the existing nodes and bakers that are running on Weeklynet.
