@@ -138,7 +138,7 @@ private void OnContractDeployed(string contractAddress)
 The project sends the deployment transaction to the connected wallet, which must approve the transaction and pay the related fees.
 The SDK stores the address of the contract as [`TokenContract.address`](./reference/TokenContract).
 
-For an example, see the [ContractAndMinting tutorial scene](./scenes/#contractandminting-scene).
+For an example, see the [ContractAndMinting tutorial scene](./scenes#contractandminting-scene).
 
 ## Creating tokens
 
@@ -192,7 +192,7 @@ private void OnTokenMinted(TokenBalance tokenBalance)
 }
 ```
 
-For an example, see the [ContractAndMinting tutorial scene](./scenes/#contractandminting-scene).
+For an example, see the [ContractAndMinting tutorial scene](./scenes#contractandminting-scene).
 
 ## Transferring tokens
 
@@ -225,7 +225,7 @@ private void TransferCompleted(string txHash)
 }
 ```
 
-For a complete example, see the [Transfer tutorial scene](./scenes/#transfer-scene).
+For a complete example, see the [Transfer tutorial scene](./scenes#transfer-scene).
 
 ## Getting token balances
 
@@ -344,7 +344,7 @@ private void OnPayloadSigned(SignResult obj)
 
 As described in [The RPC protocol](../architecture/rpc), Tezos clients including the Unity SDK send transactions to RPC nodes.
 By default, the SDK sends requests to a public RPC node that uses the Ghostnet test network, where you can test transactions without spending real tez.
-For more information about test networks, see [Using sandboxes and testnets](../developing/testnets).
+For more information about test networks, see [Testing on sandboxes and testnets](../developing/testnets).
 
 If you need to change the RPC node that the SDK uses, such as if the default node is overloaded or if you are ready to send transactions to Mainnet, you can set the RPC node by creating an instance of the [TezosConfigSO scriptable object](./reference/TezosConfigSO) and setting the node in the **Rpc Url Format** field, as in this picture:
 

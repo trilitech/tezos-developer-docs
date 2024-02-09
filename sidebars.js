@@ -11,10 +11,9 @@ const sidebars = {
       },
       items: [
         'overview/tezos-different',
-        'overview/resources',
-        // 'overview/quickstart', // TODO
         'overview/common-applications',
         'overview/glossary',
+        'overview/resources',
       ],
     },
     {
@@ -70,6 +69,7 @@ const sidebars = {
       items: [
         'developing/wallet-setup',
         'developing/dev-environments',
+        'developing/testing',
         'developing/testnets',
         // 'developing/sandbox', // TODO
         {
@@ -119,7 +119,6 @@ const sidebars = {
         type: 'doc',
       },
       items: [
-        // 'smart-contracts/quickstart',  // TODO
         'smart-contracts/samples',
         {
           type: 'category',
@@ -159,7 +158,6 @@ const sidebars = {
           ],
         },
         'smart-contracts/creating',
-        'smart-contracts/testing',
         'smart-contracts/deploying',
         'smart-contracts/entrypoints',
         'smart-contracts/storage',
@@ -182,7 +180,6 @@ const sidebars = {
         type: 'doc',
       },
       items: [
-        // 'dApps/first-dapp', // TODO
         'dApps/samples',
         // 'dApps/creating', //TODO
         'dApps/wallets',
@@ -358,6 +355,19 @@ const sidebars = {
         'tutorials/build-an-nft-marketplace/part-2',
         'tutorials/build-an-nft-marketplace/part-3',
         'tutorials/build-an-nft-marketplace/part-4',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Learn and play with security',
+      link: {
+        type: 'doc',
+        id: 'tutorials/security',
+      },
+      items: [
+        'tutorials/security/part-1',
+        'tutorials/security/part-2',
+        'tutorials/security/part-3',
       ],
     },
     {

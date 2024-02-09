@@ -40,6 +40,7 @@ Capitalize these terms in text:
 - Tezos
 - Smart Rollups
 - Specific network names such as Mainnet, Ghostnet, Dailynet, and Mumbainet
+- Data Availability Layer
 - Sapling
 - JSON
 - Web3

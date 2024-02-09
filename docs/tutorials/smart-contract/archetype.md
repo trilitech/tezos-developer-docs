@@ -82,11 +82,6 @@ To run this tutorial, you need the completium-cli program:
    completium-cli init
    ```
 
-<!--
-Eventually we should have the user create a local account and fund it with the faucet, but I can't create a local account due to this issue:
-https://github.com/completium/completium-cli/issues/45
--->
-
 ## Using a testnet
 
 Before you deploy your contract to the main Tezos network (referred to as *Mainnet*), you can deploy it to a testnet.
