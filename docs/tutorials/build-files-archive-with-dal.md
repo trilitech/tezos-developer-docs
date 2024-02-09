@@ -46,16 +46,6 @@ By default, that "somewhere" is the layer 1 blocks, yet the size of a Tezos
 block is limited to around 500KBytes. In this model, while Smart Rollups do not
 compete for layer 1 gas anymore, they still compete for block space.
 
-<!-- Is this info about the reveal data channel needed here? -->
-Additionally, a Smart Rollup can fetch data from an additional source called the
-reveal data channel, which allows them to retrieve arbitrary data.
-The reveal channel is a powerful way to share data, because it allows a Smart Rollup
-operator to post hashes instead of full data files on layer 1. But it is a
-double-edged sword, because nothing enforces the availability of the data in the
-first place. [Solutions exist to address this
-challenge](https://research-development.nomadic-labs.com/introducing-data-availability-committees.html),
-but they are purely off-chain ones, coming with no guarantee from layer 1.
-
 The DAL allows third parties to publish data and have bakers attest that the data is available.
 When enough bakers have attested that the data is available, Smart Rollups can retrieve the data without the need for additional trusted third-parties.
 
