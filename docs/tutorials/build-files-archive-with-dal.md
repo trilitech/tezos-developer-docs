@@ -41,6 +41,14 @@ In this tutorial, you set up these components:
 For simplicity, you do not set up a layer 1 node or a baker, which are responsible for verifying that the data is available before Smart Rollups can access it.
 Instead, you use the existing nodes and bakers that are running on Weeklynet.
 
+## Tutorial diagram
+
+Here is a diagram that shows the components that you set up in this tutorial in a light blue background:
+
+![A diagram of the DAL file tutorial, highlighting the Octez client, DAL node, and Smart Rollup that you create with a light blue background to distinguish them from the existing DAL nodes, layer 1 nodes, and bakers](/img/tutorials/dal-file-tutorial-setup.png)
+
+<!-- https://lucid.app/lucidchart/58f5577e-91b5-4237-89c4-a8cdf81c71ad/edit -->
+
 ## Prerequisites
 
 This article assumes some familiarity with Smart Rollups.
