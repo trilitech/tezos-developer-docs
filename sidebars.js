@@ -69,6 +69,7 @@ const sidebars = {
       items: [
         'developing/wallet-setup',
         'developing/dev-environments',
+        'developing/testing',
         'developing/testnets',
         // 'developing/sandbox', // TODO
         {
@@ -157,7 +158,6 @@ const sidebars = {
           ],
         },
         'smart-contracts/creating',
-        'smart-contracts/testing',
         'smart-contracts/deploying',
         'smart-contracts/entrypoints',
         'smart-contracts/storage',
@@ -180,7 +180,6 @@ const sidebars = {
         type: 'doc',
       },
       items: [
-        // 'dApps/first-dapp', // TODO
         'dApps/samples',
         // 'dApps/creating', //TODO
         'dApps/wallets',
