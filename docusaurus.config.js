@@ -35,6 +35,7 @@ const config = {
   projectName: 'tezos-developer-docs',
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
+  onBrokenAnchors: 'warn',
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
