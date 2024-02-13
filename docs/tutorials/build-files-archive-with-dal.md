@@ -111,4 +111,4 @@ When you install a Smart Rollup, you provide only the installer kernel on layer 
 Currently, you cannot send the full kernel data over the Data Availability Layer, so this tutorial relies on the reveal data channel to install the kernel as usual.
 :::
 
-When you are ready, get started by going to [Part 1: Setting up an environment](./build-files-archive-with-dal/set-up-environment).
+When you ready, get started by going to [Part 1: Setting up an environment](./build-files-archive-with-dal/set-up-environment).
