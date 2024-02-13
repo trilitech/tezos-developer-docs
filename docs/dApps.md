@@ -5,8 +5,6 @@ last_update:
   date: 30 January 2024
 ---
 
-import LucidDiagram from '@site/src/components/LucidDiagram';
-
 One of the main features of blockchains is _decentralization_: each transaction is verified by multiple nodes and its validation process does not rely on a single trusted third party.
 Decentralized applications (dApps or Dapps) take advantage of these features to create applications that are independent, transparent, and trustless.
 
@@ -20,7 +18,7 @@ The off-chain component can be nearly any kind of program, including a web appli
 It relies on wallets and tools to interact with the smart contracts on behalf of a user's Tezos account.
 
 ![Fundamental diagram of dApps, showing the frontend, indexer, and backend](/img/dApps/dapp-overview.png)
-{/* Source https://lucid.app/lucidchart/8caf9ef1-11e4-454a-bbb6-ef4852515959/edit?page=0_0# */}
+<!-- Source https://lucid.app/lucidchart/8caf9ef1-11e4-454a-bbb6-ef4852515959/edit?page=0_0# -->
 
 Some of these tools that allow an off-chain component to interact with smart contracts include:
 
