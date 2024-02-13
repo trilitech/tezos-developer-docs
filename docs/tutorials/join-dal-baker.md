@@ -5,8 +5,6 @@ last_update:
   date: 24 January 2024
 ---
 
-import LucidDiagram from '@site/src/components/LucidDiagram';
-
 The Tezos data availability layer (DAL) is a key component for the scalability of Tezos.
 In a nutshell, the DAL increases the data bandwidth available for Tezos Smart Rollups by providing a peer-to-peer network that they can use to fetch data without compromising security.
 
@@ -31,7 +29,8 @@ For an introduction to how the DAL works, see the tutorial [Implement a file arc
 In this tutorial, you set up the Octez client and several Octez daemons, including a layer 1 node, a baker, and a DAL baking node.
 The following diagram shows these daemons with a blue background:
 
-<LucidDiagram width="640px" height="480px" src="https://lucid.app/documents/embedded/b6b076ec-194c-4011-8e20-fa348bb983f3" id="sqB8vglK9l3c" />
+![A diagram of the DAL architecture, with the daemons that you create in this tutorial highlighted](/img/tutorials/join-dal-baker-overview.png)
+<!-- https://lucid.app/lucidchart/b6b076ec-194c-4011-8e20-fa348bb983f3/edit?page=0_0# -->
 
 :::warning
 This tutorial uses a very simple setup running all required daemons on the same machine. In a production environment, we advise against running a DAL attester node under the same IP address than a baker's node because the DAL node may leak the IP address and ease DOS attacks on the baker. See also [the DAL documentation page on baking](https://tezos.gitlab.io/shell/dal_bakers.html).
@@ -42,7 +41,7 @@ The UX of the DAL components will be subject to changes with the feedback from t
 :::
 
 For more information about the DAL, see [Data-Availability Layer](https://tezos.gitlab.io/shell/dal.html) in the Octez documentation.
-{/* TODO link to page on DAL when it's available: https://github.com/trilitech/tezos-developer-docs/pull/270 */}
+<!-- TODO link to page on DAL when it's available: https://github.com/trilitech/tezos-developer-docs/pull/270 -->
 
 - [Step 1: Get a Weeklynet-compatible Octez version](./join-dal-baker/get-octez)
 - [Step 2: Run an Octez node on Weeklynet](./join-dal-baker/run-node)
