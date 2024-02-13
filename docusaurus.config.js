@@ -22,7 +22,7 @@ img-src 'self' https://*.googletagmanager.com https://*.google-analytics.com dat
 media-src 'self';
 form-action 'self';
 connect-src 'self' https://*.algolia.net https://*.algolianet.com https://*.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com;
-frame-src https://tezosbot.vercel.app lucid.app;`;
+frame-src https://tezosbot.vercel.app;`;
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
