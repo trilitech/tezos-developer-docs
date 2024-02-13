@@ -231,10 +231,6 @@ const sidebars = {
       type: 'category',
       label: 'Reference',
       items: [
-        // 'reference/rpc', // TODO
-        // 'reference/encoding', // TODO
-        // 'reference/merkle-formats', // TODO
-        // 'reference/ocaml-apis', // TODO
         'reference/style-guide',
         {
           type: 'link',
@@ -246,7 +242,6 @@ const sidebars = {
           label: 'Position paper',
           href: 'https://tezos.com/position-paper.pdf',
         },
-        // 'reference/previous-versions', // TODO
       ],
     },
   ],
