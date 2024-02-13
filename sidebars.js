@@ -387,6 +387,7 @@ const sidebars = {
         id: 'tutorials/build-files-archive-with-dal',
       },
       items: [
+        'tutorials/build-files-archive-with-dal/set-up-environment',
         'tutorials/build-files-archive-with-dal/get-dal-params',
         'tutorials/build-files-archive-with-dal/get-slot-info',
         'tutorials/build-files-archive-with-dal/publishing-on-the-dal',
