@@ -77,17 +77,27 @@ You also create a Smart Rollup that listens to the DAL and responds to that data
 The DAL works like this:
 
 1. Users post data to a DAL node.
-1. The DAL node returns a certificate.
-This certificate includes a commitment that the data is available and a proof of the data.
-1. Users post the certificate to layer 1 via the Octez client, which is much cheaper than posting the complete data.
-1. When the certificate is confirmed in a block, layer 1 splits the data into shards and assigns those shards to bakers, who verify that the data is available.
-1. Bakers verify that the data is available and attest that the data is available in their usual block attestations to layer 1.
-They have a certain number of blocks to do so, known as the _attestation lag_, and if they don't by the end of this period, the certificate is considered bogus and the related data is dropped.
-1. Other DAL nodes get the data from the initial DAL node through the peer-to-peer network.
+1. The DAL node returns a certificate, which includes two parts:
+
+   - The _commitment_ is like a hash of the data but has the additional ability to identify individual shards of the data and reconstruct the original data from a certain percentage of the shards.
+   The number of shards needed depends on how the data is spread across shards, which is controlled by a parameter called the _redundancy factor_.
+   - The _proof_ certifies the length of the data to prevent malicious users from overloading the layer with data.
+
+1. Users post the certificate to Tezos layer 1 via the Octez client.
+1. When the certificate is confirmed in a block, the DAL splits the data into shards and shares it through the peer-to-peer network.
+1. Layer 1 assigns the shards to bakers.
+1. Bakers verify that they are able to download the shards that they are assigned to.
+1. Bakers attest that the data is available in their usual block attestations to layer 1.
+
+   Each Tezos network has a delay of a certain number of blocks known as the _attestation lag_.
+   This number of blocks determines when bakers attest that the data is available and when the data becomes available to Smart Rollups.
+   For example, if a certificate is included in level 100 and the attestation lag is 4, bakers must attest that the data is available in level 104, along with their usual attestations that build on level 103.
+
+   If enough shards are attested in that level, the data becomes available to Smart Rollups at the end of layer 104.
+   If not enough shards are attested in that level, the certificate is considered bogus and the related data is dropped.
+
 1. The Smart Rollup node monitors the blocks and when it sees attested DAL data, it connects to a DAL node to request the data.
-1. The Smart Rollup node stores the data in its durable storage, addressed by its hash.
-Smart Rollups must store the data because it is available on the DAL for only a short time.
-1. Users who know the hash of the data can download it from the Smart Rollup node.
+Smart Rollups must store the data if they need it because it is available on the DAL for only a short time.
 
 The overall workflow is summarized in the following figure:
 
