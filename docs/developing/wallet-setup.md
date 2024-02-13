@@ -2,7 +2,7 @@
 title: Installing and funding a wallet
 authors: Tim McMackin
 last_update:
-  date: 27 November 2023
+  date: 13 February 2024
 ---
 
 To work with Tezos, you need a wallet, which is an application that maintains your accounts and signs Tezos transactions on your behalf.
@@ -17,6 +17,20 @@ Mobile apps include [Temple](https://templewallet.com/), [Kukai](https://wallet.
 Browser extensions include the [Temple](https://templewallet.com/) browser extension.
 
 Desktop wallets for Tezos include [Kukai](https://wallet.kukai.app/) and [Umami](https://umamiwallet.com/).
+
+Tezos also supports the [MetaMask wallet](https://metamask.io/), but only its browser extension.
+Follow these steps to enable Tezos in MetaMask:
+
+1. Install the MetaMask browser extension.
+1. Go to https://metamask.tezos.com.
+1. Click **Connect with MetaMask**.
+1. Approve the installation of the Tezos snap in MetaMask.
+
+Now you can connect to Tezos dApps with MetaMask.
+When a web application shows the Beacon window to connect your wallet, you can select MetaMask.
+The page sends you to https://metamask.tezos.com to approve and manage the connection.
+
+For more information about using MetaMask with Tezos, see [MetaMask Now Supports Tezos: An Explainer](https://spotlight.tezos.com/metamask-now-supports-tezos-an-explainer/).
 
 ## Switching the wallet to a testnet
 
