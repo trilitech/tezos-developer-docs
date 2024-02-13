@@ -44,9 +44,6 @@ This tutorial uses a very simple setup running all required daemons on the same 
 The UX of the DAL components will be subject to changes with the feedback from the testers following this tutorial, so this tutorial will be updated accordingly. Feel free to file issues if it's not up-to-date.
 :::
 
-For more information about the DAL, see [Data-Availability Layer](https://tezos.gitlab.io/shell/dal.html) in the Octez documentation.
-<!-- TODO link to page on DAL when it's available: https://github.com/trilitech/tezos-developer-docs/pull/270 -->
-
 - [Step 1: Get a Weeklynet-compatible Octez version](./join-dal-baker/get-octez)
 - [Step 2: Run an Octez node on Weeklynet](./join-dal-baker/run-node)
 - [Step 3: Set up a baker account on Weeklynet](./join-dal-baker/prepare-account)
