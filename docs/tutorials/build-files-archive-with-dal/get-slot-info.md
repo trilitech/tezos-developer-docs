@@ -2,7 +2,7 @@
 title: "Part 3: Getting slot information"
 authors: 'Tezos Core Developers'
 last_update:
-  date: 7 February 2024
+  date: 14 February 2024
 ---
 
 When clients send data to the DAL, they must choose which slot to put it in.

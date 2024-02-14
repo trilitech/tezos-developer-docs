@@ -2,7 +2,7 @@
 title: "Part 2: Getting the DAL parameters"
 authors: 'Tezos Core Developers'
 last_update:
-  date: 9 February 2024
+  date: 14 February 2024
 ---
 
 The Data Availability Layer stores information about the available data in layer 1 blocks.

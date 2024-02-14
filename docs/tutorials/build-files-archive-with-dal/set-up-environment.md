@@ -2,7 +2,7 @@
 title: "Part 1: Setting up an environment"
 authors: 'Tim McMackin'
 last_update:
-  date: 9 February 2024
+  date: 14 February 2024
 ---
 
 Because Weeklynet requires a specific version of the Octez suite, you can't use most wallet applications and installations of the Octez suite with it.
