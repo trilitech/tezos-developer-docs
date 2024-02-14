@@ -114,6 +114,14 @@ Follow these steps to update the Smart Rollup to access information about slot 0
    tezos-smart-rollup-host = { version = "0.2.2", features = [ "proto-alpha" ] }
    ```
 
+   The end of the file looks like this:
+
+   ```toml
+   [dependencies]
+   tezos-smart-rollup = { version = "0.2.2", features = [ "proto-alpha" ] }
+   tezos-smart-rollup-host = { version = "0.2.2", features = [ "proto-alpha" ] }
+   ```
+
 1. Stop the Smart Rollup process.
 
 1. Run the commands to build and deploy the Smart Rollup and start the node.
