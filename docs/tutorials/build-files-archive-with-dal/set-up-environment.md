@@ -59,6 +59,14 @@ The parts of the Octez suite don't use this environment variable directly, but y
    octez-client -E $ENDPOINT config init
    ```
 
+1. Optional: Hide the network warning message by running this command:
+
+   ```bash
+   export TEZOS_CLIENT_UNSAFE_DISABLE_DISCLAIMER=y
+   ```
+
+   This command suppresses the message that your instance of the Octez client is not using Mainnet.
+
 1. Create an account with the command `octez-client gen keys $MY_ACCOUNT`, where `$MY_ACCOUNT` is an alias for your account.
 
 1. Get the public key hash of the new account by running the command `octez-client show address $MY_ACCOUNT`.
