@@ -2,10 +2,11 @@
 title: History of amendments
 authors: 'Thomas Zoughebi, Aymeric Bethencourt, and Maxime Fernandez'
 last_update:
-  date: 30 June 2023
+  date: 14 February 2024
 ---
 
-As presented in [Governance](../governance), the Tezos blockchain is constantly evolving, through new amendments. In this chapter, we will present an overview of past proposals and the reasons for their approval or disapproval.
+As presented in [Governance](../governance), the Tezos blockchain is constantly evolving, through new amendments.
+These are the past proposals to amend the Tezos protocol.
 
 ## [Athens](https://tezos.gitlab.io/protocols/004_Pt24m4xi.html) (Pt24m4xiP)
 
@@ -207,9 +208,3 @@ Nairobi's main changes are:
 * Smart Rollups can now be aware of protocol updates happening on the L1.
 
 For more information, see the blog post from [Nomadic Labs](https://research-development.nomadic-labs.com/nairobi-announcement.html) and the [reference documentation](https://tezos.gitlab.io/protocols/017_nairobi.html).
-
-## What have we learned so far?
-
-In this chapter, we went through the past proposals' history and how and why they were approved or rejected.
-
-In the next chapter, we will see the details of operations costs and various rewards calculations.
