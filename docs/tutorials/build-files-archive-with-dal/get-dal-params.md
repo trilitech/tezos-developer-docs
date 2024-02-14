@@ -119,7 +119,10 @@ Follow these steps to deploy the Smart Rollup to Weeklynet and start a node:
 
    For simplicity, this command runs the Smart Rollup in observer mode, which does not require a stake of 10,000 tez to publish commitments.
 
-1. Open a new terminal window and run this command to watch the node's log:
+1. Open a new terminal window in the same environment.
+If you are using a Docker container, you can enter the container with the `docker exec` command, as in `docker exec -it my-image /bin/sh`.
+
+1. Run this command to watch the node's log:
 
    ```bash
    tail -F _rollup_node/kernel.log
