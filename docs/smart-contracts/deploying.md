@@ -31,7 +31,7 @@ where:
 - `GAZ_FEE` is a specified maximal fee the user is willing to pay for this operation (using the --burn-cap parameter).
 
 ### Deploying via online IDE
-As for deploying through your online IDE, if you are using LIGO or SmartPy programming languages, you can simply deploy your smart contracts through their respective online IDEs.
+As for deploying through your online IDE, if you are using LIGO or SmartPy programming languages, you can deploy your smart contracts through their respective online IDEs.
 - [SmartPy online IDE](https://smartpy.io/)
 - [LIGO online IDE](https://ligolang.org/?lang=jsligo)
 
@@ -83,7 +83,7 @@ A blockchain explorer is an efficient and user-friendly tool that enables you to
 - [Better Call Dev](https://better-call.dev/)
 - [TzKT](https://tzkt.io/)
 
-To interact with a contract, simply copy its address into one of these blockchain explorers. Below is the user interface for interacting with a contract through Better Call Dev:
+To interact with a contract, copy its address into one of these blockchain explorers. Below is the user interface for interacting with a contract through Better Call Dev:
 
 ![UI for Better Call Dev](/img/tutorials/better-call.png)
 
