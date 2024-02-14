@@ -36,7 +36,7 @@ As for deploying through your online IDE, if you are using LIGO or SmartPy progr
 - [LIGO online IDE](https://ligolang.org/?lang=jsligo)
 
 ## Interacting with the contract
-Once you have successfully originated the smart contract and it is included in a baked block, there are two ways to interact with it: through command lines or through a block explorer.
+When you have successfully originated the smart contract and it is included in a baked block, there are two ways to interact with it: through command lines or through a block explorer.
 
 ### Interacting through command lines
 The first method involves interacting with the contract's entry points using command lines.
