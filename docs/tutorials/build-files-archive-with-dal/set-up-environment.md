@@ -29,6 +29,18 @@ To set up an environment and account in a Docker container, follow these steps:
 
    The image tag in this command changes each time the network is reset.
 
+   :::tip
+   If you're not used to working inside Docker containers, you can map a folder on your computer to a folder in the container to create a [Docker volume](https://docs.docker.com/storage/volumes/).
+   This way, you can edit files on your computer and the changes will appear on the files inside the container.
+   For example, to start a container and map the current folder to the `/home/tezos` folder in the container, run this command:
+
+   ```bash
+   docker run -it --entrypoint=/bin/sh -v .:/home/tezos tezos/tezos:master_7f3bfc90_20240116181914
+   ```
+
+   You can map a folder like this only when you create a container; you cannot add it later.
+   :::
+
 1. Copy the URL of the public RPC endpoint for Weeklynet, such as `https://rpc.weeklynet-2024-01-17.teztnets.com`.
 This endpoint also changes each time the network is reset.
 

@@ -55,6 +55,8 @@ To get the DAL parameters, you can use built-in functions in the Tezos [Rust SDK
    As a reminder, the kernel of a Smart Rollup is a WASM program.
    The `proto-alpha` feature is necessary to get access to the functions specific to the DAL because they are not yet released in the main version of the Smart Rollup toolkit.
 
+   If you need a text editor inside the Docker container, you can run `sudo apk add nano` to install the [Nano text editor](https://www.nano-editor.org/).
+
 1. Create a file named `src/lib.rs` to be the kernel.
 
 1. In the `src/lib.rs` file, add this code:
