@@ -187,4 +187,4 @@ If you run this script and see an error that says that the file was not found, u
 For example, if you are using the Tezos Docker image, the path is `/bin/sh`.
 
 In the next section, you will get information about the state of slots in the DAL.
-See [Part 2: Getting slot information](./get-slot-info).
+See [Part 3: Getting slot information](./get-slot-info).
