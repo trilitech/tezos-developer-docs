@@ -196,6 +196,18 @@ Mumbai's main changes are:
 
 For more information, see the blog post from [Nomadic Labs](https://research-development.nomadic-labs.com/mumbai-announcement.html) and the [reference documentation](https://tezos.gitlab.io/protocols/016_mumbai.html).
 
+## [Nairobi](https://tezos.gitlab.io/protocols/017_nairobi.html) (PtNairob)
+
+*Nairobi* was autonomously [activated](https://tzstats.com/3760129) in June 2023.
+
+Nairobi's main changes are:
+
+* Increased TPS thanks to a new gas model for signature verification.
+* Renaming endorsements to attestations to specify the behavior of these consensus operations.
+* Smart Rollups can now be aware of protocol updates happening on the L1.
+
+For more information, see the blog post from [Nomadic Labs](https://research-development.nomadic-labs.com/nairobi-announcement.html) and the [reference documentation](https://tezos.gitlab.io/protocols/017_nairobi.html).
+
 ## What have we learned so far?
 
 In this chapter, we went through the past proposals' history and how and why they were approved or rejected.
