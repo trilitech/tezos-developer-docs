@@ -121,6 +121,7 @@ Follow these steps to deploy the Smart Rollup to Weeklynet and start a node:
 
 1. Open a new terminal window in the same environment.
 If you are using a Docker container, you can enter the container with the `docker exec` command, as in `docker exec -it my-image /bin/sh`.
+To get the name of the Docker container, you run the `docker ps` command.
 
 1. Run this command to watch the node's log:
 
