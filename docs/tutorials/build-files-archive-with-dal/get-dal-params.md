@@ -184,7 +184,8 @@ Then you can run it any tme you update the `lib.rs` or `Cargo.toml` files to dep
 ```
 
 If you run this script and see an error that says that the file was not found, update the first line of the script (the shebang) to the path to your shell interpreter.
-For example, if you are using the Tezos Docker image, the path is `/bin/sh`.
+For example, if you are using the Tezos Docker image, the path is `/bin/sh`, so the first line becomes `#!/bin/sh`.
+Then try the command `./deploy_smart_rollup.sh $MY_ACCOUNT` again.
 
 In the next section, you will get information about the state of slots in the DAL.
 See [Part 3: Getting slot information](./get-slot-info).
