@@ -2,7 +2,7 @@
 title: Deploy a smart contract with SmartPy
 authors: 'John Joubert, Sasha Aldrick, Tim McMackin'
 last_update:
-  date: 9 November 2023
+  date: 15 February 2024
 ---
 
 This tutorial covers writing and deploying a simple smart contract with the SmartPy programming language.
@@ -142,7 +142,7 @@ You can work with SmartPy code in any IDE, but this online IDE keeps you from ha
 1. Add this code, which creates automated tests:
 
    ```python
-   # Automated tests that run on compilation
+   # Automated tests that run on simulation
    @sp.add_test()
    def test():
        # Initialize the test scenario
@@ -162,7 +162,8 @@ You can work with SmartPy code in any IDE, but this online IDE keeps you from ha
        scenario.verify(contract.data.greeting == "Hi, there!")
    ```
 
-   These tests run automatically on compilation to verify that the replace and append endpoints work.
+   When you run the SmartPy file, SmartPy runs a simulation in which it tests and compiles the contract.
+   In this case, the tests verify that the replace and append endpoints work.
    For more information about SmartPy and tests, see the [SmartPy documentation](https://smartpy.io/).
 
 The SmartPy online IDE looks like this:
@@ -191,7 +192,7 @@ def main():
         def append(self, params):
             self.data.greeting += params.text
 
-# Automated tests that run on compilation
+# Automated tests that run on simulation
 @sp.add_test()
 def test():
     # Initialize the test scenario
