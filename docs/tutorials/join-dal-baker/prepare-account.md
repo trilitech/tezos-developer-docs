@@ -55,6 +55,13 @@ This command creates an account and associates it with the `my_baker` alias:
    octez-client register key my_baker as delegate
    ```
 
+1. Stake the tez, saving a small amount for transaction fees.
+For example, if your account has 50k tez, stake 49990 tez by running this command:
+
+   ```bash
+   octez-client stake 49990 for my_baker
+   ```
+
    Seven cycles later (about 1h40 on Weeklynet), our baker will start receiving rights. To see for instance its consensus attestation rights in the current cycle, we can use the following RPC call:
 
    ```bash
