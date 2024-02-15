@@ -139,16 +139,21 @@ You can work with SmartPy code in any IDE, but this online IDE keeps you from ha
 1. Add this code, which creates automated tests:
 
    ```python
-   @sp.add_test(name = "StoreGreeting")
+   # Automated tests that run on compilation
+   @sp.add_test()
    def test():
-       scenario = sp.test_scenario(main)
+       # Initialize the test scenario
+       scenario = sp.test_scenario("StoreGreeting", main)
        scenario.h1("StoreGreeting")
 
+       # Initialize the contract and pass the starting value
        contract = main.StoreGreeting("Hello")
        scenario += contract
 
+       # Verify that the value in storage was set correctly
        scenario.verify(contract.data.greeting == "Hello")
 
+       # Test the entrypoints and check the new storage value
        contract.replace(text = "Hi")
        contract.append(text = ", there!")
        scenario.verify(contract.data.greeting == "Hi, there!")
@@ -180,16 +185,21 @@ def main():
         def append(self, params):
             self.data.greeting += params.text
 
-@sp.add_test(name = "StoreGreeting")
+# Automated tests that run on compilation
+@sp.add_test()
 def test():
-    scenario = sp.test_scenario(main)
+    # Initialize the test scenario
+    scenario = sp.test_scenario("Test scenario", main)
     scenario.h1("StoreGreeting")
 
+    # Initialize the contract and pass the starting value
     contract = main.StoreGreeting("Hello")
     scenario += contract
 
+    # Verify that the value in storage was set correctly
     scenario.verify(contract.data.greeting == "Hello")
 
+    # Test the entrypoints and check the new storage value
     contract.replace(text = "Hi")
     contract.append(text = ", there!")
     scenario.verify(contract.data.greeting == "Hi, there!")
