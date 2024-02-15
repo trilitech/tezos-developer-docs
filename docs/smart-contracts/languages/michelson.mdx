@@ -1,16 +1,25 @@
 ---
 title: Michelson
 last_update:
-  date: 30 June 2023
+  date: 15 February 2024
 ---
 
 import Figure from '@site/src/components/Figure';
 
-Michelson is the domain-specific language used to write smart contracts on the Tezos blockchain. Michelson is a stack-based language and does not have variables. Stack-oriented languages operate on one or more stacks, each of which may serve a different purpose.
+Michelson is the domain-specific language used to write smart contracts on the Tezos blockchain.
+Users can write Michelson directly, but most of them use a high-level language for a more approachable syntax and for more user-friendly programming features; see [Languages](../languages).
 
-Michelson is a low-level, stack-based programming language used to write smart contracts on the Tezos blockchain. Michelson was designed to facilitate formal verification, allowing users to prove the properties of their contracts.
+## Features
 
-It uses a stack rewriting paradigm, whereby each function rewrites an input stack into an output stack. (The meaning of this will be fully explained below.) This runs in a purely functional way and does not modify the inputs at all. Thus, all data structures are **immutable**.
+Michelson is a Turing-complete stack-based language that includes common features of a programming language as well as some specific blockchain-related features:
+
+- It doesn't have variables but instead manipulates data directly on a stack, through a set of stack manipulation instructions. For example, the `ADD` instruction consumes two elements from the top of the stack and puts their sum on top of the stack.
+- It is strongly typed, with basic types such as integers, amounts of tez, strings, and account addresses, as well as complex types such as pairs, lists, key-value stores (big-maps), or pieces of code (lambdas).
+- It has limited access to data, and can only read data from its own storage, data passed as parameters during calls to its entrypoints, and a few special values such as the balance of the contract, the amount of tez sent to it during a call, and the creation time of the current block. It can also access a table of constants.
+
+Michelson was designed to facilitate formal verification, allowing users to prove the properties of their contracts.
+
+Michelson uses a stack rewriting paradigm, whereby each function rewrites an input stack into an output stack. (The meaning of this will be fully explained below.) This runs in a purely functional way and does not modify the inputs at all. Thus, all data structures are **immutable**.
 
 ## What is a stack?
 
