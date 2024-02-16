@@ -2,7 +2,7 @@
 title: Views
 authors: 'Mathias Hiron (Nomadic Labs), Sasha Aldrick (TriliTech), Tim McMackin (TriliTech)'
 last_update:
-  date: 5 October 2023
+  date: 16 Febtuary 2024
 ---
 
 Views are a way for contracts to expose information to other contracts.
@@ -15,6 +15,7 @@ In other words, calling a view doesn't produce a new operation.
 The call to the view runs immediately and the return value can be used in the next instruction.
 - Calling a view doesn't have any effect other than returning that value.
 In particular, it doesn't modify the storage of its contract and doesn't generate any operations.
+- Views do not include the transfer of any tez.
 
 ## Example View
 
