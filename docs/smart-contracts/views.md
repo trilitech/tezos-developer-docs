@@ -17,68 +17,69 @@ The call to the view runs immediately and the return value can be used in the ne
 In particular, it doesn't modify the storage of its contract and doesn't generate any operations.
 - Views do not include the transfer of any tez.
 
-## Example View
+## Examples
 
-Here is an example that uses a view.
-The following contract is a ledger that handles a fungible token and keeps track of how many tokens are owned by each user.
+Views can provide information about tokens.
+For example, the [FA2 standard](../architecture/tokens/FA2) suggests that contracts provide several views, including a view that provides the amount of a token that a specified account owns.
 
-{<table>
-  <caption>Ledger contract</caption>
-  <thead>
-    <tr>
-      <th>Storage</th>
-      <th>Entrypoint effects</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
-        <ul>
-          <li><code>ledger</code>: <code>big-map</code>
-            <ul>
-              <li>Key:<ul>
-                  <li><code>user</code>: <code>address</code></li>
-                </ul>
-              </li>
-              <li>Value:<ul>
-                  <li><code>tokens</code>: <code>nat</code></li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </td>
-      <td>
-        <ul>
-          <li><code>view getBalance(user: address)</code>
-            <ul>
-              <li>return <code>ledger[user].tokens</code></li>
-            </ul>
-          </li>
-          <li><code>transfer(nbTokens, destination)</code>
-            <ul>
-              <li>Check that <code>tokens[caller].tokens &gt;= nbTokens</code></li>
-              <li>Create an entry <code>tokens[destination]</code> (<code>value = 0</code> if it doesn't exist)</li>
-              <li>Add <code>nbTokens</code> to <code>tokens[destination].nbTokens</code></li>
-              <li>Subtract <code>nbTokens</code> from <code>tokens[caller].nbTokens</code></li>
-            </ul>
-          </li>
-        </ul>
-      </td>
-    </tr>
-  </tbody>
-</table>}
+Views can provide information about the storage of contracts in a more convenient format.
+Contracts can't directly access other contracts' storage, but they can use views to get information such as a value from a big-map for a specific index.
 
-Another contract might provide an `equalizeWith` entrypoint such that if they have more tokens than another user, they can make their balances equal (plus or minus one if the total amount is odd).
-The following example code for this contract takes advantage of the `getBalance(user)` view of the first contract: to determine the balance of each user:
+Views can run logic or processing, like logic that you want to externalize rather than repeat in multiple places.
+For example, a view might run a mathematical operation like calculating the average or median of a list of numbers.
 
-```javascript
-equalizeWith(destination)
-  destinationBalance = ledger.getBalance(destination)
-  totalBalance = ledger.getBalance(caller) + destinationBalance
-  targetBalance = totalBalance // 2
-  ledger.transfer(targetBalance - destinationBalance, destination)
+## Creating views
+
+In high-level languages, views look a lot like entrypoints because they take an input value and the contract storage as inputs.
+Unlike entrypoints, they return only a value, without a list of operations.
+
+This JsLIGO view returns the larger of two numbers:
+
+```ts
+type get_larger_input = [int, int];
+
+@view
+const get_larger = (input: get_larger_input, _s: storage): int => {
+  const [a, b] = input;
+  if (a == b) {
+    return a;
+  }
+  if (a < b) {
+    return b;
+  }
+  return a;
+}
 ```
+
+## Calling views
+
+Calling views from smart contracts is similar to calling entrypoints.
+
+This JsLIGO code calls the view from the previous JsLIGO example by passing the target contract address, parameters, and view name to the `Tezos.call_vew()` function:
+
+```ts
+@entry
+const callView = (_i: unit, _s: storage): return_type => {
+  const resultOpt: option<int> = Tezos.call_view(
+    "get_larger",
+    [4, 5],
+    "KT1Uh4MjPoaiFbyJyv8TcsZVpsbE2fNm9VKX" as address
+  );
+  return match(resultOpt) {
+    when (None):
+      failwith("Something went wrong");
+    when (Some(result)):
+      [list([]), result];
+  }
+}
+```
+
+To call a view with the Octez client, use the `run view` command, as in this example:
+
+```bash
+octez client run view "get_larger" on contract "KT1Uh4MjPoaiFbyJyv8TcsZVpsbE2fNm9VKX" with input "Pair 4 5"
+```
+<!-- TODO link to info on encoding param values -->
 
 ## Implementation details
 
