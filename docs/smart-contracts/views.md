@@ -48,11 +48,24 @@ const get_larger = (input: get_larger_input, _s: storage): int => {
 }
 ```
 
+This SmartPy view does the same thing:
+
+```python
+@sp.onchain_view
+def get_larger(self, record):
+    a = sp.cast(record.a, sp.int)
+    b = sp.cast(record.b, sp.int)
+    if a >= b:
+        return a
+    else:
+        return b
+```
+
 ## Calling views
 
 Calling views from smart contracts is similar to calling entrypoints.
 
-This JsLIGO code calls the view from the previous JsLIGO example by passing the target contract address, parameters, and view name to the `Tezos.call_vew()` function:
+This JsLIGO code calls the views from the previous examples by passing the target contract address, parameters, and view name to the `Tezos.call_vew()` function:
 
 ```ts
 @entry
