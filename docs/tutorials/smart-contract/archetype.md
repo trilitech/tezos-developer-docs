@@ -44,9 +44,9 @@ For more information about Archetype, see https://archetype-lang.org/.
 The contract that you deploy in this tutorial stores a single integer.
 It provides entrypoints that clients can call to change the value of that integer:
 
-- The `increment` endpoint accepts an integer as a parameter and adds that integer to the value in storage
-- The `decrement` endpoint accepts an integer as a parameter and subtracts that integer from the value in storage
-- The `reset` endpoint takes no parameters and resets the value in storage to 0
+- The `increment` entrypoint accepts an integer as a parameter and adds that integer to the value in storage
+- The `decrement` entrypoint accepts an integer as a parameter and subtracts that integer from the value in storage
+- The `reset` entrypoint takes no parameters and resets the value in storage to 0
 
 After you deploy the contract, you or any other user can call it through the command line or a distributed application (dApp).
 
@@ -320,4 +320,4 @@ Now the contract is running on the Tezos blockchain.
 You or any other user can call it from any source that can send transactions to Tezos, including command-line clients, dApps, and other contracts.
 
 If you want to continue working with this contract, try creating a dApp to call it from a web application, similar to the dApp that you create in the tutorial [Build a simple web application](../build-your-first-app/).
-You can also try adding your own endpoints and originating a new contract, but you cannot update the existing contract after it is deployed.
+You can also try adding your own entrypoints and originating a new contract, but you cannot update the existing contract after it is deployed.
