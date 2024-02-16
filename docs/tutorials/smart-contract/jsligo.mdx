@@ -50,6 +50,7 @@ After you deploy the contract, you or any other user can call it from a variety 
 ## Creating and funding a wallet
 
 To deploy and work with the contract, you need a wallet and some tez tokens.
+You can get test tokens for free on the Ghostnet test network:
 
 1. Install a Tezos-compatible wallet.
 Which wallet you install is up to you and whether you want to install a wallet on your computer, in a browser extension, or as a mobile app.
@@ -217,7 +218,7 @@ Before you can deploy the contract to Tezos, you must compile it to Michelson, t
       At the bottom of the window, the Result field shows the response `(LIST_EMPTY(), 42)`.
       This response means that the contract did not call any other contracts, so the list of operations is empty.
       Then it shows the new value of the storage.
-      You can test the decrement and reset functions in the same way.
+      You can test the decrement function in the same way.
       If you see any errors, make sure that the code of your contract matches the code in the previous section.
 
    1. Test the `Reset` entrypoint in the same way, but pass `unit` as the input parameter and any integer in the storage field.
