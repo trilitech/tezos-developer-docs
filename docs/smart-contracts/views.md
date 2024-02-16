@@ -41,13 +41,10 @@ type get_larger_input = [int, int];
 @view
 const get_larger = (input: get_larger_input, _s: storage): int => {
   const [a, b] = input;
-  if (a == b) {
+  if (a >= b) {
     return a;
   }
-  if (a < b) {
-    return b;
-  }
-  return a;
+  return b;
 }
 ```
 
