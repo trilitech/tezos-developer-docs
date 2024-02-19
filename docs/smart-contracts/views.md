@@ -41,7 +41,7 @@ type get_larger_input = [int, int];
 @view
 const get_larger = (input: get_larger_input, _s: storage): int => {
   const [a, b] = input;
-  if (a >= b) {
+  if (a > b) {
     return a;
   }
   return b;
@@ -52,13 +52,12 @@ This SmartPy view does the same thing:
 
 ```python
 @sp.onchain_view
-def get_larger(self, record):
-    a = sp.cast(record.a, sp.int)
-    b = sp.cast(record.b, sp.int)
-    if a >= b:
+def get_larger(self, a, b):
+    sp.cast(a, sp.int)
+    sp.cast(b, sp.int)
+    if a > b:
         return a
-    else:
-        return b
+    return b
 ```
 
 ## Calling views
@@ -82,6 +81,23 @@ const callView = (_i: unit, _s: storage): return_type => {
       [list([]), result];
   }
 }
+```
+
+This SmartPy code calls the views from the previous examples by passing the view name, target contract address, parameters, and return type to the `sp.view()` function:
+
+```python
+@sp.entrypoint
+def callView(self, a, b):
+    sp.cast(a, sp.int)
+    sp.cast(b, sp.int)
+    viewResponseOpt = sp.view(
+        "get_larger",
+        sp.address("KT1K6kivc91rZoDeCqEWjH8YqDn3iz6iEZkj"),
+        sp.record(a=a, b=b),
+        sp.int
+    )
+    if viewResponseOpt.is_some():
+        self.data.myval = viewResponseOpt.unwrap_some()
 ```
 
 To call a view with the Octez client, use the `run view` command, as in this example:
