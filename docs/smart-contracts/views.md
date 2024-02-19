@@ -100,6 +100,17 @@ def callView(self, a, b):
         self.data.myval = viewResponseOpt.unwrap_some()
 ```
 
+Calling a view with Taquito is similar to calling entrypoints.
+When you create an object to represent the contract, its `contractViews` property has a method for each view, which you can call as in this example:
+
+```javascript
+const viewContractAddress = "KT1K6kivc91rZoDeCqEWjH8YqDn3iz6iEZkj";
+const contract = await Tezos.wallet.at(viewContractAddress);
+const result = await contract.contractViews.get_larger({a: 2, b: 12})
+  .executeView({ viewCaller: viewContractAddress });
+console.log(result);
+```
+
 To call a view with the Octez client, use the `run view` command, as in this example:
 
 ```bash
@@ -113,3 +124,4 @@ octez client run view "get_larger" on contract "KT1Uh4MjPoaiFbyJyv8TcsZVpsbE2fNm
 - Archetype: [View](https://archetype-lang.org/docs/reference/declarations/view)
 - SmartPy: [Views in testing](https://smartpy.io/manual/scenarios/testing_contracts#views)
 - LIGO: [On-chain views](https://ligolang.org/docs/protocol/hangzhou#on-chain-views)
+- Taquito: [On-chain views](https://tezostaquito.io/docs/on_chain_views)
