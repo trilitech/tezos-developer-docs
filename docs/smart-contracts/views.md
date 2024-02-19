@@ -2,7 +2,7 @@
 title: Views
 authors: 'Mathias Hiron (Nomadic Labs), Sasha Aldrick (TriliTech), Tim McMackin (TriliTech)'
 last_update:
-  date: 16 Febtuary 2024
+  date: 19 February 2024
 ---
 
 Views are a way for contracts to expose information to other contracts.
