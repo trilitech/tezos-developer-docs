@@ -187,11 +187,9 @@
     },
     'init-keyword': {
       pattern: initKeywordsRegex,
-      alias: 'keyword',
     },
     'instruction': {
       pattern: instructionsRegex,
-      alias: 'function',
     },
     'comment': {
       pattern: /(^|[^\\])#.*/,

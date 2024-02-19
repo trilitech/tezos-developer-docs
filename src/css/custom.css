@@ -215,7 +215,7 @@ article a[target="_blank"]:after {
 
 /* Syntax highlighting */
 .language-michelson .token.instruction {
-  color: #007020 !important;
+  color: #007020;
   font-weight: bold;
 }
 
@@ -224,7 +224,7 @@ article a[target="_blank"]:after {
 }
 
 .language-michelson .token.init-keyword {
-  color: #007020 !important;
+  color: #007020;
   font-weight: bold;
 }
 
