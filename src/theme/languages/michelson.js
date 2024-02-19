@@ -160,9 +160,13 @@
     "unit"
   ];
 
+  const annotations = [":", "@", "%"];
+
   const instructionsRegex = new RegExp("\\b(?:" + instructions.join("|") + ")\\b", "g");
 
   const typesRegex = new RegExp("\\b(?:" + types.join("|") + ")\\b", "g");
+
+  const annotationsRegex = new RegExp("(?:" + annotations.join("|") + ")\\w+\\b", "g");
 
   // Catch the init keywords both at the beginning of a line
   // and when there is an opening brace and/or whitespace
@@ -193,6 +197,9 @@
       pattern: /(^|[^\\])#.*/,
       lookbehind: true,
       greedy: true
+    },
+    'annotation': {
+      pattern: annotationsRegex,
     },
   };
 }(Prism));

@@ -227,3 +227,8 @@ article a[target="_blank"]:after {
   color: #007020 !important;
   font-weight: bold;
 }
+
+.language-michelson .token.annotation {
+  color: #007020;
+  font-weight: bold;
+}
