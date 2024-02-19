@@ -18,7 +18,7 @@ Browser extensions include the [Temple](https://templewallet.com/) browser exten
 
 Desktop wallets for Tezos include [Kukai](https://wallet.kukai.app/) and [Umami](https://umamiwallet.com/).
 
-Tezos also supports the [MetaMask wallet](https://metamask.io/), but only its browser extension.
+Tezos also supports the [MetaMask wallet](https://metamask.io/), but only its browser extension, and only on Mainnet.
 Follow these steps to enable Tezos in MetaMask:
 
 1. Install the MetaMask browser extension.
