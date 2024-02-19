@@ -5,17 +5,17 @@ last_update:
   date: 19 February 2024
 ---
 
-Views are a way for contracts to expose information to other contracts.
+Views are a way for contracts to expose information to other contracts and to off-chain consumers.
 
 A view is similar to an entrypoint, with a few differences:
 
 - Views return a value.
-- Contracts can call views and use the returned values immediately.
+- Calls to views are synchronous, which means that contracts can call views and use the returned values immediately.
 In other words, calling a view doesn't produce a new operation.
 The call to the view runs immediately and the return value can be used in the next instruction.
 - Calling a view doesn't have any effect other than returning that value.
 In particular, it doesn't modify the storage of its contract and doesn't generate any operations.
-- Views do not include the transfer of any tez.
+- Views do not include the transfer of any tez and calling them does not require any fees.
 
 ## Examples
 
