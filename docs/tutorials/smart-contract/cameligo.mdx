@@ -41,15 +41,16 @@ A smart contract has these parts:
 The contract that you deploy in this tutorial stores a single integer.
 It provides entrypoints that clients can call to change the value of that integer:
 
-- The `increment` endpoint accepts an integer as a parameter and adds that integer to the value in storage
-- The `decrement` endpoint accepts an integer as a parameter and subtracts that integer to the value in storage
-- The `reset` endpoint takes no parameters and resets the value in storage to 0
+- The `increment` entrypoint accepts an integer as a parameter and adds that integer to the value in storage
+- The `decrement` entrypoint accepts an integer as a parameter and subtracts that integer from the value in storage
+- The `reset` entrypoint takes no parameters and resets the value in storage to 0
 
 After you deploy the contract, you or any other user can call it from a variety of Tezos clients and decentralized applications (dApps).
 
 ## Creating and funding a wallet
 
 To deploy and work with the contract, you need a wallet and some tez tokens.
+You can get test tokens for free on the Ghostnet test network:
 
 1. Install a Tezos-compatible wallet.
 Which wallet you install is up to you and whether you want to install a wallet on your computer, in a browser extension, or as a mobile app.
@@ -128,7 +129,7 @@ You can work with LIGO code in any IDE, but this online IDE keeps you from havin
    type storage = int
    ```
 
-1. Add this code to define the return type for the endpoints.
+1. Add this code to define the return type for the entrypoints.
 Tezos entrypoints return two values: a list of other operations to call and the new value of the contract's storage.
 
    ```ocaml
@@ -202,7 +203,7 @@ Before you can deploy the contract to Tezos, you must compile it to Michelson, t
       At the bottom of the window, the Result field shows the response `(LIST_EMPTY(), 42)`.
       This response means that the contract did not call any other contracts, so the list of operations is empty.
       Then it shows the new value of the storage.
-      You can test the decrement and reset functions in the same way.
+      You can test the decrement function in the same way.
       If you see any errors, make sure that the code of your contract matches the code in the previous section.
 
    1. Test the `Reset` entrypoint in the same way, but pass `unit` as the input parameter and any integer in the storage field.
@@ -243,7 +244,10 @@ You can ignore this warning because you can set the initial storage now.
    When the contract is deployed, the Deploy contract window shows the address at the bottom of the window.
 
 1. Copy the address of the deployed contract, which starts with `KT1`.
-It will not be shown again.
+
+:::warning
+Copy the contract address now, because it will not be shown again.
+:::
 
 Now you can call the contract from any Tezos client, including web applications and command-line applications like [The Octez client](../../developing/octez-client).
 
@@ -260,7 +264,7 @@ It also allows you to call the contract.
 
    <img src="/img/tutorials/bcd-originated-contract.png" alt="The block explorer, showing information about the contract" style={{width: 500}} />
 
-1. Try calling one of the endpoints:
+1. Try calling one of the entrypoints:
 
    1. Go to the **Storage** tab and check the current state of the storage, which should be the integer that you put in the Deploy window.
 
@@ -289,4 +293,4 @@ Now the contract is running on the Tezos blockchain.
 You or any other user can call it from any source that can send transactions to Tezos, including Octez, dApps, and other contracts.
 
 If you want to continue working with this contract, try creating a dApp to call it from a web application, similar to the dApp that you create in the tutorial [Build a simple web application](../build-your-first-app/).
-You can also try adding your own endpoints and originating a new contract, but you cannot update the existing contract after it is deployed.
+You can also try adding your own entrypoints and originating a new contract, but you cannot update the existing contract after it is deployed.

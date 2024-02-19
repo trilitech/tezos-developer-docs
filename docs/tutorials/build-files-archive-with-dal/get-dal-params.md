@@ -2,7 +2,7 @@
 title: "Part 2: Getting the DAL parameters"
 authors: 'Tezos Core Developers'
 last_update:
-  date: 9 February 2024
+  date: 14 February 2024
 ---
 
 The Data Availability Layer stores information about the available data in layer 1 blocks.
@@ -54,6 +54,8 @@ To get the DAL parameters, you can use built-in functions in the Tezos [Rust SDK
 
    As a reminder, the kernel of a Smart Rollup is a WASM program.
    The `proto-alpha` feature is necessary to get access to the functions specific to the DAL because they are not yet released in the main version of the Smart Rollup toolkit.
+
+   If you need a text editor inside the Docker container, you can run `sudo apk add nano` to install the [Nano text editor](https://www.nano-editor.org/).
 
 1. Create a file named `src/lib.rs` to be the kernel.
 
@@ -117,7 +119,11 @@ Follow these steps to deploy the Smart Rollup to Weeklynet and start a node:
 
    For simplicity, this command runs the Smart Rollup in observer mode, which does not require a stake of 10,000 tez to publish commitments.
 
-1. Open a new terminal window and run this command to watch the node's log:
+1. Open a new terminal window in the same environment.
+If you are using a Docker container, you can enter the container with the `docker exec` command, as in `docker exec -it my-image /bin/sh`.
+To get the name of the Docker container, you run the `docker ps` command.
+
+1. Run this command to watch the node's log:
 
    ```bash
    tail -F _rollup_node/kernel.log
@@ -178,7 +184,8 @@ Then you can run it any tme you update the `lib.rs` or `Cargo.toml` files to dep
 ```
 
 If you run this script and see an error that says that the file was not found, update the first line of the script (the shebang) to the path to your shell interpreter.
-For example, if you are using the Tezos Docker image, the path is `/bin/sh`.
+For example, if you are using the Tezos Docker image, the path is `/bin/sh`, so the first line becomes `#!/bin/sh`.
+Then try the command `./deploy_smart_rollup.sh $MY_ACCOUNT` again.
 
 In the next section, you will get information about the state of slots in the DAL.
-See [Part 2: Getting slot information](./get-slot-info).
+See [Part 3: Getting slot information](./get-slot-info).

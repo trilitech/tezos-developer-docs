@@ -1,7 +1,7 @@
 ---
 title: LIGO
 last_update:
-  date: 29 June 2023
+  date: 8 February 2024
 ---
 
 LIGO is a functional programming language that is intended to be both user-friendly and to avoid patterns that make formal verification difficult.
@@ -18,57 +18,55 @@ To learn LIGO, see these tutorials:
 - [Deploy a smart contract with CameLIGO](../../tutorials/smart-contract/cameligo)
 - [Deploy a smart contract with JsLIGO](../../tutorials/smart-contract/jsligo)
 
-Let's define a LIGO contract in the two flavours above.
+Here are examples of straightforward LIGO contracts.
+Each contract stores an integer and provides entrypoints that increase or decrease the integer or reset it to zero.
 
 ## CameLIGO
 
-```
+```ocaml
 type storage = int
 
-type parameter =
-  Increment of int
-| Decrement of int
-| Reset
+type returnValue = operation list * storage
 
-type return = operation list * storage
+// Increment entrypoint
+[@entry] let increment (delta : int) (store : storage) : returnValue =
+  [], store + delta
 
-let main (action, store : parameter * storage) : return =
-  [],
-  (match action with
-     Increment n -> store + n
-   | Decrement n -> store - n
-   | Reset       -> 0)
+// Decrement entrypoint
+[@entry] let decrement (delta : int) (store : storage) : returnValue =
+  [], store - delta
+
+// Reset entrypoint
+[@entry] let reset (() : unit) (_ : storage) : returnValue =
+  [], 0
 ```
 
 ## JsLIGO
 
+```ts
+namespace Counter {
+  type storage = int;
+  type returnValue = [list<operation>, storage];
+
+  // Increment entrypoint
+  @entry
+  const increment = (delta : int, store : storage) : returnValue =>
+    [list([]), store + delta];
+
+  // Decrement entrypoint
+  @entry
+  const decrement = (delta : int, store : storage) : returnValue =>
+    [list([]), store - delta];
+
+  // Reset entrypoint
+  @entry
+  const reset = (_p : unit, _s : storage) : returnValue =>
+    [list([]), 0];
+}
 ```
-type storage = int;
-
-type parameter =
-  ["Increment", int]
-| ["Decrement", int]
-| ["Reset"];
-
-type return_ = [list<operation>, storage];
-
-let main = (action: parameter, store: storage) : return_ => {
-  return [
-    list([]),
-    match(action, {
-      Increment: n => store + n,
-      Decrement: n => store - n,
-      Reset:     ()       => 0
-    })
-  ];
-};
-```
-
-This LIGO contract accepts the following LIGO expressions: `Increment(n)`, `Decrement(n)` and `Reset`. Those serve as `entrypoint` identification.
 
 ## Further reading
 
 - [LIGO documentation](https://ligolang.org/docs/intro/introduction?lang=jsligo)
 - [LIGO tutorials](https://ligolang.org/docs/tutorials/getting-started?lang=jsligo)
 - [OpenTezos](https://opentezos.com/ligo)
-
