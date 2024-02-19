@@ -211,3 +211,19 @@ article a[target="_blank"]:after {
   content: url("/img/external_link.svg");
   padding-left: 5px;
 }
+
+
+/* Syntax highlighting */
+.language-michelson .token.instruction {
+  color: #007020 !important;
+  font-weight: bold;
+}
+
+.language-michelson .token.type {
+  color: #902000 !important;
+}
+
+.language-michelson .token.init-keyword {
+  color: #007020 !important;
+  font-weight: bold;
+}
