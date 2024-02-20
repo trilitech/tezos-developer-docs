@@ -24,5 +24,6 @@ export default function prismIncludeLanguages(PrismObject) {
 
   require(`./languages/cameligo`);
   require(`./languages/jsligo`);
+  require(`./languages/archetype`);
   delete globalThis.Prism;
 }
