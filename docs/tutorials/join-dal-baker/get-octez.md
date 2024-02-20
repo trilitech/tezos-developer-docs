@@ -2,7 +2,7 @@
 title: "Step 1: Get a Weeklynet-compatible Octez version"
 authors: Tezos core developers
 last_update:
-  date: 23 January 2024
+  date: 14 February 2024
 ---
 
 The Weeklynet test network restarts every Wednesday at 0h UTC, and for most of its lifetime (from level 512) it runs a development version of the Tezos protocol, called Alpha, which is not part of any released version of Octez.
@@ -39,6 +39,14 @@ This endpoint also changes each time the network is reset.
    ```bash
    octez-client -E https://rpc.weeklynet-2024-01-17.teztnets.com config init
    ```
+
+1. Optional: Hide the network warning message by running this command:
+
+   ```bash
+   export TEZOS_CLIENT_UNSAFE_DISABLE_DISCLAIMER=y
+   ```
+
+   This command suppresses the message that your instance of the Octez client is not using Mainnet.
 
 Now you have the Octez client and node configured to work with Weeklynet.
 The next step is to start an Octez node; continue to [Step 2: Run an Octez node on Weeklynet](./run-node).
