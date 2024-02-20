@@ -2,7 +2,7 @@
 title: Deploy a smart contract with SmartPy
 authors: 'John Joubert, Sasha Aldrick, Tim McMackin'
 last_update:
-  date: 9 November 2023
+  date: 15 February 2024
 ---
 
 This tutorial covers writing and deploying a simple smart contract with the SmartPy programming language.
@@ -91,7 +91,7 @@ Now you have an account and funds that you can use to work with Tezos.
 
 The contract that you will create has these basic parts:
 
-- A function that initializes the contract and sets the starting value for it storage.
+- A function that initializes the contract and sets the starting value for its storage.
 
 - Internal functions called entrypoints that run code when clients call the contract.
 
@@ -115,6 +115,9 @@ You can work with SmartPy code in any IDE, but this online IDE keeps you from ha
    def main():
        class StoreGreeting(sp.Contract):
            def __init__(self, greeting): # Note the indentation
+               # Initialize the storage with a string passed at deployment time
+               # Cast the greeting parameter to a string
+               sp.cast(greeting, sp.string)
                self.data.greeting = greeting
 
            @sp.entrypoint # Note the indentation
@@ -139,22 +142,28 @@ You can work with SmartPy code in any IDE, but this online IDE keeps you from ha
 1. Add this code, which creates automated tests:
 
    ```python
-   @sp.add_test(name = "StoreGreeting")
+   # Automated tests that run on simulation
+   @sp.add_test()
    def test():
-       scenario = sp.test_scenario(main)
+       # Initialize the test scenario
+       scenario = sp.test_scenario("StoreGreeting", main)
        scenario.h1("StoreGreeting")
 
+       # Initialize the contract and pass the starting value
        contract = main.StoreGreeting("Hello")
        scenario += contract
 
+       # Verify that the value in storage was set correctly
        scenario.verify(contract.data.greeting == "Hello")
 
+       # Test the entrypoints and check the new storage value
        contract.replace(text = "Hi")
        contract.append(text = ", there!")
        scenario.verify(contract.data.greeting == "Hi, there!")
    ```
 
-   These tests run automatically on compilation to verify that the replace and append entrypoints work.
+   When you run the SmartPy file, SmartPy runs a simulation in which it tests and compiles the contract.
+   In this case, the tests verify that the replace and append endpoints work.
    For more information about SmartPy and tests, see the [SmartPy documentation](https://smartpy.io/).
 
 The SmartPy online IDE looks like this:
@@ -170,6 +179,9 @@ import smartpy as sp
 def main():
     class StoreGreeting(sp.Contract):
         def __init__(self, greeting): # Note the indentation
+            # Initialize the storage with a string passed at deployment time
+            # Cast the greeting parameter to a string
+            sp.cast(greeting, sp.string)
             self.data.greeting = greeting
 
         @sp.entrypoint # Note the indentation
@@ -180,16 +192,21 @@ def main():
         def append(self, params):
             self.data.greeting += params.text
 
-@sp.add_test(name = "StoreGreeting")
+# Automated tests that run on simulation
+@sp.add_test()
 def test():
-    scenario = sp.test_scenario(main)
+    # Initialize the test scenario
+    scenario = sp.test_scenario("Test scenario", main)
     scenario.h1("StoreGreeting")
 
+    # Initialize the contract and pass the starting value
     contract = main.StoreGreeting("Hello")
     scenario += contract
 
+    # Verify that the value in storage was set correctly
     scenario.verify(contract.data.greeting == "Hello")
 
+    # Test the entrypoints and check the new storage value
     contract.replace(text = "Hi")
     contract.append(text = ", there!")
     scenario.verify(contract.data.greeting == "Hi, there!")
