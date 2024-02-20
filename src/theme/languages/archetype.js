@@ -3,7 +3,18 @@
 (function (Prism) {
 
 	Prism.languages.archetype = {
-		'comment': /\/\*[\s\S]*?\*\//,
+		'comment': [
+			{
+				pattern: /(^|[^\\])\/\*[\s\S]*?(?:\*\/|$)/,
+				lookbehind: true,
+				greedy: true
+			},
+			{
+				pattern: /(^|[^\\:])\/\/.*/,
+				lookbehind: true,
+				greedy: true
+			}
+		],
 		'string': [
 			{
 				pattern: /"(?:\\.|[^\\\r\n"])*"/,
