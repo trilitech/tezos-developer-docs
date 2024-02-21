@@ -2,7 +2,7 @@
 title: "Part 1: Setting up an environment"
 authors: 'Tim McMackin'
 last_update:
-  date: 9 February 2024
+  date: 14 February 2024
 ---
 
 Because Weeklynet requires a specific version of the Octez suite, you can't use most wallet applications and installations of the Octez suite with it.
@@ -29,6 +29,18 @@ To set up an environment and account in a Docker container, follow these steps:
 
    The image tag in this command changes each time the network is reset.
 
+   :::tip
+   If you're not used to working inside Docker containers, you can map a folder on your computer to a folder in the container to create a [Docker volume](https://docs.docker.com/storage/volumes/).
+   This way, you can edit files on your computer and the changes will appear on the files inside the container.
+   For example, to start a container and map the current folder to the `/home/tezos` folder in the container, run this command:
+
+   ```bash
+   docker run -it --entrypoint=/bin/sh -v .:/home/tezos tezos/tezos:master_7f3bfc90_20240116181914
+   ```
+
+   You can map a folder like this only when you create a container; you cannot add it later.
+   :::
+
 1. Copy the URL of the public RPC endpoint for Weeklynet, such as `https://rpc.weeklynet-2024-01-17.teztnets.com`.
 This endpoint also changes each time the network is reset.
 
@@ -46,6 +58,14 @@ The parts of the Octez suite don't use this environment variable directly, but y
    ```bash
    octez-client -E $ENDPOINT config init
    ```
+
+1. Optional: Hide the network warning message by running this command:
+
+   ```bash
+   export TEZOS_CLIENT_UNSAFE_DISABLE_DISCLAIMER=y
+   ```
+
+   This command suppresses the message that your instance of the Octez client is not using Mainnet.
 
 1. Create an account with the command `octez-client gen keys $MY_ACCOUNT`, where `$MY_ACCOUNT` is an alias for your account.
 

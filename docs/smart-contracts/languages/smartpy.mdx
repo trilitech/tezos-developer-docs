@@ -55,17 +55,6 @@ sp.verify(self.data.x > 2)
 
 Here, `sp.verify()` checks that the field `x` is larger than `2` and raises an error if it is not. This is performed at run time, i.e., in the blockchain, once translated into Michelson.
 
-Since Python does not allow its control statements to be overloaded, certain language constructs are desugared by a pre-processor: `sp.if`, `sp.else`, `sp.for`, `sp.while` are SmartPy commands.
-
-For example, we will use:
-
-```python
-sp.if self.data.x > 2:
-    self.data.x += 1
-```
-
-If we would have used the `if` native to Python it would not be interpreted and compiled in Michelson.
-
 ## About the raffle contract
 A raffle is a game of chance that distributes a winning prize.
 
@@ -108,10 +97,10 @@ class Raffle(sp.Contract):
     def open_raffle(self):
         pass
 
-    @sp.add_test(name = "Raffle")
+    @sp.add_test()
     def test():
         r = Raffle()
-        scenario = sp.test_scenario()
+        scenario = sp.test_scenario("Raffle")
         scenario.h1("Raffle")
         scenario += r
 ```
@@ -199,7 +188,7 @@ class Raffle(sp.Contract):
         alice = sp.test_account("Alice")
         admin = sp.test_account("Administrator")
         r = Raffle(admin.address)
-        scenario = sp.test_scenario()
+        scenario = sp.test_scenario("Raffle")
         scenario.h1("Raffle")
         scenario += r
 
@@ -346,12 +335,12 @@ On _SmartPy_, a test is a method of the contract class, preceded by `@sp.add_tes
 Inside this method, you need to instantiate your contract class and your scenarios, to which you will add the contract instance and all the related calls that you want to test. For instance:
 
 ```python
-@sp.add_test(name="Raffle")
+@sp.add_test()
 def test():
     alice = sp.test_account("Alice")
     admin = sp.test_account("Administrator")
     r = Raffle(admin.address)
-    scenario = sp.test_scenario()
+    scenario = sp.test_scenario("Raffle")
     scenario.h1("Raffle")
     scenario += r
 ```
@@ -560,14 +549,14 @@ class Raffle(sp.Contract):
         self.data.sold_tickets[ticket_id] = current_player
 
 
-    @sp.add_test(name="Raffle")
+    @sp.add_test()
     def test():
         alice = sp.test_account("Alice")
         jack = sp.test_account("Jack")
         admin = sp.test_account("Administrator")
 
         r = Raffle(admin.address)
-        scenario = sp.test_scenario()
+        scenario = sp.test_scenario("Raffle")
         scenario.h1("Raffle")
         scenario += r
 
@@ -774,13 +763,13 @@ class Raffle(sp.Contract):
         self.data.sold_tickets = sp.map()
         self.data.raffle_is_open = False
 
-    @sp.add_test(name="Raffle")
+    @sp.add_test()
     def test():
         alice = sp.test_account("Alice")
         jack = sp.test_account("Jack")
         admin = sp.test_account("Administrator")
         r = Raffle(admin.address)
-        scenario = sp.test_scenario()
+        scenario = sp.test_scenario("Raffle")
         scenario.h1("Raffle")
         scenario += r
 
