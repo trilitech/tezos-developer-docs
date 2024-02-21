@@ -45,7 +45,7 @@ The high-level languages provide tools to compile the initial values of smart co
 For LIGO smart contracts, you can use the `ligo compile storage` command.
 For example, assume that a JsLIGO contract has a storage value that includes a list of integers, a string, and an integer:
 
-```ligolang
+```jsligo
 type storage = [
   list<int>,
   string,
