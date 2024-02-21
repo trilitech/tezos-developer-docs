@@ -180,7 +180,7 @@
       .join("|") +
     ")\\b", "gm");
 
-  Prism.languages.michelson = {
+  Prism.languages.michelsonb = {
     'type': {
       pattern: typesRegex,
       alias: 'keyword',

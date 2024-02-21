@@ -214,21 +214,60 @@ article a[target="_blank"]:after {
 
 
 /* Syntax highlighting */
-.language-michelson .token.instruction {
+.language-michelsona .token.instruction {
   color: #007020;
   font-weight: bold;
 }
 
-.language-michelson .token.type {
+.language-michelsona .token.type {
   color: #902000 !important;
 }
 
-.language-michelson .token.init-keyword {
+.language-michelsona .token.init-keyword {
   color: #007020;
   font-weight: bold;
 }
 
-.language-michelson .token.annotation {
+.language-michelsona .token.annotation {
   color: #007020;
   font-weight: bold;
 }
+
+.language-michelsonb .token.instruction {
+  color: #902000;
+  font-weight: bold;
+}
+
+.language-michelsonb .token.type {
+  color: #007020 !important;
+}
+
+.language-michelsonb .token.init-keyword {
+  color: #007020;
+  font-weight: bold;
+}
+
+.language-michelsonb .token.annotation {
+  color: #007020;
+  font-weight: bold;
+}
+
+.language-michelsonc .token.instruction {
+  color: #902000;
+  font-weight: bold;
+}
+
+.language-michelsonc .token.type {
+  color: #1990b8 !important;
+}
+
+.language-michelsonc .token.init-keyword {
+  color: #1990b8;
+  font-weight: bold;
+}
+
+.language-michelsonc .token.annotation {
+  color: #1990b8;
+  font-weight: bold;
+}
+
