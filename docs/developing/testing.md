@@ -38,10 +38,10 @@ The following SmartPy test code snippet is for a Tezos smart contract that acts 
 ```bash
 if "templates" not in __name__:
 
-    @sp.add_test(name="Calculator")
+    @sp.add_test()
     def test():
         c1 = main.Calculator()
-        scenario = sp.test_scenario(main)
+        scenario = sp.test_scenario("Calculator")
         scenario.h1("Calculator")
         scenario += c1
         c1.multiply(x=2, y=5)
