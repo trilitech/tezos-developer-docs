@@ -1,8 +1,8 @@
 ---
-title: "Part 2: Getting slot information"
+title: "Part 3: Getting slot information"
 authors: 'Tezos Core Developers'
 last_update:
-  date: 7 February 2024
+  date: 14 February 2024
 ---
 
 When clients send data to the DAL, they must choose which slot to put it in.
@@ -111,6 +111,14 @@ Follow these steps to update the Smart Rollup to access information about slot 0
 1. Update the `Cargo.toml` file to add this dependency at the end:
 
    ```toml
+   tezos-smart-rollup-host = { version = "0.2.2", features = [ "proto-alpha" ] }
+   ```
+
+   The end of the file looks like this:
+
+   ```toml
+   [dependencies]
+   tezos-smart-rollup = { version = "0.2.2", features = [ "proto-alpha" ] }
    tezos-smart-rollup-host = { version = "0.2.2", features = [ "proto-alpha" ] }
    ```
 
