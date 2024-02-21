@@ -1,21 +1,21 @@
 ---
-title: "Part 1: Getting the DAL parameters"
+title: "Part 2: Getting the DAL parameters"
 authors: 'Tezos Core Developers'
 last_update:
-  date: 17 January 2024
+  date: 14 February 2024
 ---
 
-import LucidDiagram from '@site/src/components/LucidDiagram';
-
-The data availability layer stores information about the available data in layer 1 blocks.
+The Data Availability Layer stores information about the available data in layer 1 blocks.
 Each block has several byte-vectors called _slots_, each with a maximum size.
-DAL users can add information about the available data as _pages_ in these slots, as shown in this figure:
+DAL users can add information about the available data as a _commitment_ in a slot.
+These commitments refer to the data that is stored on the DAL, which stores the data in _pages_ as shown in this diagram:
 
-<LucidDiagram width="640px" height="240px" src="https://lucid.app/documents/embedded/46fa8412-8443-4491-82f6-305aafaf85f2" id="Hxs62lrO0C4d" />
+![Two example blocks with different DAL slots in use in each](/img/architecture/dal-slots-in-blocks.png)
+<!-- https://lucid.app/lucidchart/46fa8412-8443-4491-82f6-305aafaf85f2/edit -->
 
-The data in a slot is broken into pages to ensure that each piece of data can fit in a single Tezos operation.
+The data is broken into pages to ensure that each piece of data can fit in a single Tezos operation.
 This data must fit in a single operation to allow the Smart Rollup refutation game to work, in which every execution step of the Smart Rollup must be provable to layer 1.
-{/* TODO link to Smart Rollup topic for more info on the refutation game */}
+For more information about Smart Rollups, see [Smart Rollups](../../architecture/smart-rollups).
 
 When clients add data, they must specify which slot to add it to.
 Note that because the DAL is permissionless, clients may try to add data to the same slot in the same block.
@@ -31,7 +31,7 @@ In these steps, you set up a simple Smart Rollup to get the current DAL paramete
 
 ## Prerequisites
 
-Before you begin, make sure that you have installed the prerequisites and set up an environment and an account as described in [Implement a file archive with the DAL and a Smart Rollup](../build-files-archive-with-dal).
+Before you begin, make sure that you have installed the prerequisites and set up an environment and an account as described in [Part 1: Setting up an environment](./set-up-environment).
 
 ## Fetching the DAL parameters in a kernel
 
@@ -54,6 +54,8 @@ To get the DAL parameters, you can use built-in functions in the Tezos [Rust SDK
 
    As a reminder, the kernel of a Smart Rollup is a WASM program.
    The `proto-alpha` feature is necessary to get access to the functions specific to the DAL because they are not yet released in the main version of the Smart Rollup toolkit.
+
+   If you need a text editor inside the Docker container, you can run `sudo apk add nano` to install the [Nano text editor](https://www.nano-editor.org/).
 
 1. Create a file named `src/lib.rs` to be the kernel.
 
@@ -117,7 +119,11 @@ Follow these steps to deploy the Smart Rollup to Weeklynet and start a node:
 
    For simplicity, this command runs the Smart Rollup in observer mode, which does not require a stake of 10,000 tez to publish commitments.
 
-1. Open a new terminal window and run this command to watch the node's log:
+1. Open a new terminal window in the same environment.
+If you are using a Docker container, you can enter the container with the `docker exec` command, as in `docker exec -it my-image /bin/sh`.
+To get the name of the Docker container, you run the `docker ps` command.
+
+1. Run this command to watch the node's log:
 
    ```bash
    tail -F _rollup_node/kernel.log
@@ -143,8 +149,7 @@ These parameters are:
 ## Setting up a deployment script
 
 In later parts of this tutorial, you will update and redeploy the Smart Rollup multiple times.
-To simplify the process, you can use this script.
-To use it, pass the alias of your account in the Octez client:
+To simplify the process, you can use this script:
 
 ```bash
 #!/usr/bin/bash
@@ -171,8 +176,16 @@ octez-smart-rollup-node --endpoint ${ENDPOINT} \
   --dal-node http://localhost:10732 --log-kernel-debug
 ```
 
+To use it, save it in a file with an `sh` extension, such as `deploy_smart_rollup.sh` and give it executable permission.
+Then you can run it any tme you update the `lib.rs` or `Cargo.toml` files to deploy a new Smart Rollup by passing your account alias, as in this example:
+
+```bash
+./deploy_smart_rollup.sh $MY_ACCOUNT
+```
+
 If you run this script and see an error that says that the file was not found, update the first line of the script (the shebang) to the path to your shell interpreter.
-For example, if you are using the Tezos Docker image, the path is `/bin/sh`.
+For example, if you are using the Tezos Docker image, the path is `/bin/sh`, so the first line becomes `#!/bin/sh`.
+Then try the command `./deploy_smart_rollup.sh $MY_ACCOUNT` again.
 
 In the next section, you will get information about the state of slots in the DAL.
-See [Part 2: Getting slot information](./get-slot-info).
+See [Part 3: Getting slot information](./get-slot-info).

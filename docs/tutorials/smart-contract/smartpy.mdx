@@ -2,7 +2,7 @@
 title: Deploy a smart contract with SmartPy
 authors: 'John Joubert, Sasha Aldrick, Tim McMackin'
 last_update:
-  date: 9 November 2023
+  date: 15 February 2024
 ---
 
 This tutorial covers writing and deploying a simple smart contract with the SmartPy programming language.
@@ -46,8 +46,8 @@ A smart contract has these parts:
 The contract that you deploy in this tutorial stores a string value.
 It provides entrypoints that clients can call to change the value of that string:
 
-- The `replace` endpoint accepts a new string as a parameter and stores that string, replacing the existing string.
-- The `append` endpoint accepts a new string as a parameter and appends it to the existing string.
+- The `replace` entrypoint accepts a new string as a parameter and stores that string, replacing the existing string.
+- The `append` entrypoint accepts a new string as a parameter and appends it to the existing string.
 
 After you deploy the contract, you or any other user can call it from various sources, including web applications, other contracts, and the Octez command-line client.
 
@@ -91,7 +91,7 @@ Now you have an account and funds that you can use to work with Tezos.
 
 The contract that you will create has these basic parts:
 
-- A function that initializes the contract and sets the starting value for it storage.
+- A function that initializes the contract and sets the starting value for its storage.
 
 - Internal functions called entrypoints that run code when clients call the contract.
 
@@ -115,6 +115,9 @@ You can work with SmartPy code in any IDE, but this online IDE keeps you from ha
    def main():
        class StoreGreeting(sp.Contract):
            def __init__(self, greeting): # Note the indentation
+               # Initialize the storage with a string passed at deployment time
+               # Cast the greeting parameter to a string
+               sp.cast(greeting, sp.string)
                self.data.greeting = greeting
 
            @sp.entrypoint # Note the indentation
@@ -139,22 +142,28 @@ You can work with SmartPy code in any IDE, but this online IDE keeps you from ha
 1. Add this code, which creates automated tests:
 
    ```python
-   @sp.add_test(name = "StoreGreeting")
+   # Automated tests that run on simulation
+   @sp.add_test()
    def test():
-       scenario = sp.test_scenario(main)
+       # Initialize the test scenario
+       scenario = sp.test_scenario("StoreGreeting", main)
        scenario.h1("StoreGreeting")
 
+       # Initialize the contract and pass the starting value
        contract = main.StoreGreeting("Hello")
        scenario += contract
 
+       # Verify that the value in storage was set correctly
        scenario.verify(contract.data.greeting == "Hello")
 
+       # Test the entrypoints and check the new storage value
        contract.replace(text = "Hi")
        contract.append(text = ", there!")
        scenario.verify(contract.data.greeting == "Hi, there!")
    ```
 
-   These tests run automatically on compilation to verify that the replace and append endpoints work.
+   When you run the SmartPy file, SmartPy runs a simulation in which it tests and compiles the contract.
+   In this case, the tests verify that the replace and append endpoints work.
    For more information about SmartPy and tests, see the [SmartPy documentation](https://smartpy.io/).
 
 The SmartPy online IDE looks like this:
@@ -170,6 +179,9 @@ import smartpy as sp
 def main():
     class StoreGreeting(sp.Contract):
         def __init__(self, greeting): # Note the indentation
+            # Initialize the storage with a string passed at deployment time
+            # Cast the greeting parameter to a string
+            sp.cast(greeting, sp.string)
             self.data.greeting = greeting
 
         @sp.entrypoint # Note the indentation
@@ -180,16 +192,21 @@ def main():
         def append(self, params):
             self.data.greeting += params.text
 
-@sp.add_test(name = "StoreGreeting")
+# Automated tests that run on simulation
+@sp.add_test()
 def test():
-    scenario = sp.test_scenario(main)
+    # Initialize the test scenario
+    scenario = sp.test_scenario("Test scenario", main)
     scenario.h1("StoreGreeting")
 
+    # Initialize the contract and pass the starting value
     contract = main.StoreGreeting("Hello")
     scenario += contract
 
+    # Verify that the value in storage was set correctly
     scenario.verify(contract.data.greeting == "Hello")
 
+    # Test the entrypoints and check the new storage value
     contract.replace(text = "Hi")
     contract.append(text = ", there!")
     scenario.verify(contract.data.greeting == "Hi, there!")
@@ -261,7 +278,7 @@ It will not be shown again.
 
    <img src="/img/tutorials/bcd-originated-contract.png" alt="The block explorer, showing information about the contract" style={{width: 500}} />
 
-1. Try calling one of the endpoints:
+1. Try calling one of the entrypoints:
 
    1. Go to the **Storage** tab and check the current state of the storage.
    If you just originated  the contract, the storage is "Hello" because that's the value set in the smart contract code.
@@ -291,4 +308,4 @@ Now the contract is running on the Tezos blockchain.
 You or any other user can call it from any source that can send transactions to Tezos, including Octez, dApps, and other contracts.
 
 If you want to continue working with this contract, try creating a dApp to call it from a web application, similar to the dApp that you create in the tutorial [Build a simple web application](../build-your-first-app/).
-You can also try adding your own endpoints and originating a new contract, but you cannot update the existing contract after it is deployed.
+You can also try adding your own entrypoints and originating a new contract, but you cannot update the existing contract after it is deployed.
