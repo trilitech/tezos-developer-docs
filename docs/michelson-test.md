@@ -46,3 +46,13 @@ For reference, here's what Michelson looks like in the Octez docs:
          NIL operation ;
          PAIR } }
 ```
+
+## Tokens to format
+
+Currently, the formatter assigns styles to these main elements of Michelson code:
+
+- Comments
+- Annotations (beginning with @, :, and %)
+- Types (such as operation, mutez, and int)
+- Instructions (such as `DUP`, `UNPAIR`, and `DROP`)
+- Initialization keywords (Tim's new category for `parameter`, `storage`, and `code` at the beginning of a line)
