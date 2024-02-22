@@ -15,9 +15,10 @@ This self-amendment process is separate from the less formal [Tezos Improvement 
 
 The self-amendment process is split into 5 periods:
 
-- Proposal period: bakers propose changes to the Tezos protocol, by submitting to vote and upvoting protocol amendment proposals. If a quorum is met, the top-voted proposal moves to the next period.
+- Proposal period: bakers propose changes to the Tezos protocol by submitting proposals and upvoting protocol amendment proposals.
+If a quorum is met, the top-voted proposal moves to the next period.
 - Exploration Vote period: Users vote whether to consider the top-voted proposal
-- Cooldown period: If a proposal gets is selected in the Exploration period, a Cooldown period starts before the final election is made. The community can continue testing the new protocol proposal, and preparing their infrastructure, before the final decision is made. 
+- Cooldown period: If a proposal gets is selected in the Exploration period, a Cooldown period starts before the final election is made. The community can continue testing the new protocol proposal, and preparing their infrastructure, before the final decision is made.
 - Promotion Vote period: Users make a final vote on whether to apply the proposal
 - Adoption period: Users have the length of the Adoption period to adapt their code and infrastructure to the proposal, and at the end of the period it is activated automatically
 
@@ -37,7 +38,7 @@ Each delegate can submit up to 20 proposals in a single Proposal period.
 A proposal submission also counts as a vote, which is equivalent to the amount of tez in its staking balance at the start of the period.
 Other delegates can then vote on the proposals during the Proposal period up to 20 times.
 
-At the end of the Proposal period, the network counts the proposal votes and the most-upvoted proposal proceeds to the Exploration Vote period.
+At the end of the Proposal period, the network counts the proposal votes and if a quorum is met, the most-upvoted proposal proceeds to the Exploration Vote period.
 If no proposals have been submitted or if there is a tie between proposals, no proposal proceeds and a new Proposal period begins.
 
 ### 2. Exploration Vote period
