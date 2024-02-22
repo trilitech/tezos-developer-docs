@@ -1,50 +1,86 @@
 ---
-title: Governance
+title: Governance and self-amendment
 last_update:
-  date: 3 July 2023
+  date: 22 February 2024
 ---
 
-## What is Self Amendment?
+Tezos incorporates a built-in, on-chain mechanism for proposing, selecting, testing, and activating protocol upgrades without the need to hard fork.
+This mechanism makes Tezos a self-amending blockchain and allows any user to propose changes.
 
-Tezos is a self-amending blockchain network that incorporates an on-chain mechanism for proposing, selecting, testing, and activating protocol upgrades without the need to hard fork.
+All of these self-amendment features, including the scheduling and operation of each amendment period and the voting processes, are automatic and handled by the protocol without human intervention.
 
-## How Does It Work?
+## Amendment periods
 
-The self-amendment process is split into 5 periods: Proposal Period, Exploration Vote Period, Cooldown Period, Promotion Vote Period, and Adoption Period. Each of these periods lasts five baking cycles (i.e. 40,960 blocks at 30-second intervals or roughly 14 days, 5 hours), comprising roughly 2 months and 10 days.
+The self-amendment process is split into 5 periods:
 
-Should there be any failure to proceed for a period, the whole process reverts to the Proposal Period, effectively restarting the whole process.
+- Proposal period: Users propose changes to the Tezos protocol and vote on a single proposal to explore; the top-voted proposal moves to the next period
+- Exploration Vote period: Users vote whether to consider the top-voted proposal
+- Cooldown period: If the proposal gets enough votes in the Exploration Vote period, users have the length of the Cooldown period to review and test the new protocol
+- Promotion Vote period: Users make a final vote on whether to apply the proposal
+- Adoption period: Users have the length of the Adoption period to adapt their code and infrastructure to the proposal, and at the end of the period it is activated automatically
 
-#### 1. Proposal Period
+Each period lasts five baking cycles (40,960 blocks at 30-second intervals or roughly 14 days, 5 hours), comprising roughly 2 months and 10 days.
 
-The Tezos amendment process begins with the Proposal Period, during which bakers can submit proposals on-chain. The baker submits the proposal by submitting the hash of the source code.
+If any period leads to a failure, such as not enough votes to proceed to the next period, the process reverts to the Proposal period, effectively restarting the whole process.
 
-In each Proposal Period, bakers can submit up to 20 proposals. A proposal submission also counts as a vote, which is equivalent to the number of rolls in its staking balance at the start of the period. Other bakers can then vote on the proposals during the Proposal Period up to 20 times.
+Only [delegates](../overview/glossary#delegate) can vote on proposals.
+A delegate's voting power is the amount of tez that it has staked plus the tez that delegators have delegated to it, also called its _staking balance_.
 
-At the end of the Proposal Period, the network counts the proposal votes and the most-upvoted proposal proceeds to the Exploration Vote Period. If no proposals have been submitted or if there is a tie between proposals, a new Proposal Period begins.
+### 1. Proposal period
 
-#### 2. Exploration Vote Period
+The Tezos amendment process begins with the Proposal period, during which delegates can submit proposals to change the Tezos protocol.
+The delegate submits the proposal by submitting the hash of the source code.
 
-In the Exploration Vote Period, bakers may vote on the top-ranked proposal from the previous Proposal Period. Bakers get to vote either "Yea", "Nay", or "Pass" on a specific proposal. "Pass" just means to "not vote" on a proposal. As in the Proposal Period, a baker's vote is based on the number of rolls in its staking balance.
+Each delegate can submit up to 20 proposals in a single Proposal period.
+A proposal submission also counts as a vote, which is equivalent to the amount of tez in its staking balance at the start of the period.
+Other delegates can then vote on the proposals during the Proposal period up to 20 times.
 
-At the end of the Exploration Vote Period, the network counts the votes. If voting participation (the total of “Yea,” “Nay,” and “Pass”) meets the target, and an 80% majority of non-abstaining bakers approve, the proposal proceeds to the Testing Period.
+At the end of the Proposal period, the network counts the proposal votes and the most-upvoted proposal proceeds to the Exploration Vote period.
+If no proposals have been submitted or if there is a tie between proposals, no proposal proceeds and a new Proposal period begins.
 
-The voting participation target tries to match the exponential moving average of the past participation rate. If the voting participation fails to achieve the target or the 80% supermajority is not met, the amendment process restarts at the beginning of the Proposal Period
+### 2. Exploration Vote period
 
-#### 3. Cooldown Period
+In the Exploration Vote period, delegates vote on whether to consider the top-ranked proposal from the previous Proposal period.
+Delegates can vote either "Yea", "Nay", or "Pass" on that proposal.
+"Pass" means to "not vote" on a proposal.
+As in the Proposal period, a delegate's voting power is based on the amount of tez in its staking balance.
 
-Previously, during the voting process, a test chain would be spun up during the “testing period” which took place between the exploration and promotion voting periods. The intent was that this test chain be used to verify that the new proposal worked correctly, but in practice, the test chain has never been used in this manner and has caused significant operational problems to node operators.
+At the end of the Exploration Vote period, the network counts the votes.
+To pass, the proposal must meet both of these standards:
 
-The Florence upgrade eliminates the test chain activation, the testing period has been retained but is now named the “cooldown period”. Instead, testing the protocol continues by using test chains that operate outside of the Mainnet voting process.
+- Quorum: A quorum of all of the voting power in the system must vote either "Yea", "Nay", or "Pass."
+The amount of the quorum changes dynamically based on previous votes, which allows the system to adjust to the amount of delegates that participate in voting.
 
-#### 4. Promotion Vote Period
+- Supermajority: The total voting power of the Yea votes must be greater than 80% of the total voting power of the Yea and Nay votes combined.
+Pass votes are not counted in this equation.
 
-At the end of the Testing Period, the Promotion Vote Period begins. In this period, the network decides whether to adopt the amendment based on off-chain discussions and its behavior during the Testing Period. As in the Exploration Vote Period, bakers submit their votes using the ballot operation, with their votes weighted proportionally to the number of rolls in their staking balance.
+If the proposal meets both of those standards, it moves to the Cooldown period.
+If not, it fails and a new Proposal period starts.
 
-At the end of the Promotion Vote Period, the network counts the number of votes. If the participation rate reaches the minimum quorum and an 80% supermajority of non-abstaining bakers votes “Yea,” then the proposal is activated as the new Mainnet. Otherwise, the process once more reverts to the Proposal Period. The minimum vote participation rate is set based on past participation rates.
+### 3. Cooldown period
 
-See [the full details of the governance process](https://medium.com/tezos/amending-tezos-b77949d97e1e).
+The Cooldown period is a delay in the process that gives users time to review and test the new version of the protocol.
+Users set up test networks that use the new version of the protocol, verify that it works, see how their baking infrastructure works with it, and discuss the proposal with other users.
 
-#### 5. Adoption Period
+Previous versions of the protocol attempted to set up a test network automatically, but the Florence update eliminated that step.
+Instead, testing the protocol continues by using test networks that operate outside of the Mainnet voting process.
 
-The Adoption Period provides a "cooldown" allowing developers and bakers some additional time to adapt their code and infrastructure to the upgrade based on the results of the Promotion Vote Period.
+### 4. Promotion Vote period
 
+At the end of the Cooldown period, the Promotion Vote period begins, which is the last vote.
+In this period, users decide whether to adopt the proposal into Mainnet.
+
+The voting requirements are the same as in the Exploration Vote period, including the quorum and supermajority.
+
+If the proposal passes, it moves to the Adoption period.
+If it fails, a new Proposal period starts.
+
+### 5. Adoption period
+
+The Adoption period is a delay in the process that gives developers and bakers additional time to adapt their code and infrastructure to the new protocol.
+At the end of the Adoption period, Mainnet automatically enables the new protocol and a new Proposal period begins.
+
+## References
+
+- [The Amendment (and Voting) Process](https://tezos.gitlab.io/active/voting.html) in the Octez documentation
+- [Amending Tezos](https://medium.com/tezos/amending-tezos-b77949d97e1e) on Medium
