@@ -34,7 +34,7 @@ The delegate submits the proposal by submitting the hash of the source code.
 
 Each delegate can submit up to 20 proposals in a single Proposal period.
 A proposal submission also counts as a vote, which is equivalent to the amount of tez in its staking balance at the start of the period.
-Other delegates can then vote on the proposals during the Proposal period up to 20 times.
+Other delegates can vote for up to 20 proposals during this period.
 
 At the end of the Proposal period, the network counts the proposal votes and if a quorum is met, the most-upvoted proposal proceeds to the Exploration Vote period.
 If no proposals have been submitted or if there is a tie between proposals, no proposal proceeds and a new Proposal period begins.
