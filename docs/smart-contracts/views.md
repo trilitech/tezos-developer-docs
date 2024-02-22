@@ -77,9 +77,9 @@ This JsLIGO code calls the views from the previous examples by passing the targe
 @entry
 const callView = (_i: unit, _s: storage): return_type => {
   const resultOpt: option<int> = Tezos.call_view(
-    "get_larger",
-    [4, 5],
-    "KT1Uh4MjPoaiFbyJyv8TcsZVpsbE2fNm9VKX" as address
+    "get_larger", // Name of the view
+    [4, 5], // Parameters to pass
+    "KT1Uh4MjPoaiFbyJyv8TcsZVpsbE2fNm9VKX" as address // Address of the contract
   );
   return match(resultOpt) {
     when (None):
@@ -100,10 +100,10 @@ def callView(self, a, b):
     sp.cast(a, sp.int)
     sp.cast(b, sp.int)
     viewResponseOpt = sp.view(
-        "get_larger",
-        sp.address("KT1K6kivc91rZoDeCqEWjH8YqDn3iz6iEZkj"),
-        sp.record(a=a, b=b),
-        sp.int
+        "get_larger", # Name of the view
+        sp.address("KT1K6kivc91rZoDeCqEWjH8YqDn3iz6iEZkj"), # Address of the contract
+        sp.record(a=a, b=b), # Parameters to pass
+        sp.int # Return type of the view
     )
     if viewResponseOpt.is_some():
         self.data.myval = viewResponseOpt.unwrap_some()
