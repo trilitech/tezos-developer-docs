@@ -34,6 +34,8 @@ Instead of repeating certain logic in multiple places, you can put the logic in 
 In high-level languages, views look a lot like entrypoints because they take an input value and the contract storage as inputs.
 Unlike entrypoints, they return only a value, without a list of operations.
 
+### JsLIGO
+
 This JsLIGO view returns the larger of two numbers:
 
 ```ts
@@ -48,6 +50,8 @@ const get_larger = (input: get_larger_input, _s: storage): int => {
   return b;
 }
 ```
+
+### SmartPy
 
 This SmartPy view does the same thing:
 
@@ -64,6 +68,8 @@ def get_larger(self, a, b):
 ## Calling views
 
 Calling views from smart contracts is similar to calling entrypoints.
+
+### JsLIGO
 
 This JsLIGO code calls the views from the previous examples by passing the target contract address, parameters, and view name to the `Tezos.call_vew()` function:
 
@@ -84,6 +90,8 @@ const callView = (_i: unit, _s: storage): return_type => {
 }
 ```
 
+### SmartPy
+
 This SmartPy code calls the views from the previous examples by passing the view name, target contract address, parameters, and return type to the `sp.view()` function:
 
 ```python
@@ -101,6 +109,8 @@ def callView(self, a, b):
         self.data.myval = viewResponseOpt.unwrap_some()
 ```
 
+### Taquito
+
 Calling a view with Taquito is similar to calling entrypoints.
 When you create an object to represent the contract, its `contractViews` property has a method for each view, which you can call as in this example:
 
@@ -111,6 +121,8 @@ const result = await contract.contractViews.get_larger({a: 2, b: 12})
   .executeView({ viewCaller: viewContractAddress });
 console.log(result);
 ```
+
+### Octez client
 
 To call a view with the Octez client, use the `run view` command, as in this example:
 
