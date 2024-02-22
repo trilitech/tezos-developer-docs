@@ -2,7 +2,7 @@
 title: FA1.2 tokens
 authors: "Claude Barde, Aymeric Bethencourt, Tim McMackin"
 last_update:
-  date: 26 October 2023
+  date: 22 February 2024
 ---
 
 The FA1.2 standard is for _fungible tokens_, which are collections of identical, interchangeable tokens.
@@ -11,7 +11,7 @@ Commonly used FA1.2 tokens include kUSD and Ctez.
 
 Contracts that follow this standard keep a ledger that records how many tokens different accounts own.
 They have entrypoints that allow users to transfer tokens and limit the amount that can be transferred.
-They also have views that provide information such as the total amount of tokens and the amount of tokens that a specified account owns.
+They also have entrypoints that provide information such as the total amount of tokens and the amount of tokens that a specified account owns.
 
 For the full details of the FA1.2 standard, see [Tezos Improvement Proposal 7 (TZIP-7)](https://gitlab.com/tezos/tzip/-/blob/master/proposals/tzip-7/tzip-7.md), which defines the standard.
 
@@ -55,7 +55,7 @@ FA1.2 contracts must have these entrypoints:
   The transaction sender must be an address that has been authorized to transfer the tokens via the `approve` endpoint, even if the transaction sender and address that owns the tokens is the same address.
   After the transfer, the sender's allowance is decrease by the amount of tokens transferred.
 
-FA1.2 contracts must also have entrypoints that behave like views but run on the chain.
+FA1.2 contracts must also have entrypoints that provide information to other smart contracts.
 These entrypoints accept a contract address as a parameter and send a callback transaction to that address with information about the current state of the contract.
 They must not change the storage or generate any operations other than the callback transaction.
 

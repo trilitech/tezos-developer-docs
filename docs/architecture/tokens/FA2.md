@@ -2,7 +2,7 @@
 title: FA2 tokens
 authors: "Claude Barde, Aymeric Bethencourt, Tim McMackin"
 last_update:
-  date: 29 December 2023
+  date: 22 February 2024
 ---
 
 The FA2 standard supports several different token types, including:
@@ -59,19 +59,6 @@ The standard defines what happens when these entrypoints are called, the format 
 For information about these requirements, see [TZIP-12](https://gitlab.com/tezos/tzip/-/blob/master/proposals/tzip-12/tzip-12.md).
 
 FA1.2 contracts can add any other entrypoints in addition to the required entrypoints.
-
-## Views
-
-FA2 contracts are not required to have any views, but the specification suggests these optional views.
-If any of them are implemented, all of them should be implemented, and they should be implemented with the parameters, return values, and behaviors that are defined in the standard:
-
-- `get_balance`: Returns the amount of tokens that a specified owner owns of the specified token ID
-- `total_supply`: Returns the total number of tokens of the specified token ID
-- `all_tokens`: Returns the list of all token IDs in the contract
-- `is_operator`: Returns true if the specified address is an operator for the specified token ID and owner address
-- `token_metadata`: Returns the metadata for the specified token ID
-
-FA1.2 contracts can add any other views in addition to the required views.
 
 ## Errors
 
