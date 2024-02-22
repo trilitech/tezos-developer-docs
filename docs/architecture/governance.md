@@ -15,7 +15,7 @@ This self-amendment process is separate from the less formal [Tezos Improvement 
 
 The self-amendment process is split into 5 periods:
 
-- Proposal period: Users propose changes to the Tezos protocol and vote on a single proposal to explore; the top-voted proposal moves to the next period
+- Proposal period: bakers propose changes to the Tezos protocol, by submitting to vote and upvoting protocol amendment proposals. If a quorum is met, the top-voted proposal moves to the next period.
 - Exploration Vote period: Users vote whether to consider the top-voted proposal
 - Cooldown period: If the proposal gets enough votes in the Exploration Vote period, users have the length of the Cooldown period to review and test the new protocol
 - Promotion Vote period: Users make a final vote on whether to apply the proposal
