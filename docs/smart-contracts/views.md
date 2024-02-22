@@ -114,7 +114,7 @@ console.log(result);
 To call a view with the Octez client, use the `run view` command, as in this example:
 
 ```bash
-octez client run view "get_larger" on contract "KT1Uh4MjPoaiFbyJyv8TcsZVpsbE2fNm9VKX" with input "Pair 4 5"
+octez-client run view "get_larger" on contract "KT1Uh4MjPoaiFbyJyv8TcsZVpsbE2fNm9VKX" with input "Pair 4 5"
 ```
 <!-- TODO link to info on encoding param values -->
 
