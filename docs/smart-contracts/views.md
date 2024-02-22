@@ -129,6 +129,8 @@ To call a view with the Octez client, use the `run view` command, as in this exa
 ```bash
 octez-client run view "get_larger" on contract "KT1Uh4MjPoaiFbyJyv8TcsZVpsbE2fNm9VKX" with input "Pair 4 5"
 ```
+
+If the view takes no parameters, you can pass Unit or omit the `with input`.
 <!-- TODO link to info on encoding param values -->
 
 ## Implementation details
