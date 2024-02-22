@@ -58,7 +58,7 @@ Its parameters are a list of commands to add or remove operators for token owner
 The standard defines what happens when these entrypoints are called, the format of their parameters, and the errors that they create.
 For information about these requirements, see [TZIP-12](https://gitlab.com/tezos/tzip/-/blob/master/proposals/tzip-12/tzip-12.md).
 
-FA1.2 contracts can add any other entrypoints in addition to the required entrypoints.
+FA2 contracts can add any other entrypoints in addition to the required entrypoints.
 
 ## Errors
 
