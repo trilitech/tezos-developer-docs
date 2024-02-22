@@ -23,13 +23,11 @@ You can call the view from sources such as the Octez client and Taquito and get 
 ## Examples
 
 Views can provide information about tokens.
-For example, the [FA2 standard](../architecture/tokens/FA2) suggests that contracts provide several views, including a view that provides the amount of a token that a specified account owns.
+You can use views to provide an account's balance of a token type or the total amount of a token in circulation.
 
-Views can provide information about the storage of contracts in a more convenient format.
-Contracts can't directly access other contracts' storage, but they can use views to get information such as a value from a big-map for a specific index.
+DEXs and liquidity pools can provide the exchange rate between two tokens or the amount of liquidity in the pool.
 
-Views can run logic or processing, like logic that you want to externalize rather than repeat in multiple places.
-For example, a view might run a mathematical operation like calculating the average or median of a list of numbers.
+Instead of repeating certain logic in multiple places, you can put the logic in a view and use it from different smart contracts.
 
 ## Creating views
 
