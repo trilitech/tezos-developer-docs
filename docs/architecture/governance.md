@@ -9,6 +9,8 @@ This mechanism makes Tezos a self-amending blockchain and allows any user to pro
 
 All of these self-amendment features, including the scheduling and operation of each amendment period and the voting processes, are automatic and handled by the protocol without human intervention.
 
+This self-amendment process is separate from the less formal [Tezos Improvement Process](./governance/improvement-process).
+
 ## Amendment periods
 
 The self-amendment process is split into 5 periods:
