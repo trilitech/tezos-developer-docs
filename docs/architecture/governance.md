@@ -20,7 +20,7 @@ If a quorum is met, the top-voted proposal moves to the next period.
 - Exploration Vote period: Users vote whether to consider the top-voted proposal
 - Cooldown period: If a proposal is selected in the Exploration period, a Cooldown period starts before the final election is made. The community can continue testing the new protocol proposal and preparing their infrastructure, before the final decision is made.
 - Promotion Vote period: Users make a final vote on whether to apply the proposal
-- Adoption period: Users have the length of the Adoption period to adapt their code and infrastructure to the proposal, and at the end of the period it is activated automatically
+- Adoption period: Users adapt their code and infrastructure to the proposal, and at the end of the period it is activated automatically
 
 Each period lasts five blockchain cycles (40,960 blocks at 30-second intervals or roughly 14 days, 5 hours), comprising roughly 2 months and 10 days.
 
