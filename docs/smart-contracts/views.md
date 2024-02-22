@@ -2,20 +2,23 @@
 title: Views
 authors: 'Mathias Hiron (Nomadic Labs), Sasha Aldrick (TriliTech), Tim McMackin (TriliTech)'
 last_update:
-  date: 19 February 2024
+  date: 22 February 2024
 ---
 
 Views are a way for contracts to expose information to other contracts and to off-chain consumers.
 
-A view is similar to an entrypoint, with a few differences:
+Views help you get around a limitation in smart contracts: a smart contract can't access another contract's storage.
+Smart contracts can provide information via callbacks, but using a callback means calling entrypoints, which is an asynchronous action.
 
-- Views return a value.
-- Calls to views are synchronous, which means that contracts can call views and use the returned values immediately.
-In other words, calling a view doesn't produce a new operation.
-The call to the view runs immediately and the return value can be used in the next instruction.
-- Calling a view doesn't have any effect other than returning that value.
-In particular, it doesn't modify the storage of its contract and doesn't generate any operations.
-- Views do not include the transfer of any tez and calling them does not require any fees.
+By contrast, views are synchronous; a contract can call a view and use the information that it returns immediately.
+
+Like entrypoints, views can accept parameters, access the contract's storage, and call other views.
+Unlike entrypoints, views return a value directly to the caller.
+However, views can't create operations, including calling smart contracts and transferring tez.
+Views also can't change the contract storage.
+
+A node can run a view without creating any operations, which lets developers use views without paying fees.
+You can call the view from sources such as the Octez client and Taquito and get a response immediately from a node.
 
 ## Examples
 
