@@ -29,12 +29,10 @@ DEXs and liquidity pools can provide the exchange rate between two tokens or the
 
 Instead of repeating certain logic in multiple places, you can put the logic in a view and use it from different smart contracts.
 
-## Creating views
+## Creating views in JsLIGO
 
-In high-level languages, views look a lot like entrypoints because they take an input value and the contract storage as inputs.
-Unlike entrypoints, they return only a value, without a list of operations.
-
-### JsLIGO
+Views in LIGO look like entrypoints because they receive the input values and storage as parameters, but they have the `@view` annotation instead of the `@entry` annotation.
+They return a value instead of a list of operations and the new value of the storage.
 
 This JsLIGO view returns the larger of two numbers:
 
@@ -51,27 +49,24 @@ const get_larger = (input: get_larger_input, _s: storage): int => {
 }
 ```
 
-### SmartPy
+This view returns a value from a big-map in storage:
 
-This SmartPy view does the same thing:
+```ts
+type storageType = big_map<string, string>;
 
-```python
-@sp.onchain_view
-def get_larger(self, a, b):
-    sp.cast(a, sp.int)
-    sp.cast(b, sp.int)
-    if a > b:
-        return a
-    return b
+@view
+const get = (key: string, s: storageType): string => {
+  const valOpt = Big_map.find_opt(key, s);
+  return match(valOpt) {
+    when(Some(val)): val;
+    when(None): "";
+  }
+}
 ```
 
-## Calling views
+## Calling views in JsLIGO
 
-Calling views from smart contracts is similar to calling entrypoints.
-
-### JsLIGO
-
-This JsLIGO code calls the views from the previous examples by passing the target contract address, parameters, and view name to the `Tezos.call_vew()` function:
+This JsLIGO code calls the `get_larger` view from the previous example by passing the target contract address, parameters, and view name to the `Tezos.call_vew()` function:
 
 ```ts
 @entry
@@ -90,9 +85,57 @@ const callView = (_i: unit, _s: storage): return_type => {
 }
 ```
 
-### SmartPy
+If the view takes no parameters, pass a Unit type for the parameter:
 
-This SmartPy code calls the views from the previous examples by passing the view name, target contract address, parameters, and return type to the `sp.view()` function:
+```ts
+const unitValue: unit = [];
+const resultOpt: option<int> = Tezos.call_view(
+  "no_param_view", // Name of the view
+  unitValue, // No parameter
+  "KT1Uh4MjPoaiFbyJyv8TcsZVpsbE2fNm9VKX" as address // Address of the contract
+);
+```
+
+## Creating views in SmartPy
+
+Views in SmartPy look like entrypoints because they receive the `self` object and input values as parameters, but they have the `@sp.onchain_view` annotation instead of the `@sp.entrypoint` annotation.
+
+This SmartPy view returns the larger of two integers:
+
+```python
+@sp.onchain_view
+def get_larger(self, a, b):
+    sp.cast(a, sp.int)
+    sp.cast(b, sp.int)
+    if a > b:
+        return a
+    return b
+```
+
+This view returns a value from a big-map in storage:
+
+```python
+@sp.onchain_view
+def get(self, key):
+  valOpt = self.data.myBigmap.get_opt(key)
+  if valOpt.is_some():
+    return valOpt.unwrap_some()
+  else:
+    return ""
+```
+
+## Calling views in SmartPy
+
+In SmartPy tests, you can call views in the contract just like you call entrypoints.
+However, due to a limitation in SmartPy, if the view accepts multiple parameters, you must pass those parameters in a record.
+For example, to call the `get_larger` view in the previous example, use this code:
+
+```python
+viewResult = contract.get_larger(sp.record(a = 4, b = 5))
+scenario.verify(viewResult == 5)
+```
+
+To call a view in an entrypoint, pass the view name, target contract address, parameters, and return type to the `sp.view()` function, as in this example:
 
 ```python
 @sp.entrypoint
@@ -109,7 +152,18 @@ def callView(self, a, b):
         self.data.myval = viewResponseOpt.unwrap_some()
 ```
 
-### Taquito
+If the view takes no parameters, pass `()` for the parameter:
+
+```python
+viewResponseOpt = sp.view(
+    "no_param_view", # Name of the view
+    sp.address("KT1K6kivc91rZoDeCqEWjH8YqDn3iz6iEZkj"), # Address of the contract
+    (), # No parameter
+    sp.int # Return type of the view
+)
+```
+
+## Calling views with Taquito
 
 Calling a view with Taquito is similar to calling entrypoints.
 When you create an object to represent the contract, its `contractViews` property has a method for each view, which you can call as in this example:
@@ -122,7 +176,7 @@ const result = await contract.contractViews.get_larger({a: 2, b: 12})
 console.log(result);
 ```
 
-### Octez client
+## Calling views with the Octez client
 
 To call a view with the Octez client, use the `run view` command, as in this example:
 
