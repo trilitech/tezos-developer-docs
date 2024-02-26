@@ -2,19 +2,14 @@
 title: Deploy a smart contract with SmartPy
 authors: 'John Joubert, Sasha Aldrick, Tim McMackin'
 last_update:
-  date: 20 February 2024
+  date: 26 February 2024
 ---
 
 This tutorial covers writing and deploying a simple smart contract with the SmartPy programming language.
 SmartPy has syntax similar to Python, but you don't need any experience with Python or SmartPy to do this tutorial.
 
-- If you are more familiar with OCaml, try [Deploy a smart contract with CameLIGO](./cameligo).
-- If you are more familiar with JavaScript, try [Deploy a smart contract with JsLIGO](./jsligo).
-- To learn the Archetype language, try [Deploy a smart contract with Archetype](./archetype).
-
 SmartPy is a high-level programming language that you can use to write smart contracts for the Tezos blockchain.
-
-It abstracts away the complexity of using Michelson (the smart contract language directly available on-chain) and provides different syntaxes that make it easier to write smart contracts on Tezos.
+It abstracts away the complexity of using Michelson (the smart contract language directly available on-chain) and provides a syntax that makes it easier to write smart contracts on Tezos.
 
 In this tutorial, you will learn how to:
 
@@ -51,58 +46,131 @@ It provides entrypoints that clients can call to change the value of that string
 
 After you deploy the contract, you or any other user can call it from various sources, including web applications, other contracts, and the Octez command-line client.
 
-## Creating and funding a wallet
+## Setting up a development environment
 
-To deploy and work with the contract, you need a wallet and some tez tokens.
+While SmartPy has an [online IDE](https://smartpy.io/ide), many developers prefer to set up SmartPy locally so they can code their smart contracts in the way that they normally work.
 
-1. Install a Tezos-compatible wallet.
-Which wallet you install is up to you and whether you want to install a wallet on your computer, in a browser extension, or as a mobile app.
+Follow these steps to set up your development environment:
 
-   If you don't know which one to choose, try the [Temple](https://templewallet.com/) browser extension, because then you can use it in the same browser that you are using to view the web app.
+1. Install [Python](https://www.python.org/).
 
-   Desktop wallets for Tezos include the [Temple](https://templewallet.com/) browser extension, [Kukai](https://wallet.kukai.app/), and [Umami](https://umamiwallet.com/).
+1. Install SmartPy by running this command:
 
-   Mobile apps include [Temple](https://templewallet.com/), [Kukai](https://wallet.kukai.app/), and [Umami](https://umamiwallet.com/).
+   ```bash
+   pip install https://smartpy.io/static/tezos_smartpy-0.19.1-py3-none-any.whl
+   ```
 
-1. Switch the wallet to use the Ghostnet testnet instead of Tezos Mainnet.
-Ghostnet is a network for testing Tezos applications where tokens are free so you don't have to spend real currency to work with your applications.
+1. Verify that SmartPy is installed by running these commands to download and compile a smart contract:
 
-   For example, for the Temple browser wallet, click **Tezos Mainnet** at the top and then click **Ghostnet Testnet**, as in this picture:
+   ```bash
+   wget smartpy.io/templates/welcome.py
+   python welcome.py
+   ```
 
-   ![Selecting the Ghostnet testnet in the Temple wallet](/img/tutorials/temple-switch-network.png)
+   If SmartPy is installed correctly, the `python` command creates a folder named `welcome/` with compiled code.
 
-1. From your wallet, get the address of your account, which starts with `tz1`.
-This is the address that applications use to work with your wallet.
+1. Install the Octez client, which sends transactions to Tezos.
+(The Octez suite includes many programs, but for now all you need is the Octez client.)
 
-1. Go to the Ghostnet faucet page at https://faucet.ghostnet.teztnets.com.
+   - For Ubuntu, Windows WSL, and Linux distributions that use `apt`, run these commands:
 
-1. On the faucet page, paste your wallet address into the input field labeled "Or fund any address" and click the button for the amount of tez to add to your wallet.
-20 tez is enough to work with the tutorial contract, and you can return to the faucet later if you need more tez.
+   ```bash
+   REPO="ppa:serokell/tezos"
+   sudo add-apt-repository -y $REPO && sudo apt-get update
+   sudo apt-get install -y tezos-client
+   ```
 
-   It may take a few minutes for the faucet to send the tokens and for those tokens to appear in your wallet.
+   - For Fedora and Linux distributions that use Copr, run these commands:
 
-   You can use the faucet as much as you need to get tokens on the testnet, but those tokens are worthless and cannot be used on Mainnet.
+   ```bash
+   REPO="@Serokell/Tezos"
+   dnf copr enable -y $REPO && dnf update -y
+   dnf install -y tezos-client
+   ```
 
-   ![Fund your wallet using the Ghostnet Faucet](/img/tutorials/wallet-funding.png)
+   - For MacOS, use `brew`:
+
+   ```bash
+   brew tap serokell/tezos-packaging-stable https://github.com/serokell/tezos-packaging-stable.git
+   brew install tezos-client
+   ```
+
+   - For other methods, see https://tezos.gitlab.io/introduction/howtoget.html.
+
+1. Verify that you have version 19 of the Octez client by running `octez-client --version` and verifying that the version is at least 19.0.
+
+1. Set the Octez client to use the Ghostnet test network:
+
+   - If you just installed Octez for the first time, run this command:
+
+      ```bash
+      octez-client -E https://rpc.ghostnet.teztnets.com config init
+      ```
+
+   - If you already had Octez installed, run this command:
+
+      ```bash
+      octez-client -E https://rpc.ghostnet.teztnets.com config update
+      ```
+
+1. Verify that you are using Ghostnet by running `octez-client config show` and verifying that the `endpoint` field shows `https://rpc.ghostnet.teztnets.com`, as in this example:
+
+   ```
+   { "base_dir": "/Users/me/.tezos-client",
+     "endpoint": "https://rpc.ghostnet.teztnets.com", "web_port": 8080,
+     "confirmations": 0 }
+   ```
+
+1. Optional: Disable the warning message about using a test network by running this command:
+
+   ```bash
+   export TEZOS_CLIENT_UNSAFE_DISABLE_DISCLAIMER=y
+   ```
+
+1. In the Octez client, create a wallet by running this command:
+
+   ```bash
+   octez-client gen keys local_wallet
+   ```
+
+1. Get your account's address by running this command:
+
+   ```bash
+   octez-client show address local_wallet
+   ```
+
+   The Octez client prints the address of the new wallet in the `hash` field.
+   The wallet address begins with `tz1`, `tz2`, or `tz3`, as in this example:
+
+   ```bash
+   Hash: tz1dW9Mk...........H67L
+   Public Key: edp.............................bjbeDj
+   ```
+
+    You need the wallet address to send funds to the wallet, to deploy the contract, and to send transactions to the contract.
+
+1. Copy your account's address, which starts with `tz1`.
+
+1. In a web browser, go to the Ghostnet faucet at https://faucet.ghostnet.teztnets.com/.
+
+1. Paste your address into the "Fund any address" field and send some tez to your account.
+20 tez is enough to start with, and you can always return to the faucet for more.
+
+1. Verify that your account has tez by running this command:
+
+   ```bash
+   octez-client get balance for local_wallet
+   ```
 
 Now you have an account and funds that you can use to work with Tezos.
 
 ## Creating the contract
 
-The contract that you will create has these basic parts:
-
-- A function that initializes the contract and sets the starting value for its storage.
-
-- Internal functions called entrypoints that run code when clients call the contract.
-
-- Automated tests that verify that the contract works as expected.
-
 Follow these steps to create the code for the contract:
 
-1. Open the SmartPy online IDE at https://smartpy.io/ide.
-You can work with SmartPy code in any IDE, but this online IDE keeps you from having to install software on your computer, and it also simplifies the process of deploying contracts.
+1. In any text editor, create a file named `store_greeting.py`.
 
-1. In the code editor, add this line of code to import SmartPy:
+1. Add this line of code to import SmartPy:
 
    ```python
    import smartpy as sp
@@ -137,38 +205,26 @@ You can work with SmartPy code in any IDE, but this online IDE keeps you from ha
    The contract has an `__init__` function, which runs when the contract is deployed.
    In this case, the function sets the initial value of the storage to a parameter that you pass when you deploy the contract.
    This storage value is a string, but the storage can be another primitive type such as an integer or timestamp, or a complex data type that contains multiple values.
-   For more information on contract data types, see [Data types](../../smart-contracts/data-types).
 
-1. Add this code, which creates automated tests:
+1. Add this code that creates the tests:
 
    ```python
-   # Automated tests that run on simulation
-   @sp.add_test()
+   @sp.add_test(name = "StoreGreeting")
    def test():
-       # Initialize the test scenario
-       scenario = sp.test_scenario("StoreGreeting", main)
-       scenario.h1("StoreGreeting")
+     scenario = sp.test_scenario(main)
+     scenario.h1("StoreGreeting")
 
-       # Initialize the contract and pass the starting value
-       contract = main.StoreGreeting("Hello")
-       scenario += contract
+     contract = main.StoreGreeting("Hello")
+     scenario += contract
 
-       # Verify that the value in storage was set correctly
-       scenario.verify(contract.data.greeting == "Hello")
+     scenario.verify(contract.data.greeting == "Hello")
 
-       # Test the entrypoints and check the new storage value
-       contract.replace(text = "Hi")
-       contract.append(text = ", there!")
-       scenario.verify(contract.data.greeting == "Hi, there!")
+     contract.replace(text = "Hi")
+     contract.append(text = ", there!")
+     scenario.verify(contract.data.greeting == "Hi, there!")
    ```
 
-   When you run the SmartPy file, SmartPy runs a simulation in which it tests and compiles the contract.
-   In this case, the tests verify that the replace and append endpoints work.
-   For more information about SmartPy and tests, see the [SmartPy documentation](https://smartpy.io/).
-
-The SmartPy online IDE looks like this:
-
-![The SmartPy online IDE, including the code for the contract](/img/tutorials/smartpy-ide-contract.png)
+   These tests run automatically on compilation to verify that the replace and append endpoints work.
 
 The complete contract looks like this:
 
@@ -215,19 +271,20 @@ def test():
 ## Testing and compiling the contract
 
 Before you can deploy the contract to Tezos, you must compile it to Michelson, the base language of Tezos contracts.
-The compilation process automatically runs the tests.
+The compilation process automatically runs the tests in the `store_greeting.py` file.
 
-1. Compile the contract and run the tests by clicking the **Run Code** ![](/img/tutorials/smartpy-ide-run.png) button.
+1. Run this command to compile the contract:
 
-   The right-hand pane of the online IDE shows the results of the simulation, compilation, and testing process.
-   The first step is simulating the deployment (origination) of the contract.
-   The simulation assigns the contract a temporary address and shows the initial state of its storage:
+   ```bash
+   python store_greeting.py
+   ```
 
-   <img src="/img/tutorials/smartpy-ide-origination.png" alt="The originated contract and the initial storage in the SmartPy IDE" style={{width: 300}} />
+If the compilation succeeds, no messages are shown in the terminal and SmartPy creates a compiled smart contract in the `Test_scenario/` folder.
+If you see error messages, verify that your contract code matches the code in the previous section.
 
-   Then, the simulation runs the test cases and shows the results of each call to an entrypoint:
-
-   <img src="/img/tutorials/smartpy-ide-test-entrypoints.png" alt="The results of the entrypoint calls" style={{width: 300}} />
+The output includes JSON Michelson in `.json` files and [Micheline Michelson](https://tezos.gitlab.io/shell/micheline.html) in `.tz` files.
+The most important file is named `step_002_cont_0_contract.tz`.
+This is the Michelson file that you will use to deploy the contract to the testnet.
 
 ## Deploying (originating) to the testnet
 
