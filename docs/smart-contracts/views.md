@@ -17,8 +17,7 @@ Unlike entrypoints, views return a value directly to the caller.
 However, views can't cause side effects, so they can't create operations, including calling smart contracts and transferring tez.
 Views also can't change the contract storage.
 
-A node can run a view without creating any operations, which lets developers use views without paying fees.
-You can call the view from sources such as the Octez client and Taquito and get a response immediately from a node.
+Nodes can run views without creating any operations, which lets off-chain users get a node to run a view and return the result immediately, as a convenient way to get information from a smart contract.
 
 ## Examples
 
