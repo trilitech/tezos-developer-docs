@@ -47,6 +47,19 @@ For reference, here's what Michelson looks like in the Octez docs:
          PAIR } }
 ```
 
+## Version D
+
+```michelsond
+{ parameter (or (unit %reset) (or (mutez %decrement) (mutez %increment))) ;
+  storage mutez ; # this is a comment
+  code { UNPAIR ;
+         IF_LEFT
+           { DROP 2 ; PUSH mutez 0 }
+           { IF_LEFT {  SWAP ; SUB  } { ADD } } ;
+         NIL operation ;
+         PAIR } }
+```
+
 ## Tokens to format
 
 Currently, the formatter assigns styles to these main elements of Michelson code:

@@ -27,5 +27,6 @@ export default function prismIncludeLanguages(PrismObject) {
   require(`./languages/michelsona`);
   require(`./languages/michelsonb`);
   require(`./languages/michelsonc`);
+  require(`./languages/michelsond`);
   delete globalThis.Prism;
 }
