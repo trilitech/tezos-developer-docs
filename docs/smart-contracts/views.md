@@ -24,7 +24,7 @@ Nodes can run views without creating any operations, which lets off-chain users 
 Views can provide information about tokens.
 You can use views to provide an account's balance of a token type or the total amount of a token in circulation.
 
-DEXs and liquidity pools can provide the exchange rate between two tokens or the amount of liquidity in the pool.
+DEXs can provide the exchange rate between two tokens or the amount of liquidity in the pool.
 
 Instead of repeating certain logic in multiple places, you can put the logic in a view and use it from different smart contracts.
 
