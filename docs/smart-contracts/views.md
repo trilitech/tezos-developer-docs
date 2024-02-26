@@ -2,7 +2,7 @@
 title: Views
 authors: 'Mathias Hiron (Nomadic Labs), Sasha Aldrick (TriliTech), Tim McMackin (TriliTech)'
 last_update:
-  date: 22 February 2024
+  date: 26 February 2024
 ---
 
 Views are a way for contracts to expose information to other contracts and to off-chain consumers.
@@ -14,7 +14,7 @@ By contrast, views are synchronous; a contract can call a view and use the infor
 
 Like entrypoints, views can accept parameters, access the contract's storage, and call other views.
 Unlike entrypoints, views return a value directly to the caller.
-However, views can't create operations, including calling smart contracts and transferring tez.
+However, views can't cause side effects, so they can't create operations, including calling smart contracts and transferring tez.
 Views also can't change the contract storage.
 
 A node can run a view without creating any operations, which lets developers use views without paying fees.
