@@ -170,15 +170,7 @@
 
   // Catch the init keywords both at the beginning of a line
   // and when there is an opening brace and/or whitespace
-  const initKeywordsRegex = new RegExp("(?:" +
-    initKeywords
-      .map((kwd) => ([
-        "^" + kwd, // Start of line
-        "^{?\\s+?" + kwd, // with brace or whitespace
-      ]))
-      .flat()
-      .join("|") +
-    ")\\b", "gm");
+  const initKeywordsRegex = new RegExp(`(?<=^\\s*{?\\s*)(${initKeywords.join('|')})\\b`, "gm");
 
   Prism.languages.michelsona = {
     'type': {
