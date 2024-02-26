@@ -47,7 +47,7 @@ For reference, here's what Michelson looks like in the Octez docs:
          PAIR } }
 ```
 
-## Version D
+## Version D: Mellower instruction names
 
 ```michelsond
 { parameter (or (unit %reset) (or (mutez %decrement) (mutez %increment))) ;

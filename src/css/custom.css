@@ -273,7 +273,6 @@ article a[target="_blank"]:after {
 
 .language-michelsond .token.instruction {
   color: #007020;
-  font-weight: bold;
 }
 
 .language-michelsond .token.type {
@@ -289,8 +288,3 @@ article a[target="_blank"]:after {
   color: #1990b8;
   font-weight: bold;
 }
-
-.language-michelsond .token.comment {
-  color: #408090 !important;
-}
-
