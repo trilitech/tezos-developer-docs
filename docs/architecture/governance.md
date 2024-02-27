@@ -13,7 +13,7 @@ This self-amendment process is separate from the less formal [Tezos Improvement 
 
 ## Amendment periods
 
-The self-amendment process is split into 5 periods:
+The self-amendment process is split into 5 periods, whose scheduling and operation are automatically handled by the protocol, as follows:
 
 - Proposal period: delegates propose changes to the Tezos protocol by submitting proposals and upvoting protocol amendment proposals.
 If a quorum is met, the top-voted proposal moves to the next period.
