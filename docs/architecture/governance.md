@@ -1,7 +1,7 @@
 ---
 title: Governance and self-amendment
 last_update:
-  date: 22 February 2024
+  date: 27 February 2024
 ---
 
 Tezos incorporates a built-in, on-chain mechanism for proposing, selecting, testing, and activating protocol upgrades without the need to hard fork.
@@ -14,12 +14,12 @@ This self-amendment process is separate from the less formal [Tezos Improvement 
 
 The self-amendment process is split into 5 periods, whose scheduling and operation are automatically handled by the protocol, as follows:
 
-- Proposal period: delegates propose changes to the Tezos protocol by submitting proposals and upvoting protocol amendment proposals.
+1. Proposal period: delegates propose changes to the Tezos protocol by submitting proposals and upvoting protocol amendment proposals.
 If a quorum is met, the top-voted proposal moves to the next period.
-- Exploration period: Users vote whether to consider the top-voted proposal
-- Cooldown period: If a proposal is selected in the Exploration period, a Cooldown period starts before the final election is made. The community can continue testing the new protocol proposal and preparing their infrastructure, before the final decision is made.
-- Promotion period: Users make a final vote on whether to apply the proposal
-- Adoption period: Users adapt their code and infrastructure to the proposal, and at the end of the period it is activated automatically
+1. Exploration period: Users vote whether to consider the top-voted proposal
+1. Cooldown period: If a proposal is selected in the Exploration period, a Cooldown period starts before the final election is made. The community can continue testing the new protocol proposal and preparing their infrastructure, before the final decision is made.
+1. Promotion period: Users make a final vote on whether to apply the proposal
+1. Adoption period: Users adapt their code and infrastructure to the proposal, and at the end of the period it is activated automatically
 
 Each period lasts five blockchain cycles (40,960 blocks at 30-second intervals or roughly 14 days, 5 hours), comprising roughly 2 months and 10 days.
 
