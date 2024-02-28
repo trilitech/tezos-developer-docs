@@ -11,7 +11,7 @@ Our baker needs a user account consisting of a pair of keys and an address.
 If you are using a Docker container, you can enter the container with the `docker exec` command, as in `docker exec -it my-image /bin/sh`.
 To get the name of the Docker container, you run the `docker ps` command.
 
-1. Set your installation of the Octez client to use your node instead of the public Weeklynet node:
+1. Set your installation of the Octez client to use your node:
 
    - If you have not used the Octez client yet, run this command to initialize it:
 
@@ -25,7 +25,7 @@ To get the name of the Docker container, you run the `docker ps` command.
    octez-client -E http://127.0.0.1:8732 config update
    ```
 
-   Now that you have your own node, you can use its private RPC endpoint so your commands run quickly, instead of using the public RPC endpoint.
+   For bakers, it's important to set the Octez client to use their node rather than a public node because the baker daemon uses the client configuration and the baker daemon should use the local node.
 
 1. Optional: Hide the network warning message by running this command:
 
