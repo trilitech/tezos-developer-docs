@@ -19,7 +19,7 @@ To get the name of the Docker container, you run the `docker ps` command.
    octez-client -E http://127.0.0.1:8732 config init
    ```
 
-   If you have already initialized the Octez client, run this command to switch to your node:
+   If you have already initialized the Octez client, run this command to instruct it to query your node:
 
    ```bash
    octez-client -E http://127.0.0.1:8732 config update
