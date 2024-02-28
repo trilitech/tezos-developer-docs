@@ -2,7 +2,7 @@
 title: "Step 3: Set up a baker account on Weeklynet"
 authors: Tezos core developers
 last_update:
-  date: 19 February 2024
+  date: 28 February 2024
 ---
 
 Our baker needs a user account consisting of a pair of keys and an address.
@@ -13,11 +13,27 @@ To get the name of the Docker container, you run the `docker ps` command.
 
 1. Set your installation of the Octez client to use your node instead of the public Weeklynet node:
 
+   - If you have not used the Octez client yet, run this command to initialize it:
+
+   ```bash
+   octez-client -E http://127.0.0.1:8732 config init
+   ```
+
+   If you have already initialized the Octez client, run this command to switch to your node:
+
    ```bash
    octez-client -E http://127.0.0.1:8732 config update
    ```
 
    Now that you have your own node, you can use its private RPC endpoint so your commands run quickly, instead of using the public RPC endpoint.
+
+1. Optional: Hide the network warning message by running this command:
+
+   ```bash
+   export TEZOS_CLIENT_UNSAFE_DISABLE_DISCLAIMER=y
+   ```
+
+   This command suppresses the message that your instance of the Octez client is not using Mainnet.
 
 1. Create or import an account in the Octez client.
 The simplest way to get an account that works with Weeklynet is to use the Octez client to randomly generate an account.
