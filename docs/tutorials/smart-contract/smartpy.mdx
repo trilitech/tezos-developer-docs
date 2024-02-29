@@ -2,7 +2,7 @@
 title: Deploy a smart contract with SmartPy
 authors: 'John Joubert, Sasha Aldrick, Tim McMackin'
 last_update:
-  date: 26 February 2024
+  date: 29 February 2024
 ---
 
 This tutorial covers writing and deploying a simple smart contract with the SmartPy programming language.
@@ -147,7 +147,7 @@ Follow these steps to set up your development environment:
    Public Key: edp.............................bjbeDj
    ```
 
-    You need the wallet address to send funds to the wallet, to deploy the contract, and to send transactions to the contract.
+   You need the wallet address to send funds to the wallet, to deploy the contract, and to send transactions to the contract.
 
 1. Copy your account's address, which starts with `tz1`.
 
@@ -291,53 +291,72 @@ This is the Michelson file that you will use to deploy the contract to the testn
 Deploying a contract to the network is called "originating."
 Originating the contract requires a small amount of Tezos tokens as a fee.
 
-1. Under the origination step, click **Show Michelson**.
+1. Go to the the `Test_scenario` folder:
 
-   <img src="/img/tutorials/smartpy-ide-origination-annotated.png" alt="The originated contract, with the Show Michelson button highlighted" style={{width: 300}} />
+   ```bash
+   cd Test_scenario
+   ```
 
-   The IDE shows the compiled Michelson code of the contract, which is the language that smart contracts use on Tezos.
+1. Run the following command to originate the smart contract, changing `$MY_TZ_ADDRESS` to the name of the wallet that you created earlier in the tutorial:
 
-1. Below the Michelson code, click **Deploy Contract**.
+   ```bash
+   octez-client originate contract storeGreeting \
+       transferring 0 from $MY_TZ_ADDRESS \
+       running step_002_cont_0_contract.tz \
+       --init '"Hello"' --burn-cap 0.1
+   ```
 
-1. In the new window, under "Node and Network," select the Ghostnet testnet and accept the default RPC node, as in this picture:
+   This command includes these parts:
 
-   <img src="/img/tutorials/smartpy-ide-network.png" alt="Selecting the Ghostnet network and default RPC node" style={{width: 600}} />
+     - It uses the Octez client `originate contract` command to originate the contract and assigns the local name `storeGreeting` to the contract
+     - It includes 0 tokens from your wallet with the transaction, but the `--burn-cap` argument allows the transaction to take up to 0.1 XTZ from your wallet for fees.
+     - It sets the initial value of the contract storage to "Hello" with the `--init` argument.
 
-1. Under "Wallet," click **Select Account**.
+   If the contract deploys successfully, Octez shows the address of the new contract, as in this example:
 
-1. In the pop-up window, connect your wallet.
-For Temple wallets, use the Temple tab, and for most other wallets, use the Beacon tab.
+   ```bash
+   New contract KT1Nnk.................UFsJrq originated.
+   The operation has only been included 0 blocks ago.
+   We recommend to wait more.
+   ```
 
-1. When your wallet is connected, click **Validate**.
+1. Copy the contract address, which starts with `KT1`.
 
-   The Origination page shows your wallet information:
+1. Optional: Run the command `octez-client get balance for local_wallet` to get the updated balance of your wallet.
 
-   <img src="/img/tutorials/smartpy-ide-connected-wallet.png" alt="The successful connection to your wallet on the origination page" style={{width: 500}} />
+1. Verify that the contract deployed successfully by finding it on a block explorer:
 
-1. At the bottom of the page, click **Deploy Contract**.
+  1. Open a Tezos block explorer such as [TzKT](https://tzkt.io) or [Better Call Dev](https://better-call.dev/).
 
-1. In the pop-up window, click **Accept**.
+  1. Set the explorer to Ghostnet instead of Mainnet.
 
-1. Approve the transaction in your wallet app.
+  1. Paste the contract address, which starts with `KT1`, into the search field and press Enter.
 
-   The "Origination Result" section shows information about the deployed contract, including its address:
+  1. Go to the Storage tab to see that the initial value of the storage is "Hello".
 
-   <img src="/img/tutorials/smartpy-ide-originated-contract.png" alt="Information about the originated contract" style={{width: 500}} />
+![Confirmation that all worked correctly](/img/tutorials/storage_success.png)
 
-1. Under the contract address, click **Save Contract**.
 
-1. In the popup window, give the contract a name and click **Add Contract**.
-Saving the contract address like this is important because the address is not shown again.
+## Calling the contract
 
-1. Open the contract in the block explorer Better Call Dev:
+Now you can call the contract from any Tezos client, including Octez.
 
-   1. In a new browser tab, go to https://better-call.dev/.
+To replace the string in storage, call the `replace` entrypoint and pass a new string value, again changing `$MY_TZ_ADDRESS` to the address or local name of the wallet that you created earlier in the tutorial:
 
-   1. Paste the contract address in the search box and press Enter.
+```bash
+octez-client --wait none transfer 0 from $MY_TZ_ADDRESS to storeGreeting --entrypoint 'replace' --arg '"Hi there!"' --burn-cap 0.1
+```
 
-   The block explorer shows information about the contract, including recent transactions and the current state of its storage.
+The previous example uses the local name `storeGreeting`.
+You can also specify the contract address.
 
-   <img src="/img/tutorials/bcd-originated-contract.png" alt="The block explorer, showing information about the contract" style={{width: 500}} />
+To append text to the string in storage, pass the string to append to the `append` entrypoint:
+
+```bash
+octez-client --wait none transfer 0 from $MY_TZ_ADDRESS to storeGreeting --entrypoint 'append' --arg '" Appended Greeting"' --burn-cap 0.1
+```
+
+You can also call entrypoints from block explorers:
 
 1. Try calling one of the entrypoints:
 
