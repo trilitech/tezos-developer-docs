@@ -30,7 +30,7 @@ taq create contract pokeGame.jsligo
 
 1. Edit the **pokeGame.jsligo** file. Remove the default code and paste this code instead.
 
-   ```ligolang
+   ```jsligo
    export type storage = unit;
 
    type return_ = [list<operation>, storage];
@@ -62,13 +62,13 @@ taq create contract pokeGame.jsligo
 
    At line 1, replace the line with:
 
-   ```ligolang
+   ```jsligo
    export type storage = set<address>;
    ```
 
 1. Replace the `poke` function with:
 
-   ```ligolang
+   ```jsligo
    @entry
    const poke = (_: unit, store: storage): return_ => {
      return [list([]), Set.add(Tezos.get_source(), store)]
@@ -106,7 +106,7 @@ Taqueria is generating the `.tz` Michelson file on the `artifacts` folder. The M
 
 1. Taqueria is generating two additional files, edit the first file `pokeGame.storageList.jsligo` replacing current code with:
 
-   ```ligolang
+   ```jsligo
    #import "pokeGame.jsligo" "Contract"
 
    const default_storage = Set.empty as set<address>;
@@ -129,7 +129,7 @@ Taqueria is generating the `.tz` Michelson file on the `artifacts` folder. The M
 
 1. Edit the second file **pokeGame.parameterList.jsligo**
 
-   ```ligolang
+   ```jsligo
    #import "pokeGame.jsligo" "Contract"
    const default_parameter: parameter_of Contract = Poke();
    ```

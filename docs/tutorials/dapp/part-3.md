@@ -70,7 +70,7 @@ Minting is the action of creating ticket from void. In general, minting operatio
 1. Edit the `./contracts/pokeGame.jsligo` file and add a map of ticket ownership to the default `storage` type.
    This map keeps a list of consumable tickets for each authorized user. It is used as a burnable right to poke.
 
-   ```ligolang
+   ```jsligo
    export type storage = {
      pokeTraces: map<address, pokeMessage>,
      feedback: string,
@@ -90,7 +90,7 @@ Minting is the action of creating ticket from void. In general, minting operatio
 
 1. Add the new `Init` function.
 
-   ```ligolang
+   ```jsligo
    @entry
    const init = ([a, ticketCount]: [address, nat], store: storage): return_ => {
      const { pokeTraces, feedback, ticketOwnership } = store;
@@ -114,7 +114,7 @@ Minting is the action of creating ticket from void. In general, minting operatio
 
 1. Modify the poke function.
 
-   ```ligolang
+   ```jsligo
    @entry
    const poke = (_: unit, store: storage): return_ => {
      const { pokeTraces, feedback, ticketOwnership } = store;
@@ -152,7 +152,7 @@ Minting is the action of creating ticket from void. In general, minting operatio
 
 1. Same for `pokeAndGetFeedback` function, do same checks and type modifications as below.
 
-   ```ligolang
+   ```jsligo
    @no_mutation
    @entry
    const pokeAndGetFeedback = (oracleAddress: address, store: storage): return_ => {
@@ -199,7 +199,7 @@ Minting is the action of creating ticket from void. In general, minting operatio
 
 1. Update the storage initialization on `pokeGame.storageList.jsligo`.
 
-   ```ligolang
+   ```jsligo
    #import "pokeGame.jsligo" "Contract"
 
    const default_storage = {
@@ -230,7 +230,7 @@ Minting is the action of creating ticket from void. In general, minting operatio
 
 1. Add this line on `poke function` just after the first line of storage destructuration `const { pokeTraces, feedback, ticketOwnership } = store;`.
 
-   ```ligolang
+   ```jsligo
    const t2 = Map.find_opt(Tezos.get_source(), ticketOwnership);
    ```
 
@@ -254,7 +254,7 @@ Update the unit tests files to see if you can still poke.
 
 1. Edit the `./contracts/unit_pokeGame.jsligo` file.
 
-   ```ligolang
+   ```jsligo
    #import "./pokeGame.jsligo" "PokeGame"
 
    export type main_fn = module_contract<parameter_of PokeGame, PokeGame.storage>;

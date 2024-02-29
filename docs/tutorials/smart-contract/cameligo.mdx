@@ -125,20 +125,20 @@ You can work with LIGO code in any IDE, but this online IDE keeps you from havin
 
 1. In the contract file, create a type to set the storage type to an integer:
 
-   ```ocaml
+   ```cameligo
    type storage = int
    ```
 
 1. Add this code to define the return type for the entrypoints.
 Tezos entrypoints return two values: a list of other operations to call and the new value of the contract's storage.
 
-   ```ocaml
+   ```cameligo
    type returnValue = operation list * storage
    ```
 
 1. Add the code for the increment and decrement entrypoints:
 
-   ```ocaml
+   ```cameligo
    // Increment entrypoint
    [@entry] let increment (delta : int) (store : storage) : returnValue =
      [], store + delta
@@ -156,7 +156,7 @@ Tezos entrypoints return two values: a list of other operations to call and the 
 
 1. Add this code for the reset entrypoint:
 
-   ```ocaml
+   ```cameligo
    // Reset entrypoint
    [@entry] let reset (() : unit) (_ : storage) : returnValue =
      [], 0
@@ -167,7 +167,7 @@ Tezos entrypoints return two values: a list of other operations to call and the 
 
 The complete contract code looks like this:
 
-```ocaml
+```cameligo
 type storage = int
 
 type returnValue = operation list * storage

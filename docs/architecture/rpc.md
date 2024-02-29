@@ -1,13 +1,13 @@
 ---
-title: The RPC protocol
+title: The RPC interface
 authors: "Tim McMackin"
 last_update:
   date: 6 February 2023
 ---
 
-The Tezos RPC (Remote Procedure Call) protocol is a specification for a REST API that clients use to interact with Tezos nodes and nodes use to communicate with each other.
-Clients use this protocol to submit transactions and get information about the state of the blockchain, such as account balances and contract storage.
-Tezos nodes act as servers and accept HTTP requests from clients and other nodes via this protocol.
+The Tezos RPC (Remote Procedure Call) interface is a specification for a REST API that clients use to interact with Tezos nodes and nodes use to communicate with each other.
+Clients use this interface to submit transactions and get information about the state of the blockchain, such as account balances and contract storage.
+Tezos nodes act as servers and accept HTTP requests from clients and other nodes via this interface.
 
 Tezos RPC uses JSON to send and receive data, but it does not adhere to the JSON-RPC specification.
 

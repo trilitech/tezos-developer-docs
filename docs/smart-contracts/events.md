@@ -27,7 +27,7 @@ For example, this contract stores a number and emits events when that amount cha
 
 JsLIGO
 
-```ligolang
+```jsligo
 type storage = int;
 
 @entry

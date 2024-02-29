@@ -42,7 +42,7 @@ For an example of upgrading smart contracts with lambdas and proxies, see [Creat
 
 Blockchain oracles are third-party services that provide smart contracts with external information. They serve as bridges between blockchains and the outside world, allowing smart contracts to access off-chain data. Oracles verify, query, and authenticate external data sources, and transmit any valuable data.
 
-An Oracle is made of two parts:
+An [Oracle](../../smart-contracts/oracles) is made of two parts:
 
 - Off-chain: The data collector that pushes data to the on-chain contract
 - On-chain: The contract that stores the data and exposes it to other contracts. Generally, a call for information involves monetization and so, some fees apply.

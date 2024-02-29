@@ -2,7 +2,7 @@
 title: Deploy a smart contract with SmartPy
 authors: 'John Joubert, Sasha Aldrick, Tim McMackin'
 last_update:
-  date: 15 February 2024
+  date: 20 February 2024
 ---
 
 This tutorial covers writing and deploying a simple smart contract with the SmartPy programming language.
@@ -217,62 +217,68 @@ def test():
 Before you can deploy the contract to Tezos, you must compile it to Michelson, the base language of Tezos contracts.
 The compilation process automatically runs the tests.
 
-1. Compile the contract and run the tests by clicking the **Run Code** ![](/img/tutorials/smartpy-ide-run.png) button.
+1. Compile the contract and run the tests by clicking the **Run Code** button:
 
-   The right-hand pane of the online IDE shows the results of the automated tests.
-   For example, the first test calls the `replace` entrypoint and passes the text "Hi", so after the call the contract storage is "Hi".
-   Here is a picture of what this completed test looks like in the IDE:
+   ![](/img/tutorials/smartpy-ide-run.png)
 
-   ![The completed test in the SmartPy IDE](/img/tutorials/smartpy-ide-completed-test.png)
+   The right-hand pane of the online IDE shows the results of the simulation, compilation, and testing process.
+   The first step is simulating the deployment (origination) of the contract.
+   The simulation assigns the contract a temporary address and shows the initial state of its storage:
+
+   <img src="/img/tutorials/smartpy-ide-origination.png" alt="The originated contract and the initial storage in the SmartPy IDE" style={{width: 300}} />
+
+   Then, the simulation runs the test cases and shows the results of each call to an entrypoint:
+
+   <img src="/img/tutorials/smartpy-ide-test-entrypoints.png" alt="The results of the entrypoint calls" style={{width: 300}} />
 
 ## Deploying (originating) to the testnet
 
 Deploying a contract to the network is called "originating."
 Originating the contract requires a small amount of Tezos tokens as a fee.
 
-1. At the top of the page, click **Editor** to go back to the source code of the smart contract.
+1. Under the origination step, click **Show Michelson**.
 
-1. Compile the contract and run the tests by clicking the **Run Code** ![](/img/tutorials/smartpy-ide-run.png) button again.
+   <img src="/img/tutorials/smartpy-ide-origination-annotated.png" alt="The originated contract, with the Show Michelson button highlighted" style={{width: 300}} />
 
-1. On the right side of the page, click **Deploy Michelson Contract**.
+   The IDE shows the compiled Michelson code of the contract, which is the language that smart contracts use on Tezos.
 
-   The IDE shows information about the compiled Michelson contract, including the amount of data required to store it and the code of the contract:
+1. Below the Michelson code, click **Deploy Contract**.
 
-   ![Information about the compiled contract and its source code](/img/tutorials/smartpy-ide-compiled-michelson.png)
+1. In the new window, under "Node and Network," select the Ghostnet testnet and accept the default RPC node, as in this picture:
 
-1. Above the information about the Michelson contract, click the **Deploy Michelson Contract** button.
-The "Originate from browser" window opens.
+   <img src="/img/tutorials/smartpy-ide-network.png" alt="Selecting the Ghostnet network and default RPC node" style={{width: 600}} />
 
-1. In the **Node and Network** list, select Ghostnet.
+1. Under "Wallet," click **Select Account**.
 
-1. Click the **Select account** button.
-A popup window with a few different ways to connect a wallet opens.
+1. In the pop-up window, connect your wallet.
+For Temple wallets, use the Temple tab, and for most other wallets, use the Beacon tab.
 
-1. In the popup window, if you are using the Temple wallet, click **Temple**, or if you are using any other kind of wallet, click **Beacon**.
+1. When your wallet is connected, click **Validate**.
 
-1. Follow the steps to connect your wallet.
-The popup window shows your account address and its balance in tez, as in this picture:
+   The Origination page shows your wallet information:
 
-   ![A connected wallet and its address and balance in tez](/img/tutorials/smartpy-ide-connected-wallet.png)
+   <img src="/img/tutorials/smartpy-ide-connected-wallet.png" alt="The successful connection to your wallet on the origination page" style={{width: 500}} />
 
-1. Click **Validate**.
+1. At the bottom of the page, click **Deploy Contract**.
 
-1. Farther down the page, click **Deploy contract**.
+1. In the pop-up window, click **Accept**.
 
-1. In the popup window, click **Accept**.
+1. Approve the transaction in your wallet app.
 
-1. Approve the transaction in your wallet.
+   The "Origination Result" section shows information about the deployed contract, including its address:
 
-   If the deployment process was successful, the IDE shows a success message with the address of the new contract:
+   <img src="/img/tutorials/smartpy-ide-originated-contract.png" alt="Information about the originated contract" style={{width: 500}} />
 
-   ![Information about the originated contract in the SmartPy IDE](/img/tutorials/smartpy-ide-originated-contract.png)
+1. Under the contract address, click **Save Contract**.
 
-1. Copy the address of the deployed contract, which starts with `KT1`.
-It will not be shown again.
+1. In the popup window, give the contract a name and click **Add Contract**.
+Saving the contract address like this is important because the address is not shown again.
 
-1. Open the block explorer Better Call Dev at this link: https://better-call.dev/
+1. Open the contract in the block explorer Better Call Dev:
 
-1. Paste the address of the contract in the search field and press Enter.
+   1. In a new browser tab, go to https://better-call.dev/.
+
+   1. Paste the contract address in the search box and press Enter.
 
    The block explorer shows information about the contract, including recent transactions and the current state of its storage.
 
