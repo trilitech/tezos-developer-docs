@@ -32,7 +32,7 @@ To use the multi-asset template, you must change the code that your smart contra
 1. In the storage type, change the `offers` value to `map<[address, nat], offer>` and remove the `totalSupply` field.
    The storage type looks like this:
 
-   ```ligolang
+   ```jsligo
    export type storage = {
      administrators: set<address>,
      offers: map<[address, nat], offer>, //user sells an offer for a token_id
@@ -51,7 +51,7 @@ Now the offers map is indexed on the address of the seller and the ID of the tok
 
 1. Replace the `mint` entrypoint with this code:
 
-   ```ligolang
+   ```jsligo
    @entry
    const mint = (
      [token_id, quantity, name, description, symbol, ipfsUrl]: [
@@ -105,7 +105,7 @@ Now the offers map is indexed on the address of the seller and the ID of the tok
 
 1. Replace the `sell` entrypoint with this code:
 
-   ```ligolang
+   ```jsligo
    @entry
    const sell = ([token_id, quantity, price]: [nat, nat, nat], s: storage): ret => {
      //check balance of seller
@@ -140,7 +140,7 @@ Now the offers map is indexed on the address of the seller and the ID of the tok
 
 1. Replace the `buy` entrypoint with this code:
 
-   ```ligolang
+   ```jsligo
    @entry
    const buy = ([token_id, quantity, seller]: [nat, nat, address], s: storage): ret => {
      //search for the offer
@@ -191,7 +191,7 @@ Now the offers map is indexed on the address of the seller and the ID of the tok
 
 1. Update the `nft.storageList.jsligo` with this code:
 
-   ```ligolang
+   ```jsligo
    #import "nft.jsligo" "Contract"
 
    const default_storage: Contract.storage = {

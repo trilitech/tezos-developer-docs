@@ -122,7 +122,7 @@ const config = {
       },
       prism: {
         theme: require('prism-react-renderer/themes/github'),
-        additionalLanguages: ['csharp', 'toml'],
+        additionalLanguages: ['csharp', 'toml', 'ocaml'],
       },
       // https://github.com/flexanalytics/plugin-image-zoom
       // Enable click to zoom in to large images
