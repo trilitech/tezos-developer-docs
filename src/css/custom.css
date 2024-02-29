@@ -225,7 +225,7 @@ article a[target="_blank"]:after {
 }
 .language-archetype .token.deleted,
 .language-archetype .token.error {
-  color: rgb(255, 85, 85);
+  color: #8B0000;
 }
 .language-archetype .token.changed {
   color: rgb(255, 184, 108);
@@ -251,7 +251,7 @@ article a[target="_blank"]:after {
 .language-archetype .token.entry,
 .language-archetype .token.declaration,
 .language-archetype .token.verif {
-  color: #8B0000;
+  color: rgb(47, 202, 195);
 }
 .language-archetype .token.section {
   color: rgb(233, 72, 21);
