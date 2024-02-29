@@ -23,7 +23,7 @@ Each contract stores an integer and provides entrypoints that increase or decrea
 
 ## CameLIGO
 
-```ocaml
+```cameligo
 type storage = int
 
 type returnValue = operation list * storage
@@ -43,7 +43,7 @@ type returnValue = operation list * storage
 
 ## JsLIGO
 
-```ts
+```jsligo
 namespace Counter {
   type storage = int;
   type returnValue = [list<operation>, storage];

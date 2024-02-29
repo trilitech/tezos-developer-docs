@@ -34,13 +34,13 @@ To use the single-asset template, you must change the code that your smart contr
 
 1. Change the offer type to store a quantity and a price, as in this code:
 
-   ```ligolang
+   ```jsligo
    export type offer = { quantity: nat, price: nat };
    ```
 
 1. Change the storage type to use the data types from the single-asset template instead of the NFT template:
 
-   ```ligolang
+   ```jsligo
    export type storage = {
      administrators: set<address>,
      totalSupply: nat,
@@ -61,7 +61,7 @@ To use the single-asset template, you must change the code that your smart contr
 
 1. Replace the `mint` entrypoint with this code:
 
-   ```ligolang
+   ```jsligo
    @entry
    const mint = (
      [quantity, name, description, symbol, ipfsUrl]: [
@@ -112,7 +112,7 @@ To use the single-asset template, you must change the code that your smart contr
 
 1. Replace the `sell` entrypoint with this code:
 
-   ```ligolang
+   ```jsligo
    @entry
    const sell = ([quantity, price]: [nat, nat], s: storage): ret => {
      //check balance of seller
@@ -155,7 +155,7 @@ To use the single-asset template, you must change the code that your smart contr
 
 1. Replace the `buy` entrypoint with this code:
 
-   ```ligolang
+   ```jsligo
    @entry
    const buy = ([quantity, seller]: [nat, address], s: storage): ret => {
      //search for the offer
@@ -212,7 +212,7 @@ To use the single-asset template, you must change the code that your smart contr
 
 1. Replace the content of the `nft.storageList.jsligo` file with this code:
 
-   ```ligolang
+   ```jsligo
    #import "nft.jsligo" "Contract"
 
    const default_storage: Contract.storage = {

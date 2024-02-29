@@ -17,13 +17,13 @@ For example, LIGO uses the Option type to safely work with values that may or ma
 If you subtract two tez or mutez variables, the result may be a negative number, which is not valid for the tez and mutez types.
 For this reason, LIGO requires you to wrap the result in an Option type, even if you are confident that the result is a positive number, as in this example:
 
-```ligolang
+```jsligo
 option<tez> = 2mutez - 1mutez;
 ```
 
 In the source code `.contracts/1-bugs.jsligo`, we have also a subtraction returning an optional value:
 
-```ligolang
+```jsligo
     match(store - delta) {
 ```
 
@@ -101,13 +101,13 @@ with "It is a failure !!!"
 
 Change the line for bob from this code:
 
-```ligolang
+```jsligo
 const bob = s - (3n * quotient);
 ```
 
 To this code:
 
-```ligolang
+```jsligo
 const bob = s - alice;
 ```
 
