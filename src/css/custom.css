@@ -251,7 +251,7 @@ article a[target="_blank"]:after {
 .language-archetype .token.entry,
 .language-archetype .token.declaration,
 .language-archetype .token.verif {
-  color: rgb(233, 72, 21);
+  color: #8B0000;
 }
 .language-archetype .token.section {
   color: rgb(233, 72, 21);
