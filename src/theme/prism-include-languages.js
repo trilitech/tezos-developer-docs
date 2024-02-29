@@ -22,7 +22,7 @@ export default function prismIncludeLanguages(PrismObject) {
     require(`prismjs/components/prism-${lang}`);
   });
 
-  require(`./languages/cameligo`);
-  require(`./languages/jsligo`);
+  require(`./languages/prism-cameligo`);
+  require(`./languages/prism-jsligo`);
   delete globalThis.Prism;
 }
