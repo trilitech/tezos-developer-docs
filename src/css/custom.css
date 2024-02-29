@@ -211,3 +211,69 @@ article a[target="_blank"]:after {
   content: url("/img/external_link.svg");
   padding-left: 5px;
 }
+
+
+/* Syntax highlighting */
+.language-archetype .token.prolog,
+.language-archetype .token.constant {
+  color: rgb(189, 147, 249);
+  font-style: italic;
+}
+.language-archetype .token.inserted,
+.language-archetype .token.function {
+  color: rgb(80, 250, 123);
+}
+.language-archetype .token.deleted,
+.language-archetype .token.error {
+  color: #8B0000;
+}
+.language-archetype .token.changed {
+  color: rgb(255, 184, 108);
+}
+.language-archetype .token.string,
+.language-archetype .token.char,
+.language-archetype .token.tag,
+.language-archetype .token.selector {
+  color: rgb(255, 121, 198);
+}
+.language-archetype .token.keyword,
+.language-archetype .token.variable {
+  color: rgb(189, 147, 249);
+  font-style: italic;
+}
+.language-archetype .token.comment {
+  color: rgb(98, 114, 164);
+}
+.language-archetype .token.archetype,
+.language-archetype .token.function {
+  color: #2FCAC3 !important;
+}
+.language-archetype .token.entry,
+.language-archetype .token.declaration,
+.language-archetype .token.verif {
+  color: rgb(47, 202, 195);
+}
+.language-archetype .token.section {
+  color: rgb(233, 72, 21);
+}
+.language-archetype .token.control,
+.language-archetype .token.decl {
+  color: rgb(189, 147, 249);
+}
+.language-archetype .token.boolean,
+.language-archetype .token.builtin,
+.language-archetype .token.logic,
+.language-archetype .token.asset,
+.language-archetype .token.access,
+.language-archetype .token.crypto,
+.language-archetype .token.arith {
+  color: rgb(68, 134, 255);
+}
+.language-archetype .token.transfer,
+.language-archetype .token.fail {
+  color: rgb(255, 85, 85);
+}
+.language-archetype .token.instr,
+.language-archetype .token.expr {
+  font-style: italic;
+}

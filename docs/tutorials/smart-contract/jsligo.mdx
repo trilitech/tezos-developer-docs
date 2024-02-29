@@ -125,7 +125,7 @@ You can work with LIGO code in any IDE, but this online IDE keeps you from havin
 
 1. In the contract file, create a namespace named `Counter` to hold the code for the contract:
 
-   ```ts
+   ```jsligo
    namespace Counter {
 
    }
@@ -133,20 +133,20 @@ You can work with LIGO code in any IDE, but this online IDE keeps you from havin
 
 1. Inside the namespace, create a TypeScript type to set the storage type to an integer:
 
-   ```ts
+   ```jsligo
    type storage = int;
    ```
 
 1. Add this code to define the return type for the entrypoints.
 Tezos entrypoints return two values: a list of other operations to call and the new value of the contract's storage.
 
-   ```ts
+   ```jsligo
    type returnValue = [list<operation>, storage];
    ```
 
 1. Add the code for the increment and decrement entrypoints:
 
-   ```ts
+   ```jsligo
    // Increment entrypoint
    @entry
    const increment = (delta : int, store : storage) : returnValue =>
@@ -166,7 +166,7 @@ Tezos entrypoints return two values: a list of other operations to call and the 
 
 1. Add this code for the reset entrypoint:
 
-   ```ts
+   ```jsligo
    // Reset entrypoint
    @entry
    const reset = (_p : unit, _s : storage) : returnValue =>
@@ -178,7 +178,7 @@ Tezos entrypoints return two values: a list of other operations to call and the 
 
 The complete contract code looks like this:
 
-```ts
+```jsligo
 namespace Counter {
   type storage = int;
   type returnValue = [list<operation>, storage];

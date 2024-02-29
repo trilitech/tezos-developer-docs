@@ -46,7 +46,7 @@ Follow these steps to create a contract that is based on the template and implem
 
 1. Open the `contracts/nft.jsligo` file in any text editor and replace the default code with this code:
 
-   ```ligolang
+   ```jsligo
    #import "@ligo/fa/lib/fa2/nft/nft.impl.jsligo" "FA2Impl"
 
    /* ERROR MAP FOR UI DISPLAY or TESTS
@@ -87,7 +87,7 @@ Follow these steps to create a contract that is based on the template and implem
 
 1. Add code to implement the required `transfer`, `balance_of`, and `update_operators` entrypoints:
 
-   ```ligolang
+   ```jsligo
    @entry
    const transfer = (p: FA2Impl.TZIP12.transfer, s: storage): ret => {
      const ret2: [list<operation>, FA2Impl.NFT.storage] =
@@ -176,7 +176,7 @@ Follow these steps to create a contract that is based on the template and implem
 
 1. After those entrypoints, add code for the `mint` entrypoint:
 
-   ```ligolang
+   ```jsligo
    @entry
    const mint = (
      [token_id, name, description, symbol, ipfsUrl]: [
@@ -250,7 +250,7 @@ Follow these steps to create a contract that is based on the template and implem
 
 1. Open the file `contracts/nft.storageList.jsligo` and replace it with this code:
 
-   ```ligolang
+   ```jsligo
    #import "nft.jsligo" "Contract"
 
    const default_storage : Contract.storage = {

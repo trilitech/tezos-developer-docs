@@ -168,6 +168,7 @@ const sidebars = {
         'smart-contracts/views',
         'smart-contracts/events',
         'smart-contracts/delegation',
+        'smart-contracts/oracles',
         // 'smart-contracts/multisig-specialized',
         // 'smart-contracts/multisig-usage',
       ],
