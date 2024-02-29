@@ -37,7 +37,7 @@ On this first section, you will:
 
 1. Edit `main.storageList.jsligo` initial storage and save it:
 
-   ```ligolang
+   ```jsligo
    #import "main.jsligo" "Contract"
 
    const default_storage: Contract.storage = {
