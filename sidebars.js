@@ -34,18 +34,7 @@ const sidebars = {
           },
           items: ['architecture/tokens/FA1.2', 'architecture/tokens/FA2'],
         },
-        // { // TODO
-        //   type: 'category',
-        //   label: 'Baking',
-        //   link: {
-        //     id: 'architecture/baking',
-        //     type: 'doc',
-        //   },
-        //   items: [
-        //     'architecture/baking/running-nodes',
-        //     'architecture/baking/delegating',
-        //   ],
-        // },
+        'architecture/baking',
         'architecture/rpc',
         'architecture/smart-rollups',
         'architecture/data-availability-layer',
