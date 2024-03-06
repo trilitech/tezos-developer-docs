@@ -15,15 +15,15 @@ To get the name of the Docker container, you run the `docker ps` command.
 
    - If you have not used the Octez client yet, run this command to initialize it:
 
-   ```bash
-   octez-client -E http://127.0.0.1:8732 config init
-   ```
+      ```bash
+      octez-client -E http://127.0.0.1:8732 config init
+      ```
 
-   If you have already initialized the Octez client, run this command to instruct it to query your node:
+   - If you have already initialized the Octez client, run this command to instruct it to query your node:
 
-   ```bash
-   octez-client -E http://127.0.0.1:8732 config update
-   ```
+      ```bash
+      octez-client -E http://127.0.0.1:8732 config update
+      ```
 
    For bakers, it's important to set the Octez client to use their node rather than a public node because the baker daemon uses the client configuration and the baker daemon should use the local node.
 
