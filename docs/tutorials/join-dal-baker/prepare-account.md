@@ -2,32 +2,17 @@
 title: "Step 3: Set up a baker account on Weeklynet"
 authors: Tezos core developers
 last_update:
-  date: 28 February 2024
+  date: 6 March 2024
 ---
 
 Our baker needs a user account consisting of a pair of keys and an address.
+In this section, you use the Octez client to create an account and register it as a delegate.
 
 1. Open a new terminal window in the same environment.
 If you are using a Docker container, you can enter the container with the `docker exec` command, as in `docker exec -it my-image /bin/sh`.
 To get the name of the Docker container, you run the `docker ps` command.
 
-1. Set your installation of the Octez client to use your node:
-
-   - If you have not used the Octez client yet, run this command to initialize it:
-
-      ```bash
-      octez-client -E http://127.0.0.1:8732 config init
-      ```
-
-   - If you have already initialized the Octez client, run this command to instruct it to query your node:
-
-      ```bash
-      octez-client -E http://127.0.0.1:8732 config update
-      ```
-
-   For bakers, it's important to set the Octez client to use their node rather than a public node because the baker daemon uses the client configuration and the baker daemon should use the local node.
-
-1. Optional: Hide the network warning message by running this command:
+1. Optional: Hide the Octez client's network warning message by running this command:
 
    ```bash
    export TEZOS_CLIENT_UNSAFE_DISABLE_DISCLAIMER=y
@@ -61,6 +46,16 @@ This command creates an account and associates it with the `my_baker` alias:
    octez-client get balance for my_baker
    ```
 
+   If you get an error on this command, your local node isn't ready yet.
+   Until the node has finished bootstrapping, pass the public RPC endpoint for Weeklynet in the `--endpoint` argument, as in this example:
+
+   ```bash
+   octez-client --endpoint https://rpc.weeklynet-2024-01-17.teztnets.com get balance for my_baker
+   ```
+
+   Don't set the client endpoint to the public node permanently because it should use your local node whenever possible.
+   For bakers, it's important to set the Octez client to use their node rather than a public node because the baker daemon uses the client configuration and the baker daemon should use the local node.
+
 1. Get some tez from the Weeklynet faucet.
 
    In order to get some consensus and DAL rights, we need to put some tez in the account. Fortunately, getting free testnet tez is easy thanks to the testnet faucet. To use it, we need to enter the generated address in the Weeklynet faucet linked from https://teztnets.com/weeklynet-about. We need at least 6k tez for running a baker but the more tez we have the more rights we will get and the shorter we will have to wait to produce blocks and attestations. That being said, baking with too much stake prevents us from leaving the network without disturbing or even halting it so to avoid breaking the network for all other testers let's not be too greedy. 50k tez is enough to get enough rights to easily check if our baker behaves as expected while not disturbing the network too much when our baker stops operating.
@@ -78,6 +73,8 @@ This command creates an account and associates it with the `my_baker` alias:
    ```bash
    octez-client register key my_baker as delegate
    ```
+
+   Again, pass the `--endpoint` argument if your node has not finished bootstrapping.
 
 1. Stake the tez, saving a small amount for transaction fees.
 For example, if your account has 50k tez, stake 49990 tez by running this command:
