@@ -2,7 +2,7 @@
 title: Deploy a smart contract with CameLIGO
 authors: 'John Joubert, Sasha Aldrick, Claude Barde, Tim McMackin'
 last_update:
-  date: 5 March 2024
+  date: 11 March 2024
 ---
 
 This tutorial covers writing and deploying a simple smart contract with the LIGO programming language.
@@ -189,7 +189,7 @@ type returnValue = operation list * storage
 
 Before you can deploy the contract to Tezos, you must compile it to Michelson, the base language of Tezos contracts.
 
-1. Set the compiler to compile the namespace in your code:
+1. Set the compiler to target the module to compile in your code:
 
    1. On the left side of the page, under **Actions**, click **Project Settings**.
    1. On the Project Settings tab, in the **Module name** field, set the module name to `Counter`.
