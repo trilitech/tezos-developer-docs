@@ -2,7 +2,7 @@
 title: Smart Rollups
 authors: 'Nomadic Labs, TriliTech, Tim McMackin'
 last_update:
-  date: 4 March 2024
+  date: 11 March 2024
 ---
 
 Smart Rollups play a crucial part in providing high scalability on Tezos.
@@ -92,7 +92,7 @@ Eventually include:
 The general flow of a Smart Rollup goes through these phases:
 
 1. Origination: A user originates the Smart Rollup to layer 1.
-1. One or more users start Smart Rollup nodes in Operator mode to independently verify the operation of the Smart Rollup.
+1. One or more users start Smart Rollup nodes.
 1. Commitment periods: The Smart Rollup nodes receive the messages in the Smart Rollup inbox, run processing based on those messages, generate but do not run outbox messages, and publish a hash of their state at the end of the period, called a commitment.
 1. Refutation periods: Nodes can publish a concurrent commitment to refute a published commitment.
 1. Triggering outbox messages: When the commitment can no longer be refuted, any client can trigger outbox messages, which create transactions.
