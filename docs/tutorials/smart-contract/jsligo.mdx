@@ -208,6 +208,12 @@ namespace Counter {
 
 Before you can deploy the contract to Tezos, you must compile it to Michelson, the base language of Tezos contracts.
 
+1. Set the compiler to target the namespace to compile in your code:
+
+   1. On the left side of the page, under **Actions**, click **Project Settings**.
+   1. On the Project Settings tab, in the **Module name** field, set the module name to `Counter`.
+   1. Close the Project Settings tab.
+
 1. Test the contract by passing parameters and the storage value to the LIGO `dry-run` command:
 
    1. On the left side of the page, under **Actions**, click **Dry Run**.
