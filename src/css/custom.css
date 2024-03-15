@@ -214,6 +214,25 @@ article a[target="_blank"]:after {
 
 
 /* Syntax highlighting */
+.language-michelson .token.instruction {
+  color: #007020;
+  font-weight: bold;
+}
+
+.language-michelson .token.type {
+  color: #902000 !important;
+}
+
+.language-michelson .token.init-keyword {
+  color: #007020;
+  font-weight: bold;
+}
+
+.language-michelson .token.annotation {
+  color: #007020;
+  font-weight: bold;
+}
+
 .language-archetype .token.prolog,
 .language-archetype .token.constant {
   color: rgb(189, 147, 249);

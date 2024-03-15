@@ -2,7 +2,7 @@
 title: Deploy a smart contract with Archetype
 authors: 'Tim McMackin'
 last_update:
-  date: 12 October 2023
+  date: 15 March 2024
 ---
 
 This tutorial covers writing a smart contract and deploying it to Tezos in the Archetype programming language.
@@ -14,8 +14,8 @@ It uses the completium-cli command-line tool, which lets you work with Archetype
 
 In this tutorial, you will learn how to:
 
-- Create a wallet
-- Get tokens from a faucet
+- Create a wallet to store cryptocurrency tokens
+- Get free tez tokens (the native cryptocurrency token on Tezos) from a faucet
 - Code a contract in Archetype, including:
   - Defining the storage for the contract and its initial value
   - Defining entrypoints in the contract
@@ -23,6 +23,18 @@ In this tutorial, you will learn how to:
 - Deploy (or originate) the contract to Tezos
 - Look up the current state of the contract
 - Call the contract from the command line
+
+## What is a smart contract?
+
+A smart contract is a computer program that is stored on a blockchain and runs on a blockchain.
+Because the blockchain is spread across many computer nodes, you don't have to think about where to host the program or worry whether a computer will run it or not.
+Responsibility for running the contract is distributed across all of the nodes in the Tezos system, so when you deploy a smart contract, you can be confident that it will be available and unmodified when someone wants to run it.
+
+A smart contract has these parts:
+
+- Persistent storage, data that the contract can read and write
+- One or more entrypoints, which are a kind of function that clients can call, like endpoints in an API or functions or methods in many programming languages
+- A Tezos account that can store tokens (technically, the contract is itself a type of Tezos account, but you can think of it as a program with a Tezos account)
 
 ## The Archetype language
 
@@ -48,7 +60,8 @@ It provides entrypoints that clients can call to change the value of that intege
 - The `decrement` entrypoint accepts an integer as a parameter and subtracts that integer from the value in storage
 - The `reset` entrypoint takes no parameters and resets the value in storage to 0
 
-After you deploy the contract, you or any other user can call it through the command line or a distributed application (dApp).
+After you deploy the contract, you or any other user can call it from various sources, including web applications, other contracts, and the Octez command-line client.
+However, no one can prevent it from running or tamper with its code or its storage.
 
 ## Prerequisites
 
@@ -319,5 +332,8 @@ Then, you can verify the updated storage on the block explorer or by running the
 Now the contract is running on the Tezos blockchain.
 You or any other user can call it from any source that can send transactions to Tezos, including command-line clients, dApps, and other contracts.
 
-If you want to continue working with this contract, try creating a dApp to call it from a web application, similar to the dApp that you create in the tutorial [Build a simple web application](../build-your-first-app/).
-You can also try adding your own entrypoints and originating a new contract, but you cannot update the existing contract after it is deployed.
+If you want to continue working with this contract, here are some ideas:
+
+- Change permissions for the contract so only your account can call its entrypoints
+- Add your own entrypoints and originate a new contract; note that you cannot update the existing contract after it is deployed
+- Create a dApp to call the contract from a web application, similar to the dApp that you create in the tutorial [Build a simple web application](../build-your-first-app/)
