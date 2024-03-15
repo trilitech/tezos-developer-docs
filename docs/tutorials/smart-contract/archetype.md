@@ -60,7 +60,8 @@ It provides entrypoints that clients can call to change the value of that intege
 - The `decrement` entrypoint accepts an integer as a parameter and subtracts that integer from the value in storage
 - The `reset` entrypoint takes no parameters and resets the value in storage to 0
 
-After you deploy the contract, you or any other user can call it through the command line or a distributed application (dApp).
+After you deploy the contract, you or any other user can call it from various sources, including web applications, other contracts, and the Octez command-line client.
+However, no one can prevent it from running or tamper with its code or its storage.
 
 ## Prerequisites
 
