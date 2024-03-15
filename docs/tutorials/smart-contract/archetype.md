@@ -2,7 +2,7 @@
 title: Deploy a smart contract with Archetype
 authors: 'Tim McMackin'
 last_update:
-  date: 12 October 2023
+  date: 15 March 2024
 ---
 
 This tutorial covers writing a smart contract and deploying it to Tezos in the Archetype programming language.
@@ -14,8 +14,8 @@ It uses the completium-cli command-line tool, which lets you work with Archetype
 
 In this tutorial, you will learn how to:
 
-- Create a wallet
-- Get tokens from a faucet
+- Create a wallet to store cryptocurrency tokens
+- Get free tez tokens (the native cryptocurrency token on Tezos) from a faucet
 - Code a contract in Archetype, including:
   - Defining the storage for the contract and its initial value
   - Defining entrypoints in the contract
