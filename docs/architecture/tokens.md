@@ -7,13 +7,13 @@ last_update:
 
 In a blockchain ecosystem, a digital asset that can be transferred between accounts is called a _token_.
 
-Any blockchain ecosystem relies on a native token that in which transaction fees are paid.
+Like other blockchains, Tezos relies on a native token in which transaction fees are paid.
 The native token of Tezos is tez (also known as XTZ or represented by the symbol ꜩ).
 
 But other tokens representing some value in digital form can be programmed in a blockchain, for instance using smart contracts.
 Tokens fall in two broad categories:
 
-- Fungible tokens, whose instances are interchangeable and represent the same value,
+- Fungible tokens, which are interchangeable and represent the same value,
 - Non-fungible tokens (NFTs), which are unique digital assets that model the ownership of some digital or real object
 
 Many types of fungible tokens are already implemented in Tezos, including:
@@ -21,10 +21,10 @@ Many types of fungible tokens are already implemented in Tezos, including:
 - Stablecoins, which are tied to the price of fiat currencies such as USD and EUR
 - Wrapped tokens, which represent tokens from another blockchain or another standard; see [Wrapped tokens](#wrapped-tokens)
 
-Tezos is also reputed as a platform for owning and exchanging various types of NFTs.
+Tezos is also used as a platform for owning and exchanging various types of NFTs.
 
 In most cases, (non-native) tokens are managed by smart contracts.
-They are not stored directly in accounts; instead, smart contracts keep a ledger of how many tokens are hold by different accounts.
+They are not stored directly in accounts; instead, smart contracts keep a ledger of how many tokens each account holds.
 
 However, Tezos also offers a built-in abstraction called tickets, which are fungible tokens that can be created by smart contracts in limited quantity (possibly only one), but whose ownership are directly tracked by the blockchain.
 
@@ -103,7 +103,7 @@ These standards are named with the prefix FA, which stands for _financial applic
 - [FA1.2](./tokens/FA1.2) tokens are fungible tokens
 - [FA2](./tokens/FA2) tokens can be multiple types of tokens, including fungible and non-fungible tokens, and a single smart contract that follows this standard can create multiple types of tokens
 
-You can use templates for smart contracts adhering to these standards, instead of writing you own contract from scratch:
+You can use templates for smart contracts adhering to these standards, instead of writing your own contract from scratch:
 
 - For SmartPy templates, see [Tokens](https://smartpy.io/guides/tokens/) in the SmartPy documentation.
 - For LIGO templates, see the [`@ligo/fa`](https://packages.ligolang.org/package/@ligo/fa) package.
