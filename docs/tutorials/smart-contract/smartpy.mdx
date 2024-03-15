@@ -2,7 +2,7 @@
 title: Deploy a smart contract with SmartPy
 authors: 'John Joubert, Sasha Aldrick, Tim McMackin'
 last_update:
-  date: 20 February 2024
+  date: 15 March 2024
 ---
 
 This tutorial covers writing and deploying a simple smart contract with the SmartPy programming language.
@@ -13,13 +13,12 @@ SmartPy has syntax similar to Python, but you don't need any experience with Pyt
 - To learn the Archetype language, try [Deploy a smart contract with Archetype](./archetype).
 
 SmartPy is a high-level programming language that you can use to write smart contracts for the Tezos blockchain.
-
-It abstracts away the complexity of using Michelson (the smart contract language directly available on-chain) and provides different syntaxes that make it easier to write smart contracts on Tezos.
+It abstracts away the complexity of using Michelson (the smart contract language directly available on-chain) to make it easier to write smart contracts on Tezos.
 
 In this tutorial, you will learn how to:
 
-- Create a wallet
-- Get tokens from a faucet
+- Create a wallet to store cryptocurrency tokens
+- Get free tez tokens (the native cryptocurrency token on Tezos) from a faucet
 - Code a contract in SmartPy, including:
   - Creating a contract in the online IDE
   - Defining the storage for the contract
@@ -37,9 +36,9 @@ Responsibility for running the contract is distributed across all of the nodes i
 
 A smart contract has these parts:
 
-- It has persistent storage, data that the contract can read and write
-- It has one or more entrypoints, which are a kind of function that clients can call, like endpoints in an API or functions or methods in many programming languages
-- It has a Tezos account and can store tez (technically, the contract is itself a type of Tezos account, but you can think of it as a program with a Tezos account)
+- Persistent storage, data that the contract can read and write
+- One or more entrypoints, which are a kind of function that clients can call, like endpoints in an API or functions or methods in many programming languages
+- A Tezos account that can store tokens (technically, the contract is itself a type of Tezos account, but you can think of it as a program with a Tezos account)
 
 ## Tutorial contract
 
@@ -50,6 +49,7 @@ It provides entrypoints that clients can call to change the value of that string
 - The `append` entrypoint accepts a new string as a parameter and appends it to the existing string.
 
 After you deploy the contract, you or any other user can call it from various sources, including web applications, other contracts, and the Octez command-line client.
+However, no one can prevent it from running or tamper with its code or its storage.
 
 ## Creating and funding a wallet
 
@@ -58,7 +58,7 @@ To deploy and work with the contract, you need a wallet and some tez tokens.
 1. Install a Tezos-compatible wallet.
 Which wallet you install is up to you and whether you want to install a wallet on your computer, in a browser extension, or as a mobile app.
 
-   If you don't know which one to choose, try the [Temple](https://templewallet.com/) browser extension, because then you can use it in the same browser that you are using to view the web app.
+   If you don't know which one to choose, try the [Temple](https://templewallet.com/) browser extension.
 
    Desktop wallets for Tezos include the [Temple](https://templewallet.com/) browser extension, [Kukai](https://wallet.kukai.app/), and [Umami](https://umamiwallet.com/).
 
@@ -313,5 +313,8 @@ Saving the contract address like this is important because the address is not sh
 Now the contract is running on the Tezos blockchain.
 You or any other user can call it from any source that can send transactions to Tezos, including Octez, dApps, and other contracts.
 
-If you want to continue working with this contract, try creating a dApp to call it from a web application, similar to the dApp that you create in the tutorial [Build a simple web application](../build-your-first-app/).
-You can also try adding your own entrypoints and originating a new contract, but you cannot update the existing contract after it is deployed.
+If you want to continue working with this contract, here are some ideas:
+
+- Change permissions for the contract so only your account can call its entrypoints
+- Add your own entrypoints and originate a new contract; note that you cannot update the existing contract after it is deployed
+- Create a dApp to call the contract from a web application, similar to the dApp that you create in the tutorial [Build a simple web application](../build-your-first-app/)

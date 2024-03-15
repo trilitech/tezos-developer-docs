@@ -2,7 +2,7 @@
 title: Deploy a smart contract with JsLIGO
 authors: 'John Joubert, Sasha Aldrick, Claude Barde, Tim McMackin'
 last_update:
-  date: 3 January 2024
+  date: 15 March 2024
 ---
 
 This tutorial covers writing and deploying a simple smart contract with the LIGO programming language.
@@ -12,10 +12,13 @@ Specifically, this tutorial uses the JsLIGO version of LIGO, which has syntax si
 - If you are more familiar with OCaml, try [Deploy a smart contract with CameLIGO](./cameligo).
 - To learn the Archetype language, try [Deploy a smart contract with Archetype](./archetype).
 
+LIGO is a high-level programming language that you can use to write smart contracts for the Tezos blockchain.
+It abstracts away the complexity of using Michelson (the smart contract language directly available on-chain) to make it easier to write smart contracts on Tezos.
+
 In this tutorial, you will learn how to:
 
-- Create a wallet
-- Get tokens from a faucet
+- Create a wallet to store cryptocurrency tokens
+- Get free tez tokens (the native cryptocurrency token on Tezos) from a faucet
 - Code a contract in LIGO, including:
   - Defining the storage for the contract
   - Defining entrypoints in the contract
@@ -32,9 +35,9 @@ Responsibility for running the contract is distributed across all of the nodes i
 
 A smart contract has these parts:
 
-- It has persistent storage, data that the contract can read and write
-- It has one or more entrypoints, which are a kind of function that clients can call, like endpoints in an API or functions or methods in many programming languages
-- It has a Tezos account and can store tez (technically, the contract is itself a type of Tezos account, but you can think of it as a program with a Tezos account)
+- Persistent storage, data that the contract can read and write
+- One or more entrypoints, which are a kind of function that clients can call, like endpoints in an API or functions or methods in many programming languages
+- A Tezos account that can store tokens (technically, the contract is itself a type of Tezos account, but you can think of it as a program with a Tezos account)
 
 ## Tutorial contract
 
@@ -45,7 +48,8 @@ It provides entrypoints that clients can call to change the value of that intege
 - The `decrement` entrypoint accepts an integer as a parameter and subtracts that integer from the value in storage
 - The `reset` entrypoint takes no parameters and resets the value in storage to 0
 
-After you deploy the contract, you or any other user can call it from a variety of Tezos clients and decentralized applications (dApps).
+After you deploy the contract, you or any other user can call it from various sources, including web applications, other contracts, and the Octez command-line client.
+However, no one can prevent it from running or tamper with its code or its storage.
 
 ## Creating and funding a wallet
 
@@ -204,6 +208,12 @@ namespace Counter {
 
 Before you can deploy the contract to Tezos, you must compile it to Michelson, the base language of Tezos contracts.
 
+1. Set the compiler to target the namespace to compile in your code:
+
+   1. On the left side of the page, under **Actions**, click **Project Settings**.
+   1. On the Project Settings tab, in the **Module name** field, set the module name to `Counter`.
+   1. Close the Project Settings tab.
+
 1. Test the contract by passing parameters and the storage value to the LIGO `dry-run` command:
 
    1. On the left side of the page, under **Actions**, click **Dry Run**.
@@ -307,5 +317,8 @@ It also allows you to call the contract.
 Now the contract is running on the Tezos blockchain.
 You or any other user can call it from any source that can send transactions to Tezos, including Octez, dApps, and other contracts.
 
-If you want to continue working with this contract, try creating a dApp to call it from a web application, similar to the dApp that you create in the tutorial [Build a simple web application](../build-your-first-app/).
-You can also try adding your own entrypoints and originating a new contract, but you cannot update the existing contract after it is deployed.
+If you want to continue working with this contract, here are some ideas:
+
+- Change permissions for the contract so only your account can call its entrypoints
+- Add your own entrypoints and originate a new contract; note that you cannot update the existing contract after it is deployed
+- Create a dApp to call the contract from a web application, similar to the dApp that you create in the tutorial [Build a simple web application](../build-your-first-app/)
