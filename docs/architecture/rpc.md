@@ -6,15 +6,15 @@ last_update:
 ---
 
 The Tezos RPC (Remote Procedure Call) interface is a specification for a REST API that clients use to interact with Tezos nodes and nodes use to communicate with each other.
+
+You may want to know this RPC interface if you are developing tools that need to query the Tezos blockchain or to interact with it, such as wallets, indexers, or Web3 libraries.
+
 Clients use this interface to submit transactions and get information about the state of the blockchain, such as account balances and contract storage.
 Tezos nodes act as servers and accept HTTP requests from clients and other nodes via this interface.
 
 Tezos RPC uses JSON to send and receive data, but it does not adhere to the JSON-RPC specification.
 
-Different parts of the software provide different RPC endpoints:
-
-- For RPC endpoints for the shell, see [Shell RPCs - Reference](https://tezos.gitlab.io/shell/rpc.html#rpc-index-shell) in the Octez documentation.
-- For RPC endpoints for the active version of the protocol, see https://tezos.gitlab.io/active/rpc.html.
+All the RPCs served by the Tezos node are described as an OpenAPI specification at [Octez Node RPCs](https://tezos.gitlab.io/api/openapi.html#octez-node) in the Octez documentation.
 
 ## Public and private RPC nodes
 
