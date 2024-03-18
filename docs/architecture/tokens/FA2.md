@@ -11,7 +11,7 @@ The FA2 standard supports several different token types, including:
 - Non-fungible tokens (NFTs)
 - Multiple types of tokens in the same contract
 
-Adhering to the FA2 standard allows to create new types of tokens while ensuring that the tokens work with existing wallets and applications.
+Adhering to the FA2 standard allows developers to create new types of tokens while ensuring that the tokens work with existing wallets and applications.
 The FA2 standard leaves enough freedom for developers to define rules for transferring tokens and for how tokens behave.
 
 Because a single FA2 contract can define multiple types of tokens, each token type has an ID.
