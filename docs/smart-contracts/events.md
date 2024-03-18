@@ -27,7 +27,7 @@ For example, this contract stores a number and emits events when that amount cha
 
 JsLIGO
 
-```ligolang
+```jsligo
 type storage = int;
 
 @entry
@@ -72,10 +72,10 @@ def main():
 
 if "templates" not in __name__:
 
-    @sp.add_test(name="Events")
+    @sp.add_test()
     def test():
         c1 = main.Events(12)
-        scenario = sp.test_scenario(main)
+        scenario = sp.test_scenario("Events", main)
         scenario.h1("Add")
         scenario += c1
         c1.add(2).run(

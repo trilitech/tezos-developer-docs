@@ -59,7 +59,7 @@ sequenceDiagram
 
 1. Edit `./contracts/pokeGame.jsligo` and replace storage definition by this one:
 
-   ```ligolang
+   ```jsligo
    export type pokeMessage = {
        receiver : address,
        feedback : string
@@ -73,7 +73,7 @@ sequenceDiagram
 
 1. Replace your poke function with theses lines:
 
-   ```ligolang
+   ```jsligo
    @entry
    const poke = (_ : unit, store : storage) : return_ => {
        let feedbackMessage = {receiver : Tezos.get_self_address() ,feedback: ""};
@@ -92,7 +92,7 @@ sequenceDiagram
 
 1. Edit `pokeGame.storageList.jsligo` to change the storage initialization.
 
-   ```ligolang
+   ```jsligo
    #import "pokeGame.jsligo" "Contract"
 
    const default_storage: Contract.storage = {
@@ -122,7 +122,7 @@ sequenceDiagram
 
 1. Edit the file.
 
-   ```ligolang
+   ```jsligo
    #import "./pokeGame.jsligo" "PokeGame"
 
    export type main_fn = module_contract<parameter_of PokeGame, PokeGame.storage>;
@@ -249,7 +249,7 @@ The function to call on the second contract is `GetFeedback: (contract_callback:
 
 1. Edit the file `pokeGame.jsligo`, to define new types:
 
-   ```ligolang
+   ```jsligo
    type returned_feedback = [address, string]; //address that gives feedback and a string message
 
    type oracle_param = contract<returned_feedback>;
@@ -262,7 +262,7 @@ The function to call on the second contract is `GetFeedback: (contract_callback:
 
 1. Write the missing functions, starting with `getFeedback`. Add this new function at the end of the file.
 
-   ```ligolang
+   ```jsligo
    @entry
    const getFeedback = (contract_callback : contract<returned_feedback>, store : storage): return_ => {
        let op : operation = Tezos.transaction(
@@ -278,7 +278,7 @@ The function to call on the second contract is `GetFeedback: (contract_callback:
 
 1. Add now, the first part of the function `pokeAndGetFeedback`.
 
-   ```ligolang
+   ```jsligo
    @entry
    const pokeAndGetFeedback = (oracleAddress: address, store: storage): return_ => {
      //Prepares call to oracle
@@ -316,7 +316,7 @@ The function to call on the second contract is `GetFeedback: (contract_callback:
 
 1. Write the last missing function `pokeAndGetFeedbackCallback`, receive the feedback and finally store it.
 
-   ```ligolang
+   ```jsligo
    @entry
    const pokeAndGetFeedbackCallback = (feedback : returned_feedback, store : storage) : return_ => {
        let feedbackMessage = {receiver : feedback[0] ,feedback: feedback[1]};
@@ -362,7 +362,7 @@ sequenceDiagram
 
 1. Edit function `pokeAndGetFeedback` to call view instead of a transaction.
 
-   ```ligolang
+   ```jsligo
    @entry
    const pokeAndGetFeedback = (oracleAddress: address, store: storage): return_ => {
      //Read the feedback view
@@ -393,7 +393,7 @@ sequenceDiagram
 
 1. Declare the view at the end of the file. Do not forget the annotation `@view` !
 
-   ```ligolang
+   ```jsligo
    @view
    export const feedback = (_: unit, store: storage): string => { return store.feedback };
    ```
@@ -423,7 +423,7 @@ The higher the percentage of mutants killed, the more effective your tests are.
 
 1. Edit the file.
 
-   ```ligolang
+   ```jsligo
    #import "./pokeGame.jsligo" "PokeGame"
 
    #import "./unit_pokeGame.jsligo" "PokeGameTest"
@@ -526,7 +526,7 @@ The higher the percentage of mutants killed, the more effective your tests are.
 
 1. Go to your source file pokeGame.jsligo, and annotate the function `pokeAndGetFeedback` with `@no_mutation`.
 
-   ```ligolang
+   ```jsligo
    @no_mutation
    @entry
    const pokeAndGetFeedback ...

@@ -34,21 +34,10 @@ const sidebars = {
           },
           items: ['architecture/tokens/FA1.2', 'architecture/tokens/FA2'],
         },
-        // { // TODO
-        //   type: 'category',
-        //   label: 'Baking',
-        //   link: {
-        //     id: 'architecture/baking',
-        //     type: 'doc',
-        //   },
-        //   items: [
-        //     'architecture/baking/running-nodes',
-        //     'architecture/baking/delegating',
-        //   ],
-        // },
+        'architecture/baking',
         'architecture/rpc',
         'architecture/smart-rollups',
-        // 'architecture/data-availability', // TODO
+        'architecture/data-availability-layer',
         {
           type: 'category',
           label: 'Governance',
@@ -69,6 +58,7 @@ const sidebars = {
       items: [
         'developing/wallet-setup',
         'developing/dev-environments',
+        'developing/testing',
         'developing/testnets',
         // 'developing/sandbox', // TODO
         {
@@ -87,10 +77,10 @@ const sidebars = {
         {
           type: 'category',
           label: 'Getting information about the blockchain',
-          // link: { // TODO
-          //   id: 'developing/information',
-          //   type: 'doc',
-          // },
+          link: {
+            id: 'developing/information',
+            type: 'doc',
+          },
           items: [
             {
               type: 'category',
@@ -157,7 +147,6 @@ const sidebars = {
           ],
         },
         'smart-contracts/creating',
-        'smart-contracts/testing',
         'smart-contracts/deploying',
         'smart-contracts/entrypoints',
         'smart-contracts/storage',
@@ -169,6 +158,7 @@ const sidebars = {
         'smart-contracts/events',
         'smart-contracts/delegation',
         'smart-contracts/multisig',
+        'smart-contracts/oracles',
       ],
     },
     {
@@ -179,7 +169,6 @@ const sidebars = {
         type: 'doc',
       },
       items: [
-        // 'dApps/first-dapp', // TODO
         'dApps/samples',
         // 'dApps/creating', //TODO
         'dApps/wallets',
@@ -231,10 +220,6 @@ const sidebars = {
       type: 'category',
       label: 'Reference',
       items: [
-        // 'reference/rpc', // TODO
-        // 'reference/encoding', // TODO
-        // 'reference/merkle-formats', // TODO
-        // 'reference/ocaml-apis', // TODO
         'reference/style-guide',
         {
           type: 'link',
@@ -246,7 +231,6 @@ const sidebars = {
           label: 'Position paper',
           href: 'https://tezos.com/position-paper.pdf',
         },
-        // 'reference/previous-versions', // TODO
       ],
     },
   ],
@@ -392,6 +376,7 @@ const sidebars = {
         id: 'tutorials/build-files-archive-with-dal',
       },
       items: [
+        'tutorials/build-files-archive-with-dal/set-up-environment',
         'tutorials/build-files-archive-with-dal/get-dal-params',
         'tutorials/build-files-archive-with-dal/get-slot-info',
         'tutorials/build-files-archive-with-dal/publishing-on-the-dal',

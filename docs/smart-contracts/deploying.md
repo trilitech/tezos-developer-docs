@@ -2,7 +2,7 @@
 title: Deploying smart contracts
 authors: 'Yuxin Li'
 last_update:
-  date: 6 November 2023
+  date: 13 February 2024
 ---
 ## Introduction
 In Tezos, deploying a smart contract is often referred to as “origination”. This process essentially creates a new account that holds the smart contract's script. Contracts originated in this manner have addresses that start with `KT1`, which distinguishes them from the user accounts with addresses beginning with `tz1`, `tz2`, or `tz3`.
@@ -10,7 +10,6 @@ In Tezos, deploying a smart contract is often referred to as “origination”. 
 ## Prerequisites
 - Compile your contract and its initial storage
 - Set up an wallet account on Tezos with some tez to pay the fees
-- Ensure that you have obtained the [Tezos client](../developing/octez-client/installing)
 
 ## Deploying a smart contract
 Generally, there are two methods for deploying your smart contracts: either using the command line in your terminal or deploying through an online IDE.
@@ -31,12 +30,93 @@ where:
 - `GAZ_FEE` is a specified maximal fee the user is willing to pay for this operation (using the --burn-cap parameter).
 
 ### Deploying via online IDE
-As for deploying through your online IDE, if you are using LIGO or SmartPy programming languages, you can simply deploy your smart contracts through their respective online IDEs.
+As for deploying through your online IDE, if you are using LIGO or SmartPy programming languages, you can deploy your smart contracts through their respective online IDEs.
 - [SmartPy online IDE](https://smartpy.io/)
 - [LIGO online IDE](https://ligolang.org/?lang=jsligo)
 
+## Compiling the initial storage value
+
+When you deploy a contract, you initialize its storage.
+The initial value of the storage must be a Micheline value, which is the format for variables in Michelson smart contracts.
+The high-level languages provide tools to compile the initial values of smart contracts into Micheline values.
+
+### Compiling LIGO storage values
+
+For LIGO smart contracts, you can use the `ligo compile storage` command.
+For example, assume that a JsLIGO contract has a storage value that includes a list of integers, a string, and an integer:
+
+```jsligo
+type storage = [
+  list<int>,
+  string,
+  int,
+];
+```
+
+When this contract is compiled to Michelson, the storage line of the contract looks like this:
+
+```michelson
+storage (pair (list int) string int) ;
+```
+
+To compile an initial value to this format, you can pass a JsLIGO value to the `ligo compile storage` command, as in this example:
+
+```bash
+ligo compile storage MyContract.jsligo '[list([1,2,3,4]), "start", 0]'
+```
+
+The result is the Micheline value, as in this example:
+
+```michelson
+(Pair { 1 ; 2 ; 3 ; 4 } "start" 0)
+```
+
+Then you can use this Micheline value as the initial storage value for the contract:
+
+```bash
+octez-client originate contract MyContract \
+  transferring 0 from my_account \
+  running MyContract.tz --init '(Pair { 1 ; 2 ; 3 ; 4 } "start" 0)' \
+  --burn-cap 1
+```
+
+### Compiling SmartPy storage values
+
+SmartPy lets you set the initial value of the contract storage in the smart contract code in the `__init__` function.
+For example, this contract defines three storage variables and sets their initial values:
+
+```python
+import smartpy as sp
+
+@sp.module
+def main():
+    class MyList(sp.Contract):
+        def __init__(self):
+            self.data.ListOfIntegers = [1,2,3,4]
+            self.data.MyString = "hello"
+            self.data.MyInteger = 5
+```
+
+Now you can compile and deploy the contract via the online IDE with these starting values.
+
+If you want to deploy the contract with the Octez client, add a test to the contract and run the test with the command `python MyContract.py`.
+One of the files this command creates ends in `storage.tz` and contains the Micheline value of the initial storage, as in this example:
+
+```
+(Pair {1; 2; 3; 4} (Pair 5 "hello"))
+```
+
+Then you can use this Micheline value as the initial storage value for the contract:
+
+```bash
+octez-client originate contract MyContract \
+  transferring 0 from my_account \
+  running MyContract.tz --init '(Pair { 1 ; 2 ; 3 ; 4 } "start" 0)' \
+  --burn-cap 1
+```
+
 ## Interacting with the contract
-Once you have successfully originated the smart contract and it is included in a baked block, there are two ways to interact with it: through command lines or through a block explorer.
+When you have successfully originated the smart contract and it is included in a baked block, there are two ways to interact with it: through command lines or through a block explorer.
 
 ### Interacting through command lines
 The first method involves interacting with the contract's entry points using command lines.
@@ -83,7 +163,7 @@ A blockchain explorer is an efficient and user-friendly tool that enables you to
 - [Better Call Dev](https://better-call.dev/)
 - [TzKT](https://tzkt.io/)
 
-To interact with a contract, simply copy its address into one of these blockchain explorers. Below is the user interface for interacting with a contract through Better Call Dev:
+To interact with a contract, copy its address into one of these blockchain explorers. Below is the user interface for interacting with a contract through Better Call Dev:
 
 ![UI for Better Call Dev](/img/tutorials/better-call.png)
 

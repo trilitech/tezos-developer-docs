@@ -12,6 +12,7 @@ Before trying to run the code yourself, look at [Explorus](https://explorus.io/d
 :::
 
 The examples in this tutorial use slot 10.
+Throughout the rest of this tutorial, replace slot 10 with the number of the slot that you choose.
 
 ## Switching slots
 
@@ -38,7 +39,7 @@ For example, this command uses slot 10:
    ```
 
 1. Run the commands to build and deploy the Smart Rollup and start the node.
-You can use the script in [Part 1: Getting the DAL parameters](./get-dal-params) to simplify the process.
+You can use the script in [Part 2: Getting the DAL parameters](./get-dal-params) to simplify the process.
 
 ## Publishing messages
 
@@ -63,7 +64,7 @@ The DAL node provides an RPC endpoint for clients to send data to be added to a 
 
    Note that the value of the message is in double quotes because it must be a valid JSON string, as hinted by the `Content-Type` header.
 
-1. Using the values of the commitment and proof from the previous command, post the certificate to layer 1 with this command:
+1. Using the values of the commitment and proof from the previous command, post the certificate to layer 1 with this command, being sure to set the slot number that you are using:
 
    ```bash
    commitment="sh1u3tr3YKPDYUp2wWKCfmV5KZb82FREhv8GtDeR3EJccsBerWGwJYKufsDNH8rk4XqGrXdooZ"
@@ -73,20 +74,53 @@ The DAL node provides an RPC endpoint for clients to send data to be added to a 
        with proof "${proof}"
    ```
 
+   If the Octez client successfully published the commitment, the response to the command shows the slot number and the block (level) that it was published in.
+   For example, this response shows that the commitment is in level 8455 in slot 10:
+
+   ```
+   Data availability slot header publishing:
+   Slot: slot_index: 13, commitment: sh1u3tr3YKPDYUp2wWKCfmV5KZb82FREhv8GtDeR3EJccsBerWGwJYKufsDNH8rk4XqGrXdooZ
+   This data availability slot header publishing was successfully applied
+   id:(published_level: 8455, index: 10), commitment: sh1u3tr3YKPDYUp2wWKCfmV5KZb82FREhv8GtDeR3EJccsBerWGwJYKufsDNH8rk4XqGrXdooZ
+   Consumed gas: 1331.033
+   ```
+
    After 4 blocks, you should see a message in the kernel log that looks like this:
 
    ```
    RollupDalParameters { number_of_slots: 32, attestation_lag: 4, slot_size: 65536, page_size: 4096 }
-   Attested slot at index 10 for level 57293: [72, 101, 108, 108, 111, 44, 32, 119, 111, 114]
+   Attested slot at index 10 for level 8455: [72, 101, 108, 108, 111, 44, 32, 119, 111, 114]
    See you in the next level
    ```
 
    You can verify your message by converting the bytes in the message back to the first 10 characters of the string "Hello, World!"
 
-   If you see a message that says "A slot header for this slot was already proposed," another transaction tried to write to that slot in the same block, so you must try again.
+## Troubleshooting
 
-   If you don't see information about the attested slot, check the page at https://explorus.io/dal.
-   If that page shows red (unattested) slots, it's possible that the attesters for the network are offline.
+If you don't see the message that the slot is attested and contains your data, try these things:
+
+- If you see a message that says "A slot header for this slot was already proposed," another transaction tried to write to that slot in the same block, so you must try again.
+
+- Make sure that the Smart Rollup and the DAL node are both using the slot that you published the commitment to:
+
+   - In the file `lib/src.rs`, the line `const SLOT_TO_MONITOR: u8 = 13;` should use your slot.
+   - When you run the command to start the DAL node, make sure that the `--producer-profiles` argument is set to your slot:
+
+      ```bash
+      octez-dal-node run --endpoint ${ENDPOINT} \
+        --producer-profiles=10 --data-dir _dal_node
+      ```
+   - When you run the command to publish the commitment to the DAL, make sure that you publish it to your slot:
+
+      ```bash
+      octez-client --endpoint ${ENDPOINT} \
+        publish dal commitment "${commitment}" from ${MY_ACCOUNT} for slot 10 \
+        with proof "${proof}"
+      ```
+
+- Check the page at https://explorus.io/dal.
+  If that page shows red (unattested) slots, it's possible that the attesters for the network are offline.
+  You can also see the level that your commitment was published to in the result of the `octez-client publish dal commitment` command and check its status on https://explorus.io/dal.
 
 ## Publishing files
 

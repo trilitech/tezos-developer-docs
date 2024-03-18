@@ -1,8 +1,8 @@
 ---
-title: "Part 2: Getting slot information"
+title: "Part 3: Getting slot information"
 authors: 'Tezos Core Developers'
 last_update:
-  date: 26 January 2024
+  date: 14 February 2024
 ---
 
 When clients send data to the DAL, they must choose which slot to put it in.
@@ -32,6 +32,8 @@ Run this command to start a DAL node and monitor slot 0:
 octez-dal-node run --endpoint ${ENDPOINT} \
     --producer-profiles=0 --data-dir _dal_node
 ```
+
+Leave this process running in terminal window.
 
 ## Accessing the slot data from a Smart Rollup
 
@@ -82,7 +84,7 @@ Follow these steps to update the Smart Rollup to access information about slot 0
        let param = host.reveal_dal_parameters();
        debug_msg!(host, "{:?}\n", param);
 
-       match run(host, &param, slot_to_monitor) {
+       match run(host, &param, SLOT_TO_MONITOR) {
            Ok(()) => debug_msg!(host, "See you in the next level\n"),
            Err(_) => debug_msg!(host, "Something went wrong for some reasons"),
        }
@@ -112,8 +114,39 @@ Follow these steps to update the Smart Rollup to access information about slot 0
    tezos-smart-rollup-host = { version = "0.2.2", features = [ "proto-alpha" ] }
    ```
 
+   The end of the file looks like this:
+
+   ```toml
+   [dependencies]
+   tezos-smart-rollup = { version = "0.2.2", features = [ "proto-alpha" ] }
+   tezos-smart-rollup-host = { version = "0.2.2", features = [ "proto-alpha" ] }
+   ```
+
+1. Stop the Smart Rollup process.
+
 1. Run the commands to build and deploy the Smart Rollup and start the node.
-You can use the script in [Part 1: Getting the DAL parameters](./get-dal-params) to simplify the process.
+
+
+   If you set up the deployment script as described in [Part 2: Getting the DAL parameters](./get-dal-params), you can run `./deploy_smart_rollup.sh $MY_ACCOUNT`.
+
+   If not, run these commands, using your account alias for `MY_ACCOUNT`:
+
+   ```bash
+   rm -rf _rollup_node
+   cargo build --release --target wasm32-unknown-unknown
+   cp target/wasm32-unknown-unknown/release/files_archive.wasm .
+
+   smart-rollup-installer get-reveal-installer -P _rollup_node/wasm_2_0_0 \
+     -u files_archive.wasm -o installer.hex
+
+   octez-client --endpoint ${ENDPOINT} \
+     originate smart rollup files_archive from "${MY_ACCOUNT}" of kind wasm_2_0_0 \
+     of type unit with kernel "$(cat installer.hex)" --burn-cap 2.0 --force
+
+   octez-smart-rollup-node --endpoint ${ENDPOINT} \
+     run observer for files_archive with operators --data-dir _rollup_node \
+     --dal-node http://localhost:10732 --log-kernel-debug
+   ```
 
 1. In another terminal window, view the log with the command `tail -F _rollup_node/kernel.log`.
 

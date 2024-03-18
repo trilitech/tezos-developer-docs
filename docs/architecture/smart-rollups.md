@@ -2,10 +2,8 @@
 title: Smart Rollups
 authors: 'Nomadic Labs, TriliTech, Tim McMackin'
 last_update:
-  date: 18 January 2024
+  date: 11 March 2024
 ---
-
-import LucidDiagram from '@site/src/components/LucidDiagram';
 
 Smart Rollups play a crucial part in providing high scalability on Tezos.
 They handle logic in a separate environment that can run transactions at a much higher rate and can use larger amounts of data than the main Tezos network.
@@ -26,7 +24,8 @@ For reference on Smart Rollups, see [Smart Optimistic Rollups](https://tezos.git
 
 This diagram shows a high-level view of how Smart Rollups interact with layer 1:
 
-<LucidDiagram width="640px" height="480px" src="https://lucid.app/documents/embedded/1e176e48-5c1a-457c-af3e-2f66d3c1b893" id="iB96FUquB~sm" />
+![Diagram of Smart Rollup architecture](/img/architecture/smart-rollup-architecture.png)
+<!-- https://lucid.app/lucidchart/1e176e48-5c1a-457c-af3e-2f66d3c1b893/edit>
 
 ## Uses for Smart Rollups
 
@@ -79,27 +78,28 @@ To transfer more than 4KB of data, rollups must use multiple pages, which may co
 
 - A rollup node can request information about the rollup, including the address and origination level of the rollup, known as _metadata requests_.
 
-{/*
+<!--
 TODO how is this data provided?
 Where does it come from?
 Do we need instructions on how to provide data?
 Eventually include:
   - importing data from a DAC certificate (which can contain anything ultimately, including a kernel to upgrade to)
   - revealing data from the (WIP) DAL
-*/}
+-->
 
 ## Smart Rollup lifecycle
 
 The general flow of a Smart Rollup goes through these phases:
 
-1. Origination: A user called the _rollup operator_ originates the Smart Rollup to layer 1 and one or more users start nodes based on that Smart Rollup to independently verify its operation.
+1. Origination: A user originates the Smart Rollup to layer 1.
+1. One or more users start Smart Rollup nodes.
 1. Commitment periods: The Smart Rollup nodes receive the messages in the Smart Rollup inbox, run processing based on those messages, generate but do not run outbox messages, and publish a hash of their state at the end of the period, called a commitment.
 1. Refutation periods: Nodes can publish a concurrent commitment to refute a published commitment.
 1. Triggering outbox messages: When the commitment can no longer be refuted, any client can trigger outbox messages, which create transactions.
 
 Here is more information on each of these phases:
 
-{/* TODO diagram of commitment periods and refutation periods? */}
+<!-- TODO diagram of commitment periods and refutation periods? -->
 
 ### Origination
 

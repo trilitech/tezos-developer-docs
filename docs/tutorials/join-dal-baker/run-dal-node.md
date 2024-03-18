@@ -5,7 +5,9 @@ last_update:
   date: 23 January 2024
 ---
 
-Start the DAL node by running this command:
+The DAL node is responsible for temporarily storing data and providing it to bakers and Smart Rollups.
+
+To start the DAL node, open a new terminal window in the same environment and run this command:
 
 ```bash
 octez-dal-node run >> "$HOME/octez-dal-node.log" 2>&1

@@ -20,4 +20,4 @@ To use this object, create an instance of it, put your information in its fields
 - `Pinata Api Key`: The Pinata JWT (not the API key or secret key) to use to upload files and data to IPFS
 - `Data Provider Config`: The instance of the [DataProviderConfig](./DataProviderConfigSO) scriptable object to use
 
-For more information about RPC nodes, see [The RPC protocol](../../architecture/rpc).
+For more information about RPC nodes, see [The RPC interface](../../architecture/rpc).

@@ -27,7 +27,7 @@ The contract storage must store the tokens that are offered for sale and their p
 
    1. In the `nft.jsligo` file, before the definition of the `storage` type, add a type that represents a token that is offered for sale:
 
-      ```ligolang
+      ```jsligo
       export type offer = {
         owner : address,
         price : nat
@@ -37,7 +37,7 @@ The contract storage must store the tokens that are offered for sale and their p
    1. Add a map named `offers` that maps token IDs to their offer prices to the `storage` type.
       Now the `storage` type looks like this:
 
-      ```ligolang
+      ```jsligo
       export type storage = {
         administrators: set<address>,
         offers: map<nat, offer>, //user sells an offer
@@ -50,13 +50,13 @@ The contract storage must store the tokens that are offered for sale and their p
 
    1. In the `nft.storageList.jsligo` file, add an empty map for the offers by adding this code:
 
-      ```ligolang
+      ```jsligo
       offers: Map.empty as map<nat, Contract.offer>,
       ```
 
       Now the `nft.storageList.jsligo` file looks like this:
 
-      ```ligolang
+      ```jsligo
       #import "nft.jsligo" "Contract"
 
       const default_storage : Contract.storage = {
@@ -99,7 +99,7 @@ The contract storage must store the tokens that are offered for sale and their p
 
 1. In the `nft.jsligo` file, add a `sell` entrypoint that creates an offer for a token that the sender owns:
 
-   ```ligolang
+   ```jsligo
    @entry
    const sell = ([token_id, price]: [nat, nat], s: storage): ret => {
      //check balance of seller
@@ -148,7 +148,7 @@ The contract storage must store the tokens that are offered for sale and their p
 
 1. Add a `buy` entrypoint:
 
-   ```ligolang
+   ```jsligo
    @entry
    const buy = ([token_id, seller]: [nat, address], s: storage): ret => {
      //search for the offer

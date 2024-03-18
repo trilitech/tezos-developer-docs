@@ -146,7 +146,7 @@ These types are important for verifying that data is in the correct format, such
 For example, the `transfer` entrypoint accepts a list of the `transfer` type.
 This type includes the account to transfer tokens from and a list of the `transfer_destination` type, which includes the account to transfer tokens to, the ID of the token to transfer, and the amount to transfer:
 
-```ocaml
+```cameligo
 type token_id = nat
 
 type transfer_destination =
@@ -170,7 +170,7 @@ type transfer =
 The contract defines a series of error messages, and comments in the code describe what each error message means.
 For example, the `balance_of` and `transfer` entrypoints return this error if the client requests information about a token that does not exist or tries to transfer a token that does not exist:
 
-```ocaml
+```cameligo
 (** One of the specified `token_id`s is not defined within the FA2 contract *)
 let fa2_token_undefined = "FA2_TOKEN_UNDEFINED"
 ```
@@ -180,7 +180,7 @@ let fa2_token_undefined = "FA2_TOKEN_UNDEFINED"
 The contract has many internal functions, such as this function, which gets the specified account's balance of tokens.
 In the case of NFTs, only one of each token exists, so the function returns a balance of 1 if the account owns the token and 0 if it does not.
 
-```ocaml
+```cameligo
 (**
 Retrieve the balances for the specified tokens and owners
 @return callback operation
@@ -203,7 +203,7 @@ let get_balance (p, ledger : balance_of_param * ledger) : operation =
 Each entrypoint in the contract is a function with the `@entry` annotation.
 For example, the `mint` entrypoint calls an internal function to handle minting tokens based on the parameters that are defined in the `mint_params` type:
 
-```ocaml
+```cameligo
 (** Mint NFT entrypoint *)
 [@entry]
 let mint (p : mint_params) (storage : nft_token_storage) : return_value =
@@ -299,7 +299,7 @@ If you see an error, make sure that you copied the entire contract file.
 
    1. In the "Deploy contract" window, in the **Init storage** field, paste the initial storage value for the contract, which you can get from the comment at the end of the contract:
 
-      ```ocaml
+      ```cameligo
       {
         ledger = (Big_map.empty: (token_id, address) big_map);
         operators = (Big_map.empty: ((address * (address * token_id)), unit) big_map);

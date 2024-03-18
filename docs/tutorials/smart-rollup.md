@@ -4,8 +4,6 @@ last_update:
   date: 11 October 2023
 ---
 
-import LucidDiagram from '@site/src/components/LucidDiagram';
-
 This tutorial covers how to deploy a Smart Rollup in a Tezos sandbox.
 To run this tutorial, you should have a basic understanding of how Tezos works and the ability to use the command-line terminal on your computer.
 
@@ -35,9 +33,9 @@ Smart Rollups can run any kind of applications that they want, such as:
 - Applications that run complex logic on NFTs or other types of tokens
 - Applications that communicate with other blockchains
 
-{/*
+<!--
 TODO Should this intro discuss the reveal data channel?
-*/}
+-->
 
 Rollups maintain consensus by publishing the hash of their state to Tezos, which other nodes can use to verify the rollup's behavior.
 The specific way that rollups publish their states and maintain consensus is beyond the scope of this tutorial.
@@ -45,7 +43,8 @@ For more information about rollups and their consensus mechanism, see [Smart Opt
 
 This diagram shows a Smart Rollup interacting with layer 1 by receiving a message, running processing based on that message, and sending a transaction to layer 1:
 
-<LucidDiagram width="640px" height="480px" src="https://lucid.app/documents/embedded/74fd884e-9c71-409e-b7d3-c3a871a17178" id="KYtBl2woQVuV" />
+![Diagram that shows the flow of messages in Smart Rollups](/img/tutorials/smart-rollup-overview.png)
+<!-- https://lucid.app/lucidchart/74fd884e-9c71-409e-b7d3-c3a871a17178/edit?page=0_0# -->
 
 Smart Rollups stay in sync with Tezos by passing messages to Tezos and receiving messages from Tezos and other rollups.
 Each Tezos block contains a global rollups inbox that contains messages from Tezos layer 1 to all rollups.
@@ -69,9 +68,9 @@ Smart Rollups are like separate horizontally scaled teams, with Tezos layer 1 as
 
 To run this tutorial, make sure that the following tools are installed:
 
-{/*
+<!--
 TODO Could we install some of the tools in the docker container instead of making them install them locally?
-*/}
+-->
 
 - [Docker](https://www.docker.com/)
 

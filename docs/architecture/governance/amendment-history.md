@@ -2,10 +2,11 @@
 title: History of amendments
 authors: 'Thomas Zoughebi, Aymeric Bethencourt, and Maxime Fernandez'
 last_update:
-  date: 30 June 2023
+  date: 14 February 2024
 ---
 
-As presented in [Governance](../governance), the Tezos blockchain is constantly evolving, through new amendments. In this chapter, we will present an overview of past proposals and the reasons for their approval or disapproval.
+As presented in [Governance](../governance), the Tezos blockchain is constantly evolving, through new amendments.
+These are the past proposals to amend the Tezos protocol.
 
 ## [Athens](https://tezos.gitlab.io/protocols/004_Pt24m4xi.html) (Pt24m4xiP)
 
@@ -196,8 +197,14 @@ Mumbai's main changes are:
 
 For more information, see the blog post from [Nomadic Labs](https://research-development.nomadic-labs.com/mumbai-announcement.html) and the [reference documentation](https://tezos.gitlab.io/protocols/016_mumbai.html).
 
-## What have we learned so far?
+## [Nairobi](https://tezos.gitlab.io/protocols/017_nairobi.html) (PtNairob)
 
-In this chapter, we went through the past proposals' history and how and why they were approved or rejected.
+*Nairobi* was autonomously [activated](https://tzstats.com/3760129) in June 2023.
 
-In the next chapter, we will see the details of operations costs and various rewards calculations.
+Nairobi's main changes are:
+
+* Increased TPS thanks to a new gas model for signature verification.
+* Renaming endorsements to attestations to specify the behavior of these consensus operations.
+* Smart Rollups can now be aware of protocol updates happening on the L1.
+
+For more information, see the blog post from [Nomadic Labs](https://research-development.nomadic-labs.com/nairobi-announcement.html) and the [reference documentation](https://tezos.gitlab.io/protocols/017_nairobi.html).
