@@ -33,8 +33,8 @@ For example, you might authorize an application to take a certain amount of your
 
 The account that sends the transaction must have an allowance from the owner of the tokens for a number of their tokens to transfer.
 
-Allowances also apply to the token owner:
-an account cannot transfer more tokens than its allowance, even if it has enough tokens and it sent the request itself.
+Allowances also apply to the token owner.
+An account cannot transfer more tokens than its allowance, even if it has enough tokens and it sent the request itself.
 This means that if you want to transfer some of your tokens, you must first set your account's allowance to the amount to transfer.
 
 For security reasons, an allowance cannot be changed from a non-zero amount to another non-zero amount.
