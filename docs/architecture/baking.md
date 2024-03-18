@@ -7,7 +7,7 @@ last_update:
 
 Baking is the process of creating new blocks in the Tezos blockchain.
 Bakers are daemons complementary to Tezos nodes that cooperate to achieve consensus about the next block to add.
-For doing so, bakers validate pending operations, package them into a block, sign the block, propose the new block to other nodes, and verify that the blocks that other bakers propose are valid.
+Bakers validate pending operations, package them into a block, sign the block, propose the new block to other nodes, and verify that the blocks that other bakers propose are valid.
 
 Baker daemons are run on behalf of user accounts which stake tez to guarantee honest participation and receive rewards for their participation.
 By extension, bakers also denote the users running baker daemons on behalf of their user accounts.
