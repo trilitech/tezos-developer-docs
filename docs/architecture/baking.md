@@ -5,22 +5,25 @@ last_update:
   date: 21 February 2024
 ---
 
-Baking is the process of creating new blocks.
-Bakers are nodes that validate pending operations, package them into a block, sign the block, publish the new block to other nodes, and verify that the blocks that other nodes publish are valid.
-The protocol rewards bakers with tez for baking blocks and for attesting that other blocks are valid.
+Baking is the process of creating new blocks in the Tezos blockchain.
+Bakers are daemons complementary to Tezos nodes that cooperate to achieve consensus about the next block to add.
+Bakers validate pending operations, package them into a block, sign the block, propose the new block to other nodes, and verify that the blocks that other bakers propose are valid.
+
+Baker daemons are run on behalf of user accounts which stake tez to guarantee honest participation and receive rewards for their participation.
+By extension, bakers also denote the users running baker daemons on behalf of their user accounts.
 
 ## The baking process
 
 The baking process includes many steps that Tezos users and developers don't need to think about, but at a basic level, baking a block follows these steps:
 
-1. The protocol selects a list of bakers to create the blocks for a _cycle_, which is a certain number of blocks.
+1. The protocol selects in advance a list of bakers for each block to create in a _cycle_, which is a certain number of blocks.
 1. It also selects a list of bakers to act as validators.
 These bakers are responsible for validating the blocks that other bakers create and publishing _attestations_ that the block is valid.
 1. The first baker on the list has a certain amount of time to create the next block.
 It packages pending operations into a block, signs it, and distributes it to the validators and other nodes.
 1. If the first baker doesn't publish a block in time, the next baker on the list has a certain amount of time to bake a block, and so on until a block is created.
 1. The validators verify the block and publish their attestations in future blocks.
-1. The next baker on the list creates the next block, and the cycle continues.
+1. The next list of bakers create the next block, until the end of the cycle.
 
 ## Becoming a baker
 
@@ -38,7 +41,7 @@ These daemons must run at all times with a stable internet connection, because i
 ## Delegating to a baker
 
 If you don't have enough tez to become a baker or don't want to run a baking node, you can delegate tez to a baker, which makes you a _delegator_.
-The delegate doesn't have control over your tez and you can withdraw your tez at any time, but the tez that you delegate counts toward the amount of tez that the delegate has for baking purposes.
+The delegate doesn't have control over your tez and you can spend your tez at any time or withdraw your delegation, but the tez that you delegate counts toward the amount of tez that the delegate has for baking purposes.
 Delegators receive a share of the delegate's rewards in proportion to the amount of tez that they delegate.
 
 ## References
