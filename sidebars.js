@@ -186,7 +186,7 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: 'Tezos SDK for Unity',
+      label: 'Tezos Unity SDK',
       link: {
         id: 'unity',
         type: 'doc',

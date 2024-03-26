@@ -29,4 +29,4 @@ The California DMV is also using Tezos for its project to [put car titles on the
 
 ## Tezos in Gaming
 
-Recently, the [Tezos SDK for Unity](https://tezos.com/unity/) promises to make blockchain game development easier and faster. It allows for the addition of web3 features such as allowing players to link their accounts across games, mint, and trade in-game items and currencies, and show off their ranks and accomplishments on public, on-chain leaderboards.
+Recently, the [Tezos Unity SDK](https://tezos.com/unity/) promises to make blockchain game development easier and faster. It allows for the addition of web3 features such as allowing players to link their accounts across games, mint, and trade in-game items and currencies, and show off their ranks and accomplishments on public, on-chain leaderboards.
