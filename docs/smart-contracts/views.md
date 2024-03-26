@@ -2,7 +2,7 @@
 title: Views
 authors: 'Mathias Hiron (Nomadic Labs), Sasha Aldrick (TriliTech), Tim McMackin (TriliTech)'
 last_update:
-  date: 26 February 2024
+  date: 26 March 2024
 ---
 
 Views are a way for contracts to expose information to other contracts and to off-chain consumers.
@@ -18,6 +18,16 @@ However, views can't cause side effects, so they can't create operations, includ
 Views also can't change the contract storage.
 
 Nodes can run views without creating any operations, which lets off-chain users get a node to run a view and return the result immediately, as a convenient way to get information from a smart contract.
+
+## Types of views
+
+Contracts can store the source code of their views either _on-chain_ or _off-chain_:
+
+  - The code of on-chain views is stored in the smart contract code itself, like entrypoints.
+  - The code of off-chain views is stored externally, usually in decentralized data storage such as IPFS.
+  The contract metadata has information about its off-chain views that consumers such as indexers and other dApps use to know what off-chain views are available and to run them.
+
+On-chain and off-chain views have the same capabilities and limitations.
 
 ## Examples
 
