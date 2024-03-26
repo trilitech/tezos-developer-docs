@@ -229,13 +229,13 @@ Here you can see the result on the Ghostnet: https://ghostnet.tzkt.io/KT1NKLZE9H
 
 &rarr; **SOLUTION**: On the `3-reentrancyOfferContract.jsligo` file, line 34, swap the order of operation execution from this:
 
-```
+```jsligo
 return [list([opTx, opChangeOwner]), s];
 ```
 
 to this:
 
-```
+```jsligo
 return [list([opChangeOwner,opTx]), s];
 ```
 

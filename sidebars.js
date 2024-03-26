@@ -34,18 +34,7 @@ const sidebars = {
           },
           items: ['architecture/tokens/FA1.2', 'architecture/tokens/FA2'],
         },
-        // { // TODO
-        //   type: 'category',
-        //   label: 'Baking',
-        //   link: {
-        //     id: 'architecture/baking',
-        //     type: 'doc',
-        //   },
-        //   items: [
-        //     'architecture/baking/running-nodes',
-        //     'architecture/baking/delegating',
-        //   ],
-        // },
+        'architecture/baking',
         'architecture/rpc',
         'architecture/smart-rollups',
         'architecture/data-availability-layer',
@@ -88,10 +77,10 @@ const sidebars = {
         {
           type: 'category',
           label: 'Getting information about the blockchain',
-          // link: { // TODO
-          //   id: 'developing/information',
-          //   type: 'doc',
-          // },
+          link: {
+            id: 'developing/information',
+            type: 'doc',
+          },
           items: [
             {
               type: 'category',
@@ -168,6 +157,7 @@ const sidebars = {
         'smart-contracts/views',
         'smart-contracts/events',
         'smart-contracts/delegation',
+        'smart-contracts/oracles',
         // 'smart-contracts/multisig-specialized',
         // 'smart-contracts/multisig-usage',
       ],

@@ -2,7 +2,7 @@
 title: An introduction to smart contracts
 authors: 'Thomas Zoughebi, Aymeric Bethencourt, Maxime Fernandez, and Tim McMackin'
 last_update:
-  date: 18 October 2023
+  date: 15 February 2024
 ---
 
 import Figure from '@site/src/components/Figure';
@@ -34,6 +34,9 @@ A smart contract is composed of three elements:
 - Its [storage](./smart-contracts/storage): data that is dedicated to and can be read and written by the contract
 - Its code: one or more [entrypoints](./smart-contracts/entrypoints), which are a kind of function that can be called either from outside the chain or from other contracts
 
+The smart contract code is in the Michelson language, but several high-level languages exist to make it easier to write the code.
+See [Languages](./smart-contracts/languages).
+
 :::note VisualTez
 [VisualTez](https://visualtez.com/editor) allows you to visualize the fundamental logic of a smart contract without relying on any specific syntax.
 :::
@@ -52,18 +55,6 @@ Smart contracts can't do these things:
 - Access other contracts' storage
 - Change their code
 - Catch and respond to errors (see [Handling errors](./smart-contracts/logic/errors))
-
-## Smart contract languages
-
-The code of smart contracts is written in Michelson, a Turing-complete stack-based language that includes common features as well as some very specific blockchain-related features:
-
-- It doesn’t have variables but can manipulate data directly on a stack, through a set of stack manipulation instructions. For example, the _ADD_ instruction consumes two elements from the top of the stack and puts their sum on top of the stack.
-- It is strongly typed, with basic types such as integers, amounts of tez, strings, account addresses, as well as pairs, lists, key-value stores (big-maps), or pieces of code (lambdas).
-- It has limited access to data, and can only read data from its own storage, data passed as parameters during calls to its entrypoints, and a few special values such as the balance of the contract, the amount of tez sent to it during a call, and the creation time of the current block. It can also access a table of constants.
-
-Tezos has several popular high-level languages which offer more approachable syntaxes and a more familiar developer experience (e.g. local variables) compared to writing Michelson directly. While Michelson is the domain-specific smart contract language that was developed for Tezos, SmartPy and LIGO are the most popular and widely-supported languages for writing Tezos smart contracts.
-
-For more information about smart contract languages, see [Languages](./smart-contracts/languages).
 
 ## Features of Tezos smart contracts
 

@@ -35,7 +35,7 @@ Type | Longevity | Target users | Examples
 --- | --- | --- | ---
 [Permanent test networks](#permanent-test-networks) | Permanent | dApp developers and bakers | Ghostnet
 [Protocol test networks](#protocol-test-networks) | During the protocol amendment process | Protocol developers | Nairobinet, Oxfordnet
-[Periodic test networks](#periodic-test-networks) | Week or day | Protocol developers and bakers | Weeklynet, Dailynet
+[Periodic test networks](#periodic-test-networks) | Short-term | Protocol developers and bakers | Weeklynet
 
 ### Permanent test networks
 
@@ -73,12 +73,7 @@ On the other hand, these networks may be less convenient for smart contract or d
 Periodic test networks allow developers to test new features that are under development before those features become part of a proposal or reach Tezos Mainnet.
 These networks are based on Alpha development versions of the Tezos economic protocol and the Octez suite.
 
-The two periodic protocols currently are Weeklynet and Dailynet.
-They are named this way because they are reset weekly and daily, respectively.
-
-Weeklynet is a network that restarts every Wednesday, with the latest Docker build as a reference. It is the place to test upcoming new features. It is also a network to use if you are a big baker or a BaaS provider and you want to test tailored infrastructure.
-
-Dailynet is a network that restarts every day, with the latest Docker build as a reference. This network is mainly used by protocol developers.
+The periodic network currently available is Weeklynet, which is named this way because it restarts every Wednesday, with the latest Docker build as a reference. It is the place to test upcoming new features. It is also a network to use if you are a big baker or a BaaS provider and you want to test tailored infrastructure.
 
 ### Working with periodic test networks
 

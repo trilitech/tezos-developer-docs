@@ -2,7 +2,7 @@
 title: FA2 tokens
 authors: "Claude Barde, Aymeric Bethencourt, Tim McMackin"
 last_update:
-  date: 29 December 2023
+  date: 22 February 2024
 ---
 
 The FA2 standard supports several different token types, including:
@@ -11,11 +11,11 @@ The FA2 standard supports several different token types, including:
 - Non-fungible tokens (NFTs)
 - Multiple types of tokens in the same contract
 
-FA2 gives developers freedom to create new types of tokens while following an interface standard that lets the tokens work with existing wallets and applications.
-FA2 contracts let developers define rules for transferring tokens and for how tokens behave.
+Adhering to the FA2 standard allows developers to create new types of tokens while ensuring that the tokens work with existing wallets and applications.
+The FA2 standard leaves enough freedom for developers to define rules for transferring tokens and for how tokens behave.
 
 Because a single FA2 contract can define multiple types of tokens, each token type has an ID.
-If the contract has only one type of token, its ID must be 0, but if it has multiple types of tokens, the IDs can be any value.
+If the contract has only one type of token, its ID must be 0, but if it has multiple types of tokens, the IDs can be any distinct values.
 
 For the full details of the FA2 standard, see [Tezos Improvement Proposal 12 (TZIP-12)](https://gitlab.com/tezos/tzip/-/blob/master/proposals/tzip-12/tzip-12.md), which defines the standard.
 
@@ -25,7 +25,7 @@ For examples of FA2 contracts, see [Sample smart contracts](../../smart-contract
 
 ## Metadata
 
-FA2 tokens have metadata that describes what the token represents.
+Any FA2 token has some metadata that describes what the token represents.
 The standard provides multiple options for the structure of the metadata and it refers to other standards for how the metadata is stored.
 FA2 suggests that contracts store metadata according to [TZIP-16](https://gitlab.com/tezos/tzip/-/blob/master/proposals/tzip-16/tzip-16.md).
 For examples of working with metadata, see the NFT-related tutorials at [Create an NFT](../../tutorials/create-an-nft).
@@ -55,23 +55,10 @@ Its parameters are a callback contract that accepts a list of token IDs and the 
 - `update_operators`: Adds or removes operators for the specified token owners and token IDs.
 Its parameters are a list of commands to add or remove operators for token owners and IDs.
 
-The standard defines what happens when these entrypoints are called, the format of their parameters, and the errors that they create.
+The standard defines what happens when these entrypoints are called, the format of their parameters, and error cases (see below).
 For information about these requirements, see [TZIP-12](https://gitlab.com/tezos/tzip/-/blob/master/proposals/tzip-12/tzip-12.md).
 
-FA1.2 contracts can add any other entrypoints in addition to the required entrypoints.
-
-## Views
-
-FA2 contracts are not required to have any views, but the specification suggests these optional views.
-If any of them are implemented, all of them should be implemented, and they should be implemented with the parameters, return values, and behaviors that are defined in the standard:
-
-- `get_balance`: Returns the amount of tokens that a specified owner owns of the specified token ID
-- `total_supply`: Returns the total number of tokens of the specified token ID
-- `all_tokens`: Returns the list of all token IDs in the contract
-- `is_operator`: Returns true if the specified address is an operator for the specified token ID and owner address
-- `token_metadata`: Returns the metadata for the specified token ID
-
-FA1.2 contracts can add any other views in addition to the required views.
+FA2 contracts can add any other entrypoints in addition to the required entrypoints.
 
 ## Errors
 

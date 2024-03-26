@@ -52,6 +52,6 @@ Also, to access the user's wallet and run transactions on Tezos, the application
 - **[Taquito](https://tezostaquito.io/)** to interact with the Tezos blockchain
 - **[Beacon](https://docs.walletbeacon.io/)** to access users' wallets
 
-You can see the completed tutorial application here: https://github.com/trilitech/tutorial-applications/simple-nft-svelte
+You can see the completed tutorial application here: https://github.com/trilitech/tutorial-applications/tree/main/simple-nft-svelte
 
 When you're ready, move to the next section to begin setting up the application.

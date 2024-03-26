@@ -38,7 +38,7 @@ The DAL works like this:
 1. Bakers attest that the data is available in their usual block attestations to layer 1.
 
    Each Tezos network has a delay of a certain number of blocks known as the _attestation lag_.
-   This number of blocks determines when bakers attest that the data is available and when the data becomes available to Smart Rollups.
+   This number of blocks determines when bakers attest that the data is available, so that the data is made available to Smart Rollups.
    For example, if a certificate is included in level 100 and the attestation lag is 4, bakers must attest that the data is available in level 104, along with their usual attestations that build on level 103.
 
    If enough shards are attested in that level, the data becomes available to Smart Rollups at the end of layer 104.
@@ -71,7 +71,7 @@ Other operations that try to add data to the same slot fail.
 
 The number and size of these slots can change.
 Different networks can have different DAL parameters.
-Future changes to the protocol may allow the DAL to resize dynamically based on usage.
+Future changes to the protocol may allow the DAL to resize slots dynamically based on usage.
 
 ## Getting the DAL parameters
 
@@ -81,7 +81,7 @@ These parameters include:
 - `number_of_slots`: The maximum number of slots in each block
 - `slot_size`: The size of each slot in bytes
 - `page_size`: The size of each page in bytes
-- `attestation_lag`: The number of blocks after a certificate is published that bakers attest that the data is available; if enough attestations are available in this block, the data becomes available to Smart Rollups
+- `attestation_lag`: The number of blocks after a certificate is published when bakers attest that the data is available; if enough attestations are available in this block, the data becomes available to Smart Rollups
 - `redundancy_factor`: How much redundancy is used to split the data into shards; for example, a redundancy factor of 2 means that half of all shards are enough to reconstruct the original data and a redundancy factor of 4 means that 25% of all shards are required
 
 ## Sending data to the DAL
@@ -103,7 +103,7 @@ Sending data to the DAL is a two-step process:
    }
    ```
 
-1. Send an operation to include the commitment and proof in a block by running this Octez client command, using an RPC endpoint for `$ENDPOINT` and an account alias or address for `$MY_ACCOUNT`:
+1. Send an operation to include the commitment and proof in a block by running this Octez client command, where `$ENDPOINT` is an RPC endpoint served by a layer 1 node and `$MY_ACCOUNT` is an account alias or address:
 
    ```bash
    commitment="sh1u3tr3YKPDY"
@@ -118,10 +118,10 @@ For an example of sending larger amounts of data, see [Implement a file archive 
 ## Getting data from the DAL
 
 Smart Rollups can use data from the DAL **only after it has been attested by the bakers**.
-Therefore, they cannot access DAL data in the current level, because not enough blocks have elapsed to allow bakers to attest the data.
+Due to the attestation lag, they cannot access DAL data published in the current level, because not enough blocks have elapsed to allow bakers to attest the data.
 
-The latest level that Smart Rollups can access is the current level minus the attestation lag.
-They can access the data in that level with the Smart Rollup kernel SDK function `reveal_dal_page`, which accepts the level, slot, and page to receive, as in this example:
+The more recent level in the past that Smart Rollups can access data from is the current level minus the attestation lag.
+They can access the data in that level with the Smart Rollup kernel SDK function `reveal_dal_page`, which accepts the target level, slot, and page to receive, as in this example:
 
 ```rust
 let param = host.reveal_dal_parameters();

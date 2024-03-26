@@ -34,7 +34,7 @@ An entrypoint may run logic based on:
 <!-- TODO link to Tezos library for address of caller/globals and table of contents -->
 
 Entrypoints cannot access information outside of Tezos, such as calling external APIs.
-If an entrypoint needs information from outside Tezos it must use oracles; see [Using and trusting Oracles](https://opentezos.com/smart-contracts/oracles/) on opentezos.com.
+If an entrypoint needs information from outside Tezos it must use oracles; see [Oracles](./oracles) and [Using and trusting Oracles](https://opentezos.com/smart-contracts/oracles/) on opentezos.com.
 
 The only effects that an entrypoint can have are changes to its storage and new operations that are run after the entrypoint completes.
 An entrypoint can call other entrypoints in its contract or entrypoints in other contracts.
