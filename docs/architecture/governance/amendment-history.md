@@ -6,7 +6,8 @@ last_update:
 ---
 
 As presented in [Governance](../governance), the Tezos blockchain is constantly evolving, through new amendments.
-These are the past proposals to amend the Tezos protocol.
+
+The history of the Tezos protocol can thus be presented as a list of past amendment proposals that were successfully voted and thus resulted in activated protocols.
 
 ## [Athens](https://tezos.gitlab.io/protocols/004_Pt24m4xi.html) (Pt24m4xiP)
 
@@ -14,7 +15,7 @@ Athens was autonomously [activated](https://tzstats.com/458753) in May 2019.
 
 *Athens* was the first proposed protocol amendment for Tezos. Two proposals - [Athens A](https://www.tezosagora.org/proposal/Pt24m4xiPbLDhVgVfABUjirbmda3yohdN82Sp9FeuAXJ4eV9otd) and [Athens B](https://www.tezosagora.org/proposal/Psd1ynUBhMZAeajwcZJAeq5NrxorM6UCU4GJqxZ7Bx2e9vUWB6z) - were proposed by [Nomadic Labs](https://blog.nomadic-labs.com/athens-our-proposals-for-the-first-voted-amendment.html) in February 2019.
 
-Of the two proposals, _Athens A_ sought to increase the gas limit and reduce the required roll size for baking from 10,000 tez to 8,000 tez. _Athens B_ only sought to increase the gas limit. Athens A was voted with a _Super-majority_ and was autonomously [activated](https://twitter.com/tezos/status/1133907926907797504) into the protocol in May 2019.
+Of the two proposals, _Athens A_ sought to increase the gas limit and reduce the required roll size for baking from 10,000 tez to 8,000 tez. _Athens B_ only sought to increase the gas limit. Athens A was voted and was autonomously [activated](https://twitter.com/tezos/status/1133907926907797504) into the protocol in May 2019.
 
 For a full list of changes, be sure to read this corresponding [blog post](https://blog.nomadic-labs.com/athens-proposals-injected.html) from Nomadic Labs and [reflections](https://medium.com/tqtezos/reflecting-on-athens-the-first-self-amendment-of-tezos-4791ab3b1de1) by Jacob Arluck, and the [reference documentation](https://tezos.gitlab.io/protocols/004_Pt24m4xi.html).
 
