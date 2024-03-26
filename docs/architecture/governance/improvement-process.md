@@ -7,7 +7,7 @@ As Tezos is a large decentralized project that is constantly evolving, its membe
 
 A Tezos Improvement Proposal (or TZIP, pronounced "tee-zip") is a document that offers ways to improve Tezos via new features, tools, or standards (e.g. smart contract interface specifications).
 
-Specifically, a TZIP is a design document proposed to the Tezos community, describing a feature for Tezos or for the related processes, tools, or artefacts (e.g., smart contracts).
+Specifically, a TZIP is a design document proposed to the Tezos community, describing a feature for Tezos or for the related processes, tools, or artifacts (such as smart contracts).
 
 TZIPs address a different need when compared to the formal online governance process for protocol amendments.
 Typically, TZIPs do not impact the Tezos protocol at all. They rather concern other parts of the Tezos ecosystem.
