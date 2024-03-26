@@ -7,7 +7,7 @@ last_update:
 
 As presented in [Governance](../governance), the Tezos blockchain is constantly evolving, through new amendments.
 
-The history of the Tezos protocol can thus be presented as a list of past amendment proposals that were successfully voted and thus resulted in activated protocols.
+These approved amendments form the history of the Tezos protocol:
 
 ## [Athens](https://tezos.gitlab.io/protocols/004_Pt24m4xi.html) (Pt24m4xiP)
 
