@@ -2,7 +2,7 @@
 title: Views
 authors: 'Mathias Hiron (Nomadic Labs), Sasha Aldrick (TriliTech), Tim McMackin (TriliTech)'
 last_update:
-  date: 26 March 2024
+  date: 28 March 2024
 ---
 
 Views are a way for contracts to expose information to other contracts and to off-chain consumers.
@@ -109,28 +109,48 @@ const resultOpt: option<int> = Tezos.call_view(
 
 Views in SmartPy look like entrypoints because they receive the `self` object and input values as parameters, but they have the `@sp.onchain_view` annotation instead of the `@sp.entrypoint` annotation.
 
-This SmartPy view returns the larger of two integers:
+This SmartPy contract has a view that returns a value from a big-map in storage: view returns the larger of two integers:
 
 ```python
-@sp.onchain_view
-def get_larger(self, a, b):
-    sp.cast(a, sp.int)
-    sp.cast(b, sp.int)
-    if a > b:
-        return a
-    return b
-```
 
-This view returns a value from a big-map in storage:
+@sp.module
+def main():
 
-```python
-@sp.onchain_view
-def get(self, key):
-  valOpt = self.data.myBigmap.get_opt(key)
-  if valOpt.is_some():
-    return valOpt.unwrap_some()
-  else:
-    return ""
+    storage_type: type = sp.big_map[sp.address, sp.nat]
+
+    class MyContract(sp.Contract):
+        def __init__(self):
+            self.data = sp.big_map()
+            sp.cast(self.data, storage_type)
+
+        @sp.entrypoint
+        def add(self, addr, value):
+            currentVal = self.data.get(addr, default=0)
+            self.data = sp.update_map(addr, sp.Some(currentVal + value), self.data)
+
+        @sp.onchain_view
+        def getValue(self, addr):
+          return self.data.get(addr, default=0)
+
+@sp.add_test()
+def test():
+    scenario = sp.test_scenario("Callviews", main)
+    contract = main.MyContract()
+    scenario += contract
+
+    alice = sp.test_account("Alice")
+    bob = sp.test_account("Bob")
+
+    # Test the entrypoint
+    contract.add(addr = alice.address, value = 5)
+    contract.add(addr = alice.address, value = 5)
+    contract.add(addr = bob.address, value = 4)
+    scenario.verify(contract.data[alice.address] == 10)
+    scenario.verify(contract.data[bob.address] == 4)
+
+    # Test the view
+    scenario.verify(contract.getValue(alice.address) == 10)
+    scenario.verify(contract.getValue(bob.address) == 4)
 ```
 
 ## Calling views in SmartPy
