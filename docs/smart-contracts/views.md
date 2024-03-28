@@ -198,7 +198,7 @@ If the view takes no parameters, you can pass Unit or omit the `with input`.
 
 ## Implementation details
 
-- Michelson: [Operations on views](https://tezos.gitlab.io/active/michelson.html#operations-on-views)
+- Octez: [On-chain views](https://tezos.gitlab.io/active/views.html)
 - Archetype: [View](https://archetype-lang.org/docs/reference/declarations/view)
 - SmartPy: [Views in testing](https://smartpy.io/manual/scenarios/testing_contracts#views)
 - LIGO: [On-chain views](https://ligolang.org/docs/protocol/hangzhou#on-chain-views)
