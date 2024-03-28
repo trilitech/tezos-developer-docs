@@ -36,7 +36,7 @@ QR code | Users scan a QR code with a wallet app | Yes | No | Yes
 Deep link | The application opens the user's wallet app directly | Yes | Yes | No
 Social wallets | The application opens the user's Kukai web-based wallet | Yes | No | No
 
-Regardless of the connection method, the Tezos SDK for Unity runs the `WalletConnected` or `WalletConnectionFailed` event, as appropriate.
+Regardless of the connection method, the Tezos Unity SDK runs the `WalletConnected` or `WalletConnectionFailed` event, as appropriate.
 For more information about events, see the [Unity SDK EventManager object](./reference/EventManager).
 
 <!-- TODO info about handshakes? -->

@@ -6,7 +6,7 @@ last_update:
   date: 11 January 2024
 ---
 
-The Tezos SDK for Unity provides these prefabs:
+The Tezos Unity SDK provides these prefabs:
 
 ## TezosManager
 

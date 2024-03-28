@@ -5,7 +5,7 @@ last_update:
   date: 11 January 2024
 ---
 
-Follow these steps to install the Tezos SDK for Unity in an existing Unity project and start using it.
+Follow these steps to install the Tezos Unity SDK in an existing Unity project and start using it.
 
 These instructions cover:
 

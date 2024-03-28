@@ -23,7 +23,7 @@ It relies on wallets and tools to interact with the smart contracts on behalf of
 Some of these tools that allow an off-chain component to interact with smart contracts include:
 
 - [Taquito](./dApps/taquito), an SDK for JavaScript/TypeScript applications
-- The [Tezos SDK for Unity](./unity), a toolkit for the [Unity](https://unity.com/) game development platform
+- The [Tezos Unity SDK](./unity), a toolkit for the [Unity](https://unity.com/) game development platform
 - [Taqueria](https://taqueria.io/), a development platform for dApps
 
 The next pages in this section illustrate dApps with [examples](./dApps/samples), detail the main steps when developing dApps such as [Connecting to wallets](./dApps/wallets) and [Sending transactions](./dApps/sending-transactions), and introduce some [best practices](./dApps/best-practices)

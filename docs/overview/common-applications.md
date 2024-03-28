@@ -8,7 +8,7 @@ Here are some of the ways that people use Tezos:
 
 ## NFTs on Tezos
 
-The rise of non-fungible tokens (NFTs) has become a core arena of activity and growth in the blockchain space, where new communities are growing around artists, musicians, and other creators with the use of blockchain tokens. NFTs allow collectors and fans to hold a piece of content produced by a creator, verifiable on the blockchain and providing proof of ownership.
+The rise of non-fungible tokens (NFTs) has become a core arena of activity and growth in the blockchain space, where new communities are growing around artists, musicians, and other creators with the use of blockchain tokens. NFTs allow collectors and fans to hold a piece of content produced by a creator, providing proof of ownership and secure exchanges on the blockchain.
 
 [Objkt](https://objkt.com/), [FxHash](https://www.fxhash.xyz/), [Teia](https://teia.art/), [DNS.xyz](https://dns.xyz/) are some of the marketplaces for Tezos art and music NFTs. They allow creators to mint and sell their work in addition to providing a platform for users to collect such works.
 
@@ -29,4 +29,4 @@ The California DMV is also using Tezos for its project to [put car titles on the
 
 ## Tezos in Gaming
 
-Recently, the [Tezos SDK for Unity](https://tezos.com/unity/) promises to make blockchain game development easier and faster. It allows for the addition of web3 features such as allowing players to link their accounts across games, mint, and trade in-game items and currencies, and show off their ranks and accomplishments on public, on-chain leaderboards.
+Recently, the [Tezos Unity SDK](https://tezos.com/unity/) promises to make blockchain game development easier and faster. It allows for the addition of web3 features such as allowing players to link their accounts across games, mint, and trade in-game items and currencies, and show off their ranks and accomplishments on public, on-chain leaderboards.

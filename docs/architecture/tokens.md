@@ -6,31 +6,36 @@ last_update:
 ---
 
 In a blockchain ecosystem, a digital asset that can be transferred between accounts is called a _token_.
-Tezos supports many types of tokens, including:
 
-- The native token tez (also known as XTZ or represented by the symbol ꜩ), which is the primary token on Tezos and the token that transaction fees are paid in
-- Fungible tokens, which are interchangeable and accounts can own any amount of, like tez
-- Non-fungible tokens (NFTs), which are unique digital assets that can represent ownership of something
+Like other blockchains, Tezos relies on a native token in which transaction fees are paid.
+The native token of Tezos is tez (also known as XTZ or represented by the symbol ꜩ).
+
+But other tokens representing some value in digital form can be programmed in a blockchain, for instance using smart contracts.
+Tokens fall in two broad categories:
+
+- Fungible tokens, which are interchangeable and represent the same value,
+- Non-fungible tokens (NFTs), which are unique digital assets that model the ownership of some digital or real object
+
+Many types of fungible tokens are already implemented in Tezos, including:
+
 - Stablecoins, which are tied to the price of fiat currencies such as USD and EUR
 - Wrapped tokens, which represent tokens from another blockchain or another standard; see [Wrapped tokens](#wrapped-tokens)
 
-It's important to remember that in most cases, Tezos tokens are managed by smart contracts.
-Tokens are not stored directly in accounts; instead, smart contracts keep a ledger of how many tokens different accounts hold.
-One exception is tickets, which are directly stored and managed by smart contracts.
+Tezos is also used as a platform for owning and exchanging various types of NFTs.
 
-To learn about tokens, see these tutorials:
+In most cases, (non-native) tokens are managed by smart contracts.
+They are not stored directly in accounts; instead, smart contracts keep a ledger of how many tokens each account holds.
+
+However, Tezos also offers a built-in abstraction called tickets, which are fungible tokens that can be created by smart contracts in limited quantity (possibly only one), but whose ownership are directly tracked by the blockchain.
+
+To start right away using tokens, see these tutorials:
 
 - [Create an NFT](../tutorials/create-an-nft)
 - [Build a simple web application](../tutorials/build-your-first-app)
 
-## Fungible and non-fungible tokens
+## Fungible tokens
 
-Tokens often fit into one of two major categories: fungible and non-fungible.
-
-### Fungible tokens
-
-Fungible tokens are collections of identical, interchangeable tokens.
-For example, tez tokens are fungible, just like one US dollar or Euro is the same as any other US dollar or Euro.
+Fungible tokens are collections of identical, interchangeable tokens, just like one US dollar or Euro is the same as any other US dollar or Euro.
 
 A contract that manages fungible tokens has a ledger that maps account IDs to an amount of tokens, as in this example:
 
@@ -42,7 +47,7 @@ tz1Z2iXBaFTd1PKhEUxCpXj7LzY7W7nRouqf | 3
 
 When an account transfers tokens to another account, it sends the transaction to the smart contract, which deducts the amount of tokens from its balance in the ledger and adds it to the target account's balance.
 
-### Non-fungible tokens (NFTs)
+## Non-fungible tokens (NFTs)
 
 A non-fungible token represents something unique, and therefore it is not interchangeable with any other token.
 An NFT can represent a specific piece of art, a specific seat at a specific event, or a role that can be held by only one person.
@@ -54,7 +59,7 @@ Token ID | Account address
 1 | tz1QCVQinE8iVj1H2fckqx6oiM85CNJSK9Sx
 2 | tz1Z2iXBaFTd1PKhEUxCpXj7LzY7W7nRouqf
 
-When an account transfers an NFT to another account, it sends the transaction to the smart contract, which removes it as the owner of the token and adds the target account as the owner of the token.
+When an account transfers an NFT to another account, it sends the transaction to the smart contract, which replaces the existing owner of the token with the target account as the new owner of the token.
 
 ## Regulations
 
@@ -64,16 +69,16 @@ For example, the markets in crypto-assets (MiCA) regulation governs blockchain t
 
 ## Risks
 
-Always be cautious creating, working with, and buying tokens.
+Always be cautious when creating, working with, and buying tokens.
 Anyone can write smart contracts to create tokens and define how they behave, so you must evaluate tokens before buying or working with them.
-Consider these things:
+Consider these questions:
 
 - Is the high-level language code of the smart contract open source?
 - Has the contract been audited?
 - Is there a limit on the number of tokens or can the contract create any number of tokens?
 - What are the rules for creating or transferring tokens?
 
-Remember that holding a token usually means that the contract's ledger has a record that connects an account address with a balance of tokens.
+Remember that holding a token usually means that the contract's ledger has a record that maps an account address to a balance of tokens.
 Therefore, if the smart contract is malicious or has flaws, the ledger could be changed, erased, or frozen and the tokens could be stolen, destroyed, or made unusable.
 
 ## Token standards
@@ -98,9 +103,9 @@ These standards are named with the prefix FA, which stands for _financial applic
 - [FA1.2](./tokens/FA1.2) tokens are fungible tokens
 - [FA2](./tokens/FA2) tokens can be multiple types of tokens, including fungible and non-fungible tokens, and a single smart contract that follows this standard can create multiple types of tokens
 
-You can use templates for smart contracts with these standards instead of writing your own.
+You can use templates for smart contracts adhering to these standards, instead of writing your own contract from scratch:
 
-- For SmartPy resources, see [Tokens](https://smartpy.io/guides/tokens/) in the SmartPy documentation.
+- For SmartPy templates, see [Tokens](https://smartpy.io/guides/tokens/) in the SmartPy documentation.
 - For LIGO templates, see the [`@ligo/fa`](https://packages.ligolang.org/package/@ligo/fa) package.
 - For Archetype templates, see [Templates](https://archetype-lang.org/docs/templates/overview/) in the Archetype documentation.
 
