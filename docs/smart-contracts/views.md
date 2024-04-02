@@ -2,7 +2,7 @@
 title: Views
 authors: 'Mathias Hiron (Nomadic Labs), Sasha Aldrick (TriliTech), Tim McMackin (TriliTech)'
 last_update:
-  date: 28 March 2024
+  date: 2 April 2024
 ---
 
 Views are a way for contracts to expose information to other contracts and to off-chain consumers.
@@ -17,7 +17,8 @@ Unlike entrypoints, views return a value directly to the caller.
 However, views can't cause side effects, so they can't create operations, including calling smart contracts and transferring tez.
 Views also can't change the contract storage.
 
-Because views run synchronously, off-chain users can ask a node to run a view and return the result immediately; this is a convenient way to get information from a smart contract.
+Off-chain users can run a view without creating a transaction, which is a convenient way to get information from a smart contract.
+For example, you can use the Octez client `run view` command to run a view from the command line.
 
 ## Types of views
 
