@@ -18,7 +18,22 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: 'Architecture',
+      label: 'Blockchain concepts',
+      items: [
+        'concepts/blockchain',
+        'concepts/consensus-mechanisms',
+        'concepts/cryptocurrency',
+        'concepts/decentralized-applications',
+        'concepts/decentralized-storage',
+        'concepts/economics',
+        'concepts/governance',
+        'concepts/scaling',
+        'concepts/transactions',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Tezos architecture',
       link: {
         id: 'architecture',
         type: 'doc',
