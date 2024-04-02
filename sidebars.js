@@ -68,7 +68,6 @@ const sidebars = {
       },
       items: [
         'developing/wallet-setup',
-        'developing/dev-environments',
         {
           type: 'category',
           label: 'Token standards',
