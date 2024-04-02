@@ -64,7 +64,7 @@ This view returns a value from a big-map in storage:
 type storageType = big_map<string, string>;
 
 @view
-const get = (key: string, s: storageType): string => {
+const get_balance = (key: string, s: storageType): string => {
   const valOpt = Big_map.find_opt(key, s);
   return match(valOpt) {
     when(Some(val)): val;
