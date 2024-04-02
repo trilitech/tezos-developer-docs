@@ -94,7 +94,7 @@ console.log(parameterSchema.ExtractSignatures());
 
 The response shows the entrypoints in the contract and the parameters that they accept.
 
-For example, the [FA2](../architecture/tokens/FA2) `transfer` entrypoint appears like this:
+For example, the [FA2](../developing/tokens/FA2) `transfer` entrypoint appears like this:
 
 ```json
 [

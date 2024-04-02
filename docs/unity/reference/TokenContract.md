@@ -8,7 +8,7 @@ last_update:
 
 The Unity SDK class `TezosSDK.Tezos.API.Models.TokenContract`, which is available at runtime as the `TezosManager.Instance.Tezos.TokenContract` object, provides a built-in FA2-compatible smart contract and convenience methods to work with it.
 
-For information about FA2 contracts and tokens, see [FA2 tokens](../../architecture/tokens/FA2).
+For information about FA2 contracts and tokens, see [FA2 tokens](../../developing/tokens/FA2).
 
 The Michelson source code of the built-in contract is in the `Resources/Contracts` folder of the SDK.
 
@@ -39,7 +39,7 @@ For a simpler way to get information about token ownership, see the [`API.GetTok
 
 - `update_operators`: Adds or removes operators for the specified token owners and token IDs.
 Its parameters are a list of commands to add or remove operators for token owners and IDs.
-For information about operators, see [Operators](../../architecture/tokens/FA2#operators).
+For information about operators, see [Operators](../../developing/tokens/FA2#operators).
 
 - `set_administrator`: Changes the account that can mint tokens.
 Its parameter is the address of the new administrator account.

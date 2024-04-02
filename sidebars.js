@@ -25,15 +25,7 @@ const sidebars = {
       },
       items: [
         'architecture/accounts',
-        {
-          type: 'category',
-          label: 'Tokens',
-          link: {
-            id: 'architecture/tokens',
-            type: 'doc',
-          },
-          items: ['architecture/tokens/FA1.2', 'architecture/tokens/FA2'],
-        },
+        'architecture/tokens',
         'architecture/baking',
         'architecture/rpc',
         'architecture/smart-rollups',
@@ -61,6 +53,16 @@ const sidebars = {
       },
       items: [
         'developing/wallet-setup',
+        'developing/dev-environments',
+        {
+          type: 'category',
+          label: 'Token standards',
+          link: {
+            id: 'developing/token-standards',
+            type: 'doc',
+          },
+          items: ['developing/tokens/FA1.2', 'developing/tokens/FA2'],
+        },
         'developing/testing',
         'developing/testnets',
         // 'developing/sandbox', // TODO
