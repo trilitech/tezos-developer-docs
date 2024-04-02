@@ -109,10 +109,9 @@ const resultOpt: option<int> = Tezos.call_view(
 
 Views in SmartPy look like entrypoints because they receive the `self` object and input values as parameters, but they have the `@sp.onchain_view` annotation instead of the `@sp.entrypoint` annotation.
 
-This SmartPy contract has a view that returns a value from a big-map in storage: view returns the larger of two integers:
+This SmartPy contract has a view that returns a value from a big-map in storage:
 
 ```python
-
 @sp.module
 def main():
 
