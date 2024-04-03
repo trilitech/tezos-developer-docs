@@ -26,7 +26,6 @@ const sidebars = {
         'concepts/decentralized-applications',
         'concepts/decentralized-storage',
         'concepts/economics',
-        'concepts/governance',
         'concepts/scaling',
         'concepts/transactions',
       ],
