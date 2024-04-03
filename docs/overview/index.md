@@ -12,6 +12,4 @@ Tezos has robust applications ranging from NFTs, DeFi, and gaming to enterprise 
 
 With recent Tezos upgrades heavily focusing on scaling solutions, Tezos has been at the forefront of blockchain research. Up to 1 million transactions per second (TPS) are theoretically possible on Tezos with the advent of Smart Rollups, which have emerged as a strong scaling solution. With Smart Rollups (also known as optimistic rollups), transactions can be performed more quickly and cheaply and use other VMs that “roll up” their state changes onto Tezos.
 
-[Epoxy](https://tarides.com/blog/2022-12-20-how-nomadic-labs-used-multicore-processing-to-create-a-faster-blockchain) is another exciting technology in development that will further improve the scalability, speed, and versatility of Tezos. Epoxy is a validity rollup solution (also known as zk-rollups) that doesn't rely on [fraud proofs](https://medium.com/@cpbuckland88/fraud-proofs-and-virtual-machines-2826a3412099) making it even more robust and powerful.
-
 These innovations demonstrate the ongoing dedication of Tezos to foster innovation in the blockchain industry.
