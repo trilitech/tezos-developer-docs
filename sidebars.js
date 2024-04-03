@@ -22,8 +22,8 @@ const sidebars = {
       items: [
         'concepts/blockchain',
         'concepts/cryptocurrency',
+        'concepts/decentralized-systems',
         'concepts/decentralized-applications',
-        'concepts/decentralized-storage',
         'concepts/consensus-mechanisms',
       ],
     },
