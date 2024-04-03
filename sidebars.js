@@ -25,7 +25,6 @@ const sidebars = {
         'concepts/cryptocurrency',
         'concepts/decentralized-applications',
         'concepts/decentralized-storage',
-        'concepts/transactions',
       ],
     },
     {
@@ -37,6 +36,7 @@ const sidebars = {
       },
       items: [
         'architecture/accounts',
+        'architecture/transactions',
         'architecture/tokens',
         'architecture/baking',
         'architecture/economics',
