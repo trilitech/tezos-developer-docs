@@ -21,8 +21,8 @@ const sidebars = {
       label: 'Blockchain concepts',
       items: [
         'concepts/decentralized-systems',
-        'concepts/decentralized-applications',
         'concepts/cryptocurrency',
+        'concepts/decentralized-applications',
         'concepts/consensus-mechanisms',
       ],
     },
