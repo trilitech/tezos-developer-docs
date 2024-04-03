@@ -21,10 +21,10 @@ const sidebars = {
       label: 'Blockchain concepts',
       items: [
         'concepts/blockchain',
-        'concepts/consensus-mechanisms',
         'concepts/cryptocurrency',
         'concepts/decentralized-applications',
         'concepts/decentralized-storage',
+        'concepts/consensus-mechanisms',
       ],
     },
     {
