@@ -5,8 +5,7 @@ last_update:
 ---
 
 Tezos incorporates a built-in, on-chain mechanism for proposing, selecting, testing, and activating protocol upgrades without the need to hard fork.
-This mechanism makes Tezos a self-amending blockchain and allows any user to propose changes to the [economic protocol](/architecture#the-tezos-self-amending-protocol), which defines the possible blockchain operations and how they are processed.
-
+This mechanism makes Tezos a self-amending blockchain and allows any user to propose changes to the [economic protocol](/architecture/shell-and-protocol), which defines the possible blockchain operations and how they are processed.
 
 This self-amendment process is separate from the less formal [Tezos Improvement Process](/architecture/governance/improvement-process).
 
