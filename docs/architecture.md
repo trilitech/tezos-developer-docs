@@ -45,7 +45,6 @@ For example, different bakers may implement different transaction selection stra
 
 The node accepts calls from clients through its RPC interface.
 It has control over which clients to accept calls from, which calls to accept, or whether to accept RPC calls at all.
-For more information on the RPC interface, see [The RPC interface](/architecture/rpc).
 
 ### The baker daemon
 

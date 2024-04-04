@@ -40,7 +40,6 @@ const sidebars = {
           ],
         },
         'architecture/baking',
-        'architecture/rpc',
         'architecture/smart-rollups',
         'architecture/data-availability-layer',
         {
