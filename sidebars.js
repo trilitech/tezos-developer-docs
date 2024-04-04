@@ -26,7 +26,6 @@ const sidebars = {
       items: [
         'architecture/accounts',
         'architecture/nodes',
-        'architecture/shell-and-protocol',
         {
           type: 'category',
           label: 'Tokens',
