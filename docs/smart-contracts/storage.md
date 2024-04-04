@@ -21,5 +21,5 @@ See [Examples of contracts](https://opentezos.com/smart-contracts/simplified-con
 
 - Michelson: [Semantic of contracts and transactions](https://ligolang.org/docs/advanced/entrypoints-contracts)
 - Archetype: [Storage](https://archetype-lang.org/docs/reference/declarations/storage)
-- SmartPy: [Contracts](https://smartpy.io/manual/syntax/overview#contracts)
+- SmartPy: [Contracts](https://smartpy.io/manual/syntax/contracts)
 - LIGO: [Main function](https://ligolang.org/docs/advanced/entrypoints-contracts)
