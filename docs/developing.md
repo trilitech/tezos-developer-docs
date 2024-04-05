@@ -62,6 +62,6 @@ To test smart contracts and dApps, you can use these test environments:
 - Sandbox environments like [Flextesa](https://tezos.gitlab.io/flextesa/) run Tezos nodes locally on your computer in a sandbox mode.
 - You can also set up your own private test network.
 
-For more information about test environments, see [Testing on sandboxes and testnets](./testnets).
+For more information about test environments, see [Testing on sandboxes and testnets](developing/testnets).
 
 LIGO and SmartPy also have built-in testing capabilities.
