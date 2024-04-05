@@ -55,9 +55,12 @@ const sidebars = {
     {
       type: 'category',
       label: 'Developing on Tezos',
+      link: {
+        id: 'developing',
+        type: 'doc',
+      },
       items: [
         'developing/wallet-setup',
-        'developing/dev-environments',
         'developing/testing',
         'developing/testnets',
         // 'developing/sandbox', // TODO
@@ -157,9 +160,8 @@ const sidebars = {
         'smart-contracts/views',
         'smart-contracts/events',
         'smart-contracts/delegation',
+        'smart-contracts/multisig',
         'smart-contracts/oracles',
-        // 'smart-contracts/multisig-specialized',
-        // 'smart-contracts/multisig-usage',
       ],
     },
     {
