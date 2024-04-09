@@ -97,5 +97,6 @@ Some use cases involve collectively generating a random value or preventing [BPE
 
 ## Implementation details
 
-- Michelson: [Operations on timelock](https://tezos.gitlab.io/active/michelson.html#operations-on-timelock)
+- Michelson: [Time-lock](https://tezos.gitlab.io/active/timelock.html)
 - Archetype: [Timelock](https://archetype-lang.org/docs/language-basics/crypto#timelock)
+- LIGO: [Timelock](https://ligolang.org/docs/reference/current-reference/?lang=jsligo#timelock)
