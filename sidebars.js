@@ -26,6 +26,7 @@ const sidebars = {
       items: [
         'architecture/nodes',
         'architecture/bakers',
+        'architecture/accusers',
         'architecture/accounts',
         {
           type: 'category',
