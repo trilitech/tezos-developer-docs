@@ -5,7 +5,7 @@ last_update:
   date: 10 June 2024
 ---
 
-The Tezos blockchain is composed of many Tezos nodes running around the world, complemented by other running daemons, such as bakers and accusers.
+The Tezos blockchain is composed of many Tezos nodes running around the world, complemented by other programs such as bakers and accusers.
 These processes collaborate with the overall goal of maintaining the blockchain data in a decentralized manner.
 
 The Tezos nodes are the most important piece in this architecture because they maintain the system and the blockchain data.
@@ -46,14 +46,14 @@ For example, different bakers may implement different transaction selection stra
 The node accepts calls from clients through its RPC interface.
 It has control over which clients to accept calls from, which calls to accept, or whether to accept RPC calls at all.
 
-### The baker daemon
+### The baker
 
-The baker daemon is an Octez program that is responsible for creating and proposing new blocks based on the operations proposed by different clients.
-The baker daemon is associated with an account, which means that it has access to the account’s private key, which it uses to sign blocks and operations.
+The baker is an Octez program that is responsible for creating and proposing new blocks based on the operations proposed by different clients.
+Each baker is associated with an account, which means that it has access to the account’s private key, which it uses to sign blocks and operations.
 
-### The accuser daemon
+### The accuser
 
-The accuser daemon is an Octez program that monitors new blocks and looks for problems, such as when bakers try to add more than one block at a time.
+The accuser is an Octez program that monitors new blocks and looks for problems, such as when bakers try to add more than one block at a time.
 When it finds a problem, it submits a denunciation to other nodes to refuse the new blocks and punish the offending node.
 
 ### The Octez client
@@ -82,7 +82,7 @@ Nodes share operations with each other, so the node that includes an operation i
 Anyone can run a node and select which clients to run and which requests to accept from clients.
 Some typical use cases for nodes are:
 
-- A node running with no daemons, which maintains a copy of the blockchain data and enhances the distribution of the network without actively baking blocks.
+- A node running by itself, which maintains a copy of the blockchain data and enhances the distribution of the network without actively baking blocks.
 Optionally, this node can open its RPC interface to serve different kinds of requests.
 - A node along with a baker, an accuser, and a signer can be used to bake new blocks, activity which ensures that the blockchain progresses and yields rewards in tokens.
 
