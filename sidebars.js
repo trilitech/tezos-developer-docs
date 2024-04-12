@@ -39,7 +39,7 @@ const sidebars = {
             'architecture/tokens/FA2.1',
           ],
         },
-        'architecture/baking',
+        'architecture/bakers',
         'architecture/smart-rollups',
         'architecture/data-availability-layer',
         {
