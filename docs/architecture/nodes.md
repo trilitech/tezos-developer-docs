@@ -30,24 +30,24 @@ The Octez suite, which is an implementation of the Tezos node and other executab
 The software that runs Tezos [nodes](./nodes) is split into two main parts:
 
 - The shell, which handles low-level functions like data storage and peer-to-peer network communication
-- The economic protocol that interprets the block operations (e.g., transactions)
+- The protocol that interprets transactions and other operations in each block (also known as the _economic_ protocol_)
 
 The relationship between the shell and the protocol is like the relationship between an operating system and an application.
 The operating system stays stable while the application can update itself.
 In this way, Tezos can update how it works (its protocol) without requiring nodes to accept major changes to the software that they run (the shell).
 For example, nodes can update to a new protocol version without restarting the shell.
 
-### The Tezos self-amending protocol
+### The protocol
+
+The Tezos protocol is responsible for interpreting the operations in each block.
+It also provides the logic that identifies erroneous blocks.
 
 Unlike many other blockchains, Tezos is self-amending.
 Its nodes can update the protocol that controls the possible operations and how they are processed; updates are performed via an online governance process.
 These updates allow Tezos to adapt to new technologies and respond to user needs.
 For example, protocol upgrades have added new features like Smart Rollups and have reduced the amount of time between blocks.
 
-This protocol is responsible for interpreting the operations in each block.
-It also provides the logic that identifies erroneous blocks.
-
-Updates to the protocol can change this logic through a voting process, using dedicated voting operations such as protocol proposals or protocol upvotes.
+Users propose updates to the protocol through a voting process, using dedicated voting operations such as protocol proposals and protocol upvotes.
 For information about the voting process, see [Governance](governance).
 
 ### The shell
