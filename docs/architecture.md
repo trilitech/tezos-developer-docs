@@ -60,40 +60,30 @@ Optionally, this node can open its RPC interface to serve different kinds of req
 
 Here is a summary of the main Tezos clients:
 
-### The baker
+- **Bakers**: The baker is an Octez program that is responsible for creating and proposing new blocks based on the operations proposed by different clients.
+For more information, see [Bakers](./architecture/bakers).
 
-The baker is an Octez program that is responsible for creating and proposing new blocks based on the operations proposed by different clients.
-Each baker is associated with an account, which means that it has access to the account’s private key, which it uses to sign blocks and operations.
-
-### The accuser
-
-The accuser is an Octez program that monitors new blocks and looks for problems, such as when bakers try to add more than one block at a time.
+- **Accusers**: The accuser is an Octez program that monitors new blocks and looks for problems, such as when bakers try to add more than one block at a time.
 When it finds a problem, it submits a denunciation to other nodes to refuse the new blocks and punish the offending node.
 
-### The Octez client
+- **The Octez client**: The Octez client is a command-line tool that developers can use for many Tezos-related tasks, including:
 
-The Octez client is a command-line tool that developers can use for many Tezos-related tasks, including:
+  - Deploying, calling, testing, and interacting with contracts
+  - Deploying and interacting with Smart Rollups
+  - Working with accounts
+  - Calling RPC endpoints directly
+  - Running Sapling transactions
+  - Setting up baking operations for testing contracts
 
-- Deploying, calling, testing, and interacting with contracts
-- Deploying and interacting with Smart Rollups
-- Working with accounts
-- Calling RPC endpoints directly
-- Running Sapling transactions
-- Setting up baking operations for testing contracts
+  For more information about the Octez client, see [The Octez client](./developing/octez-client).
 
-For more information about the Octez client, see the [Octez documentation](https://tezos.gitlab.io/).
+- **External clients**: Many external clients can add operations to the network of nodes or use nodes to inspect the state of the blockchain, including:
 
-### External clients
+  - Web applications that use SDKs such as Taquito to send and receive information from Tezos
+  - Indexer websites that monitor the state of the network and allow users to search its history
+  - Wallet applications
 
-Many external clients can add operations to the network of nodes or use nodes to inspect the state of the blockchain, including:
-
-- Web applications that use SDKs such as Taquito to send and receive information from Tezos
-- Indexer websites that monitor the state of the network and allow users to search its history
-- Wallet applications
-
-### Indexers and block explorers
-
-Indexers are off-chain applications that retrieve blockchain data, process it, and store it in a way that makes it easier to search and use.
+- **Indexers and block explorers**: Indexers are off-chain applications that retrieve blockchain data, process it, and store it in a way that makes it easier to search and use.
 They are an important part of block explorers, which are applications that provide data about the blockchain.
 
 ## References
