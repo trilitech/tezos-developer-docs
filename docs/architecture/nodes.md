@@ -27,7 +27,7 @@ The Octez suite, which is an implementation of the Tezos node and other executab
 
 ## Protocol and shell
 
-The software that runs Tezos [nodes](./nodes) is split into two main parts:
+The software that runs Tezos nodes is split into two main parts:
 
 - The protocol, which interprets transactions and other operations in each block (also known as the _economic protocol_)
 - The shell, which handles low-level functions like data storage and peer-to-peer network communication
