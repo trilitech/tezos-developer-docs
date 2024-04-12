@@ -17,14 +17,18 @@ This diagram shows a high-level view of the Tezos system:
 ![A high-level view of the Tezos system, including Tezos nodes, the blockchain data itself, an Indexer, and a few examples of clients](/img/architecture/architecture-overview.png)
 <!-- https://lucid.app/lucidchart/d778aa2a-ad0a-4324-b235-ed3b35742c58/edit -->
 
+## Tezos networks
+
+When people talk about Tezos, they usually mean the primary Tezos network, which is referred to as Mainnet.
+Tezos also has other networks used for testing, referred to as testnets.
+Anyone can create new test networks if needed.
+For example, before new versions of the Tezos protocol are enabled, users create networks that use that protocol so they can test it.
+
 ## The blockchain data
 
 Although people often use the word "blockchain" to mean the entire system, strictly speaking, a Tezos blockchain is a series of blocks of data, each connected to the previous block in the chain, beginning with the genesis block.
 The blockchain data is maintained by a network of Tezos nodes.
 Nodes reach consensus on the next block before adding it to the chain.
-
-The primary Tezos network is referred to as Mainnet, and there are several other networks used for testing, referred to as testnets.
-Anyone can create new test networks if needed.
 
 As shown in the diagram, the data inside a Tezos block includes the hash of the previous block in the chain and many operations, such as transactions that transfer tez or call smart contracts.
 Blocks also include operations that are necessary for the management of the chain, including nodes' attestations that blocks are valid, called _consensus operations_, and votes on changes to the protocol, called _voting operations_.
