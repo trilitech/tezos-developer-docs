@@ -1,5 +1,5 @@
 ---
-title: Baking
+title: Bakers
 authors: "Tim McMackin"
 last_update:
   date: 12 April 2024
@@ -10,6 +10,7 @@ Bakers are programs complementary to Tezos nodes that cooperate to achieve conse
 Bakers validate pending operations, package them into a block, sign the block, propose the new block to other nodes, and verify that the blocks that other bakers propose are valid.
 
 Bakers are run on behalf of user accounts which stake tez to guarantee honest participation and receive rewards for their participation.
+The baker has access to the account's private key, which it uses to sign blocks and operations.
 By extension, bakers also denote the users running baker on behalf of their user accounts.
 
 ## The baking process
