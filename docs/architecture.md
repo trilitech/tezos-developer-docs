@@ -65,6 +65,7 @@ For more information, see [Bakers](./architecture/bakers).
 
 - **Accusers**: The accuser is an Octez program that monitors new blocks and looks for problems, such as when bakers try to add more than one block at a time.
 When it finds a problem, it submits a denunciation to other nodes to refuse the new blocks and punish the offending node.
+For more information, see [Accusers](./architecture/accusers).
 
 - **The Octez client**: The Octez client is a command-line tool that developers can use for many Tezos-related tasks, including:
 
