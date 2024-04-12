@@ -24,8 +24,9 @@ const sidebars = {
         type: 'doc',
       },
       items: [
-        'architecture/accounts',
         'architecture/nodes',
+        'architecture/bakers',
+        'architecture/accounts',
         {
           type: 'category',
           label: 'Tokens',
@@ -35,7 +36,6 @@ const sidebars = {
           },
           items: ['architecture/tokens/FA1.2', 'architecture/tokens/FA2'],
         },
-        'architecture/bakers',
         'architecture/smart-rollups',
         'architecture/data-availability-layer',
         {
