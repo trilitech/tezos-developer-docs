@@ -34,10 +34,11 @@ As shown in the diagram, the data inside a Tezos block includes the hash of the 
 Blocks also include operations that are necessary for the management of the chain, including nodes' attestations that blocks are valid, called _consensus operations_, and votes on changes to the protocol, called _voting operations_.
 For more information on the operations that can be included in blocks, see [Blocks and operations](https://tezos.gitlab.io/alpha/blocks_ops.html) in the Octez documentation.
 
-## Client-server architecture
+## Tezos clients and servers
 
 In addition to the functions of the protocol and shell, a Tezos node also acts as a server to respond to queries and requests from clients.
 A client can query the chain’s state and can inject blocks and operations into a node.
+Nodes share operations with each other, so the node that includes an operation in a block may not be the node that the client originally sent the operation to.
 
 Tezos uses this client-server architecture for these main reasons:
 
@@ -49,6 +50,15 @@ For example, different bakers may implement different transaction selection stra
 
 The node accepts calls from clients through its RPC interface.
 It has control over which clients to accept calls from, which calls to accept, or whether to accept RPC calls at all.
+
+Anyone can run a node and select which clients to run and which requests to accept from clients.
+Some typical use cases for nodes are:
+
+- A node running by itself, which maintains a copy of the blockchain data and enhances the distribution of the network without actively baking blocks.
+Optionally, this node can open its RPC interface to serve different kinds of requests.
+- A node along with a baker, an accuser, and a signer can be used to bake new blocks, activity which ensures that the blockchain progresses and yields rewards in tokens.
+
+Here is a summary of the main Tezos clients:
 
 ### The baker
 
@@ -80,15 +90,6 @@ Many external clients can add operations to the network of nodes or use nodes to
 - Web applications that use SDKs such as Taquito to send and receive information from Tezos
 - Indexer websites that monitor the state of the network and allow users to search its history
 - Wallet applications
-
-Nodes share operations with each other, so the node that includes an operation in a block may not be the node that the client originally sent the operation to.
-
-Anyone can run a node and select which clients to run and which requests to accept from clients.
-Some typical use cases for nodes are:
-
-- A node running by itself, which maintains a copy of the blockchain data and enhances the distribution of the network without actively baking blocks.
-Optionally, this node can open its RPC interface to serve different kinds of requests.
-- A node along with a baker, an accuser, and a signer can be used to bake new blocks, activity which ensures that the blockchain progresses and yields rewards in tokens.
 
 ### Indexers and block explorers
 
