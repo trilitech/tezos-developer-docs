@@ -18,19 +18,19 @@ Beside these technical roles, nodes must satisfy two other important requirement
 
 In order to meet these requirements, the software that nodes run is structured according to two major principles:
 
-- It is separated into a shell and protocol to support protocol evolution.
+- It is separated into a protocol and a shell to make it easier to upgrade.
 - It implements a client/server architecture, to allow composition with many other tools in a safe way.
 
 Nodes communicate with clients and with each other through a peer-ro-peer [RPC interface](#the-rpc-interface).
 
 The Octez suite, which is an implementation of the Tezos node and other executables, instantiates these principles in the [Octez software architecture](https://tezos.gitlab.io/shell/the_big_picture.html).
 
-## Shell and protocol
+## Protocol and shell
 
 The software that runs Tezos [nodes](./nodes) is split into two main parts:
 
+- The protocol, which interprets transactions and other operations in each block (also known as the _economic protocol_)
 - The shell, which handles low-level functions like data storage and peer-to-peer network communication
-- The protocol that interprets transactions and other operations in each block (also known as the _economic_ protocol_)
 
 The relationship between the shell and the protocol is like the relationship between an operating system and an application.
 The operating system stays stable while the application can update itself.
