@@ -18,23 +18,27 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: 'Architecture',
+      label: 'Blockchain concepts',
+      items: [
+        'concepts/decentralized-systems',
+        'concepts/cryptocurrency',
+        'concepts/decentralized-applications',
+        'concepts/consensus-mechanisms',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Tezos architecture',
       link: {
         id: 'architecture',
         type: 'doc',
       },
       items: [
         'architecture/accounts',
-        {
-          type: 'category',
-          label: 'Tokens',
-          link: {
-            id: 'architecture/tokens',
-            type: 'doc',
-          },
-          items: ['architecture/tokens/FA1.2', 'architecture/tokens/FA2'],
-        },
+        'architecture/transactions',
+        'architecture/tokens',
         'architecture/baking',
+        'architecture/economics',
         'architecture/rpc',
         'architecture/smart-rollups',
         'architecture/data-availability-layer',
@@ -61,6 +65,15 @@ const sidebars = {
       },
       items: [
         'developing/wallet-setup',
+        {
+          type: 'category',
+          label: 'Token standards',
+          link: {
+            id: 'developing/token-standards',
+            type: 'doc',
+          },
+          items: ['developing/tokens/FA1.2', 'developing/tokens/FA2'],
+        },
         'developing/testing',
         'developing/testnets',
         // 'developing/sandbox', // TODO

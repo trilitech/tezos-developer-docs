@@ -17,7 +17,7 @@ To return data from a smart contract, you can use one of these methods:
 
 - Use [Views](./views) to return data to smart contracts or off-chain applications
 - Use [Events](./events) to return data to off-chain applications
-- Include a callback parameter that sends information to another smart contract, as in the `getAllowance`, `getBalance`, and `getTotalSupply` entrypoints of [FA1.2](../architecture/tokens/FA1.2) contracts
+- Include a callback parameter that sends information to another smart contract, as in the `getAllowance`, `getBalance`, and `getTotalSupply` entrypoints of [FA1.2](../developing/tokens/FA1.2) contracts
 
 For an example of a simple contract, see the tutorial [Create a smart contract](../tutorials/smart-contract).
 
