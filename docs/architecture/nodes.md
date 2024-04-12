@@ -2,7 +2,7 @@
 title: Nodes
 authors: Tim McMackin
 last_update:
-  date: 4 April 2024
+  date: 12 April 2024
 ---
 
 A Tezos node has three main roles:
@@ -14,7 +14,7 @@ A Tezos node has three main roles:
 Beside these technical roles, nodes must satisfy two other important requirements:
 
 - Support the governance of the blockchain
-- Ensure the extensibility of the blockchain with new clients of different kinds.
+- Ensure the extensibility of the blockchain with new clients of different kinds
 
 In order to meet these requirements, the software that nodes run is structured according to two major principles:
 
