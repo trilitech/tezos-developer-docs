@@ -18,7 +18,7 @@ See [Smart contracts](../smart-contracts).
 ### Revealing accounts
 
 User accounts are _unrevealed_ until they make a transaction.
-They can store tez and tickets, but some dApps such as indexers may not see them.
+They can store tez and tickets, but some services such as indexers may not see them.
 
 To reveal an account, send any transaction from it, such as calling a smart contract or sending tez to any account, including itself.
 
