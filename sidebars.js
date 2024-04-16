@@ -56,9 +56,12 @@ const sidebars = {
     {
       type: 'category',
       label: 'Developing on Tezos',
+      link: {
+        id: 'developing',
+        type: 'doc',
+      },
       items: [
         'developing/wallet-setup',
-        'developing/dev-environments',
         'developing/testing',
         'developing/testnets',
         // 'developing/sandbox', // TODO
