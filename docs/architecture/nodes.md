@@ -2,8 +2,11 @@
 title: Nodes
 authors: Tim McMackin
 last_update:
-  date: 12 April 2024
+  date: 16 April 2024
 ---
+
+Tezos nodes are computers that run the Tezos software and participate in the Tezos network.
+Anyone can run a Tezos node.
 
 A Tezos node has three main roles:
 
