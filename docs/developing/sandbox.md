@@ -2,7 +2,7 @@
 title: Using a local sandbox
 authors: 'Mathias Hiron, Nomadic Labs, Tim McMackin, TriliTech'
 last_update:
-  date: 15 April 2024
+  date: 16 April 2024
 ---
 
 Local sandboxes allow you to test your work without sending any transactions to Tezos Mainnet or testnets.
@@ -10,6 +10,9 @@ They run a simulated version of the Tezos protocol locally so you can test contr
 
 Sandboxes can be convenient if you want to run all your tests locally but still need a realistic Tezos environment, such as if you need to interact with nodes and the consensus mechanism.
 Testing locally can also keep your work confidential until you decide to put it into production.
+
+However, sandboxes lack some features that [testnets](./testnets) have, such as indexers.
+If you want an indexer or your testnet, you must run it yourself.
 
 Here are some options for running local Tezos sandboxes:
 
