@@ -62,8 +62,8 @@ For more information, see the [Flextesa documentation](https://tezos.gitlab.io/f
 
 [Tezbox](https://github.com/tez-capital/tezbox) is also a simulated Tezos environment that runs in a container.
 
-Tezbox provides different images for different versions of the Tezos protocol.
-For example, to run Tezbox with the Oxford protocol, run this command:
+Tezbox provides different images that mirror versions of the Octez suite.
+For example, to run Tezbox with Octez version 19.1 and the Oxford protocol, run this command:
 
 ```bash
 docker run -d -p 0.0.0.0:8732:8732 --name oxfordbox ghcr.io/tez-capital/tezbox:tezos-v19.1
