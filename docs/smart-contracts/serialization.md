@@ -57,6 +57,12 @@ BYTES=$(octez-client unpack michelson data "0x050a00000016000032041dca76bac940b4
 octez-client normalize data "$BYTES" of type "address"
 ```
 
+For more information about the format that Tezos uses to pack and unpack data, install the `octez-codec` program and run this command:
+
+```bash
+octez-codec describe alpha.script.expr binary schema
+```
+
 ## Implementation details
 
 - LIGO: [Pack and Unpack](https://ligolang.org/docs/language-basics/tezos-specific#pack-and-unpack)
