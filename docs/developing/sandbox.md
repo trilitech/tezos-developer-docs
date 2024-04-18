@@ -16,12 +16,12 @@ If you want an indexer or your testnet, you must run it yourself.
 
 Here are some options for running local Tezos sandboxes:
 
-## Octez sandboxed mode
+## Octez sandboxed and mockup modes
 
-The sandboxed mode of the Octez client runs a local version of the Tezos network.
-You can configure the number features such as the number of nodes.
+The Octez client sandboxed and mockup modes run a local version of the Tezos network.
 
-For more information, see [Sandboxed mode](https://tezos.gitlab.io/user/sandbox.html) in the Octez documentation.
+- [Sandboxed mode](https://tezos.gitlab.io/user/sandbox.html) runs a local network with one or more nodes.
+- [Mockup mode](https://tezos.gitlab.io/user/mockup.html) runs a light version of the network without nodes.
 
 ## Flextesa
 
