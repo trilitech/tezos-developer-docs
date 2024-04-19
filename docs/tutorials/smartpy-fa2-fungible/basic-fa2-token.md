@@ -31,7 +31,7 @@ Each class creates a certain type of token contract:
 
 Follow these steps to create your own token contract based on the `main.Fungible` base class:
 
-1. Create a Python file with a `.py` extension, such as `fa2_fungible_simple.py`.
+1. Create a Python file with a `.py` extension, such as `fa2_fungible.py`.
 
 1. In the file, import SmartPy and its FA2 modules:
 
@@ -372,7 +372,7 @@ In practice, you should test all features of your contract thoroughly to identif
 To compile the contract, use the `python` command, just like any other Python file:
 
 ```bash
-python fa2_fungible_simple.py
+python fa2_fungible.py
 ```
 
 If SmartPy compiles your contract successfully, nothing is printed to the command line output.
