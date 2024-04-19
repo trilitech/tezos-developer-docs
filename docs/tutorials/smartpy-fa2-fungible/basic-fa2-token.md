@@ -16,6 +16,10 @@ To run this part of the tutorial, makes sure that you have the following tools i
 - [Python](https://www.python.org/) and the `pip` package manager
 - [SmartPy](https://smartpy.io/manual/introduction/installation)
 
+## Tutorial contract
+
+TODO link to completed contract
+
 ## Using the library to create a contract
 
 The FA2 library provides classes that you can extend to create your contract class.
@@ -371,9 +375,6 @@ To compile the contract, use the `python` command, just like any other Python fi
 python fa2_fungible_simple.py
 ```
 
-If the command shows any errors, make sure that your contract matches the example.
-In particular, check your indentation, because indentation is significant in Python and SmartPy.
-
 If SmartPy compiles your contract successfully, nothing is printed to the command line output.
 Its compiler writes your contract to a folder with the name in the `sp.test_scenario` function, which is `fa2_lib_fungible` in this example.
 This folder has many files, including:
@@ -387,6 +388,15 @@ The compiler also creates a JSON and Python version of the storage.
 
 You can use the compiled contract and storage files to deploy the contract.
 In the next section, you deploy the contract to a local Tezos sandbox.
+
+## Troubleshooting
+
+If the `python` command shows any errors, make sure that your contract matches the example.
+In particular, check your indentation, because indentation is significant in Python and SmartPy.
+
+You can compare your contract with the completed contract here: TODO link to completed contract.
+
+TODO more troubleshooting
 
 ## (Optional) Deploy the contract to the Octez client mockup mode
 
