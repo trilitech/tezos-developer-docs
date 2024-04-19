@@ -320,6 +320,7 @@ const sidebars = {
         'tutorials/smartpy-fa2-fungible/minting-and-burning',
         'tutorials/smartpy-fa2-fungible/adding-metadata',
         'tutorials/smartpy-fa2-fungible/customizing-operations',
+        'tutorials/smartpy-fa2-fungible/deploying-contract',
       ],
     },
     'tutorials/create-an-nft/nft-taquito',
