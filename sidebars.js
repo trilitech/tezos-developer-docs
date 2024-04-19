@@ -317,6 +317,7 @@ const sidebars = {
       },
       items: [
         'tutorials/smartpy-fa2-fungible/basic-fa2-token',
+        'tutorials/smartpy-fa2-fungible/minting-and-burning',
       ],
     },
     'tutorials/create-an-nft/nft-taquito',
