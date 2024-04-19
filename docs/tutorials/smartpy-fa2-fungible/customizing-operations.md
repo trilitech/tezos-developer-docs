@@ -37,6 +37,10 @@ Bob, token ID 3 | 14
 That means that to get the amount of the source token that an account has, you must put together a pair to use as the index.
 For example, the code `(sp.sender, source_token_id)` creates a pair where the first item is the account that directly sent this transaction to the contract and the other is a variable that represents the ID of the token type.
 
+## Tutorial contract
+
+The completed contract that you create in this part is at [part_4_complete.py](https://github.com/trilitech/tutorial-applications/blob/smartpy-fa2-tutorial/smartpy_fa2_fungible/part_4_complete.py).
+
 ## Exchanging one token for another
 
 Follow these steps to create the `convert` entrypoint that exchanges one token for another:

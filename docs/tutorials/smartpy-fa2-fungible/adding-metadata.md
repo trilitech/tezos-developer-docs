@@ -18,6 +18,10 @@ This protocol stores files in a decentralized network and indexes them by their 
 
 TODO mention token meta, error message meta?
 
+## Tutorial contract
+
+The completed contract that you create in this part is at [part_3_complete.py](https://github.com/trilitech/tutorial-applications/blob/smartpy-fa2-tutorial/smartpy_fa2_fungible/part_3_complete.py).
+
 ## Getting a Pinata API key
 
 SmartPy test scenarios can upload files to IPFS with [Pinata](https://www.pinata.cloud/), so to follow this part of the tutorial, you need a free account on https://www.pinata.cloud and an API key.
@@ -122,6 +126,6 @@ By default, the file is named "No name set" and looks like this in your Pinata f
    You can click this file to see it and verify that the name and description at the top of the file match the name and description of your contract.
    The rest of the file is the code of off-chain views that the FA2 library adds automatically.
 
-TODO Link to completed contract
+The completed contract is at [part_3_complete.py](https://github.com/trilitech/tutorial-applications/blob/smartpy-fa2-tutorial/smartpy_fa2_fungible/part_3_complete.py).
 
 Now when you deploy the completed contract, wallets and block explorers can show information about it.
