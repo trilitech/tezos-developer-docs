@@ -340,10 +340,36 @@ Follow these steps to add tests to the contract:
    )
    scenario.verify(_total_supply(contract, sp.record(token_id=0)) == 10)
    scenario.verify(_total_supply(contract, sp.record(token_id=1)) == 10)
+
+   # Alice sends 4 of token 0 to Bob
+   contract.transfer(
+       [
+           sp.record(
+               from_=alice.address,
+               txs=[sp.record(to_=bob.address, amount=4, token_id=0)],
+           ),
+       ],
+       _sender=alice,
+   )
+   scenario.verify(
+       _get_balance(contract, sp.record(owner=alice.address, token_id=0)) == 6
+   )
+   scenario.verify(
+       _get_balance(contract, sp.record(owner=bob.address, token_id=0)) == 4
+   )
+   scenario.verify(
+       _get_balance(contract, sp.record(owner=alice.address, token_id=1)) == 3
+   )
+   scenario.verify(
+       _get_balance(contract, sp.record(owner=bob.address, token_id=1)) == 7
+   )
+   scenario.verify(_total_supply(contract, sp.record(token_id=0)) == 10)
+   scenario.verify(_total_supply(contract, sp.record(token_id=1)) == 10)
    ```
 
    This code calls the transfer entrypoint, passes the transfer information, and adds the `_sender=bob` parameter to indicate that the transfer came from Bob's account.
    Then it calls the contract's views again to verify that the tokens were transferred and that the total supply of tokens remains the same.
+   Then it tries again from Alice's account.
 
 1. Test an entrypoint call that should fail by adding this code:
 
@@ -463,7 +489,7 @@ Follow these steps to set up the Octez client mockup mode and deploy the contrac
       mockup-client originate contract smartpy_fa2_fungible \
           transferring 0 from bootstrap1 \
           running fa2_lib_fungible/step_003_cont_0_contract.tz \
-          --init "$(cat fa2_lib_fungible/step_003_cont_0_storage.tz)" --burn-cap 2 --force
+          --init "$(cat fa2_lib_fungible/step_003_cont_0_storage.tz)" --burn-cap 3 --force
       ```
 
       If you see errors that refer to unexpected characters, make sure the paths to the files are correct and that you changed only the content of addresses inside quotes in the storage file.
