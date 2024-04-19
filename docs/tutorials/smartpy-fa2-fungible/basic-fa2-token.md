@@ -58,7 +58,7 @@ Follow these steps to create your own token contract based on the `main.Fungible
 1. Create the contract's `__init__()` method and initialize the superclasses:
 
    ```smartpy
-   def __init__(self, admin_address, contract_metadata, ledger, token_metadata):
+   def __init__(self, contract_metadata, ledger, token_metadata):
 
        # Initialize on-chain balance view
        main.OnchainviewBalanceOf.__init__(self)
@@ -99,7 +99,7 @@ def my_module():
         main.Fungible,
         main.OnchainviewBalanceOf,
     ):
-        def __init__(self, admin_address, contract_metadata, ledger, token_metadata):
+        def __init__(self, contract_metadata, ledger, token_metadata):
 
             # Initialize on-chain balance view
             main.OnchainviewBalanceOf.__init__(self)
@@ -122,9 +122,6 @@ Indentation is significant in Python, so make sure that your contract is indente
 
 This short contract is all of the necessary code for a basic FA2 token contract.
 The inherited classes provide all of the necessary entrypoints.
-
-Note that the `__init__()` method accepts a parameter that is currently unused: `admin_address`.
-In later parts of the tutorial, you will use as the address as the administrator for the contract.
 
 ## Adding the contract to a test scenario
 
@@ -154,7 +151,6 @@ This test scenario is also the way SmartPy compiles contracts to Michelson for d
 
    ```smartpy
    # Define test accounts
-   admin = sp.test_account("Admin")
    alice = sp.test_account("Alice")
    bob = sp.test_account("Bob")
    ```
@@ -201,12 +197,11 @@ This example gives 10 of token 0 to the Alice test account and 10 of token 1 to 
 
    ```smartpy
    # Instantiate the FA2 fungible token contract
-   contract = my_module.MyFungibleContract(admin.address, sp.big_map(), initial_ledger, [tok0_md, tok1_md])
+   contract = my_module.MyFungibleContract(sp.big_map(), initial_ledger, [tok0_md, tok1_md])
    ```
 
    These are the parameters for the contract's `__init__()` method:
 
-   - The address of the administrator account, which will be used later
    - The contract metadata, which is blank for now
    - The initial ledger
    - The metadata for the token types, in a list
@@ -234,7 +229,7 @@ def my_module():
         main.Fungible,
         main.OnchainviewBalanceOf,
     ):
-        def __init__(self, admin_address, contract_metadata, ledger, token_metadata):
+        def __init__(self, contract_metadata, ledger, token_metadata):
 
             # Initialize on-chain balance view
             main.OnchainviewBalanceOf.__init__(self)
@@ -260,7 +255,6 @@ def test():
     scenario = sp.test_scenario("fa2_lib_fungible", [fa2.t, fa2.main, my_module])
 
     # Define test accounts
-    admin = sp.test_account("Admin")
     alice = sp.test_account("Alice")
     bob = sp.test_account("Bob")
 
@@ -276,7 +270,7 @@ def test():
     initial_ledger = sp.update_map(sp.pair(bob.address, 1), sp.Some(10), initial_ledger)
 
     # Instantiate the FA2 fungible token contract
-    contract = my_module.MyFungibleContract(admin.address, sp.big_map(), initial_ledger, [tok0_md, tok1_md])
+    contract = my_module.MyFungibleContract(sp.big_map(), initial_ledger, [tok0_md, tok1_md])
 
     # Originate the contract in the test scenario
     scenario += contract
