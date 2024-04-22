@@ -2,7 +2,7 @@
 title: Timelocks
 authors: 'Mathias Hiron (Nomadic Labs), Sasha Aldrick (TriliTech), Tim McMackin (TriliTech)'
 last_update:
-  date: 15 April 2024
+  date: 22 April 2024
 ---
 
 Timelocks are a way to prevent exploits known as _front-running_, or more properly, _extractable value (EV) attacks_.
@@ -25,6 +25,7 @@ This type of attack is called a block producer extractable value (BPEV) attack.
 :::
 
 For more information about this kind of attack, see [An analysis of Ethereum front-running and its defense solutions](https://medium.com/degate/an-analysis-of-ethereum-front-running-and-its-defense-solutions-34ef81ba8456).
+<!-- TODO link to Spotlight post -->
 
 ## Preventing EV attacks with timelocks
 
@@ -34,27 +35,26 @@ Tezos developers can prevent EV attacks with timelock encryption, which encrypts
 - Anyone else can decrypt the message with a certain number of operations.
 
 With timelocks, an author can encrypt a message in such a way that anyone else can reveal the message, but only after a certain amount of time.
-The amount of time depends on the number of sequential operations required to decrypt the message and the hardware used to run the operations.
-Therefore, authors can calculate the number of operations needed to keep a typical piece of hardware from breaking the encryption in a given amount of time.
-The algorithm used to decrypt the message can't be parallelized, which limits the amount of processing power that can be used to break the encryption because computers can't work together on the decryption.
+This duration is based on the time it takes for a single computer to decrypt the commitments because the decryption algorithm can’t be parallelized.
+That means that computers can’t easily work together to decrypt it and that adversaries cannot break it even with significant computing power.
 
 dApps that use timelocks to prevent EV attacks work in this general way:
 
-1. A user sends a timelock-encrypted order to the dApp.
-1. The dApp adds the order to its queue before anyone can see what the order is.
-To everyone else, including bakers, bots, and the dApp itself, the order is encrypted and unreadable.
-1. No one else can decrypt the order quickly, so they can’t take advantage of it in an EV attack.
-1. In the background, the dApp begins decrypting the order.
+1. A user sends a timelock-encrypted transaction or operation to the dApp.
+1. The dApp adds the transaction to its queue before anyone can see what the transaction is.
+To everyone else, including bakers, bots, and the dApp itself, the transaction is encrypted and unreadable.
+1. No one else can decrypt the transaction quickly, so they can’t take advantage of it in an EV attack.
+1. In the background, the dApp begins decrypting the transaction.
 1. One of two things happen:
 
-   - The user submits the decrypted order and the proof that the decryption is accurate to the dApp.
-   In this case, the dApp doesn't need to decrypt the order.
-   - The dApp decrypts the order before the user submits the decrypted order, such as if prices changed and the user doesn't want to execute the order anymore.
-   In this case, the dApp takes a penalty from the order for making it waste processing power on decrypting it.
-1. The dApp fulfills the decrypted orders in its queue in the order that they were submitted.
+   - The user submits the decrypted transaction and the proof that the decryption is accurate to the dApp.
+   In this case, the dApp doesn't need to decrypt the transaction.
+   - The dApp decrypts the transaction before the user submits the decrypted transaction, such as if prices changed and the user doesn't want to execute the transaction anymore.
+   In this case, the dApp takes a penalty charge from the transaction for making it waste processing power on decrypting it.
+1. The dApp fulfills the decrypted transactions in its queue in the order that they were submitted.
 
-In practice, DeFi users nearly always submit their decrypted orders before anyone else decrypts them.
-They don’t want to pay the penalty and they know how long it will take the dApp to break the order’s encryption.
+In practice, DeFi users nearly always submit their decrypted transactions before anyone else decrypts them.
+They don’t want to pay the penalty and they know how long it will take the dApp to break the transaction’s encryption.
 
 ## Flow of timelocks in a typical commit-and-reveal scheme
 
