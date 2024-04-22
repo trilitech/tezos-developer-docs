@@ -177,11 +177,10 @@ This example gives 10 of token 0 to the Alice test account and 10 of token 1 to 
 
    ```smartpy
    # Define tokens and initial owners
-   # ledger_fungible: type = sp.big_map[sp.pair[sp.address, sp.nat], sp.nat]
-   initial_ledger = sp.map() # If I use big_map here it fails
-   sp.cast(initial_ledger, fa2.t.ledger_fungible)
-   initial_ledger = sp.update_map(sp.pair(alice.address, 0), sp.Some(10), initial_ledger)
-   initial_ledger = sp.update_map(sp.pair(bob.address, 1), sp.Some(10), initial_ledger)
+   initial_ledger = {
+       (alice.address, 0): 10,
+       (bob.address, 1): 10,
+   }
    ```
 
    The type of this ledger is set by the FA2 standard, so casting it to the `ledger_fungible` type helps you make sure that your ledger matches the standard.
@@ -267,11 +266,10 @@ def test():
     tok1_md = fa2.make_metadata(name="Token One", decimals=0, symbol="Tok1")
 
     # Define tokens and initial owners
-    # ledger_fungible: type = sp.big_map[sp.pair[sp.address, sp.nat], sp.nat]
-    initial_ledger = sp.map() # If I use big_map here it fails
-    sp.cast(initial_ledger, fa2.t.ledger_fungible)
-    initial_ledger = sp.update_map(sp.pair(alice.address, 0), sp.Some(10), initial_ledger)
-    initial_ledger = sp.update_map(sp.pair(bob.address, 1), sp.Some(10), initial_ledger)
+    initial_ledger = {
+        (alice.address, 0): 10,
+        (bob.address, 1): 10,
+    }
 
     # Instantiate the FA2 fungible token contract
     contract = my_module.MyFungibleContract(sp.big_map(), initial_ledger, [tok0_md, tok1_md])
