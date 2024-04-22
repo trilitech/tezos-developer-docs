@@ -5,8 +5,10 @@ last_update:
   date: 22 April 2024
 ---
 
-So far you have tried the token in a local sandbox.
+So far you have used the token in the SmartPy test scenario and in the Octez client local sandbox.
 To test it on a live network, you can use the Ghostnet test network.
+
+For more information about testnets, see [Testing on sandboxes and testnets](../../developing/testnets).
 
 ## Configuring the Octez client for Ghostnet
 
@@ -37,10 +39,11 @@ Follow these steps to use your account as the admin account instead:
    octez-client list known addresses
    ```
 
-1. Update the `step_003_cont_0_storage.tz` file so your address is the first address listed, which is the admin account.
+1. Update the `step_003_cont_0_storage.tz` file and replace the first address listed with your account.
+This is the field that stores the admin account in the contract storage.
 
 1. Deploy the contract to Ghostnet by passing your account alias, the compiled contract, and initial storage value to the `originate contract` command.
-For example, if your compiled files are in the `fa2_lib_fungible` folder, the command looks like this:
+For example, if your account is named `my_account` and the compiled files are in the `fa2_lib_fungible` folder, the command looks like this:
 
    ```bash
    octez-client originate contract smartpy_fa2_fungible \
@@ -71,6 +74,7 @@ The process for adding a token contract to a wallet depends on the wallet applic
 Here are steps for the Temple wallet:
 
 1. Copy the address of the contract.
+You can use the command `octez-client list known contracts` to print the addresses of contracts that the Octez client knows about.
 
 1. Open the Temple wallet and sign in.
 
@@ -106,4 +110,5 @@ If you want to continue working with the token, here are some ideas:
 - Implement an exchange rate for the `convert` entrypoint
 - Implement other custom behaviors for your token while keeping it FA2-compliant
 - Build a front-end application to make it easier to interact with it
-- Add other token types.
+- Add other token types and metadata for them
+- Try creating a single asset contract or an NFT contract with the SmartPy FA2 library
