@@ -2,7 +2,7 @@
 title: "Part 5: Deploying the contract"
 authors: Tim McMackin
 last_update:
-  date: 19 April 2024
+  date: 22 April 2024
 ---
 
 So far you have tried the token in a local sandbox.
@@ -63,6 +63,39 @@ TODO more detail and screencaps
 
 ## Interact with the token in a wallet
 
-TODO
+Because the token is FA2-compliant, wallet applications can work with it directly.
+However, you must add the token contract to your wallet for it to recognize the token.
 
-1.
+The process for adding a token contract to a wallet depends on the wallet application.
+Here are steps for the Temple wallet:
+
+1. Copy the address of the contract.
+
+1. Open the Temple wallet and sign in.
+
+1. Under the list of tokens, click **Manage assets list**:
+
+   <img src="/img/tutorials/fa2-fungible-in-temple.png" alt="Opening the asset list filter" style={{width: 300}} />
+
+1. From the popup window, click **Manage**:
+
+   <img src="/img/tutorials/fa2-fungible-temple-manage-assets.png" alt="The Manage button in the popup window" style={{width: 300}} />
+
+1. Click **Add Asset**:
+
+   <img src="/img/tutorials/fa2-fungible-temple-add-asset.png" alt="Adding an asset to the tokens list" style={{width: 300}} />
+
+1. In the window that opens add information about the token, including the contract address, the token ID (such as 0 or 1), and the the symbol for the token, such as `TOK0`:
+
+   <img src="/img/tutorials/fa2-fungible-temple-adding-token.png" alt="Adding information about the token" style={{width: 300}} />
+
+1. Click **Add Asset**.
+
+Now the token appears in your wallet just like any other token:
+
+<img src="/img/tutorials/fa2-fungible-temple-assets-list.png" alt="The new token in the Temple wallet" style={{width: 300}} />
+
+From here, you can run transactions on the token, such as sending it to a different account.
+
+## Next steps
+
