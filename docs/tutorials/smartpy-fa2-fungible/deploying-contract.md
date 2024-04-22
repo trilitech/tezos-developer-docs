@@ -58,8 +58,9 @@ The contract address starts with `KT1`.
    The block explorer also shows information about the tokens on the Tokens tab.
 
 1. Mint some tokens and send them to your account from the Interact tab.
+For example, to mint tokens of an existing token type, click **Add**, select `existing` for the transaction, and specify your address and the number of tokens to create, as in this picture:
 
-TODO more detail and screencaps
+   <img src="/img/tutorials/fa2-fungible-mint-bcd.png" alt="Specifying parameters for the mint transaction" style={{width: 300}} />
 
 ## Interact with the token in a wallet
 
