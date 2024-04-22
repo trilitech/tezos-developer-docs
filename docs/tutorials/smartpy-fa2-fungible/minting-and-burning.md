@@ -2,7 +2,7 @@
 title: "Part 2: Adding minting and burning entrypoints"
 authors: Tim McMackin
 last_update:
-  date: 19 April 2024
+  date: 22 April 2024
 ---
 
 In this part, you add entrypoints that allow an administrator account to create tokens and allow users to burn their own tokens.
@@ -124,15 +124,13 @@ Only the admin account can mint tokens, but anyone can burn their own tokens.
    scenario.verify(
        _get_balance(contract, sp.record(owner=alice.address, token_id=2)) == 5
    )
-   scenario.verify(
-       _get_balance(contract, sp.record(owner=bob.address, token_id=2)) == 0
-   )
    ```
 
 1. Add a test to verify that users can burn their tokens but not other accounts' tokens:
 
    ```smartpy
    scenario.h2("Burn tokens")
+
    # Verify that you can burn your own token
    contract.burn([sp.record(token_id=2, from_=alice.address, amount=1)], _sender=alice)
    scenario.verify(
@@ -161,12 +159,67 @@ You can use these files to verify that the scenario is testing the contract prop
 
 You can also use these files as precompiled parameters for contract calls, as shown in the next section.
 
-## Calling the contract
+## (Optional) Test the contract in the Octez client mockup mode
 
-TODO how to test mint and burn? We have to set up the admin account, send tez, get the params from an output file, and call the contract.
+You can test the mint and burn entrypoints in mockup mode, but you must be sure to deploy the contract with an address that you can use as the administrator, as described in these steps:
 
+1. Get the address of one of the existing bootstrap accounts in the mockup by running this command:
 
+   ```bash
+   mockup-client list known addresses
+   ```
 
+1. Replace the first address in the initial storage value in the `step_003_cont_0_storage.tz` file with the bootstrap account address.
+For example, the file might look like this, with `tz1KqTpEZ7Yob7QbPE4Hy4Wo8fHG8LhKxZSx` as the bootstrap account:
+
+   ```michelson
+   (Pair "tz1KqTpEZ7Yob7QbPE4Hy4Wo8fHG8LhKxZSx" (Pair {Elt (Pair "tz1Rp4Bv8iUhYnNoCryHQgNzN2D7i3L1LF9C" 1) 10; Elt (Pair "tz1WxrQuZ4CK1MBUa2GqUWK1yJ4J6EtG1Gwi" 0) 10} (Pair {} (Pair 2 (Pair {} (Pair {Elt 0 10; Elt 1 10} {Elt 0 (Pair 0 {Elt "decimals" 0x30; Elt "name" 0x546f6b656e205a65726f; Elt "symbol" 0x546f6b30}); Elt 1 (Pair 1 {Elt "decimals" 0x30; Elt "name" 0x546f6b656e204f6e65; Elt "symbol" 0x546f6b31})}))))))
+   ```
+
+1. Deploy the contract by running this command:
+
+   ```bash
+   mockup-client originate contract smartpy_fa2_fungible \
+     transferring 0 from bootstrap1 \
+     running fa2_lib_fungible/step_003_cont_0_contract.tz \
+     --init "$(cat fa2_lib_fungible/step_003_cont_0_storage.tz)" --burn-cap 3 --force
+   ```
+
+1. Mint more of an existing token by following these steps:
+
+   1. Open the file `fa2_lib_fungible/log.txt`.
+
+   1. Find the output file that shows the parameters for the call to the `mint` entrypoint.
+   For example, this logging information shows that the parameters are in the file `fa2_lib_fungible/step_028_cont_0_params.tz`:
+
+      ```
+      h2: Mint tokens
+      file fa2_lib_fungible/step_028_cont_0_params.py
+      file fa2_lib_fungible/step_028_cont_0_params.tz
+      file fa2_lib_fungible/step_028_cont_0_params.json
+      Executing mint([sp.record(to_ = sp.address('tz1WxrQuZ4CK1MBUa2GqUWK1yJ4J6EtG1Gwi'), token = existing(0), amount = 4), sp.record(to_ = sp.address('tz1Rp4Bv8iUhYnNoCryHQgNzN2D7i3L1LF9C'), token = existing(1), amount = 4)])...
+      ```
+
+   1. Use that output file as the parameter for a call to the `mint` entrypoint.
+   For example, this command uses the file `fa2_lib_fungible/step_028_cont_0_params.tz`:
+
+      ```bash
+      mockup-client --wait none transfer 0 \
+        from bootstrap1 to smartpy_fa2_fungible --entrypoint "mint" \
+        --arg "$(cat fa2_lib_fungible/step_028_cont_0_params.tz)" --burn-cap 2
+      ```
+
+   1. Run this command to use the `get_balance_of` view to see that the tokens have been minted and added to the account:
+
+      ```bash
+      mockup-client run view get_balance_of on contract smartpy_fa2_fungible with input '{Pair "tz1WxrQuZ4CK1MBUa2GqUWK1yJ4J6EtG1Gwi" 0}'
+      ```
+
+      The response shows that the account now has 14 of token type 0:
+
+      ```michelson
+      { Pair (Pair "tz1WxrQuZ4CK1MBUa2GqUWK1yJ4J6EtG1Gwi" 0) 14 }
+      ```
 
 Now you have an FA2 token contract with minting and burning functionality.
 In the next part, you add metadata to provide information about the contract and its tokens to apps such as wallets.
