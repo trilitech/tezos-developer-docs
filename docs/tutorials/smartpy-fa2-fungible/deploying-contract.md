@@ -100,3 +100,10 @@ From here, you can run transactions on the token, such as sending it to a differ
 
 ## Next steps
 
+Now that you have an FA2-compliant token, you can use it with all kinds of Tezos dApps.
+If you want to continue working with the token, here are some ideas:
+
+- Implement an exchange rate for the `convert` entrypoint
+- Implement other custom behaviors for your token while keeping it FA2-compliant
+- Build a front-end application to make it easier to interact with it
+- Add other token types.
