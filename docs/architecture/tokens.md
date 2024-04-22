@@ -2,7 +2,7 @@
 title: Tokens
 authors: "Claude Barde, Aymeric Bethencourt, Tim McMackin"
 last_update:
-  date: 28 November 2023
+  date: 22 April 2024
 ---
 
 In a blockchain ecosystem, a digital asset that can be transferred between accounts is called a _token_.
@@ -46,6 +46,19 @@ tz1hQKqRPHmxET8du3fNACGyCG8kZRsXm2zD | 12
 tz1Z2iXBaFTd1PKhEUxCpXj7LzY7W7nRouqf | 3
 
 When an account transfers tokens to another account, it sends the transaction to the smart contract, which deducts the amount of tokens from its balance in the ledger and adds it to the target account's balance.
+
+In practice, a single contract can manage multiple types of fungible tokens.
+Therefore, its ledger uses a combination of the account address and token ID as the key, as in this example:
+
+key | value
+--- | ---
+tz1QCVQinE8iVj1H2fckqx6oiM85CNJSK9Sx, token ID 0 | 10
+tz1QCVQinE8iVj1H2fckqx6oiM85CNJSK9Sx, token ID 1 | 2
+tz1QCVQinE8iVj1H2fckqx6oiM85CNJSK9Sx, token ID 2 | 1
+tz1QCVQinE8iVj1H2fckqx6oiM85CNJSK9Sx, token ID 4 | 5
+tz1hQKqRPHmxET8du3fNACGyCG8kZRsXm2zD, token ID 1 | 2
+tz1hQKqRPHmxET8du3fNACGyCG8kZRsXm2zD, token ID 2 | 8
+tz1hQKqRPHmxET8du3fNACGyCG8kZRsXm2zD, token ID 3 | 14
 
 ## Non-fungible tokens (NFTs)
 
