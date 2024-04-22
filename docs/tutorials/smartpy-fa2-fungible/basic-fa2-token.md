@@ -2,10 +2,10 @@
 title: "Part 1: Setting up a simple FA2 token"
 authors: Tim McMackin
 last_update:
-  date: 19 April 2024
+  date: 22 April 2024
 ---
 
-In this part, you create an FA2 token contact that has only the basic features that the standard requires.
+In the first part of this tutorial, you create an FA2 token contact that has only the basic features that the standard requires.
 For example, the standard does not require the contract to have `mint` and `burn` entrypoints that allow administrators to create and destroy tokens.
 In this case, you create the contract with all of the tokens that it will ever have.
 
@@ -31,7 +31,7 @@ Each class creates a certain type of token contract:
 
 Follow these steps to create your own token contract based on the `main.Fungible` base class:
 
-1. Create a Python file with a `.py` extension, such as `fa2_fungible.py`.
+1. Create a Python file with a `.py` extension, such as `fa2_fungible.py`, in any text editor.
 
 1. In the file, import SmartPy and its FA2 modules:
 
@@ -132,7 +132,7 @@ The inherited classes provide all of the necessary entrypoints.
 SmartPy provides a testing framework that runs contracts in a realistic simulation called a test scenario.
 This test scenario is also the way SmartPy compiles contracts to Michelson for deployment, so you must add your contract to a test scenario.
 
-1. At the end of the same file as the contract, define a test scenario function with this code:
+1. At the end of the contract file, define a test scenario function with this code:
 
    ```smartpy
    @sp.add_test()
@@ -171,6 +171,7 @@ For example, these lines create metadata for two token types, named `Token Zero`
    The `fa2.make_metadata` function creates a token metadata object that complies with the [TZIP-12](https://gitlab.com/tezos/tzip/-/blob/master/proposals/tzip-12/tzip-12.md) standard.
 
    Your contract can have as many types of fungible tokens as you want, but the examples in this tutorial use these two token types.
+   The contract assigns them numeric IDs starting at 0.
 
 1. Create the starting ledger for the contract, which lists the tokens and their owners.
 This example gives 10 of token 0 to the Alice test account and 10 of token 1 to the Bob test account:
@@ -389,7 +390,7 @@ Follow these steps to add tests to the contract:
    The call includes the `_valid=False` parameter to indicate that this call should fail.
 
 You can add any number of tests to your test scenario.
-In practice, you should test all features of your contract thoroughly to identify any problems before deployemnt.
+In practice, you should test all features of your contract thoroughly to identify any problems before deployment.
 
 ## Compiling the contract
 
@@ -485,9 +486,9 @@ Follow these steps to set up the Octez client mockup mode and deploy the contrac
 
       ```bash
       mockup-client originate contract smartpy_fa2_fungible \
-          transferring 0 from bootstrap1 \
-          running fa2_lib_fungible/step_003_cont_0_contract.tz \
-          --init "$(cat fa2_lib_fungible/step_003_cont_0_storage.tz)" --burn-cap 3 --force
+        transferring 0 from bootstrap1 \
+        running fa2_lib_fungible/step_003_cont_0_contract.tz \
+        --init "$(cat fa2_lib_fungible/step_003_cont_0_storage.tz)" --burn-cap 3 --force
       ```
 
       If you see errors that refer to unexpected characters, make sure the paths to the files are correct and that you changed only the content of addresses inside quotes in the storage file.
@@ -500,7 +501,8 @@ Follow these steps to set up the Octez client mockup mode and deploy the contrac
 
       ```bash
       mockup-client run view get_balance_of \
-      on contract smartpy_fa2_fungible with input '{Pair "tz1Utg2AKcbLgVokY7J8QiCjcfo5KHk3VtHU" 1}'
+        on contract smartpy_fa2_fungible \
+        with input '{Pair "tz1Utg2AKcbLgVokY7J8QiCjcfo5KHk3VtHU" 1}'
       ```
 
       The response shows a Michelson value that includes the ID and amount of tokens that the address owns, as in this example:
