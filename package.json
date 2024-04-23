@@ -15,9 +15,9 @@
     "test": "mocha"
   },
   "dependencies": {
-    "@docusaurus/core": "^3.2.1",
-    "@docusaurus/preset-classic": "^3.2.1",
-    "@docusaurus/theme-mermaid": "^3.2.1",
+    "@docusaurus/core": "3.2.1",
+    "@docusaurus/preset-classic": "3.2.1",
+    "@docusaurus/theme-mermaid": "3.2.1",
     "@emotion/react": "11.11.1",
     "@emotion/styled": "11.11.0",
     "@mdx-js/react": "3.0.0",
@@ -33,19 +33,19 @@
     "slick-carousel": "1.8.1"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "^3.2.1",
-    "chai": "^5.0.0",
-    "glob": "^10.3.10",
-    "mdast-util-from-markdown": "^2.0.0",
-    "mdast-util-mdx": "^3.0.0",
-    "micromark-extension-mdxjs": "^3.0.0",
-    "minimist": "^1.2.8",
-    "mocha": "^10.2.0",
-    "rehype-stringify": "^10.0.0",
-    "remark-parse": "^11.0.0",
-    "remark-rehype": "^11.0.0",
-    "unified": "^11.0.4",
-    "unist-util-visit": "^5.0.0"
+    "@docusaurus/module-type-aliases": "3.2.1",
+    "chai": "5.0.0",
+    "glob": "10.3.10",
+    "mdast-util-from-markdown": "2.0.0",
+    "mdast-util-mdx": "3.0.0",
+    "micromark-extension-mdxjs": "3.0.0",
+    "minimist": "1.2.8",
+    "mocha": "10.2.0",
+    "rehype-stringify": "10.0.0",
+    "remark-parse": "11.0.0",
+    "remark-rehype": "11.0.0",
+    "unified": "11.0.4",
+    "unist-util-visit": "5.0.0"
   },
   "browserslist": {
     "production": [
