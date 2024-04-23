@@ -5,16 +5,12 @@ last_update:
   date: 22 February 2024
 ---
 
-The FA2 standard supports several different token types, including:
-
-- Fungible tokens
-- Non-fungible tokens (NFTs)
-- Multiple types of tokens in the same contract
+The FA2 standard supports several different token types, including fungible and non-fungible tokens.
 
 Adhering to the FA2 standard allows developers to create new types of tokens while ensuring that the tokens work with existing wallets and applications.
 The FA2 standard leaves enough freedom for developers to define rules for transferring tokens and for how tokens behave.
 
-Because a single FA2 contract can define multiple types of tokens, each token type has an ID.
+Because a single FA2 contract can define multiple types of tokens, such as multiple types of fungible tokens or multiple different NFTs, each token type has an ID.
 If the contract has only one type of token, its ID must be 0, but if it has multiple types of tokens, the IDs can be any distinct values.
 
 For the full details of the FA2 standard, see [Tezos Improvement Proposal 12 (TZIP-12)](https://gitlab.com/tezos/tzip/-/blob/master/proposals/tzip-12/tzip-12.md), which defines the standard.

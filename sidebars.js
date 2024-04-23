@@ -63,7 +63,7 @@ const sidebars = {
         'developing/wallet-setup',
         'developing/testing',
         'developing/testnets',
-        // 'developing/sandbox', // TODO
+        'developing/sandbox',
         {
           type: 'category',
           label: 'The Octez client',
