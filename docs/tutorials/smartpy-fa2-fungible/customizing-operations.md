@@ -40,7 +40,7 @@ That means that to get the amount of the source token that an account has, you m
 
 ## Tutorial contract
 
-The completed contract that you create in this part is at [part_4_complete.py](https://github.com/trilitech/tutorial-applications/blob/smartpy-fa2-tutorial/smartpy_fa2_fungible/part_4_complete.py).
+The completed contract that you create in this part is at [part_4_complete.py](https://github.com/trilitech/tutorial-applications/blob/main/smartpy_fa2_fungible/part_4_complete.py).
 
 ## Exchanging one token for another
 

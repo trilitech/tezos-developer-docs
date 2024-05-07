@@ -18,7 +18,7 @@ To run this part of the tutorial, makes sure that you have the following tools i
 
 ## Tutorial contract
 
-The completed contract that you create in this part is at [part_1_complete.py](https://github.com/trilitech/tutorial-applications/blob/smartpy-fa2-tutorial/smartpy_fa2_fungible/part_1_complete.py).
+The completed contract that you create in this part is at [part_1_complete.py](https://github.com/trilitech/tutorial-applications/blob/main/smartpy_fa2_fungible/part_1_complete.py).
 
 ## Using the library to create a contract
 
@@ -419,7 +419,7 @@ In the next section, you deploy the contract to a local Tezos sandbox.
 If the `python` command shows any errors, make sure that your contract matches the example.
 In particular, check your indentation, because indentation is significant in Python and SmartPy.
 
-You can compare your contract with the completed contract here: [part_1_complete.py](https://github.com/trilitech/tutorial-applications/blob/smartpy-fa2-tutorial/smartpy_fa2_fungible/part_1_complete.py).
+You can compare your contract with the completed contract here: [part_1_complete.py](https://github.com/trilitech/tutorial-applications/blob/main/smartpy_fa2_fungible/part_1_complete.py).
 
 <!-- TODO more troubleshooting -->
 

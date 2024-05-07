@@ -26,7 +26,7 @@ SmartPy provides a function that uploads data to IPFS via the Pinata service and
 
 ## Tutorial contract
 
-The completed contract that you create in this part is at [part_3_complete.py](https://github.com/trilitech/tutorial-applications/blob/smartpy-fa2-tutorial/smartpy_fa2_fungible/part_3_complete.py).
+The completed contract that you create in this part is at [part_3_complete.py](https://github.com/trilitech/tutorial-applications/blob/main/smartpy_fa2_fungible/part_3_complete.py).
 
 ## Getting a Pinata API key
 
@@ -136,6 +136,6 @@ By default, the file is named "No name set" and looks like this in your Pinata f
    You can click this file to see it and verify that the name and description at the top of the file match the name and description of your contract.
    The rest of the file is the code of off-chain views that the FA2 library adds automatically.
 
-The completed contract is at [part_3_complete.py](https://github.com/trilitech/tutorial-applications/blob/smartpy-fa2-tutorial/smartpy_fa2_fungible/part_3_complete.py).
+The completed contract is at [part_3_complete.py](https://github.com/trilitech/tutorial-applications/blob/main/smartpy_fa2_fungible/part_3_complete.py).
 
 Now when you deploy the completed contract, wallets and block explorers can show information about it.

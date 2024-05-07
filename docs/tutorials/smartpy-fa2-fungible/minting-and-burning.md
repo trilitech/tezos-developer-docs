@@ -12,7 +12,7 @@ Mixins are modular classes that add specific pieces of functionality.
 
 ## Tutorial contract
 
-The completed contract that you create in this part is at [part_2_complete.py](https://github.com/trilitech/tutorial-applications/blob/smartpy-fa2-tutorial/smartpy_fa2_fungible/part_2_complete.py).
+The completed contract that you create in this part is at [part_2_complete.py](https://github.com/trilitech/tutorial-applications/blob/main/smartpy_fa2_fungible/part_2_complete.py).
 
 ## Adding the admin, mint, and burn entrypoints
 
@@ -151,7 +151,7 @@ Only the admin account can mint tokens, but anyone can burn their own tokens.
    ```
 
 1. Run the `python fa2_fungible.py` command to compile and test your contract.
-If you see any errors, make sure that your code matches the code above or compare with the completed contract here: [part_2_complete.py](https://github.com/trilitech/tutorial-applications/blob/smartpy-fa2-tutorial/smartpy_fa2_fungible/part_2_complete.py).
+If you see any errors, make sure that your code matches the code above or compare with the completed contract here: [part_2_complete.py](https://github.com/trilitech/tutorial-applications/blob/main/smartpy_fa2_fungible/part_2_complete.py).
 
 Note that there are many more output files in the `fa2_lib_fungible` folder.
 The SmartPy compiler creates output files for each call to an entrypoint in the test scenario.
