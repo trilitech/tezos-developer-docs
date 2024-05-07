@@ -14,8 +14,15 @@ Contracts can also store other information in their metadata, including the code
 Generally, contracts store their metadata off-chain and include only a link to it in their storage.
 Storing the metadata off-chain saves space and makes it easier for off-chain applications to access it.
 
-Many contracts store their metadata using the InterPlanetary File System (IPFS) protocol.
-This protocol stores files in a decentralized network and indexes them by their hash, so users can be assured that the files have not changed.
+## Storing metadata with IPFS
+
+Many contracts store their metadata with the InterPlanetary File System (IPFS) protocol.
+This protocol stores files in a decentralized peer-to-peer network and indexes them by their hash, so users can be assured that the files have not changed.
+As long as one IPFS user has a copy of the data, they can re-upload it to IPFS with the same hash so it is seamlessly available again.
+
+Therefore, uploading data to IPFS doesn't mean that it will be available forever; at least one user must keep a copy of it.
+Instructing an IPFS node to keep a copy of a file is called _pinning_ the file.
+SmartPy provides a function that uploads data to IPFS via the Pinata service and instructs Pinata to pin it.
 
 ## Tutorial contract
 
