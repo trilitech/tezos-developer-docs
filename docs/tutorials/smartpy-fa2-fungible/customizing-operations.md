@@ -46,7 +46,7 @@ The completed contract that you create in this part is at [part_4_complete.py](h
 
 Follow these steps to create the `convert` entrypoint that exchanges one token for another:
 
-1. At the beginning of the module, after the `def my_module():` statement but before the `class` statement, add a type that represents the parameter for the entrypoint:
+1. At the beginning of the module, after the `def my_module():` statement but before the `class` statement, add a type that represents the information for a token transfer:
 
    ```smartpy
    conversion_type: type = sp.record(
@@ -56,21 +56,35 @@ Follow these steps to create the `convert` entrypoint that exchanges one token f
    )
    ```
 
-   You could structure this parameter differently to allow for multiple conversions in a single call, but this is a simple way to do it.
-   The parameter includes the ID of the source token, the ID of the token to convert it into, and the amount of tokens to convert.
+   The type includes the ID of the source token, the ID of the token to convert it into, and the amount of tokens to convert.
 
-1. After the `__init__()` function, add an entrypoint with the `@sp.entrypoint` annotation:
+1. After this type, create a type that is a list of conversions:
+
+   ```smartpy
+   conversion_batch: type = sp.list[conversion_type]
+   ```
+
+   This type is the parameter for the `convert` entrypoint.
+   The FA2 standard says that custom entrypoints should accept batches for parameters to allow users to do multiple things in a single transaction.
+
+1. After the `__init__()` function, add an entrypoint with the `@sp.entrypoint` annotation and accept a parameter of the `conversion_match` type:
 
    ```smartpy
    # Convert one token into another
    @sp.entrypoint
-   def convert(self, conversion):
+   def convert(self, batch):
+       sp.cast(batch, conversion_batch)
    ```
 
-1. Accept a parameter of the type you created in the first step and destructure it into individual variables:
+1. Loop over the conversions in the batch:
 
    ```smartpy
-   sp.cast(conversion, conversion_type)
+   for conversion in batch:
+   ```
+
+1. Within the loop, destructure the conversion into individual variables:
+
+   ```smartpy
    record(source_token_id, target_token_id, amount).match = conversion
    ```
 
@@ -144,8 +158,11 @@ Follow these steps to create the `convert` entrypoint that exchanges one token f
    scenario.h2("Convert tokens")
 
    # Verify that you can convert your own tokens
-   contract.convert(
+   conversions = [
        sp.record(source_token_id = 0, target_token_id = 1, amount = 2),
+   ]
+   contract.convert(
+       conversions,
        _sender=alice
    )
    scenario.verify(
