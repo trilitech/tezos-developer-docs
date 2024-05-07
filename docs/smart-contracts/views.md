@@ -126,7 +126,7 @@ def main():
         @sp.entrypoint
         def add(self, addr, value):
             currentVal = self.data.get(addr, default=0)
-            self.data = sp.update_map(addr, sp.Some(currentVal + value), self.data)
+            self.data[addr] = currentVal + value
 
         @sp.onchain_view
         def getValue(self, addr):
