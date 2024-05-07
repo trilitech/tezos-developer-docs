@@ -421,7 +421,7 @@ In particular, check your indentation, because indentation is significant in Pyt
 
 You can compare your contract with the completed contract here: [part_1_complete.py](https://github.com/trilitech/tutorial-applications/blob/smartpy-fa2-tutorial/smartpy_fa2_fungible/part_1_complete.py).
 
-TODO more troubleshooting
+<!-- TODO more troubleshooting -->
 
 ## (Optional) Deploy the contract to the Octez client mockup mode
 
