@@ -104,7 +104,7 @@ In this section, you add code to use this function to upload contract metadata t
    ```
 
 1. Update the `None` values in the `sp.pin_on_ipfs` function with your Pinata API key and secret key.
-You can also put them in the `PINATA_KEY` and `PINATA_SECRET` environment variables and remove the `api_key` and `secret_ley` parameters from the function call.
+You can also put them in the `PINATA_KEY` and `PINATA_SECRET` environment variables and remove the `api_key` and `secret_key` parameters from the function call.
 
 1. Create the contract metadata and add it to the contract with this code:
 
