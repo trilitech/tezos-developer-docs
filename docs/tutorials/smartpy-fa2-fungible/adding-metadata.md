@@ -2,7 +2,7 @@
 title: "Part 3: Adding metadata"
 authors: Tim McMackin
 last_update:
-  date: 22 April 2024
+  date: 7 May 2024
 ---
 
 In this part, you configure the metadata for the contract.
@@ -50,8 +50,8 @@ You need these values in the next section.
 
 ## Uploading metadata
 
-The SmartPy `sp.pin_on_ipfs` function uploads (or "pins") metadata to IPFS via your Pinata account.
-In this section, you add code to use this function to upload contract metadata to IPFS when the test scenario runs.
+The SmartPy `sp.pin_on_ipfs` function uploads metadata to IPFS via your Pinata account and "pins" it so it stays available until you remove it.
+In this section, you add code to use this function to upload and pin contract metadata to IPFS when the test scenario runs.
 
 1. After the code that instantiates the contract in the test scenario, use the `sp.create_tzip16_metadata` function to create a metadata object that is compatible with the [TZIP-16](https://gitlab.com/tezos/tzip/-/blob/master/proposals/tzip-16/tzip-16.md) standard for contract metadata:
 
