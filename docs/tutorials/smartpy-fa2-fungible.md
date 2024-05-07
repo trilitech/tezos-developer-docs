@@ -55,4 +55,6 @@ In this tutorial, you use the SmartPy FA2 library to create a contract that mana
 You add automated tests to the token, deploy it to a local sandbox, customize it further, and deploy it to a test network.
 Finally, you work with the token in your own Tezos wallet.
 
+The completed smart contracts are available here: https://github.com/trilitech/tutorial-applications/tree/main/smartpy_fa2_fungible
+
 When you're ready, move to the next section to start setting up your token.
