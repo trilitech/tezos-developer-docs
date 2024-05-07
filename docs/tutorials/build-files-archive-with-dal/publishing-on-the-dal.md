@@ -48,7 +48,7 @@ The DAL node provides an RPC endpoint for clients to send data to be added to a 
 1. Run this command to publish a message to the DAL:
 
    ```bash
-   curl localhost:10732/slot --data '"Hello, world!"' -H 'Content-Type: application/json'
+   curl localhost:10732/slots --data '"Hello, world!"' -H 'Content-Type: application/json'
    ```
 
    This command assumes that you have not changed the default RPC server address.
