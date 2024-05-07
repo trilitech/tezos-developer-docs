@@ -2,13 +2,15 @@
 title: "Part 4: Customizing operations"
 authors: Tim McMackin
 last_update:
-  date: 22 April 2024
+  date: 7 May 2024
 ---
 
-When you use the SmartPy FA2 library, you can't customize the FA2-required entrypoints directly.
-These entrypoints should run according to the standard.
+As shown in previous parts, the SmartPy FA2 library provides the entrypoints that the standard requires.
+You can override these entrypoints, but you must be sure to follow the standard.
+You can also customize their behavior by setting security policies.
+<!-- TODO add link to security policy doc when new docs come out -->
 
-However, you can customize the contract by adding your own entrypoints.
+You can also customize the contract by adding your own entrypoints.
 In this part, you add an entrypoint that allows users to exchange one token for another.
 To convert one token into another, the entrypoint follows these general steps:
 
