@@ -2,7 +2,7 @@
 title: Timelocks
 authors: 'Mathias Hiron (Nomadic Labs), Sasha Aldrick (TriliTech), Tim McMackin (TriliTech)'
 last_update:
-  date: 22 April 2024
+  date: 9 May 2024
 ---
 
 Timelocks are a way to prevent exploits known as _front-running_, or more properly, _extractable value (EV) attacks_.
@@ -25,7 +25,6 @@ This type of attack is called a block producer extractable value (BPEV) attack.
 :::
 
 For more information about this kind of attack, see [An analysis of Ethereum front-running and its defense solutions](https://medium.com/degate/an-analysis-of-ethereum-front-running-and-its-defense-solutions-34ef81ba8456).
-<!-- TODO link to Spotlight post -->
 
 ## Preventing EV attacks with timelocks
 
@@ -102,3 +101,4 @@ When the two players have revealed their data, the smart contract determines the
 
 - [Timelock puzzles and timed release Crypto](http://www.hashcash.org/papers/timelock.pdf>)
 - [Not protecting against bots (BPEV attacks)](https://opentezos.com/smart-contracts/avoiding-flaws/#6-not-protecting-against-bots-bpev-attacks)
+- [How Tezos timelocks help protect DeFi transactions](https://spotlight.tezos.com/timelocks-defi/)
