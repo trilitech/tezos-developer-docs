@@ -42,12 +42,11 @@ dApps that use timelocks to prevent EV attacks work in this general way:
 1. A user sends a timelock-encrypted transaction or operation to the dApp.
 1. The dApp adds the transaction to its queue before anyone can see what the transaction is.
 To everyone else, including bakers, bots, and the dApp itself, the transaction is encrypted and unreadable.
-1. No one else can decrypt the transaction quickly, so they can’t take advantage of it in an EV attack.
+No one else can decrypt the transaction quickly, so they can’t take advantage of it in an EV attack.
 1. In the background, the dApp begins decrypting the transaction.
 1. One of two things happen:
 
-   - The user submits the decrypted transaction and the proof that the decryption is accurate to the dApp.
-   In this case, the dApp doesn't need to decrypt the transaction.
+   - The user submits the decrypted transaction and the proof that the decryption is accurate to the dApp before the dApp decrypts the transaction.
    - The dApp decrypts the transaction before the user submits the decrypted transaction, such as if prices changed and the user doesn't want to execute the transaction anymore.
    In this case, the dApp takes a penalty charge from the transaction for making it waste processing power on decrypting it.
 1. The dApp fulfills the decrypted transactions in its queue in the order that they were submitted.
@@ -68,14 +67,14 @@ This prevents users from changing their values.
 3. In the third time period, if any value isn't decrypted, anyone can claim some of the deposit by submitting a decryption of the value.
 This prevents users from profiting by not revealing their decrypted values or blocking the process.
 This period needs to be long enough so that people have enough time to perform the timelock decryption.
-4. Finally, the contract computes some function of the decrypted data.
+4. Finally, the contract runs some logic based on the decrypted data.
 For example, it might distribute funds to a winner or run an operation that the majority of the users secretly voted for.
 
 Contracts can assess different penalties for not revealing, depending on whether the user merely failed to submit a decryption for their value or if they also intentionally encrypted invalid data.
 They can also distribute different rewards for submitting a correct decryption.
 
 Because it's possible to reveal the data eventually, all participants have an incentive to reveal because they will eventually lose their deposit when someone else cracks and reveals the data.
-In this way, time locks work as a deterrent; in practice, participants nearly always reveal rather than forcing someone else to crack the encryption.
+In this way, timelocks work as a deterrent; in practice, participants nearly always reveal rather than forcing someone else to crack the encryption.
 However, the second period needs to be long enough so that bakers cannot easily censor submission of the decryption in a bid to later claim the reward.
 
 Also, contracts should burn part of a deposit when another user submits a decryption of someone else's value.
