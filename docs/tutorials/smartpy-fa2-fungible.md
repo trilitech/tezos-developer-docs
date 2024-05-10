@@ -2,7 +2,7 @@
 title: Create a fungible token with the SmartPy FA2 library
 authors: Tim McMackin
 last_update:
-  date: 22 April 2024
+  date: 10 May 2024
 ---
 
 This tutorial shows you how to use SmartPy's FA2 library to create standards-compliant tokens.
@@ -29,7 +29,12 @@ Fungible tokens are collections of identical, interchangeable tokens, just like 
 Any number of different accounts can each have a quantity of a certain fungible token.
 
 By contrast, non-fungible tokens are unique and not interchangeable.
-Therefore, only one account can own an NFT at one time.
+Therefore, only one account can own a specific NFT at one time.
+
+The term "NFT" is often misused when assets are represented on blockchains, and is often confused with a fungible token.
+Make sure that you understand the difference.
+
+For more information about types of tokens, see [Tokens](../architecture/tokens).
 
 ## What is the FA2 standard?
 
