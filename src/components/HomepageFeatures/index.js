@@ -28,7 +28,7 @@ const FeatureList = [
   {
     emoji: '🧑‍💻️',
     title: 'Development environments',
-    href: 'developing/dev-environments',
+    href: 'developing',
     description: (
       <>
         Set up a development environment for your language of choice and its related tools. Use a local environment with a sandbox or a web-based IDE for development work.
