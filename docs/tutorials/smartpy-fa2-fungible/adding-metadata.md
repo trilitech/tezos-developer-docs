@@ -18,8 +18,9 @@ Storing the metadata off-chain saves space and makes it easier for off-chain app
 
 ## Storing metadata with IPFS
 
-Many contracts store their metadata with the InterPlanetary File System (IPFS) protocol.
-This protocol stores files in a decentralized peer-to-peer network and indexes them by their hash, so users can be assured that the files have not changed.
+Many contracts store metadata with the InterPlanetary File System (IPFS) protocol.
+This protocol stores files in a decentralized peer-to-peer network and indexes them by their hash.
+That way, users can access media by its hash, and the hash allows them to verify that the files have not changed.
 As long as one IPFS user has a copy of the data, they can re-upload it to IPFS with the same hash so it is seamlessly available again.
 
 Therefore, uploading data to IPFS doesn't mean that it will be available forever; at least one user must keep a copy of it.
