@@ -176,7 +176,7 @@ Follow these steps to create the `convert` entrypoint that exchanges one token f
    ```
 
 That's all that's necessary to convert one fungible token into another.
-if you wanted to extend this feature, you could implement an exchange rate, take a fee for converting tokens, or allow only certain accounts to convert tokens.
+If you wanted to extend this feature, you could implement an exchange rate, take a fee for converting tokens, or allow only certain accounts to convert tokens.
 You could also test the entrypoint more thoroughly, such as testing that a user can't convert more tokens than they have.
 
 If you want to, you can deploy this new contract to the mockup mode with the same commands as in [Part 1: Setting up a simple FA2 token](./basic-fa2-token) and try it out locally.
