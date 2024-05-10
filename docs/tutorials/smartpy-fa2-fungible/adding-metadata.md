@@ -62,6 +62,7 @@ You need these values in the next section.
 
 The SmartPy `sp.pin_on_ipfs` function uploads metadata to IPFS via your Pinata account and "pins" it to ensure that it remains available until you remove it.
 In this section, you add code to use this function to upload and pin contract metadata to IPFS when the test scenario runs.
+It is still advisable to save a local copy of your metadata, just as you would with any upload service.
 
 1. After the code that instantiates the contract in the test scenario, use the `sp.create_tzip16_metadata` function to create a metadata object that is compatible with the [TZIP-16](https://gitlab.com/tezos/tzip/-/blob/master/proposals/tzip-16/tzip-16.md) standard for contract metadata:
 
