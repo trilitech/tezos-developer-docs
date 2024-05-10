@@ -2,10 +2,25 @@
 title: Sample game
 authors: Tim McMackin
 last_update:
-  date: 9 May 2024
+  date: 10 May 2024
 ---
 
-TODO: Intro info
+The sample game for the Unity SDK is a single-player third-person shooter with survival elements.
+Players receive tokens that represent in-game objects and the game tracks and transfers them via the Tezos blockchain.
+You can import this game into the Unity Editor and work with it yourself.
+
+The game shows how developers might structure a large-scale dApp by separating different features into different components, as described below in [Architecture](#architecture).
+In particular, it handles some Tezos interaction from the Unity game itself, including connecting to the user's wallet, prompting them to sign a payload to authenticate.
+The rest of the Tezos interaction happens in the backend application, including minting and distributing tokens that represent in-game objects.
+The Unity game allows users to transfer those tokens to other accounts.
+
+The source code for the Unity front-end application is here: https://github.com/baking-bad/tezos-unity-game.
+To open it locally, see [Opening the sample game](#opening-the-sample-game).
+To play the game, go to https://game.baking-bad.org.
+
+The source code for the backend application and smart contract is not available publicly.
+
+![A screenshot from within the game interface](/img/unity/sample-game-ui.png)
 
 ## Architecture
 
@@ -39,6 +54,42 @@ The Unity application calls it from the `Assets/Scripts/Api/GameApi.cs` file for
 This diagram shows the basic interaction between these components:
 
 ![The architecture of the sample game, showing interaction between the user wallet, the Unity WebGL application, the backend, and the smart contract](/img/unity/sample-game-architecture.png)
+
+## Tokens
+
+The game uses Tezos tokens to represent in-game objects, such as weapons, armor, and power-ups.
+Because these tokens are compliant with the [FA2](../architecture/tokens/FA2) standard, players can see their tokens in their wallets and in applications such as block explorers.
+They could also set up a third-party platform to show and trade their tokens.
+
+The smart contract that manages the tokens has one [token type](https://better-call.dev/mainnet/KT1TSZfPJ5uZW1GjcnXmvt1npAQ2nh5S1FAj/tokens) for each in-game object:
+
+![Some of the token types in the contract](/img/unity/sample-game-token-types.png)
+
+When a player claims a token, the contract mints one of that token type and sends it to the player's account.
+An account can have only one of each token type, which makes the tokens similar to NFTs, but they are not NFTs because any number of accounts can have one of each token.
+Therefore, they are technically fungible tokens because tokens of the same type are interchangeable, but they have the limitation that an account can have only one of each token type.
+
+To see the tokens that an account has, you can check the ledger in the contract's storage.
+The ledger has entries that are indexed by the account address and the token type.
+For example, this ledger entry shows that account `tz1eQQnDbkTpTnu3FXix28xKdaWYRqrsZcZv` has one token of type 16:
+
+![The contract ledger on Better Call Dev, showing one entry](/img/unity/sample-game-ledger-entry.png)
+
+The contract uses standard FA2 entrypoints including `transfer`, plus other custom entrypoints for this implementation.
+You can see these entrypoints on the **Interact** tab of the block explorer: https://better-call.dev/mainnet/KT1TSZfPJ5uZW1GjcnXmvt1npAQ2nh5S1FAj/interact.
+
+## User data
+
+The game uses the Unity SDK to get player data from the backend and work with it locally.
+The [`UserDataManager.cs`](https://github.com/baking-bad/tezos-unity-game/blob/master/Assets/Scripts/Managers/UserDataManager.cs) file manages this player data, which includes:
+
+- The tokens that the account owns
+- The player's statistics
+- Information about the active game session
+- The player's currently equipped equipment
+- Pending rewards, which represent in-game items that the user has earned but has not received a token for yet
+
+The `UserDataManager` class responds to [events](./reference/EventManager) such as when the user connects their wallet and then loads information from the backend and from Tezos directly.
 
 ## Opening the sample game
 
