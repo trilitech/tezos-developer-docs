@@ -98,6 +98,6 @@ When the two players have revealed their data, the smart contract determines the
 
 ## References
 
-- [Timelock puzzles and timed release Crypto](http://www.hashcash.org/papers/timelock.pdf>)
+- [Timelock puzzles and timed release Crypto](http://www.hashcash.org/papers/timelock.pdf)
 - [Not protecting against bots (BPEV attacks)](https://opentezos.com/smart-contracts/avoiding-flaws/#6-not-protecting-against-bots-bpev-attacks)
 - [How Tezos timelocks help protect DeFi transactions](https://spotlight.tezos.com/timelocks-defi/)
