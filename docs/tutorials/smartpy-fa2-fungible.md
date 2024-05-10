@@ -28,7 +28,7 @@ If you haven't worked with smart contracts before, start with the tutorial https
 Fungible tokens are collections of identical, interchangeable tokens, just like one US dollar or Euro is the same as any other US dollar or Euro.
 Any number of different accounts can each have a quantity of a certain fungible token.
 
-By contracts, non-fungible tokens are unique and not interchangeable.
+By contrast, non-fungible tokens are unique and not interchangeable.
 Therefore, only one account can own an NFT at one time.
 
 ## What is the FA2 standard?
