@@ -2,7 +2,7 @@
 title: "Part 4: Customizing operations"
 authors: Tim McMackin
 last_update:
-  date: 7 May 2024
+  date: 10 May 2024
 ---
 
 As shown in previous parts, the SmartPy FA2 library provides the entrypoints that the standard requires.
@@ -15,6 +15,7 @@ In this part, you add an entrypoint that allows users to exchange one token for 
 To convert one token into another, the entrypoint follows these general steps:
 
 1. Verify that the source and target tokens are defined.
+1. Verify that the requester has permission to access the source token.
 1. Burn the source tokens by decreasing the amount in the ledger for the account or fail if the account doesn't have enough.
 1. Mint the target tokens by increasing the amount in the ledger for the account.
 
@@ -50,13 +51,14 @@ Follow these steps to create the `convert` entrypoint that exchanges one token f
 
    ```smartpy
    conversion_type: type = sp.record(
+       from_ = sp.address,  # Account to convert tokens from
        source_token_id = sp.nat,  # The ID of the source token
        target_token_id = sp.nat,  # The ID of the target token
        amount = sp.nat,  # The number of source tokens to convert
    )
    ```
 
-   The type includes the ID of the source token, the ID of the token to convert it into, and the amount of tokens to convert.
+   The type includes the account, the ID of the source token, the ID of the token to convert it into, and the amount of tokens to convert.
 
 1. After this type, create a type that is a list of conversions:
 
@@ -85,7 +87,12 @@ Follow these steps to create the `convert` entrypoint that exchanges one token f
 1. Within the loop, destructure the conversion into individual variables:
 
    ```smartpy
-   record(source_token_id, target_token_id, amount).match = conversion
+   record(
+       from_,
+       source_token_id,
+       target_token_id,
+       amount
+   ).match = conversion
    ```
 
 1. Add this code to verify that the contract's security policy allows transfers (which it does by default) and that the source and target token exist:
@@ -98,17 +105,31 @@ Follow these steps to create the `convert` entrypoint that exchanges one token f
    assert self.is_defined_(target_token_id), "FA2_TOKEN_UNDEFINED"
    ```
 
-1. Create a pair that represents the key for the source token type:
+1. Add this code to verify that the account that sent the request is either the owner or an operator of the tokens:
 
    ```smartpy
-   # Get a pair to represent the key for the ledger for the source tokens
-   from_source = (sp.sender, source_token_id)
+   # Verify that the sender is either the owner or the operator of the source tokens
+   assert (sp.sender == from_) or self.data.operators.contains(
+       sp.record(
+           owner=from_, operator=sp.sender, token_id=source_token_id
+       )
+   ), "FA2_NOT_OPERATOR"
    ```
+
+   In FA2 contracts, an operator is an account that is authorized to transfer tokens that are owned by another account.
+   For more information, see [Operators](../../architecture/tokens/FA2).
 
    Note that this code uses `sp.sender` instead of `sp.source` to identify the account that sent the transaction.
    The source is the account that initiated the original transaction that led to this entrypoint call, while the sender is the account that made the call that led directly to this entrypoint call.
    Using sender here is important to prevent other contracts from accepting a transaction from an account and then sending other transactions that impersonate that account.
    For more information, see [Avoiding flaws](https://opentezos.com/smart-contracts/avoiding-flaws) on opentezos.com.
+
+1. Create a pair that represents the key for the source token type:
+
+   ```smartpy
+   # Get a pair to represent the key for the ledger for the source tokens
+   from_source = (from_, source_token_id)
+   ```
 
 1. Add this code to burn the source tokens:
 
@@ -135,7 +156,7 @@ Follow these steps to create the `convert` entrypoint that exchanges one token f
 
    ```smartpy
    # Get a pair to represent the key for the ledger for the target tokens
-   from_target = (sp.sender, target_token_id)
+   from_target = (from_, target_token_id)
    ```
 
 1. Add this code to mint the target tokens:
@@ -152,7 +173,7 @@ Follow these steps to create the `convert` entrypoint that exchanges one token f
    If not, it creates a new record in the ledger.
    Finally, it increases the supply of that token.
 
-1. At the end of the file, add this test to verify that a user can convert their own tokens:
+1. At the end of the file, add this test to verify that a user can convert their own tokens but not other accounts' tokens:
 
    ```smartpy
    scenario.h2("Convert tokens")
@@ -173,6 +194,40 @@ Follow these steps to create the `convert` entrypoint that exchanges one token f
    )
    scenario.verify(_total_supply(contract, sp.record(token_id=0)) == 12)
    scenario.verify(_total_supply(contract, sp.record(token_id=1)) == 16)
+
+   # Verify that you can't convert someone else's tokens
+   contract.convert(
+       conversions,
+       _sender=bob,
+       _valid=False,
+       _exception="FA2_NOT_OPERATOR"
+   )
+   ```
+
+1. Add this test to verify that an account can set another account as an operator and that the operator can transfer their tokens:
+
+   ```smartpy
+   # Make Bob an operator of Alice's token 0
+   operator_update = sp.record(owner=alice.address, operator=bob.address, token_id=0)
+   contract.update_operators(
+       [
+           sp.variant.add_operator(operator_update)
+       ],
+       _sender=alice
+   )
+   # Have Bob convert Alice's tokens
+   contract.convert(
+       conversions,
+       _sender=bob
+   )
+   scenario.verify(
+       _get_balance(contract, sp.record(owner=alice.address, token_id=0)) == 6
+   )
+   scenario.verify(
+       _get_balance(contract, sp.record(owner=alice.address, token_id=1)) == 7
+   )
+   scenario.verify(_total_supply(contract, sp.record(token_id=0)) == 10)
+   scenario.verify(_total_supply(contract, sp.record(token_id=1)) == 18)
    ```
 
 That's all that's necessary to convert one fungible token into another.
