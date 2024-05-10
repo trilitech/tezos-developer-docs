@@ -51,8 +51,8 @@ Follow these steps to create the `convert` entrypoint that exchanges one token f
    ```smartpy
    conversion_type: type = sp.record(
        source_token_id = sp.nat,  # The ID of the source token
-       target_token_id = sp.nat, # The ID of the target token
-       amount = sp.nat, # The number of source tokens to convert
+       target_token_id = sp.nat,  # The ID of the target token
+       amount = sp.nat,  # The number of source tokens to convert
    )
    ```
 
