@@ -2,7 +2,7 @@
 title: Cryptographic data types
 authors: 'Mathias Hiron (Nomadic Labs), Sasha Aldrick (TriliTech), Tim McMackin (TriliTech)'
 last_update:
-  date: 5 October 2023
+  date: 9 April 2024
 ---
 
 Tezos provides hash functions for cryptographic purposes.
@@ -37,65 +37,14 @@ It can also be used for identity-based cryptography, single-round multi-party ke
 - SmartPy: [Cryptography](https://smartpy.io/manual/scenarios/cryptography#cryptography)
 - Taquito: [Signing data](https://tezostaquito.io/docs/signing/)
 
-## Timelocks
+## Time-locks
 
-A `timelock` is a cryptographic primitive that can be used as part of a **commit & reveal** scheme, to provide a guarantee that the information associated to the commit is eventually revealed.
+A `timelock` is a cryptographic primitive that can be used as part of a commit-and-reveal scheme, to provide a guarantee that the information associated to the commit is eventually revealed.
 
-### Classical commit & reveal scheme
-
-Commit & reveal is a scheme that consists of two steps, involving one or more participants:
-
-- Before a set deadline, each participant makes a decision and publishes a commitment, which is a proof that they have taken a decision that they won't be able to change.
-The proof often takes the form of a hash of the data that corresponding to the decision.
-- After the deadline, each participant reveals the data corresponding to their commitment.
-Other participants can check that the hash of this data indeed corresponds to their previous commitment.
-
-This scheme makes it possible to prove that a certain decision was taken before some information was revealed.
-This information may be the decision of other participants, or some external independent information.
-
-As an example, imagine that two players want to play the game [rock, paper, scissors](https://en.wikipedia.org/wiki/Rock_paper_scissors) via a smart contract.
-As it is impossible to force and verify that the two players reveal their choice between rock, paper or scissors simultaneously, they can use a commit & reveal scheme to do so.
-
-During the first step, they pick their choice, identified by a number from 1 to 3, put it in a pair with some random data, compute a hash of the result.
-This hash is the commitment that they can then send to the contract.
-
-After both players have sent their commitment, they can reveal by sending the actual data to the contract including the random data.
-The contract can verify that the hash of this data matches the previous commitment.
-When the two players have revealed their data, the smart contract determines the outcome of the game and distributes rewards accordingly.
-
-### Not revealing
-
-One issue with the classical commit & reveal scheme is that after the first step is closed and some information is revealed, one participant may find it advantageous to not reveal at all.
-Why reveal if it will only make you lose? For some use cases, this can ruin the whole process.
-
-One way to address this problem is by setting a financial incentive, such as tokens that people deposit along with their commitments.
-After they reveal, they get the tokens back, which encourages them to reveal.
-
-### Forcing the reveal with a time lock
-
-In some cases, a financial incentive is not enough by itself.
-For example, the benefit of not revealing may outweigh the benefit of revealing, or multiple participants may collaborate and decide not to reveal.
-
-In this case, you can use a time lock to produce a commitment and force the reveal.
-
-In this case, instead of using a hash, the data is encrypted using an encryption method that can be cracked with a known algorithm.
-The amount of time that it takes to crack the encryption is bounded, which provides a time limit.
-
-The algorithm used to crack it can't be parallelized, which means there is a limit to how much computing power can be applied to it.
-You can estimate the time that it takes for an ordinary computer to crack it and for the fastest possible dedicated hardware to crack it.
-Then you can set the time limit by setting the number of iterations in the data encryption.
-
-For example, assume that you encrypt data in a time lock that you know takes between 10 minutes and 10 hours to decrypt, depending on the hardware.
-You can use a commit phase that takes less than 10 minutes, which is not enough time to crack the encryption, so no one can decrypt anyone's commitment.
-Then you can use a reveal phase that gives the participants a few minutes to reveal their data.
-If a participant doesn't reveal, you can provide a financial reward (funded by the non-revealed participants' deposits) to anyone else to crack the encryption and reveal the data.
-
-Because it's possible to reveal the data eventually, all participants have an incentive to reveal because they will eventually lose their deposit when someone else cracks and reveals the data.
-In this way, time locks work as a deterrent; in practice, participants nearly always reveal rather than forcing someone else to crack the encryption.
-
-Some use cases involve collectively generating a random value or preventing [BPEV attacks](https://opentezos.com/smart-contracts/avoiding-flaws/#6-not-protecting-against-bots-bpev-attacks).
+For information about using time-locks, see [Timelocks](../timelocks).
 
 ## Implementation details
 
-- Michelson: [Operations on timelock](https://tezos.gitlab.io/active/michelson.html#operations-on-timelock)
+- Michelson: [Time-lock](https://tezos.gitlab.io/active/timelock.html)
 - Archetype: [Timelock](https://archetype-lang.org/docs/language-basics/crypto#timelock)
+- LIGO: [Timelock](https://ligolang.org/docs/reference/current-reference/?lang=jsligo#timelock)

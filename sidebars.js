@@ -161,6 +161,7 @@ const sidebars = {
         'smart-contracts/events',
         'smart-contracts/delegation',
         'smart-contracts/multisig',
+        'smart-contracts/timelocks',
         'smart-contracts/oracles',
       ],
     },
