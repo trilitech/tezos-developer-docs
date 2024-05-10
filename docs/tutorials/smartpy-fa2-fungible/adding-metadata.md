@@ -2,16 +2,18 @@
 title: "Part 3: Adding metadata"
 authors: Tim McMackin
 last_update:
-  date: 7 May 2024
+  date: 10 May 2024
 ---
 
 In this part, you configure the metadata for the contract.
 
 Contract metadata provides details about the contract itself, including its name, description, and what standards it follows.
 This information lets off-chain applications like wallets and block explorers show information about the contract.
-Contracts can also store other information in their metadata, including the code for off-chain views, metadata for tokens, and information about error messages.
+Contracts can also store other information in metadata, including the code for off-chain views and information about error messages.
 
-Generally, contracts store their metadata off-chain and include only a link to it in their storage.
+Contracts that manage tokens also store metadata about those tokens, including descriptions of the tokens and links to preview media.
+
+Generally, contracts store their metadata and token metadata off-chain and include only a link to it in their storage.
 Storing the metadata off-chain saves space and makes it easier for off-chain applications to access it.
 
 ## Storing metadata with IPFS
