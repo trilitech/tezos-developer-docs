@@ -18,7 +18,7 @@ The source code for the Unity front-end application is here: https://github.com/
 To open it locally, see [Opening the sample game](#opening-the-sample-game).
 To play the game, go to https://game.baking-bad.org.
 
-The source code for the backend application and smart contract is not available publicly.
+The source code for the backend application is here: https://github.com/k-karuna/tezos_game_back.
 
 ![A screenshot from within the game interface](/img/unity/sample-game-ui.png)
 
@@ -42,6 +42,8 @@ The Unity application calls it from the `Assets/Scripts/Api/GameApi.cs` file for
 
   The backend application is responsible for all interaction with the smart contract, including minting operations.
   It also manages the token metadata and images, which are pinned to IPFS.
+
+- The **backend database** stores persistent information about players, such as the number of games they have played.
 
 - The **smart contract** is an instance of the built-in contract that comes with the Unity SDK.
 
