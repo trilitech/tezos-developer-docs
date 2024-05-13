@@ -109,6 +109,9 @@ The [`UserDataManager.cs`](https://github.com/baking-bad/tezos-unity-game/blob/m
 - The player's currently equipped equipment
 - Pending rewards, which represent in-game items that the user has earned but has not received a token for yet
 
+Some of this information (such as the tokens that the player owns) come from Tezos and other information (such as the player's statistics) come from the backend.
+Information about the current game session and pending rewards are non-persistent data that are stored by the Unity application.
+
 The `UserDataManager` class responds to [events](./reference/EventManager) such as when the user connects their wallet and then loads information from the backend and from Tezos directly.
 
 ## Opening the sample game
