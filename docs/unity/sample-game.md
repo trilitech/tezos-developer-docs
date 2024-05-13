@@ -2,7 +2,7 @@
 title: Sample game
 authors: Tim McMackin
 last_update:
-  date: 10 May 2024
+  date: 13 May 2024
 ---
 
 The sample game for the Unity SDK is a single-player third-person shooter with survival elements.
@@ -65,7 +65,8 @@ The smart contract that manages the tokens has one [token type](https://better-c
 
 ![Some of the token types in the contract](/img/unity/sample-game-token-types.png)
 
-When a player claims a token, the contract mints one of that token type and sends it to the player's account.
+The contract stores a supply of these tokens so they are available when players claim them.
+When a player claims a token, the backend triggers the contract to send one of that token type to the player's account.
 An account can have only one of each token type, which makes the tokens similar to NFTs, but they are not NFTs because any number of accounts can have one of each token.
 Therefore, they are technically fungible tokens because tokens of the same type are interchangeable, but they have the limitation that an account can have only one of each token type.
 
