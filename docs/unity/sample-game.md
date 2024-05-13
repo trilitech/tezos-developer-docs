@@ -43,6 +43,8 @@ The Unity application calls it from the `Assets/Scripts/Api/GameApi.cs` file for
   The backend application is responsible for all interaction with the smart contract, including minting operations.
   It also manages the token metadata and images, which are pinned to IPFS.
 
+  For information about the REST API endpoints, see this page: https://game.baking-bad.org/back/swagger/.
+
 - The **backend database** stores persistent information about players, such as the number of games they have played.
 
 - The **smart contract** is an instance of the built-in contract that comes with the Unity SDK.
