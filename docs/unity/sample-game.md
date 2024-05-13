@@ -28,7 +28,6 @@ The sample game uses these main components:
 
 - **User wallets** as a source of user identity and authentication.
 The user doesn't make any direct transactions from the wallet and pays no tez to the application or in fees.
-Instead, the game has the user sign a payload to reveal their address and prove that they have the key for it so the game can use that address as the user's internal ID.
 
 - The **Unity WebGL application** is the front end of the application.
 It connects to the user wallet, sends the sign request, runs the game interface, and sends requests to the backend.
@@ -54,6 +53,24 @@ The Unity application calls it from the `Assets/Scripts/Api/GameApi.cs` file for
 This diagram shows the basic interaction between these components:
 
 ![The architecture of the sample game, showing interaction between the user wallet, the Unity WebGL application, the backend, and the smart contract](/img/unity/sample-game-architecture.png)
+
+## Authentication
+
+The game uses the user's Tezos account as a source of authentication.
+It prompts the user to connect their Tezos wallet so it can retrieve the user's account address.
+For more information about connecting to user wallets, see [Connecting accounts](./connecting-accounts).
+
+When the wallet is connected, the game prompts the user to sign a payload to prove that they have the key for the account.
+The process follows these general steps:
+
+1. The backend generates a random string and sends it to the frontend.
+1. The frontend sends the string as a signing request payload to the wallet.
+1. The user signs the payload in their wallet application.
+1. The frontend receives the signed payload and sends it to the backend.
+1. The backend verifies that the payload is correctly signed.
+1. The game allows the user to play.
+
+For more information about signing messages, See [Signing messages](./quickstart#signing-messages) in the Unity SDK quickstart.
 
 ## Tokens
 
