@@ -2,7 +2,7 @@
 title: Sample game
 authors: Tim McMackin
 last_update:
-  date: 13 May 2024
+  date: 14 May 2024
 ---
 
 The sample game for the Unity SDK is a single-player third-person shooter with survival elements.
@@ -28,6 +28,7 @@ The sample game uses these main components:
 
 - **User wallets** as a source of user identity and authentication.
 The user doesn't make any direct transactions from the wallet and pays no tez to the application or in fees.
+For more information about Tezos wallets, see [Installing and funding a wallet](../developing/wallet-setup).
 
 - The **Unity WebGL application** is the front end of the application.
 It connects to the user wallet, sends the sign request, runs the game interface, and sends requests to the backend.

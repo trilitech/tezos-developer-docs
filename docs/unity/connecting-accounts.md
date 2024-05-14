@@ -2,7 +2,7 @@
 title: Connecting accounts
 authors: Tim McMackin
 last_update:
-  date: 11 January 2024
+  date: 14 May 2024
 ---
 
 Connecting to a user's wallet is a prerequisite to working with Tezos in any application.
@@ -13,6 +13,8 @@ Using a wallet application in this way saves you from having to implement paymen
 Game developers can also use the wallet and its account as a unique account identifier and as the user's inventory.
 
 For an example of connecting to wallets, see the [WalletConnection tutorial scene](./scenes#wallet-connection-scene).
+
+For more information about Tezos wallets, see [Installing and funding a wallet](../developing/wallet-setup).
 
 ## Best practices
 
