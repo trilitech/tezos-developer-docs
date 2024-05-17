@@ -6,7 +6,7 @@ last_update:
 ---
 
 The sample game for the Unity SDK is a single-player third-person shooter with survival elements.
-Players receive tokens that represent in-game objects and the game tracks and transfers them via the Tezos blockchain.
+Players receive tokens that represent in-game items and the game tracks and transfers them via the Tezos blockchain.
 You can import this game into the Unity Editor and work with it yourself.
 
 The game shows how developers might structure a large-scale dApp by separating different features into different components, as described below in [Architecture](#architecture).
@@ -77,11 +77,11 @@ For more information about signing messages, see [Signing messages](./quickstart
 
 ## Tokens
 
-The game uses Tezos tokens to represent in-game objects, such as weapons, armor, and power-ups.
+The game uses Tezos tokens to represent in-game items, such as weapons, armor, and power-ups.
 Because these tokens are compliant with the [FA2](../architecture/tokens/FA2) standard, players can see their tokens in their wallets and in applications such as block explorers.
 They could also set up a third-party platform to show and trade their tokens.
 
-The smart contract that manages the tokens has one [token type](https://better-call.dev/mainnet/KT1TSZfPJ5uZW1GjcnXmvt1npAQ2nh5S1FAj/tokens) for each in-game object.
+The smart contract that manages the tokens has one [token type](https://better-call.dev/mainnet/KT1TSZfPJ5uZW1GjcnXmvt1npAQ2nh5S1FAj/tokens) for each in-game item.
 For example, tokens with the ID 1 represent armor:
 
 ![Example of a token type](/img/unity/sample-game-token-types.png)
