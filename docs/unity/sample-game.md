@@ -2,7 +2,7 @@
 title: Sample game
 authors: Tim McMackin
 last_update:
-  date: 14 May 2024
+  date: 17 May 2024
 ---
 
 The sample game for the Unity SDK is a single-player third-person shooter with survival elements.
@@ -53,7 +53,7 @@ The Unity application calls it from the `Assets/Scripts/Api/GameApi.cs` file for
   As described in [Managing contracts](./managing-contracts), the SDK uses a built-in FA2-compliant contract to manage tokens on behalf of users.
   In the case of the sample game, the contract has a token type that represents each in-game item that a player can own.
   When a player earns an item, it mints a token of that type and sends it to the user's account.
-  Your games can user other kinds of tokens, such as NFTs that have only one instance or fungible tokens that a user can own any number of, but in the case of the sample game, a user can own only one of each token.
+  Your games can use other kinds of tokens, such as NFTs that have only one instance or fungible tokens that a user can own any number of, but in the case of the sample game, a user can own only one of each token.
 
 This diagram shows the basic interaction between these components:
 
@@ -75,7 +75,7 @@ The process follows these general steps:
 1. The backend verifies that the payload is correctly signed.
 1. The game allows the user to play.
 
-For more information about signing messages, See [Signing messages](./quickstart#signing-messages) in the Unity SDK quickstart.
+For more information about signing messages, see [Signing messages](./quickstart#signing-messages) in the Unity SDK quickstart.
 
 ## Tokens
 
@@ -112,7 +112,7 @@ The [`UserDataManager.cs`](https://github.com/baking-bad/tezos-unity-game/blob/m
 - The player's currently equipped equipment
 - Pending rewards, which represent in-game items that the user has earned but has not received a token for yet
 
-Some of this information (such as the tokens that the player owns) come from Tezos and other information (such as the player's statistics) come from the backend.
+Some of this information (such as the tokens that the player owns) comes from Tezos and other information (such as the player's statistics) comes from the backend.
 Information about the current game session and pending rewards are non-persistent data that are stored by the Unity application.
 
 The `UserDataManager` class responds to [events](./reference/EventManager) such as when the user connects their wallet and then loads information from the backend and from Tezos directly.
