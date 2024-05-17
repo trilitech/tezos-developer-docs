@@ -48,12 +48,9 @@ The Unity application calls it from the `Assets/Scripts/Api/GameApi.cs` file for
 
 - The **backend database** stores persistent information about players, such as the number of games they have played.
 
-- The **smart contract** is an instance of the built-in contract that comes with the Unity SDK.
-
-  As described in [Managing contracts](./managing-contracts), the SDK uses a built-in FA2-compliant contract to manage tokens on behalf of users.
-  In the case of the sample game, the contract has a token type that represents each in-game item that a player can own.
-  When a player earns an item, it mints a token of that type and sends it to the user's account.
-  Your games can use other kinds of tokens, such as NFTs that have only one instance or fungible tokens that a user can own any number of, but in the case of the sample game, a user can own only one of each token.
+- The **smart contract** is a program that runs on the Tezos blockchain to manage tokens that represent in-game items.
+It maintains a ledger of tokens and owners and manages the creation and transfer of tokens.
+The sample game uses a custom contract, but you can use the SDK's built-in FA2-compliant contract; see [Managing contracts](./managing-contracts).
 
 This diagram shows the basic interaction between these components:
 
