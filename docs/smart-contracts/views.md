@@ -172,10 +172,10 @@ def callView(self, a, b):
     sp.cast(a, sp.int)
     sp.cast(b, sp.int)
     viewResponseOpt = sp.view(
-        "get_larger", # Name of the view
-        sp.address("KT1K6kivc91rZoDeCqEWjH8YqDn3iz6iEZkj"), # Address of the contract
-        sp.record(a=a, b=b), # Parameters to pass
-        sp.int # Return type of the view
+        "get_larger",  # Name of the view
+        sp.address("KT1K6kivc91rZoDeCqEWjH8YqDn3iz6iEZkj"),  # Address of the contract
+        sp.record(a=a, b=b),  # Parameters to pass
+        sp.int  # Return type of the view
     )
     if viewResponseOpt.is_some():
         self.data.myval = viewResponseOpt.unwrap_some()
@@ -185,10 +185,10 @@ If the view takes no parameters, pass `()` for the parameter:
 
 ```python
 viewResponseOpt = sp.view(
-    "no_param_view", # Name of the view
-    sp.address("KT1K6kivc91rZoDeCqEWjH8YqDn3iz6iEZkj"), # Address of the contract
-    (), # No parameter
-    sp.int # Return type of the view
+    "no_param_view",  # Name of the view
+    sp.address("KT1K6kivc91rZoDeCqEWjH8YqDn3iz6iEZkj"),  # Address of the contract
+    (),  # No parameter
+    sp.int  # Return type of the view
 )
 ```
 
