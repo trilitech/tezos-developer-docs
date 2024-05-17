@@ -42,7 +42,7 @@ The Unity application calls it from the `Assets/Scripts/Api/GameApi.cs` file for
   - Triggering the backend to mint a token as a player reward
 
   The backend application is responsible for all interaction with the smart contract, including minting operations.
-  It also manages the token metadata and images, which are pinned to IPFS.
+  It also manages the private key for the administrator account, which is responsible for minting and transferring tokens.
 
   For information about the REST API endpoints, see this page: https://game.baking-bad.org/back/swagger/.
 
