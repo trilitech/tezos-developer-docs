@@ -51,6 +51,7 @@ The Unity application calls it from the `Assets/Scripts/Api/GameApi.cs` file for
 - The **smart contract** is a program that runs on the Tezos blockchain to manage tokens that represent in-game items.
 It maintains a ledger of tokens and owners and manages the creation and transfer of tokens.
 The sample game uses a custom contract, but you can use the SDK's built-in FA2-compliant contract; see [Managing contracts](./managing-contracts).
+You can view and interact with the contract on a block explorer, such as tzkt.io: https://tzkt.io/KT1TSZfPJ5uZW1GjcnXmvt1npAQ2nh5S1FAj/operations.
 
 This diagram shows the basic interaction between these components:
 
@@ -80,12 +81,14 @@ The game uses Tezos tokens to represent in-game objects, such as weapons, armor,
 Because these tokens are compliant with the [FA2](../architecture/tokens/FA2) standard, players can see their tokens in their wallets and in applications such as block explorers.
 They could also set up a third-party platform to show and trade their tokens.
 
-The smart contract that manages the tokens has one [token type](https://better-call.dev/mainnet/KT1TSZfPJ5uZW1GjcnXmvt1npAQ2nh5S1FAj/tokens) for each in-game object:
+The smart contract that manages the tokens has one [token type](https://better-call.dev/mainnet/KT1TSZfPJ5uZW1GjcnXmvt1npAQ2nh5S1FAj/tokens) for each in-game object.
+For example, tokens with the ID 1 represent armor:
 
-![Some of the token types in the contract](/img/unity/sample-game-token-types.png)
+![Example of a token type](/img/unity/sample-game-token-types.png)
 
-The contract stores a supply of these tokens so they are available when players claim them.
-When a player claims a token, the backend triggers the contract to send one of that token type to the player's account.
+The contract pre-mints a supply of 1000 of each token type so tokens are available when players claim them.
+When a player claims a token with the Claim Reward button and solves a captcha, the game client calls the backend, which verifies the captcha and calls the contract's `transfer` entrypoint to send one of that token type to the player's account.
+
 An account can have only one of each token type, which makes the tokens similar to NFTs, but they are not NFTs because any number of accounts can have one of each token.
 Therefore, they are technically fungible tokens because tokens of the same type are interchangeable, but they have the limitation that an account can have only one of each token type.
 
@@ -96,7 +99,7 @@ For example, this ledger entry shows that account `tz1eQQnDbkTpTnu3FXix28xKdaWYR
 ![The contract ledger on Better Call Dev, showing one entry](/img/unity/sample-game-ledger-entry.png)
 
 The contract uses standard FA2 entrypoints including `transfer`, plus other custom entrypoints for this implementation.
-You can see these entrypoints on the **Interact** tab of the block explorer: https://better-call.dev/mainnet/KT1TSZfPJ5uZW1GjcnXmvt1npAQ2nh5S1FAj/interact.
+You can see these entrypoints on block explorers: https://better-call.dev/mainnet/KT1TSZfPJ5uZW1GjcnXmvt1npAQ2nh5S1FAj/interact.
 
 ## User data
 
