@@ -66,12 +66,12 @@ For more information about connecting to user wallets, see [Connecting accounts]
 When the wallet is connected, the game prompts the user to sign a payload to prove that they have the key for the account.
 The process follows these general steps:
 
-1. The backend generates a random string and sends it to the frontend.
-1. The frontend sends the string as a signing request payload to the wallet.
+1. The backend [generates a random string](https://github.com/k-karuna/tezos_game_back/blob/e6bc9c021b86704ec1ce1b5e3fd799977d05034f/api/views.py#L20) and sends it to the Unity application.
+1. The Unity application [sends the string as a signing request payload](https://github.com/baking-bad/tezos-unity-game/blob/7e3fb6454896896f7e0ac77f09d2b5f02e104aa7/Assets/Scripts/Managers/UserDataManager.cs#L108) to the wallet.
 1. The user signs the payload in their wallet application.
-1. The frontend receives the signed payload and sends it to the backend.
-1. The backend verifies that the payload is correctly signed.
-1. The game allows the user to play.
+1. The Unity application [receives the signed payload and sends it to the backend](https://github.com/baking-bad/tezos-unity-game/blob/9b71d3832dac076d74bd822c19b5f93909434190/Assets/Scripts/Managers/UserDataManager.cs#L78).
+1. The backend [verifies that the payload is correctly signed](https://github.com/k-karuna/tezos_game_back/blob/e6bc9c021b86704ec1ce1b5e3fd799977d05034f/api/views.py#L50).
+1. The game [allows the user to play if validation is successful](https://github.com/baking-bad/tezos-unity-game/blob/9b71d3832dac076d74bd822c19b5f93909434190/Assets/Scripts/Managers/UserDataManager.cs#L80).
 
 For more information about signing messages, see [Signing messages](./quickstart#signing-messages) in the Unity SDK quickstart.
 
