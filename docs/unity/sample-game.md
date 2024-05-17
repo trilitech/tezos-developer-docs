@@ -10,11 +10,11 @@ Players receive tokens that represent in-game items and the game tracks and tran
 You can import this game into the Unity Editor and work with it yourself.
 
 The game shows how developers might structure a large-scale dApp by separating different features into different components, as described below in [Architecture](#architecture).
-In particular, it handles some Tezos interaction from the Unity game itself, including connecting to the user's wallet, prompting them to sign a payload to authenticate.
-The rest of the Tezos interaction happens in the backend application, including minting and distributing tokens that represent in-game objects.
-The Unity game allows users to transfer those tokens to other accounts.
+In particular, it handles some Tezos interaction from the Unity game itself, including connecting to the user's wallet and prompting them to sign a payload to authenticate.
+The rest of the Tezos interaction happens in the backend application, including distributing tokens that represent in-game objects.
+The Unity game also allows users to transfer those tokens to other accounts.
 
-The source code for the Unity front-end application is here: https://github.com/baking-bad/tezos-unity-game.
+The source code for the Unity frontend application is here: https://github.com/baking-bad/tezos-unity-game.
 To open it locally, see [Opening the sample game](#opening-the-sample-game).
 To play the game, go to https://game.baking-bad.org.
 
@@ -39,17 +39,18 @@ The Unity application calls it from the `Assets/Scripts/Api/GameApi.cs` file for
   - Getting the signed payload from the wallet
   - Verifying the signed payload
   - Tracking events such as the beginning and end of a game session
-  - Triggering the backend to mint a token as a player reward
+  - Sending tokens to players' accounts
 
-  The backend application is responsible for most of the interaction with the smart contract, including minting operations.
-  It also manages the private key for the administrator account, which is responsible for minting and transferring tokens.
+  The backend application is responsible for most of the interaction with the smart contract, including transferring tokens to players.
+  It securely manages the private key for the administrator account, which is responsible for minting and transferring tokens.
+  This way, the game client itself has no access to the private key.
 
   For information about the REST API endpoints, see this page: https://game.baking-bad.org/back/swagger/.
 
 - The **backend database** stores persistent information about players, such as the number of games they have played.
 
 - The **smart contract** is a program that runs on the Tezos blockchain to manage tokens that represent in-game items.
-It maintains a ledger of tokens and owners and manages the creation and transfer of tokens.
+It maintains a ledger of tokens and owners and allows the backend's administrator account to transfer them to players.
 The sample game uses a custom contract, but you can use the SDK's built-in FA2-compliant contract; see [Managing contracts](./managing-contracts).
 You can view and interact with the contract on a block explorer, such as tzkt.io: https://tzkt.io/KT1TSZfPJ5uZW1GjcnXmvt1npAQ2nh5S1FAj/operations.
 
@@ -90,7 +91,7 @@ The contract pre-mints a supply of 1000 of each token type so tokens are availab
 When a player claims a token with the Claim Reward button and solves a captcha, the game client calls the backend, which verifies the captcha and calls the contract's `transfer` entrypoint to send one of that token type to the player's account.
 
 An account can have only one of each token type, which makes the tokens similar to NFTs, but they are not NFTs because any number of accounts can have one of each token.
-Therefore, they are technically fungible tokens because tokens of the same type are interchangeable, but they have the limitation that an account can have only one of each token type.
+Therefore, they are technically fungible tokens because tokens of the same type are interchangeable, but the backend sends only one token of each type to each account.
 
 To see the tokens that an account has, you can check the ledger in the contract's storage.
 The ledger has entries that are indexed by the account address and the token type.
