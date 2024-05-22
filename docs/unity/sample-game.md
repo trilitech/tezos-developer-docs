@@ -2,7 +2,7 @@
 title: Sample game
 authors: Tim McMackin
 last_update:
-  date: 17 May 2024
+  date: 22 May 2024
 ---
 
 The sample game for the Unity SDK is a single-player third-person shooter with survival elements.
@@ -69,12 +69,18 @@ For more information about connecting to user wallets, see [Connecting accounts]
 When the wallet is connected, the game prompts the user to sign a payload to prove that they have the key for the account.
 The process follows these general steps:
 
+1. The user loads the game client and clicks the button to connect.
+1. The game client requests an authentication payload from the backend.
 1. The backend [generates a random string](https://github.com/k-karuna/tezos_game_back/blob/e6bc9c021b86704ec1ce1b5e3fd799977d05034f/api/views.py#L20) and sends it to the Unity application.
 1. The Unity application [sends the string as a signing request payload](https://github.com/baking-bad/tezos-unity-game/blob/7e3fb6454896896f7e0ac77f09d2b5f02e104aa7/Assets/Scripts/Managers/UserDataManager.cs#L108) to the wallet.
 1. The user signs the payload in their wallet application.
 1. The Unity application [receives the signed payload and sends it to the backend](https://github.com/baking-bad/tezos-unity-game/blob/9b71d3832dac076d74bd822c19b5f93909434190/Assets/Scripts/Managers/UserDataManager.cs#L78).
 1. The backend [verifies that the payload is correctly signed](https://github.com/k-karuna/tezos_game_back/blob/e6bc9c021b86704ec1ce1b5e3fd799977d05034f/api/views.py#L50).
 1. The game [allows the user to play if validation is successful](https://github.com/baking-bad/tezos-unity-game/blob/9b71d3832dac076d74bd822c19b5f93909434190/Assets/Scripts/Managers/UserDataManager.cs#L80).
+
+Here is a diagram of the process:
+
+![Authentication flow diagram](/img/unity/unity-sample-game-authentication.png)
 
 For more information about signing messages, see [Signing messages](./quickstart#signing-messages) in the Unity SDK quickstart.
 
@@ -91,6 +97,9 @@ For example, tokens with the ID 1 represent armor:
 
 The contract pre-mints a supply of 1000 of each token type so tokens are available when players claim them.
 When a player claims a token with the Claim Reward button and solves a captcha, the game client calls the backend, which verifies the captcha and calls the contract's `transfer` entrypoint to send one of that token type to the player's account.
+This diagram shows the interaction between the game and the player's wallet:
+
+![A diagram of the interaction between the player's wallet and the components of the application, showing how tokens are read from the wallet information and distributed from the smart contract to the wallet](/img/unity/sample-game-architecture-play.png)
 
 An account can have only one of each token type, which makes the tokens similar to NFTs, but they are not NFTs because any number of accounts can have one of each token.
 Therefore, they are technically fungible tokens because tokens of the same type are interchangeable, but the backend sends only one token of each type to each account.
