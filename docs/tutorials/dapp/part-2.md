@@ -2,7 +2,7 @@
 title: 'Part 2: Inter-contract calls and testing'
 authors: 'Benjamin Fuentes (Marigold)'
 last_update:
-date: 22 May 2024
+  date: 22 May 2024
 ---
 
 Previously, you learned how to create your first dApp.
