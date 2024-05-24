@@ -35,17 +35,17 @@ import smartpy as sp
 @sp.module
 def main():
     class StoreGreeting(sp.Contract):
-        def __init__(self, greeting): # Note the indentation
+        def __init__(self, greeting):  # Note the indentation
             # Initialize the storage with a string passed at deployment time
             # Cast the greeting parameter to a string
             sp.cast(greeting, sp.string)
             self.data.greeting = greeting
 
-        @sp.entrypoint # Note the indentation
+        @sp.entrypoint  # Note the indentation
         def replace(self, params):
             self.data.greeting = params.text
 
-        @sp.entrypoint # Note the indentation
+        @sp.entrypoint  # Note the indentation
         def append(self, params):
             self.data.greeting += params.text
 
