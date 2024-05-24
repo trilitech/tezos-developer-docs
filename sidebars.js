@@ -197,6 +197,7 @@ const sidebars = {
       items: [
         'unity/quickstart',
         'unity/scenes',
+        'unity/sample-game',
         'unity/prefabs',
         'unity/connecting-accounts',
         'unity/managing-contracts',
