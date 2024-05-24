@@ -100,7 +100,7 @@ The LIGO command-line provides sub-commands to test your Ligo code.
 TAQ_LIGO_IMAGE=ligolang/ligo:1.6.0 taq compile pokeGame.jsligo
 ```
 
-Taqueria is generating the `.tz` Michelson file in the `artifacts`` folder. The Michelson language is the default stack language used by the Michelson VM to run your code on a node. It is something similar to WASM.
+Taqueria is generating the `.tz` Michelson file in the `artifacts` folder. The Michelson language is the default stack language used by the Michelson VM to run your code on a node. It is something similar to WASM.
 
 [Have a look on the Michelson documentation](https://tezos.gitlab.io/active/michelson.html)
 
