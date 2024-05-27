@@ -2,7 +2,7 @@
 title: 'Part 4: Handling multi-asset tokens'
 authors: 'Benjamin Fuentes (Marigold)'
 last_update:
-  date: 8 November 2023
+  date: 22 May 2024
 ---
 
 Because a wine store can have many bottles of many different types, the appropriate template to use is the multi-asset template.
@@ -26,79 +26,74 @@ To use the multi-asset template, you must change the code that your smart contra
 1. In the `nft.jsligo` file, change the first line to this code:
 
    ```jsligo
-   #import "@ligo/fa/lib/fa2/asset/multi_asset.impl.jsligo" "FA2Impl"
+    #import "@ligo/fa/lib/fa2/asset/extendable_multi_asset.impl.jsligo" "FA2Impl"
    ```
 
-1. In the storage type, change the `offers` value to `map<[address, nat], offer>` and remove the `totalSupply` field.
+1. In the storage, change the `offers` value to `map<[address, nat], offer>`.
    The storage type looks like this:
 
    ```jsligo
-   export type storage = {
-     administrators: set<address>,
-     offers: map<[address, nat], offer>, //user sells an offer for a token_id
-
-     ledger: FA2Impl.MultiAsset.ledger,
-     metadata: FA2Impl.TZIP16.metadata,
-     token_metadata: FA2Impl.TZIP12.tokenMetadata,
-     operators: FA2Impl.MultiAsset.operators,
-   };
+    export type Extension = {
+      administrators: set<address>,
+      offers: map<[address, nat], offer>, //user sells an offer for a token_id
+    };
    ```
 
 Now the offers map is indexed on the address of the seller and the ID of the token for sale.
 
-1. Replace all references to `FA2Impl.SingleAsset` in the contract with `FA2Impl.MultiAsset`.
-   You can do a find-replace in the contract to change these values.
-
 1. Replace the `mint` entrypoint with this code:
 
    ```jsligo
-   @entry
-   const mint = (
-     [token_id, quantity, name, description, symbol, ipfsUrl]: [
-       nat,
-       nat,
-       bytes,
-       bytes,
-       bytes,
-       bytes
-     ],
-     s: storage
-   ): ret => {
-     if (quantity <= (0 as nat)) return failwith("0");
-     if (! Set.mem(Tezos.get_sender(), s.administrators)) return failwith("1");
-     const token_info: map<string, bytes> =
-       Map.literal(
-         list(
-           [
-             ["name", name],
-             ["description", description],
-             ["interfaces", (bytes `["TZIP-12"]`)],
-             ["artifactUri", ipfsUrl],
-             ["displayUri", ipfsUrl],
-             ["thumbnailUri", ipfsUrl],
-             ["symbol", symbol],
-             ["decimals", (bytes `0`)]
-           ]
-         )
-       ) as map<string, bytes>;
-     return [
-       list([]) as list<operation>,
-       {
-         ...s,
-         ledger: Big_map.add(
-           [Tezos.get_sender(), token_id],
-           quantity as nat,
-           s.ledger
-         ) as FA2Impl.MultiAsset.ledger,
-         token_metadata: Big_map.add(
-           token_id,
-           { token_id: token_id, token_info: token_info },
-           s.token_metadata
-         ),
-         operators: Big_map.empty as FA2Impl.MultiAsset.operators
-       }
-     ]
-   };
+      @entry
+    const mint = (
+      [token_id, quantity, name, description, symbol, ipfsUrl]: [
+        nat,
+        nat,
+        bytes,
+        bytes,
+        bytes,
+        bytes
+      ],
+      s: storage
+    ): ret => {
+      if (quantity <= (0 as nat)) return failwith("0");
+      if (! Set.mem(Tezos.get_sender(), s.extension.administrators)) return failwith(
+        "1"
+      );
+      const token_info: map<string, bytes> =
+        Map.literal(
+          list(
+            [
+              ["name", name],
+              ["description", description],
+              ["interfaces", (bytes `["TZIP-12"]`)],
+              ["artifactUri", ipfsUrl],
+              ["displayUri", ipfsUrl],
+              ["thumbnailUri", ipfsUrl],
+              ["symbol", symbol],
+              ["decimals", (bytes `0`)]
+            ]
+          )
+        ) as map<string, bytes>;
+      return [
+        list([]) as list<operation>,
+        {
+          ...s,
+          ledger: Big_map.add(
+            [Tezos.get_sender(), token_id],
+            quantity as nat,
+            s.ledger
+          ) as FA2Impl.ledger,
+          token_metadata: Big_map.add(
+            token_id,
+            { token_id: token_id, token_info: token_info },
+            s.token_metadata
+          ),
+          operators: Big_map.empty as FA2Impl.operators
+        }
+      ]
+    };
+
    ```
 
    This updated mint entrypoint accepts both a token ID and a quantity and mints the specified number of that token.
@@ -106,34 +101,35 @@ Now the offers map is indexed on the address of the seller and the ID of the tok
 1. Replace the `sell` entrypoint with this code:
 
    ```jsligo
-   @entry
-   const sell = ([token_id, quantity, price]: [nat, nat, nat], s: storage): ret => {
-     //check balance of seller
+      @entry
+    const sell = ([token_id, quantity, price]: [nat, nat, nat], s: storage): ret => {
+      //check balance of seller
+      const sellerBalance =
+        FA2Impl.get_for_user([s.ledger, Tezos.get_source(), token_id]);
+      if (quantity > sellerBalance) return failwith("2");
+      //need to allow the contract itself to be an operator on behalf of the seller
+      const newOperators =
+        FA2Impl.add_operator(
+          [s.operators, Tezos.get_source(), Tezos.get_self_address(), token_id]
+        );
+      //DECISION CHOICE: if offer already exists, we just override it
+      return [
+        list([]) as list<operation>,
+        {
+          ...s,
+          extension: {
+            ...s.extension,
+            offers: Map.add(
+              [Tezos.get_source(), token_id],
+              { quantity: quantity, price: price },
+              s.extension.offers
+            )
+          },
+          operators: newOperators
+        }
+      ]
+    };
 
-     const sellerBalance =
-       FA2Impl.MultiAsset.get_for_user([s.ledger, Tezos.get_source(), token_id]);
-     if (quantity > sellerBalance) return failwith("2");
-     //need to allow the contract itself to be an operator on behalf of the seller
-
-     const newOperators =
-       FA2Impl.MultiAsset.add_operator(
-         [s.operators, Tezos.get_source(), Tezos.get_self_address(), token_id]
-       );
-     //DECISION CHOICE: if offer already exists, we just override it
-
-     return [
-       list([]) as list<operation>,
-       {
-         ...s,
-         offers: Map.add(
-           [Tezos.get_source(), token_id],
-           { quantity: quantity, price: price },
-           s.offers
-         ),
-         operators: newOperators
-       }
-     ]
-   };
    ```
 
    Like the mint entrypoint, this entrypoint now accepts a token ID and quantity as parameters.
@@ -143,49 +139,51 @@ Now the offers map is indexed on the address of the seller and the ID of the tok
    ```jsligo
    @entry
    const buy = ([token_id, quantity, seller]: [nat, nat, address], s: storage): ret => {
-     //search for the offer
-
-     return match(Map.find_opt([seller, token_id], s.offers)) {
-       when (None()):
-         failwith("3")
-       when (Some(offer)):
-         do {
-           //check if amount have been paid enough
-
-           if (Tezos.get_amount() < offer.price * (1 as mutez)) return failwith(
-             "5"
-           );
-           // prepare transfer of XTZ to seller
-
-           const op =
-             Tezos.transaction(
-               unit,
-               offer.price * (1 as mutez),
-               Tezos.get_contract_with_error(seller, "6")
-             );
-           //transfer tokens from seller to buyer
-
-           let ledger =
-             FA2Impl.MultiAsset.decrease_token_amount_for_user(
-               [s.ledger, seller, token_id, quantity]
-             );
-           ledger
-           = FA2Impl.MultiAsset.increase_token_amount_for_user(
-               [ledger, Tezos.get_source(), token_id, quantity]
-             );
-           //update new offer
-
-           const newOffer = { ...offer, quantity: abs(offer.quantity - quantity) };
-           return [
-             list([op]) as list<operation>,
-             {
-               ...s,
-               offers: Map.update([seller, token_id], Some(newOffer), s.offers),
-               ledger: ledger
-             }
-           ]
-         }
-     }
+   //search for the offer
+   return match(Map.find_opt([seller, token_id], s.extension.offers)) {
+    when (None()):
+      failwith("3")
+    when (Some(offer)):
+      do {
+        //check if amount have been paid enough
+        if (Tezos.get_amount() < offer.price * (1 as mutez)) return failwith(
+          "5"
+        );
+        // prepare transfer of XTZ to seller
+        const op =
+          Tezos.transaction(
+            unit,
+            offer.price * (1 as mutez),
+            Tezos.get_contract_with_error(seller, "6")
+          );
+        //transfer tokens from seller to buyer
+        let ledger =
+          FA2Impl.decrease_token_amount_for_user(
+            [s.ledger, seller, token_id, quantity]
+          );
+        ledger
+        = FA2Impl.increase_token_amount_for_user(
+            [ledger, Tezos.get_source(), token_id, quantity]
+          );
+        //update new offer
+        const newOffer = { ...offer, quantity: abs(offer.quantity - quantity) };
+        return [
+          list([op]) as list<operation>,
+          {
+            ...s,
+            extension: {
+              ...s.extension,
+              offers: Map.update(
+                [seller, token_id],
+                Some(newOffer),
+                s.extension.offers
+              )
+            },
+            ledger: ledger
+          }
+        ]
+      }
+   }
    };
    ```
 
@@ -194,40 +192,45 @@ Now the offers map is indexed on the address of the seller and the ID of the tok
    ```jsligo
    #import "nft.jsligo" "Contract"
 
-   const default_storage: Contract.storage = {
-       administrators: Set.literal(
-           list(["tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb" as address])
-       ) as set<address>,
-       offers: Map.empty as map<[address, nat], Contract.offer>,
-       ledger: Big_map.empty as Contract.FA2Impl.MultiAsset.ledger,
-       metadata: Big_map.literal(
-           list(
-               [
-                   ["", bytes `tezos-storage:data`],
-                   [
-                       "data",
-                       bytes
-                       `{
-         "name":"FA2 NFT Marketplace",
-         "description":"Example of FA2 implementation",
-         "version":"0.0.1",
-         "license":{"name":"MIT"},
-         "authors":["Marigold<contact@marigold.dev>"],
-         "homepage":"https://marigold.dev",
-         "source":{
-           "tools":["Ligo"],
-           "location":"https://github.com/ligolang/contract-catalogue/tree/main/lib/fa2"},
-         "interfaces":["TZIP-012"],
-         "errors": [],
-         "views": []
-         }`
-                   ]
-               ]
-           )
-       ) as Contract.FA2Impl.TZIP16.metadata,
-       token_metadata: Big_map.empty as Contract.FA2Impl.TZIP12.tokenMetadata,
-       operators: Big_map.empty as Contract.FA2Impl.MultiAsset.operators,
-   };
+    #import "@ligo/fa/lib/fa2/asset/extendable_multi_asset.impl.jsligo" "FA2Impl"
+
+    const default_storage: Contract.storage = {
+        extension: {
+            administrators: Set.literal(
+                list(["tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb" as address])
+            ) as set<address>,
+            offers: Map.empty as map<[address, nat], Contract.offer>
+        },
+        ledger: Big_map.empty as FA2Impl.ledger,
+        metadata: Big_map.literal(
+            list(
+                [
+                    ["", bytes `tezos-storage:data`],
+                    [
+                        "data",
+                        bytes
+                        `{
+            "name":"FA2 NFT Marketplace",
+            "description":"Example of FA2 implementation",
+            "version":"0.0.1",
+            "license":{"name":"MIT"},
+            "authors":["Marigold<contact@marigold.dev>"],
+            "homepage":"https://marigold.dev",
+            "source":{
+              "tools":["Ligo"],
+              "location":"https://github.com/ligolang/contract-catalogue/tree/main/lib/fa2"},
+            "interfaces":["TZIP-012"],
+            "errors": [],
+            "views": []
+            }`
+                    ]
+                ]
+            )
+        ) as FA2Impl.TZIP16.metadata,
+        token_metadata: Big_map.empty as FA2Impl.TZIP12.tokenMetadata,
+        operators: Big_map.empty as FA2Impl.operators,
+    };
+
    ```
 
 1. As in the previous parts, update the administrators to include addresses that you have access to.
@@ -235,7 +238,7 @@ Now the offers map is indexed on the address of the seller and the ID of the tok
 1. Compile and deploy the new contract:
 
    ```bash
-   TAQ_LIGO_IMAGE=ligolang/ligo:1.1.0 taq compile nft.jsligo
+   TAQ_LIGO_IMAGE=ligolang/ligo:1.6.0 taq compile nft.jsligo
    taq deploy nft.tz -e "testing"
    ```
 
@@ -396,7 +399,7 @@ Now that the contract handles both token IDs and quantities, you must update the
      useEffect(() => {
        if (
          storage &&
-         storage!.administrators.indexOf(userAddress! as address) < 0
+         storage!.extension.administrators.indexOf(userAddress! as address) < 0
        )
          setFormOpen(false);
        else setFormOpen(true);
@@ -505,7 +508,9 @@ Now that the contract handles both token IDs and quantities, you must update the
          {storage ? (
            <Button
              disabled={
-               storage.administrators.indexOf(userAddress! as address) < 0
+               storage.extension.administrators.indexOf(
+                 userAddress! as address
+               ) < 0
              }
              sx={{
                p: 1,
@@ -517,7 +522,9 @@ Now that the contract handles both token IDs and quantities, you must update the
              onClick={toggleDrawer(!formOpen)}
            >
              {' Mint Form ' +
-               (storage!.administrators.indexOf(userAddress! as address) < 0
+               (storage!.extension.administrators.indexOf(
+                 userAddress! as address
+               ) < 0
                  ? ' (You are not admin)'
                  : '')}
              <OpenWithIcon />
@@ -878,7 +885,7 @@ Now that the contract handles both token IDs and quantities, you must update the
                });
                if (ownerBalance.toNumber() !== 0)
                  ledgerTokenIDMap.set(Number(key.nat), ownerBalance);
-               const ownerOffers = await storage.offers.get({
+               const ownerOffers = await storage.extension.offers.get({
                  0: userAddress as address,
                  1: BigNumber(key.nat) as nat,
                });
@@ -1264,14 +1271,14 @@ Now that the contract handles both token IDs and quantities, you must update the
            Wine catalogue
          </Typography>
 
-         {storage?.offers && storage?.offers.size != 0 ? (
+         {storage?.extension.offers && storage?.extension.offers.size != 0 ? (
            <Fragment>
              <Pagination
                page={currentPageIndex}
                onChange={(_, value) => setCurrentPageIndex(value)}
                count={Math.ceil(
-                 Array.from(storage?.offers.entries()).filter(([_, offer]) =>
-                   offer.quantity.isGreaterThan(0)
+                 Array.from(storage?.extension.offers.entries()).filter(
+                   ([_, offer]) => offer.quantity.isGreaterThan(0)
                  ).length / itemPerPage
                )}
                showFirstButton
@@ -1282,7 +1289,7 @@ Now that the contract handles both token IDs and quantities, you must update the
                  isDesktop ? itemPerPage / 2 : isTablet ? itemPerPage / 3 : 1
                }
              >
-               {Array.from(storage?.offers.entries())
+               {Array.from(storage?.extension.offers.entries())
                  .filter(([_, offer]) => offer.quantity.isGreaterThan(0))
                  .filter((_, index) =>
                    index >= currentPageIndex * itemPerPage - itemPerPage &&
@@ -1418,9 +1425,9 @@ Now that the contract handles both token IDs and quantities, you must update the
 
 Now you can create, buy, and sell bottles of wine as in the applications in the previous parts.
 For example, if you connect an administrator account you can create types of wine with quantities and offer them for sale.
-Then you can connect a different account and buy bottles from the different types that are available, as in this picture:
+Then you can connect a different account and buy bottles from the available different types, as in this picture:
 
-![Buying bottles from the different types that are available](/img/tutorials/nft-marketplace-4-buy.png)
+![Buying bottles from the available different types](/img/tutorials/nft-marketplace-4-buy.png)
 
 ## Summary
 
