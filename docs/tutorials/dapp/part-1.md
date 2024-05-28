@@ -90,19 +90,19 @@ taq create contract pokeGame.jsligo
 
 ## Simulate a call on your smart contract
 
-The LIGO command-line provides sub-commands to test your Ligo code.
+The LIGO command-line provides sub-commands to test your LIGO code.
 
 [Have a look at the Testing Framework documentation](https://ligolang.org/docs/advanced/testing)
 
 1. Compile the contract with Taqueria (Force to use a specific LIGO version with `TAQ_LIGO_IMAGE` Taqueria environment variable).
 
-```bash
-TAQ_LIGO_IMAGE=ligolang/ligo:1.6.0 taq compile pokeGame.jsligo
-```
+   ```bash
+   TAQ_LIGO_IMAGE=ligolang/ligo:1.6.0 taq compile pokeGame.jsligo
+   ```
 
-Taqueria is generating the `.tz` Michelson file in the `artifacts` folder. The Michelson language is the default stack language used by the Michelson VM to run your code on a node. It is something similar to WASM.
+   Taqueria is generating the `.tz` Michelson file in the `artifacts` folder. The Michelson language is the default stack language used by the Michelson VM to run your code on a node. It is something similar to WASM.
 
-[Have a look on the Michelson documentation](https://tezos.gitlab.io/active/michelson.html)
+   [Have a look on the Michelson documentation](https://tezos.gitlab.io/active/michelson.html)
 
 1. Taqueria is generating two additional files, edit the first file `pokeGame.storageList.jsligo` replacing the current code with:
 
@@ -124,7 +124,7 @@ Taqueria is generating the `.tz` Michelson file in the `artifacts` folder. The M
 
    It compiles both source code and storage.
 
-   Before deployment, to simulate a call to our entrypoint **poke**, Taq has a **taq simulate** command.  
+   Before deployment, to simulate a call to our entrypoint **poke**, Taq has a **taq simulate** command.
    The contract parameter `Poke()` and the initial storage with the default empty set are passed to the execution.
 
 1. Edit the second file **pokeGame.parameterList.jsligo**
@@ -164,7 +164,7 @@ Taqueria is generating the `.tz` Michelson file in the `artifacts` folder. The M
 
 The default Tezos testing testnet is called **Ghostnet**.
 
-> :warning: You need an account to deploy a contract with some `tez` (the Tezos native currency). The first time you deploy a contract with Taqueria, it is generating a new implicit account with `0 tez`.
+> :warning: You need an account to deploy a contract with some `tez` (the Tezos native currency). The first time you deploy a contract with Taqueria, it is generating a new user account with `0 tez`.
 
 1. Deploy your contract to the `testing` environment. Ut forces Taqueria to generate a default account on a testing config file.
 
@@ -344,7 +344,7 @@ taq install @taqueria/plugin-contract-types
 taq generate types ./app/src
 ```
 
-1. Back to your frontend app, and run the dev server.
+1. Go back to your frontend app and run the dev server.
 
    ```bash
    cd app
@@ -356,74 +356,74 @@ taq generate types ./app/src
 
 ### Connect / disconnect the wallet
 
-Declare two React Button components and display the user's address and his balance.
+Declare two React Button components and display the user's address and balance.
 
-Edit **src/App.tsx** file.
+1. Edit **src/App.tsx** file:
 
-```typescript
-import { NetworkType } from '@airgap/beacon-types';
-import { BeaconWallet } from '@taquito/beacon-wallet';
-import { TezosToolkit } from '@taquito/taquito';
-import * as api from '@tzkt/sdk-api';
-import { useEffect, useState } from 'react';
-import './App.css';
-import ConnectButton from './ConnectWallet';
-import DisconnectButton from './DisconnectWallet';
+   ```typescript
+   import { NetworkType } from '@airgap/beacon-types';
+   import { BeaconWallet } from '@taquito/beacon-wallet';
+   import { TezosToolkit } from '@taquito/taquito';
+   import * as api from '@tzkt/sdk-api';
+   import { useEffect, useState } from 'react';
+   import './App.css';
+   import ConnectButton from './ConnectWallet';
+   import DisconnectButton from './DisconnectWallet';
 
-function App() {
-  api.defaults.baseUrl = 'https://api.ghostnet.tzkt.io';
+   function App() {
+     api.defaults.baseUrl = 'https://api.ghostnet.tzkt.io';
 
-  const [Tezos, setTezos] = useState<TezosToolkit>(
-    new TezosToolkit('https://ghostnet.ecadinfra.com')
-  );
-  const [wallet, setWallet] = useState<BeaconWallet>(
-    new BeaconWallet({
-      name: 'Training',
-      preferredNetwork: NetworkType.GHOSTNET,
-    })
-  );
+     const [Tezos, setTezos] = useState<TezosToolkit>(
+       new TezosToolkit('https://ghostnet.ecadinfra.com')
+     );
+     const [wallet, setWallet] = useState<BeaconWallet>(
+       new BeaconWallet({
+         name: 'Training',
+         preferredNetwork: NetworkType.GHOSTNET,
+       })
+     );
 
-  useEffect(() => {
-    (async () => {
-      const activeAccount = await wallet.client.getActiveAccount();
-      if (activeAccount) {
-        setUserAddress(activeAccount.address);
-        const balance = await Tezos.tz.getBalance(activeAccount.address);
-        setUserBalance(balance.toNumber());
-      }
-    })();
-  }, []);
+     useEffect(() => {
+       (async () => {
+         const activeAccount = await wallet.client.getActiveAccount();
+         if (activeAccount) {
+           setUserAddress(activeAccount.address);
+           const balance = await Tezos.tz.getBalance(activeAccount.address);
+           setUserBalance(balance.toNumber());
+         }
+       })();
+     }, []);
 
-  const [userAddress, setUserAddress] = useState<string>('');
-  const [userBalance, setUserBalance] = useState<number>(0);
+     const [userAddress, setUserAddress] = useState<string>('');
+     const [userBalance, setUserBalance] = useState<number>(0);
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        <ConnectButton
-          Tezos={Tezos}
-          setTezos={setTezos}
-          setUserAddress={setUserAddress}
-          setUserBalance={setUserBalance}
-          wallet={wallet}
-        />
+     return (
+       <div className="App">
+         <header className="App-header">
+           <ConnectButton
+             Tezos={Tezos}
+             setTezos={setTezos}
+             setUserAddress={setUserAddress}
+             setUserBalance={setUserBalance}
+             wallet={wallet}
+           />
 
-        <DisconnectButton
-          wallet={wallet}
-          setUserAddress={setUserAddress}
-          setUserBalance={setUserBalance}
-        />
+           <DisconnectButton
+             wallet={wallet}
+             setUserAddress={setUserAddress}
+             setUserBalance={setUserBalance}
+           />
 
-        <div>
-          I am {userAddress} with {userBalance} mutez
-        </div>
-      </header>
-    </div>
-  );
-}
+           <div>
+             I am {userAddress} with {userBalance} mutez
+           </div>
+         </header>
+       </div>
+     );
+   }
 
-export default App;
-```
+   export default App;
+   ```
 
 1. Let's create the 2 missing src component files:
 
@@ -490,41 +490,41 @@ export default App;
 
 1. Edit **DisconnectWallet.tsx**
 
-The button cleans the wallet instance and all linked objects.
+   The button cleans the wallet instance and all linked objects.
 
-```typescript
-import { BeaconWallet } from '@taquito/beacon-wallet';
-import { Dispatch, SetStateAction } from 'react';
+   ```typescript
+   import { BeaconWallet } from '@taquito/beacon-wallet';
+   import { Dispatch, SetStateAction } from 'react';
 
-interface ButtonProps {
-  wallet: BeaconWallet;
-  setUserAddress: Dispatch<SetStateAction<string>>;
-  setUserBalance: Dispatch<SetStateAction<number>>;
-}
+   interface ButtonProps {
+     wallet: BeaconWallet;
+     setUserAddress: Dispatch<SetStateAction<string>>;
+     setUserBalance: Dispatch<SetStateAction<number>>;
+   }
 
-const DisconnectButton = ({
-  wallet,
-  setUserAddress,
-  setUserBalance,
-}: ButtonProps): JSX.Element => {
-  const disconnectWallet = async (): Promise<void> => {
-    setUserAddress('');
-    setUserBalance(0);
-    console.log('disconnecting wallet');
-    await wallet.clearActiveAccount();
-  };
+   const DisconnectButton = ({
+     wallet,
+     setUserAddress,
+     setUserBalance,
+   }: ButtonProps): JSX.Element => {
+     const disconnectWallet = async (): Promise<void> => {
+       setUserAddress('');
+       setUserBalance(0);
+       console.log('disconnecting wallet');
+       await wallet.clearActiveAccount();
+     };
 
-  return (
-    <div className="buttons">
-      <button className="button" onClick={disconnectWallet}>
-        <i className="fas fa-times"></i>&nbsp; Disconnect wallet
-      </button>
-    </div>
-  );
-};
+     return (
+       <div className="buttons">
+         <button className="button" onClick={disconnectWallet}>
+           <i className="fas fa-times"></i>&nbsp; Disconnect wallet
+         </button>
+       </div>
+     );
+   };
 
-export default DisconnectButton;
-```
+   export default DisconnectButton;
+   ```
 
 1. Save both files, the dev server should refresh the page.
 
@@ -657,8 +657,8 @@ Contracts are displaying their people now
 
 ## Summary
 
-Now, you can create any Smart Contract using Ligo and create a complete Dapp via Taqueria/Taquito.
+Now, you can create any smart contract using LIGO and create a complete Dapp via Taqueria/Taquito.
 
-In the next section, you will learn how to call a Smart contract from a Smart Contract using callbacks and also write unit and mutation tests.
+In the next section, you will learn how to call a Smart contract from a smart contract using callbacks and also write unit and mutation tests.
 
 When you are ready, continue to [Part 2: Inter-contract calls and testing](./part-2).

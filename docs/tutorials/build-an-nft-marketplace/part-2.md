@@ -208,7 +208,7 @@ The contract storage must store the tokens that are offered for sale and their p
    yarn dev
    ```
 
-1. On the mint page in the `./src/MintPage.tsx` file, fix all **extension** relative errors by replacing `storage.extension` with `storage.extension.administrators` occurrences
+1. On the mint page in the `./src/MintPage.tsx` file, fix all **extension** relative errors by replacing `storage.extension` with `storage.extension.administrators` in each occurrence.
 
 1. Open the sale page in the `./src/OffersPage.tsx` file and replace it with this code:
 

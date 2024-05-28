@@ -5,7 +5,7 @@ last_update:
   date: 22 May 2024
 ---
 
-Previously, you learned how to do inter-contract calls, use view, and do unit testing.
+Previously, you learned how to do inter-contract calls, use views, and do unit testing.
 In this third session, you will enhance your skills on:
 
 - Using tickets.
@@ -49,7 +49,7 @@ Tickets features:
 
 - Not comparable: it makes no sense to compare tickets because tickets of the same type are all equal and can be merged into a single ticket. When ticket types are different then it is no more comparable.
 - Transferable: you can send a ticket into a Transaction parameter.
-- Storable: only on smart contract storage for the moment (Note: a new protocol release will enable it for implicit accounts soon).
+- Storable: only on smart contract storage for the moment (Note: a new protocol release will enable it for use accounts soon).
 - Non-dupable: you cannot copy or duplicate a ticket, it is a unique singleton object living in a specific blockchain instance.
 - Splittable: if the amount is > 2 then you can split the ticket object into 2 objects.
 - Mergeable: you can merge tickets from the same ticketer and the same type.
@@ -148,7 +148,7 @@ Minting is the action of creating a ticket from the void. In general, minting op
 
    > Note: more information about this function [here](https://ligolang.org/docs/reference/map-reference).
 
-   In a second step, look at the optional ticket, if it exists, then burn it (i.e. do not store it somewhere on the storage anymore) and add a trace of execution, otherwise fail with an error message.
+   In a second step, look at the optional ticket, if it exists, then burn it (destroy it) and add a trace of execution, otherwise fail with an error message.
 
 1. Same for `pokeAndGetFeedback` function, do the same checks and type modifications as below.
 
@@ -430,7 +430,7 @@ Update the unit test files to see if you can still poke.
    yarn dev
    ```
 
-1. Connect with any wallet with enough Tez, and Poke your contract.
+1. Connect with any wallet with enough tez, and Poke your contract.
 
    ![pokefail](/img/tutorials/dapp-pokefail.png)
 
@@ -662,7 +662,7 @@ Update the unit test files to see if you can still poke.
 
 ## Summary
 
-Now, you can understand tickets. If you want to learn more about tickets, read this great article [here](https://www.marigold.dev/post/tickets-for-dummies).
+Now, you understand tickets. If you want to learn more about tickets, read this great article [here](https://www.marigold.dev/post/tickets-for-dummies).
 
 In the next training, you will learn how to upgrade smart contracts.
 

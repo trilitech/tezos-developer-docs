@@ -222,7 +222,7 @@ Follow these steps to create a contract that is based on the template and implem
    Taqueria compiles the contract to the file `artifacts/nft.tz`.
    It also creates the file `nft.storageList.jsligo`, which contains the starting value of the contract storage.
 
-1. Open the file `contracts/nft.storageList.jsligo` and replace it with this code :
+1. Open the file `contracts/nft.storageList.jsligo` and replace it with this code:
 
    ```jsligo
    #import "nft.jsligo" "Contract"
@@ -379,7 +379,7 @@ The mint page uses a form that accepts information and an image and sends a tran
 
 1. Open the file `./app/src/MintPage.tsx`.
 
-1. Replace the return value of the function (i.e. the `<Paper>` tag) with the following code:
+1. Replace the return value of the function (the `<Paper>` tag) with the following code:
 
    ```html
    <Paper>

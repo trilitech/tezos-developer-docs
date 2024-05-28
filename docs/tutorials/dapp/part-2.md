@@ -628,7 +628,7 @@ The higher the percentage of mutants killed, the more effective your tests are.
    This time, the logged user will receive feedback from a targeted contract (as input of the form) via any listed contract (the first column of the table).
    Refresh manually by clicking on `Fetch` contracts` button.
 
-   Poke other developer's contracts to discover their contract hidden feedback when you poke them.
+   Poke other developers' contracts to discover their contract hidden feedback when you poke them.
 
 ## Summary
 
