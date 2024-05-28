@@ -36,7 +36,7 @@ This command can take some time because it downloads and installs the `@ligo/fa`
 
 ## Creating an FA2 contract from a template
 
-The `ligo/fa` library provides a template that saves you from having to implement all of the FA2 standards yourself.
+The `ligo/fa` library provides a template that saves you from having to implement all of the FA2 standard yourself.
 Follow these steps to create a contract that is based on the template and implements the required endpoints:
 
 1. Create a contract to manage your NFTs:
