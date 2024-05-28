@@ -1,15 +1,14 @@
 ---
-title: 'Part 3: Managing tokens with quantities'
-authors: 'Benjamin Fuentes (Marigold)'
+title: "Part 3: Managing tokens with quantities"
+authors: "Benjamin Fuentes (Marigold)"
 last_update:
-  date: 8 November 2023
+  date: 22 May 2024
 ---
 
-In the previous sections, you created unique, non-interchangeable tokens.
-These are not the right kind of token to represent wine bottles, which have a type and a quantity of bottles of that type.
+Because only one of each NFT can exist, they are not the right token type to represent wine bottles, which have a type and a quantity of bottles of that type.
 So in this part, you change the application to use a single-asset template, which lets you create a single token ID with a quantity that you define.
 
-Of course, a wine store has many different bottles of wine with different quantities, so later you will use a multi-asset template to represent bottles in that situation.
+Of course, a wine store has many different bottles of wine with different quantities, so in the next part, you use a multi-asset template to represent bottles in that situation.
 
 You can continue from your code from part 2 or start from the completed version here: https://github.com/marigold-dev/training-nft-2/tree/main/solution.
 
@@ -38,116 +37,99 @@ To use the single-asset template, you must change the code that your smart contr
    export type offer = { quantity: nat, price: nat };
    ```
 
-1. Change the storage type to use the data types from the single-asset template instead of the NFT template:
+1. Change the **offers** BigMap in the `Extension`
 
    ```jsligo
-   export type storage = {
-     administrators: set<address>,
-     totalSupply: nat,
-     offers: map<address, offer>, //user sells an offer
-
-     ledger: FA2Impl.SingleAsset.ledger,
-     metadata: FA2Impl.TZIP16.metadata,
-     token_metadata: FA2Impl.TZIP12.tokenMetadata,
-     operators: FA2Impl.SingleAsset.operators,
-   };
+   export type Extension = {
+      administrators: set<address>,
+      offers: map<address, offer>, //user sells an offer
+    };
    ```
 
-   Now the offers value is indexed on the address of the seller instead of the token ID because there is only one token ID.
-   Also, the storage now keeps track of the total number of tokens in the `totalSupply` value.
-
-1. Replace all other references to `FA2Impl.NFT` in the contract with `FA2Impl.SingleAsset`.
-   You can do a find-replace in the contract to change these values.
+   Now the **offers** value is indexed on the address of the seller instead of the token ID because there is only one token ID.
 
 1. Replace the `mint` entrypoint with this code:
 
    ```jsligo
    @entry
-   const mint = (
-     [quantity, name, description, symbol, ipfsUrl]: [
-       nat,
-       bytes,
-       bytes,
-       bytes,
-       bytes
-     ],
-     s: storage
-   ): ret => {
-     if (quantity <= (0 as nat)) return failwith("0");
-     if (! Set.mem(Tezos.get_sender(), s.administrators)) return failwith("1");
-     const token_info: map<string, bytes> =
-       Map.literal(
-         list(
-           [
-             ["name", name],
-             ["description", description],
-             ["interfaces", (bytes `["TZIP-12"]`)],
-             ["artifactUri", ipfsUrl],
-             ["displayUri", ipfsUrl],
-             ["thumbnailUri", ipfsUrl],
-             ["symbol", symbol],
-             ["decimals", (bytes `0`)]
-           ]
-         )
-       ) as map<string, bytes>;
-     return [
-       list([]) as list<operation>,
-       {
-         ...s,
-         totalSupply: quantity,
-         ledger: Big_map.literal(list([[Tezos.get_sender(), quantity as nat]])) as
-           FA2Impl.SingleAsset.ledger,
-         token_metadata: Big_map.add(
-           0 as nat,
-           { token_id: 0 as nat, token_info: token_info },
-           s.token_metadata
-         ),
-         operators: Big_map.empty as FA2Impl.SingleAsset.operators,
-       }
-     ]
-   };
+    const mint = (
+      [quantity, name, description, symbol, ipfsUrl]: [
+        nat,
+        bytes,
+        bytes,
+        bytes,
+        bytes
+      ],
+      s: storage
+    ): ret => {
+      if (quantity <= (0 as nat)) return failwith("0");
+      if (! Set.mem(Tezos.get_sender(), s.extension.administrators)) return failwith("1");
+      const token_info: map<string, bytes> =
+        Map.literal(
+          list(
+            [
+              ["name", name],
+              ["description", description],
+              ["interfaces", (bytes `["TZIP-12"]`)],
+              ["artifactUri", ipfsUrl],
+              ["displayUri", ipfsUrl],
+              ["thumbnailUri", ipfsUrl],
+              ["symbol", symbol],
+              ["decimals", (bytes `0`)]
+            ]
+          )
+        ) as map<string, bytes>;
+      return [
+        list([]) as list<operation>,
+        {
+          ...s,
+          ledger: Big_map.literal(list([[Tezos.get_sender(), quantity as nat]])) as
+            FA2Impl.ledger,
+          token_metadata: Big_map.add(
+            0 as nat,
+            { token_id: 0 as nat, token_info: token_info },
+            s.token_metadata
+          ),
+          operators: Big_map.empty as FA2Impl.operators,
+        }
+      ]
+    };
    ```
 
-   This updated entrypoint accepts a parameter for the number of tokens to mint and returns that number as the `totalSupply` value.
+   This updated entrypoint accepts a parameter for the number of tokens to mint.
 
 1. Replace the `sell` entrypoint with this code:
 
    ```jsligo
-   @entry
-   const sell = ([quantity, price]: [nat, nat], s: storage): ret => {
-     //check balance of seller
-
-     const sellerBalance =
-       FA2Impl.SingleAsset.get_amount_for_owner(
-         {
-           ledger: s.ledger,
-           metadata: s.metadata,
-           operators: s.operators,
-           token_metadata: s.token_metadata,
-         }
-       )(Tezos.get_source());
-     if (quantity > sellerBalance) return failwith("2");
-     //need to allow the contract itself to be an operator on behalf of the seller
-
-     const newOperators =
-       FA2Impl.SingleAsset.add_operator(s.operators)(Tezos.get_source())(
-         Tezos.get_self_address()
-       );
-     //DECISION CHOICE: if offer already exists, we just override it
-
-     return [
-       list([]) as list<operation>,
-       {
-         ...s,
-         offers: Map.add(
-           Tezos.get_source(),
-           { quantity: quantity, price: price },
-           s.offers
-         ),
-         operators: newOperators
-       }
-     ]
-   };
+    @entry
+    const sell = ([quantity, price]: [nat, nat], s: storage): ret => {
+      //check balance of seller
+      const sellerBalance = FA2Impl.get_amount_for_owner(s)(Tezos.get_source());
+      if (quantity > sellerBalance) return failwith("2");
+      //need to allow the contract itself to be an operator on behalf of the seller
+      const newOperators =
+        FA2Impl.add_operator(
+          s.operators,
+          Tezos.get_source(),
+          Tezos.get_self_address()
+        );
+      //DECISION CHOICE: if offer already exists, we just override it
+      return [
+        list([]) as list<operation>,
+        {
+          ...s,
+          extension: {
+            ...s.extension,
+            offers: Map.add(
+              Tezos.get_source(),
+              { quantity: quantity, price: price },
+              s.extension.offers
+            )
+          },
+          operators: newOperators
+        }
+      ]
+    };
    ```
 
    This updated entrypoint accepts a quantity to offer for sale instead of a token ID.
@@ -157,99 +139,99 @@ To use the single-asset template, you must change the code that your smart contr
 
    ```jsligo
    @entry
-   const buy = ([quantity, seller]: [nat, address], s: storage): ret => {
-     //search for the offer
-
-     return match(Map.find_opt(seller, s.offers)) {
-       when (None()):
-         failwith("3")
-       when (Some(offer)):
-         do {
-           //check if quantity is enough
-
-           if (quantity > offer.quantity) return failwith("4");
-           //check if amount have been paid enough
-
-           if (Tezos.get_amount() < (offer.price * quantity) * (1 as mutez)) return failwith(
-             "5"
-           );
-           // prepare transfer of XTZ to seller
-
-           const op =
-             Tezos.transaction(
-               unit,
-               (offer.price * quantity) * (1 as mutez),
-               Tezos.get_contract_with_error(seller, "6")
-             );
-           //transfer tokens from seller to buyer
-
-           let ledger =
-             FA2Impl.SingleAsset.decrease_token_amount_for_user(s.ledger)(seller)(
-               quantity
-             );
-           ledger
-           = FA2Impl.SingleAsset.increase_token_amount_for_user(ledger)(
-               Tezos.get_source()
-             )(quantity);
-           //update new offer
-
-           const newOffer = { ...offer, quantity: abs(offer.quantity - quantity) };
-           return [
-             list([op]) as list<operation>,
-             {
-               ...s,
-               offers: Map.update(seller, Some(newOffer), s.offers),
-               ledger: ledger,
-             }
-           ]
-         }
-     }
-   };
+    const buy = ([quantity, seller]: [nat, address], s: storage): ret => {
+      //search for the offer
+      return match(Map.find_opt(seller, s.extension.offers)) {
+        when (None()):
+          failwith("3")
+        when (Some(offer)):
+          do {
+            //check if quantity is enough
+            if (quantity > offer.quantity) return failwith("4");
+            //check if amount have been paid enough
+            if (Tezos.get_amount() < (offer.price * quantity) * (1 as mutez)) return failwith(
+              "5"
+            );
+            // prepare transfer of XTZ to seller
+            const op =
+              Tezos.transaction(
+                unit,
+                (offer.price * quantity) * (1 as mutez),
+                Tezos.get_contract_with_error(seller, "6")
+              );
+            //transfer tokens from seller to buyer
+            let ledger =
+              FA2Impl.decrease_token_amount_for_user(s.ledger, seller, quantity);
+            ledger
+            = FA2Impl.increase_token_amount_for_user(
+                ledger,
+                Tezos.get_source(),
+                quantity
+              );
+            //update new offer
+            const newOffer = { ...offer, quantity: abs(offer.quantity - quantity) };
+            return [
+              list([op]) as list<operation>,
+              {
+                ...s,
+                extension: {
+                  ...s.extension,
+                  offers: Map.update(seller, Some(newOffer), s.extension.offers)
+                },
+                ledger: ledger,
+              }
+            ]
+          }
+      }
+    };
    ```
 
-   This updated entrypoint accepts the quantity of tokens to buy, verifies that the quantity is less than or equal to the quantity offered for sale, verifies the sale price, and updates the offer.
+   This updated entrypoint accepts the number of tokens to buy, verifies that the quantity is less than or equal to the quantity offered for sale, verifies the sale price, and updates the offer.
    It allows a buyer to buy the full amount of tokens for sale or fewer than the offered amount.
 
 1. Replace the content of the `nft.storageList.jsligo` file with this code:
 
    ```jsligo
-   #import "nft.jsligo" "Contract"
+    #import "nft.jsligo" "Contract"
 
-   const default_storage: Contract.storage = {
-       administrators: Set.literal(
-           list(["tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb" as address])
-       ) as set<address>,
-       totalSupply: 0 as nat,
-       offers: Map.empty as map<address, Contract.offer>,
-       ledger: Big_map.empty as Contract.FA2Impl.SingleAsset.ledger,
-       metadata: Big_map.literal(
-           list(
-               [
-                   ["", bytes `tezos-storage:data`],
-                   [
-                       "data",
-                       bytes
-                       `{
-         "name":"FA2 NFT Marketplace",
-         "description":"Example of FA2 implementation",
-         "version":"0.0.1",
-         "license":{"name":"MIT"},
-         "authors":["Marigold<contact@marigold.dev>"],
-         "homepage":"https://marigold.dev",
-         "source":{
-           "tools":["Ligo"],
-           "location":"https://github.com/ligolang/contract-catalogue/tree/main/lib/fa2"},
-         "interfaces":["TZIP-012"],
-         "errors": [],
-         "views": []
-         }`
-                   ]
-               ]
-           )
-       ) as Contract.FA2Impl.TZIP16.metadata,
-       token_metadata: Big_map.empty as Contract.FA2Impl.TZIP12.tokenMetadata,
-       operators: Big_map.empty as Contract.FA2Impl.SingleAsset.operators,
-   };
+    #import "@ligo/fa/lib/fa2/asset/extendable_single_asset.impl.jsligo" "FA2Impl"
+
+    const default_storage: Contract.storage = {
+        extension: {
+            administrators: Set.literal(
+                list(["tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb" as address])
+            ) as set<address>,
+            offers: Map.empty as map<address, Contract.offer>,
+        },
+        ledger: Big_map.empty as FA2Impl.ledger,
+        metadata: Big_map.literal(
+            list(
+                [
+                    ["", bytes `tezos-storage:data`],
+                    [
+                        "data",
+                        bytes
+                        `{
+            "name":"FA2 NFT Marketplace",
+            "description":"Example of FA2 implementation",
+            "version":"0.0.1",
+            "license":{"name":"MIT"},
+            "authors":["Marigold<contact@marigold.dev>"],
+            "homepage":"https://marigold.dev",
+            "source":{
+              "tools":["Ligo"],
+              "location":"https://github.com/ligolang/contract-catalogue/tree/main/lib/fa2"},
+            "interfaces":["TZIP-012"],
+            "errors": [],
+            "views": []
+            }`
+                    ]
+                ]
+            )
+        ) as FA2Impl.TZIP16.metadata,
+        token_metadata: Big_map.empty as FA2Impl.TZIP12.tokenMetadata,
+        operators: Big_map.empty as FA2Impl.operators,
+    };
    ```
 
 1. As in the previous parts, update the administrators to include addresses that you have access to.
@@ -257,7 +239,7 @@ To use the single-asset template, you must change the code that your smart contr
 1. Compile and deploy the new contract:
 
    ```bash
-   TAQ_LIGO_IMAGE=ligolang/ligo:1.1.0 taq compile nft.jsligo
+   TAQ_LIGO_IMAGE=ligolang/ligo:1.6.0 taq compile nft.jsligo
    taq deploy nft.tz -e "testing"
    ```
 
@@ -275,11 +257,11 @@ To use the single-asset template, you must change the code that your smart contr
 
    ```typescript
    const refreshUserContextOnPageReload = async () => {
-     console.log('refreshUserContext');
+     console.log("refreshUserContext");
      //CONTRACT
      try {
        let c = await Tezos.contract.at(nftContractAddress, tzip12);
-       console.log('nftContractAddress', nftContractAddress);
+       console.log("nftContractAddress", nftContractAddress);
 
        let nftContrat: NftWalletType = await Tezos.wallet.at<NftWalletType>(
          nftContractAddress
@@ -290,17 +272,17 @@ To use the single-asset template, you must change the code that your smart contr
          let tokenMetadata: TZIP21TokenMetadata = (await c
            .tzip12()
            .getTokenMetadata(0)) as TZIP21TokenMetadata;
-         nftContratTokenMetadataMap.set('0', tokenMetadata);
+         nftContratTokenMetadataMap.set("0", tokenMetadata);
 
          setNftContratTokenMetadataMap(new Map(nftContratTokenMetadataMap)); //new Map to force refresh
        } catch (error) {
-         console.log('error refreshing nftContratTokenMetadataMap: ');
+         console.log("error refreshing nftContratTokenMetadataMap: ");
        }
 
        setNftContrat(nftContrat);
        setStorage(storage);
      } catch (error) {
-       console.log('error refreshing nft contract: ', error);
+       console.log("error refreshing nft contract: ", error);
      }
 
      //USER
@@ -311,7 +293,7 @@ To use the single-asset template, you must change the code that your smart contr
        setUserBalance(balance.toNumber());
      }
 
-     console.log('refreshUserContext ended.');
+     console.log("refreshUserContext ended.");
    };
    ```
 
@@ -320,7 +302,7 @@ To use the single-asset template, you must change the code that your smart contr
 1. Replace the content of the `src/MintPage.tsx` file with this code:
 
    ```typescript
-   import OpenWithIcon from '@mui/icons-material/OpenWith';
+   import OpenWithIcon from "@mui/icons-material/OpenWith";
    import {
      Button,
      CardHeader,
@@ -331,29 +313,29 @@ To use the single-asset template, you must change the code that your smart contr
      TextField,
      Toolbar,
      useMediaQuery,
-   } from '@mui/material';
-   import Box from '@mui/material/Box';
-   import Card from '@mui/material/Card';
-   import CardContent from '@mui/material/CardContent';
-   import Paper from '@mui/material/Paper';
-   import Typography from '@mui/material/Typography';
-   import { BigNumber } from 'bignumber.js';
-   import { useSnackbar } from 'notistack';
-   import React, { useEffect, useState } from 'react';
-   import { TZIP21TokenMetadata, UserContext, UserContextType } from './App';
-   import { TransactionInvalidBeaconError } from './TransactionInvalidBeaconError';
+   } from "@mui/material";
+   import Box from "@mui/material/Box";
+   import Card from "@mui/material/Card";
+   import CardContent from "@mui/material/CardContent";
+   import Paper from "@mui/material/Paper";
+   import Typography from "@mui/material/Typography";
+   import { BigNumber } from "bignumber.js";
+   import { useSnackbar } from "notistack";
+   import React, { useEffect, useState } from "react";
+   import { TZIP21TokenMetadata, UserContext, UserContextType } from "./App";
+   import { TransactionInvalidBeaconError } from "./TransactionInvalidBeaconError";
 
    import {
      AddCircleOutlined,
      Close,
      KeyboardArrowLeft,
      KeyboardArrowRight,
-   } from '@mui/icons-material';
-   import { char2Bytes } from '@taquito/utils';
-   import { useFormik } from 'formik';
-   import SwipeableViews from 'react-swipeable-views';
-   import * as yup from 'yup';
-   import { address, bytes, nat } from './type-aliases';
+   } from "@mui/icons-material";
+   import { char2Bytes } from "@taquito/utils";
+   import { useFormik } from "formik";
+   import SwipeableViews from "react-swipeable-views";
+   import * as yup from "yup";
+   import { address, bytes, nat } from "./type-aliases";
    export default function MintPage() {
      const {
        userAddress,
@@ -363,7 +345,7 @@ To use the single-asset template, you must change the code that your smart contr
        nftContratTokenMetadataMap,
      } = React.useContext(UserContext) as UserContextType;
      const { enqueueSnackbar } = useSnackbar();
-     const [pictureUrl, setPictureUrl] = useState<string>('');
+     const [pictureUrl, setPictureUrl] = useState<string>("");
      const [file, setFile] = useState<File | null>(null);
 
      const [activeStep, setActiveStep] = React.useState(0);
@@ -380,21 +362,21 @@ To use the single-asset template, you must change the code that your smart contr
        setActiveStep(step);
      };
      const validationSchema = yup.object({
-       name: yup.string().required('Name is required'),
-       description: yup.string().required('Description is required'),
-       symbol: yup.string().required('Symbol is required'),
+       name: yup.string().required("Name is required"),
+       description: yup.string().required("Description is required"),
+       symbol: yup.string().required("Symbol is required"),
        quantity: yup
          .number()
-         .required('Quantity is required')
-         .positive('ERROR: The number must be greater than 0!'),
+         .required("Quantity is required")
+         .positive("ERROR: The number must be greater than 0!"),
      });
 
      const formik = useFormik({
        initialValues: {
-         name: '',
-         description: '',
+         name: "",
+         description: "",
          token_id: 0,
-         symbol: 'WINE',
+         symbol: "WINE",
          quantity: 1,
        } as TZIP21TokenMetadata & { quantity: number },
        validationSchema: validationSchema,
@@ -407,7 +389,7 @@ To use the single-asset template, you must change the code that your smart contr
      useEffect(() => {
        if (
          storage &&
-         storage!.administrators.indexOf(userAddress! as address) < 0
+         storage!.extension.administrators.indexOf(userAddress! as address) < 0
        )
          setFormOpen(false);
        else setFormOpen(true);
@@ -420,29 +402,29 @@ To use the single-asset template, you must change the code that your smart contr
          //IPFS
          if (file) {
            const formData = new FormData();
-           formData.append('file', file);
+           formData.append("file", file);
 
            const requestHeaders: HeadersInit = new Headers();
            requestHeaders.set(
-             'pinata_api_key',
+             "pinata_api_key",
              `${import.meta.env.VITE_PINATA_API_KEY}`
            );
            requestHeaders.set(
-             'pinata_secret_api_key',
+             "pinata_secret_api_key",
              `${import.meta.env.VITE_PINATA_API_SECRET}`
            );
 
            const resFile = await fetch(
-             'https://api.pinata.cloud/pinning/pinFileToIPFS',
+             "https://api.pinata.cloud/pinning/pinFileToIPFS",
              {
-               method: 'post',
+               method: "post",
                body: formData,
                headers: requestHeaders,
              }
            );
 
            const responseJson = await resFile.json();
-           console.log('responseJson', responseJson);
+           console.log("responseJson", responseJson);
 
            const thumbnailUri = `ipfs://${responseJson.IpfsHash}`;
            setPictureUrl(
@@ -462,13 +444,13 @@ To use the single-asset template, you must change the code that your smart contr
            //close directly the form
            setFormOpen(false);
            enqueueSnackbar(
-             'Wine collection is minting ... it will be ready on next block, wait for the confirmation message before minting another collection',
-             { variant: 'info' }
+             "Wine collection is minting ... it will be ready on next block, wait for the confirmation message before minting another collection",
+             { variant: "info" }
            );
 
            await op.confirmation(2);
 
-           enqueueSnackbar('Wine collection minted', { variant: 'success' });
+           enqueueSnackbar("Wine collection minted", { variant: "success" });
 
            refreshUserContextOnPageReload(); //force all app to refresh the context
          }
@@ -477,7 +459,7 @@ To use the single-asset template, you must change the code that your smart contr
          let tibe: TransactionInvalidBeaconError =
            new TransactionInvalidBeaconError(error);
          enqueueSnackbar(tibe.data_message, {
-           variant: 'error',
+           variant: "error",
            autoHideDuration: 10000,
          });
        }
@@ -488,41 +470,45 @@ To use the single-asset template, you must change the code that your smart contr
      const toggleDrawer =
        (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
          if (
-           event.type === 'keydown' &&
-           ((event as React.KeyboardEvent).key === 'Tab' ||
-             (event as React.KeyboardEvent).key === 'Shift')
+           event.type === "keydown" &&
+           ((event as React.KeyboardEvent).key === "Tab" ||
+             (event as React.KeyboardEvent).key === "Shift")
          ) {
            return;
          }
          setFormOpen(open);
        };
 
-     const isTablet = useMediaQuery('(min-width:600px)');
+     const isTablet = useMediaQuery("(min-width:600px)");
 
      return (
        <Paper>
          {storage ? (
            <Button
              disabled={
-               storage.administrators.indexOf(userAddress! as address) < 0
+               storage.extension.administrators.indexOf(
+                 userAddress! as address
+               ) < 0
              }
              sx={{
                p: 1,
-               position: 'absolute',
-               right: '0',
-               display: formOpen ? 'none' : 'block',
+               position: "absolute",
+               right: "0",
+               display: formOpen ? "none" : "block",
                zIndex: 1,
              }}
              onClick={toggleDrawer(!formOpen)}
            >
-             {' Mint Form ' +
-               (storage!.administrators.indexOf(userAddress! as address) < 0
-                 ? ' (You are not admin)'
-                 : '')}
+             {" Mint Form " +
+               (storage!.extension.administrators.indexOf(
+                 userAddress! as address
+               ) < 0
+                 ? " (You are not admin)"
+                 : "")}
              <OpenWithIcon />
            </Button>
          ) : (
-           ''
+           ""
          )}
 
          <SwipeableDrawer
@@ -535,32 +521,32 @@ To use the single-asset template, you must change the code that your smart contr
            <Toolbar
              sx={
                isTablet
-                 ? { marginTop: '0', marginRight: '0' }
-                 : { marginTop: '35px', marginRight: '125px' }
+                 ? { marginTop: "0", marginRight: "0" }
+                 : { marginTop: "35px", marginRight: "125px" }
              }
            />
            <Box
              sx={{
-               width: isTablet ? '40vw' : '60vw',
-               borderColor: 'text.secondary',
-               borderStyle: 'solid',
-               borderWidth: '1px',
+               width: isTablet ? "40vw" : "60vw",
+               borderColor: "text.secondary",
+               borderStyle: "solid",
+               borderWidth: "1px",
 
-               height: 'calc(100vh - 64px)',
+               height: "calc(100vh - 64px)",
              }}
            >
              <Button
                sx={{
-                 position: 'absolute',
-                 right: '0',
-                 display: !formOpen ? 'none' : 'block',
+                 position: "absolute",
+                 right: "0",
+                 display: !formOpen ? "none" : "block",
                }}
                onClick={toggleDrawer(!formOpen)}
              >
                <Close />
              </Button>
              <form onSubmit={formik.handleSubmit}>
-               <Stack spacing={2} margin={2} alignContent={'center'}>
+               <Stack spacing={2} margin={2} alignContent={"center"}>
                  <Typography variant="h5">Mint a new collection</Typography>
 
                  <TextField
@@ -634,7 +620,7 @@ To use the single-asset template, you must change the code that your smart contr
                  {pictureUrl ? (
                    <img height={100} width={100} src={pictureUrl} />
                  ) : (
-                   ''
+                   ""
                  )}
                  <Button variant="contained" component="label" color="primary">
                    <AddCircleOutlined />
@@ -664,7 +650,7 @@ To use the single-asset template, you must change the code that your smart contr
          <Typography variant="h5">Mint your wine collection</Typography>
 
          {nftContratTokenMetadataMap.size != 0 ? (
-           <Box sx={{ width: '70vw' }}>
+           <Box sx={{ width: "70vw" }}>
              <SwipeableViews
                axis="x"
                index={activeStep}
@@ -675,15 +661,15 @@ To use the single-asset template, you must change the code that your smart contr
                  ([token_id, token]) => (
                    <Card
                      sx={{
-                       display: 'block',
-                       maxWidth: '80vw',
-                       overflow: 'hidden',
+                       display: "block",
+                       maxWidth: "80vw",
+                       overflow: "hidden",
                      }}
                      key={token_id.toString()}
                    >
                      <CardHeader
                        titleTypographyProps={
-                         isTablet ? { fontSize: '1.5em' } : { fontSize: '1em' }
+                         isTablet ? { fontSize: "1.5em" } : { fontSize: "1em" }
                        }
                        title={token.name}
                      />
@@ -692,25 +678,25 @@ To use the single-asset template, you must change the code that your smart contr
                        sx={
                          isTablet
                            ? {
-                               width: 'auto',
-                               marginLeft: '33%',
-                               maxHeight: '50vh',
+                               width: "auto",
+                               marginLeft: "33%",
+                               maxHeight: "50vh",
                              }
-                           : { width: '100%', maxHeight: '40vh' }
+                           : { width: "100%", maxHeight: "40vh" }
                        }
                        component="img"
                        image={token.thumbnailUri?.replace(
-                         'ipfs://',
-                         'https://gateway.pinata.cloud/ipfs/'
+                         "ipfs://",
+                         "https://gateway.pinata.cloud/ipfs/"
                        )}
                      />
 
                      <CardContent>
                        <Box>
-                         <Typography>{'ID : ' + token_id}</Typography>
-                         <Typography>{'Symbol : ' + token.symbol}</Typography>
+                         <Typography>{"ID : " + token_id}</Typography>
+                         <Typography>{"Symbol : " + token.symbol}</Typography>
                          <Typography>
-                           {'Description : ' + token.description}
+                           {"Description : " + token.description}
                          </Typography>
                        </Box>
                      </CardContent>
@@ -750,7 +736,7 @@ To use the single-asset template, you must change the code that your smart contr
              />
            </Box>
          ) : (
-           <Typography sx={{ py: '2em' }} variant="h4">
+           <Typography sx={{ py: "2em" }} variant="h4">
              Sorry, there is not NFT yet, you need to mint bottles first
            </Typography>
          )}
@@ -764,9 +750,9 @@ To use the single-asset template, you must change the code that your smart contr
 1. Replace the content of the `src/OffersPage.tsx` file with this code:
 
    ```typescript
-   import { InfoOutlined } from '@mui/icons-material';
-   import SellIcon from '@mui/icons-material/Sell';
-   import * as api from '@tzkt/sdk-api';
+   import { InfoOutlined } from "@mui/icons-material";
+   import SellIcon from "@mui/icons-material/Sell";
+   import * as api from "@tzkt/sdk-api";
 
    import {
      Box,
@@ -783,29 +769,29 @@ To use the single-asset template, you must change the code that your smart contr
      Tooltip,
      Typography,
      useMediaQuery,
-   } from '@mui/material';
-   import Paper from '@mui/material/Paper';
-   import BigNumber from 'bignumber.js';
-   import { useFormik } from 'formik';
-   import { useSnackbar } from 'notistack';
-   import React, { Fragment, useEffect, useState } from 'react';
-   import * as yup from 'yup';
-   import { UserContext, UserContextType } from './App';
-   import ConnectButton from './ConnectWallet';
-   import { TransactionInvalidBeaconError } from './TransactionInvalidBeaconError';
-   import { address, nat } from './type-aliases';
+   } from "@mui/material";
+   import Paper from "@mui/material/Paper";
+   import BigNumber from "bignumber.js";
+   import { useFormik } from "formik";
+   import { useSnackbar } from "notistack";
+   import React, { Fragment, useEffect, useState } from "react";
+   import * as yup from "yup";
+   import { UserContext, UserContextType } from "./App";
+   import ConnectButton from "./ConnectWallet";
+   import { TransactionInvalidBeaconError } from "./TransactionInvalidBeaconError";
+   import { address, nat } from "./type-aliases";
 
    const itemPerPage: number = 6;
 
    const validationSchema = yup.object({
      price: yup
        .number()
-       .required('Price is required')
-       .positive('ERROR: The number must be greater than 0!'),
+       .required("Price is required")
+       .positive("ERROR: The number must be greater than 0!"),
      quantity: yup
        .number()
-       .required('Quantity is required')
-       .positive('ERROR: The number must be greater than 0!'),
+       .required("Quantity is required")
+       .positive("ERROR: The number must be greater than 0!"),
    });
 
    type Offer = {
@@ -814,7 +800,7 @@ To use the single-asset template, you must change the code that your smart contr
    };
 
    export default function OffersPage() {
-     api.defaults.baseUrl = 'https://api.ghostnet.tzkt.io';
+     api.defaults.baseUrl = "https://api.ghostnet.tzkt.io";
 
      const [selectedTokenId, setSelectedTokenId] = React.useState<number>(0);
      const [currentPageIndex, setCurrentPageIndex] = useState<number>(1);
@@ -843,21 +829,21 @@ To use the single-asset template, you must change the code that your smart contr
        },
        validationSchema: validationSchema,
        onSubmit: (values) => {
-         console.log('onSubmit: (values)', values, selectedTokenId);
+         console.log("onSubmit: (values)", values, selectedTokenId);
          sell(selectedTokenId, values.quantity, values.price);
        },
      });
 
      const initPage = async () => {
        if (storage) {
-         console.log('context is not empty, init page now');
+         console.log("context is not empty, init page now");
 
          const ledgerBigMapId = (
            storage.ledger as unknown as { id: BigNumber }
          ).id.toNumber();
 
          const ownersKeys = await api.bigMapsGetKeys(ledgerBigMapId, {
-           micheline: 'Json',
+           micheline: "Json",
            active: true,
          });
 
@@ -868,40 +854,40 @@ To use the single-asset template, you must change the code that your smart contr
                  userAddress as address
                );
                setOwnerBalance(ownerBalance.toNumber());
-               const ownerOffers = await storage.offers.get(
+               const ownerOffers = await storage.extension.offers.get(
                  userAddress as address
                );
                if (ownerOffers && ownerOffers.quantity != BigNumber(0))
                  setOwnerOffers(ownerOffers!);
 
                console.log(
-                 'found for ' +
+                 "found for " +
                    ownerKey.key +
-                   ' on token_id ' +
+                   " on token_id " +
                    0 +
-                   ' with balance ' +
+                   " with balance " +
                    ownerBalance
                );
              } else {
-               console.log('skip to next owner');
+               console.log("skip to next owner");
              }
            })
          );
        } else {
-         console.log('context is empty, wait for parent and retry ...');
+         console.log("context is empty, wait for parent and retry ...");
        }
      };
 
      useEffect(() => {
        (async () => {
-         console.log('after a storage changed');
+         console.log("after a storage changed");
          await initPage();
        })();
      }, [storage]);
 
      useEffect(() => {
        (async () => {
-         console.log('on Page init');
+         console.log("on Page init");
          await initPage();
        })();
      }, []);
@@ -918,14 +904,14 @@ To use the single-asset template, you must change the code that your smart contr
          await op?.confirmation(2);
 
          enqueueSnackbar(
-           'Wine collection (token_id=' +
+           "Wine collection (token_id=" +
              token_id +
-             ') offer for ' +
+             ") offer for " +
              quantity +
-             ' units at price of ' +
+             " units at price of " +
              price +
-             ' XTZ',
-           { variant: 'success' }
+             " XTZ",
+           { variant: "success" }
          );
 
          refreshUserContextOnPageReload(); //force all app to refresh the context
@@ -934,17 +920,17 @@ To use the single-asset template, you must change the code that your smart contr
          let tibe: TransactionInvalidBeaconError =
            new TransactionInvalidBeaconError(error);
          enqueueSnackbar(tibe.data_message, {
-           variant: 'error',
+           variant: "error",
            autoHideDuration: 10000,
          });
        }
      };
 
-     const isDesktop = useMediaQuery('(min-width:1100px)');
-     const isTablet = useMediaQuery('(min-width:600px)');
+     const isDesktop = useMediaQuery("(min-width:1100px)");
+     const isTablet = useMediaQuery("(min-width:600px)");
      return (
        <Paper>
-         <Typography style={{ paddingBottom: '10px' }} variant="h5">
+         <Typography style={{ paddingBottom: "10px" }} variant="h5">
            Sell my bottles
          </Typography>
          {ownerBalance != 0 ? (
@@ -962,16 +948,16 @@ To use the single-asset template, you must change the code that your smart contr
                  isDesktop ? itemPerPage / 2 : isTablet ? itemPerPage / 3 : 1
                }
              >
-               <Card key={userAddress + '-' + 0}>
+               <Card key={userAddress + "-" + 0}>
                  <CardHeader
                    avatar={
                      <Tooltip
                        title={
                          <Box>
-                           <Typography>{'ID : ' + 0}</Typography>
+                           <Typography>{"ID : " + 0}</Typography>
                            <Typography>
-                             {'Description : ' +
-                               nftContratTokenMetadataMap.get('0')?.description}
+                             {"Description : " +
+                               nftContratTokenMetadataMap.get("0")?.description}
                            </Typography>
                          </Box>
                        }
@@ -979,33 +965,33 @@ To use the single-asset template, you must change the code that your smart contr
                        <InfoOutlined />
                      </Tooltip>
                    }
-                   title={nftContratTokenMetadataMap.get('0')?.name}
+                   title={nftContratTokenMetadataMap.get("0")?.name}
                  />
                  <CardMedia
-                   sx={{ width: 'auto', marginLeft: '33%' }}
+                   sx={{ width: "auto", marginLeft: "33%" }}
                    component="img"
                    height="100px"
                    image={nftContratTokenMetadataMap
-                     .get('0')
+                     .get("0")
                      ?.thumbnailUri?.replace(
-                       'ipfs://',
-                       'https://gateway.pinata.cloud/ipfs/'
+                       "ipfs://",
+                       "https://gateway.pinata.cloud/ipfs/"
                      )}
                  />
 
                  <CardContent>
                    <Box>
                      <Typography variant="body2">
-                       {'Owned : ' + ownerBalance}
+                       {"Owned : " + ownerBalance}
                      </Typography>
                      <Typography variant="body2">
                        {ownerOffers
-                         ? 'Traded : ' +
+                         ? "Traded : " +
                            ownerOffers?.quantity +
-                           ' (price : ' +
+                           " (price : " +
                            ownerOffers?.price.dividedBy(1000000) +
-                           ' Tz/b)'
-                         : ''}
+                           " Tz/b)"
+                         : ""}
                      </Typography>
                    </Box>
                  </CardContent>
@@ -1023,7 +1009,7 @@ To use the single-asset template, you must change the code that your smart contr
                      </Box>
                    ) : (
                      <form
-                       style={{ width: '100%' }}
+                       style={{ width: "100%" }}
                        onSubmit={(values) => {
                          setSelectedTokenId(0);
                          formik.handleSubmit(values);
@@ -1032,7 +1018,7 @@ To use the single-asset template, you must change the code that your smart contr
                        <span>
                          <TextField
                            type="number"
-                           sx={{ width: '40%' }}
+                           sx={{ width: "40%" }}
                            name="price"
                            label="price/bottle"
                            placeholder="Enter a price"
@@ -1049,9 +1035,9 @@ To use the single-asset template, you must change the code that your smart contr
                          />
                          <TextField
                            sx={{
-                             width: '60%',
+                             width: "60%",
                              bottom: 0,
-                             position: 'relative',
+                             position: "relative",
                            }}
                            type="number"
                            label="quantity"
@@ -1089,7 +1075,7 @@ To use the single-asset template, you must change the code that your smart contr
              </ImageList>
            </Fragment>
          ) : (
-           <Typography sx={{ py: '2em' }} variant="h4">
+           <Typography sx={{ py: "2em" }} variant="h4">
              Sorry, you don't own any bottles, buy or mint some first
            </Typography>
          )}
@@ -1098,13 +1084,13 @@ To use the single-asset template, you must change the code that your smart contr
    }
    ```
 
-   This update changes the offers page to allow owners to specify the quantity of tokens to offer for sale.
+   This update changes the offers page to allow owners to specify the number of tokens to offer for sale.
 
 1. Replace the content of the `src/WineCataloguePage.tsx` with this code:
 
    ```typescript
-   import { InfoOutlined } from '@mui/icons-material';
-   import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+   import { InfoOutlined } from "@mui/icons-material";
+   import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
    import {
      Button,
      Card,
@@ -1119,18 +1105,18 @@ To use the single-asset template, you must change the code that your smart contr
      Tooltip,
      Typography,
      useMediaQuery,
-   } from '@mui/material';
-   import Box from '@mui/material/Box';
-   import Paper from '@mui/material/Paper';
-   import BigNumber from 'bignumber.js';
-   import { useFormik } from 'formik';
-   import { useSnackbar } from 'notistack';
-   import React, { Fragment, useState } from 'react';
-   import * as yup from 'yup';
-   import { UserContext, UserContextType } from './App';
-   import ConnectButton from './ConnectWallet';
-   import { TransactionInvalidBeaconError } from './TransactionInvalidBeaconError';
-   import { address, nat } from './type-aliases';
+   } from "@mui/material";
+   import Box from "@mui/material/Box";
+   import Paper from "@mui/material/Paper";
+   import BigNumber from "bignumber.js";
+   import { useFormik } from "formik";
+   import { useSnackbar } from "notistack";
+   import React, { Fragment, useState } from "react";
+   import * as yup from "yup";
+   import { UserContext, UserContextType } from "./App";
+   import ConnectButton from "./ConnectWallet";
+   import { TransactionInvalidBeaconError } from "./TransactionInvalidBeaconError";
+   import { address, nat } from "./type-aliases";
 
    const itemPerPage: number = 6;
 
@@ -1144,8 +1130,8 @@ To use the single-asset template, you must change the code that your smart contr
    const validationSchema = yup.object({
      quantity: yup
        .number()
-       .required('Quantity is required')
-       .positive('ERROR: The number must be greater than 0!'),
+       .required("Quantity is required")
+       .positive("ERROR: The number must be greater than 0!"),
    });
 
    export default function WineCataloguePage() {
@@ -1169,7 +1155,7 @@ To use the single-asset template, you must change the code that your smart contr
        },
        validationSchema: validationSchema,
        onSubmit: (values) => {
-         console.log('onSubmit: (values)', values, selectedOfferEntry);
+         console.log("onSubmit: (values)", values, selectedOfferEntry);
          buy(values.quantity, selectedOfferEntry!);
        },
      });
@@ -1190,13 +1176,13 @@ To use the single-asset template, you must change the code that your smart contr
          await op?.confirmation(2);
 
          enqueueSnackbar(
-           'Bought ' +
+           "Bought " +
              quantity +
-             ' unit of Wine collection (token_id:' +
+             " unit of Wine collection (token_id:" +
              selectedOfferEntry[0][1] +
-             ')',
+             ")",
            {
-             variant: 'success',
+             variant: "success",
            }
          );
 
@@ -1206,28 +1192,28 @@ To use the single-asset template, you must change the code that your smart contr
          let tibe: TransactionInvalidBeaconError =
            new TransactionInvalidBeaconError(error);
          enqueueSnackbar(tibe.data_message, {
-           variant: 'error',
+           variant: "error",
            autoHideDuration: 10000,
          });
        }
      };
-     const isDesktop = useMediaQuery('(min-width:1100px)');
-     const isTablet = useMediaQuery('(min-width:600px)');
+     const isDesktop = useMediaQuery("(min-width:1100px)");
+     const isTablet = useMediaQuery("(min-width:600px)");
 
      return (
        <Paper>
-         <Typography style={{ paddingBottom: '10px' }} variant="h5">
+         <Typography style={{ paddingBottom: "10px" }} variant="h5">
            Wine catalogue
          </Typography>
 
-         {storage?.offers && storage?.offers.size != 0 ? (
+         {storage?.extension.offers && storage?.extension.offers.size != 0 ? (
            <Fragment>
              <Pagination
                page={currentPageIndex}
                onChange={(_, value) => setCurrentPageIndex(value)}
                count={Math.ceil(
-                 Array.from(storage?.offers.entries()).filter(([_, offer]) =>
-                   offer.quantity.isGreaterThan(0)
+                 Array.from(storage?.extension.offers.entries()).filter(
+                   ([_, offer]) => offer.quantity.isGreaterThan(0)
                  ).length / itemPerPage
                )}
                showFirstButton
@@ -1238,7 +1224,7 @@ To use the single-asset template, you must change the code that your smart contr
                  isDesktop ? itemPerPage / 2 : isTablet ? itemPerPage / 3 : 1
                }
              >
-               {Array.from(storage?.offers.entries())
+               {Array.from(storage?.extension.offers.entries())
                  .filter(([_, offer]) => offer.quantity.isGreaterThan(0))
                  .filter((_, index) =>
                    index >= currentPageIndex * itemPerPage - itemPerPage &&
@@ -1253,42 +1239,42 @@ To use the single-asset template, you must change the code that your smart contr
                          <Tooltip
                            title={
                              <Box>
-                               <Typography>{'ID : ' + 0}</Typography>
+                               <Typography>{"ID : " + 0}</Typography>
                                <Typography>
-                                 {'Description : ' +
-                                   nftContratTokenMetadataMap.get('0')
+                                 {"Description : " +
+                                   nftContratTokenMetadataMap.get("0")
                                      ?.description}
                                </Typography>
-                               <Typography>{'Seller : ' + owner} </Typography>
+                               <Typography>{"Seller : " + owner} </Typography>
                              </Box>
                            }
                          >
                            <InfoOutlined />
                          </Tooltip>
                        }
-                       title={nftContratTokenMetadataMap.get('0')?.name}
+                       title={nftContratTokenMetadataMap.get("0")?.name}
                      />
                      <CardMedia
-                       sx={{ width: 'auto', marginLeft: '33%' }}
+                       sx={{ width: "auto", marginLeft: "33%" }}
                        component="img"
                        height="100px"
                        image={nftContratTokenMetadataMap
-                         .get('0')
+                         .get("0")
                          ?.thumbnailUri?.replace(
-                           'ipfs://',
-                           'https://gateway.pinata.cloud/ipfs/'
+                           "ipfs://",
+                           "https://gateway.pinata.cloud/ipfs/"
                          )}
                      />
 
                      <CardContent>
                        <Box>
                          <Typography variant="body2">
-                           {'Price : ' +
+                           {"Price : " +
                              offer.price.dividedBy(1000000) +
-                             ' XTZ/bottle'}
+                             " XTZ/bottle"}
                          </Typography>
                          <Typography variant="body2">
-                           {'Available units : ' + offer.quantity}
+                           {"Available units : " + offer.quantity}
                          </Typography>
                        </Box>
                      </CardContent>
@@ -1308,7 +1294,7 @@ To use the single-asset template, you must change the code that your smart contr
                          </Box>
                        ) : (
                          <form
-                           style={{ width: '100%' }}
+                           style={{ width: "100%" }}
                            onSubmit={(values) => {
                              setSelectedOfferEntry([owner, offer]);
                              formik.handleSubmit(values);
@@ -1316,7 +1302,7 @@ To use the single-asset template, you must change the code that your smart contr
                          >
                            <TextField
                              type="number"
-                             sx={{ bottom: 0, position: 'relative' }}
+                             sx={{ bottom: 0, position: "relative" }}
                              fullWidth
                              name="quantity"
                              label="quantity"
@@ -1353,7 +1339,7 @@ To use the single-asset template, you must change the code that your smart contr
              </ImageList>
            </Fragment>
          ) : (
-           <Typography sx={{ py: '2em' }} variant="h4">
+           <Typography sx={{ py: "2em" }} variant="h4">
              Sorry, there is not NFT to buy yet, you need to mint or sell
              bottles first
            </Typography>
@@ -1394,7 +1380,7 @@ To use the single-asset template, you must change the code that your smart contr
    You can also get the address of the contract from the `.taq/config.local.testing.json` file and look up the contract in a block explorer.
    Because the contract is still FA2 compliant, the block explorer shows the token holders and the quantity of the tokens they have, such as in this picture from the [tzkt.io](https://ghostnet.tzkt.io/) block explorer:
 
-   ![The block explorer showing the accounts that own the token](/img/tutorials/nft-marketplace-3-token-holders.png)
+   ![The block explorer shows the accounts that own the token](/img/tutorials/nft-marketplace-3-token-holders.png)
 
 ## Summary
 
