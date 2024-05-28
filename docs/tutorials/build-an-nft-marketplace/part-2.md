@@ -2,7 +2,7 @@
 title: 'Part 2: Buying and selling tokens'
 authors: 'Benjamin Fuentes (Marigold)'
 last_update:
-  date: 8 November 2023
+  date: 22 May 2024
 ---
 
 In this section, you give users the ability to list a bottle for sale and buy bottles that are listed for sale.
@@ -34,24 +34,21 @@ The contract storage must store the tokens that are offered for sale and their p
       };
       ```
 
-   1. Add a map named `offers` that maps token IDs to their offer prices to the `storage` type.
-      Now the `storage` type looks like this:
+   1. Add a map named `offers` that maps token IDs to their offer prices to the `Extension` type.
+      Now the `Extension` type looks like this:
 
       ```jsligo
-      export type storage = {
+      export type Extension = {
         administrators: set<address>,
         offers: map<nat, offer>, //user sells an offer
-        ledger: FA2Impl.NFT.ledger,
-        metadata: FA2Impl.TZIP16.metadata,
-        token_metadata: FA2Impl.TZIP12.tokenMetadata,
-        operators: FA2Impl.NFT.operators
       };
       ```
 
    1. In the `nft.storageList.jsligo` file, add an empty map for the offers by adding this code:
 
       ```jsligo
-      offers: Map.empty as map<nat, Contract.offer>,
+      ,
+        offers: Map.empty as map<nat, Contract.offer>
       ```
 
       Now the `nft.storageList.jsligo` file looks like this:
@@ -59,12 +56,16 @@ The contract storage must store the tokens that are offered for sale and their p
       ```jsligo
       #import "nft.jsligo" "Contract"
 
-      const default_storage : Contract.storage = {
-          administrators: Set.literal(
-              list(["tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb" as address])
-          ) as set<address>,
-          offers: Map.empty as map<nat, Contract.offer>,
-          ledger: Big_map.empty as Contract.FA2Impl.NFT.ledger,
+      #import "@ligo/fa/lib/fa2/nft/extendable_nft.impl.jsligo" "FA2Impl"
+
+      const default_storage: Contract.storage = {
+          extension: {
+              administrators: Set.literal(
+                  list(["tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb" as address])
+              ) as set<address>,
+              offers: Map.empty as map<nat, Contract.offer>
+          },
+          ledger: Big_map.empty as FA2Impl.ledger,
           metadata: Big_map.literal(
               list(
                   [
@@ -73,25 +74,25 @@ The contract storage must store the tokens that are offered for sale and their p
                           "data",
                           bytes
                           `{
-            "name":"FA2 NFT Marketplace",
-            "description":"Example of FA2 implementation",
-            "version":"0.0.1",
-            "license":{"name":"MIT"},
-            "authors":["Marigold<contact@marigold.dev>"],
-            "homepage":"https://marigold.dev",
-            "source":{
-              "tools":["Ligo"],
-              "location":"https://github.com/ligolang/contract-catalogue/tree/main/lib/fa2"},
-            "interfaces":["TZIP-012"],
-            "errors": [],
-            "views": []
-            }`
+                  "name":"FA2 NFT Marketplace",
+                  "description":"Example of FA2 implementation",
+                  "version":"0.0.1",
+                  "license":{"name":"MIT"},
+                  "authors":["Marigold<contact@marigold.dev>"],
+                  "homepage":"https://marigold.dev",
+                  "source":{
+                    "tools":["Ligo"],
+                    "location":"https://github.com/ligolang/contract-catalogue/tree/main/lib/fa2"},
+                  "interfaces":["TZIP-012"],
+                  "errors": [],
+                  "views": []
+                  }`
                       ]
                   ]
               )
-          ) as Contract.FA2Impl.TZIP16.metadata,
-          token_metadata: Big_map.empty as Contract.FA2Impl.TZIP12.tokenMetadata,
-          operators: Big_map.empty as Contract.FA2Impl.NFT.operators,
+          ) as FA2Impl.TZIP16.metadata,
+          token_metadata: Big_map.empty as FA2Impl.TZIP12.tokenMetadata,
+          operators: Big_map.empty as FA2Impl.operators,
       };
       ```
 
@@ -100,45 +101,36 @@ The contract storage must store the tokens that are offered for sale and their p
 1. In the `nft.jsligo` file, add a `sell` entrypoint that creates an offer for a token that the sender owns:
 
    ```jsligo
-   @entry
-   const sell = ([token_id, price]: [nat, nat], s: storage): ret => {
-     //check balance of seller
-
-     const sellerBalance =
-       FA2Impl.NFT.get_balance(
-         [Tezos.get_source(), token_id],
-         {
-           ledger: s.ledger,
-           metadata: s.metadata,
-           operators: s.operators,
-           token_metadata: s.token_metadata,
-         }
-       );
-     if (sellerBalance != (1 as nat)) return failwith("2");
-     //need to allow the contract itself to be an operator on behalf of the seller
-
-     const newOperators =
-       FA2Impl.NFT.add_operator(
-         s.operators,
-         Tezos.get_source(),
-         Tezos.get_self_address(),
-         token_id
-       );
-     //DECISION CHOICE: if offer already exists, we just override it
-
-     return [
-       list([]) as list<operation>,
-       {
-         ...s,
-         offers: Map.add(
-           token_id,
-           { owner: Tezos.get_source(), price: price },
-           s.offers
-         ),
-         operators: newOperators
-       }
-     ]
-   };
+      @entry
+    const sell = ([token_id, price]: [nat, nat], s: storage): ret => {
+      //check balance of seller
+      const sellerBalance = FA2Impl.get_balance([Tezos.get_source(), token_id], s);
+      if (sellerBalance != (1 as nat)) return failwith("2");
+      //need to allow the contract itself to be an operator on behalf of the seller
+      const newOperators =
+        FA2Impl.add_operator(
+          s.operators,
+          Tezos.get_source(),
+          Tezos.get_self_address(),
+          token_id
+        );
+      //DECISION CHOICE: if offer already exists, we just override it
+      return [
+        list([]) as list<operation>,
+        {
+          ...s,
+          extension: {
+            ...s.extension,
+            offers: Map.add(
+              token_id,
+              { owner: Tezos.get_source(), price: price },
+              s.extension.offers
+            )
+          },
+          operators: newOperators
+        }
+      ]
+    };
    ```
 
    This function accepts the ID of the token and the selling price as parameters.
@@ -150,47 +142,47 @@ The contract storage must store the tokens that are offered for sale and their p
 
    ```jsligo
    @entry
-   const buy = ([token_id, seller]: [nat, address], s: storage): ret => {
-     //search for the offer
-
-     return match(Map.find_opt(token_id, s.offers)) {
-       when (None()):
-         failwith("3")
-       when (Some(offer)):
-         do {
-           //check if amount have been paid enough
-
-           if (Tezos.get_amount() < offer.price * (1 as mutez)) return failwith(
-             "5"
-           );
-           // prepare transfer of XTZ to seller
-
-           const op =
-             Tezos.transaction(
-               unit,
-               offer.price * (1 as mutez),
-               Tezos.get_contract_with_error(seller, "6")
-             );
-           //transfer tokens from seller to buyer
-
-           const ledger =
-             FA2Impl.NFT.transfer_token_from_user_to_user(
-               s.ledger,
-               token_id,
-               seller,
-               Tezos.get_source()
-             );
-           //remove offer
-
-           return [
-             list([op]) as list<operation>,
-             {
-               ...s, offers: Map.update(token_id, None(), s.offers), ledger: ledger
-             }
-           ]
-         }
-     }
-   };
+    const buy = ([token_id, seller]: [nat, address], s: storage): ret => {
+      //search for the offer
+      return match(Map.find_opt(token_id, s.extension.offers)) {
+        when (None()):
+          failwith("3")
+        when (Some(offer)):
+          do {
+            //check if amount have been paid enough
+            if (Tezos.get_amount() < offer.price * (1 as mutez)) return failwith(
+              "5"
+            );
+            // prepare transfer of XTZ to seller
+            const op =
+              Tezos.transaction(
+                unit,
+                offer.price * (1 as mutez),
+                Tezos.get_contract_with_error(seller, "6")
+              );
+            //transfer tokens from seller to buyer
+            const ledger =
+              FA2Impl.transfer_token_from_user_to_user(
+                s.ledger,
+                token_id,
+                seller,
+                Tezos.get_source()
+              );
+            //remove offer
+            return [
+              list([op]) as list<operation>,
+              {
+                ...s,
+                ledger: ledger,
+                extension: {
+                  ...s.extension,
+                  offers: Map.update(token_id, None(), s.extension.offers),
+                }
+              }
+            ]
+          }
+      }
+    };
    ```
 
    This entrypoint accepts the token ID and seller as parameters.
@@ -200,7 +192,7 @@ The contract storage must store the tokens that are offered for sale and their p
 1. Compile and deploy the new contract:
 
    ```bash
-   TAQ_LIGO_IMAGE=ligolang/ligo:1.1.0 taq compile nft.jsligo
+   TAQ_LIGO_IMAGE=ligolang/ligo:1.6.0 taq compile nft.jsligo
    taq deploy nft.tz -e "testing"
    ```
 
@@ -215,6 +207,8 @@ The contract storage must store the tokens that are offered for sale and their p
    cd ./app
    yarn dev
    ```
+
+1. On the mint page in the `./src/MintPage.tsx` file, fix all **extension** relative errors by replacing `storage.extension` with `storage.extension.administrators` in each occurrence.
 
 1. Open the sale page in the `./src/OffersPage.tsx` file and replace it with this code:
 
@@ -326,7 +320,9 @@ The contract storage must store the tokens that are offered for sale and their p
              if (owner === userAddress) {
                ownerTokenIds.add(token_idKey.key);
 
-               const ownerOffers = await storage.offers.get(token_idNat);
+               const ownerOffers = await storage.extension.offers.get(
+                 token_idNat
+               );
                if (ownerOffers)
                  offersTokenIDMap.set(token_idKey.key, ownerOffers);
 
@@ -570,7 +566,7 @@ The contract storage must store the tokens that are offered for sale and their p
    1. Open the application and click **Trading > Sell bottles**.
       The sale page opens and shows the bottles that you own, as in this picture:
 
-      ![The Sell bottles page, showing the bottles that you can offer for sale](/img/tutorials/nft-marketplace-2-sell.png)
+      ![The Sell bottle page shows the bottles that you can offer for sale](/img/tutorials/nft-marketplace-2-sell.png)
 
    1. Set the price for a bottle and then click **Sell**.
 
@@ -698,13 +694,14 @@ In this section, you add a catalog page to show the bottles that are on sale and
            Wine catalogue
          </Typography>
 
-         {storage?.offers && storage?.offers.size != 0 ? (
+         {storage?.extension.offers && storage?.extension.offers.size != 0 ? (
            <Fragment>
              <Pagination
                page={currentPageIndex}
                onChange={(_, value) => setCurrentPageIndex(value)}
                count={Math.ceil(
-                 Array.from(storage?.offers.entries()).length / itemPerPage
+                 Array.from(storage?.extension.offers.entries()).length /
+                   itemPerPage
                )}
                showFirstButton
                showLastButton
@@ -714,7 +711,7 @@ In this section, you add a catalog page to show the bottles that are on sale and
                  isDesktop ? itemPerPage / 2 : isTablet ? itemPerPage / 3 : 1
                }
              >
-               {Array.from(storage?.offers.entries())
+               {Array.from(storage?.extension.offers.entries())
 
                  .filter((_, index) =>
                    index >= currentPageIndex * itemPerPage - itemPerPage &&
@@ -823,7 +820,7 @@ In this section, you add a catalog page to show the bottles that are on sale and
 1. In the web application, click **Trading > Wine catalogue**.
    The page looks like this:
 
-   ![The catalog page, showing one bottle for sale](/img/tutorials/nft-marketplace-2-buy.png)
+   ![The catalog page shows one bottle for sale](/img/tutorials/nft-marketplace-2-buy.png)
 
 1. Buy a bottle by clicking **Buy** and confirming the transaction in your wallet.
 
