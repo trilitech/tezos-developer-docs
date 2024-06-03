@@ -26,6 +26,7 @@ See [Managing tokens](./managing-tokens).
 
 The Michelson source code of the built-in contract is in the `Resources/Contracts` folder of the SDK, but it isn't very human-readable.
 For a list of the entrypoints in the contract, see [TokenContract object](./reference/TokenContract).
+For an example of a deployed contract, see https://ghostnet.tzkt.io/KT1Nhr9Bmhy7kcUmezRxbbDybh5buNnrVLTY/entrypoints.
 
 ## Deploying the built-in contract
 
