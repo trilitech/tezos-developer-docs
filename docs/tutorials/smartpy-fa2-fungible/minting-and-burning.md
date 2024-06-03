@@ -59,7 +59,8 @@ Only the admin account can mint tokens, but anyone can burn their own tokens.
    # Define test accounts
    admin = sp.test_account("Admin")
    alice = sp.test_account("Alice")
-   bob = sp.test_account("Bob")```
+   bob = sp.test_account("Bob")
+   ```
 
 1. Update the command to deploy the contract to include the administrator address:
 
