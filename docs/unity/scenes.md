@@ -114,6 +114,9 @@ In this case, the smart contract keeps track of tokens, their metadata, and who 
 
 The SDK comes with a sample smart contract that allows a Unity project to create tokens.
 You can customize these tokens, give them to users, and treat them like the players' in-game inventories.
+The Michelson source code of the built-in contract is in the `Resources/Contracts` folder of the SDK, but it isn't very human-readable.
+For a list of the entrypoints in the contract, see [TokenContract object](./reference/TokenContract).
+For an example of a deployed contract, see https://ghostnet.tzkt.io/KT1Nhr9Bmhy7kcUmezRxbbDybh5buNnrVLTY/entrypoints.
 
 Like the Wallet Connection scene, you must first connect to a wallet.
 Then the scene shows the address of the connected account and enables the "Deploy Contract" and "Mint Token" buttons.
