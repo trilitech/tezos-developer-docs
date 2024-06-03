@@ -83,7 +83,7 @@ It is still advisable to save a local copy of your metadata, just as you would w
    )
    ```
 
-   This code must come after you create the contract because it uses the `contract.get_offchain_views` function to retrieve the contract's off-chain views.
+   This code must come after you create the contract but before you add the contract to the scenario because it uses the `contract.get_offchain_views` function to retrieve the contract's off-chain views.
    Off-chain views are stored in metadata, not in the contract code or storage.
 
 1. Optional: Edit the metadata fields with information about your contract.
