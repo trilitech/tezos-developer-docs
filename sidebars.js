@@ -310,6 +310,21 @@ const sidebars = {
         'tutorials/build-your-first-app/getting-information',
       ],
     },
+    {
+      type: 'category',
+      label: 'Create a fungible token with the SmartPy FA2 library',
+      link: {
+        type: 'doc',
+        id: 'tutorials/smartpy-fa2-fungible',
+      },
+      items: [
+        'tutorials/smartpy-fa2-fungible/basic-fa2-token',
+        'tutorials/smartpy-fa2-fungible/minting-and-burning',
+        'tutorials/smartpy-fa2-fungible/adding-metadata',
+        'tutorials/smartpy-fa2-fungible/customizing-operations',
+        'tutorials/smartpy-fa2-fungible/deploying-contract',
+      ],
+    },
     'tutorials/create-an-nft/nft-taquito',
     'tutorials/create-an-nft/nft-tznft',
     {
