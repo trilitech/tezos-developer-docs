@@ -2,7 +2,7 @@
 title: Sample game
 authors: Tim McMackin
 last_update:
-  date: 22 May 2024
+  date: 3 June 2024
 ---
 
 The sample game for the Unity SDK is a single-player third-person shooter with survival elements.
@@ -55,6 +55,7 @@ The sample game uses a custom contract, but you can use the SDK's built-in FA2-c
 You can view and interact with the contract on a block explorer, such as tzkt.io: https://tzkt.io/KT1TSZfPJ5uZW1GjcnXmvt1npAQ2nh5S1FAj/operations.
 
 - The **Interplanetary File System (IPFS)** stores metadata for the tokens, including pictures and descriptions.
+Links in the smart contract point to this metadata.
 
 This diagram shows the basic interaction between these components:
 
