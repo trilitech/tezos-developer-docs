@@ -16,6 +16,14 @@ The high-level languages may implement these data types slightly differently, bu
 - [Timestamps](#timestamps)
 - [Addresses](#addresses)
 
+This list is intended for general information for developers and is not intended to be comprehensive.
+For a complete list of data types that are available, see the reference information for the language that you are using:
+
+- Michelson: [Types](https://tezos.gitlab.io/michelson-reference/#types)
+- LIGO: [Introduction](https://ligolang.org/docs/intro/introduction?lang=jsligo)
+- Archetype: [Types](https://archetype-lang.org/docs/reference/types)
+- SmartPy: [Overview](https://smartpy.io/manual/syntax/overview)
+
 ## Numeric data types: `int` and `nat` {#numeric}
 
 Integers (`int`) are whole numbers that can be positive or negative.

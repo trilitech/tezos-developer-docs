@@ -19,6 +19,14 @@ The high-level languages may implement these data types slightly differently, bu
 - [Tickets](#tickets)
 - [Unit](#unit)
 
+This list is intended for general information for developers and is not intended to be comprehensive.
+For a complete list of data types that are available, see the reference information for the language that you are using:
+
+- Michelson: [Types](https://tezos.gitlab.io/michelson-reference/#types)
+- LIGO: [Introduction](https://ligolang.org/docs/intro/introduction?lang=jsligo)
+- Archetype: [Types](https://archetype-lang.org/docs/reference/types)
+- SmartPy: [Overview](https://smartpy.io/manual/syntax/overview)
+
 ## Pairs {#pairs}
 
 A pair is a complex type made of two other types.
