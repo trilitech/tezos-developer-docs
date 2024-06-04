@@ -2,7 +2,7 @@
 title: Complex data types
 authors: 'Mathias Hiron (Nomadic Labs), Sasha Aldrick (TriliTech), Tim McMackin (TriliTech)'
 last_update:
-  date: 5 October 2023
+  date: 4 June 2024
 ---
 
 Tezos contracts support these complex data types.
@@ -17,6 +17,7 @@ The high-level languages may implement these data types slightly differently, bu
 - [Variants and Unions](#variants)
 - [Lambdas](#lambdas)
 - [Tickets](#tickets)
+- [Unit](#unit)
 
 ## Pairs {#pairs}
 
@@ -456,3 +457,27 @@ Contracts can run these operations on tickets:
 - LIGO: [Tickets](https://ligolang.org/docs/reference/current-reference#tickets)
 - Archetype: [create_ticket and related](https://archetype-lang.org/docs/reference/expressions/builtins/#create_ticket%28s%20:%20T,%20n%20:%20nat%29)
 - SmartPy: [Tickets](https://smartpy.io/manual/syntax/tickets)
+
+## Unit {#unit}
+
+In Tezos, the `unit` type is a special case of the variant type: a single value that holds no information.
+It is a placeholder where a variable is required but no other information is needed.
+
+For example, if a LIGO entrypoint receives no parameter, the data type of the entrypoint's parameter is `unit`:
+
+```jsligo
+@entry
+const myentrypoint = (_unusedParameter: unit, store: storageType): returnType => {
+  // ...
+}
+```
+
+Similarly, if you call this entrypoint with the Octez client and omit the `--arg` argument to pass no parameter, the client passes unit in the background.
+
+Unit is a concept that Tezos inherits from OCaml; see [Side-Effects and the unit Type](https://ocaml.org/docs/tour-of-ocaml#side-effects-and-the-unit-type) in the OCaml documentation.
+
+### Implementation details
+
+- LIGO: [Unit](https://ligolang.org/docs/variants/unit/?lang=jsligo)
+- Archetype: [Unit](https://archetype-lang.org/docs/reference/types/#unit)
+- SmartPy: [Unit](https://smartpy.io/manual/syntax/unit)

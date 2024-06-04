@@ -2,7 +2,7 @@
 title: Primitive data types
 authors: 'Mathias Hiron (Nomadic Labs), Sasha Aldrick (TriliTech), Tim McMackin (TriliTech)'
 last_update:
-  date: 4 October 2023
+  date: 4 June 2024
 ---
 
 Tezos contracts support these primitive data types.
@@ -15,7 +15,6 @@ The high-level languages may implement these data types slightly differently, bu
 - [Booleans](#booleans)
 - [Timestamps](#timestamps)
 - [Addresses](#addresses)
-- [Unit](#unit)
 
 ## Numeric data types: `int` and `nat` {#numeric}
 
@@ -174,29 +173,11 @@ For smart contract accounts, the string starts with "KT1".
 
 The next part of the string is a `Base58` encoded hash, followed by a 4-byte checksum.
 
-## Unit {#unit}
-
-In Tezos, the `unit` type represents no value.
-It is a placeholder where a variable is required but no information is present.
-
-For example, if a LIGO entrypoint receives no parameter, the data type of the entrypoint's parameter is `unit`:
-
-```jsligo
-@entry
-const myentrypoint = (_unusedParameter: unit, store: storageType): returnType => {
-  // ...
-}
-```
-
-Simiarly, if you call this entrypoint with the Octez client and omit the `--arg` argument to pass no parameter, the client passes unit in the background.
-
-Unit is a concept that Tezos inherits from OCaml; see [Side-Effects and the unit Type](https://ocaml.org/docs/tour-of-ocaml#side-effects-and-the-unit-type) in the OCaml documentation.
-
 ## Data type implementations
 
 See these links for technical information about how different languages handle different data types:
 
 - Michelson: [int and nat](https://tezos.gitlab.io/active/michelson.html#operations-on-integers-and-natural-numbers), [booleans](https://tezos.gitlab.io/active/michelson.html#operations-on-booleans), [strings](https://tezos.gitlab.io/active/michelson.html#operations-on-strings), [timestamps](https://tezos.gitlab.io/active/michelson.html#operations-on-timestamps), [mutez](https://tezos.gitlab.io/active/michelson.html#operations-on-mutez).
-- Archetype: [Types basics](https://archetype-lang.org/docs/language-basics/types), [Types](https://archetype-lang.org/docs/reference/types), [Arithmetic operators](https://archetype-lang.org/docs/reference/expressions/operators/arithmetic), [Unit](https://archetype-lang.org/docs/reference/types/#unit)
-- SmartPy: [Integers and mutez](https://smartpy.io/manual/syntax/integers-and-mutez), [Booleans](https://smartpy.io/manual/syntax/booleans), [Strings and Bytes](https://smartpy.io/manual/syntax/strings-and-bytes), [Timestamps](https://smartpy.io/manual/syntax/timestamps), [Unit](https://smartpy.io/manual/syntax/unit)
-- LIGO: [numbers and tez](https://ligolang.org/docs/language-basics/math-numbers-tez), [strings & bytes](https://ligolang.org/docs/language-basics/strings-bytes), [booleans](https://ligolang.org/docs/language-basics/boolean-if-else), [Unit](https://ligolang.org/docs/variants/unit/?lang=jsligo)
+- Archetype: [Types basics](https://archetype-lang.org/docs/language-basics/types), [Types](https://archetype-lang.org/docs/reference/types), [Arithmetic operators](https://archetype-lang.org/docs/reference/expressions/operators/arithmetic)
+- SmartPy: [Integers and mutez](https://smartpy.io/manual/syntax/integers-and-mutez), [Booleans](https://smartpy.io/manual/syntax/booleans), [Strings and Bytes](https://smartpy.io/manual/syntax/strings-and-bytes), [Timestamps](https://smartpy.io/manual/syntax/timestamps)
+- LIGO: [numbers and tez](https://ligolang.org/docs/language-basics/math-numbers-tez), [strings & bytes](https://ligolang.org/docs/language-basics/strings-bytes), [booleans](https://ligolang.org/docs/language-basics/boolean-if-else)
