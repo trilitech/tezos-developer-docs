@@ -218,7 +218,7 @@ Oxford's main changes are:
 
 * [Refinement of Tezos PoS](https://research-development.nomadic-labs.com/oxford2-announcement.html#automated-staking): Oxford introduces changes to [slashing](https://research-development.nomadic-labs.com/oxford2-announcement.html#refined-slashing) and an [automated staking mechanism for bakers](https://research-development.nomadic-labs.com/oxford2-announcement.html#automated-staking).
 The latter aims to smoothen the transition towards a new staked funds management API and avoids manual bookkeeping to counter over-delegation.
-* [Private rollups](https://research-development.nomadic-labs.com/oxford2-announcement.html): Oxford 2 introduces private Smart Rollups, allowing developers to choose between permissionless or permissioned deployments.
+* [Private rollups](https://research-development.nomadic-labs.com/oxford2-announcement.html): Oxford introduces private Smart Rollups, allowing developers to choose between permissionless or permissioned deployments.
 Additionally, Oxford 2 [simplifies the deployment of rollups](https://research-development.nomadic-labs.com/oxford2-announcement.html#introducing-private-rollups-and-other-improvements-to-smart-rollups) both on protocol and periodic test networks, as well as on ad-hoc dedicated ones.
 * [Timelocks are re-enabled](https://research-development.nomadic-labs.com/timelocks-are-re-enabled): a new design and implementation of Timelocks addresses security concerns that led to their temporary deactivation in a previous protocol upgrade.
 
