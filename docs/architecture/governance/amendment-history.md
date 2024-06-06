@@ -232,6 +232,7 @@ Paris's main changes are:
 
 * [10-second block time](https://research-development.nomadic-labs.com/10-second-blocktime.html): Lower latency and faster finality on layer 1 without compromising decentralization or security.
 * [Data availability layer](https://research-development.nomadic-labs.com/paris-announcement.html#the-dal-activates-on-mainnet-boosting-smart-rollups-capacity): Boosting throughput and scalability of Smart Rollups.
+It enables Tezos Layer 1 to attest the publication of data living outside Layer 1 blocks, increasing by orders of magnitude the bandwidth of data attested by the Layer 1.
 * [Adaptive issuance, staking, and adaptive slashing](https://research-development.nomadic-labs.com/adaptive-issuance-paris.html): A major overhaul of Tezos Proof-of-Stake
 * [Further proof-of-stake refinements](https://research-development.nomadic-labs.com/paris-announcement.html#further-proof-of-stake-refinements): Simplified computation and faster updates of consensus rights.
 
