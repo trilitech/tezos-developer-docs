@@ -1,8 +1,8 @@
 ---
 title: History of amendments
-authors: 'Thomas Zoughebi, Aymeric Bethencourt, and Maxime Fernandez'
+authors: 'Thomas Zoughebi, Aymeric Bethencourt, Maxime Fernandez, and Tim McMackin'
 last_update:
-  date: 14 February 2024
+  date: 6 June 2024
 ---
 
 As presented in [Governance](../governance), the Tezos blockchain is constantly evolving, through new amendments.
@@ -209,3 +209,31 @@ Nairobi's main changes are:
 * Smart Rollups can now be aware of protocol updates happening on the L1.
 
 For more information, see the blog post from [Nomadic Labs](https://research-development.nomadic-labs.com/nairobi-announcement.html) and the [reference documentation](https://tezos.gitlab.io/protocols/017_nairobi.html).
+
+## [Oxford](https://tezos.gitlab.io/protocols/018_oxford.html) (Proxford)
+
+*Oxford* was autonomously [activated](https://tzkt.io/5070849) on 9 February 2024.
+
+Oxford's main changes are:
+
+* [Refinement of Tezos PoS](https://research-development.nomadic-labs.com/oxford2-announcement.html#automated-staking): Oxford introduces changes to [slashing](https://research-development.nomadic-labs.com/oxford2-announcement.html#refined-slashing) and an [automated staking mechanism for bakers](https://research-development.nomadic-labs.com/oxford2-announcement.html#automated-staking).
+The latter aims to smoothen the transition towards a new staked funds management API and avoids manual bookkeeping to counter over-delegation.
+* [Private rollups](https://research-development.nomadic-labs.com/oxford2-announcement.html): Oxford introduces private Smart Rollups, allowing developers to choose between permissionless or permissioned deployments.
+Additionally, Oxford [simplifies the deployment of rollups](https://research-development.nomadic-labs.com/oxford2-announcement.html#introducing-private-rollups-and-other-improvements-to-smart-rollups) both on protocol and periodic test networks, as well as on ad-hoc dedicated ones.
+* [Timelocks are re-enabled](https://research-development.nomadic-labs.com/timelocks-are-re-enabled): a new design and implementation of Timelocks addresses security concerns that led to their temporary deactivation in a previous protocol upgrade.
+
+For more information, see the blog post from [Nomadic Labs](https://research-development.nomadic-labs.com/oxford-announcement.html) and the [reference documentation](https://tezos.gitlab.io/protocols/018_oxford.html).
+
+## [Paris](https://tezos.gitlab.io/protocols/019_paris.html) (PtParisB)
+
+*Paris* was autonomously [activated](https://tzkt.io/5726209) on 5 June 2024.
+
+Paris's main changes are:
+
+* [10-second block time](https://research-development.nomadic-labs.com/10-second-blocktime.html): Lower latency and faster finality on layer 1 without compromising decentralization or security.
+* [Data availability layer](https://research-development.nomadic-labs.com/paris-announcement.html#the-dal-activates-on-mainnet-boosting-smart-rollups-capacity): Boosting throughput and scalability of Smart Rollups.
+It enables Tezos Layer 1 to attest the publication of data living outside Layer 1 blocks, increasing by orders of magnitude the bandwidth of data attested by the Layer 1.
+* [Adaptive issuance, staking, and adaptive slashing](https://research-development.nomadic-labs.com/adaptive-issuance-paris.html): A major overhaul of Tezos Proof-of-Stake, adapting the economics of tez to fit better with real-world usage, and to increase the chain security. The proposed mechanism ties the protocol’s regular issuance of tez to the ratio of staked tez over the total supply, in order to nudge the staked fund ratio towards a protocol-defined target.
+* [Further proof-of-stake refinements](https://research-development.nomadic-labs.com/paris-announcement.html#further-proof-of-stake-refinements): Simplified computation and faster updates of consensus rights.
+
+For more information, see the blog post from [Nomadic Labs](https://research-development.nomadic-labs.com/paris-announcement.html) and the [reference documentation](https://tezos.gitlab.io/protocols/019_paris.html).
