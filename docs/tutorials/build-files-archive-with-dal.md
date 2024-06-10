@@ -2,13 +2,8 @@
 title: Implement a file archive with the DAL and a Smart Rollup
 authors: 'Tezos Core Developers'
 last_update:
-  date: 9 February 2024
+  date: 10 June 2024
 ---
-
-:::note Experimental
-The Data Availability Layer is an experimental feature that is not yet available on Tezos Mainnet.
-The way the DAL works may change significantly before it is generally available.
-:::
 
 The Data Availability Layer (DAL) is a companion peer-to-peer network for the Tezos blockchain, designed to provide additional data bandwidth to Smart Rollups.
 It allows users to share large amounts of data in a way that is decentralized and permissionless, because anyone can join the network and post and read data on it.
@@ -21,7 +16,7 @@ You will learn:
 - How to host a DAL node
 - How to publish data and files with the DAL
 
-Because the DAL is not yet available on Tezos Mainnet, this tutorial uses the [Weeklynet test network](https://teztnets.com/weeklynet-about), which runs on a newer version of the protocol that includes the DAL.
+This tutorial uses the [Weeklynet test network](https://teztnets.com/weeklynet-about).
 Weeklynet runs just like other Tezos networks like Mainnet and Ghostnet, with its own nodes, bakers, and accusers, so you don't need to run your own nodes and bakers.
 
 See these links for more information about the DAL:
