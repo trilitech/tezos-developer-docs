@@ -2,7 +2,7 @@
 title: Smart Rollups
 authors: 'Nomadic Labs, TriliTech, Tim McMackin'
 last_update:
-  date: 11 March 2024
+  date: 10 June 2024
 ---
 
 Smart Rollups play a crucial part in providing high scalability on Tezos.
@@ -42,9 +42,14 @@ For example, Smart Rollups enable [Etherlink](https://www.etherlink.com/), which
 
 ## Communication
 
-Smart Rollups have access to two sources of information: the rollup inbox and the reveal data channel.
+Smart Rollups are limited to information from these sources:
+
+- The Smart Rollup inbox, which contains messages from layer 1 to all rollups.
+- The reveal data channel, which allows Smart Rollups to request information from outside sources
+- The [Data availability layer](./data-availability-layer)
+
 These are the only sources of information that rollups can use.
-In particular, Smart Rollup nodes cannot communicate directly with each other; they do not have a peer-ro-peer communication channel like layer 1 nodes.
+In particular, Smart Rollup nodes cannot communicate directly with each other; they do not have a peer-to-peer communication channel like layer 1 nodes.
 
 ### Rollup inbox
 
