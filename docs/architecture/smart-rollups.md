@@ -25,7 +25,7 @@ For reference on Smart Rollups, see [Smart Optimistic Rollups](https://tezos.git
 This diagram shows a high-level view of how Smart Rollups interact with layer 1:
 
 ![Diagram of Smart Rollup architecture](/img/architecture/smart-rollup-architecture.png)
-<!-- https://lucid.app/lucidchart/1e176e48-5c1a-457c-af3e-2f66d3c1b893/edit>
+<!-- https://lucid.app/lucidchart/1e176e48-5c1a-457c-af3e-2f66d3c1b893/edit -->
 
 ## Uses for Smart Rollups
 
