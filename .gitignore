@@ -7,3 +7,10 @@ node_modules
 out
 build
 
+# Vale
+test/styles/*
+!test/styles/Vocab/
+!test/styles/Tezos/
+
+test/styles/Vocab/*
+!test/styles/Vocab/Tezos
