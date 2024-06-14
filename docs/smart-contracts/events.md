@@ -173,6 +173,6 @@ For example, to see the operation in the previous example, look up the operation
 
 - Michelson: [Contract events](https://tezos.gitlab.io/alpha/event.html)
 - LIGO: [Events](https://ligolang.org/docs/contract/events)
-- SmartPy: [`sp.emit`](https://smartpy.io/manual/syntax/operations#sp.emit)
+- SmartPy: [`sp.emit`](https://smartpy.io/manual/data-types/operations)
 - Archetype: [Events](https://archetype-lang.org/blog/events/#event)
 - Taquito: [Contract Events](https://tezostaquito.io/docs/subscribe_event)

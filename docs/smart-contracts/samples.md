@@ -15,5 +15,5 @@ Here are some places to find sample smart contacts:
 
 For examples of FA2 smart contracts, see:
 
-- The SmartPy [FA2 library](https://smartpy.io/guides/FA2-lib/overview)
+- The SmartPy [FA2 library](https://smartpy.io/manual/libraries/FA2-lib/overview)
 - [oxheadalpha/smart-contracts](https://github.com/oxheadalpha/smart-contracts)

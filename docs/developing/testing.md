@@ -31,7 +31,7 @@ Tezos smart contracts are immutable after deployment, so you must rigorously tes
 ## Testing in high-level languages
 
 High-level languages come with tools to help write tests locally, and some testing tools can be used independently of the language used to write the smart contract.
-For example, [SmartPy](https://smartpy.io/manual/scenarios/overview) includes syntax dedicated to testing.
+For example, SmartPy includes syntax dedicated to testing in [Test scenarios](https://smartpy.io/manual/scenarios/test_scenarios).
 
 The following SmartPy test code snippet is for a Tezos smart contract that acts like a calculator. The code defines a series of tests to check the functionality of the calculator contract.
 

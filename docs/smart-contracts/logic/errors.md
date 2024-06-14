@@ -68,5 +68,5 @@ In particular, the error value is often used when testing  contracts, where the 
   - [FAIL](https://tezos.gitlab.io/active/michelson.html#fail)
   - [Assertion macros](https://tezos.gitlab.io/active/michelson.html#assertion-macros),
 - Archetype: [require](https://archetype-lang.org/docs/reference/declarations/entrypoint/#require), [fail if](https://archetype-lang.org/docs/reference/declarations/entrypoint/#fail-if)
-- SmartPy: [Exceptions](https://smartpy.io/manual/scenarios/testing_contracts#exceptions)
+- SmartPy: [Exceptions](https://smartpy.io/manual/syntax/exceptions)
 - LIGO: [Exceptions](https://ligolang.org/docs/language-basics/exceptions)
