@@ -2,7 +2,7 @@
 title: Complex data types
 authors: 'Mathias Hiron (Nomadic Labs), Sasha Aldrick (TriliTech), Tim McMackin (TriliTech)'
 last_update:
-  date: 4 June 2024
+  date: 17 June 2024
 ---
 
 Tezos contracts support these complex data types.
@@ -468,8 +468,8 @@ Contracts can run these operations on tickets:
 
 ## Unit {#unit}
 
-In Tezos, the `unit` type is a special case of the variant type: a single value that holds no information.
-It is a placeholder where a variable is required but no other information is needed.
+In Tezos, the `unit` type is a special case of the option type: a single value that holds no information.
+Smart contracts use unit values as placeholders where a variable is required but no other information is needed.
 
 For example, if a LIGO entrypoint receives no parameter, the data type of the entrypoint's parameter is `unit`:
 
