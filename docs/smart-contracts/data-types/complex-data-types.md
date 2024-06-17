@@ -470,6 +470,7 @@ Contracts can run these operations on tickets:
 
 In Tezos, the `unit` type is a special case of the option type: a single value that holds no information.
 Smart contracts use unit values as placeholders where a variable is required but no other information is needed.
+It is the input type of functions taking no input, the output type of functions producing no output, and the storage type of contracts storing no information.
 
 For example, if a LIGO entrypoint receives no parameter, the data type of the entrypoint's parameter is `unit`:
 
