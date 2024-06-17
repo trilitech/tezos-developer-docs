@@ -2,7 +2,7 @@
 title: Primitive data types
 authors: 'Mathias Hiron (Nomadic Labs), Sasha Aldrick (TriliTech), Tim McMackin (TriliTech)'
 last_update:
-  date: 4 October 2023
+  date: 4 June 2024
 ---
 
 Tezos contracts support these primitive data types.
@@ -15,6 +15,14 @@ The high-level languages may implement these data types slightly differently, bu
 - [Booleans](#booleans)
 - [Timestamps](#timestamps)
 - [Addresses](#addresses)
+
+This list is intended for general information for developers and is not intended to be comprehensive.
+For a complete list of data types that are available, see the reference information for the language that you are using:
+
+- Michelson: [Types](https://tezos.gitlab.io/michelson-reference/#types)
+- LIGO: [Introduction](https://ligolang.org/docs/intro/introduction?lang=jsligo)
+- Archetype: [Types](https://archetype-lang.org/docs/reference/types)
+- SmartPy: [Overview](https://smartpy.io/manual/syntax/overview)
 
 ## Numeric data types: `int` and `nat` {#numeric}
 
