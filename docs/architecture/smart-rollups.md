@@ -44,7 +44,7 @@ For example, Smart Rollups enable [Etherlink](https://www.etherlink.com/), which
 
 Smart Rollups are limited to information from these sources:
 
-- The Smart Rollup inbox, which contains messages from layer 1 to all rollups.
+- The Smart Rollup inbox, which contains messages from layer 1 to all rollups
 - The reveal data channel, which allows Smart Rollups to request information from outside sources
 - The [Data availability layer](./data-availability-layer)
 
