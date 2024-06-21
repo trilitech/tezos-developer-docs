@@ -2,7 +2,7 @@
 title: Architecture
 authors: Tim McMackin
 last_update:
-  date: 6 February 2024
+  date: 10 June 2024
 ---
 
 The Tezos blockchain is composed of many Tezos nodes running around the world, complemented by other running daemons, such as bakers and accusers.
@@ -76,7 +76,19 @@ It also provides the logic that identifies erroneous blocks.
 Updates to the protocol can change this logic through a voting process, using dedicated voting operations such as protocol proposals or protocol upvotes.
 For information about the voting process, see [Governance](./architecture/governance).
 
-## The shell
+The protocol has constants such as the time between blocks and the amount of tez that an account must stake to be a baker.
+These constants can be different for different Tezos networks.
+
+To get the constants for a network, call the `GET /chains/main/blocks/head/context/constants` RPC endpoint.
+For example, to get the constants of the network that the Octez client is currently connected to, run this command:
+
+```bash
+octez-client rpc get /chains/main/blocks/head/context/constants
+```
+
+For more information about constants, see [Protocol constants](https://tezos.gitlab.io/alpha/protocol_overview.html#protocol-constants) in the Octez documentation.
+
+### The shell
 
 The shell is responsible for the fundamental functions of a distributed software application, including:
 

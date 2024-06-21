@@ -2,7 +2,7 @@
 title: Smart Rollups
 authors: 'Nomadic Labs, TriliTech, Tim McMackin'
 last_update:
-  date: 11 March 2024
+  date: 10 June 2024
 ---
 
 Smart Rollups play a crucial part in providing high scalability on Tezos.
@@ -25,7 +25,7 @@ For reference on Smart Rollups, see [Smart Optimistic Rollups](https://tezos.git
 This diagram shows a high-level view of how Smart Rollups interact with layer 1:
 
 ![Diagram of Smart Rollup architecture](/img/architecture/smart-rollup-architecture.png)
-<!-- https://lucid.app/lucidchart/1e176e48-5c1a-457c-af3e-2f66d3c1b893/edit>
+<!-- https://lucid.app/lucidchart/1e176e48-5c1a-457c-af3e-2f66d3c1b893/edit -->
 
 ## Uses for Smart Rollups
 
@@ -42,9 +42,14 @@ For example, Smart Rollups enable [Etherlink](https://www.etherlink.com/), which
 
 ## Communication
 
-Smart Rollups have access to two sources of information: the rollup inbox and the reveal data channel.
+Smart Rollups are limited to information from these sources:
+
+- The Smart Rollup inbox, which contains messages from layer 1 to all rollups
+- The reveal data channel, which allows Smart Rollups to request information from outside sources
+- The [Data availability layer](./data-availability-layer)
+
 These are the only sources of information that rollups can use.
-In particular, Smart Rollup nodes cannot communicate directly with each other; they do not have a peer-ro-peer communication channel like layer 1 nodes.
+In particular, Smart Rollup nodes cannot communicate directly with each other; they do not have a peer-to-peer communication channel like layer 1 nodes.
 
 ### Rollup inbox
 
@@ -156,7 +161,10 @@ This kind of Smart Rollup is called a Smart Optimistic Rollup because the commit
 When there is only one commitment left, either because all nodes published identical commitments during the whole refutation period or because this commitment won the refutation games and eliminated all other commitments, then this correct commitment can be _cemented_ by a dedicated layer 1 operation and becomes final and unchangeable.
 The commitments for the next commitment period build on the last cemented commitment.
 
-The refutation period lasts 2 weeks on Mainnet; it can be different on other networks.
+The refutation period lasts for a set number of blocks based on the `smart_rollup_challenge_window_in_blocks` protocol constant.
+For example, currently the refutation period lasts 120,960 blocks on Mainnet.
+Mainnet has 10 seconds between blocks as of the Paris protocol upgrade, which means that the refutation period lasts 2 weeks.
+Ghostnet has 5 seconds between blocks but its refutation period is twice as many blocks, so its refutation period is also two weeks long.
 
 ### Triggering outbox messages
 

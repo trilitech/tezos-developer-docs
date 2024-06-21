@@ -2,16 +2,11 @@
 title: Join the DAL as a baker, in 5 steps
 authors: Tezos core developers
 last_update:
-  date: 7 February 2024
+  date: 10 June 2024
 ---
 
 The Tezos data availability layer (DAL) is a key component for the scalability of Tezos.
 In a nutshell, the DAL increases the data bandwidth available for Tezos Smart Rollups by providing a peer-to-peer network that they can use to fetch data without compromising security.
-
-:::note Experimental
-The data availability layer is an experimental feature that is not yet available on Tezos Mainnet.
-The way the DAL works may change significantly before it is generally available.
-:::
 
 Just like layer 1, Tezos bakers ensure the security of the DAL.
 Bakers not only produce blocks but also attest that other bakers' blocks are valid and properly published on layer 1.
