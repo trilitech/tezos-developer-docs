@@ -2,7 +2,7 @@
 title: Tokens
 authors: "Claude Barde, Aymeric Bethencourt, Tim McMackin"
 last_update:
-  date: 22 April 2024
+  date: 24 June 2024
 ---
 
 In a blockchain ecosystem, a digital asset that can be transferred between accounts is called a _token_.
@@ -127,13 +127,6 @@ You can use templates for smart contracts adhering to these standards, instead o
 A wrapped token represents a token in a different context.
 For example, tzBTC and ETHtz are Tezos tokens that represent tokens from the Bitcoin and Ethereum blockchains.
 Tezos users can trade these wrapped tokens on Tezos and exchange them for the native Bitcoin and Ethereum tokens later.
-
-Wrapped tokens can also represent a token that has been modified to work in a different way.
-For example, tez existed before the FA1.2 standard, so it is not compliant with FA1.2 and cannot be used by applications that use FA1.2 tokens.
-Therefore, Stove Labs created wXTZ, which is a token that represents a tez token wrapped to be compatible with the FA1.2 standard, and deployed contracts that allow users to swap tez for wXTZ.
-Then they can use the wXTZ in FA1.2 applications and exchange it for tez later.
-For more information about wXTZ, see [The Wrapped Tezos (wXTZ) beta Guide](https://medium.com/stakerdao/the-wrapped-tezos-wxtz-beta-guide-6917fa70116e).
-
 
 :::danger
 The wrapped version of a token has no formal or official relationship to the original token.
