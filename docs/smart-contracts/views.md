@@ -76,7 +76,7 @@ const get_balance = (key: string, s: storageType): string => {
 
 ## Calling views in JsLIGO
 
-This JsLIGO code calls the `get_larger` view from the previous example by passing the target contract address, parameters, and view name to the `Tezos.call_vew()` function:
+This JsLIGO code calls the `get_larger` view from the previous example by passing the target contract address, parameters, and view name to the `Tezos.call_view()` function:
 
 ```ts
 @entry
