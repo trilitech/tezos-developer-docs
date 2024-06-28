@@ -12,7 +12,8 @@
     "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
-    "test": "mocha"
+    "test": "mocha",
+    "glossary": "node ./src/scripts/process_downloaded_glossary.js"
   },
   "dependencies": {
     "@docusaurus/core": "3.2.1",
@@ -36,6 +37,7 @@
     "@docusaurus/module-type-aliases": "3.2.1",
     "chai": "5.0.0",
     "glob": "10.3.10",
+    "jsdom": "24.1.0",
     "mdast-util-from-markdown": "2.0.0",
     "mdast-util-mdx": "3.0.0",
     "micromark-extension-mdxjs": "3.0.0",

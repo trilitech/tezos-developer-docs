@@ -296,3 +296,7 @@ article a[target="_blank"]:after {
 .language-archetype .token.expr {
   font-style: italic;
 }
+
+.imported-glossary dt {
+ font-weight: bold;
+}
