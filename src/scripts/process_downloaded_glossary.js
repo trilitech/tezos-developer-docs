@@ -5,21 +5,6 @@ const path = require("path");
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 
-const monthNames = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
-];
-
 const process_downloaded_glossary = async () => {
   // TODO download current file from Octez
   const file = await fs.promises.readFile(path.resolve(__dirname, './downloaded_glossary.html'), 'utf8');
