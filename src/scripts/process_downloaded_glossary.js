@@ -83,6 +83,12 @@ const process_downloaded_glossary = async () => {
   const h1 = trimmed.querySelector('h1');
   h1.remove();
 
+  // External links in new window
+  const externalLinks = dom.window.document.querySelectorAll('a.external');
+  externalLinks.forEach((link) => {
+    link.setAttribute("target", "_blank");
+  });
+
   // Convert to string
   var htmlStr = trimmed.outerHTML;
 
