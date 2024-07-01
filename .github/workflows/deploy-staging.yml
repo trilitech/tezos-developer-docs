@@ -18,8 +18,6 @@ jobs:
         with:
           node-version: 18
       - run: npm ci
-      - run: |
-          echo '{ "headers":[{ "source": "/(.*)", "headers" : [{ "key" : "x-robots-tag", "value" : "noindex"} ]} ]}' > vercel.json
       - run: npm run build
       - uses: aws-actions/configure-aws-credentials@v2
         with:
