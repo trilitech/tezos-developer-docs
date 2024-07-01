@@ -50,6 +50,13 @@ const runProcess = async (scriptFileName, targetFileName, cwd, outputFileName) =
 
 const process_downloaded_glossary = async () => {
 
+  // Check that the build has run and the output file is there
+  const glossaryBuildFilePath = path.resolve(__dirname, '../../build/overview/glossary/index.html');
+  if (!fs.existsSync(glossaryBuildFilePath)){
+    console.error('Could not find built glossary file; run "npm run build" first.');
+    process.exit(1);
+  }
+
   // Conversion script expects the glossary file to in _build/
   const buildFolder = path.resolve(__dirname, '../../_build');
   if (!fs.existsSync(buildFolder)){
@@ -86,23 +93,31 @@ const process_downloaded_glossary = async () => {
   // External links in new window
   const externalLinks = dom.window.document.querySelectorAll('a.external');
   externalLinks.forEach((link) => {
-    link.setAttribute("target", "_blank");
+    link.setAttribute('target', '_blank');
   });
 
-  // Convert to string
-  var htmlStr = trimmed.outerHTML;
-
-  // Fixes for MDX treating newlines as paragraphs:
-  htmlStr = htmlStr.replace(/([^>])$\n/gm, '$1 ');
-  htmlStr = htmlStr.replace(/>$\n/gm, '>');
-
   // Wrap with <div class='imported-glossary'></div> to apply custom styles
-  htmlStr = `<div class='imported-glossary'>${htmlStr}</div>`;
+  const wrapper = new JSDOM('<div id="imported-glossary"></div>');
+  const imported_glossary = wrapper.window.document.querySelector('div#imported-glossary');
+  imported_glossary.appendChild(trimmed);
 
-  // Add front matter
-  htmlStr = '---\ntitle: Glossary\n---\n\n' + htmlStr;
+  // Load existing glossary output file
+  const existingGlossary = await fs.promises.readFile(glossaryBuildFilePath, 'utf8');
 
-  await fs.promises.writeFile(path.resolve(__dirname, '../../docs/overview/glossary.md'), htmlStr, 'utf8')
+  // Replace content in existing glossary from processed glossary
+  const existingGlossaryDom = new JSDOM(existingGlossary);
+  const copied_imported_glossary = existingGlossaryDom.window.document.importNode(imported_glossary, true);
+  const elementToReplace = existingGlossaryDom.window.document.querySelector("p#glossary_replace");
+  const parent = elementToReplace.parentNode;
+  parent.appendChild(copied_imported_glossary);
+  parent.removeChild(elementToReplace);
+
+  const outputString = `<!doctype html>
+  <html lang="en" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-overview/glossary" data-has-hydrated="false">
+  ${existingGlossaryDom.window.document.documentElement.innerHTML}
+  </html>`;
+
+  await fs.promises.writeFile(glossaryBuildFilePath, outputString, 'utf8');
 }
 
 process_downloaded_glossary();

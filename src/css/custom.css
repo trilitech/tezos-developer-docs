@@ -297,6 +297,6 @@ article a[target="_blank"]:after {
   font-style: italic;
 }
 
-.imported-glossary dt {
+#imported-glossary dt {
  font-weight: bold;
 }
