@@ -43,6 +43,7 @@ const config = {
   markdown: {
     mermaid: true,
   },
+  noIndex: process.env.BUILD_ENV == 'staging' ? true : false,
 
   headTags: [
     {
