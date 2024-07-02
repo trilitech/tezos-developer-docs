@@ -104,6 +104,8 @@ const process_glossary = async () => {
 
   // Overwrite existing glossary.md file
   let outputString = '---\ntitle: Glossary\n---\n\n';
+  // Fix for anchor links taking you too far down the page
+  outputString += 'import GlossaryAnchorScript from \'@site/src/components/GlossaryAnchorScript\';\n\n<GlossaryAnchorScript />\n\n';
   outputString += imported_glossary_str;
   const glossaryFilePath = path.resolve(repoRoot, 'docs/overview/glossary.md');
   if (fs.existsSync(glossaryFilePath)){
