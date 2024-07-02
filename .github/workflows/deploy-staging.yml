@@ -18,8 +18,8 @@ jobs:
         with:
           node-version: 18
       - run: npm ci
-      - run: BUILD_ENV=staging npm run build
       - run: npm run glossary
+      - run: BUILD_ENV=staging npm run build
       - uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-access-key-id: ${{ secrets.AWS_S3_STAGE_KEY_ID }}

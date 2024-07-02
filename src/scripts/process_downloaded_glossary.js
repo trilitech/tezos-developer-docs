@@ -31,10 +31,10 @@ const runProcess = async (scriptFileName, targetFileName, cwd, outputFileName) =
     await fs.promises.unlink(outputFileName);
   }
   return new Promise((resolve, reject) => {
-    const relativePathToTarget = path.relative(path.dirname(scriptFileName), targetFileName);
     const relativePathToScript = path.relative(path.dirname(targetFileName), scriptFileName);
     const run = spawn(relativePathToScript + ' ' + path.basename(targetFileName) + '> ' + outputFileName, [], {
       cwd,
+      // Use shell: true here so the script can use the `> output_file` syntax to write output to a file
       shell: true,
     });
 
@@ -48,24 +48,19 @@ const runProcess = async (scriptFileName, targetFileName, cwd, outputFileName) =
   });
 }
 
-const process_downloaded_glossary = async () => {
+const process_glossary = async () => {
 
-  // Check that the build has run and the output file is there
-  const glossaryBuildFilePath = path.resolve(__dirname, '../../build/overview/glossary/index.html');
-  if (!fs.existsSync(glossaryBuildFilePath)){
-    console.error('Could not find built glossary file; run "npm run build" first.');
-    process.exit(1);
-  }
+  const repoRoot = path.resolve(__dirname, '../../');
 
-  // Conversion script expects the glossary file to in _build/
-  const buildFolder = path.resolve(__dirname, '../../_build');
+  // Conversion script expects the downloaded glossary file to be in _build/
+  const buildFolder = path.resolve(repoRoot, '_glossaryBuild/_build');
   if (!fs.existsSync(buildFolder)){
-    fs.mkdirSync(buildFolder);
+    fs.mkdirSync(buildFolder, { recursive: true });
   }
   // Script file in _scripts/
-  const scriptFolder = path.resolve(__dirname, '../../_scripts');
+  const scriptFolder = path.resolve(repoRoot, '_glossaryBuild/_scripts');
   if (!fs.existsSync(scriptFolder)){
-    fs.mkdirSync(scriptFolder);
+    fs.mkdirSync(scriptFolder, { recursive: true });
   }
 
   // Download glossary and conversion script
@@ -79,19 +74,20 @@ const process_downloaded_glossary = async () => {
   // Run conversion script
   const outputFileName = path.resolve(buildFolder, 'extracted_content.html');
   await runProcess(scriptFileName, glossarySourceFileName, buildFolder, outputFileName);
+  console.log('Used Octez docs script to pull the content from its glossary');
   const conversionScriptOutputFile = await fs.promises.readFile(outputFileName, 'utf8');
 
-  const dom = new JSDOM(conversionScriptOutputFile);
+  const downloadedGlossaryDom = new JSDOM(conversionScriptOutputFile);
 
   // Trim html header, body, and such out
-  const trimmed = dom.window.document.querySelector('div#glossary');
+  const trimmed = downloadedGlossaryDom.window.document.querySelector('div#glossary');
 
   // Trim out H1
   const h1 = trimmed.querySelector('h1');
   h1.remove();
 
   // External links in new window
-  const externalLinks = dom.window.document.querySelectorAll('a.external');
+  const externalLinks = trimmed.querySelectorAll('a.external');
   externalLinks.forEach((link) => {
     link.setAttribute('target', '_blank');
   });
@@ -101,23 +97,20 @@ const process_downloaded_glossary = async () => {
   const imported_glossary = wrapper.window.document.querySelector('div#imported-glossary');
   imported_glossary.appendChild(trimmed);
 
-  // Load existing glossary output file
-  const existingGlossary = await fs.promises.readFile(glossaryBuildFilePath, 'utf8');
+  // Convert to string and remove line breaks to prevent MDX processing from making them into paragraph tags
+  let imported_glossary_str = imported_glossary.innerHTML;
+  imported_glossary_str = imported_glossary_str.replace(/([^>])$\n/gm, '$1 ');
+  imported_glossary_str = imported_glossary_str.replace(/>$\n/gm, '>');
 
-  // Replace content in existing glossary from processed glossary
-  const existingGlossaryDom = new JSDOM(existingGlossary);
-  const copied_imported_glossary = existingGlossaryDom.window.document.importNode(imported_glossary, true);
-  const elementToReplace = existingGlossaryDom.window.document.querySelector("p#glossary_replace");
-  const parent = elementToReplace.parentNode;
-  parent.appendChild(copied_imported_glossary);
-  parent.removeChild(elementToReplace);
-
-  const outputString = `<!doctype html>
-  <html lang="en" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-overview/glossary" data-has-hydrated="false">
-  ${existingGlossaryDom.window.document.documentElement.innerHTML}
-  </html>`;
-
-  await fs.promises.writeFile(glossaryBuildFilePath, outputString, 'utf8');
+  // Overwrite existing glossary.md file
+  let outputString = '---\ntitle: Glossary\n---\n\n';
+  outputString += imported_glossary_str;
+  const glossaryFilePath = path.resolve(repoRoot, 'docs/overview/glossary.md');
+  if (fs.existsSync(glossaryFilePath)){
+    fs.unlinkSync(glossaryFilePath);
+  }
+  await fs.promises.writeFile(glossaryFilePath, outputString, 'utf8');
+  console.log('Wrote new glossary to', glossaryFilePath);
 }
 
-process_downloaded_glossary();
+process_glossary();

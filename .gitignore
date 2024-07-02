@@ -6,5 +6,4 @@ node_modules
 .vscode/*
 out
 build
-_build
-_scripts
+_glossaryBuild
