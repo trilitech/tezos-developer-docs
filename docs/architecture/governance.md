@@ -23,7 +23,7 @@ If a quorum is met, the top-voted proposal moves to the next period.
 
 Each period lasts five blockchain cycles (40,960 blocks at 30-second intervals or roughly 14 days, 5 hours), comprising roughly 2 months and 10 days.
 
-Only [delegates](../overview/glossary#delegate) can vote on proposals.
+Only delegates can vote on proposals.
 A delegate's voting power is the amount of tez that it has staked plus the tez that delegators have delegated to it, also called its _staking balance_.
 
 ### 1. Proposal period

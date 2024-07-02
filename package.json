@@ -5,7 +5,7 @@
   "scripts": {
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
-    "build": "docusaurus build",
+    "build": "node ./src/scripts/process_downloaded_glossary.js && docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
@@ -36,6 +36,7 @@
     "@docusaurus/module-type-aliases": "3.2.1",
     "chai": "5.0.0",
     "glob": "10.3.10",
+    "jsdom": "24.1.0",
     "mdast-util-from-markdown": "2.0.0",
     "mdast-util-mdx": "3.0.0",
     "micromark-extension-mdxjs": "3.0.0",
