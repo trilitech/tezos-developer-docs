@@ -97,10 +97,15 @@ const process_glossary = async () => {
   const imported_glossary = wrapper.window.document.querySelector('div#imported-glossary');
   imported_glossary.appendChild(trimmed);
 
+
+
   // Convert to string and remove line breaks to prevent MDX processing from making them into paragraph tags
   let imported_glossary_str = imported_glossary.outerHTML;
   imported_glossary_str = imported_glossary_str.replace(/([^>])$\n/gm, '$1 ');
   imported_glossary_str = imported_glossary_str.replace(/>$\n/gm, '>');
+
+  // Convert class to className because we're in MDX now
+  imported_glossary_str = imported_glossary_str.replaceAll('class="', 'className="');
 
   // Overwrite existing glossary.md file
   let outputString = '---\ntitle: Glossary\n---\n\n';
