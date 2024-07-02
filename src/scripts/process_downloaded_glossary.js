@@ -66,7 +66,7 @@ const process_glossary = async () => {
   // Download glossary and conversion script
   const glossarySourceFileName = path.resolve(buildFolder, 'glossary.html');
   const scriptFileName = path.resolve(scriptFolder, 'extract_content');
-  const glossaryFilePromise = download('https://tezos.gitlab.io/alpha/glossary.html', glossarySourceFileName);
+  const glossaryFilePromise = download('https://tezos.gitlab.io/active/glossary.html', glossarySourceFileName);
   const scriptFilePromise = download('https://gitlab.com/tezos/tezos/-/raw/master/docs/scripts/extract_content?ref_type=heads&inline=false', scriptFileName);
   await Promise.all([glossaryFilePromise, scriptFilePromise]);
   await fs.promises.chmod(scriptFileName, '777');
