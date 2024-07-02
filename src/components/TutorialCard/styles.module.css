@@ -13,11 +13,14 @@
 .tutorialcard:hover {
   border: 1px solid #787D82;
 }
+.tutorialcardlinkcontainer:hover {
+  text-decoration: none;
+}
 
 @media (max-width: 767px) {
   .tutorialcard {
-    width: calc(100% - 20px); 
-    margin: 10px 0; 
+    width: calc(100% - 20px);
+    margin: 10px 0;
   }
 }
 
