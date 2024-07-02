@@ -98,7 +98,7 @@ const process_glossary = async () => {
   imported_glossary.appendChild(trimmed);
 
   // Convert to string and remove line breaks to prevent MDX processing from making them into paragraph tags
-  let imported_glossary_str = imported_glossary.innerHTML;
+  let imported_glossary_str = imported_glossary.outerHTML;
   imported_glossary_str = imported_glossary_str.replace(/([^>])$\n/gm, '$1 ');
   imported_glossary_str = imported_glossary_str.replace(/>$\n/gm, '>');
 
