@@ -32,7 +32,11 @@ const sidebars = {
             id: 'architecture/tokens',
             type: 'doc',
           },
-          items: ['architecture/tokens/FA1.2', 'architecture/tokens/FA2'],
+          items: [
+            'architecture/tokens/FA1.2',
+            'architecture/tokens/FA2',
+            'architecture/tokens/FA2.1',
+          ],
         },
         'architecture/baking',
         'architecture/rpc',
