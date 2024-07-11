@@ -74,13 +74,7 @@ Allowances also apply to the token owner.
 An account cannot transfer more tokens than its allowance, even if it has enough tokens and it sent the request itself.
 This means that if you want to transfer some of your tokens, you must first set your account's allowance to the amount to transfer.
 
-For security reasons, an allowance cannot be changed from a non-zero amount to another non-zero amount.
-Therefore, transferring FA2.1 tokens from a source account to a destination account often involves these steps:
-
-1. Set the spender's allowance for the source account to 0.
-1. Set the spender's allowance for the source account to the amount of tokens to transfer.
-1. Transfer the tokens from the source account to the destination account.
-1. Set the spender's allowance for the source account to 0 to prevent errors if a future change in allowance doesn't set the allowance to 0 first.
+Unlike FA1.2 contracts, you can change an allowance from a non-zero amount to another non-zero amount.
 
 ## Minting and burning
 
