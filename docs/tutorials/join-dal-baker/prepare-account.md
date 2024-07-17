@@ -82,7 +82,10 @@ This command creates an account and associates it with the `my_baker` alias:
    octez-client get balance for my_baker
    ```
 
-   At this point, the `my_baker` account owns enough stake to bake but has still no consensus or DAL rights because we haven't declared our intention to become a baker to the Tezos protocol.
+   Again, if the balance is not correct, the local node may not be ready yet.
+   In this case you can temporarily use the public RPC endpoint.
+
+   When the account receives its tez, it owns enough stake to bake but has still no consensus or DAL rights because it has not declared its intention to become a baker.
 
 1. Register your account as a delegate by running the following command:
 
