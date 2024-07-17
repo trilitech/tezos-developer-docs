@@ -2,7 +2,7 @@
 title: "Step 3: Set up a baker account on Weeklynet"
 authors: Tezos core developers
 last_update:
-  date: 6 March 2024
+  date: 17 July 2024
 ---
 
 Our baker needs a user account consisting of a pair of keys and an address.
@@ -10,7 +10,16 @@ In this section, you use the Octez client to create an account and register it a
 
 1. Open a new terminal window in the same environment.
 If you are using a Docker container, you can enter the container with the `docker exec` command, as in `docker exec -it my-image /bin/sh`.
-To get the name of the Docker container, you run the `docker ps` command.
+To get the name of the Docker container, run the `docker ps` command.
+
+1. Make sure that the installation of the Octez client is using your node by running this command:
+
+   ```bash
+   octez-client -E http://localhost:8732 config update
+   ```
+
+   By default, the Octez client in the container is set to use a node running at `localhost:8732`, which is the default port of the node, but this command sets it explicitly.
+   If you see an error that says "Failed to acquire the protocol version from the node," ensure that your node is running and verify that the host name and port in the `config update` command are correct.
 
 1. Optional: Hide the Octez client's network warning message by running this command:
 
