@@ -65,9 +65,16 @@ This command creates an account and associates it with the `my_baker` alias:
    Don't set the client endpoint to the public node permanently because it should use your local node whenever possible.
    For bakers, it's important to set the Octez client to use their node rather than a public node because the baker daemon uses the client configuration and the baker daemon should use the local node.
 
-1. Get some tez from the Weeklynet faucet.
+1. Get 40,000 tez from the Weeklynet faucet.
 
-   In order to get some consensus and DAL rights, we need to put some tez in the account. Fortunately, getting free testnet tez is easy thanks to the testnet faucet. To use it, we need to enter the generated address in the Weeklynet faucet linked from https://teztnets.com/weeklynet-about. We need at least 6k tez for running a baker but the more tez we have the more rights we will get and the shorter we will have to wait to produce blocks and attestations. That being said, baking with too much stake prevents us from leaving the network without disturbing or even halting it so to avoid breaking the network for all other testers let's not be too greedy. 50k tez is enough to get enough rights to easily check if our baker behaves as expected while not disturbing the network too much when our baker stops operating.
+   The account must stake tez to get consensus and DAL rights.
+   To get tez, use the Weeklynet faucet linked from https://teztnets.com/weeklynet-about to send tez to the baker account.
+
+   Running a baker requires staking at least 6,000 tez, but the more tez it stakes, the more rights it gets and the lass time it has to wait to produce blocks and make attestations.
+   However, baking with too large of a stake can cause problems when the baker stops because it holds a significant portion of baking rights.
+   If the baker is using a large portion of the total tez on the network and stops, the system gets slower because the baker isn't making blocks.
+   Therefore, to avoid slowing Weeklynet for other users, don't request too much tez.
+   40,000 tez is enough to get enough rights to verify that the baker is behaving as expected while not disturbing the network too much when it stops operating.
 
 1. Verify that the faucet sent the tez to the account with the same `get balance` command:
 
@@ -86,10 +93,10 @@ This command creates an account and associates it with the `my_baker` alias:
    Again, pass the `--endpoint` argument if your node has not finished bootstrapping.
 
 1. Stake the tez, saving a small amount for transaction fees.
-For example, if your account has 50k tez, stake 49990 tez by running this command:
+For example, if your account has 40k tez, stake 39990 tez by running this command:
 
    ```bash
-   octez-client stake 49990 for my_baker
+   octez-client stake 39990 for my_baker
    ```
 
    Seven cycles later (about 1h40 on Weeklynet), our baker will start receiving rights. To see for instance its consensus attestation rights in the current cycle, we can use the following RPC call:
