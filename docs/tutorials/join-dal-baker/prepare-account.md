@@ -1,12 +1,12 @@
 ---
-title: "Step 3: Set up a baker account on Weeklynet"
-authors: Tezos core developers
+title: "Step 3: Set up a baker account"
+authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 17 July 2024
+  date: 19 July 2024
 ---
 
-Our baker needs a user account consisting of a pair of keys and an address.
-In this section, you use the Octez client to create an account and register it as a delegate.
+The baker needs a user account that stakes tez.
+In this section, you use the Octez client to create an account, register it as a delegate, and stake tez with it.
 
 1. Open a new terminal window in the same environment.
 If you are using a Docker container, you can enter the container with the `docker exec` command, as in `docker exec -it my-image /bin/sh`.
@@ -43,12 +43,6 @@ This command creates an account and associates it with the `my_baker` alias:
    octez-client show address my_baker
    ```
 
-1. Record this address in a shell variable so you can use it for commands that cannot get addresses by their Octez client aliases:
-
-   ```bash
-   MY_BAKER="$(octez-client show address my_baker | head -n 1 | cut -d ' ' -f 2)"
-   ```
-
    At this point, the balance of the `my_baker` account is still zero, as you can see by running this command:
 
    ```bash
@@ -73,6 +67,8 @@ This command creates an account and associates it with the `my_baker` alias:
    Running a baker requires staking at least 6,000 tez, but the more tez it stakes, the more rights it gets and the lass time it has to wait to produce blocks and make attestations.
    However, baking with too large of a stake can cause problems when the baker stops because it holds a significant portion of baking rights.
    If the baker is using a large portion of the total tez on the network and stops, the system gets slower because the baker isn't making blocks.
+   This delay continues until the system marks the baker as inactive.
+
    Therefore, to avoid slowing Weeklynet for other users, don't request too much tez.
    40,000 tez is enough to get enough rights to verify that the baker is behaving as expected while not disturbing the network too much when it stops operating.
 
@@ -82,7 +78,7 @@ This command creates an account and associates it with the `my_baker` alias:
    octez-client get balance for my_baker
    ```
 
-   Again, if the balance is not correct, the local node may not be ready yet.
+   If the balance still shows 0, the local node may not be ready yet.
    In this case you can temporarily use the public RPC endpoint.
 
    When the account receives its tez, it owns enough stake to bake but has still no consensus or DAL rights because it has not declared its intention to become a baker.
@@ -96,38 +92,13 @@ This command creates an account and associates it with the `my_baker` alias:
    Again, pass the `--endpoint` argument if your node has not finished bootstrapping.
 
 1. Stake the tez, saving a small amount for transaction fees.
-For example, if your account has 40k tez, stake 39990 tez by running this command:
+For example, if your account has 40,000 tez, stake 39,990 tez by running this command:
 
    ```bash
    octez-client stake 39990 for my_baker
    ```
 
-   Seven cycles later (about 1h40 on Weeklynet), our baker will start receiving rights. To see for instance its consensus attestation rights in the current cycle, we can use the following RPC call:
+Now the account has staked enough tez to earn the right to make attestations, including attestations that data is available on the DAL.
+However, it does not receive these rights until the baking daemon is running and a certain amount of time has passed.
 
-   ```bash
-   octez-client rpc get /chains/main/blocks/head/helpers/attestation_rights\?delegate="$MY_BAKER"
-   ```
-
-   When your baker has attestation rights, the previous command returns information about them, as in this example:
-
-   ```json
-   [ { "level": 9484,
-    "delegates":
-      [ { "delegate": "tz1Zs6zjxtLxmff51tK2AVgvm4PNmdNhLcHE",
-          "first_slot": 280, "attestation_power": 58,
-          "consensus_key": "tz1Zs6zjxtLxmff51tK2AVgvm4PNmdNhLcHE" } ] } ]
-   ```
-
-   To see the DAL attestation rights of all bakers, we can use the following RPC call:
-
-   ```bash
-   octez-client rpc get /chains/main/blocks/head/context/dal/shards
-   ```
-
-   This command returns an array of DAL attestation rights. The 2048 shards which are expected to be attested at this level are shared between active bakers proportionally to their stake. Each baker is assigned a slice of shard indices represented in the output of this command by a pair consisting of the first index and the length of the slice. So to check if some rights were assigned to us we can filter the array to our baker by running this command:
-
-   ```bash
-   octez-client rpc get /chains/main/blocks/head/context/dal/shards | grep "$MY_BAKER"
-   ```
-
-When attestation rights are assigned to your baker, continue to [Step 4: Run an Octez DAL node on Weeklynet](./run-dal-node.md).
+To run a baking daemon with this account, continue to [Step 5: Run an Octez baking daemon](./run-baker).

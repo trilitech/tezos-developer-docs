@@ -1,6 +1,6 @@
 ---
-title: "Step 1: Get a Weeklynet-compatible Octez version"
-authors: Tezos core developers
+title: "Step 1: Get a compatible Octez version"
+authors: Tezos core developers, Tim McMackin
 last_update:
   date: 28 February 2024
 ---
