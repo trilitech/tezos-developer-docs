@@ -39,10 +39,6 @@ This tutorial uses a very simple setup running all required daemons on the same 
 In a production environment, we advise against running a DAL attester node under the same IP address than a baker's node because the DAL node may leak the IP address and ease DOS attacks on the baker. See also [the DAL documentation page on baking](https://tezos.gitlab.io/shell/dal_bakers.html).
 :::
 
-:::warning
-The UX of the DAL components will be subject to changes with the feedback from the testers following this tutorial, so this tutorial will be updated accordingly. Feel free to file issues if it's not up-to-date.
-:::
-
 - [Step 1: Get a compatible Octez version](./join-dal-baker/get-octez)
 - [Step 2: Run an Octez node](./join-dal-baker/run-node)
 - [Step 3: Set up a baker account](./join-dal-baker/prepare-account)
