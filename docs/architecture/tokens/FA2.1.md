@@ -41,6 +41,7 @@ Then the ticket owner can transfer the ticket without using the original contrac
 
 Then, contracts can import tickets by accepting the ticket, destroying it, and increasing the user's balance of tokens.
 Exporting and importing tickets in this way allows users to bridge tokens between Tezos layers, such as how [Bridging tokens](https://docs.etherlink.com/get-started/bridging) works in Etherlink.
+Contracts can even accept tickets created by other contracts.
 
 ## Access control
 
