@@ -2,7 +2,7 @@
 title: FA2.1 tokens
 authors: Tim McMackin
 last_update:
-  date: 11 July 2024
+  date: 23 July 2024
 ---
 
 The FA2.1 standard adds several features to tokens while remaining backward-compatible with the FA2 standard.
@@ -38,7 +38,9 @@ A major change in FA2.1 is that contracts can optionally export [tickets](../../
 In this case, the contract decreases an owner's balance of tokens and creates a ticket that represents those tokens.
 It keeps the total balance of the tokens in its ledger the same.
 Then the ticket owner can transfer the ticket without using the original contract, similar to a wrapped token.
-Tickets also allow users to bridge tokens between Tezos layers, such as how [Bridging tokens](https://docs.etherlink.com/get-started/bridging) works in Etherlink.
+
+Then, contracts can import tickets by accepting the ticket, destroying it, and increasing the user's balance of tokens.
+Exporting and importing tickets in this way allows users to bridge tokens between Tezos layers, such as how [Bridging tokens](https://docs.etherlink.com/get-started/bridging) works in Etherlink.
 
 ## Access control
 
