@@ -1,8 +1,8 @@
 ---
 title: "Part 3: Getting slot information"
-authors: 'Tezos Core Developers'
+authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 14 February 2024
+  date: 24 July 2024
 ---
 
 When clients send data to the DAL, they must choose which slot to put it in.
@@ -11,9 +11,8 @@ If more than one client tries to write to the same slot and a baker includes tho
 The other operations fail and the clients must re-submit the data to be included in a future block.
 
 For this reason, clients should check the status of slots to avoid conflicts.
-For example, slots 0, 30, and 31 are often used for regression tests.
 
-To see which slots are in use, you can use the Explorus indexer at https://explorus.io/dal and select Weeklynet.
+To see which slots are in use, you can use the Explorus indexer at https://explorus.io/dal and select your network.
 For example, this screenshot shows that slots 10 and 25 are in use:
 
 ![The Explorus indexer, showing the slots that are in use in each block](/img/tutorials/dal-explorus-slots.png)
@@ -26,14 +25,16 @@ Similarly, the protocol assigns bakers to monitor certain slots.
 
 To run a DAL node, use the Octez `octez-dal-node` command and pass the slots to monitor in the `--producer-profiles` argument.
 
-Run this command to start a DAL node and monitor slot 0:
+<!-- In future versions, --producer-profiles will be --operator-profiles; contact François -->
+
+In a new terminal window in the Docker container, run this command to start a DAL node and monitor slot 0:
 
 ```bash
-octez-dal-node run --endpoint ${ENDPOINT} \
+octez-dal-node run --endpoint http://127.0.0.1:8732 \
     --producer-profiles=0 --data-dir _dal_node
 ```
 
-Leave this process running in terminal window.
+Leave this process running in the terminal window.
 
 ## Accessing the slot data from a Smart Rollup
 
@@ -122,14 +123,13 @@ Follow these steps to update the Smart Rollup to access information about slot 0
    tezos-smart-rollup-host = { version = "0.2.2", features = [ "proto-alpha" ] }
    ```
 
-1. Stop the Smart Rollup process.
+1. Stop the process that is running the `octez-smart-rollup-node` program.
 
-1. Run the commands to build and deploy the Smart Rollup and start the node.
+1. Run the commands to build and deploy the Smart Rollup and start the Smart Rollup node.
 
+   If you set up the deployment script as described in [Part 2: Getting the DAL parameters](./get-dal-params), you can run `./deploy_smart_rollup.sh my_wallet`.
 
-   If you set up the deployment script as described in [Part 2: Getting the DAL parameters](/tutorials/build-files-archive-with-dal/get-dal-params), you can run `./deploy_smart_rollup.sh $MY_ACCOUNT`.
-
-   If not, run these commands, using your account alias for `MY_ACCOUNT`:
+   If not, run these commands:
 
    ```bash
    rm -rf _rollup_node
@@ -139,11 +139,11 @@ Follow these steps to update the Smart Rollup to access information about slot 0
    smart-rollup-installer get-reveal-installer -P _rollup_node/wasm_2_0_0 \
      -u files_archive.wasm -o installer.hex
 
-   octez-client --endpoint ${ENDPOINT} \
-     originate smart rollup files_archive from "${MY_ACCOUNT}" of kind wasm_2_0_0 \
+   octez-client --endpoint http://127.0.0.1:8732  \
+     originate smart rollup files_archive from my_wallet of kind wasm_2_0_0 \
      of type unit with kernel "$(cat installer.hex)" --burn-cap 2.0 --force
 
-   octez-smart-rollup-node --endpoint ${ENDPOINT} \
+   octez-smart-rollup-node --endpoint http://127.0.0.1:8732  \
      run observer for files_archive with operators --data-dir _rollup_node \
      --dal-node http://localhost:10732 --log-kernel-debug
    ```

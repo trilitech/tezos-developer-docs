@@ -1,8 +1,8 @@
 ---
 title: "Part 2: Getting the DAL parameters"
-authors: 'Tezos Core Developers'
+authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 14 February 2024
+  date: 24 July 2024
 ---
 
 The Data Availability Layer stores information about the available data in layer 1 blocks.
@@ -27,7 +27,7 @@ Different networks can have different DAL parameters.
 Future changes to the protocol may allow the DAL to resize dynamically based on usage.
 
 Therefore, clients must get information about the DAL before sending data to it.
-In these steps, you set up a simple Smart Rollup to get the current DAL parameters and print them to the log.
+Smart contracts can't access the DAL; it is intended for Smart Rollups, so in these steps you set up a simple Smart Rollup to get the current DAL parameters and print them to the log.
 
 ## Prerequisites
 
@@ -52,10 +52,13 @@ To get the DAL parameters, you can use built-in functions in the Tezos [Rust SDK
    tezos-smart-rollup = { version = "0.2.2", features = [ "proto-alpha" ] }
    ```
 
+   If you set up your Docker container with a connected folder on the host machine, you can create this file in the connected folder and it will appear in the Docker container.
+
    As a reminder, the kernel of a Smart Rollup is a WASM program.
    The `proto-alpha` feature is necessary to get access to the functions specific to the DAL because they are not yet released in the main version of the Smart Rollup toolkit.
 
    If you need a text editor inside the Docker container, you can run `sudo apk add nano` to install the [Nano text editor](https://www.nano-editor.org/).
+   If you set up the container with a volume, you can use any editor on your host machine to edit the file and it appears in the linked folder in the container.
 
 1. Create a file named `src/lib.rs` to be the kernel.
 
@@ -74,10 +77,15 @@ To get the DAL parameters, you can use built-in functions in the Tezos [Rust SDK
 
    This function gets the DAL parameters of the currently connected network and prints them to the log.
 
-1. From the folder that contains the `Cargo.toml` file, run these commands to build the kernel:
+1. From the folder that contains the `Cargo.toml` file, run this command to build the kernel:
 
    ```bash
    cargo build --release --target wasm32-unknown-unknown
+   ```
+
+1. Run this command to copy the compiled kernel to the current folder:
+
+   ```bash
    cp target/wasm32-unknown-unknown/release/files_archive.wasm .
    ```
 
@@ -98,30 +106,28 @@ Now the Smart Rollup is ready to deploy.
 
 ## Deploying the Smart Rollup and starting a node
 
-Follow these steps to deploy the Smart Rollup to Weeklynet and start a node:
+Follow these steps to deploy the Smart Rollup to Ghostnet and start a node:
 
-1. Run this command to deploy the Smart Rollup, replacing `$MY_ACCOUNT` with your account alias and `$ENDPOINT` with the RPC endpoint:
+1. Run this command to deploy the Smart Rollup, replacing `my_wallet` with your account alias:
 
    ```bash
-   octez-client --endpoint ${ENDPOINT} \
-       originate smart rollup files_archive from ${MY_ACCOUNT} \
+   octez-client --endpoint http://127.0.0.1:8732  \
+       originate smart rollup files_archive from my_wallet \
        of kind wasm_2_0_0 of type unit with kernel "$(cat installer.hex)" \
        --burn-cap 2.0 --force
    ```
 
-1. Start the node with this command:
+1. Start the Smart Rollup node with this command:
 
    ```bash
-   octez-smart-rollup-node --endpoint ${ENDPOINT} \
+   octez-smart-rollup-node --endpoint http://127.0.0.1:8732  \
        run observer for files_archive with operators \
        --data-dir ./_rollup_node --log-kernel-debug
    ```
 
    For simplicity, this command runs the Smart Rollup in observer mode, which does not require a stake of 10,000 tez to publish commitments.
 
-1. Open a new terminal window in the same environment.
-If you are using a Docker container, you can enter the container with the `docker exec` command, as in `docker exec -it my-image /bin/sh`.
-To get the name of the Docker container, you run the `docker ps` command.
+1. Leave the node running in that terminal window and open a new terminal window in the same environment.
 
 1. Run this command to watch the node's log:
 
@@ -132,11 +138,12 @@ To get the name of the Docker container, you run the `docker ps` command.
 The log prints the current DAL parameters, as in this example:
 
 ```
-RollupDalParameters { number_of_slots: 32, attestation_lag: 4, slot_size: 65536, page_size: 4096 }
-RollupDalParameters { number_of_slots: 32, attestation_lag: 4, slot_size: 65536, page_size: 4096 }
-RollupDalParameters { number_of_slots: 32, attestation_lag: 4, slot_size: 65536, page_size: 4096 }
-RollupDalParameters { number_of_slots: 32, attestation_lag: 4, slot_size: 65536, page_size: 4096 }
-RollupDalParameters { number_of_slots: 32, attestation_lag: 4, slot_size: 65536, page_size: 4096 }
+RollupDalParameters { number_of_slots: 32, attestation_lag: 8, slot_size: 126944, page_size: 3967 }
+RollupDalParameters { number_of_slots: 32, attestation_lag: 8, slot_size: 126944, page_size: 3967 }
+RollupDalParameters { number_of_slots: 32, attestation_lag: 8, slot_size: 126944, page_size: 3967 }
+RollupDalParameters { number_of_slots: 32, attestation_lag: 8, slot_size: 126944, page_size: 3967 }
+RollupDalParameters { number_of_slots: 32, attestation_lag: 8, slot_size: 126944, page_size: 3967 }
+RollupDalParameters { number_of_slots: 32, attestation_lag: 8, slot_size: 126944, page_size: 3967 }
 ```
 
 These parameters are:
@@ -148,11 +155,11 @@ These parameters are:
 
 ## Setting up a deployment script
 
-In later parts of this tutorial, you will update and redeploy the Smart Rollup multiple times.
+In later parts of this tutorial, you update and redeploy the Smart Rollup multiple times.
 To simplify the process, you can use this script:
 
 ```bash
-#!/usr/bin/bash
+#!/bin/sh
 
 alias="${1}"
 
@@ -167,25 +174,27 @@ cp target/wasm32-unknown-unknown/release/files_archive.wasm .
 smart-rollup-installer get-reveal-installer -P _rollup_node/wasm_2_0_0 \
   -u files_archive.wasm -o installer.hex
 
-octez-client --endpoint ${ENDPOINT} \
+octez-client --endpoint http://127.0.0.1:8732  \
   originate smart rollup files_archive from "${alias}" of kind wasm_2_0_0 \
   of type unit with kernel "$(cat installer.hex)" --burn-cap 2.0 --force
 
-octez-smart-rollup-node --endpoint ${ENDPOINT} \
+octez-smart-rollup-node --endpoint http://127.0.0.1:8732  \
   run observer for files_archive with operators --data-dir _rollup_node \
   --dal-node http://localhost:10732 --log-kernel-debug
 ```
 
-To use it, save it in a file with an `sh` extension, such as `deploy_smart_rollup.sh` and give it executable permission.
+To use it, save it in a file with an `sh` extension, such as `deploy_smart_rollup.sh` and give it executable permission by running `chmod +x deploy_smart_rollup.sh`.
 Then you can run it any tme you update the `lib.rs` or `Cargo.toml` files to deploy a new Smart Rollup by passing your account alias, as in this example:
 
 ```bash
-./deploy_smart_rollup.sh $MY_ACCOUNT
+./deploy_smart_rollup.sh my_wallet
 ```
 
+This script assumes that your local node is running at http://127.0.0.1:8732.
+
 If you run this script and see an error that says that the file was not found, update the first line of the script (the shebang) to the path to your shell interpreter.
-For example, if you are using the Tezos Docker image, the path is `/bin/sh`, so the first line becomes `#!/bin/sh`.
-Then try the command `./deploy_smart_rollup.sh $MY_ACCOUNT` again.
+For example, if you are using the Tezos Docker image, the path is `/bin/sh`, so the first line is `#!/bin/sh`.
+Then try the command `./deploy_smart_rollup.sh my_wallet` again.
 
 In the next section, you will get information about the state of slots in the DAL.
 See [Part 3: Getting slot information](/tutorials/build-files-archive-with-dal/get-slot-info).
