@@ -1,33 +1,30 @@
 ---
 title: "Part 1: Setting up an environment"
-authors: 'Tim McMackin'
+authors: Tim McMackin
 last_update:
-  date: 14 February 2024
+  date: 23 July 2024
 ---
 
-Because Weeklynet requires a specific version of the Octez suite, you can't use most wallet applications and installations of the Octez suite with it.
-Instead, you must set up an environment with a specific version of the Octez suite and use it to create and fund an account.
+These steps cover how to set up a development environment to work with Smart Rollups and the DAL.
+To work with these elements, you need the Octez suite, which includes the Octez command-line client for interacting with Tezos and the binaries for the DAL node and Smart Rollup node.
+You must use the same version of the Octez suite that the network is using.
 
-:::note Weeklynet resets every week
-Weeklynet is reset every Wednesday, which deletes all accounts, smart contracts, and Smart Rollups.
-Therefore, you must recreate your environment and account and redeploy your smart Contracts and Smart Rollups after the network resets.
-:::
-
-## Set up a Weeklynet environment and account
-
-The easiest way to use Weeklynet is to use the Docker image that is generated each time Weeklynet is reset and recreated.
-As another option, you can build the specific version of the Octez suite locally.
-For instructions, see the Weeklynet page at https://teztnets.com/weeklynet-about.
+The easiest way to use the Octez suite is to use the `tezos/tezos` Docker image.
+As another option, you can get the built version of the Octez suite from https://tezos.gitlab.io/ or build the specific version of the Octez suite locally.
 
 To set up an environment and account in a Docker container, follow these steps:
 
-1. From the [Weeklynet](https://teztnets.com/weeklynet-about) page, find the Docker command to create a container from the correct Docker image, as in this example:
+1. Retrieve the latest version of the `tezos/tezos` Docker image by running this command:
 
    ```bash
-   docker run -it --entrypoint=/bin/sh tezos/tezos:master_7f3bfc90_20240116181914
+   docker pull tezos/tezos:latest
    ```
 
-   The image tag in this command changes each time the network is reset.
+1. Start a Docker container from the image:
+
+   ```bash
+   docker run -it --entrypoint=/bin/sh tezos/tezos:latest
+   ```
 
    :::tip
    If you're not used to working inside Docker containers, you can map a folder on your computer to a folder in the container to create a [Docker volume](https://docs.docker.com/storage/volumes/).
@@ -35,28 +32,48 @@ To set up an environment and account in a Docker container, follow these steps:
    For example, to start a container and map the current folder to the `/home/tezos` folder in the container, run this command:
 
    ```bash
-   docker run -it --entrypoint=/bin/sh -v .:/home/tezos tezos/tezos:master_7f3bfc90_20240116181914
+   docker run -it --entrypoint=/bin/sh -v .:/home/tezos tezos/tezos:latest
    ```
 
    You can map a folder like this only when you create a container; you cannot add it later.
    :::
 
-1. Copy the URL of the public RPC endpoint for Weeklynet, such as `https://rpc.weeklynet-2024-01-17.teztnets.com`.
-This endpoint also changes each time the network is reset.
-
-1. For convenience, you may want to set this endpoint as the value of the `ENDPOINT` environment variable.
-The parts of the Octez suite don't use this environment variable directly, but you can save time by using this variable in commands.
-
-1. In the container, initialize the Octez client with that endpoint, such as this example:
+1. In the container, configure the layer 1 node for Ghostnet:
 
    ```bash
-   octez-client -E https://rpc.weeklynet-2024-01-17.teztnets.com config init
+   octez-node config init --network ghostnet
    ```
 
-   or:
+1. Download a snapshot of Ghostnet from https://snapshot.tzinit.org based on the instructions on that site.
+For example, the command to download the snapshot may look like this:
 
    ```bash
-   octez-client -E $ENDPOINT config init
+   wget -O snapshot_file https://snapshots.eu.tzinit.org/ghostnet/rolling
+   ```
+
+1. Load the snapshot in the node by running this command:
+
+   ```bash
+   octez-node snapshot import snapshot_file
+   ```
+
+   If you see the error "The chain name contained in the snapshot file is not consistent with the network configured in the targeted data directory," the snapshot is for the previous instance of Weeklynet and no snapshot is available for this week.
+   Continue with the next step as usual.
+
+1. Run this command to start the node:
+
+   ```bash
+   octez-node run --rpc-addr 127.0.0.1:8732
+   ```
+
+1. Leave the node running in that terminal window and open a new terminal window in the same environment.
+If you are using a Docker container, you can enter the container with the `docker exec` command, as in `docker exec -it my-image /bin/sh`.
+To get the name of the Docker container, run the `docker ps` command.
+
+1. In the container, initialize the Octez client to use your node:, such as this example:
+
+   ```bash
+   octez-client -E http://127.0.0.1:8732 config init
    ```
 
 1. Optional: Hide the network warning message by running this command:
@@ -67,11 +84,11 @@ The parts of the Octez suite don't use this environment variable directly, but y
 
    This command suppresses the message that your instance of the Octez client is not using Mainnet.
 
-1. Create an account with the command `octez-client gen keys $MY_ACCOUNT`, where `$MY_ACCOUNT` is an alias for your account.
+1. Create an account with the command `octez-client gen keys my_wallet`, where `my_wallet` is an alias for your account.
 
-1. Get the public key hash of the new account by running the command `octez-client show address $MY_ACCOUNT`.
+1. Get the public key hash of the new account by running the command `octez-client show address my_wallet`.
 
-1. From the [Weeklynet](https://teztnets.com/weeklynet-about) page, open the Weeklynet faucet and send some tez to the account.
+1. From the [Ghostnet](https://teztnets.com/ghostnet-about) page, open the Ghostnet faucet and send some tez to the account.
 50 tez is enough to get started, and you can always go back to the faucet to get more.
 
 Now you can use this account to deploy Smart Rollups.
@@ -107,7 +124,7 @@ For example, it may prompt you to run `source "$HOME/.cargo/env"` to configure y
 Clang and LLVM are required for compilation to WebAssembly.
 Version 11 or later of Clang is required.
 
-If you are using the Tezos Docker container, run these commands:
+If you are using the `tezos/tezos` Docker image, run these commands:
 
 ```bash
 sudo apk add clang
