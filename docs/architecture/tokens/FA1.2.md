@@ -25,13 +25,16 @@ The Octez client also supports other interactions with FA1.2 contracts, such as 
 
 ## Allowances
 
-FA1.2 contracts keep track of how many tokens an account _A_ permits another account _B_ to transfer out of account _A_, limit known as the _allowance_ for _B_.
+FA1.2 contracts keep track of how many tokens an account A permits another account B to transfer out of account A.
+This limit is known as the _allowance_ for account B.
+In this scenario, account B is known as the _spender_ for account A.
 
 This feature allows an account to authorize another account to transfer a certain amount of tokens on its behalf.
 
 For example, you might authorize an application to take a certain amount of your tokens, as part of one or several transactions, by setting the application's allowance for your tokens.
 
-The account that sends the transaction must have an allowance from the owner of the tokens for a number of their tokens to transfer.
+The spender must have an allowance from the owner of the tokens for a number of their tokens to transfer.
+When a spender or token owner transfers tokens, their allowance decreases by the amount of tokens they transfer.
 
 Allowances also apply to the token owner.
 An account cannot transfer more tokens than its allowance, even if it has enough tokens and it sent the request itself.
@@ -40,16 +43,16 @@ This means that if you want to transfer some of your tokens, you must first set 
 For security reasons, an allowance cannot be changed from a non-zero amount to another non-zero amount.
 Therefore, transferring FA1.2 tokens from a source account to a destination account often involves these steps:
 
-1. Set the transaction sender account's allowance for the source account to 0.
-1. Set the transaction sender account's allowance for the source account to the amount of tokens to transfer.
+1. Set the spender's allowance for the source account to 0.
+1. Set the spender's allowance for the source account to the amount of tokens to transfer.
 1. Transfer the tokens from the source account to the destination account.
-1. Set the transaction sender account's allowance for the source account to 0 to prevent errors if a future change in allowance doesn't set the allowance to 0 first.
+1. Set the spender's allowance for the source account to 0 to prevent errors if a future change in allowance doesn't set the allowance to 0 first.
 
 ## Entrypoints
 
 FA1.2 contracts must have these entrypoints:
 
-- `approve`: Sets the amount of tokens that an account can transfer on behalf of the sender of the transaction.
+- `approve`: Sets the amount of tokens that an account can transfer on behalf of the token owner.
 
   Its parameters are the address of the account that is authorized to transfer the tokens on behalf of the sender and the amount of tokens to allow.
   If the request tries to change the allowance from a non-zero amount to a non-zero amount, it must fail and return an `UnsafeAllowanceChange` error message.
