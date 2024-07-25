@@ -2,7 +2,7 @@
 title: "Step 5: Run an Octez baking daemon"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 19 July 2024
+  date: 25 July 2024
 ---
 
 To run a baking daemon that connects to the DAL, start it as usual and pass the URL to your DAL node to it:
@@ -19,7 +19,18 @@ To run a baking daemon that connects to the DAL, start it as usual and pass the 
    curl http://localhost:10732/p2p/gossipsub/topics
    ```
 
-   This call returns all of the topics that the baker is subscribed to in the format `{"slot_index":<index>,"pkh":"<ADDRESS OF OUR BAKER>"}` where `index` varies between `0` included and the number of slot indexes (`32` on Weeklynet) excluded.
+   If you are using the `tezos/tezos` Docker image, you can install the `curl` program by running the command `sudo apk add curl`.
+
+   DAL nodes share shards and information about them over a peer-to-peer pub/sub network built on the Gossipsub protocol.
+   As layer 1 assigns shards to the bakers, the Gossipsub network manages topics that DAL nodes can subscribe to.
+   For example, if a user submits data to slot 1, the network has a list of topics: a topic to identify the slot 1 shards assigned to baker A, a topic to identify the slot 1 shards assigned to baker B, and so on for all the bakers that are assigned shards from slot 1.
+
+   Then, the baker daemon automatically asks the DAL node to subscribe to the topics that provide the shards that it is assigned to.
+
+   In the results of this command, each topic contains a shard and the address of the baker that is assigned to it.
+   Your DAL node and baker are listening to these topics and attesting to the data in them.
+
+   This command returns all of the topics that the baker is subscribed to in the format `{"slot_index":<index>,"pkh":"<ADDRESS OF BAKER>"}` where `index` varies between `0` included and the number of slot indexes (`32` on Weeklynet) excluded.
 
    You can also look at the baker logs to see if it manages to inject the expected operations. At each level, the baker is expected to:
 
@@ -87,7 +98,33 @@ Follow these steps to verify that your DAL node is receiving attestation rights:
           "consensus_key": "tz1Zs6zjxtLxmff51tK2AVgvm4PNmdNhLcHE" } ] } ]
    ```
 
-1. If the command returns an empty array (`[]`), make sure the baker daemon and nodes are running and wait for the delay to be over.
+1. If the command returns an empty array (`[]`), wait for the delay to be over.
+
+   If the delay has expired and you still haven't received attestation rights, try these troubleshooting steps:
+
+   - Make sure that your node and baker are running.
+
+   - Verify that the staked balance of your account is at least 6,000 tez by running the command `octez-client get staked balance for my_baker`.
+   If the response is less than 6,000 tez, you have not staked enough.
+   Ensure that you are registered as a delegate and stake more tez, retaining a small amount for transaction fees.
+   If necessary you can get more from the faucet.
+
+   - Check to see if you will receive rights in the next cycle:
+
+      1. Run this command to get the current cycle:
+
+         ```bash
+         octez-client rpc get /chains/main/blocks/head | jq | grep '"cycle"'
+         ```
+
+      1. Add two to the cycle and run this command to see what rights your account will have in the next cycle.
+      For example, if the current cycle is 149, run this command:
+
+         ```bash
+         octez-client rpc get /chains/main/blocks/head/helpers/baking_rights\?cycle=151\&delegate=$MY_BAKER\&max_round=2
+         ```
+
+         If this command returns a list of attestation rights for your account, the delay has not expired yet and you must wait for that cycle to arrive.
 
 1. When your baker receives attestation rights as determined by the `/chains/main/blocks/head/helpers/attestation_rights` RPC call, run this command to get the shards that are assigned to your DAL node:
 
@@ -102,24 +139,29 @@ Follow these steps to verify that your DAL node is receiving attestation rights:
     "indexes": [ 25, 27, 67, 73, 158, 494 ] } ]
    ```
 
-1. Verify that your DAL node is subscribed to the correct Gossipsub network topics by running this command:
-
-   ```bash
-   curl http://localhost:10732/p2p/gossipsub/topics
-   ```
-
-   If you are using the `tezos/tezos` Docker image, you can install the `curl` program by running the command `sudo apk add curl`.
-
-   DAL nodes share shards and information about them over a peer-to-peer pub/sub network built on the Gossipsub protocol.
-   As layer 1 assigns shards to the bakers, the Gossipsub network manages topics that DAL nodes can subscribe to.
-   For example, if a user submits data to slot 1, the network has a list of topics: a topic to identify the slot 1 shards assigned to baker A, a topic to identify the slot 1 shards assigned to baker B, and so on for all the bakers that are assigned shards from slot 1.
-
-   Then, the baker daemon automatically asks the DAL node to subscribe to the topics that provide the shards that it is assigned to.
-
-   In the results, each topic contains a shard and the address of the baker that is assigned to it.
-   Your DAL node and baker are listening to these topics and attesting to the data in them.
-
 Now you have a complete DAL baking setup.
 Your baker is attesting to the availability of DAL data and the DAL node is sharing it to Smart Rollups across the network.
+
+You can verify your baker's activity by going to the **Bakers** page of the block explorer at https://explorus.io/bakers_activity, selecting Weeklynet, and searching for your account's address.
+
+If you leave the baker running, you can see rewards accrue by running the command `octez-client get staked balance for my_baker`.
+This amount starts at the amount that you originally staked and increases with your baking rewards.
+
+## Optional: Unstaking your tez and receiving your baking rewards
+
+You can unstake your tez and withdraw your stake and any baking rewards with the `octez-client unstake` command.
+For example, this command unstakes 40,000 tez:
+
+```bash
+octez-client unstake 40000 for my_baker
+```
+
+Then run this command to retrieve the tez:
+
+```bash
+octez-client finalize unstake for my_baker
+```
+
+Then you can do whatever you want with the tez, including sending it back to the faucet for someone else to use.
 
 For a summary of this tutorial, see [Conclusion](./conclusion).

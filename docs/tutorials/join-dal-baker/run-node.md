@@ -5,7 +5,7 @@ last_update:
   date: 17 July 2024
 ---
 
-Now that the Octez node is configured to join Weeklynet, we can launch it and make its RPC available.
+Now that the Octez node is configured to join Weeklynet, you can launch it and make its RPC available.
 
 1. Optional: If it has been a few days since Weeklynet was restarted on Wednesday morning, you can speed up the bootstrapping process by loading a snapshot:
 

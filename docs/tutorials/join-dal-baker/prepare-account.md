@@ -2,7 +2,7 @@
 title: "Step 3: Set up a baker account"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 19 July 2024
+  date: 25 July 2024
 ---
 
 The baker needs a user account that stakes tez.
@@ -53,7 +53,7 @@ This command creates an account and associates it with the `my_baker` alias:
    Until the node has finished bootstrapping, pass the public RPC endpoint for Weeklynet in the `--endpoint` argument, as in this example:
 
    ```bash
-   octez-client --endpoint https://rpc.weeklynet-2024-01-17.teztnets.com get balance for my_baker
+   octez-client --endpoint https://rpc.weeklynet-2024-07-24.teztnets.com get balance for my_baker
    ```
 
    Don't set the client endpoint to the public node permanently because it should use your local node whenever possible.
@@ -90,6 +90,13 @@ This command creates an account and associates it with the `my_baker` alias:
    ```
 
    Again, pass the `--endpoint` argument if your node has not finished bootstrapping.
+   You can check if the node has finished by running this command:
+
+   ```bash
+   octez-client bootstrapped
+   ```
+
+   If the response is `Node is bootstrapped`, the node is ready to use.
 
 1. Stake the tez, saving a small amount for transaction fees.
 For example, if your account has 40,000 tez, stake 39,990 tez by running this command:
@@ -101,4 +108,4 @@ For example, if your account has 40,000 tez, stake 39,990 tez by running this co
 Now the account has staked enough tez to earn the right to make attestations, including attestations that data is available on the DAL.
 However, it does not receive these rights until the baking daemon is running and a certain amount of time has passed.
 
-To run a baking daemon with this account, continue to [Step 5: Run an Octez baking daemon](./run-baker).
+To run a baking daemon with this account, continue to [Step 4: Run an Octez DAL node](./run-dal-node).
