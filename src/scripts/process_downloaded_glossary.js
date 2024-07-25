@@ -80,7 +80,7 @@ const process_glossary = async () => {
   const downloadedGlossaryDom = new JSDOM(conversionScriptOutputFile);
 
   // Trim html header, body, and such out
-  const trimmed = downloadedGlossaryDom.window.document.querySelector('div#glossary');
+  const trimmed = downloadedGlossaryDom.window.document.querySelector('#glossary');
 
   // Trim out H1
   const h1 = trimmed.querySelector('h1');
