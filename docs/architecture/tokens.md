@@ -2,7 +2,7 @@
 title: Tokens
 authors: "Claude Barde, Aymeric Bethencourt, Tim McMackin"
 last_update:
-  date: 24 June 2024
+  date: 26 July 2024
 ---
 
 In a blockchain ecosystem, a digital asset that can be transferred between accounts is called a _token_.
@@ -115,6 +115,7 @@ These standards are named with the prefix FA, which stands for _financial applic
 
 - [FA1.2](./tokens/FA1.2) tokens are fungible tokens
 - [FA2](./tokens/FA2) tokens can be multiple types of tokens, including fungible and non-fungible tokens, and a single smart contract that follows this standard can create multiple types of tokens
+- [FA2.1](./tokens/FA2.1) tokens can be multiple types of tokens like FA2 tokens, and they include features of FA1.2 tokens and of tickets
 
 You can use templates for smart contracts adhering to these standards, instead of writing your own contract from scratch:
 
