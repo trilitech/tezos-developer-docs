@@ -19,6 +19,7 @@ For now, bakers can join the DAL without risking any reward loss, ensuring a smo
 In this tutorial you learn how to join Weeklynet as a baker and attest the publication of data on the DAL network.
 This tutorial uses Weeklynet because you can get a large amount of tez quickly from its faucet, which allows your baker to get attestation rights quickly.
 Weeklynet is active in the Tezos protocol and therefore also available on other Tezos networks including Mainnet and Ghostnet.
+The steps for participating on any other network, including Tezos Mainnet, are similar, but the delay to get attestation rights is much longer on other networks.
 
 ## Tutorial diagram
 
