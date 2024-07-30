@@ -67,11 +67,13 @@ For example, the command to download the snapshot may look like this:
 If you are using a Docker container, you can enter the container with the `docker exec` command, as in `docker exec -it my-image /bin/sh`.
 To get the name of the Docker container, run the `docker ps` command.
 
-1. In the container, initialize the Octez client to use your node:, such as this example:
+1. In the container, initialize the Octez client to use your node, such as this example:
 
    ```bash
    octez-client -E http://127.0.0.1:8732 config init
    ```
+
+   This command uses the default port for the node, but you can change it if you are running the node somewhere else.
 
 1. Optional: Hide the network warning message by running this command:
 
