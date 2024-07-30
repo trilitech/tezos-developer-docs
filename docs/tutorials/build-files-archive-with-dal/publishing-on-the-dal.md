@@ -147,7 +147,7 @@ If you are using the Tezos Docker image, you can run `sudo apk add jq xxd`.
 
    echo -n "${slot_size_bin}${slot_contents}" | xxd -p -r > "${target}"
 
-   certificate="$(curl localhost:10732/slot --data-binary "@${target}" -H 'Content-Type: application/octet-stream')"
+   certificate="$(curl localhost:10732/slots --data-binary "@${target}" -H 'Content-Type: application/octet-stream')"
 
    echo "${certificate}"
 
