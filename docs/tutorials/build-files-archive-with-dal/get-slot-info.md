@@ -2,7 +2,7 @@
 title: "Part 3: Getting slot information"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 24 July 2024
+  date: 30 July 2024
 ---
 
 When clients send data to the DAL, they must choose which slot to put it in.
@@ -23,15 +23,13 @@ Similarly, the protocol assigns bakers to monitor certain slots.
 
 ## Starting a DAL node
 
-To run a DAL node, use the Octez `octez-dal-node` command and pass the slots to monitor in the `--producer-profiles` argument.
-
-<!-- In future versions, --producer-profiles will be --operator-profiles; contact François -->
+To run a DAL node, use the Octez `octez-dal-node` command and pass the slots to monitor in the `--observer-profiles` argument.
 
 In a new terminal window in the Docker container, run this command to start a DAL node and monitor slot 0:
 
 ```bash
 octez-dal-node run --endpoint http://127.0.0.1:8732 \
-    --producer-profiles=0 --data-dir _dal_node
+    --observer-profiles=0 --data-dir _dal_node
 ```
 
 Leave this process running in the terminal window.
@@ -153,14 +151,14 @@ Follow these steps to update the Smart Rollup to access information about slot 0
 The log shows information about slot 0, as in this example:
 
 ```
-RollupDalParameters { number_of_slots: 32, attestation_lag: 4, slot_size: 65536, page_size: 4096 }
-No attested slot at index 0 for level 56875
+RollupDalParameters { number_of_slots: 32, attestation_lag: 8, slot_size: 126944, page_size: 3967 }
+No attested slot at index 0 for level 7325504
 See you in the next level
-RollupDalParameters { number_of_slots: 32, attestation_lag: 4, slot_size: 65536, page_size: 4096 }
-Attested slot at index 0 for level 56876: [16, 0, 0, 2, 89, 87, 0, 0, 0, 0]
+RollupDalParameters { number_of_slots: 32, attestation_lag: 8, slot_size: 126944, page_size: 3967 }
+No attested slot at index 0 for level 7325505
 See you in the next level
-RollupDalParameters { number_of_slots: 32, attestation_lag: 4, slot_size: 65536, page_size: 4096 }
-No attested slot at index 0 for level 56877
+RollupDalParameters { number_of_slots: 32, attestation_lag: 8, slot_size: 126944, page_size: 3967 }
+No attested slot at index 0 for level 7325506
 See you in the next level
 ```
 
@@ -168,6 +166,7 @@ For the first 4 Tezos blocks produced after the origination of the Smart Rollup,
 This is because, as of January, 2024, a Smart Rollup cannot fetch the content of a slot published before it is originated.
 This is why you must wait for 4 blocks before seeing slot page contents being
 logged.
+<!-- Should this be 8 blocks for Ghostnet? -->
 
 Now that you can see the state of the slots, you can find an unused slot and publish data to it.
 When you are ready, continue to [Part 3: Publishing on the DAL](/tutorials/build-files-archive-with-dal/publishing-on-the-dal).
