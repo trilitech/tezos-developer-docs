@@ -57,9 +57,6 @@ For example, the command to download the snapshot may look like this:
    octez-node snapshot import snapshot_file
    ```
 
-   If you see the error "The chain name contained in the snapshot file is not consistent with the network configured in the targeted data directory," the snapshot is for the previous instance of Weeklynet and no snapshot is available for this week.
-   Continue with the next step as usual.
-
 1. Run this command to start the node:
 
    ```bash
