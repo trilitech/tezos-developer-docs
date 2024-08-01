@@ -1,7 +1,7 @@
 ---
 title: "Part 5: Running and interacting with the rollup node"
 last_update:
-  date: 25 October 2023
+  date: 1 August 2024
 ---
 
 Now that the Smart Rollup is originated on layer 1, anyone can run a Smart Rollup node for it.
@@ -21,7 +21,7 @@ In these steps, you start a Smart Rollup node, but note that anyone can run a no
 1. In the second terminal window, in the Docker container, start the rollup node:
 
    ```bash
-   octez-smart-rollup-node-alpha run operator for "test_smart_rollup" \
+   octez-smart-rollup-node run operator for "test_smart_rollup" \
        with operators "bootstrap2" --data-dir ~/.tezos-rollup-node/ \
        --log-kernel-debug --log-kernel-debug-file hello_kernel.debug
    ```
