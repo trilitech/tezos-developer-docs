@@ -1,16 +1,16 @@
 ---
-title: "Step 2: Run an Octez node on Weeklynet"
-authors: Tezos core developers
+title: "Step 2: Run an Octez node"
+authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 24 January 2024
+  date: 17 July 2024
 ---
 
-Now that the Octez node is configured to join Weeklynet, we can launch it and make its RPC available.
+Now that the Octez node is configured to join Weeklynet, you can launch it and make its RPC available.
 
 1. Optional: If it has been a few days since Weeklynet was restarted on Wednesday morning, you can speed up the bootstrapping process by loading a snapshot:
 
    1. Download a snapshot of Weeklynet from https://snapshot.tzinit.org based on the instructions on that site.
-   For example, the command to download the snapshot may look like this:
+   For example, the command to download the snapshot from the EU servers might look like this:
 
       ```bash
       wget -O snapshot_file https://snapshots.eu.tzinit.org/weeklynet/rolling

@@ -1,12 +1,14 @@
 ---
 title: Join the DAL as a baker, in 5 steps
-authors: Tezos core developers
+authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 10 June 2024
+  date: 19 July 2024
 ---
 
 The Tezos data availability layer (DAL) is a key component for the scalability of Tezos.
 In a nutshell, the DAL increases the data bandwidth available for Tezos Smart Rollups by providing a peer-to-peer network that they can use to fetch data without compromising security.
+
+When users and dApps submit data to the DAL, the DAL nodes attest that it is available and distribute it to Smart Rollup nodes, which can store the data and us it.
 
 Just like layer 1, Tezos bakers ensure the security of the DAL.
 Bakers not only produce blocks but also attest that other bakers' blocks are valid and properly published on layer 1.
@@ -14,8 +16,10 @@ In the same way, bakers attest that data published to the DAL is available.
 In the current implementation of the DAL, bakers do not receive extra incentives for attesting DAL data, but they might in the future.
 For now, bakers can join the DAL without risking any reward loss, ensuring a smooth transition.
 
-This incentive-free version of the DAL is currently available on the Weeklynet test network.
 In this tutorial you learn how to join Weeklynet as a baker and attest the publication of data on the DAL network.
+This tutorial uses Weeklynet because you can get a large amount of tez quickly from its faucet, which allows your baker to get attestation rights quickly.
+Weeklynet is active in the Tezos protocol and therefore also available on other Tezos networks including Mainnet and Ghostnet.
+The steps for participating on any other network, including Tezos Mainnet, are similar, but the delay to get attestation rights is much longer on other networks.
 
 ## Tutorial diagram
 
@@ -32,16 +36,13 @@ The following diagram shows these daemons with a blue background:
 - For technical information about the DAL, see [Data-Availability Layer](https://tezos.gitlab.io/shell/dal.html) in the Octez documentation.
 
 :::warning
-This tutorial uses a very simple setup running all required daemons on the same machine. In a production environment, we advise against running a DAL attester node under the same IP address than a baker's node because the DAL node may leak the IP address and ease DOS attacks on the baker. See also [the DAL documentation page on baking](https://tezos.gitlab.io/shell/dal_bakers.html).
+This tutorial uses a very simple setup running all required daemons on the same machine.
+In a production environment, we advise against running a DAL attester node under the same IP address than a baker's node because the DAL node may leak the IP address and ease DOS attacks on the baker. See also [the DAL documentation page on baking](https://tezos.gitlab.io/shell/dal_bakers.html).
 :::
 
-:::warning
-The UX of the DAL components will be subject to changes with the feedback from the testers following this tutorial, so this tutorial will be updated accordingly. Feel free to file issues if it's not up-to-date.
-:::
-
-- [Step 1: Get a Weeklynet-compatible Octez version](./join-dal-baker/get-octez)
-- [Step 2: Run an Octez node on Weeklynet](./join-dal-baker/run-node)
-- [Step 3: Set up a baker account on Weeklynet](./join-dal-baker/prepare-account)
-- [Step 4: Run an Octez DAL node on Weeklynet](./join-dal-baker/run-dal-node)
-- [Step 5: Run an Octez baking daemon on Weeklynet](./join-dal-baker/run-baker)
+- [Step 1: Get a compatible Octez version](./join-dal-baker/get-octez)
+- [Step 2: Run an Octez node](./join-dal-baker/run-node)
+- [Step 3: Set up a baker account](./join-dal-baker/prepare-account)
+- [Step 4: Run an Octez DAL node](./join-dal-baker/run-dal-node)
+- [Step 5: Run an Octez baking daemon](./join-dal-baker/run-baker)
 - [Conclusion](./join-dal-baker/conclusion)
