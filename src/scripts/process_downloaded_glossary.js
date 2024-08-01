@@ -67,6 +67,16 @@ const process_glossary = async () => {
     }
   });
 
+  // Convert section header links to match the rest of the site
+  const sectionHeaderLinks = trimmed.querySelectorAll('a.headerlink');
+  sectionHeaderLinks.forEach((link) => {
+    link.setAttribute('class', 'hash-link');
+    const title = link.parentNode.firstChild.textContent;
+    link.setAttribute('aria-label', 'Direct link to' + title);
+    link.setAttribute('title', 'Direct link to' + title);
+    link.textContent = '';
+  });
+
   // Wrap with <div class='imported-glossary'></div> to apply custom styles
   const wrapper = new JSDOM('<div id="imported-glossary"></div>');
   const imported_glossary = wrapper.window.document.querySelector('div#imported-glossary');
