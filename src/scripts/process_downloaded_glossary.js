@@ -72,8 +72,8 @@ const process_glossary = async () => {
   sectionHeaderLinks.forEach((link) => {
     link.setAttribute('class', 'hash-link');
     const title = link.parentNode.firstChild.textContent;
-    link.setAttribute('aria-label', 'Direct link to' + title);
-    link.setAttribute('title', 'Direct link to' + title);
+    link.setAttribute('aria-label', 'Direct link to ' + title);
+    link.setAttribute('title', 'Direct link to ' + title);
     link.textContent = '';
   });
 
