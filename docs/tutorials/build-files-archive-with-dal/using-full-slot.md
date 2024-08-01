@@ -1,8 +1,8 @@
 ---
 title: "Part 4: Using the entire slot"
-authors: 'Tezos Core Developers'
+authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 18 January 2024
+  date: 30 July 2024
 ---
 
 In some cases, you may want to retrieve the entire contents of a slot.
@@ -13,7 +13,7 @@ For example, it can be convenient to get the entire slot because it has a fixed 
 Retrieving the full slot is similar to retrieving any data from the slot.
 In this case, you change the kernel to retrieve data of the exact size of the slot.
 
-1. Update the `run` function in the `lib/rs` file to this code:
+1. Update the `run` function in the `lib/rs` file to this code, without changing the rest of the file:
 
    ```rust
    pub fn run<R: Runtime>(
@@ -92,7 +92,7 @@ In this case, you change the kernel to retrieve data of the exact size of the sl
 
    These dependencies use `tezos_crypto_rs` for hashing, and `hex` for encoding.
 
-1. Add the matching dependencies to the `Cargo.toml` file:
+1. Add the matching dependencies to the end of the `Cargo.toml` file:
 
    ```toml
    tezos_crypto_rs = { version = "0.5.2", default-features = false }
@@ -105,8 +105,8 @@ In this case, you change the kernel to retrieve data of the exact size of the sl
 The Smart Rollup log shows the hash of the data, as in this example:
 
    ```
-   RollupDalParameters { number_of_slots: 32, attestation_lag: 4, slot_size: 65536, page_size: 4096 }
-   Attested slot at index 10 for level 15482
+   RollupDalParameters { number_of_slots: 32, attestation_lag: 8, slot_size: 126944, page_size: 3967 }
+   Attested slot at index 10 for level 7325751
    Saving slot under `/6a578d1e6746d29243ff81923bcea6375e9344d719ca118e14cd9f3d3b00cd96'
    See you in the next level
    ```
