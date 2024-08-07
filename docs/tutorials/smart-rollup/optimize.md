@@ -1,7 +1,7 @@
 ---
 title: "Part 3: Optimizing the kernel"
 last_update:
-  date: 25 October 2023
+  date: 7 August 2024
 ---
 
 To originate the kernel on Tezos, it must fit within the maximum size for a layer 1 operation (32KB).
@@ -92,7 +92,8 @@ In these steps, you reduce the size of the kernel:
 
    Then you can use the `step inbox` command to simulate receiving the inbox from layer 1.
    You can see the hello world kernel messages in the log, which shows that the upgrade from the installer kernel to the full kernel was successful.
-   Press Ctrl + C to end the debugging session.
+
+1. Press Ctrl + C to end the debugging session.
 
 1. Create a hexadecimal version of the installer kernel by running this command outside of the Docker container:
 
