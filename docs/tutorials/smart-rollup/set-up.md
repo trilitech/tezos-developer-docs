@@ -65,7 +65,7 @@ Later, you will use this image to run a sandbox Tezos environment for testing th
 1. Run this command to start the Docker image, open a command-line terminal in that image, and mount the `hello-world-kernel` folder in it:
 
    ```bash
-   docker run -it --rm --volume .:/home/tezos/hello-world-kernel --entrypoint /bin/sh --name octez-container tezos/tezos:master
+   docker run -it --rm --volume $(pwd):/home/tezos/hello-world-kernel --entrypoint /bin/sh --name octez-container tezos/tezos:master
    ```
 
    Your command-line prompt changes to indicate that it is now inside the running Docker container.
