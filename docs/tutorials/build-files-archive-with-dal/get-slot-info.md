@@ -2,7 +2,7 @@
 title: "Part 3: Getting slot information"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 30 July 2024
+  date: 12 August2024
 ---
 
 When clients send data to the DAL, they must choose which slot to put it in.
@@ -137,8 +137,7 @@ Follow these steps to update the Smart Rollup to access information about slot 0
    smart-rollup-installer get-reveal-installer -P _rollup_node/wasm_2_0_0 \
      -u files_archive.wasm -o installer.hex
 
-   octez-client --endpoint http://127.0.0.1:8732  \
-     originate smart rollup files_archive from my_wallet of kind wasm_2_0_0 \
+   octez-client originate smart rollup files_archive from my_wallet of kind wasm_2_0_0 \
      of type unit with kernel "$(cat installer.hex)" --burn-cap 2.0 --force
 
    octez-smart-rollup-node --endpoint http://127.0.0.1:8732  \
@@ -162,11 +161,10 @@ No attested slot at index 0 for level 7325506
 See you in the next level
 ```
 
-For the first 4 Tezos blocks produced after the origination of the Smart Rollup, the kernel will report that no slot has been attested for the targeted level, _even if Explorus states the opposite_.
+For the first 8 Tezos blocks produced after the origination of the Smart Rollup, the kernel will report that no slot has been attested for the targeted level, _even if Explorus states the opposite_.
 This is because, as of January, 2024, a Smart Rollup cannot fetch the content of a slot published before it is originated.
-This is why you must wait for 4 blocks before seeing slot page contents being
+This is why you must wait for 8 blocks before seeing slot page contents being
 logged.
-<!-- Should this be 8 blocks for Ghostnet? -->
 
 Now that you can see the state of the slots, you can find an unused slot and publish data to it.
 When you are ready, continue to [Part 3: Publishing on the DAL](/tutorials/build-files-archive-with-dal/publishing-on-the-dal).

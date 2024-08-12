@@ -2,7 +2,7 @@
 title: "Part 2: Getting the DAL parameters"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 24 July 2024
+  date: 12 August 2024
 ---
 
 The Data Availability Layer stores information about the available data in layer 1 blocks.
@@ -111,8 +111,7 @@ Follow these steps to deploy the Smart Rollup to Ghostnet and start a node:
 1. Run this command to deploy the Smart Rollup, replacing `my_wallet` with your account alias:
 
    ```bash
-   octez-client --endpoint http://127.0.0.1:8732  \
-       originate smart rollup files_archive from my_wallet \
+   octez-client originate smart rollup files_archive from my_wallet \
        of kind wasm_2_0_0 of type unit with kernel "$(cat installer.hex)" \
        --burn-cap 2.0 --force
    ```
@@ -174,8 +173,7 @@ cp target/wasm32-unknown-unknown/release/files_archive.wasm .
 smart-rollup-installer get-reveal-installer -P _rollup_node/wasm_2_0_0 \
   -u files_archive.wasm -o installer.hex
 
-octez-client --endpoint http://127.0.0.1:8732  \
-  originate smart rollup files_archive from "${alias}" of kind wasm_2_0_0 \
+octez-client originate smart rollup files_archive from "${alias}" of kind wasm_2_0_0 \
   of type unit with kernel "$(cat installer.hex)" --burn-cap 2.0 --force
 
 octez-smart-rollup-node --endpoint http://127.0.0.1:8732  \
