@@ -108,7 +108,7 @@ If you are using the Tezos Docker container, run `sudo apk add curl`.
    ```
 
 1. Follow the instructions in the Rust installation program.
-For example, it may prompt you to run `source "$HOME/.cargo/env"` to configure your current terminal window to run Rust.
+For example, it may prompt you to run `. "$HOME/.cargo/env"` to configure your current terminal window to run Rust.
 
 1. Add WASM as a compilation target for Rust by running this command:
 
