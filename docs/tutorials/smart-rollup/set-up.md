@@ -1,7 +1,7 @@
 ---
 title: "Part 1: Setting up the application"
 last_update:
-  date: 25 October 2023
+  date: 12 August 2024
 ---
 
 To set up the application for the tutorial, you must configure Rust to build the kernel and start a Docker container that has resources that are needed to debug and deploy it.
@@ -77,7 +77,7 @@ Later, you will use this image to run a sandbox Tezos environment for testing th
    ```bash
    octez-node --version
    octez-smart-rollup-wasm-debugger --version
-   octez-smart-rollup-node-alpha --version
+   octez-smart-rollup-node --version
    octez-client --version
    ```
 
