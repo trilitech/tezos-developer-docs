@@ -1,7 +1,7 @@
 ---
 title: "Part 4: Deploying (originating) the rollup"
 last_update:
-  date: 25 October 2023
+  date: 1 August 2024
 ---
 
 Smart Rollups are originated in a way similar to smart contracts.
@@ -31,6 +31,12 @@ This command creates an address for the rollup and stores a small amount of data
    ```
 
    Now the second terminal window is running inside the container just like the first one.
+
+1. In the new terminal window, go to the folder with the Smart Rollup code:
+
+   ```bash
+   cd hello-world-kernel
+   ```
 
 1. In the second terminal window, run this command to verify that the sandbox is running with the correct protocol:
 
