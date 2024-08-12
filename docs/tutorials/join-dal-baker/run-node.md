@@ -1,19 +1,43 @@
 ---
-title: "Step 2: Run an Octez node on Weeklynet"
-authors: Tezos core developers
+title: "Step 1: Run an Octez node"
+authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 24 January 2024
+  date: 12 August 2024
 ---
 
-Now that the Octez node is configured to join Weeklynet, we can launch it and make its RPC available.
+To use the Octez suite with Ghostnet, you need a recent build of the Octez binaries based on the master branch of the Octez source code.
+The easiest way to do this is to use the Docker image that is generated from this branch.
+As another option, you can build the Octez suite from the source code or install prebuilt binaries as described at https://tezos.gitlab.io/introduction/howtoget.html.
 
-1. Optional: If it has been a few days since Weeklynet was restarted on Wednesday morning, you can speed up the bootstrapping process by loading a snapshot:
+## Configure the node
 
-   1. Download a snapshot of Weeklynet from https://snapshot.tzinit.org based on the instructions on that site.
-   For example, the command to download the snapshot may look like this:
+To set up an environment and account in a Docker container, follow these steps:
+
+1. Get the most recent Docker image by running this command:
+
+   ```bash
+   docker pull tezos/tezos:master
+   ```
+
+1. Start a container from the image:
+
+   ```bash
+   docker run -it --name dal-baker --entrypoint /bin/sh tezos/tezos:master
+   ```
+
+1. In the container, initialize the Octez node for Ghostnet, such as in this example:
+
+   ```bash
+   octez-node config init --network ghostnet
+   ```
+
+1. Speed up the process of initializing the node by loading a snapshot:
+
+   1. Download a rolling snapshot of Ghostnet from https://snapshot.tzinit.org based on the instructions on that site.
+   For example, the command to download the snapshot from the EU servers might look like this:
 
       ```bash
-      wget -O snapshot_file https://snapshots.eu.tzinit.org/weeklynet/rolling
+      wget -O snapshot_file https://snapshots.eu.tzinit.org/ghostnet/rolling
       ```
 
    1. Load the snapshot in the node by running this command:
@@ -22,18 +46,14 @@ Now that the Octez node is configured to join Weeklynet, we can launch it and ma
       octez-node snapshot import snapshot_file
       ```
 
-      If you see the error "The chain name contained in the snapshot file is not consistent with the network configured in the targeted data directory," the snapshot is for the previous instance of Weeklynet and no snapshot is available for this week.
-      Continue with the next step as usual.
-
 1. Start the node:
 
    ```
    octez-node run --rpc-addr 127.0.0.1:8732 --log-output="$HOME/octez-node.log"
    ```
 
-At first launch, the node generates a fresh identity file used to identify itself on the Weeklynet L1 network.
+At first launch, the node generates a fresh identity file used to identify itself on the network.
 Then it bootstraps the chain, which takes a variable amount of time depending on how many blocks need to be loaded.
-At worst, if the network has been running for nearly a week, it can take a few hours.
 
-Fortunately, we can continue to set up our Weeklynet baking infrastructure while the node is bootstrapping.
-Continue to [Step 3: Set up a baker account on Weeklynet](./prepare-account).
+In the meantime, you can continue the baking infrastructure while the node is bootstrapping.
+Continue to [Step 2: Set up a baker account](./prepare-account).
