@@ -51,11 +51,6 @@ To install Docker Desktop, see https://www.docker.com.
 - For an introduction to how the DAL works, see the tutorial [Implement a file archive with the DAL and a Smart Rollup](./build-files-archive-with-dal).
 - For technical information about the DAL, see [Data-Availability Layer](https://tezos.gitlab.io/shell/dal.html) in the Octez documentation.
 
-:::warning
-This tutorial uses a very simple setup running all required daemons on the same machine.
-In a production environment, we advise against running a DAL attester node under the same IP address than a baker's node because the DAL node may leak the IP address and ease DOS attacks on the baker. See also [the DAL documentation page on baking](https://tezos.gitlab.io/shell/dal_bakers.html).
-:::
-
 - [Step 1: Run an Octez node](./join-dal-baker/run-node)
 - [Step 2: Set up a baker account](./join-dal-baker/prepare-account)
 - [Step 3: Run an Octez DAL node](./join-dal-baker/run-dal-node)
