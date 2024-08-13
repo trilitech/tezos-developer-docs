@@ -6,7 +6,7 @@ last_update:
 ---
 
 To use the Octez suite with Ghostnet, you need a recent build of the Octez binaries based on the master branch of the Octez source code.
-The easiest way to do this is to use the Docker image that is generated from this branch.
+One way to do this is to use the Docker image that is generated from this branch.
 As another option, you can build the Octez suite from the source code or install prebuilt binaries as described at https://tezos.gitlab.io/introduction/howtoget.html.
 
 ## Configure the node
