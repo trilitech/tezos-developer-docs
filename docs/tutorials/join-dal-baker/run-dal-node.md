@@ -2,7 +2,7 @@
 title: "Step 3: Run an Octez DAL node"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 19 July 2024
+  date: 13 August 2024
 ---
 
 The DAL node is responsible for temporarily storing data and providing it to bakers and Smart Rollups.
@@ -16,6 +16,15 @@ octez-dal-node run >> "$HOME/octez-dal-node.log" 2>&1
 This, too, may take some time to launch the first time because it needs to generate a new identity file, this time for the DAL network.
 
 The DAL node connects to the DAL network but it is not yet receiving data.
+
+To verify that the DAL node is connected to the layer 1 node, check its log.
+When it is bootstrapped it logs messages that look like this:
+
+```
+Aug 12 17:44:19.985: started tracking layer 1's node
+Aug 12 17:44:24.418: layer 1 node's block at level 7538687, round 0 is final
+Aug 12 17:44:29.328: layer 1 node's block at level 7538688, round 0 is final
+```
 
 Now that you have a DAL node running, you can start a baking daemon that uses that DAL node.
 Continue to [Step 4: Run an Octez baking daemon](./run-baker).
