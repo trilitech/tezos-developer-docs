@@ -2,7 +2,7 @@
 title: "Step 2: Set up a baker account"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 12 August 2024
+  date: 13 August 2024
 ---
 
 The baker needs a user account that stakes tez.
@@ -33,7 +33,7 @@ If you are using a Docker container, you can enter the container with the `docke
    ```
 
    If the client is connected and the node is running properly, the response is `Node is bootstrapped`.
-   It may take a short time for the node to start.
+   The time it takes depends on how many blocks the node must retrieve to catch up from the snapshot to the current head block.
 
 1. Optional: Hide the Octez client's network warning message by running this command:
 
