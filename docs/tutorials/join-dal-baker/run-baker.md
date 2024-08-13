@@ -2,7 +2,7 @@
 title: "Step 4: Run an Octez baking daemon"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 12 August 2024
+  date: 13 August 2024
 ---
 
 To run a baking daemon that connects to the DAL, start it as usual and pass the URL to your DAL node to it:
@@ -101,5 +101,7 @@ The exact time depends on what time in the current cycle the account staked its 
 
 The amount of tez that the account stakes determines how often it is called on to make attestations, not how quickly it receives rights.
 Therefore, staking more tez brings more rewards but does not reduce the attestation delay.
+
+You do not need to leave the nodes and baker running for the entire delay.
 
 :::
