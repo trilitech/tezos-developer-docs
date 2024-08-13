@@ -26,5 +26,7 @@ Aug 12 17:44:24.418: layer 1 node's block at level 7538687, round 0 is final
 Aug 12 17:44:29.328: layer 1 node's block at level 7538688, round 0 is final
 ```
 
+The DAL node waits for blocks to be finalized, so this log lags 2 blocks behind the layer 1 node's log.
+
 Now that you have a DAL node running, you can start a baking daemon that uses that DAL node.
 Continue to [Step 4: Run an Octez baking daemon](./run-baker).
