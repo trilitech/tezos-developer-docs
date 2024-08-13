@@ -93,7 +93,7 @@ For example, if `consensus_rights_delay` is 3, `blocks_per_cycle` is 12,288, and
 1. Divide the number of seconds by 86,400 to get the attestation delay in days.
 For example, if the delay is 307,200 seconds, that time is about 3.5 days.
 
-The exact time depends on what time in the current cycle the account staked its tez.
+   The exact time depends on what time in the current cycle the account staked its tez.
 
 1. Wait for the attestation delay to be over and then proceed to [Step 5: Verify attestation rights](./verify-rights).
 
