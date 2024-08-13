@@ -2,11 +2,12 @@
 title: "Conclusion"
 authors: Tezos core developers
 last_update:
-  date: 12 August 2024
+  date: 13 August 2024
 ---
 
 In this tutorial you have gone through all the steps needed to participate as a baker and DAL node.
-The steps for participating on any other network, including Tezos Mainnet, are similar, but the attestation delay is much longer on other networks.
+The steps for participating on any other network, including Tezos Mainnet, are similar, but other networks have different parameters.
+For example, the attestation delay on Mainnet is 2 weeks.
 
 You could further improve the setup by defining system services so that the daemons are automatically launched when the machine starts.
 You could also plug a monitoring solution such as the Prometheus + Grafana combo; a Grafana dashboard template for DAL nodes is available in Grafazos.
