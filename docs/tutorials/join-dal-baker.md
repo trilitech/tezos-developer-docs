@@ -2,7 +2,7 @@
 title: Join the DAL as a baker in 5 steps
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 12 August 2024
+  date: 13 August 2024
 ---
 
 The Tezos data availability layer (DAL) is a key component for the scalability of Tezos.
@@ -24,7 +24,11 @@ The steps for participating on any other network, including Tezos Mainnet, are s
 This tutorial includes setting up a baker to attest that data is available on the DAL.
 Depending on the network, it takes time for bakers to get attestation rights.
 The delay on Ghostnet is about 3.5 days, so in this tutorial you do setup work, wait 3.5 days for attestation rights, and verify that your DAL node and baker are working properly.
-<!-- TODO what needs to be kept running during this time? -->
+
+If you don't want to wait that long, you can use Weeklynet, where the delay is about an hour.
+However, to use Weeklynet, you must use a specific version of the Octez suite.
+You must also be aware that the network completely resets and moves to a new version of the Octez suite every Wednesday.
+For information about using Weeklynet, see [Testing on sandboxes and testnets](../developing/testnets).
 
 :::
 
