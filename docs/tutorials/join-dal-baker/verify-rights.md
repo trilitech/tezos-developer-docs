@@ -76,10 +76,18 @@ Follow these steps to verify that your DAL node is receiving attestation rights:
 
    These shards are pieces of data that the baker is assigned to attest.
 
+1. Verify the baker's activity on the Explorus block explorer by going to the Consensus Ops page at https://explorus.io/consensus_ops, selecting Ghostnet, and searching for your address.
+
+   For example, this screenshot shows consensus operations that include DAL attestations, indicated by a binary number in the "DAL attestation bitset" column.
+   In this case, the number is 0 because there was no DAL data but the nodes were ready to attest to it.
+
+   ![DAL consensus operations, showing DAL consensus operations](/img/tutorials/dal-explorus-consensus-ops.png)
+
+   If there is no DAL attestation, the block explorer shows a document icon with an X in it: ![](/img/tutorials/dal-explorus-no-attestation-icon.png).
+   This icon can appear before the bakers complete attestations and then turn into a binary number when they attest.
+
 Now you have a complete DAL baking setup.
 Your baker is attesting to the availability of DAL data and the DAL node is sharing it to Smart Rollups across the network.
-
-You can verify your baker's activity by going to the **Bakers** page of the block explorer at https://explorus.io/bakers_activity, selecting Ghostnet, and searching for your account's address.
 
 ## Optional: Unstaking your tez and receiving your baking rewards
 
