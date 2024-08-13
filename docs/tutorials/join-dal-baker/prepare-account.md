@@ -68,10 +68,7 @@ This command creates an account and associates it with the `my_baker` alias:
    The account must stake tez to get consensus and DAL rights.
    To get tez, use the Ghostnet faucet linked from https://teztnets.com/ghostnet-about to send tez to the baker account.
 
-   Running a baker requires staking at least 6,000 tez, but the more tez it stakes, the more rights it gets and the lass time it has to wait to produce blocks and make attestations.
-   However, baking with too large of a stake can cause problems when the baker stops because it holds a significant portion of baking rights.
-   If the baker is using a large portion of the total tez on the network and stops, the system gets slower because the baker isn't making blocks.
-   This delay continues until the system marks the baker as inactive.
+   Running a baker requires staking at least 6,000 tez, but the more tez it stakes, the more rights it gets and the less time it has to wait to produce blocks and make attestations.
 
 1. Verify that the faucet sent the tez to the account with the same `get balance` command:
 
