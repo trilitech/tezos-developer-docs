@@ -8,6 +8,29 @@ Tezos is an open-source, decentralized blockchain [created in 2014](https://tezo
 
 Tezos has robust applications ranging from NFTs, DeFi, and gaming to enterprise and government use cases.
 
+## What is Tezos?
+
+At its core, Tezos is a worldwide network of computers called _nodes_, which anyone can run.
+The nodes all run the _Tezos protocol_, which is software that controls how the nodes communicate and agree on what to do.
+The result is a _decentralized_ computing platform that no one person or entity can control.
+
+## What can I do with Tezos?
+
+Developers can imagine Tezos as a computing platform that is spread across many computers worldwide and is therefore transparent, independent, fair, automated, and controlled by its users.
+They can do many of the same things with Tezos that they can with any other computing platform, but developers often use decentralized computing for these use cases:
+
+- **Cryptocurrencies**: Users can create and use digital currencies (also known as _tokens_) to use for digital currencies and to make it easier to accept online payments.
+
+- **NFTs**: Non-fungible tokens (NFTs) are unique digital items that can represent anything that their creator wants them to represent, including ownership of art and real-world objects, identity-related credentials like licenses and certifications, and digital-only artifacts such as video game items.
+
+- **DeFi**: Decentralized finance (DeFi) allows innovative financial instruments such as automated loans and independent currency transfers.
+
+- **DAOs**: Decentralized autonomous organizations (DAOs) are online-managed organizations where members vote on activities and officers and use tokens to represent membership and voting power.
+
+- **Authentication**: The cryptographic nature of the Tezos blockchain allows users to digitally sign messages and transactions to prove their identity.
+
+- **General decentralized computing**: Decentralized computing allows developers to write programs called _smart contracts_ and be assured that these programs will run as intended without censorship.
+
 ## Cutting-edge developments on Tezos
 
 With recent Tezos upgrades heavily focusing on scaling solutions, Tezos has been at the forefront of blockchain research. Up to 1 million transactions per second (TPS) are theoretically possible on Tezos with the advent of Smart Rollups, which have emerged as a strong scaling solution. With Smart Rollups (also known as optimistic rollups), transactions can be performed more quickly and cheaply and use other VMs that “roll up” their state changes onto Tezos.
