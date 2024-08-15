@@ -33,9 +33,10 @@ They can do many of the same things with Tezos that they can with any other comp
 
 ## Cutting-edge developments on Tezos
 
-With recent Tezos upgrades heavily focusing on scaling solutions, Tezos has been at the forefront of blockchain research. Up to 1 million transactions per second (TPS) are theoretically possible on Tezos with the advent of Smart Rollups, which have emerged as a strong scaling solution. With Smart Rollups (also known as optimistic rollups), transactions can be performed more quickly and cheaply and use other VMs that “roll up” their state changes onto Tezos.
+With recent Tezos upgrades heavily focusing on scaling solutions, Tezos has been at the forefront of blockchain research. Up to 1 million transactions per second (TPS) are theoretically possible on Tezos with the advent of [Smart Rollups](../architecture/smart-rollups), which have emerged as a strong scaling solution. With Smart Rollups (also known as optimistic rollups), transactions can be performed more quickly and cheaply and use other VMs that “roll up” their state changes onto Tezos.
 
-[Etherlink](https://www.etherlink.com) is another exciting technology in development that will greatly enlarge the possible applications and versatility of Tezos. Etherlink builds on Smart Rollups and combines them with [DAL (Data Availability Layer)](https://research-development.nomadic-labs.com/dal-testers.html) to provide an EVM-compatible Layer 2 solution which is truly decentralized, low-latency, and low-cost.
+[Etherlink](https://www.etherlink.com) is another exciting technology in development that will greatly enlarge the possible applications and versatility of Tezos.
+Etherlink builds on Smart Rollups and combines them with the [Data Availability Layer](/architecture/data-availability-layer) to provide an EVM-compatible Layer 2 solution which is truly decentralized, low-latency, and low-cost.
 
 These innovations demonstrate the ongoing dedication of Tezos to foster innovation in the blockchain industry.
 
@@ -65,4 +66,4 @@ The California DMV is also using Tezos for its project to [put car titles on the
 
 ### Tezos in Gaming
 
-Recently, the [Tezos Unity SDK](https://tezos.com/unity/) promises to make blockchain game development easier and faster. It allows for the addition of web3 features such as allowing players to link their accounts across games, mint, and trade in-game items and currencies, and show off their ranks and accomplishments on public, on-chain leaderboards.
+Recently, the [Tezos Unity SDK](../unity) promises to make blockchain game development easier and faster. It allows for the addition of web3 features such as allowing players to link their accounts across games, mint, and trade in-game items and currencies, and show off their ranks and accomplishments on public, on-chain leaderboards.
