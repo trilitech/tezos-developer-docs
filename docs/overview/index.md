@@ -40,7 +40,7 @@ Etherlink builds on Smart Rollups and combines them with the [Data Availability 
 
 These innovations demonstrate the ongoing dedication of Tezos to foster innovation in the blockchain industry.
 
-## Common applications of Tezos
+## What are some example applications of Tezos?
 
 Here are some of the ways that people use Tezos:
 
@@ -52,7 +52,7 @@ The rise of non-fungible tokens (NFTs) has become a core arena of activity and g
 
 Tezos is also being used for other NFT-related projects, such as [MoneyTrack](https://moneytrack.io/), which is a payment platform that uses NFTs to control directed payment flows.
 
-### Enterprise and Government Uses of Tezos
+### Enterprise and government uses of Tezos
 
 Enterprises and regulatory bodies have been adopting Tezos as well.
 
@@ -64,6 +64,6 @@ The California DMV is also using Tezos for its project to [put car titles on the
 
 [Sword Group](https://www.sword-group.com/2020/09/28/sword-launches-tezos-digisign/) an international technology company, launched DigiSign, an open-source tool built on Tezos that enables users to digitally sign, certify, and verify the authenticity of digital documents.
 
-### Tezos in Gaming
+### Tezos in gaming
 
 Recently, the [Tezos Unity SDK](../unity) promises to make blockchain game development easier and faster. It allows for the addition of web3 features such as allowing players to link their accounts across games, mint, and trade in-game items and currencies, and show off their ranks and accomplishments on public, on-chain leaderboards.
