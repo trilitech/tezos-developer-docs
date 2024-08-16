@@ -32,7 +32,8 @@ If you are using a Docker container, you can enter the container with the `docke
    octez-client bootstrapped
    ```
 
-   If the client is connected and the node is running properly, the response is `Node is bootstrapped`.
+   The client waits until it is connected and the node is running at the current level.
+   When it is connected and the node is updated, the command prints the message `Node is bootstrapped`.
    The time it takes depends on how many blocks the node must retrieve to catch up from the snapshot to the current head block.
 
 1. Optional: Hide the Octez client's network warning message by running this command:
