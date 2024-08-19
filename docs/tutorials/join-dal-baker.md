@@ -2,7 +2,7 @@
 title: Join the DAL as a baker in 5 steps
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 13 August 2024
+  date: 19 August 2024
 ---
 
 The Tezos data availability layer (DAL) is a key component for the scalability of Tezos.
@@ -34,7 +34,7 @@ For information about using Weeklynet, see [Testing on sandboxes and testnets](.
 
 ## Tutorial diagram
 
-In this tutorial, you set up the Octez client and several Octez daemons, including a layer 1 node, a baker, and a DAL  node.
+In this tutorial, you set up the Octez client and several Octez daemons, including a layer 1 node, a baker, and a DAL node.
 The following diagram shows these daemons with a blue background:
 
 ![A diagram of the DAL architecture, with the daemons that you create in this tutorial highlighted](/img/tutorials/join-dal-baker-overview.png)
@@ -42,18 +42,10 @@ The following diagram shows these daemons with a blue background:
 
 ## Prerequisites
 
-This tutorial requires Docker Desktop.
-To install Docker Desktop, see https://www.docker.com.
+This tutorial requires a cloud-based computer or a computer that stays running constantly.
 
 ## References
 
 - For an overview of the DAL, see [Data Availability Layer](../architecture/data-availability-layer).
 - For an introduction to how the DAL works, see the tutorial [Implement a file archive with the DAL and a Smart Rollup](./build-files-archive-with-dal).
 - For technical information about the DAL, see [Data-Availability Layer](https://tezos.gitlab.io/shell/dal.html) in the Octez documentation.
-
-- [Step 1: Run an Octez node](./join-dal-baker/run-node)
-- [Step 2: Set up a baker account](./join-dal-baker/prepare-account)
-- [Step 3: Run an Octez DAL node](./join-dal-baker/run-dal-node)
-- [Step 4: Run an Octez baking daemon](./join-dal-baker/run-baker)
-- [Step 5: Verify attestation rights](./join-dal-baker/verify-rights)
-- [Conclusion](./join-dal-baker/conclusion)

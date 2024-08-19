@@ -2,20 +2,11 @@
 title: "Step 2: Set up a baker account"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 13 August 2024
+  date: 19 August 2024
 ---
 
 The baker needs a user account that stakes tez.
 In this section, you use the Octez client to create an account, register it as a delegate, and stake tez with it.
-
-1. Open a new terminal window in the same environment.
-If you are using a Docker container, you can enter the container with the `docker exec` command, as in this example:
-
-   ```bash
-   docker exec -it dal-baker /bin/sh
-   ```
-
-   To get the name of the Docker container, run the `docker ps` command.
 
 1. Connect the Octez client to your node by running this command:
 
@@ -23,7 +14,6 @@ If you are using a Docker container, you can enter the container with the `docke
    octez-client -E http://localhost:8732 config update
    ```
 
-   By default, the Octez client in the container is set to use a node running at `localhost:8732`, which is the default port of the node, but this command sets it explicitly.
    If you see an error that says "Failed to acquire the protocol version from the node," ensure that your node is running and verify that the host name and port in the `config update` command are correct.
 
 1. Make sure that the installation of the Octez client is using your node by running this command:

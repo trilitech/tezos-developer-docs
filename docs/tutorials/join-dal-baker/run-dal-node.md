@@ -2,12 +2,12 @@
 title: "Step 3: Run an Octez DAL node"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 13 August 2024
+  date: 19 August 2024
 ---
 
 The DAL node is responsible for temporarily storing data and providing it to bakers and Smart Rollups.
 
-To start the DAL node, open a new terminal window in the same environment and run this command:
+To start the DAL node, run this command:
 
 ```bash
 octez-dal-node run >> "$HOME/octez-dal-node.log" 2>&1

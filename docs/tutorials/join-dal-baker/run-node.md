@@ -6,26 +6,13 @@ last_update:
 ---
 
 To use the Octez suite with Ghostnet, you need a recent build of the Octez binaries based on the master branch of the Octez source code.
-One way to do this is to use the Docker image that is generated from this branch.
-As another option, you can build the Octez suite from the source code or install prebuilt binaries as described at https://tezos.gitlab.io/introduction/howtoget.html.
+You can build the Octez suite from the source code or install prebuilt binaries as described at https://tezos.gitlab.io/introduction/howtoget.html.
 
-## Configure the node
+The first step is to configure a Tezos node with the `octez-node` program:
 
-To set up an environment and account in a Docker container, follow these steps:
+1. Install the Octez suite programs, including `octez-client`, `octez-node`, and `octez-dal-node` as described in [Installing Octez](https://tezos.gitlab.io/introduction/howtoget.html) in the Octez documentation.
 
-1. Get the most recent Docker image by running this command:
-
-   ```bash
-   docker pull tezos/tezos:master
-   ```
-
-1. Start a container from the image:
-
-   ```bash
-   docker run -it --name dal-baker --entrypoint /bin/sh tezos/tezos:master
-   ```
-
-1. In the container, initialize the Octez node for Ghostnet, such as in this example:
+1. Initialize the Octez node for Ghostnet, such as in this example:
 
    ```bash
    octez-node config init --network ghostnet

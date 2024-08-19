@@ -2,21 +2,15 @@
 title: "Step 4: Run an Octez baking daemon"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 13 August 2024
+  date: 19 August 2024
 ---
 
-To run a baking daemon that connects to the DAL, start it as usual and pass the URL to your DAL node to it:
+Now that you have a DAL node, you can run a baking daemon that can attest to DAL data.
 
-1. In a new terminal window, run this command:
+1. To run a baking daemon that connects to the DAL, start it as usual and pass the URL to your DAL node to it:
 
    ```bash
    octez-baker-PsParisC run with local node "$HOME/.tezos-node" my_baker --liquidity-baking-toggle-vote pass --adaptive-issuance-vote on --dal-node http://127.0.0.1:10732 >> "$HOME/octez-baker.log" 2>&1
-   ```
-
-1. In another terminal window, install the `curl` program by running this command:
-
-   ```bash
-   sudo apk add curl
    ```
 
 1. In the same terminal window, run this command:
@@ -24,6 +18,8 @@ To run a baking daemon that connects to the DAL, start it as usual and pass the 
    ```bash
    curl http://localhost:10732/p2p/gossipsub/topics
    ```
+
+   You may need to install the `curl` program.
 
    DAL nodes share shards and information about them over a peer-to-peer pub/sub network built on the Gossipsub P2P protocol.
    As layer 1 assigns shards to the bakers, the Gossipsub network manages topics that DAL nodes can subscribe to.
@@ -44,7 +40,7 @@ To run a baking daemon that connects to the DAL, start it as usual and pass the 
       - Inject a consensus attestation for it (log message: "injected attestation ... for my_baker (&lt;address&gt;) for level ..., round ...")
       - Attach a DAL attestation to it, indicating which of the shards assigned to the baker have been seen on the DAL network (log message: "ready to attach DAL attestation for level ..., round ..., with bitset ... for my_baker (&lt;address&gt;) to attest slots published at level ...")
 
-1. (Optional) Launch an accuser daemon by opening a new terminal window and running this command:
+1. (Optional) Launch an accuser daemon by running this command:
 
    ```bash
    octez-accuser-PsParisC run >> "$HOME/octez-accuser.log" 2>&1
@@ -67,12 +63,6 @@ Therefore, you can calculate the approximate time in seconds that it takes a bak
 
 Follow these steps to calculate the delay to receive attestation rights:
 
-1. In a terminal window inside the container, run this command to install the `jq` program, which formats the JSON responses from RPC calls to Octez programs:
-
-   ```bash
-   sudo apk add jq
-   ```
-
 1. Run these commands to get the values of the network constants:
 
    ```bash
@@ -86,6 +76,8 @@ Follow these steps to calculate the delay to receive attestation rights:
    ```bash
    octez-client rpc get /chains/main/blocks/head/context/constants | jq | grep minimal_block_delay
    ```
+
+   You may need to install the `jq` program to run these commands.
 
 1. Using the values from the responses, calculate the attestation rights delay in seconds.
 For example, if `consensus_rights_delay` is 3, `blocks_per_cycle` is 12,288, and `minimal_block_delay` is 5, a new baker receives attestation rights after a delay of 307,200 seconds.
