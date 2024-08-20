@@ -409,7 +409,7 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: 'Join the DAL as a baker in 5 steps',
+      label: 'Join the DAL as a baker',
       link: {
         type: 'doc',
         id: 'tutorials/join-dal-baker',
