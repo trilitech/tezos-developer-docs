@@ -2,7 +2,7 @@
 title: "Step 5: Verify attestation rights"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 16 August 2024
+  date: 21 August 2024
 ---
 
 After the delay that you calculated in [Step 4: Run an Octez baking daemon](./run-baker), the baker starts receiving attestation rights, including the rights to attest that DAL data is available.
@@ -80,7 +80,7 @@ Follow these steps to verify that your DAL node is receiving attestation rights:
       1. Find when the next cycle will start by going to a block explorer such as https://ghostnet.tzkt.io.
       For example, this drop-down shows that the next cycle starts in 29 minutes:
 
-         ![The TZKT block explorer, showing information about the current cycle](/img/tutorials/tzkt-next-cycle.png)
+         <img src="/img/tutorials/tzkt-next-cycle.png" alt="The TZKT block explorer, showing information about the current cycle" style={{width: 300}} />
 
          When this cycle starts, Tezos calculates attestation rights for two cycles in the future and includes your baker.
 
