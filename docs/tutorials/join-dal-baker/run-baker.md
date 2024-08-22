@@ -86,6 +86,4 @@ For example, if the delay is 307,200 seconds, that time is about 3.5 days.
 The amount of tez that the account stakes determines how often it is called on to make attestations, not how quickly it receives rights.
 Therefore, staking more tez brings more rewards but does not reduce the attestation delay.
 
-You do not need to leave the nodes and baker running for the entire delay.
-
 :::
