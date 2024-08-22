@@ -52,7 +52,7 @@ Follow these steps to verify that your DAL node is receiving attestation rights:
          octez-client rpc get /chains/main/blocks/head | jq | grep '"cycle"'
          ```
 
-      1. Add two to the cycle and run this command to see what rights your account will have in the next cycle.
+      1. Add two to the cycle and run this command to see what rights your account will have in that cycle.
       For example, if the current cycle is 149, run this command to get its rights in cycle 151:
 
          ```bash
@@ -82,7 +82,8 @@ Follow these steps to verify that your DAL node is receiving attestation rights:
 
          <img src="/img/tutorials/tzkt-next-cycle.png" alt="The TZKT block explorer, showing information about the current cycle" style={{width: 300}} />
 
-         When this cycle starts, Tezos calculates attestation rights for two cycles in the future and includes your baker.
+         When this cycle starts, Tezos calculates attestation rights for a certain number of cycles in the future and includes your baker.
+         The number of cycles is the `consensus_rights_delay` network parameter.
 
       1. Wait for your baker to receive attestation rights.
 
