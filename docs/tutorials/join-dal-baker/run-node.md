@@ -8,6 +8,12 @@ last_update:
 To use the Octez suite with Ghostnet, you need a recent build of the Octez binaries based on the master branch of the Octez source code.
 You can build the Octez suite from the source code or install prebuilt binaries as described at https://tezos.gitlab.io/introduction/howtoget.html.
 
+:::note
+
+If you already have an Octez node and baker running with a delegated account, you can skip to [Step 3: Run an Octez DAL node](./run-dal-node).
+
+:::
+
 The first step is to configure a Tezos node with the `octez-node` program:
 
 1. Install the Octez suite programs, including `octez-client`, `octez-node`, and `octez-dal-node` as described in [Installing Octez](https://tezos.gitlab.io/introduction/howtoget.html) in the Octez documentation.
