@@ -40,14 +40,6 @@ Now that you have a DAL node, you can run a baking daemon that can attest to DAL
       - Inject a consensus attestation for it (log message: "injected attestation ... for my_baker (&lt;address&gt;) for level ..., round ...")
       - Attach a DAL attestation to it, indicating which of the shards assigned to the baker have been seen on the DAL network (log message: "ready to attach DAL attestation for level ..., round ..., with bitset ... for my_baker (&lt;address&gt;) to attest slots published at level ...")
 
-1. (Optional) Launch an accuser daemon by running this command:
-
-   ```bash
-   octez-accuser-PsParisC run >> "$HOME/octez-accuser.log" 2>&1
-   ```
-
-   The accuser monitors the behavior of the other bakers and denounces them to the Tezos protocol if they double-sign any block or consensus operation.
-
 ## Calculating the delay for attestation rights
 
 Now that the account has staked enough tez and the baking daemon is running, the account will receive attestation rights.
