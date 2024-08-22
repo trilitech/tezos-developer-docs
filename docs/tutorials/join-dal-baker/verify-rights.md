@@ -2,7 +2,7 @@
 title: "Step 5: Verify attestation rights"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 21 August 2024
+  date: 22 August 2024
 ---
 
 After the delay that you calculated in [Step 4: Run an Octez baking daemon](./run-baker), the baker starts receiving attestation rights, including the rights to attest that DAL data is available.
@@ -111,8 +111,7 @@ Follow these steps to verify that your DAL node is receiving attestation rights:
 
 1. Verify the baker's activity on the Explorus block explorer by going to the Consensus Ops page at https://explorus.io/consensus_ops, selecting Ghostnet, and searching for your address.
 
-   For example, this screenshot shows consensus operations that include DAL attestations, indicated by a binary number in the "DAL attestation bitset" column.
-   In this case, the number is 0 because there was no DAL data but the nodes were ready to attest to it.
+   For example, this screenshot shows consensus operations that include DAL attestations, indicated by a number in the "DAL attestation bitset" column.
 
    ![DAL consensus operations, showing DAL consensus operations](/img/tutorials/dal-explorus-consensus-ops.png)
 
