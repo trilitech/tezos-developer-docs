@@ -2,7 +2,7 @@
 title: "Step 1: Run an Octez node"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 12 August 2024
+  date: 22 August 2024
 ---
 
 To use the Octez suite with Ghostnet, you need a recent build of the Octez binaries based on the master branch of the Octez source code.
@@ -38,6 +38,8 @@ The first step is to configure a Tezos node with the `octez-node` program:
    ```
    octez-node run --rpc-addr 127.0.0.1:8732 --log-output="$HOME/octez-node.log"
    ```
+
+1. Optional: When the node has bootstrapped and caught up with the current head block, you can delete the snapshot file to save space.
 
 At first launch, the node generates a fresh identity file used to identify itself on the network.
 Then it bootstraps the chain, which takes a variable amount of time depending on how many blocks need to be loaded.
