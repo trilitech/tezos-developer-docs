@@ -84,14 +84,6 @@ Follow these steps to verify that your DAL node is receiving attestation rights:
 
          When this cycle starts, Tezos calculates attestation rights for two cycles in the future and includes your baker.
 
-      1. Check the grace period for inactivity by running this command:
-
-         ```bash
-         octez-client rpc get /chains/main/blocks/head/context/delegates/$MY_BAKER | jq . | grep grace_period
-         ```
-
-         The grace period is the cycle when your baker will be deactivated again if it is not active, so make sure that your baker is running before this cycle.
-
       1. Wait for your baker to receive attestation rights.
 
 1. When your baker receives attestation rights as determined by the `/chains/main/blocks/head/helpers/attestation_rights` RPC call, run this command to get the shards that are assigned to your DAL node:
