@@ -66,7 +66,7 @@ Follow these steps to verify that your DAL node is receiving attestation rights:
       1. Run this command to see if your account is active:
 
          ```bash
-         octez-client rpc get /chains/main/blocks/head/context/delegates/$MY_BAKER | jq . | grep deactivated
+         octez-client rpc get /chains/main/blocks/head/context/delegates/$MY_BAKER/deactivated
          ```
 
          Baker accounts are deactivated when the baker is offline for a certain time.
