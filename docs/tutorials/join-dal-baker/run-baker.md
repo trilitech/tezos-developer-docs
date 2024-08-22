@@ -2,12 +2,12 @@
 title: "Step 4: Run an Octez baking daemon"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 19 August 2024
+  date: 22 August 2024
 ---
 
-Now that you have a DAL node, you can run a baking daemon that can attest to DAL data.
+Now that you have a DAL node, you can run a baking daemon that can attest to DAL data or restart an existing baking daemon to connect it to the DAL node.
 
-1. To run a baking daemon that connects to the DAL, start it as usual and pass the URL to your DAL node to it:
+1. To run a baking daemon that connects to the DAL, start it as usual and pass the URL to your DAL node to it with the `--dal-node` argument:
 
    ```bash
    octez-baker-PsParisC run with local node "$HOME/.tezos-node" my_baker --liquidity-baking-toggle-vote pass --adaptive-issuance-vote on --dal-node http://127.0.0.1:10732 >> "$HOME/octez-baker.log" 2>&1
@@ -28,7 +28,7 @@ Now that you have a DAL node, you can run a baking daemon that can attest to DAL
    Then, the baker daemon automatically asks the DAL node to subscribe to the topics that provide the shards that it is assigned to.
 
    In the results of this command, each topic contains a shard and the address of the baker that is assigned to it.
-   The DAL node and baker are listening to these topics and attesting that the data they refer to is available
+   The DAL node and baker are listening to these topics and attesting that the data that they refer to is available.
 
    This command returns all of the topics that the baker is subscribed to in the format `{"slot_index":<index>,"pkh":"<ADDRESS OF BAKER>"}` where `index` varies between `0` included and the number of slot indexes excluded.
 
