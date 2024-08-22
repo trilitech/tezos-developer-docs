@@ -42,8 +42,8 @@ Now that you have a DAL node, you can run a baking daemon that can attest to DAL
 
 ## Calculating the delay for attestation rights
 
-Now that the account has staked enough tez and the baking daemon is running, the account will receive attestation rights.
-The delay is a number of cycles determined by the value of the `consensus_rights_delay` constant plus two cycles.
+If you are setting up a new baker, you must wait until it receives attestation rights before it can bake blocks or attest to DAL data.
+The delay to receive attestation rights is a number of cycles determined by the value of the `consensus_rights_delay` constant plus two cycles.
 
 A cycle is a number of blocks; the `blocks_per_cycle` constant determines how many blocks are in a cycle.
 The `minimal_block_delay` constant determines the time between blocks in seconds.
