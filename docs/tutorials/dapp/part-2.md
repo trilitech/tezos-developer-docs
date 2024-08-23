@@ -635,4 +635,4 @@ The higher the percentage of mutants killed, the more effective your tests are.
 Now, you can call other contracts, use views, and test your smart contract before deploying it.
 In the next training, you will learn how to use tickets.
 
-When you are ready, continue to [Part 3: Tickets](./part-3).
+When you are ready, continue to [Part 3: Tickets](/tutorials/dapp/part-3).

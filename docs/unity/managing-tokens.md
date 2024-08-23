@@ -97,7 +97,7 @@ For a complete example, see the Transfer tutorial scene.
 
 ## Getting token balances
 
-To get the tokens that the connected account owns, call the [`API.GetTokensForOwner()`](./reference/API#gettokensforowner) method in a coroutine.
+To get the tokens that the connected account owns, call the [`API.GetTokensForOwner()`](/unity/reference/API#gettokensforowner) method in a coroutine.
 This example prints information about the tokens that the account owns to the log:
 
 ```csharp

@@ -51,4 +51,4 @@ The application can be downloaded on [the Android store here](https://play.googl
 
 The code for the completed application is in this GitHub repository: [solution](https://github.com/marigold-dev/training-dapp-shifumi/tree/main/solution)
 
-When you're ready, move to the next section [Part 1: Create the smart contract](./mobile/part-1) to begin setting up the application.
+When you're ready, move to the next section [Part 1: Create the smart contract](/tutorials/mobile/part-1) to begin setting up the application.

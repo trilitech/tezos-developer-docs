@@ -266,4 +266,4 @@ Manipulating arithmetic operations can lead to overflows and underflows.
 
 > Do not confuse the OCaml Zarith library with the [Ligo MathLib library](https://packages.ligolang.org/package/@ligo/math-lib), which provides manipulation of floats and rationals instead of using basic types.
 
-Go to [Part 3: User trust & management](./part-3).
+Go to [Part 3: User trust & management](/tutorials/security/part-3).

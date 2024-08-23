@@ -30,8 +30,8 @@ However, Tezos also offers a built-in abstraction called tickets, which are fung
 
 To start right away using tokens, see these tutorials:
 
-- [Create an NFT](../tutorials/create-an-nft)
-- [Build a simple web application](../tutorials/build-your-first-app)
+- [Create an NFT](/tutorials/create-an-nft)
+- [Build a simple web application](/tutorials/build-your-first-app)
 
 ## Fungible tokens
 
@@ -113,9 +113,9 @@ Tezos provides two standards for tokens.
 The standard that you use for your tokens depends on the kind of tokens that you want to create.
 These standards are named with the prefix FA, which stands for _financial application_.
 
-- [FA1.2](./tokens/FA1.2) tokens are fungible tokens
-- [FA2](./tokens/FA2) tokens can be multiple types of tokens, including fungible and non-fungible tokens, and a single smart contract that follows this standard can create multiple types of tokens
-- [FA2.1](./tokens/FA2.1) tokens can be multiple types of tokens like FA2 tokens, and they include features of FA1.2 tokens and of tickets
+- [FA1.2](/architecture/tokens/FA1.2) tokens are fungible tokens
+- [FA2](/architecture/tokens/FA2) tokens can be multiple types of tokens, including fungible and non-fungible tokens, and a single smart contract that follows this standard can create multiple types of tokens
+- [FA2.1](/architecture/tokens/FA2.1) tokens can be multiple types of tokens like FA2 tokens, and they include features of FA1.2 tokens and of tickets
 
 You can use templates for smart contracts adhering to these standards, instead of writing your own contract from scratch:
 

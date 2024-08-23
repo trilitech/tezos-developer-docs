@@ -13,12 +13,12 @@ Developing dApps on Tezos is not very different from developing other types of c
 
 Wallets maintain a user's credentials and signs transactions on their behalf.
 In most cases, Tezos developers need a wallet to submit transactions to their dApps.
-See [Installing and funding a wallet](developing/wallet-setup).
+See [Installing and funding a wallet](/developing/wallet-setup).
 
 ### The Octez client
 
 The Octez client lets you work with accounts and smart contracts from the command line.
-For more information, see [The Octez client](developing/octez-client).
+For more information, see [The Octez client](/developing/octez-client).
 
 ## IDEs and extensions
 
@@ -62,6 +62,6 @@ To test smart contracts and dApps, you can use these test environments:
 - Sandbox environments like [Flextesa](https://tezos.gitlab.io/flextesa/) run Tezos nodes locally on your computer in a sandbox mode.
 - You can also set up your own private test network.
 
-For more information about test environments, see [Testing on sandboxes and testnets](developing/testnets).
+For more information about test environments, see [Testing on sandboxes and testnets](/developing/testnets).
 
 LIGO and SmartPy also have built-in testing capabilities.

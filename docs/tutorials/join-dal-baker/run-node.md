@@ -56,4 +56,4 @@ At first launch, the node generates a fresh identity file used to identify itsel
 Then it bootstraps the chain, which takes a variable amount of time depending on how many blocks need to be loaded.
 
 In the meantime, you can continue the baking infrastructure while the node is bootstrapping.
-Continue to [Step 2: Set up a baker account](./prepare-account).
+Continue to [Step 2: Set up a baker account](/tutorials/join-dal-baker/prepare-account).

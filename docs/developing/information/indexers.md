@@ -6,7 +6,7 @@ last_update:
 ---
 
 Indexers are off-chain applications that retrieve blockchain data, process it, and store it in a way that makes it easier to search and use.
-Indexers are an important component of [Block explorers](./block-explorers).
+Indexers are an important component of [Block explorers](/developing/information/block-explorers).
 
 You can use indexers to provide the data that you need for your dApps.
 

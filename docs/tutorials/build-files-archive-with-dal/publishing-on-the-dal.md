@@ -39,7 +39,7 @@ For example, this command uses slot 10:
    ```
 
 1. Run the commands to build and deploy the Smart Rollup and start the node.
-You can use the script in [Part 2: Getting the DAL parameters](./get-dal-params) to simplify the process.
+You can use the script in [Part 2: Getting the DAL parameters](/tutorials/build-files-archive-with-dal/get-dal-params) to simplify the process.
 
 ## Publishing messages
 
@@ -178,4 +178,4 @@ If you are using the Tezos Docker image, you can run `sudo apk add jq xxd`.
 
 Now you can publish data to the DAL and use it in a Smart Rollup.
 In the next section, you write to and retrieve the entire slot.
-When you are ready, go to [Part 4: Using the entire slot](./using-full-slot).
+When you are ready, go to [Part 4: Using the entire slot](/tutorials/build-files-archive-with-dal/using-full-slot).

@@ -8,9 +8,9 @@ last_update:
 This tutorial covers writing a smart contract and deploying it to Tezos in the Archetype programming language.
 It uses the completium-cli command-line tool, which lets you work with Archetype contracts and Tezos from the command line.
 
-- If you are more familiar with Python, try [Deploy a smart contract with SmartPy](./smartpy).
-- If you are more familiar with OCaml, try [Deploy a smart contract with CameLIGO](./cameligo).
-- If you are more familiar with JavaScript, try [Deploy a smart contract with JsLIGO](./jsligo).
+- If you are more familiar with Python, try [Deploy a smart contract with SmartPy](/tutorials/smart-contract/smartpy).
+- If you are more familiar with OCaml, try [Deploy a smart contract with CameLIGO](/tutorials/smart-contract/cameligo).
+- If you are more familiar with JavaScript, try [Deploy a smart contract with JsLIGO](/tutorials/smart-contract/jsligo).
 
 In this tutorial, you will learn how to:
 

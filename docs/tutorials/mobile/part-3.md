@@ -826,4 +826,4 @@ In this section, you will create the pages to:
 You have successfully create a Web3 game that runs 100% on-chain.
 The next step is to build and distribute your game as an Android app.
 
-When you are ready, continue to [Part 4: Publish on the Android store](./part-4).
+When you are ready, continue to [Part 4: Publish on the Android store](/tutorials/mobile/part-4).

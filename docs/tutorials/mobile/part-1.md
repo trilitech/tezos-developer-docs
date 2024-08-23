@@ -122,4 +122,4 @@ On this first section, you will:
 
 That's all for the smart contract. On the next section, you will create the mobile application and connect to your smart contract
 
-When you are ready, continue to [Part 2: Create an Ionic mobile application](./part-2).
+When you are ready, continue to [Part 2: Create an Ionic mobile application](/tutorials/mobile/part-2).

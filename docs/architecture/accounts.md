@@ -13,7 +13,7 @@ Tezos uses these types of accounts:
 Any wallet application or the Octez command-line tool can create user accounts.
 
 - Smart contract accounts (sometimes known as _originated accounts_) store immutable code, mutable storage, tez (ꜩ), and tickets.
-See [Smart contracts](../smart-contracts).
+See [Smart contracts](/smart-contracts).
 
 ### Revealing accounts
 
@@ -31,4 +31,4 @@ To reveal an account, send any transaction from it, such as calling a smart cont
 - Smart Rollups have addresses, but are not accounts because they cannot store tez.
 Their addresses start with "SR1".
 They have a tree of commitments attached to them.
-See [Smart Optimistic Rollups](./smart-rollups).
+See [Smart Optimistic Rollups](/architecture/smart-rollups).

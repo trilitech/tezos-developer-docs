@@ -47,7 +47,7 @@ Here is a diagram that shows the components that you set up in this tutorial in 
 ## Prerequisites
 
 This article assumes some familiarity with Smart Rollups.
-If you are new to Smart Rollups, see the tutorial [Deploy a Smart Rollup](./smart-rollup).
+If you are new to Smart Rollups, see the tutorial [Deploy a Smart Rollup](/tutorials/smart-rollup).
 
 ## Why the DAL?
 
@@ -106,4 +106,4 @@ When you install a Smart Rollup, you provide only the installer kernel on layer 
 Currently, you cannot send the full kernel data over the Data Availability Layer, so this tutorial relies on the reveal data channel to install the kernel as usual.
 :::
 
-When you are ready, get started by going to [Part 1: Setting up an environment](./build-files-archive-with-dal/set-up-environment).
+When you are ready, get started by going to [Part 1: Setting up an environment](/tutorials/build-files-archive-with-dal/set-up-environment).

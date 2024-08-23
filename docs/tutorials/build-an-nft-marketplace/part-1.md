@@ -919,4 +919,4 @@ Now you can create FA2-compatible NFTs with the `@ligo/fa` library and show them
 
 In the next section, you add the buy and sell functions to the smart contract and update the frontend application to allow these actions.
 
-When you are ready, continue to [Part 2: Buying and selling tokens](./part-2).
+When you are ready, continue to [Part 2: Buying and selling tokens](/tutorials/build-an-nft-marketplace/part-2).

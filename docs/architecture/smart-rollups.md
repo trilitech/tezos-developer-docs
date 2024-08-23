@@ -18,7 +18,7 @@ During normal execution, the Smart Rollup can use any virtual machine that is co
 Using the PVM and optionally a compatible VM guarantees that if a divergence in results is found, it can be tracked down to a single elementary step that was not executed correctly by some node.
 In this way, multiple nodes can run the same rollup and each node can verify the state of the rollup.
 
-For a tutorial on Smart Rollups, see [Deploy a Smart Rollup](../tutorials/smart-rollup).
+For a tutorial on Smart Rollups, see [Deploy a Smart Rollup](/tutorials/smart-rollup).
 
 For reference on Smart Rollups, see [Smart Optimistic Rollups](https://tezos.gitlab.io/active/smart_rollups.html) in the Octez documentation.
 
@@ -46,7 +46,7 @@ Smart Rollups are limited to information from these sources:
 
 - The Smart Rollup inbox, which contains messages from layer 1 to all rollups
 - The reveal data channel, which allows Smart Rollups to request information from outside sources
-- The [Data availability layer](./data-availability-layer)
+- The [Data availability layer](/architecture/data-availability-layer)
 
 These are the only sources of information that rollups can use.
 In particular, Smart Rollup nodes cannot communicate directly with each other; they do not have a peer-to-peer communication channel like layer 1 nodes.

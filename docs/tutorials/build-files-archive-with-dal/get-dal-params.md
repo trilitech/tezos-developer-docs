@@ -31,7 +31,7 @@ In these steps, you set up a simple Smart Rollup to get the current DAL paramete
 
 ## Prerequisites
 
-Before you begin, make sure that you have installed the prerequisites and set up an environment and an account as described in [Part 1: Setting up an environment](./set-up-environment).
+Before you begin, make sure that you have installed the prerequisites and set up an environment and an account as described in [Part 1: Setting up an environment](/tutorials/build-files-archive-with-dal/set-up-environment).
 
 ## Fetching the DAL parameters in a kernel
 
@@ -188,4 +188,4 @@ For example, if you are using the Tezos Docker image, the path is `/bin/sh`, so 
 Then try the command `./deploy_smart_rollup.sh $MY_ACCOUNT` again.
 
 In the next section, you will get information about the state of slots in the DAL.
-See [Part 3: Getting slot information](./get-slot-info).
+See [Part 3: Getting slot information](/tutorials/build-files-archive-with-dal/get-slot-info).

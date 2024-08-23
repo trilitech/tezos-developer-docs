@@ -11,7 +11,7 @@ The current testnets and details about them are at https://teztnets.com/.
 
 If you are a smart contract developer, testing contracts is a big part of your work. More time is spent testing contracts than writing them. You will often need to test new versions of your contracts and run many tests starting from their deployment to calling every entrypoint in all kinds of ways.
 
-After you have tested contracts locally as described in [Testing locally](./testing), you can deploy them to test networks to test them in a realistic environment.
+After you have tested contracts locally as described in [Testing locally](/developing/testing), you can deploy them to test networks to test them in a realistic environment.
 
 Similarly, bakers often test their setups on test networks to ensure that they will work on new versions of the Tezos protocol.
 

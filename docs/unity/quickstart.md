@@ -29,7 +29,7 @@ For instructions, see [Installing and funding a wallet](../developing/wallet-set
 
 1. If you want to publish the project to WebGL, follow the steps in [Enabling WebGL support](#enabling-webgl-support).
 
-1. To import the tutorial scenes, see [Scenes](./scenes).
+1. To import the tutorial scenes, see [Scenes](/unity/scenes).
 
 ## Enabling WebGL support
 
@@ -63,7 +63,7 @@ Game developers can also use the wallet and its account as a unique account iden
 
 1. Copy the `TezosAuthenticator` and `TezosManager` prefabs to your scene.
 These prefabs provide prerequisites to use Tezos in a scene and help connect to accounts.
-For more information about them, see [Prefabs](./prefabs).
+For more information about them, see [Prefabs](/unity/prefabs).
 
    The `TezosAuthenticator` prefab automatically adds features that connect to users' wallets.
    If you copy these prefabs into your scene and run it, it shows a QR code or connection buttons that Tezos wallet applications can scan to connect with the application.
@@ -100,9 +100,9 @@ You can use this event to get the address of the connected account, as in this c
    You can use this address as a user's account ID because Tezos account addresses are unique.
 
 1. To respond to other events, add listeners for the events that the SDK provides.
-You can see these events and their return values in the [EventManager object](./reference/EventManager).
+You can see these events and their return values in the [EventManager object](/unity/reference/EventManager).
 
-For an example, see the [WalletConnection tutorial scene](./scenes#wallet-connection-scene).
+For an example, see the [WalletConnection tutorial scene](/unity/scenes#wallet-connection-scene).
 
 ## Deploying contracts
 
@@ -117,7 +117,7 @@ The ContractAndMinting tutorial scene shows how to deploy a contract from a Unit
 The SDK provides a built-in contract that you can use instead of writing your own.
 This contract manages different kinds of tokens.
 
-To deploy the built-in contract, call the [`TokenContract.Deploy()`](./reference/TokenContract#deploy) method and pass a callback function:
+To deploy the built-in contract, call the [`TokenContract.Deploy()`](/unity/reference/TokenContract#deploy) method and pass a callback function:
 
 ```csharp
 public void DeployContract()
@@ -136,9 +136,9 @@ private void OnContractDeployed(string contractAddress)
 ```
 
 The project sends the deployment transaction to the connected wallet, which must approve the transaction and pay the related fees.
-The SDK stores the address of the contract as [`TokenContract.address`](./reference/TokenContract).
+The SDK stores the address of the contract as [`TokenContract.address`](/unity/reference/TokenContract).
 
-For an example, see the [ContractAndMinting tutorial scene](./scenes#contractandminting-scene).
+For an example, see the [ContractAndMinting tutorial scene](/unity/scenes#contractandminting-scene).
 
 ## Creating tokens
 
@@ -192,7 +192,7 @@ private void OnTokenMinted(TokenBalance tokenBalance)
 }
 ```
 
-For an example, see the [ContractAndMinting tutorial scene](./scenes#contractandminting-scene).
+For an example, see the [ContractAndMinting tutorial scene](/unity/scenes#contractandminting-scene).
 
 ## Transferring tokens
 
@@ -225,11 +225,11 @@ private void TransferCompleted(string txHash)
 }
 ```
 
-For a complete example, see the [Transfer tutorial scene](./scenes#transfer-scene).
+For a complete example, see the [Transfer tutorial scene](/unity/scenes#transfer-scene).
 
 ## Getting token balances
 
-To get the tokens that the connected account owns, call the [`API.GetTokensForOwner()`](./reference/API#gettokensforowner) method in a coroutine.
+To get the tokens that the connected account owns, call the [`API.GetTokensForOwner()`](/unity/reference/API#gettokensforowner) method in a coroutine.
 This example prints information about the tokens that the account owns to the log:
 
 ```csharp
@@ -309,7 +309,7 @@ public void HandleUploadClick()
 }
 ```
 
-For a complete example, see the [IPFSUpload tutorial scene](./scenes#ipfsupload-scene).
+For a complete example, see the [IPFSUpload tutorial scene](/unity/scenes#ipfsupload-scene).
 
 ## Signing messages
 
@@ -346,10 +346,10 @@ As described in [The RPC interface](../architecture/rpc), Tezos clients includin
 By default, the SDK sends requests to a public RPC node that uses the Ghostnet test network, where you can test transactions without spending real tez.
 For more information about test networks, see [Testing on sandboxes and testnets](../developing/testnets).
 
-If you need to change the RPC node that the SDK uses, such as if the default node is overloaded or if you are ready to send transactions to Mainnet, you can set the RPC node by creating an instance of the [TezosConfigSO scriptable object](./reference/TezosConfigSO) and setting the node in the **Rpc Url Format** field, as in this picture:
+If you need to change the RPC node that the SDK uses, such as if the default node is overloaded or if you are ready to send transactions to Mainnet, you can set the RPC node by creating an instance of the [TezosConfigSO scriptable object](/unity/reference/TezosConfigSO) and setting the node in the **Rpc Url Format** field, as in this picture:
 
 <img src="/img/unity/unity-ipfs-scene-config.png" alt="Adding the Pinata API key and the data provider to the TezosConfigSO object" style={{width: 300}} />
 
 Then, drag this instance of the TezosConfigSO scriptable object to the Config field of the TezosManager prefab.
 
-For more examples of how to work with the SDK, see [Tutorial scenes](./scenes).
+For more examples of how to work with the SDK, see [Tutorial scenes](/unity/scenes).

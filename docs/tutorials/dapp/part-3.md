@@ -666,4 +666,4 @@ Now, you understand tickets. If you want to learn more about tickets, read this 
 
 In the next training, you will learn how to upgrade smart contracts.
 
-When you are ready, continue to [Part 4: Smart contract upgrades](./part-4).
+When you are ready, continue to [Part 4: Smart contract upgrades](/tutorials/dapp/part-4).

@@ -24,7 +24,7 @@ The primary tools that dApps use to connect to wallets are:
 
   Taquito provides a wrapper for Beacon so dApps can interact with wallets and with Tezos with the same code.
 
-  For more information about Taquito, see [Taquito](./taquito).
+  For more information about Taquito, see [Taquito](/dApps/taquito).
 
 ## Beacon and Taquito
 

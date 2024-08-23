@@ -234,4 +234,4 @@ Another example is in the tutorial [Create a mobile game](../mobile). The contra
 
 ---
 
-Go to [Part 2: Leaks](./part-2).
+Go to [Part 2: Leaks](/tutorials/security/part-2).

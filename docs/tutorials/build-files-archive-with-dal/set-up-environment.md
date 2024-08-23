@@ -150,4 +150,4 @@ After you run these commands, run `$CC --version` to verify that you have versio
 
 Also, ensure that your version of Clang `wasm32` target with by running the command `$CC -print-targets | grep wasm32` and verifying that the results include `wasm32`.
 
-When your environment is ready, continue to [Part 2: Getting the DAL parameters](./get-dal-params).
+When your environment is ready, continue to [Part 2: Getting the DAL parameters](/tutorials/build-files-archive-with-dal/get-dal-params).

@@ -1150,4 +1150,4 @@ A web3 mobile application is not different from a web2 one in terms of its basic
 You have a mobile application where you can connect and disconnect a wallet, some default UI components and styles but not yet an interaction with your smart contract.
 The next step is to be able to create a game, join a game and play a session.
 
-When you are ready, continue to [Part 3: Create the game pages](./part-3).
+When you are ready, continue to [Part 3: Create the game pages](/tutorials/mobile/part-3).

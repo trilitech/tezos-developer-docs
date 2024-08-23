@@ -835,4 +835,4 @@ Instead of creating multiple token types with a quantity of exactly 1 as with th
 
 For the complete content of the contract and web app at the end of this part, see the completed part 2 app at https://github.com/marigold-dev/training-nft-2.
 
-To continue, go to [Part 3: Managing tokens with quantities](./part-3).
+To continue, go to [Part 3: Managing tokens with quantities](/tutorials/build-an-nft-marketplace/part-3).

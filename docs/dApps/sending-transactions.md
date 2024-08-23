@@ -31,7 +31,7 @@ For information about calling contracts from other contracts, see [Operations](.
 ## Taquito
 
 You can use the Taquito SDK to send transactions from JavaScript/TypeScript applications.
-For more information about Taquito, see [Taquito](./taquito).
+For more information about Taquito, see [Taquito](/dApps/taquito).
 
 ### Sending tez
 

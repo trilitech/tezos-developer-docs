@@ -9,7 +9,7 @@ Developers and dApps can get information about the Tezos blockchain, such as acc
 
 ## The Octez client
 
-The [The Octez client](./octez-client) provides information about accounts, addresses, and many other things.
+The [The Octez client](/developing/octez-client) provides information about accounts, addresses, and many other things.
 For example, you can get the balance of an account with this command:
 
 ```bash
@@ -38,11 +38,11 @@ For example, you can use the [TZKT API](https://api.tzkt.io/) to get the recent 
 curl -X GET https://api.ghostnet.tzkt.io/v1/accounts/tz1QCVQinE8iVj1H2fckqx6oiM85CNJSK9Sx/operations
 ```
 
-For more information, see [Indexers](./information/indexers).
+For more information, see [Indexers](/developing/information/indexers).
 
 ## Block explorers
 
 Block explorers use data from indexers to show information in a human-friendly interface.
 For example, this link shows information about a contract, including its current storage, entrypoints, and transaction history: https://better-call.dev/ghostnet/KT1R4i4qEaxF7v3zg1M8nTeyrqk8JFmdGLuu/operations
 
-For more information about block explorers, see [Block explorers](./information/block-explorers).
+For more information about block explorers, see [Block explorers](/developing/information/block-explorers).
