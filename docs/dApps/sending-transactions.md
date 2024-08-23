@@ -26,7 +26,7 @@ These calls can include:
 
   Tools can originate a smart contract from source code.
 
-For information about calling contracts from other contracts, see [Operations](../smart-contracts/logic/operations).
+For information about calling contracts from other contracts, see [Operations](/smart-contracts/logic/operations).
 
 ## Taquito
 
@@ -94,7 +94,7 @@ console.log(parameterSchema.ExtractSignatures());
 
 The response shows the entrypoints in the contract and the parameters that they accept.
 
-For example, the [FA2](../architecture/tokens/FA2) `transfer` entrypoint appears like this:
+For example, the [FA2](/architecture/tokens/FA2) `transfer` entrypoint appears like this:
 
 ```json
 [
@@ -181,7 +181,7 @@ console.log(
 );
 ```
 
-For more examples of calling smart contracts, see tutorials such as [Build a simple web application](../tutorials/build-your-first-app) or [Create a contract and web app that mints NFTs](../tutorials/create-an-nft/nft-taquito).
+For more examples of calling smart contracts, see tutorials such as [Build a simple web application](/tutorials/build-your-first-app) or [Create a contract and web app that mints NFTs](/tutorials/create-an-nft/nft-taquito).
 
 For more information about using Taquito, see [Smart contracts](https://tezostaquito.io/docs/smartcontracts) in the Taquito documentation.
 
@@ -234,4 +234,4 @@ const result = await dAppClient.requestOperation({
 ## Octez
 
 The Octez command-line client can send tez and call contracts from the command line.
-See [Interacting with contracts](../developing/octez-client/transactions).
+See [Interacting with contracts](/developing/octez-client/transactions).

@@ -36,13 +36,13 @@ For example, if the lambda is called in a function to update a static data confi
 
 > Other techniques exist to update a dApp, like the proxy pattern. It does not change the code of the smart contract, but deployed a new version of it and a proxy contract will redirect the user transaction to this new contract. The risk is located on the proxy contract. If this contract is hacked and badly protected, anyone can deploy a malicious contract and redirect to it.
 
-For an example of upgrading smart contracts with lambdas and proxies, see [Create your minimum dapp on Tezos](../dapp).
+For an example of upgrading smart contracts with lambdas and proxies, see [Create your minimum dapp on Tezos](/tutorials/dapp).
 
 ## (Trustable) oracles
 
 Blockchain oracles are third-party services that provide smart contracts with external information. They serve as bridges between blockchains and the outside world, allowing smart contracts to access off-chain data. Oracles verify, query, and authenticate external data sources, and transmit any valuable data.
 
-An [Oracle](../../smart-contracts/oracles) is made of two parts:
+An [Oracle](/smart-contracts/oracles) is made of two parts:
 
 - Off-chain: The data collector that pushes data to the on-chain contract
 - On-chain: The contract that stores the data and exposes it to other contracts. Generally, a call for information involves monetization and so, some fees apply.

@@ -14,11 +14,11 @@ Game developers can also use the wallet and its account as a unique account iden
 
 For an example of connecting to wallets, see the [WalletConnection tutorial scene](/unity/scenes#wallet-connection-scene).
 
-For more information about Tezos wallets, see [Installing and funding a wallet](../developing/wallet-setup).
+For more information about Tezos wallets, see [Installing and funding a wallet](/developing/wallet-setup).
 
 ## Best practices
 
-When working with wallets, be sure to follow the advice in [Best practices and avoiding flaws](../dApps/best-practices) for wallet connections.
+When working with wallets, be sure to follow the advice in [Best practices and avoiding flaws](/dApps/best-practices) for wallet connections.
 For example, don't force the user to connect their wallet as soon as the application loads.
 Instead, let them see the application first.
 Also, provide a prominent disconnect button to allow users to disconnect one account and connect a different one.

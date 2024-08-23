@@ -28,7 +28,7 @@ The sample game uses these main components:
 
 - **User wallets** as a source of user identity and authentication.
 The user doesn't make any direct transactions from the wallet and pays no tez to the application or in fees.
-For more information about Tezos wallets, see [Installing and funding a wallet](../developing/wallet-setup).
+For more information about Tezos wallets, see [Installing and funding a wallet](/developing/wallet-setup).
 
 - The **Unity WebGL application** is the front end of the application.
 It connects to the user wallet, sends the sign request, runs the game interface, and sends requests to the backend.
@@ -88,7 +88,7 @@ For more information about signing messages, see [Signing messages](/unity/quick
 ## Tokens
 
 The game uses Tezos tokens to represent in-game items, such as weapons, armor, and power-ups.
-Because these tokens are compliant with the [FA2](../architecture/tokens/FA2) standard, players can see their tokens in their wallets and in applications such as block explorers.
+Because these tokens are compliant with the [FA2](/architecture/tokens/FA2) standard, players can see their tokens in their wallets and in applications such as block explorers.
 They could also set up a third-party platform to show and trade their tokens.
 
 The smart contract that manages the tokens has one [token type](https://better-call.dev/mainnet/KT1TSZfPJ5uZW1GjcnXmvt1npAQ2nh5S1FAj/tokens) for each in-game item.

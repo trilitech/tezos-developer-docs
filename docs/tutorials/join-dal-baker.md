@@ -46,7 +46,7 @@ This tutorial requires a cloud-based computer or a computer that stays running c
 
 ## References
 
-- For an overview of the DAL, see [Data Availability Layer](../architecture/data-availability-layer).
+- For an overview of the DAL, see [Data Availability Layer](/architecture/data-availability-layer).
 - For an introduction to how the DAL works, see the tutorial [Implement a file archive with the DAL and a Smart Rollup](/tutorials/build-files-archive-with-dal).
 - For technical information about the DAL, see [Data-Availability Layer](https://tezos.gitlab.io/shell/dal.html) in the Octez documentation.
 

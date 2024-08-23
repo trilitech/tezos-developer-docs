@@ -222,7 +222,7 @@ Due to the deterministic nature of blockchain execution, it is not possible to g
 
 One of the possible scenarios in a blockchain smart contract is to have a blocked state where the contract execution is paused until a certain condition is met. For example, a contract that implements a simple escrow service might have a blocked state where the seller has to confirm the delivery of the goods before the buyer can release the payment. This way, the contract ensures that both parties are satisfied with the transaction and no one can cheat or withdraw from the agreement.
 
-Another example is in the tutorial [Create a mobile game](../mobile). The contract in this tutorial is blocked while the players make their decisions. However, if one of the players does not reveal their choice within 10 minutes, the other player can claim a resolution and win the game by calling an entrypoint on the contract. This way, the contract is not stuck indefinitely and the honest player is rewarded.
+Another example is in the tutorial [Create a mobile game](/tutorials/mobile). The contract in this tutorial is blocked while the players make their decisions. However, if one of the players does not reveal their choice within 10 minutes, the other player can claim a resolution and win the game by calling an entrypoint on the contract. This way, the contract is not stuck indefinitely and the honest player is rewarded.
 
 &rarr; **SOLUTION**:
 

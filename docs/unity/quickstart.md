@@ -25,7 +25,7 @@ These instructions cover:
    You can see its assets in the Project panel under Packages > Tezos Unity SDK.
 
 1. Ensure that you have a Tezos-compatible wallet configured for the Ghostnet testnet on your mobile device.
-For instructions, see [Installing and funding a wallet](../developing/wallet-setup).
+For instructions, see [Installing and funding a wallet](/developing/wallet-setup).
 
 1. If you want to publish the project to WebGL, follow the steps in [Enabling WebGL support](#enabling-webgl-support).
 
@@ -342,9 +342,9 @@ private void OnPayloadSigned(SignResult obj)
 
 ## Changing the RPC node
 
-As described in [The RPC interface](../architecture/rpc), Tezos clients including the Unity SDK send transactions to RPC nodes.
+As described in [The RPC interface](/architecture/rpc), Tezos clients including the Unity SDK send transactions to RPC nodes.
 By default, the SDK sends requests to a public RPC node that uses the Ghostnet test network, where you can test transactions without spending real tez.
-For more information about test networks, see [Testing on sandboxes and testnets](../developing/testnets).
+For more information about test networks, see [Testing on sandboxes and testnets](/developing/testnets).
 
 If you need to change the RPC node that the SDK uses, such as if the default node is overloaded or if you are ready to send transactions to Mainnet, you can set the RPC node by creating an instance of the [TezosConfigSO scriptable object](/unity/reference/TezosConfigSO) and setting the node in the **Rpc Url Format** field, as in this picture:
 

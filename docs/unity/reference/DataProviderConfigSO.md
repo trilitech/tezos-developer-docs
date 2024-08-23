@@ -20,4 +20,4 @@ To use this object, create an instance of it, put your information in its fields
 - `Request Timeout Seconds`: The time in seconds to wait for a response from the indexer
 - `Documentation Url`: A link to the API reference for the indexer
 
-For more information about indexers, see [Indexers](../../developing/information/indexers).
+For more information about indexers, see [Indexers](/developing/information/indexers).

@@ -105,7 +105,7 @@ It is still advisable to save a local copy of your metadata, just as you would w
 
    This metadata describes who is allowed to transfer tokens.
    The permissions in this code allow token owners and operators to transfer tokens.
-   For more information about operators, see [FA2 tokens](../../architecture/tokens/FA2).
+   For more information about operators, see [FA2 tokens](/architecture/tokens/FA2).
 
 1. Pin the metadata to IPFS and get its URI with this code:
 

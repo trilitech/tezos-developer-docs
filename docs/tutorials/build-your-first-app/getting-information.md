@@ -88,4 +88,4 @@ Here are some ideas:
 - Show toasts or messages on the page to notify the user when transactions complete.
 
 You can also deploy your own smart contracts to use from your applications.
-For a tutorial on deploying a simple smart contract, see [Deploy a smart contract](../smart-contract).
+For a tutorial on deploying a simple smart contract, see [Deploy a smart contract](/tutorials/smart-contract).

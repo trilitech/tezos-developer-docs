@@ -92,7 +92,7 @@ Now you can send messages to this rollup via Tezos layer 1 and act on them in th
 Commenting this out because there's not enough info for a tutorial user to do this without further information; consider adding this because it would be good to be able to send messages (that is, call contracts) from the rollup, and I don't know how you'd do that in the sandbox.
 
 Currently, your rollup and kernel are running in sandbox mode.
-If you want to explore further, you can try deploying the rollup to a testnet as you do in the [Deploy a smart contract](../deploy-your-first-smart-contract/) tutorial.
+If you want to explore further, you can try deploying the rollup to a testnet as you do in the [Deploy a smart contract](/tutorialsdeploy-your-first-smart-contract/) tutorial.
 The workflow for deploying to a testnet is similar to the workflow that you used to deploy to the sandbox:
 
 1. Configure the network to use the testnet

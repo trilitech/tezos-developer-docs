@@ -75,7 +75,7 @@ if (
 ## Using multi-signature operations
 
 You can also require operations to be signed by multiple accounts.
-For example, the [Octez client](../developing/octez-client) has a built-in multisig contract that you can use.
+For example, the [Octez client](/developing/octez-client) has a built-in multisig contract that you can use.
 The contract requires signatures from multiple accounts before running transactions such as :
 
 - Distributing tez

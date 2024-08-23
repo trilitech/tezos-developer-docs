@@ -13,7 +13,7 @@ Tezos smart contracts are immutable after deployment, so you must rigorously tes
 
 - The mockup mode of `octez-client` can be used to test contract calls and other features such as some RPC calls, all without running an actual node, saving the time of going through the consensus mechanism and waiting to get blocks created and validated. Tools like Completium, built by the team behind the Archetype language, use this for their testing framework. Find out more in the [documentation of the mockup mode](https://tezos.gitlab.io/user/mockup.html).
 
-   For example, when you compile the contract in the tutorial [Create a smart contract](../tutorials/smart-contract) to Michelson, its first line defines the parameter type that the contract accepts:
+   For example, when you compile the contract in the tutorial [Create a smart contract](/tutorials/smart-contract) to Michelson, its first line defines the parameter type that the contract accepts:
 
    ```
    parameter (or (unit %reset) (or (int %decrement) (int %increment)))

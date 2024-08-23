@@ -11,7 +11,7 @@ Smart contracts can do many tasks, but for gaming they have two main purposes:
 - They handle tokens, which are digital assets stored on the blockchain
 - They provide backend logic that users can trust because it cannot change
 
-For more information about contracts, see [Smart contracts](../smart-contracts).
+For more information about contracts, see [Smart contracts](/smart-contracts).
 
 You can create your own smart contracts or use the built-in contract that the SDK provides for managing tokens in Unity projects.
 
@@ -185,7 +185,7 @@ This is the Michelson parameter type for the endpoint:
 ```
 
 In this case, you set the "add_operator" value by passing a `PrimType.Left` Michelson primitive or the "remove_operator" value by passing a `PrimType.Right` primitive.
-The values in the primitive are a series of nested pairs called a [right comb](../smart-contracts/data-types/complex-data-types#right-combs), as in this example:
+The values in the primitive are a series of nested pairs called a [right comb](/smart-contracts/data-types/complex-data-types#right-combs), as in this example:
 
 ```json
 {

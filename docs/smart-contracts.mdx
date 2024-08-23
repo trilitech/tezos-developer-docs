@@ -31,11 +31,11 @@ Notice that a smart contract can only run and interact with the blockchain it's 
 A smart contract is composed of three elements:
 
 - Its balance: a contract is a kind of account, and can receive and send tez
-- Its [storage](./smart-contracts/storage): data that is dedicated to and can be read and written by the contract
-- Its code: one or more [entrypoints](./smart-contracts/entrypoints), which are a kind of function that can be called either from outside the chain or from other contracts
+- Its [storage](/smart-contracts/storage): data that is dedicated to and can be read and written by the contract
+- Its code: one or more [entrypoints](/smart-contracts/entrypoints), which are a kind of function that can be called either from outside the chain or from other contracts
 
 The smart contract code is in the Michelson language, but several high-level languages exist to make it easier to write the code.
-See [Languages](./smart-contracts/languages).
+See [Languages](/smart-contracts/languages).
 
 :::note VisualTez
 [VisualTez](https://visualtez.com/editor) allows you to visualize the fundamental logic of a smart contract without relying on any specific syntax.
@@ -47,27 +47,27 @@ All a contract can do can be summarized as:
 
 - Performing computations
 - Reading or updating the value of its own storage
-- Generating a list of operations, such as calls to other contracts (see [Operations](./smart-contracts/logic/operations))
+- Generating a list of operations, such as calls to other contracts (see [Operations](/smart-contracts/logic/operations))
 
 Smart contracts can't do these things:
 
 - Access programs outside the blockchain, including calling external APIs
 - Access other contracts' storage
 - Change their code
-- Catch and respond to errors (see [Handling errors](./smart-contracts/logic/errors))
+- Catch and respond to errors (see [Handling errors](/smart-contracts/logic/errors))
 
 ## Features of Tezos smart contracts
 
 Tezos smart contracts support these features:
 
-- [Storage](./smart-contracts/storage) of data that the contract can read and write to
-- [Entrypoints](./smart-contracts/entrypoints) that users can call
-- [Data types](./smart-contracts/data-types) from simple to complex and logic that can be used on them, including [Comparing values](./smart-contracts/logic/comparing) and [Loops](./smart-contracts/logic/loops)
-- [Operations](./smart-contracts/logic/operations), which are calls to other smart contracts
-- [Views](./smart-contracts/views), which expose data to other contracts
-- [Handling errors](./smart-contracts/logic/errors), although error handling in Tezos is very different from other platforms
-- [Constants](./smart-contracts/constants) that are available to all contracts
-- [Sapling](./smart-contracts/sapling), a way to run private transactions
+- [Storage](/smart-contracts/storage) of data that the contract can read and write to
+- [Entrypoints](/smart-contracts/entrypoints) that users can call
+- [Data types](/smart-contracts/data-types) from simple to complex and logic that can be used on them, including [Comparing values](/smart-contracts/logic/comparing) and [Loops](/smart-contracts/logic/loops)
+- [Operations](/smart-contracts/logic/operations), which are calls to other smart contracts
+- [Views](/smart-contracts/views), which expose data to other contracts
+- [Handling errors](/smart-contracts/logic/errors), although error handling in Tezos is very different from other platforms
+- [Constants](/smart-contracts/constants) that are available to all contracts
+- [Sapling](/smart-contracts/sapling), a way to run private transactions
 
 ## Lifecycle of a Tezos smart contract
 

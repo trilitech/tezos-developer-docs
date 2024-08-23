@@ -39,7 +39,7 @@ TODO Should this intro discuss the reveal data channel?
 
 Rollups maintain consensus by publishing the hash of their state to Tezos, which other nodes can use to verify the rollup's behavior.
 The specific way that rollups publish their states and maintain consensus is beyond the scope of this tutorial.
-For more information about rollups and their consensus mechanism, see [Smart Optimistic Rollups](../architecture/smart-rollups).
+For more information about rollups and their consensus mechanism, see [Smart Optimistic Rollups](/architecture/smart-rollups).
 
 This diagram shows a Smart Rollup interacting with layer 1 by receiving a message, running processing based on that message, and sending a transaction to layer 1:
 

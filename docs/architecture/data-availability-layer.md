@@ -8,7 +8,7 @@ last_update:
 The Data Availability Layer (DAL) is a companion peer-to-peer network for the Tezos blockchain, designed to provide additional data bandwidth to Smart Rollups.
 It allows users to share large amounts of data in a way that is decentralized and permissionless, because anyone can join the network and post and read data on it.
 
-For a tutorial on how to use the DAL, see [Implement a file archive with the DAL and a Smart Rollup](../tutorials/build-files-archive-with-dal).
+For a tutorial on how to use the DAL, see [Implement a file archive with the DAL and a Smart Rollup](/tutorials/build-files-archive-with-dal).
 
 ## How the DAL works
 
@@ -108,7 +108,7 @@ Sending data to the DAL is a two-step process:
      with proof "${proof}"
    ```
 
-For an example of sending larger amounts of data, see [Implement a file archive with the DAL and a Smart Rollup](../tutorials/build-files-archive-with-dal).
+For an example of sending larger amounts of data, see [Implement a file archive with the DAL and a Smart Rollup](/tutorials/build-files-archive-with-dal).
 
 ## Getting data from the DAL
 

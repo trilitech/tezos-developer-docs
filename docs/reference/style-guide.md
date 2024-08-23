@@ -66,7 +66,7 @@ Use emphasis sparingly to avoid making the page too visually busy or complex.
 
   - Buttons or links that the user must click or interact with
 
-  - Very sparingly, to highlight important words and phrases, such as the words at the beginning of a definition list, such as in the [Glossary](../overview/glossary)
+  - Very sparingly, to highlight important words and phrases, such as the words at the beginning of a definition list, such as in the [Glossary](/overview/glossary)
 
 - Do not emphasize the names of web sites, pages, or UI elements that the user sees but does not interact with directly
 

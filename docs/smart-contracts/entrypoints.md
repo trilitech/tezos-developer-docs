@@ -17,9 +17,9 @@ To return data from a smart contract, you can use one of these methods:
 
 - Use [Views](/smart-contracts/views) to return data to smart contracts or off-chain applications
 - Use [Events](/smart-contracts/events) to return data to off-chain applications
-- Include a callback parameter that sends information to another smart contract, as in the `getAllowance`, `getBalance`, and `getTotalSupply` entrypoints of [FA1.2](../architecture/tokens/FA1.2) contracts
+- Include a callback parameter that sends information to another smart contract, as in the `getAllowance`, `getBalance`, and `getTotalSupply` entrypoints of [FA1.2](/architecture/tokens/FA1.2) contracts
 
-For an example of a simple contract, see the tutorial [Create a smart contract](../tutorials/smart-contract).
+For an example of a simple contract, see the tutorial [Create a smart contract](/tutorials/smart-contract).
 
 For examples of more complex contracts, see [Examples of contracts](https://opentezos.com/smart-contracts/simplified-contracts/) on opentezos.com.
 
@@ -41,7 +41,7 @@ An entrypoint can call other entrypoints in its contract or entrypoints in other
 
 ## Example entrypoints
 
-The contract in the tutorial [Create a smart contract](../tutorials/smart-contract) has three entrypoints:
+The contract in the tutorial [Create a smart contract](/tutorials/smart-contract) has three entrypoints:
 
 | Entrypoint | Description |
 | --- | --- |
@@ -57,7 +57,7 @@ This default entrypoint uses the parameter that clients pass to decide which cod
 In most cases, developers can ignore the default entrypoint and imagine that the compiled Michelson code has multiple entrypoints like the higher-level code.
 However, in some cases, you may need to consider how the contract actually decides which code to run and how clients trigger this code.
 
-For example, when you compile the contract in the tutorial [Create a smart contract](../tutorials/smart-contract) to Michelson, its first line defines the parameter type that the contract accepts:
+For example, when you compile the contract in the tutorial [Create a smart contract](/tutorials/smart-contract) to Michelson, its first line defines the parameter type that the contract accepts:
 
 ```
 parameter (or (unit %reset) (or (int %decrement) (int %increment)))

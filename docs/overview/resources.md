@@ -18,7 +18,7 @@ More detailed developer and user documentation on Tezos in general or on specifi
 - https://ligolang.org/docs/intro/introduction is the official documentation of the [LIGO](https://ligolang.org/) language for writing Tezos smart contracts
 - https://smartpy.io/manual/introduction/overview is the official documentation of the [SmartPy](https://smartpy.io/) language for writing Tezos smart contracts
 - https://archetype-lang.org/docs/introduction/ is the official documentation of the Archetype language for writing Tezos smart contracts
-- https://docs.etherlink.com/ is the official documentation for [Etherlink](https://www.etherlink.com), an EVM-compatible layer-2 blockchain running on Tezos, implemented as a [smart rollup](../architecture/smart-rollups)
+- https://docs.etherlink.com/ is the official documentation for [Etherlink](https://www.etherlink.com), an EVM-compatible layer-2 blockchain running on Tezos, implemented as a [smart rollup](/architecture/smart-rollups)
 
 ## Social media
 

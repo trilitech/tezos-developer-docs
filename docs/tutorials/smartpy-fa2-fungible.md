@@ -34,7 +34,7 @@ Therefore, only one account can own a specific NFT at one time.
 The term "NFT" is often misused when assets are represented on blockchains, and is often confused with a fungible token.
 Make sure that you understand the difference.
 
-For more information about types of tokens, see [Tokens](../architecture/tokens).
+For more information about types of tokens, see [Tokens](/architecture/tokens).
 
 ## What is the FA2 standard?
 
@@ -44,7 +44,7 @@ It supports several different token types, including fungible and non-fungible t
 Adhering to the FA2 standard allows developers to create new types of tokens while ensuring that the tokens work with existing wallets and applications.
 The FA2 standard leaves enough freedom for developers to define rules for transferring tokens and for how tokens behave.
 
-For more information about FA2 tokens, see [FA2 tokens](../architecture/tokens/FA2).
+For more information about FA2 tokens, see [FA2 tokens](/architecture/tokens/FA2).
 
 ## What is the SmartPy FA2 library?
 

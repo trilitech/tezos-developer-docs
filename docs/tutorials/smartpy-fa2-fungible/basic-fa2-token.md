@@ -429,7 +429,7 @@ The Octez client provides a few local sandbox modes that you can use to test con
 
 Follow these steps to set up the Octez client mockup mode and deploy the contract to it:
 
-1. Install the Octez client by following the steps in [Installing the Octez client](../../developing/octez-client/installing).
+1. Install the Octez client by following the steps in [Installing the Octez client](/developing/octez-client/installing).
 
 1. Set up the Octez client mockup mode:
 

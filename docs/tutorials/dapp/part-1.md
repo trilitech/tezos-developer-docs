@@ -8,7 +8,7 @@ last_update:
 To start working with the application, you create a Taqueria project and use it to deploy the Poke contract.
 Then you set up a web application to connect with a wallet, and then interact with your smart contract.
 
-Before you begin, make sure that you have installed the tools in the [Prerequisites](../dapp#prerequisites) section.
+Before you begin, make sure that you have installed the tools in the [Prerequisites](/tutorials/dapp#prerequisites) section.
 
 ## Creating a Taqueria project
 

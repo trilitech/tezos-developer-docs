@@ -7,7 +7,7 @@ last_update:
 
 SmartPy is a comprehensive solution for developing, testing, and deploying smart contracts on Tezos. With its easy-to-use Python syntax, developers can create contracts in a familiar and intuitive way, while SmartPy's type inference provides added safety.
 
-To get started with SmartPy, see the tutorial [Deploy a smart contract with SmartPy](../../tutorials/smart-contract/smartpy), the [tutorial](https://smartpy.io/guides/tutorial) on smartpy.io, or [Smart contract development with SmartPy](https://opentezos.com/smartpy/write-contract-smartpy/) on opentezos.com.
+To get started with SmartPy, see the tutorial [Deploy a smart contract with SmartPy](/tutorials/smart-contract/smartpy), the [tutorial](https://smartpy.io/guides/tutorial) on smartpy.io, or [Smart contract development with SmartPy](https://opentezos.com/smartpy/write-contract-smartpy/) on opentezos.com.
 
 ## Test scenarios
 

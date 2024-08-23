@@ -24,7 +24,7 @@ octez-client show address local_account
 
 The account address (technically the hash of the public key) starts with `tz1`, `tz2`, or `tz3`.
 You can use this address to send tez to this account, such as from a faucet if you are using a testnet.
-See [Testing on sandboxes and testnets](../testnets).
+See [Testing on sandboxes and testnets](/developing/testnets).
 
 <!-- TODO
 ## Importing pregenerated accounts
