@@ -15,6 +15,8 @@ The DAL node is responsible for temporarily storing data and providing it to bak
 
    This, too, may take some time to launch the first time because it needs to generate a new identity file, this time for the DAL network.
 
+   If the IP address of the computer that you are running the DAL node on is not public, add the `--public-addr` argument to specify the host name and port that clients should use to connect to the DAL node.
+
 1. Verify that the DAL node is connected to the DAL network by running this command:
 
    ```bash
