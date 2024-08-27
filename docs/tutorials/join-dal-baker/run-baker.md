@@ -2,7 +2,7 @@
 title: "Step 4: Run an Octez baking daemon"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 22 August 2024
+  date: 27 August 2024
 ---
 
 Now that you have a DAL node, you can run a baking daemon that can attest to DAL data or restart an existing baking daemon to connect it to the DAL node.
@@ -12,6 +12,10 @@ Now that you have a DAL node, you can run a baking daemon that can attest to DAL
    ```bash
    octez-baker-PsParisC run with local node "$HOME/.tezos-node" my_baker --liquidity-baking-toggle-vote pass --adaptive-issuance-vote on --dal-node http://127.0.0.1:10732 >> "$HOME/octez-baker.log" 2>&1
    ```
+
+1. Ensure that the baker runs persistently.
+Look up how to run programs persistently in the documentation for your operating system.
+You can also refer to [Run a persistent baking node](https://opentezos.com/node-baking/baking/persistent-baker/) on opentezos.com.
 
 1. In the same terminal window, run this command:
 

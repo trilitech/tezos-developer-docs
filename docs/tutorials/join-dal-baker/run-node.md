@@ -2,7 +2,7 @@
 title: "Step 1: Run an Octez node"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 22 August 2024
+  date: 27 August 2024
 ---
 
 To use the Octez suite with Ghostnet, you need a recent build of the Octez binaries.
@@ -45,6 +45,10 @@ If you build from source, you can use the `latest_branch` branch to work with Gh
    ```
    octez-node run --rpc-addr 127.0.0.1:8732 --log-output="$HOME/octez-node.log"
    ```
+
+1. Ensure that the node runs persistently.
+Look up how to run programs persistently in the documentation for your operating system.
+You can also refer to [Run a persistent baking node](https://opentezos.com/node-baking/baking/persistent-baker/) on opentezos.com.
 
 1. Optional: When the node has bootstrapped and caught up with the current head block, you can delete the snapshot file to save space.
 
