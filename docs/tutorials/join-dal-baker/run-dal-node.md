@@ -2,7 +2,7 @@
 title: "Step 3: Run an Octez DAL node"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 22 August 2024
+  date: 27 August 2024
 ---
 
 The DAL node is responsible for temporarily storing data and providing it to bakers and Smart Rollups.
@@ -37,7 +37,7 @@ The DAL node is responsible for temporarily storing data and providing it to bak
 
    Now the DAL node is connected to the DAL network but it is not yet receiving data.
 
-1. Like other Octez daemons, ensure that the DAL node runs persistently.
+1. Ensure that the DAL node runs persistently.
 Look up how to run programs persistently in the documentation for your operating system.
 You can also refer to [Run a persistent baking node](https://opentezos.com/node-baking/baking/persistent-baker/) on opentezos.com.
 
