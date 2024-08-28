@@ -1,16 +1,30 @@
 ---
-title: "Step 3: Set up a baker account on Weeklynet"
-authors: Tezos core developers
+title: "Step 2: Set up a baker account"
+authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 6 March 2024
+  date: 19 August 2024
 ---
 
-Our baker needs a user account consisting of a pair of keys and an address.
-In this section, you use the Octez client to create an account and register it as a delegate.
+The baker needs a user account that stakes tez.
+In this section, you use the Octez client to create an account, register it as a delegate, and stake tez with it.
 
-1. Open a new terminal window in the same environment.
-If you are using a Docker container, you can enter the container with the `docker exec` command, as in `docker exec -it my-image /bin/sh`.
-To get the name of the Docker container, you run the `docker ps` command.
+1. Connect the Octez client to your node by running this command:
+
+   ```bash
+   octez-client -E http://localhost:8732 config update
+   ```
+
+   If you see an error that says "Failed to acquire the protocol version from the node," ensure that your node is running and verify that the host name and port in the `config update` command are correct.
+
+1. Make sure that the installation of the Octez client is using your node by running this command:
+
+   ```bash
+   octez-client bootstrapped
+   ```
+
+   The client waits until it is connected and the node is running at the current level.
+   When it is connected and the node is updated, the command prints the message `Node is bootstrapped`.
+   The time it takes depends on how many blocks the node must retrieve to catch up from the snapshot to the current head block.
 
 1. Optional: Hide the Octez client's network warning message by running this command:
 
@@ -21,7 +35,7 @@ To get the name of the Docker container, you run the `docker ps` command.
    This command suppresses the message that your instance of the Octez client is not using Mainnet.
 
 1. Create or import an account in the Octez client.
-The simplest way to get an account that works with Weeklynet is to use the Octez client to randomly generate an account.
+The simplest way to get an account is to use the Octez client to randomly generate an account.
 This command creates an account and associates it with the `my_baker` alias:
 
    ```bash
@@ -34,31 +48,18 @@ This command creates an account and associates it with the `my_baker` alias:
    octez-client show address my_baker
    ```
 
-1. Record this address in a shell variable so you can use it for commands that cannot get addresses by their Octez client aliases:
-
-   ```bash
-   MY_BAKER="$(octez-client show address my_baker | head -n 1 | cut -d ' ' -f 2)"
-   ```
-
    At this point, the balance of the `my_baker` account is still zero, as you can see by running this command:
 
    ```bash
    octez-client get balance for my_baker
    ```
 
-   If you get an error on this command, your local node isn't ready yet.
-   Until the node has finished bootstrapping, pass the public RPC endpoint for Weeklynet in the `--endpoint` argument, as in this example:
+1. Get at least 6,000 tez from the Ghostnet faucet.
 
-   ```bash
-   octez-client --endpoint https://rpc.weeklynet-2024-01-17.teztnets.com get balance for my_baker
-   ```
+   The account must stake tez to get consensus and DAL rights.
+   To get tez, use the Ghostnet faucet linked from https://teztnets.com/ghostnet-about to send tez to the baker account.
 
-   Don't set the client endpoint to the public node permanently because it should use your local node whenever possible.
-   For bakers, it's important to set the Octez client to use their node rather than a public node because the baker daemon uses the client configuration and the baker daemon should use the local node.
-
-1. Get some tez from the Weeklynet faucet.
-
-   In order to get some consensus and DAL rights, we need to put some tez in the account. Fortunately, getting free testnet tez is easy thanks to the testnet faucet. To use it, we need to enter the generated address in the Weeklynet faucet linked from https://teztnets.com/weeklynet-about. We need at least 6k tez for running a baker but the more tez we have the more rights we will get and the shorter we will have to wait to produce blocks and attestations. That being said, baking with too much stake prevents us from leaving the network without disturbing or even halting it so to avoid breaking the network for all other testers let's not be too greedy. 50k tez is enough to get enough rights to easily check if our baker behaves as expected while not disturbing the network too much when our baker stops operating.
+   Running a baker requires staking at least 6,000 tez, but the more tez it stakes, the more rights it gets and the less time it has to wait to produce blocks and make attestations.
 
 1. Verify that the faucet sent the tez to the account with the same `get balance` command:
 
@@ -66,7 +67,10 @@ This command creates an account and associates it with the `my_baker` alias:
    octez-client get balance for my_baker
    ```
 
-   At this point, the `my_baker` account owns enough stake to bake but has still no consensus or DAL rights because we haven't declared our intention to become a baker to the Tezos protocol.
+   If the balance still shows 0, the local node may not be ready yet.
+   In this case you can temporarily use the public RPC endpoint.
+
+   When the account receives its tez, it owns enough stake to bake but has still no consensus or DAL rights because it has not declared its intention to become a baker.
 
 1. Register your account as a delegate by running the following command:
 
@@ -74,41 +78,13 @@ This command creates an account and associates it with the `my_baker` alias:
    octez-client register key my_baker as delegate
    ```
 
-   Again, pass the `--endpoint` argument if your node has not finished bootstrapping.
-
-1. Stake the tez, saving a small amount for transaction fees.
-For example, if your account has 50k tez, stake 49990 tez by running this command:
+1. Stake at least 6,000 tez, saving a small amount for transaction fees,by running this command:
 
    ```bash
-   octez-client stake 49990 for my_baker
+   octez-client stake 6000 for my_baker
    ```
 
-   Seven cycles later (about 1h40 on Weeklynet), our baker will start receiving rights. To see for instance its consensus attestation rights in the current cycle, we can use the following RPC call:
+Now the account has staked enough tez to earn the right to make attestations, including attestations that data is available on the DAL.
+However, it does not receive these rights until the baking daemon is running and a certain amount of time has passed.
 
-   ```bash
-   octez-client rpc get /chains/main/blocks/head/helpers/attestation_rights\?delegate="$MY_BAKER"
-   ```
-
-   When your baker has attestation rights, the previous command returns information about them, as in this example:
-
-   ```json
-   [ { "level": 9484,
-    "delegates":
-      [ { "delegate": "tz1Zs6zjxtLxmff51tK2AVgvm4PNmdNhLcHE",
-          "first_slot": 280, "attestation_power": 58,
-          "consensus_key": "tz1Zs6zjxtLxmff51tK2AVgvm4PNmdNhLcHE" } ] } ]
-   ```
-
-   To see the DAL attestation rights of all bakers, we can use the following RPC call:
-
-   ```bash
-   octez-client rpc get /chains/main/blocks/head/context/dal/shards
-   ```
-
-   This command returns an array of DAL attestation rights. The 2048 shards which are expected to be attested at this level are shared between active bakers proportionally to their stake. Each baker is assigned a slice of shard indices represented in the output of this command by a pair consisting of the first index and the length of the slice. So to check if some rights were assigned to us we can filter the array to our baker by running this command:
-
-   ```bash
-   octez-client rpc get /chains/main/blocks/head/context/dal/shards | grep "$MY_BAKER"
-   ```
-
-When attestation rights are assigned to your baker, continue to [Step 4: Run an Octez DAL node on Weeklynet](./run-dal-node.md).
+While you wait for attestation rights, continue to [Step 3: Run an Octez DAL node](./run-dal-node).
