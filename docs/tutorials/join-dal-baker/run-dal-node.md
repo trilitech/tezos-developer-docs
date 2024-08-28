@@ -1,35 +1,72 @@
 ---
-title: "Step 4: Run an Octez DAL node on Weeklynet"
-authors: Tezos core developers
+title: "Step 3: Run an Octez DAL node"
+authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 23 January 2024
+  date: 27 August 2024
 ---
 
 The DAL node is responsible for temporarily storing data and providing it to bakers and Smart Rollups.
 
-To start the DAL node, open a new terminal window in the same environment and run this command:
+1. Start the DAL node by running this command:
 
-```bash
-octez-dal-node run >> "$HOME/octez-dal-node.log" 2>&1
-```
+   ```bash
+   octez-dal-node run >> "$HOME/octez-dal-node.log" 2>&1
+   ```
 
-This, too, may take some time to launch the first time because it needs to generate a new identity file, this time for the DAL network.
+   This, too, may take some time to launch the first time because it needs to generate a new identity file, this time for the DAL network.
 
-The DAL node connects to the DAL network but it is not yet receiving shards.
+   If the IP address of the computer that you are running the DAL node on is not public, add the `--public-addr` argument to specify the host name and port that clients should use to connect to the DAL node.
 
-DAL nodes share shards and information about them over a peer-to-peer pub/sub network built on the Gossipsub protocol.
-As layer 1 assigns shards to the bakers, the Gossipsub network manages topics that DAL nodes can subscribe to.
-For example, if a user submits data to slot 1, the network has a list of topics: a topic to identify the slot 1 shards assigned to baker A, a topic to identify the slot 1 shards assigned to baker B, and so on for all the bakers that are assigned shards from slot 1.
+1. Verify that the DAL node is connected to the DAL network by running this command:
 
-Then, the baker daemon automatically asks the DAL node to subscribe to the topic that provides the shards that it is assigned to.
-You can see the topics that the DAL node is subscribed to by running this RPC call:
+   ```bash
+   curl http://localhost:10732/p2p/gossipsub/connections
+   ```
 
-```bash
-curl http://localhost:10732/p2p/gossipsub/topics
-```
+   The response lists the network connections that the DAL node has.
+   It may take a few minutes for the node to connect to the DAL network.
 
-If you are using the `tezos/tezos` Docker image, you can install the `curl` program by running the command `sudo apk add curl`.
+   You can also verify that the DAL node is connected by viewing its log.
+   When the node is bootstrapped it logs messages that look like this:
 
-In the results, each topic contains a shard and the address of the baker that is assigned to it.
-Now you can run a baker to verify these shards.
-Continue to [Step 5: Run an Octez baking daemon on Weeklynet](./run-baker).
+   ```
+   Aug 12 17:44:19.985: started tracking layer 1's node
+   Aug 12 17:44:24.418: layer 1 node's block at level 7538687, round 0 is final
+   Aug 12 17:44:29.328: layer 1 node's block at level 7538688, round 0 is final
+   ```
+
+   The DAL node waits for blocks to be finalized, so this log lags 2 blocks behind the layer 1 node's log.
+
+   Now the DAL node is connected to the DAL network but it is not yet receiving data.
+
+1. Ensure that the DAL node runs persistently.
+Look up how to run programs persistently in the documentation for your operating system.
+You can also refer to [Run a persistent baking node](https://opentezos.com/node-baking/baking/persistent-baker/) on opentezos.com.
+
+   For example, if your operating system uses the `systemd` software suite, your service file might look like this example:
+
+   ```systemd
+   [Unit]
+   Description=Octez DAL node
+   Wants = network-online.target
+   After = network-online.target
+   Requires = octez-node.service
+
+   [Install]
+   WantedBy=multi-user.target
+   RequiredBy = octez-baker.service
+
+   [Service]
+   Type=simple
+   User=mybaker
+   ExecStart=/usr/bin/octez-dal-node run --data-dir /opt/dal
+   WorkingDirectory=/opt/dal
+   Restart=on-failure
+   RestartSec=5
+   StandardOutput=append:/opt/dal/octez-dal-node.log
+   StandardError=append:/opt/dal/octez-dal-node.log
+   SyslogIdentifier=%n
+   ```
+
+Now that you have a DAL node running, you can start a baking daemon that uses that DAL node.
+Continue to [Step 4: Run an Octez baking daemon](./run-baker).
