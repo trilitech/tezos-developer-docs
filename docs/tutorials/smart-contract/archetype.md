@@ -8,9 +8,9 @@ last_update:
 This tutorial covers writing a smart contract and deploying it to Tezos in the Archetype programming language.
 It uses the completium-cli command-line tool, which lets you work with Archetype contracts and Tezos from the command line.
 
-- If you are more familiar with Python, try [Deploy a smart contract with SmartPy](./smartpy).
-- If you are more familiar with OCaml, try [Deploy a smart contract with CameLIGO](./cameligo).
-- If you are more familiar with JavaScript, try [Deploy a smart contract with JsLIGO](./jsligo).
+- If you are more familiar with Python, try [Deploy a smart contract with SmartPy](/tutorials/smart-contract/smartpy).
+- If you are more familiar with OCaml, try [Deploy a smart contract with CameLIGO](/tutorials/smart-contract/cameligo).
+- If you are more familiar with JavaScript, try [Deploy a smart contract with JsLIGO](/tutorials/smart-contract/jsligo).
 
 In this tutorial, you will learn how to:
 
@@ -175,7 +175,7 @@ The contract that you will create has these basic parts:
 
 - A variable that represents the contract's storage, in this case an integer.
 Contracts can have storage in the form of primitive types such as an integer, string, or timestamp, or a complex data type that contains multiple values.
-For more information on contract data types, see [Data types](../../smart-contracts/data-types).
+For more information on contract data types, see [Data types](/smart-contracts/data-types).
 
 - Internal functions called entrypoints that run code when clients call the contract.
 
@@ -336,4 +336,4 @@ If you want to continue working with this contract, here are some ideas:
 
 - Change permissions for the contract so only your account can call its entrypoints
 - Add your own entrypoints and originate a new contract; note that you cannot update the existing contract after it is deployed
-- Create a dApp to call the contract from a web application, similar to the dApp that you create in the tutorial [Build a simple web application](../build-your-first-app/)
+- Create a dApp to call the contract from a web application, similar to the dApp that you create in the tutorial [Build a simple web application](/tutorials/build-your-first-app/)

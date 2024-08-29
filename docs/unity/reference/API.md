@@ -51,7 +51,7 @@ IEnumerator ReadView(
     Action<JsonElement> callback);
 ```
 
-Returns the response from a contract [view](../../smart-contracts/views).
+Returns the response from a contract [view](/smart-contracts/views).
 Note that the `input` parameter must be a Michelson-encoded object, as in the following example, which passes an integer and string parameter to the view:
 
 Example:
@@ -505,7 +505,7 @@ IEnumerator GetOriginatedContractsForOwner(
 
 Gets the contracts that the specified account deployed (originated).
 Optionally, you can pass the hash of a contract to return only contracts that match that hash.
-For example, the hash of the contract in the [`TokenContract`](./TokenContract) object is in the `Resources/Contracts/FA2TokenContractCodeHash.txt` file.
+For example, the hash of the contract in the [`TokenContract`](/unity/reference/TokenContract) object is in the `Resources/Contracts/FA2TokenContractCodeHash.txt` file.
 
 Example:
 

@@ -8,7 +8,7 @@ last_update:
 
 The Unity SDK class `TezosSDK.Tezos.API.Models.TokenContract`, which is available at runtime as the `TezosManager.Instance.Tezos.TokenContract` object, provides a built-in FA2-compatible smart contract and convenience methods to work with it.
 
-For information about FA2 contracts and tokens, see [FA2 tokens](../../architecture/tokens/FA2).
+For information about FA2 contracts and tokens, see [FA2 tokens](/architecture/tokens/FA2).
 
 The Michelson source code of the built-in contract is in the `Resources/Contracts` folder of the SDK.
 
@@ -35,11 +35,11 @@ For a simpler way to create tokens, see the [`Mint()`](#mint) method.
 
 - `balance_of`: Sends information about an owner's token balance to another contract.
 Its parameters are a callback contract that accepts a list of token IDs and the amount that the specified account owns.
-For a simpler way to get information about token ownership, see the [`API.GetTokensForOwner()`](./API#gettokensforowner) method.
+For a simpler way to get information about token ownership, see the [`API.GetTokensForOwner()`](/unity/reference/API#gettokensforowner) method.
 
 - `update_operators`: Adds or removes operators for the specified token owners and token IDs.
 Its parameters are a list of commands to add or remove operators for token owners and IDs.
-For information about operators, see [Operators](../../architecture/tokens/FA2#operators).
+For information about operators, see [Operators](/architecture/tokens/FA2#operators).
 
 - `set_administrator`: Changes the account that can mint tokens.
 Its parameter is the address of the new administrator account.
@@ -47,14 +47,14 @@ This entrypoint can be called only by the current administrator account.
 
 - `set_metadata`: Creates or changes a metadata field in the specified contract's storage.
 Its parameters are a key-value pair for the new or updated metadata value.
-This metadata is a value in the contract's storage, which is different from the metadata returned by the [`API.GetContractMetadata()`](./API#getcontractmetadata) method.
+This metadata is a value in the contract's storage, which is different from the metadata returned by the [`API.GetContractMetadata()`](/unity/reference/API#getcontractmetadata) method.
 This entrypoint can be called only by the current administrator account.
 
 - `set_pause`: Sets the value of the `paused` storage field.
 When this field is set to true, tokens can be minted but not transferred between accounts.
 This entrypoint can be called only by the current administrator account.
 
-For examples of calling these entrypoints, see [Calling the built-in contract](../managing-contracts#calling-contracts).
+For examples of calling these entrypoints, see [Calling the built-in contract](/unity/managing-contracts#calling-contracts).
 
 ### Constructors
 

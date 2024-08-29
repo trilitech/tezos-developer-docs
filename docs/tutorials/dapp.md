@@ -53,4 +53,4 @@ The application looks like this:
 
 The code for the completed application is in this GitHub repository: [solution](https://github.com/marigold-dev/training-dapp-1/tree/main/solution)
 
-When you're ready, move to the next section [Create your minimum dApp on Tezos](./dapp/part-1) to begin setting up the application.
+When you're ready, move to the next section [Create your minimum dApp on Tezos](/tutorials/dapp/part-1) to begin setting up the application.

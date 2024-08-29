@@ -8,7 +8,7 @@ last_update:
 So far you have used the token in the SmartPy test scenario and in the Octez client local sandbox.
 To test it on a live network, you can use the Ghostnet test network.
 
-For more information about testnets, see [Testing on sandboxes and testnets](../../developing/testnets).
+For more information about testnets, see [Testing on sandboxes and testnets](/developing/testnets).
 
 ## Configuring the Octez client for Ghostnet
 
@@ -22,7 +22,7 @@ Follow these steps to set up your installation of the Octez client to work with 
    octez-client -E https://rpc.ghostnet.teztnets.com config update
    ```
 
-1. If you don't have an account on Ghostnet, create or import one with the instructions in [Creating accounts](../../developing/octez-client/accounts).
+1. If you don't have an account on Ghostnet, create or import one with the instructions in [Creating accounts](/developing/octez-client/accounts).
 
 1. Use the [Ghostnet faucet](https://faucet.ghostnet.teztnets.com/) to get some tez for the account.
 

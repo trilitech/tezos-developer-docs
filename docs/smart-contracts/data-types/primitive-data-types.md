@@ -50,7 +50,7 @@ You can perform bitwise logical operations: the usual `OR`, `AND`, `XOR`, `NOT`.
 
 You can also perform bitwise left and right shifts (`LSL` and `LSR`), with a parameter that indicates by how many bits you shift the value.
 
-For information about comparing values, see [Comparing values](../logic/comparing).
+For information about comparing values, see [Comparing values](/smart-contracts/logic/comparing).
 
 Finally, you can convert an `int` to a `nat` or vice versa:
 
@@ -92,7 +92,7 @@ You can do these arithmetic operations on `mutez`:
 - Multiplying a `mutez` value with a `nat` (`MUL`), which returns a result in `mutez`
 - Performing an integer division (`EDIV`)
 
-For information about comparing values, see [Comparing values](../logic/comparing).
+For information about comparing values, see [Comparing values](/smart-contracts/logic/comparing).
 
 ## Strings {#strings}
 
@@ -108,7 +108,7 @@ You can do these operations on strings:
 - Concatenate two `string` types (`CONCAT`)
 - Get the size of a `string` (`SIZE`), which returns a `nat`
 - Extract a substring of a `string` (`SLICE`)
-- Compare two `string` types based on their lexicographical order; see [Comparing values](../logic/comparing)
+- Compare two `string` types based on their lexicographical order; see [Comparing values](/smart-contracts/logic/comparing)
 
 ## Bytes {#bytes}
 
@@ -120,7 +120,7 @@ This type has no limits on its size other than the indirect limits caused by the
 - Concatenate two `bytes` types (`CONCAT`)
 - Get the size of a `bytes` (`SIZE`), which returns a `nat`
 - Extract a substring of a `bytes` (`SLICE`)
-- Compare two `bytes` types based on their lexicographical order; see [Comparing values](../logic/comparing)
+- Compare two `bytes` types based on their lexicographical order; see [Comparing values](/smart-contracts/logic/comparing)
 
 To save space, you can store most other data types in a `bytes` type.
 To convert
@@ -137,9 +137,9 @@ Serialization is also useful in applying cryptographic functions to data, as in 
 - Checking that a sequence of `bytes` has been signed with a given key
 - Applying elliptic-curve cryptographic primitives (`BLS12-381`)
 
-For more information about serialization, see [Serialization](../serialization).
+For more information about serialization, see [Serialization](/smart-contracts/serialization).
 
-`bytes` are also used in [Sapling](../sapling).
+`bytes` are also used in [Sapling](/smart-contracts/sapling).
 
 ## Booleans {#booleans}
 
@@ -164,7 +164,7 @@ The following operations are supported on timestamps:
 - Adding a number of seconds to a `timestamp` (`ADD`)
 - Subtracting a number of seconds from a `timestamp` (`SUB`)
 - Computing the difference in seconds between two `timestamp` values (`SUB`)
-- Comparing two `timestamps` (`COMPARE`); see [Comparing values](../logic/comparing)
+- Comparing two `timestamps` (`COMPARE`); see [Comparing values](/smart-contracts/logic/comparing)
 
 ## Addresses {#addresses}
 

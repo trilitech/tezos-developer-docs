@@ -26,7 +26,7 @@ octez-client get balance for account1
 
 ## Calling smart contracts
 
-To call a smart contract, use the `octez-client transfer` command, as in this example from the [Deploy a smart contract](../../tutorials/smart-contract) tutorial:
+To call a smart contract, use the `octez-client transfer` command, as in this example from the [Deploy a smart contract](/tutorials/smart-contract) tutorial:
 
 ```bash
 octez-client --wait none transfer 0 \
@@ -57,7 +57,7 @@ Then you can use this value for the value of the `--arg` argument in the `octez-
 
 ## Originating (deploying) smart contracts
 
-To deploy (originate) a smart contract to the current network, use the `octez-client originate contract` command, as in this example from the [Deploy a smart contract](../../tutorials/smart-contract) tutorial:
+To deploy (originate) a smart contract to the current network, use the `octez-client originate contract` command, as in this example from the [Deploy a smart contract](/tutorials/smart-contract) tutorial:
 
 ```bash
 octez-client originate contract my-counter \

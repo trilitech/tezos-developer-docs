@@ -8,9 +8,9 @@ last_update:
 This tutorial covers writing and deploying a simple smart contract with the LIGO programming language.
 Specifically, this tutorial uses the JsLIGO version of LIGO, which has syntax similar to JavaScript, but you don't need any experience with JavaScript or LIGO to do this tutorial.
 
-- If you are more familiar with Python, try [Deploy a smart contract with SmartPy](./smartpy).
-- If you are more familiar with OCaml, try [Deploy a smart contract with CameLIGO](./cameligo).
-- To learn the Archetype language, try [Deploy a smart contract with Archetype](./archetype).
+- If you are more familiar with Python, try [Deploy a smart contract with SmartPy](/tutorials/smart-contract/smartpy).
+- If you are more familiar with OCaml, try [Deploy a smart contract with CameLIGO](/tutorials/smart-contract/cameligo).
+- To learn the Archetype language, try [Deploy a smart contract with Archetype](/tutorials/smart-contract/archetype).
 
 LIGO is a high-level programming language that you can use to write smart contracts for the Tezos blockchain.
 It abstracts away the complexity of using Michelson (the smart contract language directly available on-chain) to make it easier to write smart contracts on Tezos.
@@ -94,7 +94,7 @@ The contract that you will create has these basic parts:
 
 - A type that describes the contract's storage, in this case an integer.
 The storage can be a primitive type such as an integer, string, or timestamp, or a complex data type that contains multiple values.
-For more information on contract data types, see [Data types](../../smart-contracts/data-types).
+For more information on contract data types, see [Data types](/smart-contracts/data-types).
 
 - Functions called entrypoints that run code when clients call the contract.
 
@@ -274,7 +274,7 @@ You can ignore this warning because you can set the initial storage now.
 Copy the contract address now, because it will not be shown again.
 :::
 
-Now you can call the contract from any Tezos client, including web applications and command-line applications like [The Octez client](../../developing/octez-client).
+Now you can call the contract from any Tezos client, including web applications and command-line applications like [The Octez client](/developing/octez-client).
 
 ## Calling the contract
 
@@ -321,4 +321,4 @@ If you want to continue working with this contract, here are some ideas:
 
 - Change permissions for the contract so only your account can call its entrypoints
 - Add your own entrypoints and originate a new contract; note that you cannot update the existing contract after it is deployed
-- Create a dApp to call the contract from a web application, similar to the dApp that you create in the tutorial [Build a simple web application](../build-your-first-app/)
+- Create a dApp to call the contract from a web application, similar to the dApp that you create in the tutorial [Build a simple web application](/tutorials/build-your-first-app/)

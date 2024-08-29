@@ -83,7 +83,7 @@ For example, if the delay is 307,200 seconds, that time is about 3.5 days.
 
    The exact time depends on what time in the current cycle the account staked its tez.
 
-1. Wait for the attestation delay to be over and then proceed to [Step 5: Verify attestation rights](./verify-rights).
+1. Wait for the attestation delay to be over and then proceed to [Step 5: Verify attestation rights](/tutorials/join-dal-baker/verify-rights).
 
 :::note
 

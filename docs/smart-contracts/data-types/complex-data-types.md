@@ -318,7 +318,7 @@ In general, use big-maps to store large amounts of data.
 ## Sets {#sets}
 
 Like lists, sets contain elements of the same data type, but in sets, each element can be present only once.
-Sets are ordered, and the order is the natural order of the values in the set; see [Comparing values](../logic/comparing).
+Sets are ordered, and the order is the natural order of the values in the set; see [Comparing values](/smart-contracts/logic/comparing).
 
 The main operations available on sets are:
 

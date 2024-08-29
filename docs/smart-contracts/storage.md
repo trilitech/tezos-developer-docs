@@ -7,7 +7,7 @@ last_update:
 
 Each contract has associated storage, which is persistent internal data that it can read and write to.
 Contracts can access only their own storage; they can't access the storage of other contracts.
-To provide information to other contracts, use [Views](./views).
+To provide information to other contracts, use [Views](/smart-contracts/views).
 
 However, the content of the storage of a contract is public, like everything else in the state of the blockchain.
 Therefore, you can see the current value of the storage of any contract using an explorer such as [Better Call Dev](https://better-call.dev/).

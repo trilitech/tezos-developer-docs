@@ -21,7 +21,7 @@ Smart Rollups use Tezos for information and transactions but can run large appli
 
 In this way, Smart Rollups allow Tezos to scale to support large, complex applications without slowing Tezos itself or incurring large transaction and storage fees.
 The processing that runs on Tezos itself via smart contracts is referred to as _layer 1_ and the processing that Smart Rollups run is referred to as _layer 2_.
-To learn about running code in smart contracts, see the tutorial [Deploy a smart contract](./smart-contract).
+To learn about running code in smart contracts, see the tutorial [Deploy a smart contract](/tutorials/smart-contract).
 
 Rollups also have an outbox, which consists of calls to smart contracts on layer 1.
 These calls are how rollups send messages back to layer 1.
@@ -39,7 +39,7 @@ TODO Should this intro discuss the reveal data channel?
 
 Rollups maintain consensus by publishing the hash of their state to Tezos, which other nodes can use to verify the rollup's behavior.
 The specific way that rollups publish their states and maintain consensus is beyond the scope of this tutorial.
-For more information about rollups and their consensus mechanism, see [Smart Optimistic Rollups](../architecture/smart-rollups).
+For more information about rollups and their consensus mechanism, see [Smart Optimistic Rollups](/architecture/smart-rollups).
 
 This diagram shows a Smart Rollup interacting with layer 1 by receiving a message, running processing based on that message, and sending a transaction to layer 1:
 

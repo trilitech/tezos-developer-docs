@@ -72,4 +72,4 @@ TAQ_LIGO_IMAGE=ligolang/ligo:1.1.0 taq compile <MY_CONTRACT_FILE>.jsligo
 
 ---
 
-When you're ready, go to [Part 1: Programming errors](./security/part-1)
+When you're ready, go to [Part 1: Programming errors](/tutorials/security/part-1)

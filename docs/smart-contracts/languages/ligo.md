@@ -15,8 +15,8 @@ You can use either syntax and compile to Michelson to run on Tezos.
 
 To learn LIGO, see these tutorials:
 
-- [Deploy a smart contract with CameLIGO](../../tutorials/smart-contract/cameligo)
-- [Deploy a smart contract with JsLIGO](../../tutorials/smart-contract/jsligo)
+- [Deploy a smart contract with CameLIGO](/tutorials/smart-contract/cameligo)
+- [Deploy a smart contract with JsLIGO](/tutorials/smart-contract/jsligo)
 
 Here are examples of straightforward LIGO contracts.
 Each contract stores an integer and provides entrypoints that increase or decrease the integer or reset it to zero.

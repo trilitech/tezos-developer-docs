@@ -6,13 +6,13 @@ last_update:
 ---
 
 Indexers are off-chain applications that retrieve blockchain data, process it, and store it in a way that makes it easier to search and use.
-Indexers are an important component of [Block explorers](./block-explorers).
+Indexers are an important component of [Block explorers](/developing/information/block-explorers).
 
 You can use indexers to provide the data that you need for your dApps.
 
 ## Why indexers are needed
 
-Tezos nodes store copies of blocks, but they provide only certain information about those blocks through the [RPC interface](../../architecture/rpc).
+Tezos nodes store copies of blocks, but they provide only certain information about those blocks through the [RPC interface](/architecture/rpc).
 
 For example, assume that you want information about an operation and all you have is its hash.
 The RPC interface can't provide this information directly, so you would have to search each block until you found the block with this operation, which is very inefficient.

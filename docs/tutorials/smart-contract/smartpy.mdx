@@ -8,9 +8,9 @@ last_update:
 This tutorial covers writing and deploying a simple smart contract with the SmartPy programming language.
 SmartPy has syntax similar to Python, but you don't need any experience with Python or SmartPy to do this tutorial.
 
-- If you are more familiar with OCaml, try [Deploy a smart contract with CameLIGO](./cameligo).
-- If you are more familiar with JavaScript, try [Deploy a smart contract with JsLIGO](./jsligo).
-- To learn the Archetype language, try [Deploy a smart contract with Archetype](./archetype).
+- If you are more familiar with OCaml, try [Deploy a smart contract with CameLIGO](/tutorials/smart-contract/cameligo).
+- If you are more familiar with JavaScript, try [Deploy a smart contract with JsLIGO](/tutorials/smart-contract/jsligo).
+- To learn the Archetype language, try [Deploy a smart contract with Archetype](/tutorials/smart-contract/archetype).
 
 SmartPy is a high-level programming language that you can use to write smart contracts for the Tezos blockchain.
 It abstracts away the complexity of using Michelson (the smart contract language directly available on-chain) to make it easier to write smart contracts on Tezos.
@@ -137,7 +137,7 @@ You can work with SmartPy code in any IDE, but this online IDE keeps you from ha
    The contract has an `__init__` function, which runs when the contract is deployed.
    In this case, the function sets the initial value of the storage to a parameter that you pass when you deploy the contract.
    This storage value is a string, but the storage can be another primitive type such as an integer or timestamp, or a complex data type that contains multiple values.
-   For more information on contract data types, see [Data types](../../smart-contracts/data-types).
+   For more information on contract data types, see [Data types](/smart-contracts/data-types).
 
 1. Add this code, which creates automated tests:
 
@@ -317,4 +317,4 @@ If you want to continue working with this contract, here are some ideas:
 
 - Change permissions for the contract so only your account can call its entrypoints
 - Add your own entrypoints and originate a new contract; note that you cannot update the existing contract after it is deployed
-- Create a dApp to call the contract from a web application, similar to the dApp that you create in the tutorial [Build a simple web application](../build-your-first-app/)
+- Create a dApp to call the contract from a web application, similar to the dApp that you create in the tutorial [Build a simple web application](/tutorials/build-your-first-app/)

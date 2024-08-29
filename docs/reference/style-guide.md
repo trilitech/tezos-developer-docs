@@ -2,7 +2,7 @@
 title: Documentation style guide
 authors: Tim McMackin
 last_update:
-  date: 15 January 2024
+  date: 23 August 2024
 ---
 
 ## Overall Tezos-related issues
@@ -66,7 +66,7 @@ Use emphasis sparingly to avoid making the page too visually busy or complex.
 
   - Buttons or links that the user must click or interact with
 
-  - Very sparingly, to highlight important words and phrases, such as the words at the beginning of a definition list, such as in the [Glossary](../overview/glossary)
+  - Very sparingly, to highlight important words and phrases, such as the words at the beginning of a definition list, such as in the [Glossary](/overview/glossary)
 
 - Do not emphasize the names of web sites, pages, or UI elements that the user sees but does not interact with directly
 
@@ -110,3 +110,7 @@ For example, instead of "We will see how you can deploy smart contracts to Tezos
 - Structure lists and headings in a consistent way.
   For example, make sure each list item is capitalized and punctuated in the same way.
   List items should be all complete sentences or all sentence fragments, not a mix.
+
+## Links
+
+- Use root-relative links, as in `[Target page](/folder/folder/target)`, because the target path of relative links as in `[Target page](./target)` can change based on whether the user's browser has a trailing slash in the URL.

@@ -74,7 +74,7 @@ This protocol is responsible for interpreting the operations in each block.
 It also provides the logic that identifies erroneous blocks.
 
 Updates to the protocol can change this logic through a voting process, using dedicated voting operations such as protocol proposals or protocol upvotes.
-For information about the voting process, see [Governance](./architecture/governance).
+For information about the voting process, see [Governance](/architecture/governance).
 
 The protocol has constants such as the time between blocks and the amount of tez that an account must stake to be a baker.
 These constants can be different for different Tezos networks.
@@ -116,7 +116,7 @@ For example, different bakers may implement different transaction selection stra
 
 The node accepts calls from clients through its RPC interface.
 It has control over which clients to accept calls from, which calls to accept, or whether to accept RPC calls at all.
-For more information on the RPC interface, see [The RPC interface](./architecture/rpc).
+For more information on the RPC interface, see [The RPC interface](/architecture/rpc).
 
 ### The baker daemon
 
@@ -167,9 +167,9 @@ They are an important part of block explorers, which are applications that provi
 
 For more information about the architecture of Tezos, see:
 
-- [Accounts and addresses](./architecture/accounts)
-- [Tokens](./architecture/tokens)
-- [Smart Optimistic Rollups](./architecture/smart-rollups)
-- [Governance](./architecture/governance)
-- [Indexers](./developing/information/indexers)
-- [Block explorers](./developing/information/block-explorers)
+- [Accounts and addresses](/architecture/accounts)
+- [Tokens](/architecture/tokens)
+- [Smart Optimistic Rollups](/architecture/smart-rollups)
+- [Governance](/architecture/governance)
+- [Indexers](/developing/information/indexers)
+- [Block explorers](/developing/information/block-explorers)

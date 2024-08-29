@@ -28,7 +28,7 @@ The sample game uses these main components:
 
 - **User wallets** as a source of user identity and authentication.
 The user doesn't make any direct transactions from the wallet and pays no tez to the application or in fees.
-For more information about Tezos wallets, see [Installing and funding a wallet](../developing/wallet-setup).
+For more information about Tezos wallets, see [Installing and funding a wallet](/developing/wallet-setup).
 
 - The **Unity WebGL application** is the front end of the application.
 It connects to the user wallet, sends the sign request, runs the game interface, and sends requests to the backend.
@@ -51,7 +51,7 @@ The Unity application calls it from the `Assets/Scripts/Api/GameApi.cs` file for
 
 - The **smart contract** is a program that runs on the Tezos blockchain to manage tokens that represent in-game items.
 It maintains a ledger of tokens and owners and allows the backend's administrator account to transfer them to players.
-The sample game uses a custom contract, but you can use the SDK's built-in FA2-compliant contract; see [Managing contracts](./managing-contracts).
+The sample game uses a custom contract, but you can use the SDK's built-in FA2-compliant contract; see [Managing contracts](/unity/managing-contracts).
 You can view and interact with the contract on a block explorer, such as tzkt.io: https://tzkt.io/KT1TSZfPJ5uZW1GjcnXmvt1npAQ2nh5S1FAj/operations.
 
 - The **Interplanetary File System (IPFS)** stores metadata for the tokens, including pictures and descriptions.
@@ -65,7 +65,7 @@ This diagram shows the basic interaction between these components:
 
 The game uses the user's Tezos account as a source of authentication.
 It prompts the user to connect their Tezos wallet so it can retrieve the user's account address.
-For more information about connecting to user wallets, see [Connecting accounts](./connecting-accounts).
+For more information about connecting to user wallets, see [Connecting accounts](/unity/connecting-accounts).
 
 When the wallet is connected, the game prompts the user to sign a payload to prove that they have the key for the account.
 The process follows these general steps:
@@ -83,12 +83,12 @@ Here is a diagram of the process:
 
 ![Authentication flow diagram](/img/unity/unity-sample-game-authentication.png)
 
-For more information about signing messages, see [Signing messages](./quickstart#signing-messages) in the Unity SDK quickstart.
+For more information about signing messages, see [Signing messages](/unity/quickstart#signing-messages) in the Unity SDK quickstart.
 
 ## Tokens
 
 The game uses Tezos tokens to represent in-game items, such as weapons, armor, and power-ups.
-Because these tokens are compliant with the [FA2](../architecture/tokens/FA2) standard, players can see their tokens in their wallets and in applications such as block explorers.
+Because these tokens are compliant with the [FA2](/architecture/tokens/FA2) standard, players can see their tokens in their wallets and in applications such as block explorers.
 They could also set up a third-party platform to show and trade their tokens.
 
 The smart contract that manages the tokens has one [token type](https://better-call.dev/mainnet/KT1TSZfPJ5uZW1GjcnXmvt1npAQ2nh5S1FAj/tokens) for each in-game item.
@@ -128,7 +128,7 @@ The [`UserDataManager.cs`](https://github.com/baking-bad/tezos-unity-game/blob/m
 Some of this information (such as the tokens that the player owns) comes from Tezos and other information (such as the player's statistics) comes from the backend.
 Information about the current game session and pending rewards are non-persistent data that are stored by the Unity application.
 
-The `UserDataManager` class responds to [events](./reference/EventManager) such as when the user connects their wallet and then loads information from the backend and from Tezos directly.
+The `UserDataManager` class responds to [events](/unity/reference/EventManager) such as when the user connects their wallet and then loads information from the backend and from Tezos directly.
 
 ## Opening the sample game
 

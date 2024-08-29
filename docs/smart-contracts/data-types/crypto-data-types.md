@@ -41,7 +41,7 @@ It can also be used for identity-based cryptography, single-round multi-party ke
 
 A `timelock` is a cryptographic primitive that can be used as part of a commit-and-reveal scheme, to provide a guarantee that the information associated to the commit is eventually revealed.
 
-For information about using time-locks, see [Timelocks](../timelocks).
+For information about using time-locks, see [Timelocks](/smart-contracts/timelocks).
 
 ## Implementation details
 

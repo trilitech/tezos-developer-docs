@@ -8,7 +8,7 @@ last_update:
 To start working with the application, you create a Taqueria project and use it to deploy an FA2 contract.
 Then you set up a web application to mint NFTs by calling the contract's mint endpoint and uploading an image and metadata to IPFS.
 
-Before you begin, make sure that you have installed the tools in the [Prerequisites](../build-an-nft-marketplace#prerequisites) section.
+Before you begin, make sure that you have installed the tools in the [Prerequisites](/tutorials/build-an-nft-marketplace#prerequisites) section.
 
 ## Creating a Taqueria project
 
@@ -366,7 +366,7 @@ To save time, this tutorial provides a starter React application.
    ```
 
    This application contains basic navigation and the ability to connect to wallets.
-   For a tutorial that includes connecting to wallets, see [Build a simple web application](../build-your-first-app).
+   For a tutorial that includes connecting to wallets, see [Build a simple web application](/tutorials/build-your-first-app).
 
    Because Taqueria automatically keeps track of your deployed contract, the application automatically accesses the contract and shows that there are no NFTs in it yet.
    The application looks like this:
@@ -719,7 +719,7 @@ The mint page uses a form that accepts information and an image and sends a tran
    For the complete content of the mint page, see the completed part 1 app at https://github.com/marigold-dev/training-nft-1.
 
 1. In the file `app/.env`, replace the default `VITE_PINATA_API_KEY` and `VITE_PINATA_API_SECRET` values with your Pinata API key and API secret.
-   If you don't have a Pinata API key, see the [Configure IPFS storage](../create-an-nft/nft-taquito#configure-ipfs-storage) section of the tutorial [Create a contract and web app that mints NFTs](../create-an-nft/nft-taquito).
+   If you don't have a Pinata API key, see the [Configure IPFS storage](/tutorials/create-an-nft/nft-taquito#configure-ipfs-storage) section of the tutorial [Create a contract and web app that mints NFTs](/tutorials/create-an-nft/nft-taquito).
 
    Now the form has a working mint page.
    In the next section, you use it to mint NFTs.
@@ -919,4 +919,4 @@ Now you can create FA2-compatible NFTs with the `@ligo/fa` library and show them
 
 In the next section, you add the buy and sell functions to the smart contract and update the frontend application to allow these actions.
 
-When you are ready, continue to [Part 2: Buying and selling tokens](./part-2).
+When you are ready, continue to [Part 2: Buying and selling tokens](/tutorials/build-an-nft-marketplace/part-2).

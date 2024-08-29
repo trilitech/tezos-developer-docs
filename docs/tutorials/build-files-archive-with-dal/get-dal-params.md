@@ -15,7 +15,7 @@ These commitments refer to the data that is stored on the DAL, which stores the 
 
 The data is broken into pages to ensure that each piece of data can fit in a single Tezos operation.
 This data must fit in a single operation to allow the Smart Rollup refutation game to work, in which every execution step of the Smart Rollup must be provable to layer 1.
-For more information about Smart Rollups, see [Smart Rollups](../../architecture/smart-rollups).
+For more information about Smart Rollups, see [Smart Rollups](/architecture/smart-rollups).
 
 When clients add data, they must specify which slot to add it to.
 Note that because the DAL is permissionless, clients may try to add data to the same slot in the same block.
@@ -31,7 +31,7 @@ In these steps, you set up a simple Smart Rollup to get the current DAL paramete
 
 ## Prerequisites
 
-Before you begin, make sure that you have installed the prerequisites and set up an environment and an account as described in [Part 1: Setting up an environment](./set-up-environment).
+Before you begin, make sure that you have installed the prerequisites and set up an environment and an account as described in [Part 1: Setting up an environment](/tutorials/build-files-archive-with-dal/set-up-environment).
 
 ## Fetching the DAL parameters in a kernel
 
@@ -92,7 +92,7 @@ To get the DAL parameters, you can use built-in functions in the Tezos [Rust SDK
        -o installer.hex
    ```
 
-   For more information about optimizing the kernel and using installer kernels, see the tutorial [Deploy a Smart Rollup](../smart-rollup).
+   For more information about optimizing the kernel and using installer kernels, see the tutorial [Deploy a Smart Rollup](/tutorials/smart-rollup).
 
 Now the Smart Rollup is ready to deploy.
 
@@ -188,4 +188,4 @@ For example, if you are using the Tezos Docker image, the path is `/bin/sh`, so 
 Then try the command `./deploy_smart_rollup.sh $MY_ACCOUNT` again.
 
 In the next section, you will get information about the state of slots in the DAL.
-See [Part 3: Getting slot information](./get-slot-info).
+See [Part 3: Getting slot information](/tutorials/build-files-archive-with-dal/get-slot-info).

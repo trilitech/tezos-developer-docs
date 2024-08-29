@@ -12,13 +12,13 @@ Users still confirm or reject all transactions in their wallet application, so y
 Using a wallet application in this way saves you from having to implement payment processing and security in your application.
 Game developers can also use the wallet and its account as a unique account identifier and as the user's inventory.
 
-For an example of connecting to wallets, see the [WalletConnection tutorial scene](./scenes#wallet-connection-scene).
+For an example of connecting to wallets, see the [WalletConnection tutorial scene](/unity/scenes#wallet-connection-scene).
 
-For more information about Tezos wallets, see [Installing and funding a wallet](../developing/wallet-setup).
+For more information about Tezos wallets, see [Installing and funding a wallet](/developing/wallet-setup).
 
 ## Best practices
 
-When working with wallets, be sure to follow the advice in [Best practices and avoiding flaws](../dApps/best-practices) for wallet connections.
+When working with wallets, be sure to follow the advice in [Best practices and avoiding flaws](/dApps/best-practices) for wallet connections.
 For example, don't force the user to connect their wallet as soon as the application loads.
 Instead, let them see the application first.
 Also, provide a prominent disconnect button to allow users to disconnect one account and connect a different one.
@@ -39,7 +39,7 @@ Deep link | The application opens the user's wallet app directly | Yes | Yes | N
 Social wallets | The application opens the user's Kukai web-based wallet | Yes | No | No
 
 Regardless of the connection method, the Tezos Unity SDK runs the `WalletConnected` or `WalletConnectionFailed` event, as appropriate.
-For more information about events, see the [Unity SDK EventManager object](./reference/EventManager).
+For more information about events, see the [Unity SDK EventManager object](/unity/reference/EventManager).
 
 <!-- TODO info about handshakes? -->
 <!-- TODO info about persistent Beacon connections; do developers need to know where to store them? Do they put them in a database or something? -->
@@ -48,7 +48,7 @@ For more information about events, see the [Unity SDK EventManager object](./ref
 
 This method generates a QR code that a user scans with their wallet application:
 
-1. The Unity application calls the [`Wallet.Connect()`](./reference/Wallet#connect) method with the `walletProvider` parameter set to `WalletProviderType.beacon` to send a connection request to a wallet application via the [TZIP-10 protocol](https://gitlab.com/tezos/tzip/-/tree/master/proposals/tzip-10).
+1. The Unity application calls the [`Wallet.Connect()`](/unity/reference/Wallet#connect) method with the `walletProvider` parameter set to `WalletProviderType.beacon` to send a connection request to a wallet application via the [TZIP-10 protocol](https://gitlab.com/tezos/tzip/-/tree/master/proposals/tzip-10).
 1. The wallet returns a handshake that includes pairing information for the wallet, which triggers the `HandshakeReceived` event.
 1. From the handshake information, the SDK generates a QR code.
 The `TezosAuthenticator` prefab handles the QR code generation with the `QrCodeGenerator` class.
@@ -60,7 +60,7 @@ The `TezosAuthenticator` prefab handles the QR code generation with the `QrCodeG
 Deep link connections open the user's wallet app directly, which can be a mobile app or a browser extension.
 This method relies on the Beacon SDK to interact with wallet apps:
 
-1. The Unity WebGL application calls the [`Wallet.Connect()`](./reference/Wallet#connect) method with the `walletProvider` parameter set to `WalletProviderType.beacon`.
+1. The Unity WebGL application calls the [`Wallet.Connect()`](/unity/reference/Wallet#connect) method with the `walletProvider` parameter set to `WalletProviderType.beacon`.
 The Beacon SDK detects that it is running in a web application and opens a popup window with the wallets that Beacon can connect to:
 
    <img src="/img/unity/unity-connecting-beacon-popup.png" alt="Beacon popup window with wallet types including Temple and Umami" style={{width: 300}} />
@@ -72,11 +72,11 @@ The Beacon SDK detects that it is running in a web application and opens a popup
 
 Social wallets exist as accounts managed by web apps such as [Kukai](https://kukai.app/).
 
-To connect to a social wallet, the Unity WebGL application calls [`Wallet.Connect()`](./reference/Wallet#connect) with the `walletProvider` parameter set to `WalletProviderType.kukai`.
+To connect to a social wallet, the Unity WebGL application calls [`Wallet.Connect()`](/unity/reference/Wallet#connect) with the `walletProvider` parameter set to `WalletProviderType.kukai`.
 
 <!-- TODO Get this working and cover the steps -->
 
 ## Disconnecting
 
 It's important to provide a disconnect button so the user can disconnect when they are finished with the application or if they want to connect with a different account.
-To disconnect the active wallet, call the [`Wallet.Disconnect()`](./reference/Wallet#disconnect) method.
+To disconnect the active wallet, call the [`Wallet.Disconnect()`](/unity/reference/Wallet#disconnect) method.

@@ -69,4 +69,4 @@ You can also refer to [Run a persistent baking node](https://opentezos.com/node-
    ```
 
 Now that you have a DAL node running, you can start a baking daemon that uses that DAL node.
-Continue to [Step 4: Run an Octez baking daemon](./run-baker).
+Continue to [Step 4: Run an Octez baking daemon](/tutorials/join-dal-baker/run-baker).

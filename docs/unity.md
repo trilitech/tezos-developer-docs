@@ -16,21 +16,21 @@ You can use Tezos via the SDK to:
 
 ## Installation and use
 
-For a walkthrough of installing and using the SDK in an existing Unity project, see [Quickstart](./unity/quickstart).
+For a walkthrough of installing and using the SDK in an existing Unity project, see [Quickstart](/unity/quickstart).
 
 ## Tutorial scenes
 
 The SDK includes tutorial scenes that demonstrate how to use the SDK.
-For information about setting up and using the scenes, see [Tutorial scenes](./unity/scenes).
+For information about setting up and using the scenes, see [Tutorial scenes](/unity/scenes).
 
 ## Sample game
 
-For information about a complete sample game that you can load locally and explore, see [Sample game](./unity/sample-game).
+For information about a complete sample game that you can load locally and explore, see [Sample game](/unity/sample-game).
 
 ## SDK objects
 
 The SDK provides objects that you can use to interact with user wallets and with Tezos.
-See [Unity SDK reference](./unity/reference).
+See [Unity SDK reference](/unity/reference).
 
 ## Dependencies
 

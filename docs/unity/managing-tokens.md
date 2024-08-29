@@ -5,7 +5,7 @@ last_update:
   date: 11 January 2024
 ---
 
-The SDK's built-in contract is compatible with the [FA2 token standard](../architecture/tokens/FA2), which means that you can use a single smart contract to manage any number of types of tokens, including:
+The SDK's built-in contract is compatible with the [FA2 token standard](/architecture/tokens/FA2), which means that you can use a single smart contract to manage any number of types of tokens, including:
 
 - Fungible tokens, which are collections of interchangeable tokens with a quantity that you define.
 Fungible tokens can be quantifiable commodities like in-game currency, fuel, ammunition, or energy, or they can be identical items with a limited quantity.
@@ -97,7 +97,7 @@ For a complete example, see the Transfer tutorial scene.
 
 ## Getting token balances
 
-To get the tokens that the connected account owns, call the [`API.GetTokensForOwner()`](./reference/API#gettokensforowner) method in a coroutine.
+To get the tokens that the connected account owns, call the [`API.GetTokensForOwner()`](/unity/reference/API#gettokensforowner) method in a coroutine.
 This example prints information about the tokens that the account owns to the log:
 
 ```csharp

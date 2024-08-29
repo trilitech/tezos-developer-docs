@@ -8,7 +8,7 @@ last_update:
 To start working with the application, you create a Taqueria project and use it to deploy the Poke contract.
 Then you set up a web application to connect with a wallet, and then interact with your smart contract.
 
-Before you begin, make sure that you have installed the tools in the [Prerequisites](../dapp#prerequisites) section.
+Before you begin, make sure that you have installed the tools in the [Prerequisites](/tutorials/dapp#prerequisites) section.
 
 ## Creating a Taqueria project
 
@@ -661,4 +661,4 @@ Now, you can create any smart contract using LIGO and create a complete Dapp via
 
 In the next section, you will learn how to call a Smart contract from a smart contract using callbacks and also write unit and mutation tests.
 
-When you are ready, continue to [Part 2: Inter-contract calls and testing](./part-2).
+When you are ready, continue to [Part 2: Inter-contract calls and testing](/tutorials/dapp/part-2).

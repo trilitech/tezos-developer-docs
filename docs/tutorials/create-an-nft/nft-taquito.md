@@ -228,7 +228,7 @@ For this contract, the initial storage state is in the comment at the end of the
 ## Originate (deploy) the smart contract to the testnet
 
 There are many ways to originate a contract on Tezos.
-For a tutorial on using the command line, see [Deploy a smart contract](../smart-contract/).
+For a tutorial on using the command line, see [Deploy a smart contract](/tutorials/smart-contract/).
 
 Before you originate your contract to the main Tezos network (referred to as *Mainnet*), you can originate it to a testnet.
 Testnets are useful for testing Tezos operations because testnets provide tokens for free so you can work with Tezos without spending real tokens.
@@ -663,4 +663,4 @@ You can also optimize the application by generating the IPFS hashes on the clien
 If the mint transaction fails, it may leave unused metadata in your IPFS account.
 To avoid this problem, you can start an IPFS node in the browser, pin the metadata there, mint the NFT, and pin the metadata to your Pinata account only if the mint transaction succeeds.
 
-If you want to continue working with NFTs in a more complex way, try creating a marketplace for tokens as described in the tutorial [Build an NFT Marketplace](../build-an-nft-marketplace).
+If you want to continue working with NFTs in a more complex way, try creating a marketplace for tokens as described in the tutorial [Build an NFT Marketplace](/tutorials/build-an-nft-marketplace).

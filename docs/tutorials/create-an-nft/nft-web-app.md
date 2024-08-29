@@ -20,11 +20,11 @@ This tutorial uses [JavaScript](https://www.javascript.com/), so it will be easi
 
 - You do not need any familiarity with any of the libraries in the tutorial, including [Taquito](https://tezostaquito.io/), a JavaScript library that helps developers access Tezos.
 
-Before start creating this dApp, we will need a [wallet](../../dApps/wallets) and some ghostnet tez(ꜩ).
+Before start creating this dApp, we will need a [wallet](/dApps/wallets) and some ghostnet tez(ꜩ).
 
 ## The smart contract
 
-The backbone of this application is the smart contract deployed on the Tezos blockchain. The contract we'll be using is already deployed and is written in [SmartPy](../../smart-contracts/languages/smartpy). It defines the rules and processes for interactions with the Tezos blockchain, such as minting NFTs. All you need to do is integrate it into your web app.
+The backbone of this application is the smart contract deployed on the Tezos blockchain. The contract we'll be using is already deployed and is written in [SmartPy](/smart-contracts/languages/smartpy). It defines the rules and processes for interactions with the Tezos blockchain, such as minting NFTs. All you need to do is integrate it into your web app.
 
 
 ## The tutorial application

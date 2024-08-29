@@ -15,9 +15,9 @@ For the full details of the FA2.1 standard, see [Tezos Improvement Proposal 26 (
 
 - FA2.1 allows contracts to export tokens as tickets, use those tickets outside of the contract, and import those tickets back into the contract.
 
-- FA2.1 includes on-chain [views](../../smart-contracts/views) that allow contracts to provide information to on-chain and off-chain applications.
+- FA2.1 includes on-chain [views](/smart-contracts/views) that allow contracts to provide information to on-chain and off-chain applications.
 
-- FA2.1 includes [events](../../smart-contracts/events), which provide notifications of token-related activity to off-chain applications.
+- FA2.1 includes [events](/smart-contracts/events), which provide notifications of token-related activity to off-chain applications.
 
 - FA2.1 adds the concept of allowances from FA1.2 so contracts can use operators or allowances to control access to tokens.
 
@@ -30,11 +30,11 @@ For examples of FA2.1 contracts, see the [Implementation](https://gitlab.com/tez
 Like FA2 tokens, each FA2.1 token has metadata that describes what the token represents.
 The standard provides multiple options for the structure of the metadata and it refers to other standards for how the metadata is stored.
 FA2.1 suggests that contracts store metadata according to [TZIP-21](https://gitlab.com/tezos/tzip/-/blob/master/proposals/tzip-21/tzip-21.md), which is an extension of the TZIP-16 metadata standard used in FA2.
-For examples of working with metadata, see the NFT-related tutorials at [Create an NFT](../../tutorials/create-an-nft).
+For examples of working with metadata, see the NFT-related tutorials at [Create an NFT](/tutorials/create-an-nft).
 
 ## Tickets
 
-A major change in FA2.1 is that contracts can optionally export [tickets](../../smart-contracts/data-types/complex-data-types#tickets) that represent tokens.
+A major change in FA2.1 is that contracts can optionally export [tickets](/smart-contracts/data-types/complex-data-types#tickets) that represent tokens.
 In this case, the contract decreases an owner's balance of tokens and creates a ticket that represents those tokens.
 It keeps the total balance of the tokens in its ledger the same.
 Then the ticket owner can transfer the ticket without using the original contract, similar to a wrapped token.

@@ -1390,4 +1390,4 @@ For the complete content of the contract and web app at the end of this part, se
 
 In the next part, you update the application to create a multi-asset contract that can handle multiple types of tokens with different quantities.
 
-To continue, go to [Part 4: Handling multi-asset tokens](./part-4).
+To continue, go to [Part 4: Handling multi-asset tokens](/tutorials/build-an-nft-marketplace/part-4).

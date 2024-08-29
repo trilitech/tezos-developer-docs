@@ -169,7 +169,7 @@ For example, if the wallet is not connected, disable buttons for transactions th
    }
    ```
    Taquito can fetch the user's tez balance from the connected wallet.
-   To get the tez balances, the app uses the [Beacon SDK](../../../dApps/wallets).
+   To get the tez balances, the app uses the [Beacon SDK](/../dApps/wallets).
    The `mint` function takes two parameters: a metadata for the NFT and the user's wallet address.
 
 You'll start the app and mint NFTs with your dApp in the next section!

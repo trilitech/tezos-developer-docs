@@ -9,11 +9,11 @@ last_update:
 The SDK includes tutorial scenes that demonstrate how to use the SDK.
 
 Before using any of the scenes, install a Tezos-compatible wallet on a mobile device and get some test tez tokens that you can use to pay transaction fees.
-For instructions, see [Installing and funding a wallet](../developing/wallet-setup).
+For instructions, see [Installing and funding a wallet](/developing/wallet-setup).
 
 ## Setup instructions
 
-After you have installed the SDK according to the instructions in the [Quickstart](./quickstart), you can import the tutorial scenes from the Package Manager panel:
+After you have installed the SDK according to the instructions in the [Quickstart](/unity/quickstart), you can import the tutorial scenes from the Package Manager panel:
 
 1. In the Package Manager panel, click the Tezos Unity SDK package.
 
@@ -97,7 +97,7 @@ This picture of the Wallet Connection scene in WebGL mode shows the deep link an
 
 <img src="/img/unity/unity-walletconnection-scene-webgl-unconnected.png" alt="The start of the WalletConnection scene, with no account information, showing deep link and social connection buttons" style={{width: 300}} />
 
-These UI elements call the [`Wallet.Connect()`](./reference/Wallet#connect) method with the `walletProvider` parameter set to `WalletProviderType.beacon` for the direct links or QR code connections and the `walletProvider` parameter set to `WalletProviderType.kukai` for the social wallet connections.
+These UI elements call the [`Wallet.Connect()`](/unity/reference/Wallet#connect) method with the `walletProvider` parameter set to `WalletProviderType.beacon` for the direct links or QR code connections and the `walletProvider` parameter set to `WalletProviderType.kukai` for the social wallet connections.
 
 After the user approves the connection in the wallet, the scene shows the address of the connected account and its balance, as in the following picture.
 At the bottom of the scene there is a logout button that closes the connection.
@@ -115,7 +115,7 @@ In this case, the smart contract keeps track of tokens, their metadata, and who 
 The SDK comes with a sample smart contract that allows a Unity project to create tokens.
 You can customize these tokens, give them to users, and treat them like the players' in-game inventories.
 The Michelson source code of the built-in contract is in the `Resources/Contracts` folder of the SDK, but it isn't very human-readable.
-For a list of the entrypoints in the contract, see [TokenContract object](./reference/TokenContract).
+For a list of the entrypoints in the contract, see [TokenContract object](/unity/reference/TokenContract).
 For an example of a deployed contract, see https://ghostnet.tzkt.io/KT1Nhr9Bmhy7kcUmezRxbbDybh5buNnrVLTY/entrypoints.
 
 Like the Wallet Connection scene, you must first connect to a wallet.
@@ -125,7 +125,7 @@ When you click "Deploy Contract," your connected wallet prompts you to confirm t
 Because you are connected to the test network, these are worthless testnet tokens and not real currency.
 This process can take some time.
 
-The scene calls the [`TokenContract.Deploy()`](./reference/TokenContract#deploy) method to deploy the contract to Tezos.
+The scene calls the [`TokenContract.Deploy()`](/unity/reference/TokenContract#deploy) method to deploy the contract to Tezos.
 
 When you confirm the transaction in the wallet app, you must wait for the contract to be deployed on Tezos.
 The log in the Console panel shows a message that looks like `Received operation with hash oopFjLYGTbZTEFsTh4p1YPnHR1Up1SNnvE5xk2SRaGH6PZ4ry56`, which is the address of the Tezos transaction that deployed the contract.
@@ -159,7 +159,7 @@ Because the contract follows the FA2 standard for tokens, the block explorer als
 
 The tokens that this scene creates have randomly generated metadata.
 To change the metadata, open the `TezosSDK/Examples/Contract/Scripts/MintToken.cs` file.
-The file's `HandleMint` function creates the token by generating random numbers, creating a metadata object for the token, and using the [`TokenContract.Mint()`](./reference/TokenContract#mint) method to send the mint transaction to the contract:
+The file's `HandleMint` function creates the token by generating random numbers, creating a metadata object for the token, and using the [`TokenContract.Mint()`](/unity/reference/TokenContract#mint) method to send the mint transaction to the contract:
 
 ```csharp
 public void HandleMint()
@@ -173,7 +173,7 @@ public void HandleMint()
 ```
 
 In your projects, you can set the metadata to store information about what the token represents.
-For more information about working with Tokens, see [Managing tokens](./managing-tokens) and the tutorials [Create an NFT](../tutorials/create-an-nft) and [Build an NFT marketplace](../../tutorials/build-an-nft-marketplace).
+For more information about working with Tokens, see [Managing tokens](/unity/managing-tokens) and the tutorials [Create an NFT](/tutorials/create-an-nft) and [Build an NFT marketplace](/tutorials/build-an-nft-marketplace).
 
 ## Transfer scene
 
@@ -196,7 +196,7 @@ For example, this entry shows that the account that ends in `2zD` owns 9 of the 
 
 <img src="/img/unity/unity-transfer-scene-block-explorer-token-ownership.png" alt="The block explorer's Storage tab, showing the account address and the quantity of a token it owns" style={{width: 500}} />
 
-The transfer tutorial scene uses the [`TokenContract.Transfer()`](./reference/TokenContract#transfer) method to transfer the token:
+The transfer tutorial scene uses the [`TokenContract.Transfer()`](/unity/reference/TokenContract#transfer) method to transfer the token:
 
 ```csharp
 public void HandleTransfer()

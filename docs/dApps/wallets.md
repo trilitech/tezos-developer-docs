@@ -24,12 +24,12 @@ The primary tools that dApps use to connect to wallets are:
 
   Taquito provides a wrapper for Beacon so dApps can interact with wallets and with Tezos with the same code.
 
-  For more information about Taquito, see [Taquito](./taquito).
+  For more information about Taquito, see [Taquito](/dApps/taquito).
 
 ## Beacon and Taquito
 
 Most of the time, dApps use Beacon and Taquito together for a straightforward way to connect to wallets and submit transactions.
-For an example, see the tutorial [Build a simple web application](../tutorials/build-your-first-app).
+For an example, see the tutorial [Build a simple web application](/tutorials/build-your-first-app).
 
 ### Connecting to wallets
 
@@ -49,7 +49,7 @@ const address = await wallet.getPKH();
 When this code runs, Beacon opens a popup window that guides the user through connecting their wallet.
 
 Then the application can send transactions to Tezos.
-See [Part 3: Sending transactions](../tutorials/build-your-first-app/sending-transactions) in the tutorial [Build a simple web application](../tutorials/build-your-first-app).
+See [Part 3: Sending transactions](/tutorials/build-your-first-app/sending-transactions) in the tutorial [Build a simple web application](/tutorials/build-your-first-app).
 
 ### Reconnecting to wallets
 
