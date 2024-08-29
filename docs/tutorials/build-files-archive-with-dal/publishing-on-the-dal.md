@@ -128,7 +128,7 @@ If you don't see the message that the slot is attested and contains your data, t
 - If the slot turned red, it's possible that the attesters for the network are offline.
 In this case, your Smart Rollup cannot use the data on the DAL, but the blue slot in Explorus verifies that you published it successfully.
 Without active attesters, you cannot continue with this tutorial.
-You can try running your own attester by getting tez from the faucet and running a baker as described in [Join the DAL as a baker, in 5 steps](../join-dal-baker).
+You can try running your own attester by getting tez from the faucet and running a baker as described in [Join the DAL as a baker, in 5 steps](/tutorials/join-dal-baker).
 
 ## Publishing files
 

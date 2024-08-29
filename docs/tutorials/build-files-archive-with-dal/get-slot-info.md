@@ -125,7 +125,7 @@ Follow these steps to update the Smart Rollup to access information about slot 0
 
 1. Run the commands to build and deploy the Smart Rollup and start the Smart Rollup node.
 
-   If you set up the deployment script as described in [Part 2: Getting the DAL parameters](./get-dal-params), you can run `./deploy_smart_rollup.sh my_wallet`.
+   If you set up the deployment script as described in [Part 2: Getting the DAL parameters](/tutorials/build-files-archive-with-dal/get-dal-params), you can run `./deploy_smart_rollup.sh my_wallet`.
 
    If not, run these commands:
 
