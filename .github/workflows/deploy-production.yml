@@ -2,7 +2,7 @@ name: CD - production
 
 on:
   push:
-    branches: [ main ]
+    branches: [ staging ]
 env:
   NEXT_PUBLIC_BASE_PATH: ''
   NEXT_PUBLIC_DOCSEARCH_APP_ID: ${{ secrets.NEXT_PUBLIC_DOCSEARCH_APP_ID }}
