@@ -46,4 +46,6 @@ Delegators receive a share of the delegate's rewards in proportion to the amount
 
 ## References
 
-For more information about baking, see [Node and Baking](https://opentezos.com/node-baking/baking/introduction/) on opentezos.com.
+For more information about the different options to participate to the Tezos network (baking, staking, or delegating), see [Running Octez](https://tezos.gitlab.io/introduction/howtorun.htm) in the Octez documentation.
+
+For full details about baking, see [Node and Baking](https://opentezos.com/node-baking/baking/introduction/) on opentezos.com.
