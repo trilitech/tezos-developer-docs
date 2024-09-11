@@ -119,6 +119,12 @@ If you are using the Tezos Docker container, run `sudo apk add curl`.
 1. Follow the instructions in the Rust installation program.
 For example, it may prompt you to run `. "$HOME/.cargo/env"` to configure your current terminal window to run Rust.
 
+1. Set the version of Rust to 1.80 by running this command:
+
+   ```bash
+   rustup set override 1.80
+   ```
+
 1. Add WASM as a compilation target for Rust by running this command:
 
    ```bash
