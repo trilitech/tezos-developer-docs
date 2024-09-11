@@ -90,7 +90,7 @@ The slot that you published the message to turns blue, as in this picture:
 
    The blue slot means that data was published to the slot but has not been attested yet.
 
-   After 8 blocks, the slot turns green if DAL nodes attested to the availability of the data or red if they did not.
+   After 8 blocks, the slot turns green if bakers attested to the availability of the data or red if they did not.
 
    If the slot turns green, you should see a message in the kernel log that looks like this:
 
