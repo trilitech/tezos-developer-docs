@@ -2,7 +2,7 @@
 title: "Part 3: Getting slot information"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 12 August 2024
+  date: 11 September 2024
 ---
 
 When clients send data to the DAL, they must choose which slot to put it in.
@@ -23,14 +23,32 @@ Similarly, the protocol assigns bakers to monitor certain slots.
 
 ## Starting a DAL node
 
-To run a DAL node, use the Octez `octez-dal-node` command and pass the slots to monitor in the `--observer-profiles` argument.
+To run a DAL node, you must configure a set of cryptographic parameters for it and the use the Octez `octez-dal-node` command and pass the slots to monitor in the `--observer-profiles` argument:
 
-In a new terminal window in the Docker container, run this command to start a DAL node and monitor slot 0:
+1. In a new terminal window in the Docker container, run this command to download the trusted setup scripts:
 
-```bash
-octez-dal-node run --endpoint http://127.0.0.1:8732 \
-    --observer-profiles=0 --data-dir _dal_node
-```
+   ```bash
+   wget https://gitlab.com/tezos/tezos/-/raw/master/scripts/install_dal_trusted_setup.sh https://gitlab.com/tezos/tezos/-/raw/master/scripts/version.sh
+   ```
+
+1. Run this command to make the scripts executable:
+
+   ```bash
+   chmod +x install_dal_trusted_setup.sh version.sh
+   ```
+
+1. Run this command to install the trusted setup:
+
+   ```bash
+   ./install_dal_trusted_setup.sh --legacy
+   ```
+
+1. Run this command to start a DAL node and monitor slot 0:
+
+   ```bash
+   octez-dal-node run --endpoint http://127.0.0.1:8732 \
+     --observer-profiles=0 --data-dir _dal_node
+   ```
 
 Leave this process running in the terminal window.
 
