@@ -122,7 +122,7 @@ For example, it may prompt you to run `. "$HOME/.cargo/env"` to configure your c
 1. Set the version of Rust to 1.80 by running this command:
 
    ```bash
-   rustup set override 1.80
+   rustup override set 1.80
    ```
 
 1. Add WASM as a compilation target for Rust by running this command:
