@@ -2,7 +2,7 @@
 title: "Part 3: Publishing on the DAL"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 30 July 2024
+  date: 11 September 2024
 ---
 
 Now that you can get information about the DAL, the next step is to publish data to it and verify that the kernel can access it.
@@ -48,7 +48,7 @@ The DAL node provides an RPC endpoint for clients to send data to be added to a 
 1. Run this command to publish a message to the DAL:
 
    ```bash
-   curl localhost:10732/slots --data '"Hello, world!"' -H 'Content-Type: application/json'
+   curl localhost:10732/slot --data '"Hello, world!"' -H 'Content-Type: application/json'
    ```
 
    Note that the value of the message is in double quotes because it must be a valid JSON string, as hinted by the `Content-Type` header.
