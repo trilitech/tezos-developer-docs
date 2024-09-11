@@ -1,5 +1,5 @@
 ---
-title: "Part 3: Publishing on the DAL"
+title: "Part 4: Publishing on the DAL"
 authors: Tezos core developers, Tim McMackin
 last_update:
   date: 11 September 2024
@@ -192,4 +192,4 @@ If you are using the Tezos Docker image, you can run `sudo apk add jq xxd`.
 
 Now you can publish data to the DAL and use it in a Smart Rollup.
 In the next section, you write to and retrieve the entire slot.
-When you are ready, go to [Part 4: Using the entire slot](/tutorials/build-files-archive-with-dal/using-full-slot).
+When you are ready, go to [Part 5: Using the entire slot](/tutorials/build-files-archive-with-dal/using-full-slot).

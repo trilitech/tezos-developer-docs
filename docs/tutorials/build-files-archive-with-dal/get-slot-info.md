@@ -185,4 +185,4 @@ This is why you must wait for 8 blocks before seeing slot page contents being
 logged.
 
 Now that you can see the state of the slots, you can find an unused slot and publish data to it.
-When you are ready, continue to [Part 3: Publishing on the DAL](/tutorials/build-files-archive-with-dal/publishing-on-the-dal).
+When you are ready, continue to [Part 4: Publishing on the DAL](/tutorials/build-files-archive-with-dal/publishing-on-the-dal).

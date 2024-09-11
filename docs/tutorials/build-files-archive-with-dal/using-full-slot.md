@@ -1,5 +1,5 @@
 ---
-title: "Part 4: Using the entire slot"
+title: "Part 5: Using the entire slot"
 authors: Tezos core developers, Tim McMackin
 last_update:
   date: 30 July 2024
