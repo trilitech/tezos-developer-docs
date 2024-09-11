@@ -2,7 +2,7 @@
 title: "Part 1: Setting up an environment"
 authors: Tim McMackin
 last_update:
-  date: 23 July 2024
+  date: 10 September 2024
 ---
 
 These steps cover how to set up a development environment to work with Smart Rollups and the DAL.
@@ -44,6 +44,12 @@ To set up an environment and account in a Docker container, follow these steps:
    octez-node config init --network ghostnet
    ```
 
+   If you see an error that says that the node has a pre-existing configuration file, update the existing configuration file by running this command:
+
+   ```bash
+   octez-node config update --network ghostnet
+   ```
+
 1. Download a snapshot of Ghostnet from https://snapshot.tzinit.org based on the instructions on that site.
 For example, the command to download the snapshot may look like this:
 
@@ -74,6 +80,9 @@ To get the name of the Docker container, run the `docker ps` command.
    ```
 
    This command uses the default port for the node, but you can change it if you are running the node somewhere else.
+
+   If you get an error that says "Failed to acquire the protocol version from the node," the node is not ready yet.
+   Wait a few minutes for the node to be ready, run `rm -rf /home/tezos/.tezos-client/config` to remove the configuration file, and try the `config init` command again.
 
 1. Optional: Hide the network warning message by running this command:
 

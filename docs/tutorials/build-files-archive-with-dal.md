@@ -2,7 +2,7 @@
 title: Implement a file archive with the DAL and a Smart Rollup
 authors: Tezos Core Developers
 last_update:
-  date: 22 July 2024
+  date: 10 September 2024
 dependencies:
   octez: 21.2
   rust: 1.80.0
@@ -12,7 +12,7 @@ dependencies:
 The Data Availability Layer (DAL) is a companion peer-to-peer network for the Tezos blockchain, designed to provide additional data bandwidth to Smart Rollups.
 It allows users to share large amounts of data in a way that is decentralized and permissionless, because anyone can join the network and post and read data on it.
 
-This test uses the Ghostnet test network, but you can use the information in it to work with other test network or Tezos Mainnet.
+This tutorial uses the Ghostnet test network, but you can use the information in it to work with other test networks or Tezos Mainnet.
 
 In this tutorial, you set up a file archive that stores and retrieves files with the DAL.
 You will learn:
@@ -38,7 +38,7 @@ In this tutorial, you set up these components:
 - A Smart Rollup node that runs your Smart Rollup
 
 For simplicity, you do not set up a baker, which is responsible for verifying and attesting that the data is available before Smart Rollups can access it.
-For instructions on running a layer 1 node and baker with the DAL, see the tutorial [Join the DAL as a baker, in 5 steps](./join-dal-baker).
+For instructions on running a layer 1 node and baker with the DAL, see the tutorial [Join the DAL as a baker, in 5 steps](/tutorials/join-dal-baker).
 
 ## Tutorial diagram
 
@@ -93,7 +93,7 @@ The DAL works like this:
    For example, if a certificate is included in level 100 and the attestation lag is 4, bakers must attest that the data is available in level 104, along with their usual attestations that build on level 103.
 
    If enough shards are attested in that level, the data becomes available to Smart Rollups at the end of layer 104.
-   If not enough shards are attested in that level, the certificate is considered bogus and the related data is dropped.
+   If not enough shards are attested in that level, the certificate is considered bogus, the related data is dropped, and Smart Rollups cannot access it.
 
 1. The Smart Rollup node monitors the blocks and when it sees attested DAL data, it connects to a DAL node to request the data.
 Smart Rollups must store the data if they need it because it is available on the DAL for only a short time.
