@@ -1,9 +1,6 @@
 // @ts-nocheck
 // Note: type annotations allow type checking and IDEs autocompletion
 
-const math = require('remark-math');
-const katex = require('rehype-katex');
-
 // script-src causes development builds to fail
 // But unsafe-eval should NOT be in production builds
 // Also, put GTM first because sometimes the ';' in the escaped single quotes causes the browser to think it's the end
@@ -65,8 +62,6 @@ const config = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           routeBasePath: '/', // Serve the docs at the site's root
-          remarkPlugins: [math],
-          rehypePlugins: [katex],
           showLastUpdateTime: true,
         },
         blog: false,
@@ -159,12 +154,6 @@ const config = {
         //... other Algolia params
       },
     }),
-  stylesheets: [
-    {
-      href: '/css/katex.min.css',
-      type: 'text/css',
-    },
-  ],
 };
 
 module.exports = config;
