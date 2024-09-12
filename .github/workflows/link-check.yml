@@ -1,9 +1,10 @@
 name: Check links
 
 on:
+  workflow_dispatch:
   schedule:
-    # Every Monday at noon UTC
-    - cron: "0 12 * * 1"
+      # Every Monday at noon UTC
+      - cron: "0 12 * * 1"
 
 jobs:
   check_urls:
