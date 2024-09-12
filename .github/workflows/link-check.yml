@@ -2,9 +2,9 @@ name: Check links
 
 on:
   workflow_dispatch:
-  # schedule:
-  #     # Every Monday at noon UTC
-  #     - cron: "0 12 * * 1"
+  schedule:
+      # Every Monday at noon UTC
+      - cron: "0 12 * * 1"
 
 jobs:
   check_urls:
@@ -13,5 +13,5 @@ jobs:
       - name: Check links
         uses: paulschuberth/check-links-action@v1
         with:
-          start-url: "https://docs-staging-git-fix-links-trili-tech.vercel.app/overview/"
+          start-url: "https://docs.tezos.com/"
 
