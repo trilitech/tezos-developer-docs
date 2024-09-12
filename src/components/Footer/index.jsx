@@ -35,7 +35,6 @@ const navLinks2 = [
 
 const additionalLinks = [
   { label: 'Tezos.com', to: 'https://tezos.com/' },
-  { label: 'Terms of Use', to: '/terms-of-use' },
   { label: 'Privacy Policy', to: 'https://tezos.com/privacy-notice/' },
 ];
 
