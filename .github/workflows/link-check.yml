@@ -1,0 +1,16 @@
+name: Check links
+
+on:
+  schedule:
+    # Every Monday at noon UTC
+    - cron: "0 12 * * 1"
+
+jobs:
+  check_urls:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check links
+        uses: paulschuberth/check-links-action@v1
+        with:
+          start-url: "https://docs.tezos.com/"
+
