@@ -20,7 +20,7 @@ For more information, see [Running a DAL attester node](https://tezos.gitlab.io/
    This, too, may take some time to launch the first time because it needs to generate a new identity file, this time for the DAL network.
 
    To set the address and port that the node listens on, pass the `--net-addr` argument.
-   By default, it listens on port 10732 on all available network interfaces, equivalent to `--net-addr 0.0.0.0:10732`.
+   By default, it listens on port 11732 on all available network interfaces, equivalent to `--net-addr 0.0.0.0:11732`.
 
 1. Verify that the DAL node is connected to the DAL network by running this command:
 
