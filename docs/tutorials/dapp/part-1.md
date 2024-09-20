@@ -80,19 +80,19 @@ taq create contract pokeGame.jsligo
    - The LIGO Set library has a function **add** to add one element to the Set of items. There is no concept of Class in LIGO, you use a library to apply functions on objects.
    - A list of operations is required to return. An empty list is returned here as there is no other contract to call.
 
-   [Have a look at the Set library documentation](https://ligolang.org/docs/language-basics/sets-lists-tuples#sets)
+   [Have a look at the Set library documentation](https://ligolang.org/docs/data-types/sets)
 
-   [Have a look at the List library documentation](https://ligolang.org/docs/language-basics/sets-lists-tuples/?lang=jsligo#lists)
+   [Have a look at the List library documentation](https://ligolang.org/docs/data-types/lists)
 
    Here, get the caller address using `Tezos.get_source()`. Tezos library provides useful functions for manipulating blockchain objects.
 
-   [Have a look at the Tezos library documentation](https://ligolang.org/docs/reference/current-reference)
+   [Have a look at the Tezos library documentation](https://ligolang.org/docs/reference/tezos-reference?lang=jsligo)
 
 ## Simulate a call on your smart contract
 
 The LIGO command-line provides sub-commands to test your LIGO code.
 
-[Have a look at the Testing Framework documentation](https://ligolang.org/docs/advanced/testing)
+[Have a look at the Testing Framework documentation](https://ligolang.org/docs/testing)
 
 1. Compile the contract with Taqueria (Force to use a specific LIGO version with `TAQ_LIGO_IMAGE` Taqueria environment variable).
 
