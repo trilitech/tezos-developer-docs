@@ -4,7 +4,7 @@ import styles from './styles.module.css';
 import { ChatBob } from '@site/src/components/ChatBob'
 
 const socialLinks = [
-  { name: 'Discord', link: 'https://discord.gg/tezos-blockchain-699325006928281720', icon: '/img/socials/Tezos-social-icon-white-01.svg' },
+  { name: 'Discord', link: 'https://discord.gg/tezos', icon: '/img/socials/Tezos-social-icon-white-01.svg' },
   { name: 'Telegram', link: 'https://t.me/tezosplatform', icon: '/img/socials/Tezos-social-icon-white-02.svg' },
   { name: 'TezosAgora', link: 'https://forum.tezosagora.org/', icon: '/img/socials/Tezos-social-icon-white-03.svg' },
   { name: 'Github', link: 'https://github.com/tezos/tezos', icon: '/img/socials/Tezos-social-icon-white-04.svg' },
