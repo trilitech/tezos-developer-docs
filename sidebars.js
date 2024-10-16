@@ -407,22 +407,6 @@ const sidebars = {
         'tutorials/build-files-archive-with-dal/using-full-slot',
       ],
     },
-    {
-      type: 'category',
-      label: 'Join the DAL as a baker',
-      link: {
-        type: 'doc',
-        id: 'tutorials/join-dal-baker',
-      },
-      items: [
-        'tutorials/join-dal-baker/run-node',
-        'tutorials/join-dal-baker/prepare-account',
-        'tutorials/join-dal-baker/run-dal-node',
-        'tutorials/join-dal-baker/run-baker',
-        'tutorials/join-dal-baker/verify-rights',
-        'tutorials/join-dal-baker/conclusion',
-      ],
-    },
   ],
 };
 
