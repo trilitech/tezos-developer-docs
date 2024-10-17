@@ -122,7 +122,7 @@ For an example of sending larger amounts of data, see [Implement a file archive 
 Smart Rollups can use data from the DAL **only after it has been attested by the bakers**.
 Due to the attestation lag, they cannot access DAL data published in the current level, because not enough blocks have elapsed to allow bakers to attest the data.
 
-The more recent level in the past that Smart Rollups can access data from is the current level minus the attestation lag.
+The most recent level in the past that Smart Rollups can access data from is the current level minus the attestation lag.
 They can access the data in that level with the Smart Rollup kernel SDK function `reveal_dal_page`, which accepts the target level, slot, and page to receive, as in this example:
 
 ```rust
