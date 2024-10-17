@@ -16,15 +16,15 @@ In the same way, bakers attest that data published to the DAL is available.
 In the current implementation of the DAL, bakers do not receive extra incentives for attesting DAL data, but they might in the future.
 For now, bakers can join the DAL without risking any reward loss, ensuring a smooth transition.
 
-In this tutorial, you learn how to join Ghostnet as a baker and attest the publication of data on the DAL network on Ghostnet.
+This guide walks you through how to join Ghostnet as a baker and attest the publication of data on the DAL network on Ghostnet.
 The steps for participating on any other network, including Tezos Mainnet, are similar.
 
-This tutorial covers the process of running a node, baker, and DAL node from start to finish, accessible for Tezos users with no prior experience in baking or running nodes.
+This guide covers the process of running a node, baker, and DAL node from start to finish, accessible for Tezos users with no prior experience in baking or running nodes.
 If you are familiar with running a node and baker, you can add a DAL node to your existing setup by following the instructions in [Running a DAL attester node](https://tezos.gitlab.io/shell/dal_run.html).
 
 :::note Attestation rights delay
 
-This tutorial includes setting up a baker to attest that data is available on the DAL.
+Bakers need attestation rights to attest that data is available on the DAL.
 Depending on the network, it takes time for bakers to get attestation rights.
 The delay on Ghostnet is about 3.5 days, so in this tutorial you do setup work, wait 3.5 days for attestation rights, and verify that your DAL node and baker are working properly.
 
@@ -35,17 +35,17 @@ For information about using Weeklynet, see [Testing on sandboxes and testnets](/
 
 :::
 
-## Tutorial diagram
+## Diagram
 
-In this tutorial, you set up the Octez client and several Octez daemons, including a layer 1 node, a baker, and a DAL node.
+In this guide, you set up the Octez client and several Octez daemons, including a layer 1 node, a baker, and a DAL node.
 The following diagram shows these daemons with a blue background:
 
-![A diagram of the DAL architecture, with the daemons that you create in this tutorial highlighted](/img/tutorials/join-dal-baker-overview.png)
+![A diagram of the DAL architecture, with the daemons that you create in this guide highlighted](/img/tutorials/join-dal-baker-overview.png)
 <!-- https://lucid.app/lucidchart/b6b076ec-194c-4011-8e20-fa348bb983f3/edit?page=0_0# -->
 
 ## Prerequisites
 
-This tutorial requires a cloud-based computer or a computer that stays running constantly.
+To run the Octez daemons persistently, you need a cloud-based computer or a computer that stays running constantly.
 
 ## References
 

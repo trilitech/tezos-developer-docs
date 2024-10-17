@@ -139,4 +139,4 @@ The Ghostnet faucet's address is `tz1a4GT7THHaGDiTxgXoatDWcZfJ5j29z5RC`, so you 
 octez-client transfer 6000 from my_baker to tz1a4GT7THHaGDiTxgXoatDWcZfJ5j29z5RC
 ```
 
-For a summary of this tutorial, see [Conclusion](./conclusion).
+For a summary, see [Conclusion](/tutorials/join-dal-baker/conclusion).
