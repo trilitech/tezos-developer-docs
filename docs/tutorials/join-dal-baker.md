@@ -2,7 +2,7 @@
 title: Join the DAL as a baker in 5 steps
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 19 August 2024
+  date: 17 October 2024
 ---
 
 The Tezos data availability layer (DAL) is a key component for the scalability of Tezos.
@@ -18,6 +18,9 @@ For now, bakers can join the DAL without risking any reward loss, ensuring a smo
 
 In this tutorial, you learn how to join Ghostnet as a baker and attest the publication of data on the DAL network on Ghostnet.
 The steps for participating on any other network, including Tezos Mainnet, are similar.
+
+This tutorial covers the process of running a node, baker, and DAL node from start to finish, accessible for Tezos users with no prior experience in baking or running nodes.
+If you are familiar with running a node and baker, you can add a DAL node to your existing setup by following the instructions in [Running a DAL attester node](https://tezos.gitlab.io/shell/dal_run.html).
 
 :::note Attestation rights delay
 
