@@ -10,7 +10,7 @@ You can build the Octez suite from the source code or install prebuilt binaries 
 
 :::note
 
-If you already have an Octez node and baker running with a delegated account, you can skip to [Step 3: Run an Octez DAL node](./run-dal-node).
+If you already have an Octez node and baker running with a delegated account, you can skip to [Step 3: Run an Octez DAL node](/tutorials/join-dal-baker/run-dal-node).
 
 :::
 

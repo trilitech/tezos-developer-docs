@@ -31,7 +31,7 @@ The delay on Ghostnet is about 3.5 days, so in this tutorial you do setup work, 
 If you don't want to wait that long, you can use Weeklynet, where the delay is about an hour.
 However, to use Weeklynet, you must use a specific version of the Octez suite.
 You must also be aware that the network completely resets and moves to a new version of the Octez suite every Wednesday.
-For information about using Weeklynet, see [Testing on sandboxes and testnets](../developing/testnets).
+For information about using Weeklynet, see [Testing on sandboxes and testnets](/developing/testnets).
 
 :::
 

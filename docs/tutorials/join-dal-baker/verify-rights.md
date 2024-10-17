@@ -5,7 +5,7 @@ last_update:
   date: 22 August 2024
 ---
 
-After the delay that you calculated in [Step 4: Run an Octez baking daemon](./run-baker), the baker starts receiving attestation rights, including the rights to attest that DAL data is available.
+After the delay that you calculated in [Step 4: Run an Octez baking daemon](/tutorials/join-dal-baker/run-baker), the baker starts receiving attestation rights, including the rights to attest that DAL data is available.
 
 Follow these steps to verify that your DAL node is receiving attestation rights:
 
