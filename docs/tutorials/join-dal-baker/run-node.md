@@ -6,7 +6,7 @@ last_update:
 ---
 
 To use the Octez suite with Ghostnet, you need a recent build of the Octez binaries.
-You can build the Octez suite from the source code or install prebuilt binaries as described at https://tezos.gitlab.io/introduction/howtoget.html.
+You can build the Octez suite from the source code or install prebuilt binaries as described at [Installing Octez](https://tezos.gitlab.io/introduction/howtoget.html) in the Octez documentation.
 
 :::note
 
@@ -16,8 +16,34 @@ If you already have an Octez node and baker running with a delegated account, yo
 
 The first step is to configure a Tezos node with the `octez-node` program:
 
-1. Install the Octez suite of programs, including `octez-client`, `octez-node`, and `octez-dal-node` as described in [Installing Octez](https://tezos.gitlab.io/introduction/howtoget.html) in the Octez documentation.
-If you build from source, you can use the `latest_branch` branch to work with Ghostnet.
+1. Install the Octez suite of programs, including `octez-client`, `octez-node`, `octez-dal-node`, and the baker for the current protocol.
+
+   - On MacOS, run these commands:
+
+      ```bash
+      brew tap serokell/tezos-packaging-stable https://github.com/serokell/tezos-packaging-stable.git
+      brew install tezos-client tezos-node tezos-dal-node tezos-baker-PsParisC
+      ```
+
+   - On Ubuntu, Windows WSL, and Linux distributions that use `apt`, run these commands:
+
+      ```bash
+      REPO="ppa:serokell/tezos"
+      sudo add-apt-repository -y $REPO && sudo apt-get update
+      sudo apt-get install -y tezos-client tezos-node tezos-dal-node tezos-baker-PsParisC
+      ```
+
+   - On Fedora and Linux distributions that use Copr, run these commands:
+
+      ```bash
+      REPO="@Serokell/Tezos"
+      dnf copr enable -y $REPO && dnf update -y
+      dnf install -y tezos-client tezos-node tezos-dal-node tezos-baker-PsParisC
+      ```
+
+   For all installation options, see [Installing Octez](https://tezos.gitlab.io/introduction/howtoget.html) in the Octez documentation.
+
+   If you build from source, you can use the `latest_branch` branch to work with Ghostnet.
 
 1. Initialize the Octez node for Ghostnet, such as in this example:
 
