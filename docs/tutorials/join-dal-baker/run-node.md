@@ -2,21 +2,16 @@
 title: "Step 1: Run an Octez node"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 27 August 2024
+  date: 21 October 2024
 ---
 
-To use the Octez suite with Ghostnet, you need a recent build of the Octez binaries.
-You can build the Octez suite from the source code or install prebuilt binaries as described at [Installing Octez](https://tezos.gitlab.io/introduction/howtoget.html) in the Octez documentation.
+The first thing you need to run a baker and a DAL node is a Tezos layer 1 node, which is an instance of the `octez-node` program and part of the Octez suite of programs.
 
-:::note
+## Installing Octez
 
-If you already have an Octez node and baker running with a delegated account, you can skip to [Step 3: Run an Octez DAL node](/tutorials/join-dal-baker/run-dal-node).
+The version of Octez to use depends on the Tezos network that you are using.
 
-:::
-
-The first step is to configure a Tezos node with the `octez-node` program:
-
-1. Install the Octez suite of programs, including `octez-client`, `octez-node`, `octez-dal-node`, and the baker for the current protocol.
+- For Mainnet or Ghostnet, install the most recent release of Octez, including `octez-client`, `octez-node`, `octez-dal-node`, and the baker for the current protocol:
 
    - On MacOS, run these commands:
 
@@ -25,27 +20,24 @@ The first step is to configure a Tezos node with the `octez-node` program:
       brew install tezos-client tezos-node tezos-dal-node tezos-baker-PsParisC
       ```
 
-   - On Ubuntu, Windows WSL, and Linux distributions that use `apt`, run these commands:
+   - On Linux and Windows WSL, download and install the built binaries from the [Octez release page](https://gitlab.com/tezos/tezos/-/releases), as in this example for Ubuntu:
 
       ```bash
-      REPO="ppa:serokell/tezos"
-      sudo add-apt-repository -y $REPO && sudo apt-get update
-      sudo apt-get install -y tezos-client tezos-node tezos-dal-node tezos-baker-PsParisC
+      wget -O octez-binaries-20.3-linux-x86_64.tar.gz https://gitlab.com/tezos/tezos/-/package_files/150896058/download
+      tar xf octez-binaries-20.3-linux-x86_64.tar.gz
+      sudo cp octez-x86_64/octez* /usr/local/bin/
       ```
 
-   - On Fedora and Linux distributions that use Copr, run these commands:
+- For Weeklynet, look up the necessary version of Octez at https://teztnets.com/weeklynet-about and install it with the instructions there.
 
-      ```bash
-      REPO="@Serokell/Tezos"
-      dnf copr enable -y $REPO && dnf update -y
-      dnf install -y tezos-client tezos-node tezos-dal-node tezos-baker-PsParisC
-      ```
+For more installation options, see [Installing Octez](https://tezos.gitlab.io/introduction/howtoget.html) in the Octez documentation.
 
-   For all installation options, see [Installing Octez](https://tezos.gitlab.io/introduction/howtoget.html) in the Octez documentation.
+If you build from source, you can use the `latest_branch` branch to work with Ghostnet.
 
-   If you build from source, you can use the `latest_branch` branch to work with Ghostnet.
+## Running the layer 1 node
 
-1. Initialize the Octez node for Ghostnet, such as in this example:
+1. Initialize the Octez node for the network.
+For example, to initialize it for Ghostnet, run this command:
 
    ```bash
    octez-node config init --network ghostnet
@@ -53,8 +45,8 @@ The first step is to configure a Tezos node with the `octez-node` program:
 
 1. Speed up the process of initializing the node by loading a snapshot:
 
-   1. Download a rolling snapshot of Ghostnet from https://snapshot.tzinit.org based on the instructions on that site.
-   For example, the command to download the snapshot from the EU servers might look like this:
+   1. Download a rolling snapshot of the network from https://snapshot.tzinit.org based on the instructions on that site.
+   For example, the command to download a Ghostnet snapshot from the EU servers might look like this:
 
       ```bash
       wget -O snapshot_file https://snapshots.eu.tzinit.org/ghostnet/rolling
