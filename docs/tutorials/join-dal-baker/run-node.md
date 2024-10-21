@@ -58,6 +58,8 @@ For example, the command to download a Ghostnet snapshot from the EU servers mig
    octez-node snapshot import snapshot_file
    ```
 
+1. Install the Zcash parameters as described [Install Zcash Parameters](https://tezos.gitlab.io/introduction/howtoget.html#setup-zcash-params) in the Octez documentation.
+
 1. Start the node:
 
    ```
