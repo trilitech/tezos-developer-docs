@@ -2,25 +2,32 @@
 title: Join the DAL as a baker in 5 steps
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 17 October 2024
+  date: 21 October 2024
 ---
 
-The Tezos data availability layer (DAL) is a key component for the scalability of Tezos.
-In a nutshell, the DAL increases the data bandwidth available for Tezos Smart Rollups by providing a peer-to-peer network that they can use to fetch data without compromising security.
+The Tezos data availability layer (DAL) is a peer-to-peer network that Tezos Smart Rollups can use to fetch data securely.
+The DAL is a key component for the scalability and bandwidth of Tezos and it's important for bakers to run DAL nodes along with their layer 1 nodes to support it.
 
-When users and dApps submit data to the DAL, layer 1 nodes attest that it is available and DAL nodes distribute it to Smart Rollup nodes, which can store the data and use it.
+## Why are DAL bakers needed?
 
-Just like layer 1, Tezos bakers ensure the security of the DAL.
-Bakers not only produce blocks but also attest that other bakers' blocks are valid and properly published on layer 1.
-In the same way, bakers attest that data published to the DAL is available.
+When users and dApps submit data to the DAL, bakers use DAL nodes to verify that the data is available.
+Then the bakers attest that the data is available.
+Smart Rollup nodes can retrieve the data from DAL nodes only when enough bakers have attested that the data is available.
+Therefore, the DAL needs bakers who run layer 1 nodes, attesters, and DAL nodes.
+
 In the current implementation of the DAL, bakers do not receive extra incentives for attesting DAL data, but they might in the future.
 For now, bakers can join the DAL without risking any reward loss, ensuring a smooth transition.
 
-This guide walks you through how to join Ghostnet as a baker and attest the publication of data on the DAL network on Ghostnet.
-The steps for participating on any other network, including Tezos Mainnet, are similar.
+## Do you already run a baker?
+
+For current bakers, it's a straightforward process to add a DAL node.
+If you are familiar with running a node and baker, you can add a DAL node to your existing setup by following the instructions in [Running a DAL attester node](https://tezos.gitlab.io/shell/dal_run.html).
+
+## Running a baker and DAL node from start to finish
 
 This guide covers the process of running a node, baker, and DAL node from start to finish, accessible for Tezos users with no prior experience in baking or running nodes.
-If you are familiar with running a node and baker, you can add a DAL node to your existing setup by following the instructions in [Running a DAL attester node](https://tezos.gitlab.io/shell/dal_run.html).
+This guide walks you through how to join Ghostnet as a baker and attest the publication of data on the DAL network on Ghostnet.
+The steps for participating on any other network, including Tezos Mainnet, are similar.
 
 :::note Attestation rights delay
 
