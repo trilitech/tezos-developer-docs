@@ -13,11 +13,11 @@ These approved amendments form the history of the Tezos protocol:
 
 Athens was autonomously [activated](https://tzstats.com/458753) in May 2019.
 
-*Athens* was the first proposed protocol amendment for Tezos. Two proposals - [Athens A](https://www.tezosagora.org/proposal/Pt24m4xiPbLDhVgVfABUjirbmda3yohdN82Sp9FeuAXJ4eV9otd) and [Athens B](https://www.tezosagora.org/proposal/Psd1ynUBhMZAeajwcZJAeq5NrxorM6UCU4GJqxZ7Bx2e9vUWB6z) - were proposed by [Nomadic Labs](https://blog.nomadic-labs.com/athens-our-proposals-for-the-first-voted-amendment.html) in February 2019.
+*Athens* was the first proposed protocol amendment for Tezos. Two proposals - [Athens A](https://www.tezosagora.org/proposal/Pt24m4xiPbLDhVgVfABUjirbmda3yohdN82Sp9FeuAXJ4eV9otd) and [Athens B](https://www.tezosagora.org/proposal/Psd1ynUBhMZAeajwcZJAeq5NrxorM6UCU4GJqxZ7Bx2e9vUWB6z) - were proposed by [Nomadic Labs](https://research-development.nomadic-labs.com/athens-proposals-injected.html) in February 2019.
 
 Of the two proposals, _Athens A_ sought to increase the gas limit and reduce the required roll size for baking from 10,000 tez to 8,000 tez. _Athens B_ only sought to increase the gas limit. Athens A was voted and was autonomously [activated](https://twitter.com/tezos/status/1133907926907797504) into the protocol in May 2019.
 
-For a full list of changes, be sure to read this corresponding [blog post](https://blog.nomadic-labs.com/athens-proposals-injected.html) from Nomadic Labs and [reflections](https://medium.com/tqtezos/reflecting-on-athens-the-first-self-amendment-of-tezos-4791ab3b1de1) by Jacob Arluck, and the [reference documentation](https://tezos.gitlab.io/protocols/004_Pt24m4xi.html).
+For a full list of changes, be sure to read this corresponding [blog post](https://research-development.nomadic-labs.com/athens-proposals-injected.html) from Nomadic Labs and [reflections](https://medium.com/tqtezos/reflecting-on-athens-the-first-self-amendment-of-tezos-4791ab3b1de1) by Jacob Arluck, and the [reference documentation](https://tezos.gitlab.io/protocols/004_Pt24m4xi.html).
 
 ## [Brest A](https://www.tezosagora.org/proposal/PtdRxBHvc91c2ea2evV6wkoqnzW7TadTg9aqS9jAn2GbcPGtumD) (PtdRxBHv)
 
@@ -33,7 +33,7 @@ The *Babylon* proposal was made of two proposals made in July/August 2019: [Baby
 
 Notable changes included a new variant of the consensus algorithm (`Emmy+`). There were new Michelson features and accounts rehaul to aid smart contract developers. The accounts rehaul enabled a clearer distinction between "_tz_" and "_KT_" addresses. Furthermore, there was a refinement of the Quorum formula and the addition of the 5% threshold.
 
-For a full list of changes, be sure to read the corresponding blog posts from [Nomadic Labs](https://blog.nomadic-labs.com/babylon-proposal-injected.html), and [Cryptium Labs](https://medium.com/metastatedev/on-babylon2-0-1-58058d9d2106) (Metastate), and the [reference documentation](https://tezos.gitlab.io/protocols/005_babylon.html).
+For a full list of changes, be sure to read the corresponding blog posts from [Nomadic Labs](https://research-development.nomadic-labs.com/babylon-proposal-injected.html), and [Cryptium Labs](https://medium.com/metastatedev/on-babylon2-0-1-58058d9d2106) (Metastate), and the [reference documentation](https://tezos.gitlab.io/protocols/005_babylon.html).
 
 ## [Carthage](https://www.tezosagora.org/proposal/PtCarthavAMoXqbjBPVgDCRd5LgT7qqKWUPXnYii3xCaHRBMfHH) (PtCarthav)
 
@@ -47,7 +47,7 @@ The purpose of this proposal was to increase the gas limit per block and per ope
 
 Notable changes included increasing the gas limit per block and per operation by 30%, improving the accuracy of the formula used to calculate baking and endorsing rewards, as well as several minor improvements to Michelson. The main difference with _Carthage_ was the new and more secure formula to calculate rewards.
 
-For a full list of changes be sure to read the corresponding [changelog](https://tezos.gitlab.io/protocols/006_carthage.html#changelog) and blog posts from [Nomadic Labs](https://blog.nomadic-labs.com/carthage-changelog-and-testnet.html) and [Cryptium Labs](https://medium.com/metastatedev/updating-the-potential-carthage-proposal-and-resetting-the-carthagenet-test-network-f413a792571f) (Metastate).  You may also check the [reference documentation](https://tezos.gitlab.io/protocols/006_carthage.html).
+For a full list of changes be sure to read the corresponding [changelog](https://tezos.gitlab.io/protocols/006_carthage.html#changelog) and blog posts from [Nomadic Labs](https://research-development.nomadic-labs.com/carthage-changelog-and-testnet.html) and [Cryptium Labs](https://medium.com/metastatedev/updating-the-potential-carthage-proposal-and-resetting-the-carthagenet-test-network-f413a792571f) (Metastate).  You may also check the [reference documentation](https://tezos.gitlab.io/protocols/006_carthage.html).
 
 ## [Delphi](https://tezos.gitlab.io/protocols/007_delphi.html) (PsDELPH1K)
 
@@ -55,7 +55,7 @@ For a full list of changes be sure to read the corresponding [changelog](https:/
 
 Notable changes included improving the performance of the Michelson interpreter, improving gas costs by adjusting the gas model, reducing storage costs by 4 times, and various minor fixes.
 
-For a full list of changes, be sure to read the corresponding [changelog](https://blog.nomadic-labs.com/delphi-changelog.html#007-delphi-changelog) and blog post from [Nomadic Labs](https://blog.nomadic-labs.com/delphi-official-release.html). You may also check the [reference documentation](https://tezos.gitlab.io/protocols/007_delphi.html).
+For a full list of changes, be sure to read the corresponding [changelog](https://research-development.nomadic-labs.com/delphi-changelog.html#007-delphi-changelog) and blog post from [Nomadic Labs](https://research-development.nomadic-labs.com/delphi-official-release.html). You may also check the [reference documentation](https://tezos.gitlab.io/protocols/007_delphi.html).
 
 ## [Edo](https://tezos.gitlab.io/protocols/008_edo.html) (PtEdo2Zk)
 
@@ -220,7 +220,7 @@ Oxford's main changes are:
 The latter aims to smoothen the transition towards a new staked funds management API and avoids manual bookkeeping to counter over-delegation.
 * [Private rollups](https://research-development.nomadic-labs.com/oxford2-announcement.html): Oxford introduces private Smart Rollups, allowing developers to choose between permissionless or permissioned deployments.
 Additionally, Oxford [simplifies the deployment of rollups](https://research-development.nomadic-labs.com/oxford2-announcement.html#introducing-private-rollups-and-other-improvements-to-smart-rollups) both on protocol and periodic test networks, as well as on ad-hoc dedicated ones.
-* [Timelocks are re-enabled](https://research-development.nomadic-labs.com/timelocks-are-re-enabled): a new design and implementation of Timelocks addresses security concerns that led to their temporary deactivation in a previous protocol upgrade.
+* [Timelocks are re-enabled](https://research-development.nomadic-labs.com/oxford2-announcement.html#timelocks-are-re-enabled): a new design and implementation of Timelocks addresses security concerns that led to their temporary deactivation in a previous protocol upgrade.
 
 For more information, see the blog post from [Nomadic Labs](https://research-development.nomadic-labs.com/oxford-announcement.html) and the [reference documentation](https://tezos.gitlab.io/protocols/018_oxford.html).
 

@@ -23,9 +23,12 @@ An explorer for all of the TZIPs, both past, prensent, and pending, can be found
 TZIP-7, more commonly referred to as FA1.2, introduced an [ERC20](https://eips.ethereum.org/EIPS/eip-20)-like fungible token standard for Tezos. At its core, FA1.2 contains a ledger that maps identities to token balances, provides a standard API for token transfer operations, as well as providing approval to external contracts (e.g. an auction) or accounts to transfer a user's tokens.
 
 For those familiar with [ERC20](https://eips.ethereum.org/EIPS/eip-20), the FA1.2 interface differs from ERC-20 in that it does not contain `transferfrom`, which has instead been merged into a single transfer entrypoint.
-The FA1.2 specification is described in detail in [TZIP-7](https://gitlab.com/tzip/tzip/blob/master/proposals/tzip-7/tzip-7.md), and several implementations of FA1.2 can be found [here](https://packages.ligolang.org/package/ligo-fa1.2).
+The FA1.2 specification is described in detail in [TZIP-7](https://gitlab.com/tzip/tzip/blob/master/proposals/tzip-7/tzip-7.md).
+For implementations, see these templates:
 
-
+- For SmartPy templates, see [Tokens](https://smartpy.io/guides/tokens/) in the SmartPy documentation.
+- For LIGO templates, see the [`@ligo/fa`](https://packages.ligolang.org/package/@ligo/fa) package.
+- For Archetype templates, see [Templates](https://archetype-lang.org/docs/templates/overview/) in the Archetype documentation.
 
 ### [**TZIP-10**](https://tzip.tezosagora.org/proposal/tzip-10/): Wallet Interaction
 

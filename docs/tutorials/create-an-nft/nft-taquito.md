@@ -108,7 +108,7 @@ If you have the `git` program installed, you can clone the repository with this 
 git clone https://github.com/trilitech/tutorial-applications.git
 ```
 
-If you don't have git installed, go to https://github.com/trilitech/tutorial-applications/tree/main/nft-taquito> and click "Code  Download ZIP" and extra the ZIP file on your computer.
+If you don't have git installed, go to https://github.com/trilitech/tutorial-applications/tree/main/nft-taquito and click "Code  Download ZIP" and extra the ZIP file on your computer.
 
 Then, go to the application in the `nft-taquito` folder.
 

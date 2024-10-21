@@ -88,5 +88,5 @@ For information about coding entrypoints in specific languages, see these links:
 
 - Michelson: [Entrypoint](https://tezos.gitlab.io/active/michelson.html#entrypoints)
 - Archetype: [Entrypoint](https://archetype-lang.org/docs/reference/declarations/entrypoint)
-- SmartPy: [entry_points](https://smartpy.io/docs/introduction/entry_points/)
+- SmartPy: [Contracts](https://smartpy.io/manual/syntax/overview?#contracts)
 - LIGO: [Main function and Entrypoints](https://ligolang.org/docs/advanced/entrypoints-contracts)

@@ -75,8 +75,6 @@ This tutorial was originally created by [Marigold](https://www.marigold.dev/), w
 The completed application at the end of the tutorial is a marketplace where administrator users can list wine bottles for sale by entering information about them and uploading a photo.
 The application creates tokens based on this information and the site allows other users to buy the tokens that represent wine bottles.
 
-You can see a running version of this application here: https://demo.winefactory.marigold.dev.
-
 ![The complete application, showing wine bottles for sale](/img/tutorials/nftfactory.png)
 
 This application is made up of a smart contract that handles the tokens and a frontend web application that handles the user interface and sends transactions to the backend.
