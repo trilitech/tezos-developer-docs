@@ -1137,7 +1137,7 @@ A web3 mobile application is not different from a web2 one in terms of its basic
 
    Make sure that your wallet is has some tez on Ghostnet and click on the **Connect** button.
 
-   > Note: If you don't have tokens, to get some free XTZ on Ghostnet, follow this link to the [faucet](https://faucet.marigold.dev/).
+   > Note: If you don't have tokens, to get some free XTZ on Ghostnet, follow this link to the [faucet](https://faucet.ghostnet.teztnets.com/).
 
    On the popup, select your wallet, then your account and connect.
 

@@ -487,6 +487,6 @@ Unit is a concept that Tezos inherits from OCaml; see [Side-Effects and the unit
 
 ### Implementation details
 
-- LIGO: [Unit](https://ligolang.org/docs/variants/unit/?lang=jsligo)
+- LIGO: [Unit](https://ligolang.org/docs/next/data-types/variants#unit)
 - Archetype: [Unit](https://archetype-lang.org/docs/reference/types/#unit)
 - SmartPy: [Unit](https://smartpy.io/manual/syntax/unit)

@@ -116,8 +116,7 @@ sequenceDiagram
    taq create contract unit_pokeGame.jsligo
    ```
 
-   > :information_source: Testing documentation can be found [here](https://ligolang.org/docs/advanced/testing)
-   > :information_source: Test module with specific functions [here](https://ligolang.org/docs/reference/test)
+   > :information_source: Testing documentation can be found [here](https://ligolang.org/docs/next/testing/?lang=cameligo)
 
 1. Edit the file.
 

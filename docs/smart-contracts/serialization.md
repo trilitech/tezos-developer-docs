@@ -65,6 +65,6 @@ octez-codec describe alpha.script.expr binary schema
 
 ## Implementation details
 
-- LIGO: [Pack and Unpack](https://ligolang.org/docs/language-basics/tezos-specific#pack-and-unpack)
+- LIGO: [Pack and Unpack](https://ligolang.org/docs/next/data-types/bytes#packing-and-unpacking)
 - SmartPy: [Packing and Unpacking](https://smartpy.io/manual/syntax/strings-and-bytes#packing-and-unpacking)
 - Archetype: [pack](https://archetype-lang.org/docs/reference/expressions/builtins#pack%28o%20:%20T%29), [unpack](https://archetype-lang.org/docs/reference/expressions/builtins#unpack%3CT%3E%28b%20:%20bytes%29)
