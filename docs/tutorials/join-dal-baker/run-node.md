@@ -43,20 +43,20 @@ For example, to initialize it for Ghostnet, run this command:
    octez-node config init --network ghostnet
    ```
 
-1. Speed up the process of initializing the node by loading a snapshot:
+   By default, the node stores its data in the folder `$HOME/.tezos-node`.
 
-   1. Download a rolling snapshot of the network from https://snapshot.tzinit.org based on the instructions on that site.
-   For example, the command to download a Ghostnet snapshot from the EU servers might look like this:
+1. Download a rolling snapshot of the network from https://snapshot.tzinit.org based on the instructions on that site.
+For example, the command to download a Ghostnet snapshot from the EU servers might look like this:
 
-      ```bash
-      wget -O snapshot_file https://snapshots.eu.tzinit.org/ghostnet/rolling
-      ```
+   ```bash
+   wget -O snapshot_file https://snapshots.eu.tzinit.org/ghostnet/rolling
+   ```
 
-   1. Load the snapshot in the node by running this command:
+1. Load the snapshot in the node by running this command:
 
-      ```bash
-      octez-node snapshot import snapshot_file
-      ```
+   ```bash
+   octez-node snapshot import snapshot_file
+   ```
 
 1. Start the node:
 
