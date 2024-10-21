@@ -66,14 +66,15 @@ For example, the command to download a Ghostnet snapshot from the EU servers mig
    octez-node run --rpc-addr 127.0.0.1:8732 --log-output="$HOME/octez-node.log"
    ```
 
+   At first launch, the node generates a fresh identity file used to identify itself on the network.
+   Then it bootstraps the chain, which takes a variable amount of time depending on how many blocks need to be loaded.
+   You don't need to wait for the node to bootstrap now.
+
 1. Ensure that the node runs persistently.
 Look up how to run programs persistently in the documentation for your operating system.
 You can also refer to [Run a persistent baking node](https://opentezos.com/node-baking/baking/persistent-baker/) on opentezos.com.
 
 1. Optional: When the node has bootstrapped and caught up with the current head block, you can delete the snapshot file to save space.
-
-At first launch, the node generates a fresh identity file used to identify itself on the network.
-Then it bootstraps the chain, which takes a variable amount of time depending on how many blocks need to be loaded.
 
 In the meantime, you can continue the baking infrastructure while the node is bootstrapping.
 Continue to [Step 2: Set up a baker account](/tutorials/join-dal-baker/prepare-account).
