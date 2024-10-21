@@ -12,7 +12,7 @@ You can use indexers to provide the data that you need for your dApps.
 
 ## Why indexers are needed
 
-Tezos nodes store copies of blocks, but they provide only certain information about those blocks through the [RPC interface](/architecture/rpc).
+Tezos nodes store copies of blocks, but they provide only certain information about those blocks through the [RPC interface](/architecture/nodes#the-rpc-interface).
 
 For example, assume that you want information about an operation and all you have is its hash.
 The RPC interface can't provide this information directly, so you would have to search each block until you found the block with this operation, which is very inefficient.

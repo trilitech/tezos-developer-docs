@@ -342,7 +342,7 @@ private void OnPayloadSigned(SignResult obj)
 
 ## Changing the RPC node
 
-As described in [The RPC interface](/architecture/rpc), Tezos clients including the Unity SDK send transactions to RPC nodes.
+As described in [The RPC interface](/architecture/nodes#the-rpc-interface), Tezos clients including the Unity SDK send transactions to RPC nodes.
 By default, the SDK sends requests to a public RPC node that uses the Ghostnet test network, where you can test transactions without spending real tez.
 For more information about test networks, see [Testing on sandboxes and testnets](/developing/testnets).
 
