@@ -11,6 +11,13 @@ The DAL node is responsible for temporarily storing data and providing it to bak
 You may need to adapt your firewall rules or set up network address translation (NAT) to direct external traffic to the DAL node.
 For more information, see [Running a DAL attester node](https://tezos.gitlab.io/shell/dal_run.html) in the Octez documentation.
 
+1. Initialize the DAL node by running its `config init` command, passing the address of your `octez-node` instance and your baker's address.
+For example, this command initializes the DAL node with the address of a local `octez-node` instance on port 8732 and stores data in the default DAL node directory (`~/.tezos-dal-node`):
+
+   ```bash
+   octez-dal-node config init --endpoint http://127.0.0.1:8732 --attester-profiles="$MY_ADDRESS"
+   ```
+
 1. Start the DAL node by running this command:
 
    ```bash
@@ -25,10 +32,54 @@ For more information, see [Running a DAL attester node](https://tezos.gitlab.io/
 1. Verify that the DAL node is connected to the DAL network by running this command:
 
    ```bash
-   curl http://localhost:10732/p2p/gossipsub/connections
+   curl http://localhost:10732/p2p/points/info
    ```
 
-   The response lists the network connections that the DAL node has.
+   The response lists the network connections that the DAL node has, as in this example:
+
+   ```json
+   [
+     {
+       "point": "46.137.127.32:11732",
+       "info": {
+         "trusted": true,
+         "state": {
+           "event_kind": "running",
+           "p2p_peer_id": "idrpUzezw7VJ4NU6phQYuxh88RiU1t"
+         },
+         "p2p_peer_id": "idrpUzezw7VJ4NU6phQYuxh88RiU1t",
+         "last_established_connection": [
+           "idrpUzezw7VJ4NU6phQYuxh88RiU1t",
+           "2024-10-24T15:02:31.549-00:00"
+         ],
+         "last_seen": [
+           "idrpUzezw7VJ4NU6phQYuxh88RiU1t",
+           "2024-10-24T15:02:31.549-00:00"
+         ]
+       }
+     },
+     {
+       "point": "52.31.26.230:11732",
+       "info": {
+         "trusted": true,
+         "state": {
+           "event_kind": "running",
+           "p2p_peer_id": "idqrcQybXbKwWk42bn1XjeZ33xgduC"
+         },
+         "p2p_peer_id": "idqrcQybXbKwWk42bn1XjeZ33xgduC",
+         "last_established_connection": [
+           "idqrcQybXbKwWk42bn1XjeZ33xgduC",
+           "2024-10-24T15:02:31.666-00:00"
+         ],
+         "last_seen": [
+           "idqrcQybXbKwWk42bn1XjeZ33xgduC",
+           "2024-10-24T15:02:31.666-00:00"
+         ]
+       }
+     }
+   ]
+   ```
+
    It may take a few minutes for the node to connect to the DAL network.
 
    You can also verify that the DAL node is connected by viewing its log.
