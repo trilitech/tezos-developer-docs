@@ -8,8 +8,6 @@ Tezos is an open-source, decentralized blockchain [created in 2014](https://tezo
 
 Tezos has robust applications ranging from NFTs, DeFi, and gaming to enterprise and government use cases.
 
-## What is Tezos?
-
 At its core, Tezos is a worldwide network of computers called _nodes_, which anyone can run.
 The nodes all run the _Tezos protocol_, which is software that controls how the nodes communicate and agree on what to do.
 The result is a _decentralized_ computing platform that no one person or entity can control.
