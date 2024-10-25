@@ -46,7 +46,8 @@ Here are some of the ways that people use Tezos:
 
 The rise of non-fungible tokens (NFTs) has become a core arena of activity and growth in the blockchain space, where new communities are growing around artists, musicians, and other creators with the use of blockchain tokens. NFTs allow collectors and fans to hold a piece of content produced by a creator, providing proof of ownership and secure exchanges on the blockchain.
 
-[Objkt](https://objkt.com/), [FxHash](https://www.fxhash.xyz/), [Teia](https://teia.art/), [DNS.xyz](https://dns.xyz/) are some of the marketplaces for Tezos art and music NFTs. They allow creators to mint and sell their work in addition to providing a platform for users to collect such works.
+[Objkt](https://objkt.com/), [FxHash](https://www.fxhash.xyz/), [Teia](https://teia.art/), [DNS.xyz](https://dns.xyz/) are some of the marketplaces for Tezos art and music NFTs.
+They provide a platform for creators to mint and sell their work and for users to collect such works.
 
 Tezos is also being used for other NFT-related projects, such as [MoneyTrack](https://moneytrack.io/), which is a payment platform that uses NFTs to control directed payment flows.
 
