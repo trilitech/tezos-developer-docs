@@ -32,8 +32,6 @@ The version of Octez to use depends on the Tezos network that you are using.
 
 For more installation options, see [Installing Octez](https://tezos.gitlab.io/introduction/howtoget.html) in the Octez documentation.
 
-If you build from source, you can use the `latest_branch` branch to work with Ghostnet.
-
 ## Running the layer 1 node
 
 1. Initialize the Octez node for the network.
