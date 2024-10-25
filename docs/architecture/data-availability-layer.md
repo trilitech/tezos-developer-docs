@@ -14,7 +14,7 @@ For a tutorial on how to use the DAL, see [Implement a file archive with the DAL
 
 The DAL depends on individual people running nodes, just like Tezos layer 1.
 
-- If you are already a Tezos node operator, you can add a DAL node to your setup with the instructions in [Running a DAL attester node](https://tezos.gitlab.io/shell/dal_run.html).
+- If you are already a Tezos baker, you can add a DAL node to your setup with the instructions in [Running a DAL attester node](https://tezos.gitlab.io/shell/dal_run.html).
 - For step-by-step instructions on running a DAL node, see [Join the DAL as a baker in 5 steps](/tutorials/join-dal-baker).
 
 ## How the DAL works
