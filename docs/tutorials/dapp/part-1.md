@@ -1,8 +1,8 @@
 ---
 title: 'Part 1: Create your minimum dApp on Tezos'
-authors: 'Benjamin Fuentes (Marigold)'
+authors: 'Benjamin Fuentes'
 last_update:
-  date: 22 May 2024
+  date: 29 October 2024
 ---
 
 To start working with the application, you create a Taqueria project and use it to deploy the Poke contract.
@@ -97,7 +97,7 @@ The LIGO command-line provides sub-commands to test your LIGO code.
 1. Compile the contract with Taqueria (Force to use a specific LIGO version with `TAQ_LIGO_IMAGE` Taqueria environment variable).
 
    ```bash
-   TAQ_LIGO_IMAGE=ligolang/ligo:1.6.0 taq compile pokeGame.jsligo
+   TAQ_LIGO_IMAGE=ligolang/ligo:1.7.0 taq compile pokeGame.jsligo
    ```
 
    Taqueria is generating the `.tz` Michelson file in the `artifacts` folder. The Michelson language is the default stack language used by the Michelson VM to run your code on a node. It is something similar to WASM.
@@ -119,7 +119,7 @@ The LIGO command-line provides sub-commands to test your LIGO code.
 1. Compile all (contract + initial storage)
 
    ```bash
-   TAQ_LIGO_IMAGE=ligolang/ligo:1.6.0 taq compile pokeGame.jsligo
+   TAQ_LIGO_IMAGE=ligolang/ligo:1.7.0 taq compile pokeGame.jsligo
    ```
 
    It compiles both source code and storage.
@@ -138,7 +138,7 @@ The LIGO command-line provides sub-commands to test your LIGO code.
 
    ```bash
    taq install @taqueria/plugin-octez-client
-   TAQ_LIGO_IMAGE=ligolang/ligo:1.6.0 taq compile pokeGame.jsligo
+   TAQ_LIGO_IMAGE=ligolang/ligo:1.7.0 taq compile pokeGame.jsligo
    taq simulate pokeGame.tz --param pokeGame.parameter.default_parameter.tz
    ```
 

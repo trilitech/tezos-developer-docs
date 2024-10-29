@@ -1,6 +1,6 @@
 ---
 title: 'Part 3: Tickets'
-authors: 'Benjamin Fuentes (Marigold)'
+authors: 'Benjamin Fuentes'
 last_update:
   date: 22 May 2024
 ---
