@@ -24,7 +24,7 @@ In order to meet these requirements, the software that nodes run is structured a
 - It is separated into a protocol and a shell to make it easier to upgrade.
 - It implements a client/server architecture, to allow composition with many other tools in a safe way.
 
-Nodes communicate with clients and with each other through a peer-ro-peer [RPC interface](#the-rpc-interface).
+Nodes cooperate with clients and with each other through an [RPC interface](#the-rpc-interface).
 
 The Octez suite, which is an implementation of the Tezos node and other executables, instantiates these principles in the [Octez software architecture](https://tezos.gitlab.io/shell/the_big_picture.html).
 
