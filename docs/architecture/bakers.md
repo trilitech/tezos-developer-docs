@@ -36,7 +36,7 @@ Similarly, when bakers stop baking, their stake is unlocked after a certain numb
 The delegate must stake at least least 6,000 tez, either from its own account or from tez that delegators delegate to it.
 The more tez a delegate has, both from its own account and from delegators, the more likely it is to be selected to bake a block and thus receive the rewards.
 
-Bakers must run at least one Tezos node and a baker to go with it.
+Bakers must run at least one Tezos node and a baker program to go with it.
 These baker programs must run at all times with a stable internet connection, because inactive bakers are automatically removed from the network.
 
 ## Delegating to a baker
