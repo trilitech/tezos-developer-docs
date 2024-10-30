@@ -27,13 +27,13 @@ sequenceDiagram
 
 ## Get the code
 
-Get the code from the first session: https://github.com/marigold-dev/training-dapp-1/blob/main/solution
+Get the code from the first session: https://github.com/trilitech/tutorial-applications/tree/main/training-dapp-1
 
 ```bash
-git clone https://github.com/marigold-dev/training-dapp-1.git
+git clone https://github.com/trilitech/tutorial-applications.git
 ```
 
-Reuse the code from the previous smart contract: https://github.com/marigold-dev/training-dapp-1/blob/main/solution/contracts/pokeGame.jsligo
+Reuse the code from the previous smart contract: https://github.com/trilitech/tutorial-applications/tree/main/training-dapp-1/contracts/pokeGame.jsligo
 
 Install all libraries locally:
 
@@ -557,7 +557,7 @@ The higher the percentage of mutants killed, the more effective your tests are.
 
 ## Update the frontend
 
-1. Reuse the dApp files from [the previous session](https://github.com/marigold-dev/training-dapp-1/tree/main/solution/app).
+1. Reuse the dApp files from [the previous session](https://github.com/trilitech/tutorial-applications/tree/main/training-dapp-1/app).
 
 1. Redeploy a new version of the smart contract.
 

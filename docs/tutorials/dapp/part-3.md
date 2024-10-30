@@ -31,9 +31,9 @@ sequenceDiagram
 
 ## Prerequisites
 
-Prerequisites are the same as the first session: https://github.com/marigold-dev/training-dapp-1#memo-prerequisites.
+Prerequisites are the same as the first session: https://docs.tezos.com/tutorials/dapp#prerequisites.
 
-Get the code from the session 2 solution [here](https://github.com/marigold-dev/training-dapp-2/tree/main/solution).
+Get the code from the session 2 solution [here](https://github.com/trilitech/tutorial-applications/tree/main/training-dapp-2).
 
 ## Tickets
 
