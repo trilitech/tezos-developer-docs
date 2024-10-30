@@ -262,7 +262,7 @@ It is required to:
 
    ```bash
    npm i
-   TAQ_LIGO_IMAGE=ligolang/ligo:1.6.0 taq compile pokeGame.jsligo
+   TAQ_LIGO_IMAGE=ligolang/ligo:1.7.0 taq compile pokeGame.jsligo
    ```
 
 1. Redeploy to testnet
@@ -310,7 +310,7 @@ It is required to:
 1. Compile all and call an init transaction.
 
    ```bash
-   TAQ_LIGO_IMAGE=ligolang/ligo:1.6.0 taq compile pokeGame.jsligo
+   TAQ_LIGO_IMAGE=ligolang/ligo:1.7.0 taq compile pokeGame.jsligo
    taq call pokeGame --param pokeGame.parameter.default_parameter.tz -e testing
    ```
 
@@ -706,7 +706,7 @@ sequenceDiagram
 1. Compile.
 
    ```bash
-   TAQ_LIGO_IMAGE=ligolang/ligo:1.6.0 taq compile pokeGame.jsligo
+   TAQ_LIGO_IMAGE=ligolang/ligo:1.7.0 taq compile pokeGame.jsligo
    ```
 
    All good.
@@ -928,7 +928,7 @@ sequenceDiagram
 1. Compile.
 
    ```bash
-   TAQ_LIGO_IMAGE=ligolang/ligo:1.6.0 taq compile proxy.jsligo
+   TAQ_LIGO_IMAGE=ligolang/ligo:1.7.0 taq compile proxy.jsligo
    ```
 
 #### Deployment
@@ -950,7 +950,7 @@ sequenceDiagram
 1. Compile and deploy it.
 
    ```bash
-   TAQ_LIGO_IMAGE=ligolang/ligo:1.6.0 taq compile proxy.jsligo
+   TAQ_LIGO_IMAGE=ligolang/ligo:1.7.0 taq compile proxy.jsligo
    taq deploy proxy.tz -e testing
    ```
 
@@ -985,7 +985,7 @@ sequenceDiagram
 1. Deploy the underlying V1 contract.
 
    ```bash
-   TAQ_LIGO_IMAGE=ligolang/ligo:1.6.0 taq compile pokeGame.jsligo
+   TAQ_LIGO_IMAGE=ligolang/ligo:1.7.0 taq compile pokeGame.jsligo
    taq deploy pokeGame.tz -e testing
    ```
 
@@ -1073,7 +1073,7 @@ sequenceDiagram
 1. Compile & Call it.
 
    ```bash
-   TAQ_LIGO_IMAGE=ligolang/ligo:1.6.0 taq compile proxy.jsligo
+   TAQ_LIGO_IMAGE=ligolang/ligo:1.7.0 taq compile proxy.jsligo
    taq call proxy --param proxy.parameter.initProxyWithV1.tz -e testing
    ```
 
@@ -1102,8 +1102,8 @@ sequenceDiagram
 1. Go on the frontend side, recompile all, and generate typescript classes.
 
    ```bash
-   TAQ_LIGO_IMAGE=ligolang/ligo:1.6.0 taq compile pokeGame.jsligo
-   TAQ_LIGO_IMAGE=ligolang/ligo:1.6.0 taq compile proxy.jsligo
+   TAQ_LIGO_IMAGE=ligolang/ligo:1.7.0 taq compile pokeGame.jsligo
+   TAQ_LIGO_IMAGE=ligolang/ligo:1.7.0 taq compile proxy.jsligo
    taq generate types ./app/src
    ```
 
@@ -1406,7 +1406,7 @@ sequenceDiagram
    ```
 
    ```bash
-   TAQ_LIGO_IMAGE=ligolang/ligo:1.6.0 taq compile pokeGame.jsligo
+   TAQ_LIGO_IMAGE=ligolang/ligo:1.7.0 taq compile pokeGame.jsligo
    taq deploy pokeGame.tz -e testing --storage pokeGame.storage.storageV2.tz
    ```
 
@@ -1492,7 +1492,7 @@ sequenceDiagram
 1. Call the proxy to make the changes.
 
    ```bash
-   TAQ_LIGO_IMAGE=ligolang/ligo:1.6.0 taq compile proxy.jsligo
+   TAQ_LIGO_IMAGE=ligolang/ligo:1.7.0 taq compile proxy.jsligo
    taq call proxy --param proxy.parameter.initProxyWithV2.tz -e testing
    ```
 
@@ -1549,7 +1549,7 @@ sequenceDiagram
 1. Compile.
 
    ```bash
-   TAQ_LIGO_IMAGE=ligolang/ligo:1.6.0 taq compile proxy.jsligo
+   TAQ_LIGO_IMAGE=ligolang/ligo:1.7.0 taq compile proxy.jsligo
    taq call proxy --param proxy.parameter.changeVersionV1ToV2.tz -e testing
    ```
 
