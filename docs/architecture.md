@@ -2,7 +2,7 @@
 title: Architecture
 authors: Tim McMackin
 last_update:
-  date: 10 June 2024
+  date: 30 October 2024
 ---
 
 The Tezos blockchain is composed of many Tezos nodes running around the world, complemented by other programs such as bakers and accusers.
@@ -36,7 +36,7 @@ For more information on the operations that can be included in blocks, see [Bloc
 
 ## Tezos clients and servers
 
-In addition to the functions of the protocol and shell, a Tezos node also acts as a server to respond to queries and requests from clients.
+In addition to the functions of the [protocol and shell](./architecture/nodes#protocol-and-shell), a Tezos node also acts as a server to respond to queries and requests from clients.
 A client can query the chain’s state and can inject blocks and operations into a node.
 Nodes share operations with each other, so the node that includes an operation in a block may not be the node that the client originally sent the operation to.
 
