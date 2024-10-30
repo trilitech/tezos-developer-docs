@@ -14,6 +14,6 @@ Accusers look for:
 - Bakers that inject more than one attestation for the same baking slot
 
 When they see one of these problems, they emit a double-baking or double-attesting denunciation operation, which cause the offending baker to lose some of its stake.
-Some of this penalty goes to the accuser.
+Some of the slashed stake goes to the accuser.
 
 Anyone can run an accuser, and they don't have to stake any tez like bakers must.
