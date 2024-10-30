@@ -81,7 +81,6 @@ For more information, see [Accusers](./architecture/accusers).
 - **External clients**: Many external clients can add operations to the network of nodes or use nodes to inspect the state of the blockchain, including:
 
   - Web applications that use SDKs such as Taquito to send and receive information from Tezos
-  - Indexer websites that monitor the state of the network and allow users to search its history
   - Wallet applications
 
 - **Indexers and block explorers**: Indexers are off-chain applications that retrieve blockchain data, process it, and store it in a way that makes it easier to search and use.
