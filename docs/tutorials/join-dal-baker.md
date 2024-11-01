@@ -6,7 +6,7 @@ last_update:
 ---
 
 The Tezos data availability layer (DAL) is a peer-to-peer network that Tezos Smart Rollups can use to fetch data securely.
-The DAL is a key component for the scalability and bandwidth of Tezos and it's important for bakers to run DAL nodes along with their layer 1 nodes to support it.
+The DAL is a key component for the scalability and bandwidth of Tezos and it's important for bakers to run DAL nodes along with their layer 1 nodes.
 
 ## Why are DAL bakers needed?
 
