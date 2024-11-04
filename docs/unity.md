@@ -2,7 +2,7 @@
 title: Tezos Unity SDK
 authors: Tim McMackin
 last_update:
-  date: 11 January 2024
+  date: 4 November 2024
 ---
 
 The Tezos Unity SDK provides tools that let you access user wallets and Tezos in games and other Unity projects.
@@ -17,6 +17,11 @@ You can use Tezos via the SDK to:
 ## Installation and use
 
 For a walkthrough of installing and using the SDK in an existing Unity project, see [Quickstart](/unity/quickstart).
+
+## Upgrading from version 3
+
+Version 4.0 has breaking changes.
+To upgrade, see [Upgrading the Unity SDK](/unity/upgrading).
 
 ## Tutorial scenes
 
