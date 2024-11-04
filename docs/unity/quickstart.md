@@ -55,20 +55,17 @@ You can use this event to get the address of the connected account, as in this c
    {
        addressText.text = NOT_CONNECTED_TEXT;
 
-       // Subscribe to events;
-       TezosManager.Instance.EventManager.WalletConnected += OnWalletConnected;
-       TezosManager.Instance.EventManager.WalletDisconnected += OnWalletDisconnected;
+       TezosAPI.WalletConnected += OnWalletConnected;
+       TezosAPI.WalletDisconnected += OnWalletDisconnected;
    }
 
-   private void OnWalletConnected(WalletInfo walletInfo)
+   private void OnWalletConnected(WalletProviderData walletProviderData)
    {
-       // We can get the address from the wallet
-       addressText.text = TezosManager.Instance.Wallet.GetWalletAddress();
-       // Or from the event data
-       addressText.text = walletInfo.Address;
+       // We can get the address from the event data
+       addressText.text = walletProviderData.WalletAddress;
    }
 
-   private void OnWalletDisconnected(WalletInfo walletInfo)
+   private void OnWalletDisconnected()
    {
        addressText.text = NOT_CONNECTED_TEXT;
    }
@@ -83,7 +80,7 @@ For an example, see the [WalletConnection tutorial scene](/unity/scenes#wallet-c
 
 ## Deploying contracts
 
-Contracts are backend programs that run on the Tezos blockchains.
+Contracts are backend programs that run on the Tezos blockchain.
 Smart contracts can do many tasks, but for gaming they have two main purposes:
 
 - They handle tokens, which are digital assets stored on the blockchain
