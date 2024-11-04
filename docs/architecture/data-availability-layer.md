@@ -2,13 +2,20 @@
 title: The Data Availability Layer
 authors: "Tim McMackin"
 last_update:
-  date: 10 June 2024
+  date: 17 October 2024
 ---
 
 The Data Availability Layer (DAL) is a companion peer-to-peer network for the Tezos blockchain, designed to provide additional data bandwidth to Smart Rollups.
 It allows users to share large amounts of data in a way that is decentralized and permissionless, because anyone can join the network and post and read data on it.
 
 For a tutorial on how to use the DAL, see [Implement a file archive with the DAL and a Smart Rollup](/tutorials/build-files-archive-with-dal).
+
+## Running DAL nodes
+
+The DAL depends on individual people running nodes, just like Tezos layer 1.
+
+- If you are already a Tezos baker, you can add a DAL node to your setup with the instructions in [Running a DAL attester node](https://tezos.gitlab.io/shell/dal_run.html).
+- For step-by-step instructions on running a DAL node, accessible to anyone, see [Join the DAL as a baker in 5 steps](/tutorials/join-dal-baker).
 
 ## How the DAL works
 
@@ -115,7 +122,7 @@ For an example of sending larger amounts of data, see [Implement a file archive 
 Smart Rollups can use data from the DAL **only after it has been attested by the bakers**.
 Due to the attestation lag, they cannot access DAL data published in the current level, because not enough blocks have elapsed to allow bakers to attest the data.
 
-The more recent level in the past that Smart Rollups can access data from is the current level minus the attestation lag.
+The most recent level in the past that Smart Rollups can access data from is the current level minus the attestation lag.
 They can access the data in that level with the Smart Rollup kernel SDK function `reveal_dal_page`, which accepts the target level, slot, and page to receive, as in this example:
 
 ```rust

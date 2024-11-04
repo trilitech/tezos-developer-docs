@@ -2,10 +2,10 @@
 title: "Step 5: Verify attestation rights"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 22 August 2024
+  date: 18 October 2024
 ---
 
-After the delay that you calculated in [Step 4: Run an Octez baking daemon](./run-baker), the baker starts receiving attestation rights, including the rights to attest that DAL data is available.
+After the delay that you calculated in [Step 4: Run an Octez baking daemon](/tutorials/join-dal-baker/run-baker), the baker starts receiving attestation rights, including the rights to attest that DAL data is available.
 
 Follow these steps to verify that your DAL node is receiving attestation rights:
 
@@ -38,6 +38,8 @@ Follow these steps to verify that your DAL node is receiving attestation rights:
    If the delay has expired and you still haven't received attestation rights, try these troubleshooting steps:
 
    - Make sure that your node and baker are running.
+
+   - Verify that your DAL node is connected to the network by following the instructions in [Troubleshooting](https://tezos.gitlab.io/shell/dal_run.html#troubleshooting) in the Octez documentation.
 
    - Verify that the staked balance of your account is at least 6,000 tez by running the command `octez-client get staked balance for my_baker`.
    If the response is less than 6,000 tez, you have not staked enough.
@@ -139,4 +141,4 @@ The Ghostnet faucet's address is `tz1a4GT7THHaGDiTxgXoatDWcZfJ5j29z5RC`, so you 
 octez-client transfer 6000 from my_baker to tz1a4GT7THHaGDiTxgXoatDWcZfJ5j29z5RC
 ```
 
-For a summary of this tutorial, see [Conclusion](./conclusion).
+For a summary, see [Conclusion](/tutorials/join-dal-baker/conclusion).
