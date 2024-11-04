@@ -1,16 +1,17 @@
 ---
-title: Baking
+title: Bakers
 authors: "Tim McMackin"
 last_update:
-  date: 21 February 2024
+  date: 12 April 2024
 ---
 
 Baking is the process of creating new blocks in the Tezos blockchain.
-Bakers are daemons complementary to Tezos nodes that cooperate to achieve consensus about the next block to add.
+Bakers are programs complementary to Tezos nodes that cooperate to achieve consensus about the next block to add.
 Bakers validate pending operations, package them into a block, sign the block, propose the new block to other nodes, and verify that the blocks that other bakers propose are valid.
 
-Baker daemons are run on behalf of user accounts which stake tez to guarantee honest participation and receive rewards for their participation.
-By extension, bakers also denote the users running baker daemons on behalf of their user accounts.
+Bakers are run on behalf of user accounts which stake tez to guarantee honest participation and receive rewards for their participation.
+The baker has access to the account's private key, which it uses to sign blocks and operations.
+By extension, bakers also denote the users running baker on behalf of their user accounts.
 
 ## The baking process
 
@@ -35,8 +36,8 @@ Similarly, when bakers stop baking, their stake is unlocked after a certain numb
 The delegate must stake at least least 6,000 tez, either from its own account or from tez that delegators delegate to it.
 The more tez a delegate has, both from its own account and from delegators, the more likely it is to be selected to bake a block and thus receive the rewards.
 
-Bakers must run at least one Tezos node and a baker daemon to go with it.
-These daemons must run at all times with a stable internet connection, because inactive bakers are automatically removed from the network.
+Bakers must run at least one Tezos node and a baker program to go with it.
+These baker programs must run at all times with a stable internet connection, because inactive bakers are automatically removed from the network.
 
 ## Delegating to a baker
 

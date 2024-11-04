@@ -2,19 +2,27 @@
 title: Architecture
 authors: Tim McMackin
 last_update:
-  date: 10 June 2024
+  date: 30 October 2024
 ---
 
-The Tezos blockchain is composed of many Tezos nodes running around the world, complemented by other running daemons, such as bakers and accusers.
+The Tezos blockchain is composed of many Tezos nodes running around the world, complemented by other programs such as bakers and accusers.
 These processes collaborate with the overall goal of maintaining the blockchain data in a decentralized manner.
 
 The Tezos nodes are the most important piece in this architecture because they maintain the system and the blockchain data.
 Users interact with nodes through many different clients, including command-line clients, wallets, and web applications.
+For more information about nodes, see [Nodes](./architecture/nodes).
 
 This diagram shows a high-level view of the Tezos system:
 
 ![A high-level view of the Tezos system, including Tezos nodes, the blockchain data itself, an Indexer, and a few examples of clients](/img/architecture/architecture-overview.png)
 <!-- https://lucid.app/lucidchart/d778aa2a-ad0a-4324-b235-ed3b35742c58/edit -->
+
+## Tezos networks
+
+When people talk about Tezos, they usually mean the primary Tezos network, which is referred to as Mainnet.
+Tezos also has other networks used for testing, referred to as testnets.
+Anyone can create new test networks if needed.
+For example, before new versions of the Tezos protocol are enabled, users create networks that use that protocol so they can test it.
 
 ## The blockchain data
 
@@ -22,89 +30,15 @@ Although people often use the word "blockchain" to mean the entire system, stric
 The blockchain data is maintained by a network of Tezos nodes.
 Nodes reach consensus on the next block before adding it to the chain.
 
-The primary Tezos network is referred to as Mainnet, and there are several other networks used for testing, referred to as testnets.
-Anyone can create new test networks if needed.
-
 As shown in the diagram, the data inside a Tezos block includes the hash of the previous block in the chain and many operations, such as transactions that transfer tez or call smart contracts.
 Blocks also include operations that are necessary for the management of the chain, including nodes' attestations that blocks are valid, called _consensus operations_, and votes on changes to the protocol, called _voting operations_.
 For more information on the operations that can be included in blocks, see [Blocks and operations](https://tezos.gitlab.io/alpha/blocks_ops.html) in the Octez documentation.
 
-## Nodes
-
-A Tezos node has three main roles:
-
-- It validates blocks and operations
-- It broadcasts blocks and operations to other nodes and receives them from other nodes over a peer-to-peer network
-- It maintains a copy of the blockchain data and its associated state (also known as the ledger), which includes accounts and their balances, among other things
-
-Beside these technical roles, nodes must satisfy two other important requirements:
-
-- Support the governance of the blockchain
-- Ensure the extensibility of the blockchain with new clients of different kinds.
-
-In order to meet these requirements, the software that nodes run is structured according to two major principles:
-
-- It is separated into a shell and a protocol, to support protocol evolution.
-- It implements a client/server architecture, to allow composition with many other tools in a safe way.
-
-The Octez suite, which is an implementation of the Tezos node and other executables, instantiates these principles in the [Octez software architecture](https://tezos.gitlab.io/shell/the_big_picture.html).
-
-These two principles are detailed next.
-
-## Shell & Protocol
-
-The software that runs Tezos nodes is split into two main parts:
-
-- The shell, which handles low-level functions like data storage and peer-to-peer network communication
-- The economic protocol that interprets the block operations (e.g., transactions)
-
-The relationship between the shell and the protocol is like the relationship between an operating system and an application.
-The operating system stays stable while the application can update itself.
-In this way, Tezos can update how it works (its protocol) without requiring nodes to accept major changes to the software that they run (the shell).
-For example, nodes can update to a new protocol version without restarting the shell.
-
-### The Tezos self-amending protocol
-
-Unlike many other blockchains, Tezos is self-amending.
-Its nodes can update the protocol that controls the possible operations and how they are processed; updates are performed via an online governance process.
-These updates allow Tezos to adapt to new technologies and respond to user needs.
-For example, protocol upgrades have added new features like Smart Rollups and have reduced the amount of time between blocks.
-
-This protocol is responsible for interpreting the operations in each block.
-It also provides the logic that identifies erroneous blocks.
-
-Updates to the protocol can change this logic through a voting process, using dedicated voting operations such as protocol proposals or protocol upvotes.
-For information about the voting process, see [Governance](/architecture/governance).
-
-The protocol has constants such as the time between blocks and the amount of tez that an account must stake to be a baker.
-These constants can be different for different Tezos networks.
-
-To get the constants for a network, call the `GET /chains/main/blocks/head/context/constants` RPC endpoint.
-For example, to get the constants of the network that the Octez client is currently connected to, run this command:
-
-```bash
-octez-client rpc get /chains/main/blocks/head/context/constants
-```
-
-For more information about constants, see [Protocol constants](https://tezos.gitlab.io/alpha/protocol_overview.html#protocol-constants) in the Octez documentation.
-
-### The shell
-
-The shell is responsible for the fundamental functions of a distributed software application, including:
-
-- Peer-to-peer communication that lets nodes exchange information
-- Storage functionality that lets nodes store blocks, operations, and the current state of the chain
-- A synchronization heuristic that starts nodes and keeps them in sync with the network
-- A validator that checks that blocks are valid with help from the rules in the economic protocol
-
-In particular, the validator is responsible for resolving the available blocks into a single linear sequence of blocks.
-It chooses between the various blocks that baking nodes create, uses the protocol to verify and score them, and selects the tree head with the highest score.
-Then it uses that linear chain in all of its work with the protocol, so the protocol is never aware of multiple branches.
-
 ## Tezos clients and servers
 
-In addition to the functions of the protocol and shell, a Tezos node also acts as a server to respond to queries and requests from clients.
+In addition to the functions of the [protocol and shell](./architecture/nodes#protocol-and-shell), a Tezos node also acts as a server to respond to queries and requests from clients.
 A client can query the chain’s state and can inject blocks and operations into a node.
+Nodes share operations with each other, so the node that includes an operation in a block may not be the node that the client originally sent the operation to.
 
 Tezos uses this client-server architecture for these main reasons:
 
@@ -116,51 +50,40 @@ For example, different bakers may implement different transaction selection stra
 
 The node accepts calls from clients through its RPC interface.
 It has control over which clients to accept calls from, which calls to accept, or whether to accept RPC calls at all.
-For more information on the RPC interface, see [The RPC interface](/architecture/rpc).
-
-### The baker daemon
-
-The baker daemon is an Octez program that is responsible for creating and proposing new blocks based on the operations proposed by different clients.
-The baker daemon is associated with an account, which means that it has access to the account’s private key, which it uses to sign blocks and operations.
-
-### The accuser daemon
-
-The accuser daemon is an Octez program that monitors new blocks and looks for problems, such as when bakers try to add more than one block at a time.
-When it finds a problem, it submits a denunciation to other nodes to refuse the new blocks and punish the offending node.
-
-### The Octez client
-
-The Octez client is a command-line tool that developers can use for many Tezos-related tasks, including:
-
-- Deploying, calling, testing, and interacting with contracts
-- Deploying and interacting with Smart Rollups
-- Working with accounts
-- Calling RPC endpoints directly
-- Running Sapling transactions
-- Setting up baking operations for testing contracts
-
-For more information about the Octez client, see the [Octez documentation](https://tezos.gitlab.io/).
-
-### External clients
-
-Many external clients can add operations to the network of nodes or use nodes to inspect the state of the blockchain, including:
-
-- Web applications that use SDKs such as Taquito to send and receive information from Tezos
-- Indexer websites that monitor the state of the network and allow users to search its history
-- Wallet applications
-
-Nodes share operations with each other, so the node that includes an operation in a block may not be the node that the client originally sent the operation to.
 
 Anyone can run a node and select which clients to run and which requests to accept from clients.
 Some typical use cases for nodes are:
 
-- A node running with no daemons, which maintains a copy of the blockchain data and enhances the distribution of the network without actively baking blocks.
+- A node running by itself, which maintains a copy of the blockchain data and enhances the distribution of the network without actively baking blocks.
 Optionally, this node can open its RPC interface to serve different kinds of requests.
 - A node along with a baker, an accuser, and a signer can be used to bake new blocks, activity which ensures that the blockchain progresses and yields rewards in tokens.
 
-### Indexers and block explorers
+Here is a summary of the main Tezos clients:
 
-Indexers are off-chain applications that retrieve blockchain data, process it, and store it in a way that makes it easier to search and use.
+- **Bakers**: The baker is an Octez program that is responsible for creating and proposing new blocks based on the operations proposed by different clients.
+For more information, see [Bakers](./architecture/bakers).
+
+- **Accusers**: The accuser is an Octez program that monitors new blocks and looks for problems, such as when bakers try to add more than one block at a time.
+When it finds a problem, it submits a denunciation to other nodes to refuse the new blocks and punish the offending node.
+For more information, see [Accusers](./architecture/accusers).
+
+- **The Octez client**: The Octez client is a command-line tool that developers can use for many Tezos-related tasks, including:
+
+  - Deploying, calling, testing, and interacting with contracts
+  - Deploying and interacting with Smart Rollups
+  - Working with accounts
+  - Calling RPC endpoints directly
+  - Running Sapling transactions
+  - Setting up baking operations for testing contracts
+
+  For more information about the Octez client, see [The Octez client](./developing/octez-client).
+
+- **External clients**: Many external clients can add operations to the network of nodes or use nodes to inspect the state of the blockchain, including:
+
+  - Web applications that use SDKs such as Taquito to send and receive information from Tezos
+  - Wallet applications
+
+- **Indexers and block explorers**: Indexers are off-chain applications that retrieve blockchain data, process it, and store it in a way that makes it easier to search and use.
 They are an important part of block explorers, which are applications that provide data about the blockchain.
 
 ## References
