@@ -18,7 +18,7 @@ octez-client get balance for tz1QCVQinE8iVj1H2fckqx6oiM85CNJSK9Sx
 
 ## The RPC interface
 
-The [RPC interface](/architecture/nodes#the-rpc-interface) allows  nodes use to cooperate with each other and with their clients. 
+The [RPC interface](/architecture/nodes#the-rpc-interface) allows nodes to cooperate with each other and with their clients. 
 In particular, many RPCs provide information about the blockchain.
 This data is not always in the format that developers and dApps need.
 For example, the RPC interface does not provide a way to get information about a specific operation by its hash.
