@@ -25,12 +25,11 @@ The contract has entrypoints that allow you to create and transfer tokens.
 See [Managing tokens](/unity/managing-tokens).
 
 The Michelson source code of the built-in contract is in the `Resources/Contracts` folder of the SDK, but it isn't very human-readable.
-For a list of the entrypoints in the contract, see [TokenContract object](/unity/reference/TokenContract).
 For an example of a deployed contract, see https://ghostnet.tzkt.io/KT1Nhr9Bmhy7kcUmezRxbbDybh5buNnrVLTY/entrypoints.
 
 ## Deploying the built-in contract
 
-To deploy the built-in contract, call the [`TokenContract.Deploy()`](/unity/reference/TokenContract#deploy) method and pass a callback function:
+To deploy the built-in contract, call the `TokenContract.Deploy() method and pass a callback function:
 
 ```csharp
 public void DeployContract()
@@ -54,28 +53,28 @@ It can take a few minutes for the contract to deploy and be confirmed in multipl
 
 The address that deployed the contract becomes the administrator of the contract and is the only account that can create tokens.
 
-The SDK provides information about the contract such as its address in the [`TokenContract`](/unity/reference/TokenContract) object.
+The SDK provides information about the contract such as its address in the `TokenContract` object.
 You can use block explorers such as [Better Call Dev](https://better-call.dev/) to see information about the deployed contract.
 
 For information about using the built-in contract, see [Managing tokens](/unity/managing-tokens).
 
 ## Getting the contract address
 
-When you deploy a contract with the [`TokenContract.Deploy()`](/unity/reference/TokenContract#deploy) method, the SDK saves the contract address by running this code:
+When you deploy a contract with the `TokenContract.Deploy()` method, the SDK saves the contract address by running this code:
 
 ```csharp
 PlayerPrefs.SetString("CurrentContract:" + Tezos.Wallet.GetActiveAddress(), contractAddress);
 ```
 
-Then during SDK initialization, the SDK saves the address to the [`TokenContract.Address`](/unity/reference/TokenContract) property.
+Then during SDK initialization, the SDK saves the address to the `TokenContract.Address` property.
 
 To retrieve the address of contracts that you haven't deployed through the project, you can use the [`API.GetOriginatedContractsForOwner()`](/unity/reference/API#getoriginatedcontractsforowner) method.
 
-## Calling contracts
+## Calling the built-in contract
 
 The built-in contract has convenience methods for minting and transferring tokens; see [Managing tokens](/unity/managing-tokens).
 
-To call the contract's other entrypoints, use the [`Wallet.CallContract()`](/unity/reference/Wallet#callcontract) method.
+To call the contract's other entrypoints, use the `Wallet.CallContract()` method.
 For example, to call the contract's `set_administrator` entrypoint to set a new administrator account, use this code:
 
 ```csharp
@@ -86,7 +85,7 @@ TezosManager.Instance.Tezos.Wallet.CallContract(
 );
 ```
 
-For information about the entrypoints in the built-in contract, see [Unity SDK TokenContract object](/unity/reference/TokenContract#entrypoints).
+For information about the entrypoints in the built-in contract, see Unity SDK TokenContract object.
 
 You can call any other contract by using its address, entrypoint name, and parameter value, as in this example:
 
@@ -104,6 +103,20 @@ Note that the parameter is encoded as a Michelson value.
 For information about encoding more complex parameters, see [Encoding parameters](#encoding-parameters).
 
 To get the hash of the transaction, use the `ContractCallCompleted` event.
+
+## Calling other contracts
+
+To call any other contract, see [Calling contracts](/unity/calling-contracts).
+
+## Calling views
+
+To call a view, pass the address of the contract, the name of the view, and the Michelson-encoded parameter to the `TezosAPI.ReadView()` method.
+You must set the return type on the `TezosAPI.ReadView()` method, as in this example for a view that returns a string:
+
+```csharp
+var result = await TezosAPI.ReadView<string>("KT1K46vZTMEe8bnacFvFQfgHtNDKniEauRMJ", "simple", "\"String value\"");
+Debug.Log("View response: " + result);
+```
 
 ## Encoding parameters
 
@@ -285,7 +298,7 @@ Then, ensure that the code of the code and initial storage value of the contract
 }
 ```
 
-To deploy the contract from the Unity project, use the [`Wallet.OriginateContract()`](/unity/reference/Wallet#originatecontract) method, as in this example:
+To deploy the contract from the Unity project, use the `Wallet.OriginateContract()` method, as in this example:
 
 ```csharp
 var contractJSON = Resources.Load<TextAsset>("Contracts/MyContract").text;

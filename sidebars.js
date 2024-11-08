@@ -200,11 +200,10 @@ const sidebars = {
       },
       items: [
         'unity/quickstart',
-        'unity/scenes',
         'unity/sample-game',
-        'unity/prefabs',
         'unity/connecting-accounts',
         'unity/managing-contracts',
+        'unity/calling-contracts',
         'unity/managing-tokens',
         {
           type: 'category',
@@ -215,12 +214,9 @@ const sidebars = {
           },
           items: [
             'unity/reference/API',
-            'unity/reference/DAppMetadata',
+            'unity/reference/events',
             'unity/reference/DataProviderConfigSO',
-            'unity/reference/EventManager',
             'unity/reference/TezosConfigSO',
-            'unity/reference/TokenContract',
-            'unity/reference/Wallet',
           ],
         },
       ],

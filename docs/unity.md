@@ -23,10 +23,12 @@ For a walkthrough of installing and using the SDK in an existing Unity project, 
 Version 4.0 has breaking changes.
 To upgrade, see [Upgrading the Unity SDK](/unity/upgrading).
 
+<!--
 ## Tutorial scenes
 
 The SDK includes tutorial scenes that demonstrate how to use the SDK.
 For information about setting up and using the scenes, see [Tutorial scenes](/unity/scenes).
+-->
 
 ## Sample game
 
