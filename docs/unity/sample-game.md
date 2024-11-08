@@ -128,7 +128,7 @@ The [`UserDataManager.cs`](https://github.com/baking-bad/tezos-unity-game/blob/m
 Some of this information (such as the tokens that the player owns) comes from Tezos and other information (such as the player's statistics) comes from the backend.
 Information about the current game session and pending rewards are non-persistent data that are stored by the Unity application.
 
-The `UserDataManager` class responds to [events](/unity/reference/EventManager) such as when the user connects their wallet and then loads information from the backend and from Tezos directly.
+The `UserDataManager` class responds to [events](/unity/reference/events) such as when the user connects their wallet and then loads information from the backend and from Tezos directly.
 
 ## Opening the sample game
 

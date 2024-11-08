@@ -2,7 +2,7 @@
 title: Quickstart
 authors: Tim McMackin
 last_update:
-  date: 4 November 2024
+  date: 8 November 2024
 ---
 
 Follow these steps to install the Tezos Unity SDK in an existing Unity project and start using it.
@@ -12,7 +12,6 @@ These instructions cover:
 - Installing the SDK into an existing Unity project
 - Testing that the SDK works in your project
 - Connecting to a user's Tezos wallet
-- Creating and managing tokens
 - Prompting the user to sign messages
 
 ## Installing the SDK
@@ -24,10 +23,11 @@ These instructions cover:
    The Package Manager panel downloads and installs the SDK.
    You can see its assets in the Project panel under Packages > Tezos Unity SDK.
 
-1. Ensure that you have a Tezos-compatible wallet configured for the Ghostnet testnet on your mobile device.
+1. Ensure that you have a Tezos-compatible wallet configured for the Ghostnet test network on your mobile device.
+By default, the SDK uses Ghostnet instead of Tezos Mainnet.
 For instructions, see [Installing and funding a wallet](/developing/wallet-setup).
 
-1. To import the tutorial scenes, see [Scenes](/unity/scenes).
+<!-- 1. To import the tutorial scenes, see [Scenes](/unity/scenes). -->
 
 ## Connecting to wallets
 
@@ -38,218 +38,196 @@ Users must still confirm all transactions in their wallet application.
 Using a wallet application in this way saves you from having to implement payment processing and security in your application.
 Game developers can also use the wallet and its account as a unique account identifier and as the user's inventory.
 
-1. Copy the `TezosAuthenticator` and `TezosManager` prefabs to your scene.
-These prefabs provide prerequisites to use Tezos in a scene and help connect to accounts.
-For more information about them, see [Prefabs](/unity/prefabs).
+The SDK supports three types of wallets:
 
-   The `TezosAuthenticator` prefab automatically adds features that connect to users' wallets.
-   If you copy these prefabs into your scene and run it, it shows a QR code or connection buttons that Tezos wallet applications can scan to connect with the application.
-   Whether it shows the QR code or buttons depends on whether the project is running in standalone, mobile, or WebGL mode.
+- Tezos wallets that connect through the Beacon protocol, such as Temple
+- Tezos social wallets that connect to a federated identity login through [Kukai](https://wallet.kukai.app)
+- Ethereum wallets that connect through the WalletConnect protocol
 
-1. Add features to your project to use the connected account.
-For example, the `Tutorials/Common/Scripts/WalletInfoUI.cs` file responds to the `WalletConnected` event, which runs when the user approves the connection in their wallet application.
-You can use this event to get the address of the connected account, as in this code:
+The SDK can connect to these wallets in different ways depending on the platform.
+For example, in a WebGL application, it can show a QR code to allow the user to scan it with a wallet app on a mobile device.
+If the Unity application is running on a mobile app, it can open Tezos wallets on the mobile device directly.
+
+For more details, see [Connecting accounts](/unity/connecting-accounts).
+
+These instructions are for connecting to Tezos wallets through the Beacon protocol:
+
+1. In the Unity project, add a button that users click to connect their wallet and a button that users click to disconnect their wallet.
+You will add code to these buttons in a later step.
+You can also use a single button and change its behavior to connect or disconnect based on whether there is a currently connected wallet.
+
+1. Add a RawImage component to the project to hold the QR code and make it square and large enough that mobile devices can scan it.
+
+1. Add a TextMeshPro text field to show information about the connection, such as the account address.
+
+   The scene looks similar to this example:
+
+   ![An example of how the scene might look with information text, connection buttons, and a space for the QR code](/img/unity/unity-scene-layout.png)
+
+1. In your Unity project, add a class in a script file to hold the code for the connection operations.
+The class must inherit from the Unity `MonoBehaviour` class, as in this example:
 
    ```csharp
-   private void Start()
-   {
-       addressText.text = NOT_CONNECTED_TEXT;
+   using System;
+   using Netezos.Encoding;
+   using Tezos.API;
+   using Tezos.Operation;
+   using Tezos.QR;
+   using Tezos.SocialLoginProvider;
+   using Tezos.WalletProvider;
+   using TMPro;
+   using UnityEngine;
+   using UnityEngine.UI;
 
-       TezosAPI.WalletConnected += OnWalletConnected;
-       TezosAPI.WalletDisconnected += OnWalletDisconnected;
-   }
-
-   private void OnWalletConnected(WalletProviderData walletProviderData)
+   public class MyScripts : MonoBehaviour
    {
-       // We can get the address from the event data
-       addressText.text = walletProviderData.WalletAddress;
-   }
+       [SerializeField] private QrCodeGenerator _qrCodeGenerator;
+       [SerializeField] private TMP_Text        _infoText;
+       [SerializeField] private Button          _connectButton;
+       [SerializeField] private Button          _disconnectButton;
 
-   private void OnWalletDisconnected()
-   {
-       addressText.text = NOT_CONNECTED_TEXT;
+       private async void Awake()
+       {
+           await TezosAPI.WaitUntilSDKInitialized();
+
+           // Check for prior connections
+           if (TezosAPI.IsConnected()) _infoText.text = TezosAPI.GetConnectionAddress();
+
+           // Run functions when users click buttons
+           _connectButton.onClick.AddListener(OnConnectClicked);
+           _disconnectButton.onClick.AddListener(OnDisconnectClicked);
+
+           // Generate QR code when user connects
+           TezosAPI.PairingRequested += OnPairingRequested;
+       }
+
+       private void OnPairingRequested(string data)
+       {
+           _qrCodeGenerator.SetQrCode(data);
+       }
+
+       private async void OnConnectClicked()
+       {
+           // Connect to a Beacon wallet (such as Temple)
+           var walletProviderData = new WalletProviderData { WalletType = WalletType.BEACON };
+           try
+           {
+               var result = await TezosAPI.ConnectWallet(walletProviderData);
+               _infoText.text = result.WalletAddress;
+           }
+           catch (WalletConnectionRejected e)
+           {
+               _infoText.text = "Wallet connection rejected";
+               Debug.LogError($"Wallet connection rejected. {e.Message}\n{e.StackTrace}");
+           }
+           catch (Exception e)
+           {
+               Debug.LogException(e);
+           }
+       }
+
+       private async void OnDisconnectClicked()
+       {
+           // Disconnect the currently connected wallet
+           try
+           {
+               var result = await TezosAPI.Disconnect();
+               _infoText.text = "Disconnected";
+           }
+           catch (Exception e)
+           {
+               Debug.LogException(e);
+           }
+       }
+
    }
    ```
 
-   You can use this address as a user's account ID because Tezos account addresses are unique.
+   This code includes:
 
-1. To respond to other events, add listeners for the events that the SDK provides.
-You can see these events and their return values in the [EventManager object](/unity/reference/EventManager).
+      - Objects that represent the buttons, the QR code generator (from the class `Tezos.QR.QrCodeGenerator`), and a text field to show information on the screen
+      - An `Awake()` (or `Start()`) method that waits for the `TezosAPI.WaitUntilSDKInitialized()` to complete, which indicates that the SDK is ready
+      - A check to see if a wallet is already connected, because Beacon can automatically remember previously connected wallets
+      - Listeners to run when users click the buttons, in this case a connect button and a disconnect button
+      - A method to generate the QR code to connect to a mobile application
 
-For an example, see the [WalletConnection tutorial scene](/unity/scenes#wallet-connection-scene).
+1. In the Unity editor, create an object on the canvas to represent the script `QrCodeGenerator.cs`, which is available in the Project panel at `Packages/Tezos Unity SDK/Runtime/Scripts/QR/QrCodeGenerator.cs`.
 
-## Deploying contracts
+1. Bind the RawImage component to the `Raw Image` field of the script, as in this image:
 
-Contracts are backend programs that run on the Tezos blockchain.
-Smart contracts can do many tasks, but for gaming they have two main purposes:
+   ![Binding the image to the QR code generator script](/img/unity/unity-quickstart-bind-rawimage.png)
 
-- They handle tokens, which are digital assets stored on the blockchain
-- They provide backend logic that users can trust because it cannot change
+1. On the component that represents your script, drag the connection buttons, text information field, RawImage component, and QR code generator script to bind them to the objects in your script, as in this image:
 
-The ContractAndMinting tutorial scene shows how to deploy a contract from a Unity project.
+   ![Binding the buttons and QR code generator script to the objects in your script](/img/unity/unity-quickstart-scripts.png)
 
-The SDK provides a built-in contract that you can use instead of writing your own.
-This contract manages different kinds of tokens.
+1. Play the scene.
 
-To deploy the built-in contract, call the [`TokenContract.Deploy()`](/unity/reference/TokenContract#deploy) method and pass a callback function:
+1. When the scene loads, click the connection button.
 
-```csharp
-public void DeployContract()
-{
-    TezosManager
-        .Instance
-        .Tezos
-        .TokenContract
-        .Deploy(OnContractDeployed);
-}
+   The Unity player may show a popup that says "There is no application set to open the URL..."
+   This window opens because the SDK is trying to connect to a Tezos wallet on a mobile device.
+   You can safely ignore and close this popup.
 
-private void OnContractDeployed(string contractAddress)
-{
-    Debug.Log(contractAddress);
-}
-```
+   The application shows a QR code.
 
-The project sends the deployment transaction to the connected wallet, which must approve the transaction and pay the related fees.
-The SDK stores the address of the contract as [`TokenContract.address`](/unity/reference/TokenContract).
+1. In your Tezos wallet, scan the QR code and connect to the application.
 
-For an example, see the [ContractAndMinting tutorial scene](/unity/scenes#contractandminting-scene).
+If the connection is correct, the text field shows the address of the connected account.
 
-## Creating tokens
+Now the application is connected to the wallet and can submit transactions for it to approve and messages for it to sign.
 
-To create a token type, call the contract's `mint` entrypoint and pass these parameters:
+<!-- For an example, see the [WalletConnection tutorial scene](/unity/scenes#wallet-connection-scene). -->
 
-- A callback function to run when the token is created
-- The metadata for the token, which includes a name and description, URIs to preview media or thumbnails, and how many decimal places the token can be broken into
-- The destination account that owns the new tokens, which can be a user account, this smart contract, or any other smart contract
-- The number of tokens to create
+## Signing messages
 
-For example, this code creates a token type with a quantity of 100:
+You can use the connection to the user's wallet to prompt them to sign messages.
+Signing a message proves that it came from a specific user's wallet because the wallet encrypts the message with the user's account's key.
+
+For example, this code prompts the user to sign the message "This message came from my account."
+When the `SigningResulted` event runs, it prints the signed payload:
 
 ```csharp
-// Get the address of the connected wallet
-var initialOwner = TezosManager
-    .Instance
-    .Wallet
-    .GetWalletAddress();
-
-// To preview the IPFS-hosted image:
-// https://ipfs.io/ipfs/QmX4t8ikQgjvLdqTtL51v6iVun9tNE7y7Txiw4piGQVNgK
-const string imageAddress = "ipfs://QmX4t8ikQgjvLdqTtL51v6iVun9tNE7y7Txiw4piGQVNgK";
-
-// Prepare metadata
-var tokenMetadata = new TokenMetadata
+private async void Start()
 {
-    Name = "My token",
-    Description = "Description for my token",
-    Symbol = "MYTOKEN",
-    Decimals = "0",
-    DisplayUri = imageAddress,
-    ArtifactUri = imageAddress,
-    ThumbnailUri = imageAddress
-};
+    TezosAPI.SigningResulted += SigningResulted;
 
-// Call the "mint" entrypoint of the contract
-TezosManager
-    .Instance
-    .Tezos
-    .TokenContract
-    .Mint(
-        completedCallback: OnTokenMinted,
-        tokenMetadata: tokenMetadata,
-        destination: initialOwner,
-        amount: 100);
-
-// This callback is triggered after the contract call successfully completes and the resulting transaction is recorded on the blockchain.
-private void OnTokenMinted(TokenBalance tokenBalance)
-{
-    Debug.Log($"Successfully minted token with Token ID {tokenBalance.TokenId}");
-}
-```
-
-For an example, see the [ContractAndMinting tutorial scene](/unity/scenes#contractandminting-scene).
-
-## Transferring tokens
-
-To transfer tokens, call the contract's `Transfer` entrypoint and pass these parameters:
-
-- A callback function to run when the transfer is complete
-- The account to transfer the tokens to
-- The ID of the token
-- The amount of tokens to transfer
-
-This example transfers 12 tokens with the ID 5 to the account in the variable `destinationAccountAddress`.
-
-```csharp
-public void HandleTransfer()
-{
-    TezosManager
-        .Instance
-        .Tezos
-        .TokenContract
-        .Transfer(
-            completedCallback: TransferCompleted,
-            destination: destinationAccountAddress,
-            tokenId: 5,
-            amount: 12);
+    await TezosAPI.WaitUntilSDKInitialized();
 }
 
-private void TransferCompleted(string txHash)
+public async void SignPayloadClick()
 {
-    Logger.LogDebug($"Transfer complete with transaction hash {txHash}");
-}
-```
-
-For a complete example, see the [Transfer tutorial scene](/unity/scenes#transfer-scene).
-
-## Getting token balances
-
-To get the tokens that the connected account owns, call the [`API.GetTokensForOwner()`](/unity/reference/API#gettokensforowner) method in a coroutine.
-This example prints information about the tokens that the account owns to the log:
-
-```csharp
-private void Start()
-{
-    // Subscribe to account connection event
-    TezosManager.Instance.EventManager.WalletConnected += OnWalletConnected;
-}
-
-private void OnWalletConnected(WalletInfo walletInfo)
-{
-    // Address of the connected wallet
-    var address = walletInfo.Address;
-
-    // Prepare the coroutine to fetch the tokens
-    var routine = TezosManager.Instance.Tezos.API.GetTokensForOwner(
-        OnTokensFetched, // Callback to be called when the tokens are fetched
-        address, true, 10_000, new TokensForOwnerOrder.ByLastTimeAsc(0));
-
-    StartCoroutine(routine);
-}
-
-private void OnTokensFetched(IEnumerable<TokenBalance> tokenBalances)
-{
-    var walletAddress = TezosManager.Instance.Wallet.GetWalletAddress();
-    var contractAddress = TezosManager.Instance.Tezos.TokenContract.Address;
-
-    var tokens = new List<TokenBalance>(tokenBalances);
-
-    // Filter the tokens by the current contract address
-    var filteredTokens = tokens.Where(tb => tb.TokenContract.Address == contractAddress).ToList();
-
-    if (filteredTokens.Count > 0)
+    try
     {
-        foreach (var tb in filteredTokens)
-        {
-            Debug.Log($"{walletAddress} has {tb.Balance} tokens on contract {tb.TokenContract.Address}");
-            Debug.Log(tb.TokenMetadata);
-        }
+        var payload = "Hello World!";
+        var bytes = Encoding.UTF8.GetBytes(payload);
+        var hexPayload = BitConverter.ToString(bytes);
+        hexPayload = hexPayload.Replace("-", "");
+        hexPayload = "05" + hexPayload;
+        var result = await TezosAPI.RequestSignPayload(
+            new SignPayloadRequest
+            {
+                Payload = hexPayload,
+                SigningType = SignPayloadType.MICHELINE
+            }
+        );
+        Debug.Log($"Signature: {result.Signature}");
     }
-    else
+    catch (Exception e)
     {
-        Debug.Log($"{walletAddress} has no tokens in the active contract");
+        Debug.Log($"{e.Message}");
+        Debug.Log($"{e.StackTrace}");
     }
 }
+
+public void SigningResulted(SignPayloadResponse response)
+{
+    Debug.Log("SigningResulted");
+    Debug.Log(response);
+}
 ```
+
+<!-- TODO verify that the payload is correctly signed. -->
 
 ## Uploading files to IPFS
 
@@ -257,6 +235,10 @@ The InterPlanetary File System (IPFS) is a protocol and peer-to-peer network for
 Blockchain developers use it to store data such as token images and metadata.
 
 The SDK provides tools to upload to IPFS by using the [Pinata](https://pinata.cloud/) API, but you can set up IPFS upload in other ways.
+
+TODO
+
+<!--
 
 To use the SDK, create instances of the Tezos Configuration and Data Provider Configuration objects and put your Pinata JWT (not the API key or secret) in the `TezosConfigSO` object's Pinata Api Key field.
 
@@ -283,36 +265,9 @@ public void HandleUploadClick()
 }
 ```
 
-For a complete example, see the [IPFSUpload tutorial scene](/unity/scenes#ipfsupload-scene).
+-->
 
-## Signing messages
-
-You can also use the connection to the user's wallet to prompt them to sign messages.
-Signing a message proves that it came from a specific user's wallet because the wallet encrypts the message with the user's account's key.
-
-For example, this code prompts the user to sign the message "This message came from my account."
-Then, the callback verifies that the signature is valid and that it came from the user's account:
-
-```csharp
-string payload = "This message came from my account.";
-
-private void Start()
-{
-    // Subscribe to the wallet event
-    TezosManager.Instance.EventManager.PayloadSigned += OnPayloadSigned;
-
-    TezosManager.Instance.Wallet.RequestSignPayload(SignPayloadType.micheline, payload);
-}
-
-private void OnPayloadSigned(SignResult obj)
-{
-    // Result is true if the message is signed correctly
-    // And that it came from the currently-connected wallet
-    var result = TezosManager.Instance.Wallet.VerifySignedPayload(SignPayloadType.micheline, payload);
-
-    Debug.Log($"Payload verification response: {result}");
-}
-```
+<!-- For a complete example, see the [IPFSUpload tutorial scene](/unity/scenes#ipfsupload-scene). -->
 
 ## Changing the RPC node
 
@@ -320,10 +275,8 @@ As described in [The RPC interface](/architecture/nodes#the-rpc-interface), Tezo
 By default, the SDK sends requests to a public RPC node that uses the Ghostnet test network, where you can test transactions without spending real tez.
 For more information about test networks, see [Testing on testnets](/developing/testnets).
 
-If you need to change the RPC node that the SDK uses, such as if the default node is overloaded or if you are ready to send transactions to Mainnet, you can set the RPC node by creating an instance of the [TezosConfigSO scriptable object](/unity/reference/TezosConfigSO) and setting the node in the **Rpc Url Format** field, as in this picture:
+If you need to change the RPC node that the SDK uses, such as if the default node is overloaded or if you are ready to send transactions to Mainnet, you can set the RPC node by editing the TezosConfig scriptable object at `Assets/Tezos/Resources/TezosConfig.asset` and setting the RPC URL in the **Rpc Url Format** field, as in this picture:
 
-<img src="/img/unity/unity-ipfs-scene-config.png" alt="Adding the Pinata API key and the data provider to the TezosConfigSO object" style={{width: 300}} />
+<img src="/img/unity/unity-ipfs-scene-config.png" alt="Adding the Pinata API key and the data provider to the TezosConfig object" style={{width: 300}} />
 
-Then, drag this instance of the TezosConfigSO scriptable object to the Config field of the TezosManager prefab.
-
-For more examples of how to work with the SDK, see [Tutorial scenes](/unity/scenes).
+<!-- For more examples of how to work with the SDK, see [Tutorial scenes](/unity/scenes). -->

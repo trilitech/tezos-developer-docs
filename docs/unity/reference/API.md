@@ -1,12 +1,12 @@
 ---
-title: Unity SDK API object
-sidebar_label: API object
+title: Unity SDK TezosAPI object
+sidebar_label: TezosAPI object
 authors: Tim McMackin
 last_update:
-  date: 6 December 2023
+  date: 6 November 2024
 ---
 
-The Unity SDK class `TezosSDK.Tezos.API.TezosAPI`, which is available at runtime as the `TezosManager.Instance.Tezos.API` object, provides information about the Tezos blockchain, such as what tokens accounts or contracts control.
+The Unity SDK class `Tezos.API.TezosAPI`, which is available at runtime as the `TezosAPI` object, provides methods for many Tezos-related tasks, including connecting to wallets, getting information about the current wallet connection, and getting information about about the Tezos blockchain, such as what tokens accounts or contracts control.
 
 ## Properties
 
@@ -14,41 +14,158 @@ None.
 
 ## Methods
 
-### `GetTezosBalance()`
+### `WaitUntilSDKInitialized()`
 
 ```csharp
-IEnumerator GetTezosBalance(Action<ulong> callback, string address);
+public static async UniTask WaitUntilSDKInitialized();
 ```
 
-Returns the balance of the specified account address in mutez.
+Waits until the SDK is fully initialized.
+Use this method at startup before trying to connect to wallets or use other features of the SDK.
+
+### `ConnectWallet()`
+
+```csharp
+public static async UniTask<WalletProviderData> ConnectWallet(WalletProviderData walletProviderData);
+```
+
+Sends a request to a user's wallet to connect a Beacon or WalletConnect wallet to the application.
+To connect social wallets, use [`SocialLogIn()`](#sociallogin).
+
+If a wallet is already connected, this method either throws an exception (if a social wallet is connected) or returns the current connection information (if a Beacon or WalletConnect wallet is connected).
+
+This method triggers the `WalletConnected` or `WalletConnectionFailed` events, depending on whether the connection was successful or not.
+
+When the `WalletType` field of the `WalletProviderData` parameter is set to `WalletType.BEACON`, this method automatically picks the correct way to connect to wallets:
+
+- In WebGL applications, it uses the `TezosSDK.Beacon.BeaconConnectorWebGl` class to trigger the browser to connect to a wallet app in a browser plugin.
+- In all other applications, it uses the `TezosSDK.Beacon.BeaconConnectorDotNet` class to generate a QR code to connect to a wallet app on a mobile device or use a "deep link" to connect to a wallet on the same mobile device that is running the application.
+
+When the `WalletType` field of the `WalletProviderData` parameter is set to `WalletType.WALLETCONNECT`, this method... TODO
+
+TODO what happens then?
+
+
+<!-- TODO
+There's a lot more to connections, as described in https://opentezos.com/gaming/unity-sdk/api-documentation/#iwalletproviderconnect.
+Need to work out what's relevant here and what should go in a topic on connecting to wallets.
+
+What happens with the redirect param?
+-->
+
+
+
+
+### `SocialLogIn()`
+
+```csharp
+public static async UniTask<SocialProviderData> SocialLogIn(SocialProviderData socialProviderData);
+```
+
+Initiates a social login session.
+
+### `RequestOperation()`
+
+Sends a transaction.
+
+```csharp
+public static async UniTask<OperationResponse> RequestOperation(OperationRequest operationRequest);
+```
+
+TODO What does this return and what events does it trigger?
+
+
+
+
+
+
+
+### `IsConnected()`
+
+Returns true if any kind of wallet is connected to the application and false if not.
+
+```csharp
+public static bool IsConnected();
+```
+
+This method returns true if a Beacon, WalletConnect, or social wallet is connected.
+To check for Beacon and WalletConnect connections specifically, use [`IsWalletConnected()`](#iswalletconnected).
+To check for social wallets specifically, use [`IsSocialLoggedIn()`](#issocialloggedin).
+
+### `IsWalletConnected()`
+
+Returns true if a Beacon or WalletConnect wallet is connected.
+
+```csharp
+public static bool IsWalletConnected();
+```
+
+### `IsSocialLoggedIn()`
+
+Returns true if a social wallet is connected.
+
+```csharp
+public static bool IsSocialLoggedIn();
+```
+
+### `GetWalletConnectionData()`
+
+Retrieves information about the current wallet connection.
+
+```csharp
+public static WalletProviderData GetWalletConnectionData();
+```
+
+### `GetSocialLoginData()`
+
+Retrieves information about the current social wallet connection.
+
+```csharp
+public static SocialProviderData GetSocialLoginData();
+```
+
+### `SocialLogIn()`
+
+Initiates a social login session and returns information about the connection.
+
+```csharp
+public static async UniTask<SocialProviderData> SocialLogIn(SocialProviderData socialProviderData);
+```
+
+TODO what events does this trigger?
+
+
+### `GetBalance()`
+
+Fetches the balance of the connected account in mutez, as a string.
+
+```csharp
+public static async UniTask<string> GetBalance();
+```
 
 Example:
 
 ```csharp
-public void RunGetTezosBalance()
+public void RunGetBalance()
 {
     Debug.Log("Getting balance");
-    var routine = TezosManager.Instance.Tezos.API.GetTezosBalance(
-        callback: HandleTezosBalance,
-        address: myAddress
-    );
-    StartCoroutine(routine);
-}
-
-private void HandleTezosBalance(ulong balanceMutez)
-{
-    Debug.Log(balanceMutez/1000000);
+    try
+    {
+        var balance = ulong.Parse(await TezosAPI.GetBalance());
+        float convertedBalance = balance / 1000000f;
+        Debug.Log($"Balance: {balance} tez");
+    }
+    catch (Exception e)
+    {
+        Debug.LogError($"Balance fetch error: {e.Message}");
+    }
 }
 ```
 
 ### `ReadView()`
 
 ```csharp
-IEnumerator ReadView(
-    string contractAddress,
-    string entrypoint,
-    string input,
-    Action<JsonElement> callback);
+public static UniTask<T> ReadView<T>(string contractAddress, string entrypoint, string input);
 ```
 
 Returns the response from a contract [view](/smart-contracts/views).
@@ -57,32 +174,18 @@ Note that the `input` parameter must be a Michelson-encoded object, as in the fo
 Example:
 
 ```csharp
-public void RunReadView()
-{
-    var input = new MichelinePrim
-        {
-            Prim = PrimType.Pair,
-            Args = new List<IMicheline>
-                {
-                    new MichelineInt(2),
-                    new MichelineString("hello")
-                }
-        }.ToJson();
-
-    var routine = TezosManager.Instance.Tezos.API.ReadView(
-        contractAddress: TezosManager.Instance.Tezos.TokenContract.Address,
-        entrypoint: viewName,
-        input: input,
-        callback: HandleRunReadView
-    );
-    StartCoroutine(routine);
-}
-
-public void HandleRunReadView(JsonElement viewResponse)
-{
-    Debug.Log(viewResponse);
-}
+var result = await TezosAPI.ReadView<string>("KT1K46vZTMEe8bnacFvFQfgHtNDKniEauRMJ", "simple", "\"String value\"");
+Debug.Log("View response: " + result);
 ```
+
+
+
+<!-- PLACE -->
+
+
+
+
+
 
 ### `GetTokensForOwner()`
 
@@ -505,7 +608,7 @@ IEnumerator GetOriginatedContractsForOwner(
 
 Gets the contracts that the specified account deployed (originated).
 Optionally, you can pass the hash of a contract to return only contracts that match that hash.
-For example, the hash of the contract in the [`TokenContract`](/unity/reference/TokenContract) object is in the `Resources/Contracts/FA2TokenContractCodeHash.txt` file.
+For example, the hash of the contract in the `TokenContract` object is in the `Resources/Contracts/FA2TokenContractCodeHash.txt` file.
 
 Example:
 
