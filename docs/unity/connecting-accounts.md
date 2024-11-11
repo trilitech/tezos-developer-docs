@@ -219,4 +219,5 @@ TODO Get this working and cover the steps
 
 It's important to provide a disconnect button so the user can disconnect when they are finished with the application or if they want to connect with a different account.
 To disconnect the active wallet, call the `Wallet.Disconnect()` method.
-This method triggers the `WalletDisconnected` event and removes the connection from the wallet app and from the
+This method triggers the `WalletDisconnected` event and removes the connection from the wallet app.
+For Beacon connections, it removes the connection from the persistent menory.
