@@ -182,6 +182,7 @@ Now the application is connected to the wallet and can submit transactions for i
 
 You can use the connection to the user's wallet to prompt them to sign messages.
 Signing a message proves that it came from a specific user's wallet because the wallet encrypts the message with the user's account's key.
+In this way, game developers can make players sign a message as a way of validating their identity.
 
 For example, this code prompts the user to sign the message "This message came from my account."
 When the `SigningResulted` event runs, it prints the signed payload:
