@@ -2,7 +2,7 @@
 title: Quickstart
 authors: Tim McMackin
 last_update:
-  date: 8 November 2024
+  date: 11 November 2024
 ---
 
 Follow these steps to install the Tezos Unity SDK in an existing Unity project and start using it.
@@ -229,18 +229,76 @@ public void SigningResulted(SignPayloadResponse response)
 
 <!-- TODO verify that the payload is correctly signed. -->
 
+## Calling smart contracts
+
+Smart contracts are backend programs that run on the Tezos blockchains.
+Smart contracts can do many tasks, but for gaming they have two main purposes:
+
+- They handle tokens, which are digital assets stored on the blockchain
+- They provide backend logic that users can trust because it cannot change
+
+To call a smart contract, the Unity application must be connected to a wallet.
+The application sends the smart contract transaction to the user's wallet for approval.
+
+For example, this code sends a transaction to the entrypoint `increment` of the smart contract `KT1R2LTg3mQoLvHtUjo2xSi7RMBUJ1sJkDiD`, passes the parameter `5`, and includes zero tez tokens.
+When the transaction completes successfully, it logs the hash of the transaction.
+You can use this hash to look up information about the transaction in a [block explorer](/developing/information/block-explorers).
+
+```csharp
+private async void Awake()
+{
+    await TezosAPI.WaitUntilSDKInitialized();
+
+    _connectButton.onClick.AddListener(OnConnectClicked);
+    _disconnectButton.onClick.AddListener(OnDisconnectClicked);
+    _requestOperationButton.onClick.AddListener(OnRequestOperationClicked);
+
+    TezosAPI.OperationResulted += OperationResulted;
+}
+
+private async void OnRequestOperationClicked()
+{
+    try
+    {
+        var request = new OperationRequest
+        {
+            // Contract to call
+            Destination = "KT1R2LTg3mQoLvHtUjo2xSi7RMBUJ1sJkDiD",
+            // Entrypoint to call
+            EntryPoint = "increment",
+            // Parameter to pass, as a Michelson expression
+            Arg = new MichelineInt(5).ToJson(),
+            // Amount of tez to send with the transaction
+            Amount = "0",
+        };
+        var response = await TezosAPI.RequestOperation(request);
+    }
+    catch (Exception e) when (e is WalletOperationRejected or SocialOperationFailed)
+    {
+        Debug.LogError($"Operation failed: {e.Message}");
+    }
+    catch (Exception e)
+    {
+        Debug.LogError($"Unexpected error during operation: {e.Message}");
+    }
+}
+
+private void OperationResulted(OperationResponse operationResponse)
+{
+    Debug.Log("Transaction hash: " + operationResponse.TransactionHash);
+}
+```
+
+For more information, see [Calling contracts](/unity/calling-contracts).
+
+<!--
+
 ## Uploading files to IPFS
 
 The InterPlanetary File System (IPFS) is a protocol and peer-to-peer network for storing and sharing data in a distributed file system.
 Blockchain developers use it to store data such as token images and metadata.
 
 The SDK provides tools to upload to IPFS by using the [Pinata](https://pinata.cloud/) API, but you can set up IPFS upload in other ways.
-
-TODO
-
-<!--
-
-To use the SDK, create instances of the Tezos Configuration and Data Provider Configuration objects and put your Pinata JWT (not the API key or secret) in the `TezosConfigSO` object's Pinata Api Key field.
 
 To use the SDK, see the code in the `UploadImageButton.cs` file, which handles uploading files in the IPFSUpload scene.
 It has a UI upload button that triggers this method, which uses the built-in Pinata uploader to upload the file and get the URL for it:
