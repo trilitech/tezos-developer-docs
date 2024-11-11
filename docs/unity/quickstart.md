@@ -62,7 +62,7 @@ You can also use a single button and change its behavior to connect or disconnec
 
    The scene looks similar to this example:
 
-   ![An example of how the scene might look with information text, connection buttons, and a space for the QR code](/img/unity/unity-scene-layout.png)
+   ![An example of how the scene might look with information text, connection buttons, and a space for the QR code](/img/unity/unity-scene-layout-beacon.png)
 
 1. In your Unity project, add a class in a script file to hold the code for the connection operations.
 The class must inherit from the Unity `MonoBehaviour` class, as in this example:
@@ -73,7 +73,6 @@ The class must inherit from the Unity `MonoBehaviour` class, as in this example:
    using Tezos.API;
    using Tezos.Operation;
    using Tezos.QR;
-   using Tezos.SocialLoginProvider;
    using Tezos.WalletProvider;
    using TMPro;
    using UnityEngine;
@@ -146,7 +145,7 @@ The class must inherit from the Unity `MonoBehaviour` class, as in this example:
    This code includes:
 
       - Objects that represent the buttons, the QR code generator (from the class `Tezos.QR.QrCodeGenerator`), and a text field to show information on the screen
-      - An `Awake()` (or `Start()`) method that waits for the `TezosAPI.WaitUntilSDKInitialized()` to complete, which indicates that the SDK is ready
+      - An `Awake()` (or `Start()`) method that waits for the `TezosAPI.WaitUntilSDKInitialized()` method to complete, which indicates that the SDK is ready
       - A check to see if a wallet is already connected, because Beacon can automatically remember previously connected wallets
       - Listeners to run when users click the buttons, in this case a connect button and a disconnect button
       - A method to generate the QR code to connect to a mobile application
@@ -159,14 +158,14 @@ The class must inherit from the Unity `MonoBehaviour` class, as in this example:
 
 1. On the component that represents your script, drag the connection buttons, text information field, RawImage component, and QR code generator script to bind them to the objects in your script, as in this image:
 
-   ![Binding the buttons and QR code generator script to the objects in your script](/img/unity/unity-quickstart-scripts.png)
+   ![Binding the buttons and QR code generator script to the objects in your script](/img/unity/unity-quickstart-scripts-beacon.png)
 
 1. Play the scene.
 
 1. When the scene loads, click the connection button.
 
-   The Unity player may show a popup that says "There is no application set to open the URL..."
-   This window opens because the SDK is trying to connect to a Tezos wallet on a mobile device.
+   The Unity player may try to open a URL that starts with `tezos://`.
+   The SDK is trying to connect to a Tezos wallet on a mobile device.
    You can safely ignore and close this popup.
 
    The application shows a QR code.

@@ -2,7 +2,7 @@
 title: Connecting accounts
 authors: Tim McMackin
 last_update:
-  date: 8 November 2024
+  date: 11 November 2024
 ---
 
 Connecting to a user's wallet is a prerequisite to working with Tezos in any application.
@@ -95,7 +95,117 @@ It shows a popup window that prompts the user to select a compatible wallet:
 
 ## Connecting to WalletConnect wallets
 
-TODO
+Unity applications can connect to EVM wallets such as Metamask by showing popup window that helps users connect.
+The popup window can show a QR code for wallet apps to scan or open wallet apps on devices directly.
+
+Follow these steps to connect to a wallet with the WalletConnect protocol:
+
+1. Install the Tezos Unity WalletConnect SDK:
+
+   1. Make sure the Tezos Unity SDK is installed as described in [Installing the SDK](/unity/quickstart#installing-the-sdk).
+
+   1. In your Unity project, in the Package Manager panel, click the `+` symbol and then click **Add package from git URL**.
+
+   1. Enter the URL `https://github.com/trilitech/tezos-wallet-connect-unity-sdk.git` and click **Add**.
+
+   The Package Manager panel downloads and installs the WalletConnect SDK.
+
+1. In the Unity project, add a button that users click to connect their wallet and a button that users click to disconnect their wallet.
+You will add code to these buttons in a later step.
+You can also use a single button and change its behavior to connect or disconnect based on whether there is a currently connected wallet.
+
+1. Add a TextMeshPro text field to show information about the connection, such as the account address.
+
+   The scene looks similar to this example:
+
+   ![An example of how the scene might look with information text, connection buttons, and a space for the QR code](/img/unity/unity-scene-layout-walletconnect.png)
+
+1. In your Unity project, add a class in a script file to hold the code for the connection operations.
+The class must inherit from the Unity `MonoBehaviour` class, as in this example:
+
+   ```csharp
+   using System;
+   using Netezos.Encoding;
+   using Tezos.API;
+   using Tezos.Operation;
+   using Tezos.WalletProvider;
+   using TMPro;
+   using UnityEngine;
+   using UnityEngine.UI;
+
+   public class MyScripts : MonoBehaviour
+   {
+       [SerializeField] private TMP_Text _infoText;
+       [SerializeField] private Button _connectButton;
+       [SerializeField] private Button _disconnectButton;
+
+       private async void Awake()
+       {
+           await TezosAPI.WaitUntilSDKInitialized();
+
+           // Check for prior connections
+           if (TezosAPI.IsConnected()) _infoText.text = TezosAPI.GetConnectionAddress();
+
+           // Run functions when users click buttons
+           _connectButton.onClick.AddListener(OnConnectClicked);
+           _disconnectButton.onClick.AddListener(OnDisconnectClicked);
+       }
+
+       private async void OnConnectClicked()
+       {
+           // Connect to an EVM wallet such as Metamask
+           var walletProviderData = new WalletProviderData { WalletType = WalletType.WALLETCONNECT };
+           try
+           {
+               var result = await TezosAPI.ConnectWallet(walletProviderData);
+               _infoText.text = result.WalletAddress;
+           }
+           catch (WalletConnectionRejected e)
+           {
+               _infoText.text = "Wallet connection rejected";
+               Debug.LogError($"Wallet connection rejected. {e.Message}\n{e.StackTrace}");
+           }
+           catch (Exception e)
+           {
+               Debug.LogException(e);
+           }
+       }
+
+       private async void OnDisconnectClicked()
+       {
+           // Disconnect the currently connected wallet
+           try
+           {
+               var result = await TezosAPI.Disconnect();
+               _infoText.text = "Disconnected";
+           }
+           catch (Exception e)
+           {
+               Debug.LogException(e);
+           }
+       }
+
+   }
+   ```
+
+   This code includes:
+
+      - Objects that represent the buttons and a text field to show information on the screen
+      - An `Awake()` (or `Start()`) method that waits for the `TezosAPI.WaitUntilSDKInitialized()` method to complete, which indicates that the SDK is ready
+      - A check to see if a wallet is already connected, because Beacon can automatically remember previously connected wallets
+      - Listeners to run when users click the buttons, in this case a connect button and a disconnect button
+
+1. On the component that represents your script, drag the connection buttons and text information field to bind them to the objects in your script, as in this image:
+
+   ![Binding the buttons and text field to the objects in your script](/img/unity/unity-scripts-walletconnect.png)
+
+1. Play the scene.
+
+1. When the scene loads, click the connection button.
+
+   The application shows a WalletConnect popup window with an option to open compatible wallet apps or show a QR code.
+
+1. In your Tezos wallet, scan the QR code and connect to the application.
 
 ## Connecting to social wallets
 
