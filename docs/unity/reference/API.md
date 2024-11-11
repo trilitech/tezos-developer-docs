@@ -3,7 +3,7 @@ title: Unity SDK TezosAPI object
 sidebar_label: TezosAPI object
 authors: Tim McMackin
 last_update:
-  date: 6 November 2024
+  date: 11 November 2024
 ---
 
 The Unity SDK class `Tezos.API.TezosAPI`, which is available at runtime as the `TezosAPI` object, provides methods for many Tezos-related tasks, including connecting to wallets, getting information about the current wallet connection, and getting information about about the Tezos blockchain, such as what tokens accounts or contracts control.
@@ -66,7 +66,7 @@ Initiates a social login session.
 
 ### `RequestOperation()`
 
-Sends a transaction.
+Sends a Tezos transaction.
 
 ```csharp
 public static async UniTask<OperationResponse> RequestOperation(OperationRequest operationRequest);
@@ -75,9 +75,65 @@ public static async UniTask<OperationResponse> RequestOperation(OperationRequest
 TODO What does this return and what events does it trigger?
 
 
+### `RequestSignPayload()`
 
+Prompts the connected wallet to sign a payload and returns the signed payload.
 
+```csharp
+public static async UniTask<SignPayloadResponse> RequestSignPayload(SignPayloadRequest operationRequest)
+```
 
+Example:
+
+```csharp
+private async void Start()
+{
+    TezosAPI.SigningResulted += SigningResulted;
+
+    await TezosAPI.WaitUntilSDKInitialized();
+}
+
+public async void SignPayloadClick()
+{
+    try
+    {
+        var payload = "Hello World!";
+        var bytes = Encoding.UTF8.GetBytes(payload);
+        var hexPayload = BitConverter.ToString(bytes);
+        hexPayload = hexPayload.Replace("-", "");
+        hexPayload = "05" + hexPayload;
+        var result = await TezosAPI.RequestSignPayload(
+            new SignPayloadRequest
+            {
+                Payload = hexPayload,
+                SigningType = SignPayloadType.MICHELINE
+            }
+        );
+        Debug.Log($"Signature: {result.Signature}");
+    }
+    catch (Exception e)
+    {
+        Debug.Log($"{e.Message}");
+        Debug.Log($"{e.StackTrace}");
+    }
+}
+
+public void SigningResulted(SignPayloadResponse response)
+{
+    Debug.Log("SigningResulted");
+    Debug.Log(response);
+}
+```
+
+### `DeployContract()`
+
+Deploys (originates) a smart contract to Tezos.
+
+```csharp
+public static UniTask DeployContract(DeployContractRequest deployContractRequest);
+```
+
+TODO example
 
 
 ### `IsConnected()`
@@ -178,14 +234,154 @@ var result = await TezosAPI.ReadView<string>("KT1K46vZTMEe8bnacFvFQfgHtNDKniEauR
 Debug.Log("View response: " + result);
 ```
 
+### `GetConnectionAddress()`
 
+Returns the connected address or an empty string if no wallet is connected.
 
-<!-- PLACE -->
+```csharp
+public static string GetConnectionAddress()
+```
 
+### `Disconnect()`
 
+Disconnects the currently connected wallet and returns true if a wallet was connected or false if no wallet was connected.
 
+```csharp
+public static async UniTask<bool> Disconnect()
+```
 
+### `GetTokenMetadata()`
 
+Gets the metadata for the specified token.
+
+```csharp
+public static UniTask<JsonElement> GetTokenMetadata(
+    string contractAddress,
+    uint   tokenId
+);
+```
+
+### `GetContractMetadata()`
+
+```csharp
+public static UniTask<JsonElement> GetContractMetadata(
+    string contractAddress
+);
+```
+
+Gets the metadata for the specified contract, if it has metadata.
+
+### `GetTokensForContract()`
+
+```csharp
+public static UniTask<IEnumerable<TokenData>> GetTokensForContract(
+    string                 contractAddress,
+    bool                   withMetadata,
+    long                   maxItems,
+    TokensForContractOrder orderBy
+);
+```
+
+Gets the tokens in a contract.
+
+<!-- TODO not sure if this works -->
+
+Example:
+
+```csharp
+var tokenList = await TezosAPI.GetTokensForContract(
+    "KT1Nhr9Bmhy7kcUmezRxbbDybh5buNnrVLTY",
+    true,
+    5,
+    new TokensForContractOrder.Default(0)
+);
+List<TokenData> tokens = new List<TokenData>(tokenList);
+foreach (var tk in tokens)
+{
+    Debug.Log("ID: " + tk.TokenID);
+}
+```
+<!-- Not sure if relevant anymore-->
+<!--
+The method returns a list of tokens, but not all of the fields in the `TokenData` objects are populated by default.
+You can populate the fields you want to retrieve by editing the `GetTokensForContract` method of the `Tezos.API.TezosAPI` class.
+
+The methods in this class retrieves information about Tezos via the [TZKT](https://tzkt.io/) block explorer.
+To change the information that the `GetTokensForContract` method retrieves, update the URL to add fields.
+
+The default URL looks like this:
+
+```csharp
+var url =
+    $"tokens?contract={contractAddress}&select=contract,tokenId as token_id" +
+    $"{(withMetadata ? ",metadata as token_metadata" : "")},holdersCount as holders_count,id," +
+    $"lastTime as last_time&{sort}&limit={maxItems}";
+```
+
+To get the total supply of each token type, add the `totalSupply` field to the URL, like this:
+
+```csharp
+var url =
+    $"tokens?contract={contractAddress}&select=contract,tokenId as token_id" +
+    $"{(withMetadata ? ",metadata as token_metadata" : "")},holdersCount as holders_count,id," +
+    $"totalSupply as total_supply," +
+    $"lastTime as last_time&{sort}&limit={maxItems}";
+```
+
+Now when you run the `GetTokensForContract` method, the data passed to the callback includes the total supply of each token:
+
+```csharp
+private void HandleGetTokensForContract(IEnumerable<Token> tokenList)
+{
+    List<Token> tokens = new List<Token>(tokenList);
+    foreach (var tk in tokens)
+    {
+        Debug.Log($"Token ID {tk.TokenId} has total supply {tk.TotalSupply} among {tk.HoldersCount} holders");
+    }
+}
+```
+
+For information about what fields you can add to this URL, see the [TZKT API reference](https://api.tzkt.io/).
+
+-->
+
+### `GetOperationStatus()`
+
+```csharp
+public static UniTask<bool> GetOperationStatus(string operationHash);
+```
+
+Returns true if the specified operation was successful, false if it failed, or null (or HTTP 204) if it doesn't exist.
+
+### `GetLatestBlockLevel()`
+
+```csharp
+public static UniTask<int> GetLatestBlockLevel();
+```
+
+Returns the current block level, or the number of blocks since the genesis block.
+
+### `GetAccountCounter()`
+
+```csharp
+public static UniTask<int> GetAccountCounter(string address) ;
+```
+
+Returns the counter for implicit accounts, which is a unique number that you can use to ensure that transactions are not duplicated.
+
+## TODO:
+
+```csharp
+public static T GetWalletProvider<T>() where T : IWalletProvider      => (T)_walletProviderController.GetWalletProvider<T>();
+```
+
+```csharp
+public static T GetSocialProvider<T>() where T : ISocialLoginProvider => (T)_socialProviderController.GetSocialProvider<T>();
+```
+
+## Old methods
+
+Old methods that may still be used or may be outdated, but the code is still in there:
 
 ### `GetTokensForOwner()`
 
@@ -361,241 +557,14 @@ private void HandleIsHolderOfToken(bool response)
 }
 ```
 
-### `GetTokenMetadata()`
 
-```csharp
-IEnumerator GetTokenMetadata(
-    Action<TokenMetadata> callback,
-    string contractAddress,
-    uint tokenId);
-```
 
-Gets the metadata for the specified token.
 
-Example:
 
-```csharp
-public void RunGetTokenMetadata()
-{
-    var routine = TezosManager.Instance.Tezos.API.GetTokenMetadata(
-        callback: HandleGetTokenMetadata,
-        contractAddress: TezosManager.Instance.Tezos.TokenContract.Address,
-        tokenId: 0
-    );
-    StartCoroutine(routine);
-}
-
-private void HandleGetTokenMetadata(JsonElement tokenMetadata)
-{
-    Debug.Log(tokenMetadata.GetProperty("name"));
-}
-```
-
-### `GetContractMetadata()`
-
-```csharp
-public IEnumerator GetContractMetadata(
-    Action<JsonElement> callback,
-    string contractAddress);
-```
-
-Gets the metadata for the specified contract.
-Most contracts, including the built-in FA2 contract, do not have metadata.
-
-Example:
-
-```csharp
-public void RunGetContractMetadata()
-{
-    var routine = TezosManager.Instance.Tezos.API.GetContractMetadata(
-        callback: HandleGetContractMetadata,
-        contractAddress: TezosManager.Instance.Tezos.TokenContract.Address
-    );
-    StartCoroutine(routine);
-}
-
-private void HandleGetContractMetadata(JsonElement contractMetadata)
-{
-    Debug.Log(contractMetadata);
-}
-```
-
-### `GetTokensForContract()`
-
-```csharp
-IEnumerator GetTokensForContract(
-    Action<IEnumerable<Token>> callback,
-    string contractAddress,
-    bool withMetadata,
-    long maxItems,
-    TokensForContractOrder orderBy);
-```
-
-Gets the tokens in a contract.
-
-Example:
-
-```csharp
-public void RunGetTokensForContract()
-{
-    timesCalled = 0;
-    var routine = TezosManager.Instance.Tezos.API.GetTokensForContract(
-        callback: HandleGetTokensForContract,
-        contractAddress: TezosManager.Instance.Tezos.TokenContract.Address,
-        withMetadata: true,
-        maxItems: 10,
-        orderBy: new TokensForContractOrder.ByLastTimeAsc(0)
-    );
-    StartCoroutine(routine);
-}
-
-private void HandleGetTokensForContract(IEnumerable<Token> tokenList)
-{
-    List<Token> tokens = new List<Token>(tokenList);
-    foreach (var tk in tokens)
-    {
-        Debug.Log(tk.TokenId);
-    }
-}
-```
-
-The callback returns a list of tokens, but not all of the fields in the `Token` objects are populated by default.
-You can populate the fields you want to retrieve by editing the `GetTokensForContract` method of the `TezosSDK.Tezos.API.TezosAPI` class.
-
-The methods in this class retrieves information about Tezos via the [TZKT](https://tzkt.io/) block explorer.
-To change the information that the `GetTokensForContract` method retrieves, update the URL to add fields.
-
-The default URL looks like this:
-
-```csharp
-var url =
-    $"tokens?contract={contractAddress}&select=contract,tokenId as token_id" +
-    $"{(withMetadata ? ",metadata as token_metadata" : "")},holdersCount as holders_count,id," +
-    $"lastTime as last_time&{sort}&limit={maxItems}";
-```
-
-To get the total supply of each token type, add the `totalSupply` field to the URL, like this:
-
-```csharp
-var url =
-    $"tokens?contract={contractAddress}&select=contract,tokenId as token_id" +
-    $"{(withMetadata ? ",metadata as token_metadata" : "")},holdersCount as holders_count,id," +
-    $"totalSupply as total_supply," +
-    $"lastTime as last_time&{sort}&limit={maxItems}";
-```
-
-Now when you run the `GetTokensForContract` method, the data passed to the callback includes the total supply of each token:
-
-```csharp
-private void HandleGetTokensForContract(IEnumerable<Token> tokenList)
-{
-    List<Token> tokens = new List<Token>(tokenList);
-    foreach (var tk in tokens)
-    {
-        Debug.Log($"Token ID {tk.TokenId} has total supply {tk.TotalSupply} among {tk.HoldersCount} holders");
-    }
-}
-```
-
-For information about what fields you can add to this URL, see the [TZKT API reference](https://api.tzkt.io/).
-
-### `GetOperationStatus()`
-
-```csharp
-IEnumerator GetOperationStatus(
-    Action<bool?> callback,
-    string operationHash);
-```
-
-Returns true if the specified operation was successful, false if it failed, or null (or HTTP 204) if it doesn't exist.
-
-Example:
-
-```csharp
-public void HandleTransfer()
-{
-    TezosManager
-        .Instance
-        .Tezos
-        .TokenContract
-        .Transfer(
-            completedCallback: TransferCompleted,
-            destination: address.text,
-            tokenId: int.Parse(id.text),
-            amount: int.Parse(amount.text));
-}
-
-private void TransferCompleted(string txHash)
-{
-    Debug.Log($"Transfer complete with transaction hash {txHash}");
-    var routine = TezosManager.Instance.Tezos.API.GetOperationStatus(
-        callback: HandleGetOperationStatus,
-        operationHash: txHash
-    );
-    StartCoroutine(routine);
-}
-
-private void HandleGetOperationStatus(bool? result)
-{
-    Debug.Log(result);
-}
-```
-
-### `GetLatestBlockLevel()`
-
-```csharp
-IEnumerator GetLatestBlockLevel(
-    Action<int> callback);
-```
-
-Returns the block level, or the number of blocks since the genesis block.
-
-Example:
-
-```csharp
-public void RunGetLatestBlockLevel()
-{
-    var routine = TezosManager.Instance.Tezos.API.GetLatestBlockLevel(
-        callback: HandleGetLatestBlockLevel
-    );
-    StartCoroutine(routine);
-}
-
-private void HandleGetLatestBlockLevel(int blockLevel)
-{
-    Debug.Log(blockLevel);
-}
-```
-
-### `GetAccountCounter()`
-
-```csharp
-IEnumerator GetAccountCounter(
-    Action<int> callback,
-    string address);
-```
-
-Returns the counter for implicit accounts, which is a unique number that you can use to ensure that transactions are not duplicated.
-
-Example:
-
-```csharp
-public void RunGetAccountCounter()
-{
-    var routine = TezosManager.Instance.Tezos.API.GetAccountCounter(
-        callback: HandleGetAccountCounter,
-        address: myAddress
-    );
-    StartCoroutine(routine);
-}
-
-private void HandleGetAccountCounter(int counter)
-{
-    Debug.Log(counter);
-}
-```
 
 ### `GetOriginatedContractsForOwner()`
+
+<!-- Throws an error in SDK v4 -- maybe the TZKT API url is wrong?-->
 
 ```csharp
 IEnumerator GetOriginatedContractsForOwner(
