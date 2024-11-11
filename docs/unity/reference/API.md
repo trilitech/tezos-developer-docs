@@ -12,7 +12,7 @@ The Unity SDK class `Tezos.API.TezosAPI`, which is available at runtime as the `
 
 None.
 
-## Methods
+## Initialization methods
 
 ### `WaitUntilSDKInitialized()`
 
@@ -22,6 +22,8 @@ public static async UniTask WaitUntilSDKInitialized();
 
 Waits until the SDK is fully initialized.
 Use this method at startup before trying to connect to wallets or use other features of the SDK.
+
+## Wallet connection methods
 
 ### `ConnectWallet()`
 
@@ -53,88 +55,25 @@ Need to work out what's relevant here and what should go in a topic on connectin
 What happens with the redirect param?
 -->
 
-
-
-
 ### `SocialLogIn()`
+
+Initiates a social login session and returns information about the connection.
 
 ```csharp
 public static async UniTask<SocialProviderData> SocialLogIn(SocialProviderData socialProviderData);
 ```
 
-Initiates a social login session.
+TODO what events does this trigger?
 
-### `RequestOperation()`
+### `Disconnect()`
 
-Sends a Tezos transaction.
-
-```csharp
-public static async UniTask<OperationResponse> RequestOperation(OperationRequest operationRequest);
-```
-
-TODO What does this return and what events does it trigger?
-
-
-### `RequestSignPayload()`
-
-Prompts the connected wallet to sign a payload and returns the signed payload.
+Disconnects the currently connected wallet and returns true if a wallet was connected or false if no wallet was connected.
 
 ```csharp
-public static async UniTask<SignPayloadResponse> RequestSignPayload(SignPayloadRequest operationRequest)
+public static async UniTask<bool> Disconnect()
 ```
 
-Example:
-
-```csharp
-private async void Start()
-{
-    TezosAPI.SigningResulted += SigningResulted;
-
-    await TezosAPI.WaitUntilSDKInitialized();
-}
-
-public async void SignPayloadClick()
-{
-    try
-    {
-        var payload = "Hello World!";
-        var bytes = Encoding.UTF8.GetBytes(payload);
-        var hexPayload = BitConverter.ToString(bytes);
-        hexPayload = hexPayload.Replace("-", "");
-        hexPayload = "05" + hexPayload;
-        var result = await TezosAPI.RequestSignPayload(
-            new SignPayloadRequest
-            {
-                Payload = hexPayload,
-                SigningType = SignPayloadType.MICHELINE
-            }
-        );
-        Debug.Log($"Signature: {result.Signature}");
-    }
-    catch (Exception e)
-    {
-        Debug.Log($"{e.Message}");
-        Debug.Log($"{e.StackTrace}");
-    }
-}
-
-public void SigningResulted(SignPayloadResponse response)
-{
-    Debug.Log("SigningResulted");
-    Debug.Log(response);
-}
-```
-
-### `DeployContract()`
-
-Deploys (originates) a smart contract to Tezos.
-
-```csharp
-public static UniTask DeployContract(DeployContractRequest deployContractRequest);
-```
-
-TODO example
-
+## Wallet information methods
 
 ### `IsConnected()`
 
@@ -147,6 +86,14 @@ public static bool IsConnected();
 This method returns true if a Beacon, WalletConnect, or social wallet is connected.
 To check for Beacon and WalletConnect connections specifically, use [`IsWalletConnected()`](#iswalletconnected).
 To check for social wallets specifically, use [`IsSocialLoggedIn()`](#issocialloggedin).
+
+### `GetConnectionAddress()`
+
+Returns the connected address or an empty string if no wallet is connected.
+
+```csharp
+public static string GetConnectionAddress()
+```
 
 ### `IsWalletConnected()`
 
@@ -180,16 +127,24 @@ Retrieves information about the current social wallet connection.
 public static SocialProviderData GetSocialLoginData();
 ```
 
-### `SocialLogIn()`
-
-Initiates a social login session and returns information about the connection.
+### TODO:
 
 ```csharp
-public static async UniTask<SocialProviderData> SocialLogIn(SocialProviderData socialProviderData);
+public static T GetWalletProvider<T>() where T : IWalletProvider      => (T)_walletProviderController.GetWalletProvider<T>();
 ```
 
-TODO what events does this trigger?
+Not sure how to use that one. This returns null when I'm connected with Beacon:
 
+```csharp
+var walletProvider = TezosAPI.GetWalletProvider<BeaconWebGLProvider>();
+Debug.Log(walletProvider);
+```
+
+```csharp
+public static T GetSocialProvider<T>() where T : ISocialLoginProvider => (T)_socialProviderController.GetSocialProvider<T>();
+```
+
+## Tezos information methods
 
 ### `GetBalance()`
 
@@ -232,22 +187,6 @@ Example:
 ```csharp
 var result = await TezosAPI.ReadView<string>("KT1K46vZTMEe8bnacFvFQfgHtNDKniEauRMJ", "simple", "\"String value\"");
 Debug.Log("View response: " + result);
-```
-
-### `GetConnectionAddress()`
-
-Returns the connected address or an empty string if no wallet is connected.
-
-```csharp
-public static string GetConnectionAddress()
-```
-
-### `Disconnect()`
-
-Disconnects the currently connected wallet and returns true if a wallet was connected or false if no wallet was connected.
-
-```csharp
-public static async UniTask<bool> Disconnect()
 ```
 
 ### `GetTokenMetadata()`
@@ -367,17 +306,87 @@ Returns the current block level, or the number of blocks since the genesis block
 public static UniTask<int> GetAccountCounter(string address) ;
 ```
 
+
+
+
+## Transaction methods
+
+### `RequestOperation()`
+
+Sends a Tezos transaction.
+
+```csharp
+public static async UniTask<OperationResponse> RequestOperation(OperationRequest operationRequest);
+```
+
+TODO What does this return and what events does it trigger?
+
+### `RequestSignPayload()`
+
+Prompts the connected wallet to sign a payload and returns the signed payload.
+
+```csharp
+public static async UniTask<SignPayloadResponse> RequestSignPayload(SignPayloadRequest operationRequest)
+```
+
+Example:
+
+```csharp
+private async void Start()
+{
+    TezosAPI.SigningResulted += SigningResulted;
+
+    await TezosAPI.WaitUntilSDKInitialized();
+}
+
+public async void SignPayloadClick()
+{
+    try
+    {
+        var payload = "Hello World!";
+        var bytes = Encoding.UTF8.GetBytes(payload);
+        var hexPayload = BitConverter.ToString(bytes);
+        hexPayload = hexPayload.Replace("-", "");
+        hexPayload = "05" + hexPayload;
+        var result = await TezosAPI.RequestSignPayload(
+            new SignPayloadRequest
+            {
+                Payload = hexPayload,
+                SigningType = SignPayloadType.MICHELINE
+            }
+        );
+        Debug.Log($"Signature: {result.Signature}");
+    }
+    catch (Exception e)
+    {
+        Debug.Log($"{e.Message}");
+        Debug.Log($"{e.StackTrace}");
+    }
+}
+
+public void SigningResulted(SignPayloadResponse response)
+{
+    Debug.Log("SigningResulted");
+    Debug.Log(response);
+}
+```
+
+### `DeployContract()`
+
+Deploys (originates) a smart contract to Tezos.
+
+```csharp
+public static UniTask DeployContract(DeployContractRequest deployContractRequest);
+```
+
+TODO example
+
+
+
+
+
 Returns the counter for implicit accounts, which is a unique number that you can use to ensure that transactions are not duplicated.
 
-## TODO:
-
-```csharp
-public static T GetWalletProvider<T>() where T : IWalletProvider      => (T)_walletProviderController.GetWalletProvider<T>();
-```
-
-```csharp
-public static T GetSocialProvider<T>() where T : ISocialLoginProvider => (T)_socialProviderController.GetSocialProvider<T>();
-```
 
 ## Old methods
 
