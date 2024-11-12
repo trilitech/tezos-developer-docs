@@ -216,7 +216,6 @@ const sidebars = {
         'unity/quickstart',
         'unity/sample-game',
         'unity/connecting-accounts',
-        'unity/managing-contracts',
         'unity/calling-contracts',
         'unity/managing-tokens',
         {

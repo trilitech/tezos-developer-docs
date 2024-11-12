@@ -89,7 +89,7 @@ Micheline primitives include:
 - Strings, as in `new MichelineString("Hello")`
 - Bytes, as in `new MichelineBytes(bytes")`
 
-As described in [Complex data types](/smart-contracts/data-types/conplex-data-types), Micheline values are organized as a series of nested pairs in tree and comb formats.
+As described in [Complex data types](/smart-contracts/data-types/complex-data-types), Micheline values are organized as a series of nested pairs in tree and comb formats.
 For example, if an entrypoint accepts an integer, a string, and a series of bytes as a nested pair, you can format the parameter like this:
 
 ```csharp
