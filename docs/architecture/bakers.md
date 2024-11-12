@@ -2,7 +2,7 @@
 title: Bakers
 authors: "Tim McMackin"
 last_update:
-  date: 12 April 2024
+  date: 12 November 2024
 ---
 
 Baking is the process of creating new blocks in the Tezos blockchain.
@@ -35,15 +35,13 @@ Similarly, when bakers stop baking, their stake is unlocked after a certain numb
 
 The delegate must stake at least least 6,000 tez, either from its own account or from tez that delegators delegate to it.
 The more tez a delegate has, both from its own account and from delegators, the more likely it is to be selected to bake a block and thus receive the rewards.
+The amount of tez a baker has for baking purposes is called its _baking power_.
 
 Bakers must run at least one Tezos node and a baker program to go with it.
 These baker programs must run at all times with a stable internet connection, because inactive bakers are automatically removed from the network.
 
-## Delegating to a baker
-
-If you don't have enough tez to become a baker or don't want to run a baking node, you can delegate tez to a baker, which makes you a _delegator_.
-The delegate doesn't have control over your tez and you can spend your tez at any time or withdraw your delegation, but the tez that you delegate counts toward the amount of tez that the delegate has for baking purposes.
-Delegators receive a share of the delegate's rewards in proportion to the amount of tez that they delegate.
+If you don't have enough tez to become a baker or don't want to run a baking node, you can delegate and stake tez to a baker, which makes you a _delegator_ and _staker_.
+See [Stakers](/architecture/stakers).
 
 ## References
 

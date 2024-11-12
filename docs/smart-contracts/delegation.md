@@ -8,6 +8,8 @@ last_update:
 Placing your tez in a smart contract means you can't stake them towards baking or delegate them to get rewards.
 However, the smart contract itself can delegate the tez it holds and  distribute the rewards to the original owners of the tez or keep them in its balance.
 
+For more information about delegating and staking, see [Stakers](/architecture/stakers).
+
 To manage delegation, you can implement these features:
 
 - Set, update, or remove the address of the baker that you want the contract to delegate its tez to (`SET_DELEGATE`).
