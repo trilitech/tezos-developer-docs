@@ -2,10 +2,10 @@
 title: Managing tokens
 authors: Tim McMackin
 last_update:
-  date: 11 January 2024
+  date: 12 November 2024
 ---
 
-The SDK's built-in contract is compatible with the [FA2 token standard](/architecture/tokens/FA2), which means that you can use a single smart contract to manage any number of types of tokens, including:
+Tezos supports a variety of types of tokens, including:
 
 - Fungible tokens, which are collections of interchangeable tokens with a quantity that you define.
 Fungible tokens can be quantifiable commodities like in-game currency, fuel, ammunition, or energy, or they can be identical items with a limited quantity.
@@ -14,141 +14,102 @@ Games use NFTs for items that are unique and must not be duplicated.
 
 You can create as many tokens and types of tokens as you need in one contract, but each transaction to create or transfer tokens incurs fees.
 
-## Creating (minting) tokens
+For more information about tokens, see [Tokens](/architecture/tokens).
 
-To create a token type, call the contract's `mint` entrypoint and pass these parameters:
+## FA2 tokens
 
-- A callback function to run when the token is created
-- The metadata for the token, which includes a name and description, URIs to preview media or thumbnails, and how many decimal places the token can be broken into
-- The destination account that owns the new tokens, which can be a user account, this smart contract, or any other smart contract
-- The number of tokens to create
+While you can create tokens that behave in any way that you want them to behave, it's best to create tokens that follow a standard.
+The Tezos [FA standards](/architecture/tokens#token-standards) enforce a standard format for tokens which allows applications like games, wallets, and block explorers to work with them in a consistent way.
+For example, if you create an FA-compatible token and use it in a Unity application, players can look up information about their tokens in block explorers and transfer them with their wallets without interacting with the Unity application.
 
-For example, this code creates a token type with a quantity of 100:
+For this reason, Unity applications should use FA tokens whenever possible.
+
+The most popular and commonly-supported FA standard is [FA2](/architecture/tokens/FA2), so the examples on this page are for working with FA2 tokens.
+FA2 tokens can be fungible tokens or non-fungible tokens, which makes the standard flexible enough for most uses of tokens.
+
+## FA2 token contracts
+
+To create and work with FA2 tokens you must deploy an FA2-compatible smart contract.
+For examples of FA2 contracts, see [Sample smart contracts](/smart-contracts/samples).
+You can also use the tutorial [Create a fungible token with the SmartPy FA2 library](/smart-contracts/samples) to walk through the process of creating, customizing, and deploying an FA2 contract.
+
+:::note
+
+The rest of this page assumes that you are using an FA2 contract.
+
+:::
+
+:::note
+
+You can use block explorers for help formatting the parameters for contract calls.
+See [Encoding parameters as JSON strings](/unity/calling-contracts#encoding-parameters-as-json-strings).
+
+:::
+
+## Creating (minting) a new token type
+
+To create a new type of token and mint tokens, pass the metadata for the new token type, the number of tokens to mint, and the initial owner of the new tokens to the FA2 contract's `mint` entrypoint.
+The FA2 standard does not require contracts to have a `mint` entrypoint, but most do.
+If a contract does not have a `mint` entrypoint, it was created with all of the tokens that it will ever have and therefore no more tokens can be minted.
+
+TODO
+
+
+
+
+
+## Creating (minting) tokens of an existing type
+
+To mint tokens of an existing type, pass the token ID, the number of tokens to create, and the initial owner of the new tokens to the contract's `mint` entrypoint.
+This example mints 5 tokens of the token type with the ID 7:
 
 ```csharp
-var initialOwner = TezosManager
-    .Instance
-    .Wallet
-    .GetActiveAddress();
+var mintJsonString = "{ \"prim\": \"Pair\", \"args\": [ { \"prim\": \"Pair\", \"args\": [ { \"string\": \"tz1QCVQinE8iVj1H2fckqx6oiM85CNJSK9Sx\" }, { \"int\": \"5\" } ] }, { \"prim\": \"Pair\", \"args\": [ [], { \"int\": \"7\" } ] } ] }";
 
-const string imageAddress = "ipfs://QmX4t8ikQgjvLdqTtL51v6iVun9tNE7y7Txiw4piGQVNgK";
-
-var tokenMetadata = new TokenMetadata
+var mintTokensRequest = new OperationRequest
 {
-    Name = "My token",
-    Description = "Description for my token",
-    Symbol = "MYTOKEN",
-    Decimals = "0",
-    DisplayUri = imageAddress,
-    ArtifactUri = imageAddress,
-    ThumbnailUri = imageAddress
+   Destination = "KT1Nhr9Bmhy7kcUmezRxbbDybh5buNnrVLTY",
+   EntryPoint = "mint",
+   Arg = mintJsonString,
+   Amount = "0",
 };
 
-TezosManager
-    .Instance
-    .Tezos
-    .TokenContract
-    .Mint(
-        completedCallback: OnTokenMinted,
-        tokenMetadata: tokenMetadata,
-        destination: initialOwner,
-        amount: 100);
-
-private void OnTokenMinted(TokenBalance tokenBalance)
-{
-    Debug.Log($"Successfully minted token with Token ID {tokenBalance.TokenId}");
-}
+var response = await TezosAPI.RequestOperation(mintTokensRequest);
 ```
-
-For a complete example of creating tokens, see the file `TezosSDK/Examples/Contract/Scripts/MintToken.cs` and the Contract tutorial scene.
 
 ## Transferring tokens
 
-To transfer tokens, call the contract's `Transfer` entrypoint and pass these parameters:
+To transfer tokens, pass  the source account, target account, token ID, and quantity to the contract's `transfer` entrypoint.
+The account that sends the transfer call must be the owner or operator of the tokens.
+For more information about token access control, see [FA2 tokens](/architecture/tokens/FA2).
 
-- A callback function to run when the transfer is complete
-- The account to transfer the tokens to
-- The ID of the token
-- The amount of tokens to transfer
-
-This example transfers 12 tokens with the ID 5 to the account in the variable `destinationAccountAddress`.
+This example transfers 2 tokens with the ID 7:
 
 ```csharp
-public void HandleTransfer()
-{
-    TezosManager
-        .Instance
-        .Tezos
-        .TokenContract
-        .Transfer(
-            completedCallback: TransferCompleted,
-            destination: destinationAccountAddress,
-            tokenId: 5,
-            amount: 12);
-}
+var transferTokensString = "[ { \"prim\": \"Pair\", \"args\": [ { \"string\": \"tz1QCVQinE8iVj1H2fckqx6oiM85CNJSK9Sx\" }, [ { \"prim\": \"Pair\", \"args\": [ { \"string\": \"tz1hQKqRPHmxET8du3fNACGyCG8kZRsXm2zD\" }, { \"prim\": \"Pair\", \"args\": [ { \"int\": \"7\" }, { \"int\": \"2\" } ] } ] } ] ] } ]";
 
-private void TransferCompleted(string txHash)
+var transferTokensRequest = new OperationRequest
 {
-    Logger.LogDebug($"Transfer complete with transaction hash {txHash}");
-}
+    Destination = "KT1Nhr9Bmhy7kcUmezRxbbDybh5buNnrVLTY",
+    EntryPoint = "transfer",
+    Arg = transferTokensString,
+    Amount = "0",
+};
+
+var response = await TezosAPI.RequestOperation(transferTokensRequest);
 ```
 
-For a complete example, see the Transfer tutorial scene.
-
+<!--
 ## Getting token balances
 
-To get the tokens that the connected account owns, call the [`API.GetTokensForOwner()`](/unity/reference/API#gettokensforowner) method in a coroutine.
-This example prints information about the tokens that the account owns to the log:
-
-```csharp
-private void Start()
-{
-    // Subscribe to account connection event
-    TezosManager.Instance.EventManager.WalletConnected += OnWalletConnected;
-}
-
-private void OnWalletConnected(WalletInfo walletInfo)
-{
-    // Address of the connected wallet
-    var address = walletInfo.Address;
-
-    // Prepare the coroutine to fetch the tokens
-    var routine = TezosManager.Instance.Tezos.API.GetTokensForOwner(
-        OnTokensFetched, // Callback to be called when the tokens are fetched
-        address, true, 10_000, new TokensForOwnerOrder.ByLastTimeAsc(0));
-
-    StartCoroutine(routine);
-}
-
-private void OnTokensFetched(IEnumerable<TokenBalance> tokenBalances)
-{
-    var walletAddress = TezosManager.Instance.Wallet.GetWalletAddress();
-    var contractAddress = TezosManager.Instance.Tezos.TokenContract.Address;
-
-    var tokens = new List<TokenBalance>(tokenBalances);
-
-    // Filter the tokens by the current contract address
-    var filteredTokens = tokens.Where(tb => tb.TokenContract.Address == contractAddress).ToList();
-
-    if (filteredTokens.Count > 0)
-    {
-        foreach (var tb in filteredTokens)
-        {
-            Debug.Log($"{walletAddress} has {tb.Balance} tokens on contract {tb.TokenContract.Address}");
-            Debug.Log(tb.TokenMetadata);
-        }
-    }
-    else
-    {
-        Debug.Log($"{walletAddress} has no tokens in the active contract");
-    }
-}
-```
+TODO Not sure what the best way to do this is without a view or a dedicated SDK method
+-->
 
 ## Destroying (burning) tokens
 
-The built-in contract does not have a burn entrypoint, so you can't destroy its tokens.
-If you want to make tokens unusable, send them to an address that doesn't exist or to an account that you can't use.
+The FA2 standard does not have a standard way of burning tokens.
+Some FA2 implementations have a `burn` entrypoint.
+In other cases, if you want to make tokens unusable, send them to an address that doesn't exist or to an account that you can't use.
 For example, you can create an account in a wallet app, send the tokens to it, and delete the private key for the account.
 
 <!-- TODO:
