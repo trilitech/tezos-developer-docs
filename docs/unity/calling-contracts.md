@@ -3,7 +3,7 @@ title: Calling contracts with the Unity SDK
 sidebar_label: Calling contracts
 authors: Tim McMackin
 last_update:
-  date: 11 November 2024
+  date: 12 November 2024
 ---
 
 Smart contracts are backend programs that run on the Tezos blockchains.
@@ -75,6 +75,140 @@ private void OperationResulted(OperationResponse operationResponse)
     Debug.Log("Transaction hash: " + operationResponse.TransactionHash);
 }
 ```
+
+## Encoding parameters
+
+Entrypoint parameters must be in [Micheline](https://tezos.gitlab.io/shell/micheline.html) JSON format, which is the format that the Michelson language uses for values.
+You can use the [Netezos](https://netezos.dev/) SDK to format Micheline parameters or construct them as JSON strings.
+
+### Encoding parameters with the Netezos Micheline SDK
+
+Micheline primitives include:
+
+- Integers, as in `new MichelineInt(1)`
+- Strings, as in `new MichelineString("Hello")`
+- Bytes, as in `new MichelineBytes(bytes")`
+
+As described in [Complex data types](/smart-contracts/data-types/conplex-data-types), Micheline values are organized as a series of nested pairs in tree and comb formats.
+For example, if an entrypoint accepts an integer, a string, and a series of bytes as a nested pair, you can format the parameter like this:
+
+```csharp
+string myStringToBytes = "Hello!";
+var bytes = new byte[myStringToBytes.Length];
+
+for (var i = 0; i < myStringToBytes.Length; i++)
+{
+    bytes[i] = (byte)myStringToBytes[i];
+}
+
+var parameter = new MichelinePrim
+{
+    Prim = PrimType.Pair,
+    Args = new List<IMicheline>
+    {
+        new MichelineInt(1),
+        new MichelineString("Hello"),
+        new MichelineBytes(bytes)
+    }
+}.ToJson();
+
+var request = new OperationRequest
+{
+    Destination = "KT1PB9rp17qfL6RQR9ZUsKMm3NvbSoTopnwY",
+    EntryPoint = "intStringBytes",
+    Arg = parameter,
+    Amount = "0",
+};
+var response = await TezosAPI.RequestOperation(request);
+```
+
+### Encoding parameters as JSON strings
+
+Because the `Arg` field of the `OperationRequest` object accepts a JSON string, you can also use a raw Micheline-formatted JSON string.
+For example, the `MichelinePrim` object in the previous example looks like this as a string:
+
+```json
+{
+  "prim": "Pair",
+  "args": [
+    {
+      "int": "1"
+    },
+    {
+      "string": "Hello"
+    },
+    {
+      "bytes": "48656c6c6f21"
+    }
+  ]
+}
+```
+
+Therefore, you can create a string literal with this JSON, escaping characters as necessary, and use it in the `OperationRequest` object, as in this example:
+
+```csharp
+var jsonString = "{\"prim\":\"Pair\",\"args\":[{\"int\":\"1\"},{\"string\":\"Hello\"},{\"bytes\":\"48656c6c6f21\"}]}";
+
+var request = new OperationRequest
+{
+    Destination = "KT1PB9rp17qfL6RQR9ZUsKMm3NvbSoTopnwY",
+    EntryPoint = "intStringBytes",
+    Arg = jsonString,
+    Amount = "0",
+};
+```
+
+Block explorers can help you format parameters.
+For example, assume an entrypoint that accepts a parameter that consists of a string followed by any number of pairs of an integer and a string.
+If you fill in values for this parameter on the **Interact** tab of [Better Call Dev](https://better-call.dev) and click **Execute > Raw JSON**, it shows this Micheline value in JSON format:
+
+```json
+{
+  "prim": "Pair",
+  "args": [
+    {
+      "string": "My string"
+    },
+    [
+      {
+        "prim": "Pair",
+        "args": [
+          {
+            "int": "5"
+          },
+          {
+            "string": "String one"
+          }
+        ]
+      },
+      {
+        "prim": "Pair",
+        "args": [
+          {
+            "int": "9"
+          },
+          {
+            "string": "String two"
+          }
+        ]
+      },
+      {
+        "prim": "Pair",
+        "args": [
+          {
+            "int": "12"
+          },
+          {
+            "string": "String three"
+          }
+        ]
+      }
+    ]
+  ]
+}
+```
+
+You can convert this JSON to a string and use it in the parameter instead of constructing the JSON with Netezos objects.
 
 ## Calling views
 
