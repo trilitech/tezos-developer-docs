@@ -2,7 +2,7 @@
 title: "Part 5: Deploying the contract"
 authors: Tim McMackin
 last_update:
-  date: 22 April 2024
+  date: 12 November 2024
 ---
 
 So far you have used the token in the SmartPy test scenario and in the Octez client local sandbox.
@@ -80,7 +80,7 @@ You can use the command `octez-client list known contracts` to print the address
 
 1. Under the list of tokens, click **Manage assets list**:
 
-   <img src="/img/tutorials/fa2-fungible-in-temple.png" alt="Opening the asset list filter" style={{width: 300}} />
+   <img src="/img/tutorials/fa2-fungible-temple-assets-list.png" alt="The new token in the Temple wallet" style={{width: 300}} />
 
 1. From the popup window, click **Manage**:
 
@@ -98,7 +98,7 @@ You can use the command `octez-client list known contracts` to print the address
 
 Now the token appears in your wallet just like any other token:
 
-<img src="/img/tutorials/fa2-fungible-temple-assets-list.png" alt="The new token in the Temple wallet" style={{width: 300}} />
+<img src="/img/tutorials/fa2-fungible-in-temple.png" alt="Opening the asset list filter" style={{width: 300}} />
 
 From here, you can run transactions on the token, such as sending it to a different account.
 
