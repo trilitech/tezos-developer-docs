@@ -3,7 +3,7 @@ title: Unity SDK TezosAPI object
 sidebar_label: TezosAPI object
 authors: Tim McMackin
 last_update:
-  date: 11 November 2024
+  date: 12 November 2024
 ---
 
 The Unity SDK class `Tezos.API.TezosAPI`, which is available at runtime as the `TezosAPI` object, provides methods for many Tezos-related tasks, including connecting to wallets, getting information about the current wallet connection, and getting information about about the Tezos blockchain, such as what tokens accounts or contracts control.
@@ -43,16 +43,13 @@ When the `WalletType` field of the `WalletProviderData` parameter is set to `Wal
 - In WebGL applications, it uses the `TezosSDK.Beacon.BeaconConnectorWebGl` class to trigger the browser to connect to a wallet app in a browser plugin.
 - In all other applications, it uses the `TezosSDK.Beacon.BeaconConnectorDotNet` class to generate a QR code to connect to a wallet app on a mobile device or use a "deep link" to connect to a wallet on the same mobile device that is running the application.
 
-When the `WalletType` field of the `WalletProviderData` parameter is set to `WalletType.WALLETCONNECT`, this method... TODO
+When the `WalletType` field of the `WalletProviderData` parameter is set to `WalletType.WALLETCONNECT`, this method opens the WalletConnect SDK's popup window, which provides deep links and a QR code to connect EVM wallets.
 
-TODO what happens then?
-
+For more information about connecting to wallets, see [Connecting accounts](/unity/connecting-accounts).
 
 <!-- TODO
 There's a lot more to connections, as described in https://opentezos.com/gaming/unity-sdk/api-documentation/#iwalletproviderconnect.
 Need to work out what's relevant here and what should go in a topic on connecting to wallets.
-
-What happens with the redirect param?
 -->
 
 ### `SocialLogIn()`
@@ -63,7 +60,7 @@ Initiates a social login session and returns information about the connection.
 public static async UniTask<SocialProviderData> SocialLogIn(SocialProviderData socialProviderData);
 ```
 
-TODO what events does this trigger?
+This method triggers the `SocialLoggedIn` event.
 
 ### `Disconnect()`
 
@@ -136,7 +133,7 @@ public static T GetWalletProvider<T>() where T : IWalletProvider      => (T)_wal
 Not sure how to use that one. This returns null when I'm connected with Beacon:
 
 ```csharp
-var walletProvider = TezosAPI.GetWalletProvider<BeaconWebGLProvider>();
+BeaconWebGLProvider walletProvider = TezosAPI.GetWalletProvider<BeaconWebGLProvider>();
 Debug.Log(walletProvider);
 ```
 
@@ -302,24 +299,25 @@ Returns the current block level, or the number of blocks since the genesis block
 
 ### `GetAccountCounter()`
 
+Returns the counter for implicit accounts, which is a unique number that you can use to ensure that transactions are not duplicated.
+
 ```csharp
-public static UniTask<int> GetAccountCounter(string address) ;
+public static UniTask<int> GetAccountCounter(string address);
 ```
-
-
-
 
 ## Transaction methods
 
 ### `RequestOperation()`
 
-Sends a Tezos transaction.
+Sends a Tezos transaction and returns an object with the hash of the transaction.
 
 ```csharp
 public static async UniTask<OperationResponse> RequestOperation(OperationRequest operationRequest);
 ```
 
-TODO What does this return and what events does it trigger?
+This method triggers the `OperationResulted` event.
+
+For examples, see [Calling contracts](/unity/calling-contracts).
 
 ### `RequestSignPayload()`
 
@@ -385,7 +383,7 @@ TODO example
 
 
 
-Returns the counter for implicit accounts, which is a unique number that you can use to ensure that transactions are not duplicated.
+
 
 
 ## Old methods
