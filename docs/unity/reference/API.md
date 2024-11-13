@@ -3,7 +3,7 @@ title: Unity SDK TezosAPI object
 sidebar_label: TezosAPI object
 authors: Tim McMackin
 last_update:
-  date: 12 November 2024
+  date: 13 November 2024
 ---
 
 The Unity SDK class `Tezos.API.TezosAPI`, which is available at runtime as the `TezosAPI` object, provides methods for many Tezos-related tasks, including connecting to wallets, getting information about the current wallet connection, and getting information about about the Tezos blockchain, such as what tokens accounts or contracts control.
@@ -124,21 +124,43 @@ Retrieves information about the current social wallet connection.
 public static SocialProviderData GetSocialLoginData();
 ```
 
-### TODO:
+### `GetWalletProvider()`
+
+Returns the internal object that the SDK uses to represent the connection to Beacon and WalletConnect wallets.
 
 ```csharp
-public static T GetWalletProvider<T>() where T : IWalletProvider      => (T)_walletProviderController.GetWalletProvider<T>();
+public static IWalletProvider GetWalletProvider<T>();
 ```
 
-Not sure how to use that one. This returns null when I'm connected with Beacon:
+To use this method you must specify the type of wallet provider that the Unity application is using.
+
+Example for WebGL applications:
 
 ```csharp
 BeaconWebGLProvider walletProvider = TezosAPI.GetWalletProvider<BeaconWebGLProvider>();
-Debug.Log(walletProvider);
+Debug.Log(walletProvider.WalletType);
 ```
 
+Example for mobile applications:
+
 ```csharp
-public static T GetSocialProvider<T>() where T : ISocialLoginProvider => (T)_socialProviderController.GetSocialProvider<T>();
+BeaconMobileProvider walletProvider = TezosAPI.GetWalletProvider<BeaconMobileProvider>();
+Debug.Log(walletProvider.WalletType);
+```
+
+### `GetSocialProvider()`
+
+Returns the internal object that the SDK uses to represent the connection to social wallets.
+
+```csharp
+public static ISocialLoginProvider GetSocialProvider<T>();
+```
+
+Example:
+
+```csharp
+KukaiMobileProvider walletProvider = TezosAPI.GetSocialProvider<KukaiMobileProvider>();
+Debug.Log(walletProvider.WalletType);
 ```
 
 ## Tezos information methods
