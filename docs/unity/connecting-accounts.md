@@ -2,7 +2,7 @@
 title: Connecting accounts
 authors: Tim McMackin
 last_update:
-  date: 11 November 2024
+  date: 13 November 2024
 ---
 
 Connecting to a user's wallet is a prerequisite to working with Tezos in any application.
@@ -73,25 +73,13 @@ This method for connecting follows these general steps:
    }
    ```
 
-1. The SDK runs the `OnPairingRequested` event.
+1. The SDK uses the Beacon SDK to open a popup window that prompts the user to select a compatible wallet via a deep link or to show a QR code:
 
-1. The Unity application uses the `Tezos.QR.QrCodeGenerator` class to generate the QR code:
+   <img src="/img/unity/unity-connecting-beacon-popup.png" alt="The Beacon popup window with a QR code and a list of compatible wallets" style={{width: 300}} />
 
-   ```csharp
-   private void OnPairingRequested(string data)
-   {
-       _qrCodeGenerator.SetQrCode(data);
-   }
-   ```
+1. As a second option, on non-WebGL applications, the SDK runs the `PairingRequested` event, which you can use to trigger the `Tezos.QR.QrCodeGenerator` class to generate a QR code and show it on the interface for the user to scan with a wallet app.
 
-1. In the application, the SDK first tries to connect to a Beacon wallet through a deep link.
-It shows a popup window that prompts the user to select a compatible wallet:
-
-   ![The Beacon popup window with a QR code and a list of compatible wallets](/img/unity/unity-connecting-beacon-popup.png)
-
-1. If the device is not capable of deep links to wallet apps, the SDK runs the `PairingRequested` event, which you can use to trigger the `Tezos.QR.QrCodeGenerator` class to generate a QR code and show it on the interface for the user to scan with a wallet app.
-
-1. Regardless of whether it used a deep link or a QR code, the SDK runs the `WalletConnected` event and the `TezosAPI.ConnectWallet()` method returns information about the connected account.
+1. Regardless of the connection method, the SDK runs the `WalletConnected` event and the `TezosAPI.ConnectWallet()` method returns information about the connected account.
 
 ## Connecting to WalletConnect wallets
 
