@@ -23,6 +23,30 @@ The Octez client sandboxed and mockup modes run a local version of the Tezos net
 - [Sandboxed mode](https://tezos.gitlab.io/user/sandbox.html) runs a local network with one or more nodes.
 - [Mockup mode](https://tezos.gitlab.io/user/mockup.html) runs a light version of the network without nodes.
 
+## Tezbox
+
+[Tezbox](https://github.com/tez-capital/tezbox) is also a simulated Tezos environment that runs in a container.
+
+Tezbox provides different images that mirror versions of the Octez suite.
+For example, to run Tezbox with Octez version 19.1 and the Oxford protocol, run this command:
+
+```bash
+docker run -d -p 0.0.0.0:8732:8732 --name oxfordbox ghcr.io/tez-capital/tezbox:tezos-v19.1
+```
+
+The container runs in the background and provides an RPC node at http://localhost:8732.
+
+Then you can use the sandbox through that RPC node.
+For example, you can configure the Octez client to use the sandbox by running this command:
+
+```bash
+octez-client -E http://localhost:8732 config update
+```
+
+Then you can use your local installation of the Octez client to interact with the sandbox, such as deploying contracts and sending transactions.
+
+Tezbox provides sample accounts in the `/tezbox/context/accounts.json` file.
+
 ## Flextesa
 
 The [Flextesa](https://tezos.gitlab.io/flextesa/) is a simulated Tezos environment that runs in a container.
@@ -57,27 +81,3 @@ Now you can use the Octez client to deploy contracts and send transactions to th
 Flextesa allows you to control baking manually, so blocks are only backed when you trigger them.
 
 For more information, see the [Flextesa documentation](https://tezos.gitlab.io/flextesa/).
-
-## Tezbox
-
-[Tezbox](https://github.com/tez-capital/tezbox) is also a simulated Tezos environment that runs in a container.
-
-Tezbox provides different images that mirror versions of the Octez suite.
-For example, to run Tezbox with Octez version 19.1 and the Oxford protocol, run this command:
-
-```bash
-docker run -d -p 0.0.0.0:8732:8732 --name oxfordbox ghcr.io/tez-capital/tezbox:tezos-v19.1
-```
-
-The container runs in the background and provides an RPC node at http://localhost:8732.
-
-Then you can use the sandbox through that RPC node.
-For example, you can configure the Octez client to use the sandbox by running this command:
-
-```bash
-octez-client -E http://localhost:8732 config update
-```
-
-Then you can use your local installation of the Octez client to interact with the sandbox, such as deploying contracts and sending transactions.
-
-Tezbox provides sample accounts in the `/tezbox/context/accounts.json` file.
