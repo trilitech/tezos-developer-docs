@@ -73,11 +73,16 @@ This method for connecting follows these general steps:
    }
    ```
 
-1. The SDK uses the Beacon SDK to open a popup window that prompts the user to select a compatible wallet via a deep link or to show a QR code:
+1. The Unity application connects in different ways depending on the platform:
 
-   <img src="/img/unity/unity-connecting-beacon-popup.png" alt="The Beacon popup window with a QR code and a list of compatible wallets" style={{width: 300}} />
+   - On WebGL applications, the SDK uses the Beacon SDK to open a popup window that prompts the user to select a compatible wallet via a deep link or to show a QR code:
 
-1. As a second option, on non-WebGL applications, the SDK runs the `PairingRequested` event, which you can use to trigger the `Tezos.QR.QrCodeGenerator` class to generate a QR code and show it on the interface for the user to scan with a wallet app.
+      <img src="/img/unity/unity-connecting-beacon-popup.png" alt="The Beacon popup window with a QR code and a list of compatible wallets" style={{width: 300}} />
+
+   - On mobile applications, the application attempts to open a Beacon wallet on the same device directly.
+
+   - On mobile applications, you can also generate a barcode yourself.
+   On mobile applications, the `TezosAPI.ConnectWallet()` method triggers the `PairingRequested` event, which you can use to make the `Tezos.QR.QrCodeGenerator` class generate a QR code and show it on the interface for the user to scan with a wallet app.
 
 1. Regardless of the connection method, the SDK runs the `WalletConnected` event and the `TezosAPI.ConnectWallet()` method returns information about the connected account.
 
