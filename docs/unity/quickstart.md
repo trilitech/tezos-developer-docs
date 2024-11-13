@@ -46,7 +46,7 @@ The SDK supports three types of wallets:
 
 The SDK can connect to these wallets in different ways depending on the platform.
 For example, in a WebGL application, it can show a QR code to allow the user to scan it with a wallet app on a mobile device.
-If the Unity application is running on a mobile app, it can open Tezos wallets on the mobile device directly.
+If the Unity application is running on a mobile app, it can open Tezos wallets on the mobile device directly, known as a _deep link_.
 
 For more details, see [Connecting accounts](/unity/connecting-accounts).
 

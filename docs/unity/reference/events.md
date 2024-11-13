@@ -3,7 +3,7 @@ title: Unity SDK events
 sidebar_label: Events
 authors: Tim McMackin
 last_update:
-  date: 6 November 2024
+  date: 13 November 2024
 ---
 
 The Tezos Unity SDK uses events that you can add listeners to.
@@ -62,4 +62,5 @@ Runs when a user signs a payload and returns the signed payload.
 
 ## `PairingRequested`
 
-Runs when the SDK attempts to pair with a wallet and returns the pairing information for the wallet.
+Runs when the SDK attempts to pair with a Beacon wallet on a non-WebGL platform and returns the pairing information that the application can use to generate a QR code.
+In most cases the application should use the Beacon popup window instead of generating the QR code itself.
