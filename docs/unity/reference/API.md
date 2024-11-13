@@ -281,13 +281,63 @@ For information about what fields you can add to this URL, see the [TZKT API ref
 
 -->
 
-### `GetOperationStatus()`
+### `GetOwnersForToken()`
+
+Gets the accounts that own the specified token.
 
 ```csharp
-public static UniTask<bool> GetOperationStatus(string operationHash);
+public static UniTask<IEnumerable<TokenBalance>> GetOwnersForToken(
+    string              contractAddress,
+    uint                tokenId,
+    long                maxItems,
+    OwnersForTokenOrder orderBy
+);
 ```
 
-Returns true if the specified operation was successful, false if it failed, or null (or HTTP 204) if it doesn't exist.
+<!-- TODO explain ordering -->
+
+Example:
+
+```csharp
+var ownerList = await TezosAPI.GetOwnersForToken(
+    "KT1Nhr9Bmhy7kcUmezRxbbDybh5buNnrVLTY",
+    7,
+    5,
+    new OwnersForTokenOrder.Default(0)
+);
+foreach (TokenBalance balance in ownerList)
+{
+    Debug.Log("Owner: " + balance.Owner + " has " + balance.Balance + " tokens");
+}
+```
+
+### `GetOwnersForContract()`
+
+Gets the accounts that own tokens on the specified contract.
+
+```csharp
+public static UniTask<IEnumerable<TokenBalance>> GetOwnersForContract(
+    string                 contractAddress,
+    long                   maxItems,
+    OwnersForContractOrder orderBy
+    );
+```
+
+Example:
+
+```csharp
+var ownerList = await TezosAPI.GetOwnersForContract(
+    "KT1Nhr9Bmhy7kcUmezRxbbDybh5buNnrVLTY",
+    5,
+    new OwnersForContractOrder.Default(0)
+);
+foreach (TokenBalance balance in ownerList)
+{
+    Debug.Log("Owner: " + balance.Owner + " has " + balance.Balance + " tokens");
+}
+```
+
+<!-- TODO explain ordering -->
 
 ### `GetLatestBlockLevel()`
 
@@ -318,6 +368,14 @@ public static async UniTask<OperationResponse> RequestOperation(OperationRequest
 This method triggers the `OperationResulted` event.
 
 For examples, see [Calling contracts](/unity/calling-contracts).
+
+### `GetOperationStatus()`
+
+```csharp
+public static UniTask<bool> GetOperationStatus(string operationHash);
+```
+
+Returns true if the specified operation was successful, false if it failed, or null (or HTTP 204) if it doesn't exist.
 
 ### `RequestSignPayload()`
 
@@ -386,7 +444,7 @@ TODO example
 
 
 
-## Old methods
+## Old methods that don't work
 
 Old methods that may still be used or may be outdated, but the code is still in there:
 
@@ -428,79 +486,7 @@ private void HandleTokenBalances(IEnumerable<TokenBalance> tokenBalances)
 }
 ```
 
-### `GetOwnersForToken()`
 
-```csharp
-IEnumerator GetOwnersForToken(
-    Action<IEnumerable<TokenBalance>> callback,
-    string contractAddress,
-    uint tokenId,
-    long maxItems,
-    OwnersForTokenOrder orderBy);
-```
-
-Gets the accounts that own the specified token.
-
-Example:
-
-```csharp
-public void RunGetOwnersForToken()
-{
-    var routine = TezosManager.Instance.Tezos.API.GetOwnersForToken(
-        callback: HandleTokenOwners,
-        contractAddress: TezosManager.Instance.Tezos.TokenContract.Address,
-        tokenId: 0,
-        maxItems: 10,
-        orderBy: new OwnersForTokenOrder.ByLastTimeAsc(0)
-    );
-    StartCoroutine(routine);
-}
-
-private void HandleTokenOwners(IEnumerable<TokenBalance> tokenBalances)
-{
-    List<TokenBalance> tokens = new List<TokenBalance>(tokenBalances);
-    foreach (var tb in tokens)
-    {
-        Debug.Log($"{tb.Balance} tokens on contract {tb.TokenContract.Address}");
-    }
-}
-```
-
-### `GetOwnersForContract()`
-
-```csharp
-IEnumerator GetOwnersForContract(
-    Action<IEnumerable<TokenBalance>> callback,
-    string contractAddress,
-    long maxItems,
-    OwnersForContractOrder orderBy);
-```
-
-Gets the accounts that own tokens on the specified contract.
-
-Example:
-
-```csharp
-public void RunGetOwnersForContract()
-{
-    var routine = TezosManager.Instance.Tezos.API.GetOwnersForContract(
-        callback: HandleOwnersForContract,
-        contractAddress: TezosManager.Instance.Tezos.TokenContract.Address,
-        maxItems: 10,
-        orderBy: new OwnersForContractOrder.ByLastTimeAsc(0)
-    );
-    StartCoroutine(routine);
-}
-
-private void HandleOwnersForContract(IEnumerable<TokenBalance> tokenBalances)
-{
-    List<TokenBalance> tokens = new List<TokenBalance>(tokenBalances);
-    foreach (var tb in tokens)
-    {
-        Debug.Log($"{tb.Owner} owns {tb.Balance} tokens on contract {tb.TokenContract.Address}");
-    }
-}
-```
 
 ### `IsHolderOfContract()`
 
