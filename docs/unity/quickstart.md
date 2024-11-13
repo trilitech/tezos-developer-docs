@@ -185,46 +185,32 @@ Signing a message proves that it came from a specific user's wallet because the 
 In this way, game developers can make players sign a message as a way of validating their identity.
 
 For example, this code prompts the user to sign the message "This message came from my account."
-When the `SigningResulted` event runs, it prints the signed payload:
+Then it uses the Netezos library to verify that the payload was signed by the currently connected account:
 
 ```csharp
-private async void Start()
-{
-    TezosAPI.SigningResulted += SigningResulted;
+string payload = "This message came from my account.";
 
-    await TezosAPI.WaitUntilSDKInitialized();
-}
-
-public async void SignPayloadClick()
-{
-    try
+var result = await TezosAPI.RequestSignPayload(
+    new SignPayloadRequest
     {
-        var payload = "Hello World!";
-        var bytes = Encoding.UTF8.GetBytes(payload);
-        var hexPayload = BitConverter.ToString(bytes);
-        hexPayload = hexPayload.Replace("-", "");
-        hexPayload = "05" + hexPayload;
-        var result = await TezosAPI.RequestSignPayload(
-            new SignPayloadRequest
-            {
-                Payload = hexPayload,
-                SigningType = SignPayloadType.MICHELINE
-            }
-        );
-        Debug.Log($"Signature: {result.Signature}");
+        Payload = payload,
+        SigningType = SignPayloadType.MICHELINE
     }
-    catch (Exception e)
-    {
-        Debug.Log($"{e.Message}");
-        Debug.Log($"{e.StackTrace}");
-    }
-}
+);
 
-public void SigningResulted(SignPayloadResponse response)
-{
-    Debug.Log("SigningResulted");
-    Debug.Log(response);
-}
+var publicKey = string.Empty;
+if (TezosAPI.IsWalletConnected())
+publicKey = TezosAPI.GetWalletConnectionData().PublicKey;
+if (TezosAPI.IsSocialLoggedIn())
+publicKey = TezosAPI.GetSocialLoginData().PublicKey;
+
+var verified = NetezosExtensions.VerifySignature(
+    publicKey,
+    Beacon.Sdk.Beacon.Sign.SignPayloadType.micheline,
+    payload,
+    result.Signature
+);
+Debug.Log($"Signature verified: {verified}");
 ```
 
 <!-- TODO verify that the payload is correctly signed. -->
