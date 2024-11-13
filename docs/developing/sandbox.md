@@ -28,10 +28,10 @@ The Octez client sandboxed and mockup modes run a local version of the Tezos net
 [Tezbox](https://github.com/tez-capital/tezbox) is also a simulated Tezos environment that runs in a container.
 
 Tezbox provides different images that mirror versions of the Octez suite.
-For example, to run Tezbox with Octez version 19.1 and the Oxford protocol, run this command:
+For example, to run Tezbox with Octez version 19.1 and the Paris protocol, run this command:
 
 ```bash
-docker run -d -p 0.0.0.0:8732:8732 --name oxfordbox ghcr.io/tez-capital/tezbox:tezos-v19.1
+docker run --rm -it --name tezbox -p 0.0.0.0:8732:8732 ghcr.io/tez-capital/tezbox:tezos-v20.3 parisbox
 ```
 
 The container runs in the background and provides an RPC node at http://localhost:8732.
