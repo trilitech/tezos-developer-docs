@@ -45,6 +45,7 @@ The Tezos SDK uses modified versions of the following libraries for communicatio
 
 - **Airgap Beacon SDK**: Interacts with Tezos wallets through the Beacon standard for iOS, Android, and WebGL platforms.
 - **Netezos**: Interacts with Tezos wallets through the Beacon standard for Windows, Linux, and MacOS platforms. Also prepares parameters for smart contract calls and interprets complex data returned by the ReadView method.
+- **WalletConnect**: Interacts with EVM wallets.
 
 The SDK also uses the [Newtonsoft JSON Unity Package](https://docs.unity3d.com/Packages/com.unity.nuget.newtonsoft-json@3.2/manual/index.html).
 
