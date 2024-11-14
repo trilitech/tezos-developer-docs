@@ -39,7 +39,7 @@ Follow these steps to get the application code and build it:
    cargo build --target wasm32-unknown-unknown
    ```
 
-   If the application builds correctly, the terminal shows a message that looks like "Finished dev [unoptimized + debuginfo] target(s) in 0.44s."
+   If the application builds correctly, the terminal shows a message that looks like "Finished dev [unoptimized + debuginfo] target(s) in 15s."
    You can see the compiled application in the `target/wasm32-unknown-unknown/debug` folder.
    In particular, the compiled kernel is in the `hello_world_kernel.wasm` file.
 
