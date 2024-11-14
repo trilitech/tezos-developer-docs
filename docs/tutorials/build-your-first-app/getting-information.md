@@ -43,7 +43,8 @@ Your application can use the Taquito library to access the storage for the contr
    ```
 
    Like the `deposit` and `withdraw` functions, this function creates an object that represents the contract.
-   Then it retrieves the contract's storage and uses the `get` method to look up a value from the big-map.
+   Then it retrieves the contract's storage.,
+   In this case, the contract's storage is a [big-map](/smart-contracts/data-types/complex-data-types#big-maps), so Taquito represents it as a `BigMapAbstraction` object and the application uses the `get` method to look up a value from it.
    If it does not find a value, it sets the user's balance to 0.
    If it finds a value, it divides by 1 million because the contract stores values in mutez, which is 1 millionth of a tez.
 
