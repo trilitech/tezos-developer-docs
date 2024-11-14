@@ -1,7 +1,7 @@
 ---
 title: "Part 1: Setting up the application"
 last_update:
-  date: 12 August 2024
+  date: 14 November 2024
 ---
 
 To set up the application for the tutorial, you must configure Rust to build the kernel and start a Docker container that has resources that are needed to debug and deploy it.
@@ -21,7 +21,7 @@ Follow these steps to get the application code and build it:
 
    1. Verify that you have Rust version 1.73.0 or later installed by running `rustc --version`.
 
-   1. If you have an earlier version of Rust, use the `rustup` command to use version 1.73.0:
+   1. If you have a version of Rust later than 1.73.0, use the `rustup override` command to use version 1.73.0:
 
       ```bash
       rustup override set 1.73.0
