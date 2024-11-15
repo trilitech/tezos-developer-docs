@@ -16,23 +16,23 @@ None.
 
 ### `WaitUntilSDKInitialized()`
 
-```csharp
-public static async UniTask WaitUntilSDKInitialized();
-```
-
 Waits until the SDK is fully initialized.
 Use this method at startup before trying to connect to wallets or use other features of the SDK.
+
+```csharp
+public static async UniTask WaitUntilSDKInitialized()
+```
 
 ## Wallet connection methods
 
 ### `ConnectWallet()`
 
+Sends a request to a user's wallet to connect a Beacon or WalletConnect wallet to the application.
+To connect social wallets, use [`SocialLogIn()`](#sociallogin).
+
 ```csharp
 public static async UniTask<WalletProviderData> ConnectWallet(WalletProviderData walletProviderData);
 ```
-
-Sends a request to a user's wallet to connect a Beacon or WalletConnect wallet to the application.
-To connect social wallets, use [`SocialLogIn()`](#sociallogin).
 
 If a wallet is already connected, this method either throws an exception (if a social wallet is connected) or returns the current connection information (if a Beacon or WalletConnect wallet is connected).
 
@@ -70,6 +70,8 @@ Disconnects the currently connected wallet and returns true if a wallet was conn
 public static async UniTask<bool> Disconnect()
 ```
 
+This method triggers the `WalletDisconnected` or `SocialLoggedOut` event, depending on the type of wallet connection.
+
 ## Wallet information methods
 
 ### `IsConnected()`
@@ -77,7 +79,7 @@ public static async UniTask<bool> Disconnect()
 Returns true if any kind of wallet is connected to the application and false if not.
 
 ```csharp
-public static bool IsConnected();
+public static bool IsConnected()
 ```
 
 This method returns true if a Beacon, WalletConnect, or social wallet is connected.
@@ -97,7 +99,7 @@ public static string GetConnectionAddress()
 Returns true if a Beacon or WalletConnect wallet is connected.
 
 ```csharp
-public static bool IsWalletConnected();
+public static bool IsWalletConnected()
 ```
 
 ### `IsSocialLoggedIn()`
@@ -105,7 +107,7 @@ public static bool IsWalletConnected();
 Returns true if a social wallet is connected.
 
 ```csharp
-public static bool IsSocialLoggedIn();
+public static bool IsSocialLoggedIn()
 ```
 
 ### `GetWalletConnectionData()`
@@ -113,14 +115,14 @@ public static bool IsSocialLoggedIn();
 Retrieves information about the current wallet connection.
 
 ```csharp
-public static WalletProviderData GetWalletConnectionData();
+public static WalletProviderData GetWalletConnectionData()
 ```
 
 ### `GetSocialLoginData()`
 
 Retrieves information about the current social wallet connection.
 
-```csharp
+```cshar
 public static SocialProviderData GetSocialLoginData();
 ```
 
@@ -129,7 +131,7 @@ public static SocialProviderData GetSocialLoginData();
 Returns the internal object that the SDK uses to represent the connection to Beacon and WalletConnect wallets.
 
 ```csharp
-public static IWalletProvider GetWalletProvider<T>();
+public static IWalletProvider GetWalletProvider<T>()
 ```
 
 To use this method you must specify the type of wallet provider that the Unity application is using.
@@ -153,7 +155,7 @@ Debug.Log(walletProvider.WalletType);
 Returns the internal object that the SDK uses to represent the connection to social wallets.
 
 ```csharp
-public static ISocialLoginProvider GetSocialProvider<T>();
+public static ISocialLoginProvider GetSocialProvider<T>()
 ```
 
 Example:
@@ -170,7 +172,7 @@ Debug.Log(walletProvider.WalletType);
 Fetches the balance of the connected account in mutez, as a string.
 
 ```csharp
-public static async UniTask<string> GetBalance();
+public static async UniTask<string> GetBalance()
 ```
 
 Example:
@@ -193,11 +195,12 @@ public void RunGetBalance()
 
 ### `ReadView()`
 
+Returns the response from a contract [view](/smart-contracts/views).
+
 ```csharp
-public static UniTask<T> ReadView<T>(string contractAddress, string entrypoint, string input);
+public static UniTask<T> ReadView<T>(string contractAddress, string entrypoint, string input)
 ```
 
-Returns the response from a contract [view](/smart-contracts/views).
 Note that the `input` parameter must be a Michelson-encoded object, as in the following example, which passes a string parameter to the view:
 
 Example:
@@ -215,7 +218,7 @@ Returns the tokens for a given contract or account address as a list of `TokenDa
 public static UniTask<T>  GetTokens<T>(
     string address,
     int    limit = 100
-);
+)
 ```
 
 This example gets information about the tokens in a contract:
@@ -256,7 +259,7 @@ public static UniTask<JsonElement> GetTokenMetadata(
 Sends a Tezos transaction and returns an object with the hash of the transaction.
 
 ```csharp
-public static async UniTask<OperationResponse> RequestOperation(OperationRequest operationRequest);
+public static async UniTask<OperationResponse> RequestOperation(OperationRequest operationRequest)
 ```
 
 This method triggers the `OperationResulted` event.
@@ -266,7 +269,7 @@ For examples, see [Calling contracts](/unity/calling-contracts).
 ### `GetOperationStatus()`
 
 ```csharp
-public static UniTask<bool> GetOperationStatus(string operationHash);
+public static UniTask<bool> GetOperationStatus(string operationHash)
 ```
 
 Returns true if the specified operation was successful, false if it failed, or null (or HTTP 204) if it doesn't exist.
@@ -278,6 +281,8 @@ Prompts the connected wallet to sign a payload and returns the signed payload.
 ```csharp
 public static async UniTask<SignPayloadResponse> RequestSignPayload(SignPayloadRequest operationRequest)
 ```
+
+This method triggers the `SigningResulted` event.
 
 Example:
 
