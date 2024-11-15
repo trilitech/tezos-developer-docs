@@ -207,6 +207,37 @@ var result = await TezosAPI.ReadView<string>("KT1K46vZTMEe8bnacFvFQfgHtNDKniEauR
 Debug.Log("View response: " + result);
 ```
 
+### `GetTokens()`
+
+Returns the tokens for a given contract or account address as a list of `TokenData` objects.
+
+```csharp
+public static UniTask<T>  GetTokens<T>(
+    string address,
+    int    limit = 100
+);
+```
+
+This example gets information about the tokens in a contract:
+
+```csharp
+var tokenList = await TezosAPI.GetTokens<List<TokenData>>("KT1HP6uMwf829cDgwynZJ4rDvjLCZmfYjja1", 5);
+foreach (TokenData token in tokenList)
+{
+    Debug.Log($"Token ID: {token.TokenId} has {token.HoldersCount} owners");
+}
+```
+
+This example gets the tokens that a user account holds:
+
+```csharp
+var tokenList = await TezosAPI.GetTokens<List<TokenData>>("tz1QCVQinE8iVj1H2fckqx6oiM85CNJSK9Sx", 5);
+foreach (TokenData token in tokenList)
+{
+    Debug.Log($"Contract: {token.Contract.Address} ID: {token.TokenId}");
+}
+```
+
 ### `GetTokenMetadata()`
 
 Gets the metadata for the specified token.
