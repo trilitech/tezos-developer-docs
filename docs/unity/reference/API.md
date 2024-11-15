@@ -178,7 +178,6 @@ Example:
 ```csharp
 public void RunGetBalance()
 {
-    Debug.Log("Getting balance");
     try
     {
         var balance = ulong.Parse(await TezosAPI.GetBalance());
