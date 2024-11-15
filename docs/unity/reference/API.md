@@ -3,10 +3,10 @@ title: Unity SDK TezosAPI object
 sidebar_label: TezosAPI object
 authors: Tim McMackin
 last_update:
-  date: 13 November 2024
+  date: 15 November 2024
 ---
 
-The Unity SDK class `Tezos.API.TezosAPI`, which is available at runtime as the `TezosAPI` object, provides methods for many Tezos-related tasks, including connecting to wallets, getting information about the current wallet connection, and getting information about about the Tezos blockchain, such as what tokens accounts or contracts control.
+The Unity SDK class `Tezos.API.TezosAPI` provides methods for many Tezos-related tasks, including connecting to wallets, sending transactions to Tezos, and getting information about about the Tezos blockchain, such as what tokens accounts or contracts control.
 
 ## Properties
 
