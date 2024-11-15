@@ -1,5 +1,5 @@
 ---
-title: Testing on sandboxes and testnets
+title: Testing on testnets
 authors: 'Mathias Hiron, Nomadic Labs, Tim McMackin, TriliTech'
 last_update:
   date: 2 February 2024

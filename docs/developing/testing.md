@@ -109,4 +109,4 @@ For more information about avoiding flaws in contracts, see [Avoiding flaws](htt
 ## Next steps
 
 When you're done testing contracts locally, you can deploy them to a test network and test them there.
-See [Testing on sandboxes and testnets](/developing/testnets).
+See [Testing on testnets](/developing/testnets) and [Using a local sandbox](/developing/sandbox).
