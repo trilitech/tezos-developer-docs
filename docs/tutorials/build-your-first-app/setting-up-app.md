@@ -2,7 +2,7 @@
 title: "Part 1: Setting up the application"
 authors: 'Claude Barde, Tim McMackin'
 last_update:
-  date: 15 November 2023
+  date: 14 November 2024
 ---
 
 You can access Tezos through any JavaScript framework.
@@ -107,12 +107,11 @@ This tutorial uses the Svelte framework, and the following steps show you how to
 1. Replace the `src/main.js` file with this code:
 
    ```javascript
+   import { mount } from 'svelte';
    import './app.css'
-   import App from './App.svelte'
+   import App from './App.svelte';
 
-   const app = new App({
-     target: document.body,
-   })
+   const app = mount(App, { target: document.body });
 
    export default app
    ```
