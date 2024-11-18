@@ -47,6 +47,32 @@ async function getFilePath(fileId) {
   }
 }
 
+// Remove the front matter from an MD file and replace with an H1
+// Got to remove FM because multiple FM blocks are not legal
+// Could do this with gray-matter but I don't want to add the dependency
+function removeFrontMatter(mdText) {
+  let outputLines = [];
+  const lines = mdText.split('\n');
+  let inFrontMatter = false;
+  let doneWithFrontMatter = false;
+  const h1Regex = /^title:\s+(.*)$/;
+
+  lines.forEach(line => {
+    if (line == '---') {
+      doneWithFrontMatter = inFrontMatter;
+      inFrontMatter = true;
+    }
+    if (inFrontMatter && !doneWithFrontMatter && h1Regex.test(line)) {
+      const result = h1Regex.exec(line);
+      outputLines.push('# ' + result[1]);
+    }
+    if (line != '---' && doneWithFrontMatter) {
+      outputLines.push(line);
+    }
+  });
+  return outputLines.join('\n');
+}
+
 async function concatEverything() {
 
   const outputPath = path.resolve(__dirname, '../../', 'allMdFilesConcatenated.md');
@@ -73,7 +99,7 @@ async function concatEverything() {
   // Read and concat the files in TOC order
   await allFilePaths.reduce(async (previousPromise, oneFilePath) => {
     await previousPromise;
-    const oneFileText = await fs.promises.readFile(oneFilePath, 'utf8') + '\n\n';
+    const oneFileText = removeFrontMatter(await fs.promises.readFile(oneFilePath, 'utf8') + '\n\n');
     return fs.promises.appendFile(outputPath, oneFileText);
   }, Promise.resolve());
 
