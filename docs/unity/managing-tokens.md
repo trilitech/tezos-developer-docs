@@ -2,7 +2,7 @@
 title: Managing tokens
 authors: Tim McMackin
 last_update:
-  date: 12 November 2024
+  date: 18 November 2024
 ---
 
 Tezos supports a variety of types of tokens, including:
@@ -79,7 +79,7 @@ var response = await TezosAPI.RequestOperation(mintTokensRequest);
 
 ## Transferring tokens
 
-To transfer tokens, pass  the source account, target account, token ID, and quantity to the contract's `transfer` entrypoint.
+To transfer tokens, pass the source account, target account, token ID, and quantity to the contract's `transfer` entrypoint.
 The account that sends the transfer call must be the owner or operator of the tokens.
 For more information about token access control, see [FA2 tokens](/architecture/tokens/FA2).
 
@@ -99,11 +99,18 @@ var transferTokensRequest = new OperationRequest
 var response = await TezosAPI.RequestOperation(transferTokensRequest);
 ```
 
-<!--
 ## Getting token balances
 
-TODO Not sure what the best way to do this is without a view or a dedicated SDK method
--->
+You can get information about the tokens in a contract by passing the address of the contract and the maximum number of tokens to return to the `TezosAPI.GetTokens()` method.
+The response is a list of `TokenData` objects with information about the tokens:
+
+```csharp
+var tokenList = await TezosAPI.GetTokens<List<TokenData>>("KT1Nhr9Bmhy7kcUmezRxbbDybh5buNnrVLTY", 20);
+foreach (TokenData token in tokenList)
+{
+    Debug.Log($"Token ID {token.TokenId} has {token.HoldersCount} owners.");
+}
+```
 
 ## Destroying (burning) tokens
 
@@ -111,8 +118,3 @@ The FA2 standard does not have a standard way of burning tokens.
 Some FA2 implementations have a `burn` entrypoint.
 In other cases, if you want to make tokens unusable, send them to an address that doesn't exist or to an account that you can't use.
 For example, you can create an account in a wallet app, send the tokens to it, and delete the private key for the account.
-
-<!-- TODO:
-- Is there some way to handle the transaction cost myself so the user doesn't have to approve every time?
-- Pre-signing transactions
--->
