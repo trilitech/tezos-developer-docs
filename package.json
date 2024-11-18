@@ -6,6 +6,7 @@
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
     "build": "node ./src/scripts/process_downloaded_glossary.js && docusaurus build",
+    "concat": "node ./src/scripts/concatenate.js",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
