@@ -3,7 +3,7 @@ title: Calling contracts with the Unity SDK
 sidebar_label: Calling contracts
 authors: Tim McMackin
 last_update:
-  date: 12 November 2024
+  date: 18 November 2024
 ---
 
 Smart contracts are backend programs that run on the Tezos blockchains.
@@ -218,4 +218,60 @@ You must set the return type on the `TezosAPI.ReadView()` method, as in this exa
 ```csharp
 var result = await TezosAPI.ReadView<string>("KT1K46vZTMEe8bnacFvFQfgHtNDKniEauRMJ", "simple", "\"String value\"");
 Debug.Log("View response: " + result);
+```
+
+If the return type is more complicated than a single primitive, you must create a type to represent the return type.
+For example, the FA2 contract `KT1HP6uMwf829cDgwynZJ4rDvjLCZmfYjja1` has a view named `get_balance_of` that returns information about token owners.
+Block explorers such as [tzkt.io](https://tzkt.io) show the parameter and return types for this view in JSON and Michelson format:
+
+<img src="/img/unity/tzkt-balance-view.png" alt="Parameter and return types for the view" style={{width: 300}} />
+
+The equivalent C# types look like these examples:
+
+```csharp
+private class ParameterType
+{
+    public string owner;
+    public int    token_id;
+}
+
+private class ResponseType
+{
+    public Request request { get; set; }
+    public string  balance { get; set; }
+}
+
+public class Request
+{
+    public string owner    { get; set; }
+    public string token_id { get; set; }
+}
+```
+
+This example shows how to use these types to call the view and receive the response:
+
+```csharp
+var parameter = new List<ParameterType>
+{
+    new()
+    {
+        owner    = "tz1QCVQinE8iVj1H2fckqx6oiM85CNJSK9Sx",
+        token_id = 0
+    },
+    new()
+    {
+        owner    = "tz1hQKqRPHmxET8du3fNACGyCG8kZRsXm2zD",
+        token_id = 0
+    }
+
+};
+
+var json = await TezosAPI.ReadView<List<ResponseType>>(
+    "KT1HP6uMwf829cDgwynZJ4rDvjLCZmfYjja1", "get_balance_of", parameter
+);
+
+foreach (var item in json)
+{
+    Debug.Log($"The account {item.request.owner} has {item.balance} tokens of type {item.request.token_id}");
+}
 ```
