@@ -2,7 +2,7 @@
 title: Quickstart
 authors: Tim McMackin
 last_update:
-  date: 11 November 2024
+  date: 19 November 2024
 ---
 
 Follow these steps to install the Tezos Unity SDK in an existing Unity project and start using it.
@@ -284,20 +284,20 @@ Blockchain developers use it to store data such as token images and metadata.
 
 The SDK provides tools to upload to IPFS by using the [Pinata](https://pinata.cloud/) API, but you can set up IPFS upload in other ways.
 
-To upload files to IPFS, put your Pinata API JWT (not the API key) in the `Pinata Api Key` field of the `Assets/Tezos/Resources/TezosConfig.asset` object.
+To upload files to IPFS, put your Pinata API JWT (not the API key) in the `Pinata Api Token` field of the `Assets/Tezos/Resources/TezosConfig.asset` object.
 Then you can upload to IPFS with this code:
 
 ```csharp
 public void HandleUploadClick()
 {
-    var pinataKey = ConfigGetter.GetOrCreateConfig<TezosConfig>().PinataApiKey;
-    if (string.IsNullOrEmpty(pinataKey))
+    var pinataToken = ConfigGetter.GetOrCreateConfig<TezosConfig>().PinataApiToken;
+    if (string.IsNullOrEmpty(pinataToken))
     {
         Logger.LogError("Can not proceed without Pinata API key.");
         return;
     }
 
-    var uploader = UploaderFactory.GetPinataUploader(pinataKey);
+    var uploader = UploaderFactory.GetPinataUploader(pinataToken);
 
     var uploadCoroutine = uploader.UploadFile(ipfsUrl =>
     {
