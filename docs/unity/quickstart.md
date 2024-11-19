@@ -277,8 +277,6 @@ private void OperationResulted(OperationResponse operationResponse)
 
 For more information, see [Calling contracts](/unity/calling-contracts).
 
-<!--
-
 ## Uploading files to IPFS
 
 The InterPlanetary File System (IPFS) is a protocol and peer-to-peer network for storing and sharing data in a distributed file system.
@@ -286,19 +284,20 @@ Blockchain developers use it to store data such as token images and metadata.
 
 The SDK provides tools to upload to IPFS by using the [Pinata](https://pinata.cloud/) API, but you can set up IPFS upload in other ways.
 
-To use the SDK, see the code in the `UploadImageButton.cs` file, which handles uploading files in the IPFSUpload scene.
-It has a UI upload button that triggers this method, which uses the built-in Pinata uploader to upload the file and get the URL for it:
+To upload files to IPFS, put your Pinata API JWT (not the API key) in the `Pinata Api Key` field of the `Assets/Tezos/Resources/TezosConfig.asset` object.
+Then you can upload to IPFS with this code:
 
 ```csharp
 public void HandleUploadClick()
 {
-    if (string.IsNullOrEmpty(TezosManager.Instance.Config.PinataApiKey))
+    var pinataKey = ConfigGetter.GetOrCreateConfig<TezosConfig>().PinataApiKey;
+    if (string.IsNullOrEmpty(pinataKey))
     {
         Logger.LogError("Can not proceed without Pinata API key.");
         return;
     }
 
-    var uploader = UploaderFactory.GetPinataUploader(TezosManager.Instance.Config.PinataApiKey);
+    var uploader = UploaderFactory.GetPinataUploader(pinataKey);
 
     var uploadCoroutine = uploader.UploadFile(ipfsUrl =>
     {
@@ -309,7 +308,7 @@ public void HandleUploadClick()
 }
 ```
 
--->
+When this code runs, the UI opens a file selection window and prompts the user to select a file.
 
 <!-- For a complete example, see the [IPFSUpload tutorial scene](/unity/scenes#ipfsupload-scene). -->
 
