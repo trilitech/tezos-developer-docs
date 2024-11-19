@@ -2,7 +2,7 @@
 title: Managing tokens
 authors: Tim McMackin
 last_update:
-  date: 18 November 2024
+  date: 19 November 2024
 ---
 
 Tezos supports a variety of types of tokens, including:
@@ -25,7 +25,7 @@ For example, if you create an FA-compatible token and use it in a Unity applicat
 For this reason, Unity applications should use FA tokens whenever possible.
 
 The most popular and commonly-supported FA standard is [FA2](/architecture/tokens/FA2), so the examples on this page are for working with FA2 tokens.
-FA2 tokens can be fungible tokens or non-fungible tokens, which makes the standard flexible enough for most uses of tokens.
+FA2 tokens can be fungible tokens or non-fungible tokens, which makes the standard flexible enough for most use cases.
 
 ## FA2 token contracts
 
@@ -35,7 +35,7 @@ You can also use the tutorial [Create a fungible token with the SmartPy FA2 libr
 
 :::note
 
-The rest of this page assumes that you are using an FA2 contract.
+The rest of this page assumes that you are using FA2 tokens.
 
 :::
 
@@ -46,31 +46,98 @@ See [Encoding parameters as JSON strings](/unity/calling-contracts#encoding-para
 
 :::
 
-## Creating (minting) a new token type
+## Creating (minting) tokens
 
-To create a new type of token and mint tokens, pass the metadata for the new token type, the number of tokens to mint, and the initial owner of the new tokens to the FA2 contract's `mint` entrypoint.
-The FA2 standard does not require contracts to have a `mint` entrypoint, but most do.
+The FA2 standard does not require contracts to have a `mint` entrypoint that creates tokens, but many do.
+The `mint` entrypoint may be limited so only certain accounts can call it, or it may have other restrictions.
 If a contract does not have a `mint` entrypoint, it was created with all of the tokens that it will ever have and therefore no more tokens can be minted.
 
-TODO
+A typical FA2 `mint` entrypoint accepts the token ID, the number of tokens to create, and the initial owner of the new tokens.
+For example, the contract `KT1Nhr9Bmhy7kcUmezRxbbDybh5buNnrVLTY` has a `mint` entrypoint that accepts this parameter in JSON format:
 
+```json
+"schema:list:object": [
+    {
+        "to_:address": "address",
+        "token:or": {
+            "existing:nat": "nat",
+            "new:map_flat:string:bytes": {
+                "string": "bytes"
+            }
+        },
+        "amount:nat": "nat"
+    }
+]
+```
 
+The equivalent Michelson parameter looks like this:
 
+```michelson
+(list %mint (pair (address %to_)
+                 (pair (or %token (nat %existing) (map %new string bytes)) (nat %amount))))
+```
 
+In this case, the `mint` entrypoint can create tokens of an existing type or create a new type of token.
 
-## Creating (minting) tokens of an existing type
+As described in [Encoding parameters](/unity/calling-contracts#encoding-parameters), you can encode the parameter for the call as a Micheline object via the Netezos library or as a JSON string.
 
-To mint tokens of an existing type, pass the token ID, the number of tokens to create, and the initial owner of the new tokens to the contract's `mint` entrypoint.
-This example mints 5 tokens of the token type with the ID 7:
+To encode the parameter as a JSON object, you can fill in the fields on the block explorer and generate a JSON file like this example, which mints 10 tokens of type 0:
 
 ```csharp
-var mintJsonString = "{ \"prim\": \"Pair\", \"args\": [ { \"prim\": \"Pair\", \"args\": [ { \"string\": \"tz1QCVQinE8iVj1H2fckqx6oiM85CNJSK9Sx\" }, { \"int\": \"5\" } ] }, { \"prim\": \"Pair\", \"args\": [ [], { \"int\": \"7\" } ] } ] }";
+var mintJsonString = "[{\"prim\":\"Pair\",\"args\":[{\"string\":\"tz1QCVQinE8iVj1H2fckqx6oiM85CNJSK9Sx\"},{\"prim\":\"Pair\",\"args\":[{\"prim\":\"Left\",\"args\":[{\"int\":\"0\"}]},{\"int\":\"10\"}]}]}]";
 
 var mintTokensRequest = new OperationRequest
 {
-   Destination = "KT1Nhr9Bmhy7kcUmezRxbbDybh5buNnrVLTY",
+   Destination = "KT1HP6uMwf829cDgwynZJ4rDvjLCZmfYjja1",
    EntryPoint = "mint",
    Arg = mintJsonString,
+   Amount = "0",
+};
+
+var response = await TezosAPI.RequestOperation(mintTokensRequest);
+```
+
+To encode the parameter with the Netezos library, use primitives organized by pairs.
+In this example, the parameter uses a Left value in an Or primitive to represent the Micheline field `nat %existing`:
+
+```csharp
+// Owner of the new tokens
+var to_ = new MichelineString("tz1QCVQinE8iVj1H2fckqx6oiM85CNJSK9Sx");
+// Number of tokens to mint
+var amount = new MichelineInt(10);
+var token = new MichelinePrim
+{
+    Prim = PrimType.Pair, // Existing token type
+    Args = new List<IMicheline>
+    {
+        new MichelinePrim
+        {
+            Prim = PrimType.Left,
+            Args = new List<IMicheline>
+            {
+                // ID of token type
+                new MichelineInt(0),
+            }
+        },
+        amount
+    }
+};
+
+var parameter = "[" + new MichelinePrim
+{
+    Prim = PrimType.Pair,
+    Args = new List<IMicheline>
+    {
+        to_,
+        token
+    }
+}.ToJson() + "]";
+
+var mintTokensRequest = new OperationRequest
+{
+   Destination = "KT1HP6uMwf829cDgwynZJ4rDvjLCZmfYjja1",
+   EntryPoint = "mint",
+   Arg = parameter,
    Amount = "0",
 };
 
