@@ -123,15 +123,18 @@ var token = new MichelinePrim
     }
 };
 
-var parameter = "[" + new MichelinePrim
+var parameter = new MichelineArray
 {
-    Prim = PrimType.Pair,
-    Args = new List<IMicheline>
+    new MichelinePrim
     {
-        to_,
-        token
+        Prim = PrimType.Pair,
+        Args = new List<IMicheline>
+                {
+                    to_,
+                    token
+                }
     }
-}.ToJson() + "]";
+}.ToJson();
 
 var mintTokensRequest = new OperationRequest
 {
