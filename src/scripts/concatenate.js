@@ -2,6 +2,7 @@ const path = require('path');
 const fs = require('fs');
 
 const sidebars = require('../../sidebars');
+const sidebarsToInclude = ['documentationSidebar'];
 
 // Given a docusaurus sidebar object, return a list of the local doc IDs in it
 function getIdsRecursive(sidebarObject) {
@@ -86,7 +87,8 @@ async function concatEverything() {
   }
 
   // Get list of MD file IDs in order from sidebars.js
-  const allSidebarNames = Object.keys(sidebars);
+  const allSidebarNames = Object.keys(sidebars)
+    .filter((sidebarName) => sidebarsToInclude.includes(sidebarName));
   const allMdIds = allSidebarNames
     .reduce((list, sidebarName) =>
       list.concat(getIdsRecursive(sidebars[sidebarName])),
