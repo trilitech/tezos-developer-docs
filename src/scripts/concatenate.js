@@ -3,11 +3,14 @@ const fs = require('fs');
 
 const sidebars = require('../../sidebars');
 const sidebarsToInclude = ['documentationSidebar'];
+const pathsToFilterOut = [
+  'overview/glossary',
+];
 
 // Given a docusaurus sidebar object, return a list of the local doc IDs in it
 function getIdsRecursive(sidebarObject) {
   if (typeof sidebarObject === 'string') {
-    return sidebarObject;
+    return pathsToFilterOut.includes(sidebarObject) ? null : sidebarObject;
   }
   if (sidebarObject.constructor.name == "Array") {
     return sidebarObject.reduce((list, oneSidebarObj) =>
