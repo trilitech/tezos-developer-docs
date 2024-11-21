@@ -3,30 +3,31 @@ title: Calling contracts with the Unity SDK
 sidebar_label: Calling contracts
 authors: Tim McMackin
 last_update:
-  date: 18 November 2024
+  date: 21 November 2024
 ---
 
-Smart contracts are backend programs that run on the Tezos blockchains.
+Smart contracts are backend programs that run on blockchains.
 Smart contracts can do many tasks, but for gaming they have two main purposes:
 
 - They handle tokens, which are digital assets stored on the blockchain
 - They provide backend logic that users can trust because it cannot change
 
-For more information about contracts, see [Smart contracts](/smart-contracts).
+For more information about smart contracts on Tezos, see [Smart contracts](/smart-contracts).
 
-The Unity SDK can call any deployed Tezos contract just like any other Tezos client can.
+The Unity SDK can call any deployed Tezos or EVM contract just like any other Tezos client can.
 
-## Calling contracts
+## Calling Tezos contracts
 
 Smart contracts have one or more [entrypoints](/smart-contracts/entrypoints), which are the different ways that it can be called, similar to a method or function in programming languages or an endpoint in an API.
-Therefore, to call a smart contract, you need:
+Therefore, to call a Tezos smart contract, you need:
 
 - Its address, which starts with `KT1`
 - The entrypoint to call
 - The parameter to pass to the entrypoint, which must be in the format that the entrypoint expects
 - An amount of tez tokens to send with the transaction, which can be zero or more
 
-To call a contract, create an `OperationRequest` object with that information and pass it to the `TezosAPI.RequestOperation()` method.
+To call a contract, make sure that you are connected to a Beacon wallet.
+Then create an `OperationRequest` object with that information and pass it to the `TezosAPI.RequestOperation()` method.
 For example, this code calls a contract and passes the parameter `5` to its `increment` entrypoint.
 When the transaction completes successfully, it logs the hash of the transaction.
 You can use this hash to look up information about the transaction in a [block explorer](/developing/information/block-explorers).
@@ -76,12 +77,12 @@ private void OperationResulted(OperationResponse operationResponse)
 }
 ```
 
-## Encoding parameters
+### Encoding parameters
 
 Entrypoint parameters must be in [Micheline](https://tezos.gitlab.io/shell/micheline.html) JSON format, which is the format that the Michelson language uses for values.
 You can use the [Netezos](https://netezos.dev/) SDK to format Micheline parameters or construct them as JSON strings.
 
-### Encoding parameters with the Netezos Micheline SDK
+#### Encoding parameters with the Netezos Micheline SDK
 
 Micheline primitives include:
 
@@ -122,7 +123,7 @@ var request = new OperationRequest
 var response = await TezosAPI.RequestOperation(request);
 ```
 
-### Encoding parameters as JSON strings
+#### Encoding parameters as JSON strings
 
 Because the `Arg` field of the `OperationRequest` object accepts a JSON string, you can also use a raw Micheline-formatted JSON string.
 For example, the `MichelinePrim` object in the previous example looks like this as a string:
@@ -210,7 +211,7 @@ If you fill in values for this parameter on the **Interact** tab of [Better Call
 
 You can convert this JSON to a string and use it in the parameter instead of constructing the JSON with Netezos objects.
 
-## Calling views
+## Calling Tezos views
 
 To call a [view](/smart-contracts/views), pass the address of the contract, the name of the view, and the Michelson-encoded parameter to the `TezosAPI.ReadView()` method.
 You must set the return type on the `TezosAPI.ReadView()` method, as in this example for a view that returns a string:
@@ -273,5 +274,71 @@ var json = await TezosAPI.ReadView<List<ResponseType>>(
 foreach (var item in json)
 {
     Debug.Log($"The account {item.request.owner} has {item.balance} tokens of type {item.request.token_id}");
+}
+```
+
+## Calling EVM contracts
+
+Like Tezos contracts, EVM smart contracts have functions that clients can call.
+To call an EVM smart contract, you need:
+
+- Its address
+- The entrypoint to call
+- The contract's application binary interface (ABI), which is a description of the contract's interface
+- The parameter to pass to the entrypoint
+- An amount of ETH to pass to send with the transaction, which can be zero or more
+
+To call a contract, make sure that you are connected to a WalletConnect wallet.
+Then, create an `OperationRequest` object with that information and pass it to the `TezosAPI.RequestOperation()` method.
+For example, this code calls a contract and passes the parameter `123` to its `set` entrypoint.
+When the transaction completes successfully, it logs the hash of the transaction.
+You can use this hash to look up information about the transaction in a [block explorer](/developing/information/block-explorers).
+
+<!-- TODO: How do I set the network? -->
+<!-- TODO: How do I make sure I've got a WalletConnect wallet connected and not an EVM wallet? -->
+
+```csharp
+private async void Awake()
+{
+    await TezosAPI.WaitUntilSDKInitialized();
+
+    _connectButton.onClick.AddListener(OnConnectClicked);
+    _disconnectButton.onClick.AddListener(OnDisconnectClicked);
+    _requestOperationButton.onClick.AddListener(OnRequestOperationClicked);
+
+    TezosAPI.OperationResulted += OperationResulted;
+}
+
+private async void OnRequestOperationClicked()
+{
+    try
+    {
+        var request = new OperationRequest
+        {
+            // Contract to call
+            Destination = "0xfac1791E9db153ef693c68d142Cf11135b8270B9",
+            // Entrypoint to call
+            EntryPoint = "set",
+            ContractABI = "[ { \"inputs\": [], \"name\": \"get\", \"outputs\": [ { \"internalType\": \"uint256\", \"name\": \"\", \"type\": \"uint256\" } ], \"stateMutability\": \"view\", \"type\": \"function\" }, { \"inputs\": [ { \"internalType\": \"uint256\", \"name\": \"x\", \"type\": \"uint256\" } ], \"name\": \"set\", \"outputs\": [], \"stateMutability\": \"nonpayable\", \"type\": \"function\" } ]",
+            // Parameter to pass
+            Arg = "129",
+            // Amount of ETH to send with the transaction
+            Amount = "0",
+        };
+        var response = await TezosAPI.RequestOperation(request);
+    }
+    catch (Exception e) when (e is WalletOperationRejected or SocialOperationFailed)
+    {
+        Debug.LogError($"Operation failed: {e.Message}");
+    }
+    catch (Exception e)
+    {
+        Debug.LogError($"Unexpected error during operation: {e.Message}");
+    }
+}
+
+private void OperationResulted(OperationResponse operationResponse)
+{
+    Debug.Log("Transaction hash: " + operationResponse.TransactionHash);
 }
 ```
