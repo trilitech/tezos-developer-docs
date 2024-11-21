@@ -2,7 +2,7 @@
 title: Connecting accounts
 authors: Tim McMackin
 last_update:
-  date: 13 November 2024
+  date: 20 November 2024
 ---
 
 Connecting to a user's wallet is a prerequisite to working with Tezos in any application.
@@ -44,7 +44,7 @@ The SDK supports three types of wallets:
 
 - Tezos wallets that connect through the Beacon protocol, such as Temple
 - Tezos social wallets that connect to a federated identity login through [Kukai](https://wallet.kukai.app)
-- Ethereum wallets that connect through the WalletConnect protocol
+- Ethereum wallets that connect through the WalletConnect protocol, such as MetaMask
 
 ## Connecting to Beacon wallets
 
@@ -88,7 +88,7 @@ This method for connecting follows these general steps:
 
 ## Connecting to WalletConnect wallets
 
-Unity applications can connect to EVM wallets such as Metamask by showing popup window that helps users connect.
+Unity applications can connect to EVM wallets such as MetaMask by a showing popup window that helps users connect.
 The popup window can show a QR code for wallet apps to scan or open wallet apps on devices directly.
 
 Follow these steps to connect to a wallet with the WalletConnect protocol:
@@ -146,7 +146,7 @@ The class must inherit from the Unity `MonoBehaviour` class, as in this example:
 
        private async void OnConnectClicked()
        {
-           // Connect to an EVM wallet such as Metamask
+           // Connect to an EVM wallet such as MetaMask
            var walletProviderData = new WalletProviderData { WalletType = WalletType.WALLETCONNECT };
            try
            {

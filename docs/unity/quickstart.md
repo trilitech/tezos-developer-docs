@@ -2,7 +2,7 @@
 title: Quickstart
 authors: Tim McMackin
 last_update:
-  date: 19 November 2024
+  date: 20 November 2024
 ---
 
 Follow these steps to install the Tezos Unity SDK in an existing Unity project and start using it.
@@ -42,7 +42,7 @@ The SDK supports three types of wallets:
 
 - Tezos wallets that connect through the Beacon protocol, such as Temple
 - Tezos social wallets that connect to a federated identity login through [Kukai](https://wallet.kukai.app)
-- Ethereum wallets that connect through the WalletConnect protocol
+- Ethereum wallets that connect through the WalletConnect protocol, such as MetaMask
 
 The SDK can connect to these wallets in different ways depending on the platform.
 For example, in a WebGL application, it can show a QR code to allow the user to scan it with a wallet app on a mobile device.
