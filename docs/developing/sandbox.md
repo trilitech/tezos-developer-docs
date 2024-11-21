@@ -25,7 +25,7 @@ The Octez client sandboxed and mockup modes run a local version of the Tezos net
 
 ## Tezbox
 
-[Tezbox](https://github.com/tez-capital/tezbox) is also a simulated Tezos environment that runs in a container.
+[Tezbox](https://github.com/tez-capital/tezbox) is a simulated Tezos environment that runs in a container.
 
 Tezbox provides different images that mirror versions of the Octez suite.
 For example, to run Tezbox with Octez version 19.1 and the Paris protocol, run this command:
