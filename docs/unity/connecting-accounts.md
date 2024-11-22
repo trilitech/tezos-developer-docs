@@ -2,7 +2,7 @@
 title: Connecting accounts
 authors: Tim McMackin
 last_update:
-  date: 20 November 2024
+  date: 22 November 2024
 ---
 
 Connecting to a user's wallet is a prerequisite to working with Tezos in any application.
@@ -208,9 +208,21 @@ To connect to a social wallet, the Unity WebGL application calls `Wallet.Connect
 
 TODO Get this working and cover the steps
 
+## Checking the connection type
+
+To verify that the application is connected to a wallet, use one of these methods:
+
+- `TezosAPI.IsConnected()`: Returns true if any kind of wallet is connected to the application and false if not.
+- `TezosAPI.IsWalletConnected()`: Returns true if a Beacon or WalletConnect wallet is connected.
+- `TezosAPI.IsSocialLoggedIn()`: Returns true if a social wallet is connected.
+
+To distinguish between Beacon and WalletConnect wallets, use `TezosAPI.GetWalletConnectionData()`.
+This method returns a `WalletProviderData` object that includes information about the connected wallet and account.
+Its `WalletType` field is `WalletType.BEACON` for Beacon wallets and `WalletType.WALLETCONNECT` for WalletConnect wallets.
+
 ## Disconnecting
 
 It's important to provide a disconnect button so the user can disconnect when they are finished with the application or if they want to connect with a different account.
 To disconnect the active wallet, call the `Wallet.Disconnect()` method.
 This method triggers the `WalletDisconnected` event and removes the connection from the wallet app.
-For Beacon connections, it removes the connection from the persistent menory.
+For Beacon connections, it removes the connection from the persistent memory.
