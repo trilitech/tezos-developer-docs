@@ -202,11 +202,103 @@ The class must inherit from the Unity `MonoBehaviour` class, as in this example:
 
 ## Connecting to social wallets
 
-Social wallets exist as accounts managed by web apps such as [Kukai](https://kukai.app/).
+Social wallets exist as federated identity accounts managed by web apps such as [Kukai](https://kukai.app/).
+To connect to a social wallet, the Unity application calls
 
 To connect to a social wallet, the Unity WebGL application calls `Wallet.Connect()` with the `walletProvider` parameter set to `WalletProviderType.kukai`.
 
-TODO Get this working and cover the steps
+Follow these steps to connect the application to social wallets:
+
+1. For testing purposes, set up a local social login server.
+This server acts as the federated identity server that manages user accounts.
+
+   1. Run the example server at https://github.com/trilitech/social-login-web-client.
+
+   1. Open the server in a web browser at http://localhost:3000.
+
+   1. Use the Kukai log in window to log in to a social account:
+
+      <img src="/img/unity/kukai-sample-server.png" alt="The Kukai login window" style={{width: 300}} />
+
+   1. In the browser console, search for the phrase `OPENING DEEPLINK` and copy the URL for the deep link, which starts with `unitydl001://kukai-embed/`.
+
+1. Configure the test script for social logins:
+
+   1. In the Unity application, add a script named `DeepLinkTester.cs` with this code:
+
+      ```csharp
+      using System.Reflection;
+      using UnityEngine;
+
+      namespace Samples.RefactorExample
+      {
+          public class DeepLinkTester : MonoBehaviour
+          {
+              public string deepLinkURL = "";
+
+              [ContextMenu("Trigger Deep Link")]
+              public void SimulateDeepLinkActivation()
+              {
+                  // Use reflection to invoke the internal InvokeDeepLinkActivated method
+                  var methodInfo = typeof(Application).GetMethod("InvokeDeepLinkActivated", BindingFlags.NonPublic | BindingFlags.Static);
+
+                  methodInfo?.Invoke(null, new object[]
+                                           {
+                                               deepLinkURL
+                                           });
+              }
+          }
+      }
+      ```
+
+   1. Add the script to the canvas, open it, and add the URI in the **Deep Link URL** field:
+
+      <img src="/img/unity/kukai-test-url.png" alt="Setting the URL" style={{width: 300}} />
+
+1. In the Unity application, call the `TezosAPI.SocialLogIn()` method and passes the Kukai wallet type:
+
+   ```csharp
+   try
+   {
+       SocialProviderData socialProviderData = new SocialProviderData { SocialLoginType = SocialLoginType.Kukai };
+       var result = await TezosAPI.SocialLogIn(socialProviderData);
+       _infoText.text = result.WalletAddress;
+       Debug.Log(result.WalletAddress);
+   }
+   catch (SocialLogInFailed e)
+   {
+       _infoText.text = "Social login rejected";
+       Debug.LogError($"Social login rejected. {e.Message}\n{e.StackTrace}");
+   }
+   catch (Exception e)
+   {
+       Debug.LogException(e);
+   }
+   ```
+
+1. Bind the code that uses `TezosAPI.SocialLogIn()` to a button.
+
+1. Test the application by running it:
+
+   1. Run the application.
+
+   1. Click the button that triggers the `TezosAPI.SocialLogIn()` code.
+
+   1. In the `DeepLinkTester.cs` script, click the properties and then click **Trigger Deep Link**:
+
+      <img src="/img/unity/kukai-trigger-deep-link.png" alt="Triggering the URL for the deep link" style={{width: 300}} />
+
+1. The deep link provides the connection information to the SDK and the call to `TezosAPI.SocialLogIn()` resolves with the wallet connection.
+
+When you are ready to deploy the Unity app to production, you must run a social login server and make the application use it:
+
+1. Run the social login server using the example at https://github.com/trilitech/social-login-web-client.
+
+1. In the `Assets/Tezos/Resources/TezosConfig.asset` object, in the **Kukai Web Client Address** field, add the URL of your social login server to use.
+This is a server that you run tp handle authentication for your application.
+For an example, see https://github.com/trilitech/social-login-web-client.
+
+Now when the app is deployed it sends users to your server to log in and the server returns a deep link to the app.
 
 ## Checking the connection type
 
