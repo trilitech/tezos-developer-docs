@@ -2,17 +2,22 @@
 title: Tezos Unity SDK
 authors: Tim McMackin
 last_update:
-  date: 21 November 2024
+  date: 25 November 2024
 ---
 
 The Tezos Unity SDK provides tools that let you access user wallets and blockchains in games and other Unity projects.
-You can use Tezos via the SDK to:
+You can use the SDK to:
 
-- Use a player's Tezos account as their account for a game and their wallet as their way of logging in to the game
+- Use a player's account as their account for a game and their wallet as their way of logging in to the game
 - Accept payments from players in tez
-- Use Tezos to create game assets, store player inventories, and transfer assets between players
+- Use blockchains to create game assets, store player inventories, and transfer assets between players
 - Verify that users own specific game assets and allow them to sell or share them to other players
-- Use Tezos smart contracts as backend logic for games
+- Use smart contracts as backend logic for games
+
+The SDK supports these blockchains:
+
+- [Tezos](https://tezos.com)
+- [Etherlink](https://etherlink.com)
 
 ## Installation and use
 
