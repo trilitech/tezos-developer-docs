@@ -14,7 +14,7 @@ Smart contracts can do many tasks, but for gaming they have two main purposes:
 
 For more information about smart contracts on Tezos, see [Smart contracts](/smart-contracts).
 
-The Unity SDK can call any deployed Tezos or EVM contract just like any other Tezos client can.
+The Unity SDK can call any deployed Tezos or Etherlink contract just like any other Tezos or EVM client can.
 
 ## Calling Tezos contracts
 
@@ -277,10 +277,10 @@ foreach (var item in json)
 }
 ```
 
-## Calling EVM contracts
+## Calling Etherlink contracts
 
-Like Tezos contracts, EVM smart contracts have functions that clients can call.
-To call an EVM smart contract, you need:
+Like Tezos contracts, Etherlink smart contracts have functions that clients can call.
+To call an Etherlink smart contract, you need:
 
 - Its address
 - The entrypoint to call
