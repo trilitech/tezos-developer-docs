@@ -52,29 +52,30 @@ async function getFilePath(fileId) {
 }
 
 // Remove the front matter from an MD file and replace with an H1
-// Got to remove FM because multiple FM blocks are not legal
+// Got to remove FM because multiple FM blocks break some markdown tools
 // Could do this with gray-matter but I don't want to add the dependency
 function removeFrontMatter(mdText) {
-  let outputLines = [];
   const lines = mdText.split('\n');
   let inFrontMatter = false;
   let doneWithFrontMatter = false;
   const h1Regex = /^title:\s+(.*)$/;
+  let titleLine = '';
+  let line = '';
 
-  lines.forEach(line => {
+  while (lines.length > 0) {
+    line = lines.shift();
     if (line == '---') {
       doneWithFrontMatter = inFrontMatter;
       inFrontMatter = true;
     }
     if (inFrontMatter && !doneWithFrontMatter && h1Regex.test(line)) {
       const result = h1Regex.exec(line);
-      outputLines.push('# ' + result[1]);
+      titleLine = '# ' + result[1];
     }
     if (line != '---' && doneWithFrontMatter) {
-      outputLines.push(line);
+      return [titleLine, ''].concat(lines).join('\n');
     }
-  });
-  return outputLines.join('\n');
+  }
 }
 
 async function concatEverything() {
