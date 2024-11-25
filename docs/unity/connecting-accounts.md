@@ -2,11 +2,10 @@
 title: Connecting accounts
 authors: Tim McMackin
 last_update:
-  date: 22 November 2024
+  date: 25 November 2024
 ---
 
-Connecting to a user's wallet is a prerequisite to working with Tezos in any application.
-Accessing the wallet allows your project to see the tokens in it and to prompt the user to submit transactions, but it does not give your project direct control over the wallet.
+Connecting to a user's wallet allows your project to see the tokens in it and to prompt the user to submit transactions, but it does not give your project direct control over the wallet.
 Users still confirm or reject all transactions in their wallet application, so you must handle both of these use cases.
 
 Using a wallet application in this way saves you from having to implement payment processing and security in your application.
@@ -42,9 +41,9 @@ When wallets connect or disconnect, the SDK runs the `WalletConnected` or `Walle
 
 The SDK supports three types of wallets:
 
-- Tezos wallets that connect through the Beacon protocol, such as Temple
-- Tezos social wallets that connect to a federated identity login through [Kukai](https://wallet.kukai.app)
-- Ethereum wallets that connect through the WalletConnect protocol, such as MetaMask
+- Wallets that use the Tezos blockchain and connect to applications through the Beacon protocol, such as Temple
+- Wallets that use the Tezos blockchain and connect to a federated identity login through [Kukai](https://wallet.kukai.app)
+- Wallets that use the Etherlink blockchain and connect to applications through the WalletConnect protocol, such as MetaMask
 
 ## Connecting to Beacon wallets
 
