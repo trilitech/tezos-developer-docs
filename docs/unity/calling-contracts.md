@@ -53,6 +53,7 @@ private async void OnRequestOperationClicked()
     WalletProviderData walletProviderData = TezosAPI.GetWalletConnectionData();
     if (walletProviderData.WalletType != WalletType.BEACON && !TezosAPI.IsSocialLoggedIn()) {
         Debug.LogError("Connect to a Beacon or social wallet first.");
+        return;
     }
 
     try
@@ -324,7 +325,8 @@ private async void OnRequestOperationClicked()
     // Verify that the app is connected to an EVM wallet via WalletConnect
     WalletProviderData walletProviderData = TezosAPI.GetWalletConnectionData();
     if (walletProviderData.WalletType != WalletType.WALLETCONNECT) {
-      Debug.LogError("Connect to a WalletConnect wallet first.");
+        Debug.LogError("Connect to a WalletConnect wallet first.");
+        return;
     }
 
     try

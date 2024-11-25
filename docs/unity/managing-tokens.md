@@ -169,6 +169,61 @@ var transferTokensRequest = new OperationRequest
 var response = await TezosAPI.RequestOperation(transferTokensRequest);
 ```
 
+This code runs the same operation, but it uses Netezos types instead of raw JSON:
+
+```csharp
+// Source account
+var from_ = new MichelineString("tz1QCVQinE8iVj1H2fckqx6oiM85CNJSK9Sx");
+// Target account
+var to_ = new MichelineString("tz1hQKqRPHmxET8du3fNACGyCG8kZRsXm2zD");
+// Token ID
+var tokenId = new MichelineInt(7);
+// Amount
+var amount = new MichelineInt(2);
+
+var parameter = new MichelineArray
+{
+    new MichelinePrim
+    {
+        Prim = PrimType.Pair,
+        Args = new List<IMicheline>
+        {
+            from_,
+            new MichelineArray
+            {
+                new MichelinePrim
+                {
+                    Prim = PrimType.Pair,
+                    Args = new List<IMicheline>
+                    {
+                        to_,
+                        new MichelinePrim
+                        {
+                            Prim = PrimType.Pair,
+                            Args = new List<IMicheline>
+                            {
+                                tokenId,
+                                amount
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}.ToJson();
+
+var transferTokensRequest = new OperationRequest
+{
+    Destination = "KT1Nhr9Bmhy7kcUmezRxbbDybh5buNnrVLTY",
+    EntryPoint = "transfer",
+    Arg = parameter,
+    Amount = "0",
+};
+
+var response = await TezosAPI.RequestOperation(transferTokensRequest);
+```
+
 ## Getting token balances
 
 You can get information about the tokens in a contract by passing the address of the contract and the maximum number of tokens to return to the `TezosAPI.GetTokens()` method.
