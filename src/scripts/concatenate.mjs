@@ -1,10 +1,8 @@
 import path from 'path';
 import fs from 'fs';
 
-import rehypeStringify from 'rehype-stringify'
-import remarkParse from 'remark-parse'
-import remarkRehype from 'remark-rehype'
-import {unified} from 'unified'
+import {remark} from 'remark'
+import strip from 'strip-markdown';
 
 import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -16,11 +14,6 @@ const sidebarsToInclude = ['documentationSidebar'];
 const pathsToFilterOut = [
   'overview/glossary',
 ];
-
-const processor = unified()
-  .use(remarkParse)
-  .use(remarkRehype, {allowDangerousHtml: true})
-  .use(rehypeStringify)
 
 // Given a docusaurus sidebar object, return a list of the local doc IDs in it
 function getIdsRecursive(sidebarObject) {
@@ -120,8 +113,10 @@ async function concatEverything() {
   // Read and concat the files in TOC order
   await allFilePaths.reduce(async (previousPromise, oneFilePath) => {
     await previousPromise;
-    const markdownText = await fs.promises.readFile(oneFilePath, 'utf8');
-    const oneFileText = await processor.process(markdownText);
+    const markdownText = removeFrontMatter(await fs.promises.readFile(oneFilePath, 'utf8'));
+    const oneFileText = await remark()
+      .use(strip)
+      .process(markdownText);
     return fs.promises.appendFile(outputPath, String(oneFileText) + '\n\n');
   }, Promise.resolve());
 
