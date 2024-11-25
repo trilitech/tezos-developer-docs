@@ -5,7 +5,7 @@ last_update:
   date: 25 November 2024
 ---
 
-Connecting to a user's wallet allows your project to see the tokens in it and to prompt the user to submit transactions, but it does not give your project direct control over the wallet.
+Connecting to a user's wallet allows your application to see the tokens in it and to prompt the user to submit transactions, but it does not give your application direct control over the wallet.
 Users still confirm or reject all transactions in their wallet application, so you must handle both of these use cases.
 
 Using a wallet application in this way saves you from having to implement payment processing and security in your application.
@@ -87,7 +87,7 @@ This method for connecting follows these general steps:
 
 ## Connecting to WalletConnect wallets
 
-Unity applications can connect to EVM wallets such as MetaMask by a showing popup window that helps users connect.
+Unity applications can connect to EVM wallets such as MetaMask by showing a popup window that helps users connect.
 The popup window can show a QR code for wallet apps to scan or open wallet apps on devices directly.
 
 Follow these steps to connect to a wallet with the WalletConnect protocol:
