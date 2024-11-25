@@ -69,6 +69,7 @@ private async void OnRequestOperationClicked()
             Amount = "0",
         };
         var response = await TezosAPI.RequestOperation(request);
+        Debug.Log("Transaction hash: " + response.TransactionHash);
     }
     catch (Exception e) when (e is WalletOperationRejected or SocialOperationFailed)
     {
@@ -342,6 +343,7 @@ private async void OnRequestOperationClicked()
             Amount = "0",
         };
         var response = await TezosAPI.RequestOperation(request);
+        Debug.Log("Transaction hash: " + response.TransactionHash);
     }
     catch (Exception e) when (e is WalletOperationRejected)
     {
