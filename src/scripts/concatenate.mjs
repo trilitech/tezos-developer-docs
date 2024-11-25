@@ -117,7 +117,9 @@ async function concatEverything() {
     const oneFileText = await remark()
       .use(strip)
       .process(markdownText);
-    return fs.promises.appendFile(outputPath, String(oneFileText) + '\n\n');
+    // Fix strip plugin escaping `_` as `\_`
+    const oneFileTextFixEscaped = String(oneFileText).replaceAll('\_', '_');
+    return fs.promises.appendFile(outputPath, oneFileTextFixEscaped + '\n\n');
   }, Promise.resolve());
 
   console.log('Wrote concatenated file to', outputPath);
