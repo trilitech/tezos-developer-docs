@@ -3,7 +3,7 @@ title: Calling contracts with the Unity SDK
 sidebar_label: Calling contracts
 authors: Tim McMackin
 last_update:
-  date: 21 November 2024
+  date: 25 November 2024
 ---
 
 Smart contracts are backend programs that run on blockchains.
@@ -15,6 +15,9 @@ Smart contracts can do many tasks, but for gaming they have two main purposes:
 For more information about smart contracts on Tezos, see [Smart contracts](/smart-contracts).
 
 The Unity SDK can call any deployed Tezos or Etherlink contract just like any other Tezos or EVM client can.
+
+- To call a Tezos smart contract, the application must be connected to a Beacon or social wallet
+- To call an Etherlink smart contract, the application must be connected to a WalletConnect contract
 
 ## Calling Tezos contracts
 
@@ -46,6 +49,12 @@ private async void Awake()
 
 private async void OnRequestOperationClicked()
 {
+    // Verify that the app is connected to an EVM wallet via WalletConnect
+    WalletProviderData walletProviderData = TezosAPI.GetWalletConnectionData();
+    if (walletProviderData.WalletType != WalletType.BEACON && !TezosAPI.IsSocialLoggedIn()) {
+        Debug.LogError("Connect to a Beacon or social wallet first.");
+    }
+
     try
     {
         var request = new OperationRequest
@@ -79,7 +88,7 @@ private void OperationResulted(OperationResponse operationResponse)
 
 ### Encoding parameters
 
-Entrypoint parameters must be in [Micheline](https://tezos.gitlab.io/shell/micheline.html) JSON format, which is the format that the Michelson language uses for values.
+Tezos entrypoint parameters must be in [Micheline](https://tezos.gitlab.io/shell/micheline.html) JSON format, which is the format that the Michelson language uses for values.
 You can use the [Netezos](https://netezos.dev/) SDK to format Micheline parameters or construct them as JSON strings.
 
 #### Encoding parameters with the Netezos Micheline SDK
@@ -284,15 +293,15 @@ To call an Etherlink smart contract, you need:
 
 - Its address
 - The entrypoint to call
-- The contract's application binary interface (ABI), which is a description of the contract's interface
+- The contract's application binary interface (ABI), which is a description of the contract's interface; you can get the ABI from the tool that deployed the contract or by compiling the source code of the contract in a tool such as the [Remix IDE](https://remix.ethereum.org/)
 - The parameter to pass to the entrypoint
-- An amount of ETH to pass to send with the transaction, which can be zero or more
+- An amount of XTZ to send with the transaction, which can be zero or more
 
 To call a contract, make sure that you are connected to a WalletConnect wallet.
-Then, create an `OperationRequest` object with that information and pass it to the `TezosAPI.RequestOperation()` method.
+Then, create an `OperationRequest` object with the necessary information and pass it to the `TezosAPI.RequestOperation()` method.
 For example, this code calls a contract and passes the parameter `123` to its `set` entrypoint.
 When the transaction completes successfully, it logs the hash of the transaction.
-You can use this hash to look up information about the transaction in a [block explorer](/developing/information/block-explorers).
+You can use this hash to look up information about the transaction in the Etherlink [block explorer](/developing/information/block-explorers).
 
 <!-- TODO: How do I set the network? -->
 <!-- TODO: How do I make sure I've got a WalletConnect wallet connected and not an EVM wallet? -->
@@ -311,6 +320,12 @@ private async void Awake()
 
 private async void OnRequestOperationClicked()
 {
+    // Verify that the app is connected to an EVM wallet via WalletConnect
+    WalletProviderData walletProviderData = TezosAPI.GetWalletConnectionData();
+    if (walletProviderData.WalletType != WalletType.WALLETCONNECT) {
+      Debug.LogError("Connect to a WalletConnect wallet first.");
+    }
+
     try
     {
         var request = new OperationRequest
@@ -319,10 +334,11 @@ private async void OnRequestOperationClicked()
             Destination = "0xfac1791E9db153ef693c68d142Cf11135b8270B9",
             // Entrypoint to call
             EntryPoint = "set",
+            // ABI of contract
             ContractABI = "[ { \"inputs\": [], \"name\": \"get\", \"outputs\": [ { \"internalType\": \"uint256\", \"name\": \"\", \"type\": \"uint256\" } ], \"stateMutability\": \"view\", \"type\": \"function\" }, { \"inputs\": [ { \"internalType\": \"uint256\", \"name\": \"x\", \"type\": \"uint256\" } ], \"name\": \"set\", \"outputs\": [], \"stateMutability\": \"nonpayable\", \"type\": \"function\" } ]",
             // Parameter to pass
             Arg = "129",
-            // Amount of ETH to send with the transaction
+            // Amount of XTZ to send with the transaction
             Amount = "0",
         };
         var response = await TezosAPI.RequestOperation(request);
