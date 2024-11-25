@@ -79,7 +79,7 @@ function removeFrontMatter(mdText) {
 
 async function concatEverything() {
 
-  const outputPath = path.resolve(__dirname, '../../', 'allMdFilesConcatenated.md');
+  const outputPath = path.resolve(__dirname, '../../', 'allPageSourceFiles.md');
 
   // Remove old concatenated file if it exists
   try {

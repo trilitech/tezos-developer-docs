@@ -20,7 +20,7 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: npm run concat
-      - run: mv allMdFilesConcatenated.md ./build/
+      - run: mv allPageSourceFiles.md ./build/
       - uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-access-key-id: ${{ secrets.AWS_S3_PRODUCTION_KEY_ID }}

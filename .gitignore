@@ -7,5 +7,5 @@ node_modules
 out
 build
 _glossaryBuild
-allMdFilesConcatenated.md
+allPageSourceFiles.md
 
