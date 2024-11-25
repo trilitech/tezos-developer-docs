@@ -343,7 +343,7 @@ private async void OnRequestOperationClicked()
         };
         var response = await TezosAPI.RequestOperation(request);
     }
-    catch (Exception e) when (e is WalletOperationRejected or SocialOperationFailed)
+    catch (Exception e) when (e is WalletOperationRejected)
     {
         Debug.LogError($"Operation failed: {e.Message}");
     }
