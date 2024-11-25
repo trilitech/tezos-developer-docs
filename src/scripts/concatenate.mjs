@@ -1,7 +1,12 @@
-const path = require('path');
-const fs = require('fs');
+import path from 'path';
+import fs from 'fs';
 
-const sidebars = require('../../sidebars');
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+import sidebars from '../../sidebars.js';
 const sidebarsToInclude = ['documentationSidebar'];
 const pathsToFilterOut = [
   'overview/glossary',
