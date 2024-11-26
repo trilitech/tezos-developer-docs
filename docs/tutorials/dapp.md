@@ -1,8 +1,8 @@
 ---
 title: Create your minimum dapp on Tezos
-authors: 'Benjamin Fuentes (Marigold)'
+authors: 'Benjamin Fuentes'
 last_update:
-  date: 27 November 2023
+  date: 29 October 2024
 ---
 
 > dApp : A decentralized application is a type of distributed open source software application that runs on a peer-to-peer (P2P) blockchain network rather than on a single computer. DApps are visibly similar to other software applications that are supported on a website or mobile device.
@@ -33,8 +33,8 @@ This tutorial uses Typescript, so it will be easier if you are familiar with Jav
 
 1. Make sure that you have installed these tools:
 
-   - [Node.JS and NPM](https://nodejs.org/en/download/): NPM is required to install the web application's dependencies.
-   - [Taqueria](https://taqueria.io/), version 0.45.0 or later: Taqueria is a platform that makes it easier to develop and test dApps.
+   - [Node.JS and NPM](https://nodejs.org/en/download/): NPM is required to install the web application's dependencies and node version >=20
+   - [Taqueria](https://taqueria.io/), version 0.62.0 or later: Taqueria is a platform that makes it easier to develop and test dApps.
    - [Docker](https://docs.docker.com/engine/install/): Docker is required to run Taqueria.
    - [jq](https://stedolan.github.io/jq/download/): Some commands use the `jq` program to extract JSON data.
    - [`yarn`](https://yarnpkg.com/): The frontend application uses yarn to build and run (see this article for details about [differences between `npm` and `yarn`](https://www.geeksforgeeks.org/difference-between-npm-and-yarn/)).
@@ -51,6 +51,6 @@ The application looks like this:
 
 ![Example of the table of addresses and which addresses poked them](/img/tutorials/dapp-table.png)
 
-The code for the completed application is in this GitHub repository: [solution](https://github.com/marigold-dev/training-dapp-1/tree/main/solution)
+The code for the completed application is in this GitHub repository: [solution]( https://github.com/trilitech/tutorial-applications/tree/main/training-dapp-1)
 
 When you're ready, move to the next section [Create your minimum dApp on Tezos](/tutorials/dapp/part-1) to begin setting up the application.

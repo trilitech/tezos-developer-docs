@@ -1,6 +1,6 @@
 ---
 title: 'Part 2: Inter-contract calls and testing'
-authors: 'Benjamin Fuentes (Marigold)'
+authors: 'Benjamin Fuentes'
 last_update:
   date: 22 May 2024
 ---
@@ -27,13 +27,13 @@ sequenceDiagram
 
 ## Get the code
 
-Get the code from the first session: https://github.com/marigold-dev/training-dapp-1/blob/main/solution
+Get the code from the first session: https://github.com/trilitech/tutorial-applications/tree/main/training-dapp-1
 
 ```bash
-git clone https://github.com/marigold-dev/training-dapp-1.git
+git clone https://github.com/trilitech/tutorial-applications.git
 ```
 
-Reuse the code from the previous smart contract: https://github.com/marigold-dev/training-dapp-1/blob/main/solution/contracts/pokeGame.jsligo
+Reuse the code from the previous smart contract: https://github.com/trilitech/tutorial-applications/tree/main/training-dapp-1/contracts/pokeGame.jsligo
 
 Install all libraries locally:
 
@@ -103,7 +103,7 @@ sequenceDiagram
 1. Compile your contract.
 
    ```bash
-   TAQ_LIGO_IMAGE=ligolang/ligo:1.6.0 taq compile pokeGame.jsligo
+   TAQ_LIGO_IMAGE=ligolang/ligo:1.7.0 taq compile pokeGame.jsligo
    ```
 
    Write a second function `pokeAndGetFeedback` involving the call to another contract a bit later, let's do unit testing first!
@@ -213,7 +213,7 @@ sequenceDiagram
 1. Run the test
 
    ```bash
-   TAQ_LIGO_IMAGE=ligolang/ligo:1.6.0 taq test unit_pokeGame.jsligo
+   TAQ_LIGO_IMAGE=ligolang/ligo:1.7.0 taq test unit_pokeGame.jsligo
    ```
 
    The output should give you intermediary logs and finally the test results.
@@ -329,7 +329,7 @@ The function to call on the second contract is `GetFeedback: (contract_callback:
 1. Compile the contract.
 
    ```bash
-   TAQ_LIGO_IMAGE=ligolang/ligo:1.6.0 taq compile pokeGame.jsligo
+   TAQ_LIGO_IMAGE=ligolang/ligo:1.7.0 taq compile pokeGame.jsligo
    ```
 
 1. (Optional) Write a unit test for this new function `pokeAndGetFeedback`.
@@ -397,7 +397,7 @@ sequenceDiagram
 1. Compile the contract.
 
    ```bash
-   TAQ_LIGO_IMAGE=ligolang/ligo:1.6.0 taq compile pokeGame.jsligo
+   TAQ_LIGO_IMAGE=ligolang/ligo:1.7.0 taq compile pokeGame.jsligo
    ```
 
 1. (Optional) Write a unit test for the updated function `pokeAndGetFeedback`.
@@ -479,7 +479,7 @@ The higher the percentage of mutants killed, the more effective your tests are.
 1. Run the test.
 
    ```bash
-   TAQ_LIGO_IMAGE=ligolang/ligo:1.6.0 taq test mutation_pokeGame.jsligo
+   TAQ_LIGO_IMAGE=ligolang/ligo:1.7.0 taq test mutation_pokeGame.jsligo
    ```
 
    Output:
@@ -531,7 +531,7 @@ The higher the percentage of mutants killed, the more effective your tests are.
 1. Run again the mutation tests.
 
    ```bash
-   TAQ_LIGO_IMAGE=ligolang/ligo:1.6.0 taq test mutation_pokeGame.jsligo
+   TAQ_LIGO_IMAGE=ligolang/ligo:1.7.0 taq test mutation_pokeGame.jsligo
    ```
 
    Output
@@ -557,14 +557,14 @@ The higher the percentage of mutants killed, the more effective your tests are.
 
 ## Update the frontend
 
-1. Reuse the dApp files from [the previous session](https://github.com/marigold-dev/training-dapp-1/tree/main/solution/app).
+1. Reuse the dApp files from [the previous session](https://github.com/trilitech/tutorial-applications/tree/main/training-dapp-1/app).
 
 1. Redeploy a new version of the smart contract.
 
    > Note: You can set `feedback` value to any action other than default `kiss` string (it is more fun for other to discover it).
 
    ```bash
-   TAQ_LIGO_IMAGE=ligolang/ligo:1.6.0 taq compile pokeGame.jsligo
+   TAQ_LIGO_IMAGE=ligolang/ligo:1.7.0 taq compile pokeGame.jsligo
    taq generate types ./app/src
    taq deploy pokeGame.tz -e "testing"
    ```
