@@ -10,7 +10,11 @@ import { fileURLToPath } from 'node:url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 import sidebars from '../../sidebars.js';
-const sidebarsToInclude = ['documentationSidebar'];
+// Map sidebars to output file names
+const fileNames = {
+  documentationSidebar: 'allPageSourceFiles.txt',
+  tutorialsSidebar: 'allTutorials.txt',
+}
 const pathsToFilterOut = [
   'overview/glossary',
 ];
@@ -18,7 +22,7 @@ const pathsToFilterOut = [
 // Given a docusaurus sidebar object, return a list of the local doc IDs in it
 function getIdsRecursive(sidebarObject) {
   if (typeof sidebarObject === 'string') {
-    return pathsToFilterOut.includes(sidebarObject) ? null : sidebarObject;
+    return sidebarObject;
   }
   if (sidebarObject.constructor.name == "Array") {
     return sidebarObject.reduce((list, oneSidebarObj) =>
@@ -86,9 +90,8 @@ function removeFrontMatter(mdText) {
   }
 }
 
-async function concatEverything() {
-
-  const outputPath = path.resolve(__dirname, '../../', 'allPageSourceFiles.txt');
+async function concatSidebar(sidebarName) {
+  const outputPath = path.resolve(__dirname, '../../', fileNames[sidebarName]);
 
   // Remove old concatenated file if it exists
   try {
@@ -98,13 +101,8 @@ async function concatEverything() {
     // Do nothing because the file does not exist
   }
 
-  // Get list of MD file IDs in order from sidebars.js
-  const allSidebarNames = Object.keys(sidebars)
-    .filter((sidebarName) => sidebarsToInclude.includes(sidebarName));
-  const allMdIds = allSidebarNames
-    .reduce((list, sidebarName) =>
-      list.concat(getIdsRecursive(sidebars[sidebarName])),
-    [])
+  const allMdIds = getIdsRecursive(sidebars[sidebarName])
+    .filter((id) => !pathsToFilterOut.includes(id))
     .filter((item) => item);
 
   // Find the matching file paths
@@ -118,11 +116,19 @@ async function concatEverything() {
       .use(strip)
       .process(markdownText);
     // Fix strip plugin escaping `_` as `\_`
-    const oneFileTextFixEscaped = String(oneFileText).replaceAll('\_', '_');
-    return fs.promises.appendFile(outputPath, oneFileTextFixEscaped + '\n\n');
+    const oneFileTextFixEscaped = String(oneFileText).replaceAll('\\\_', '_');
+     return fs.promises.appendFile(outputPath, oneFileTextFixEscaped + '\n\n');
   }, Promise.resolve());
 
-  console.log('Wrote concatenated file to', outputPath);
+  console.log(`Wrote concatenated file for sidebar ${sidebarName} to ${outputPath}`);
 }
 
-concatEverything();
+// Concatenate the sidebars listed in fileNames to separate single files
+async function concatSidebars() {
+  const sidebarNames = Object.keys(sidebars);
+  await Promise.all(sidebarNames
+    .filter((oneSidebarName) => Object.keys(fileNames).includes(oneSidebarName))
+    .map(concatSidebar));
+}
+
+concatSidebars();
