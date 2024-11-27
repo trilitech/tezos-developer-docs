@@ -108,7 +108,7 @@ Now the Smart Rollup is ready to deploy.
 
 Follow these steps to deploy the Smart Rollup to Ghostnet and start a node:
 
-1. Run this command to deploy the Smart Rollup, replacing `my_wallet` with your account alias:
+1. Run this command to deploy the Smart Rollup, replacing `my_wallet` with your Octez client account alias:
 
    ```bash
    octez-client originate smart rollup files_archive from my_wallet \
