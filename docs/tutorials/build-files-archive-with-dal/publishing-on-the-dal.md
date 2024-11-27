@@ -64,7 +64,7 @@ The DAL node provides an RPC endpoint for clients to send data to be added to a 
    }
    ```
 
-1. Using the values of the commitment and proof from the previous command, post the certificate to layer 1 with this command, being sure to set the slot number that you are using:
+1. Using the values of the commitment and proof from the previous command, post the certificate to layer 1 with this command, being sure to set the slot number that you are using and replacing `my_wallet` with your Octez client alias of your address:
 
    ```bash
    commitment="sh1u3tr3YKPDYUp2wWKCfmV5KZb82FREhv8GtDeR3EJccsBerWGwJYKufsDNH8rk4XqGrXdooZ"
