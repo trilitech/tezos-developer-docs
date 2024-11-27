@@ -26,11 +26,13 @@ octez-client get balance for account1
 
 ## Calling smart contracts
 
-To call a smart contract, use the `octez-client transfer` command, as in this example from the [Deploy a smart contract](/tutorials/smart-contract) tutorial:
+To call a smart contract, use the `octez-client transfer` command.
+Contracts can have aliases in the Octez client like accounts.
+This example calls a contract with the alias `my-counter`:
 
 ```bash
 octez-client --wait none transfer 0 \
-  from $MY_TZ_ADDRESS to my-counter \
+  from account1 to my-counter \
   --entrypoint 'increment' --arg '5' --burn-cap 0.1
 ```
 
@@ -61,7 +63,7 @@ To deploy (originate) a smart contract to the current network, use the `octez-cl
 
 ```bash
 octez-client originate contract my-counter \
-  transferring 0 from $MY_TZ_ADDRESS \
+  transferring 0 from account1 \
   running increment.tz \
   --init 10 --burn-cap 0.1 --force
 ```
