@@ -2,7 +2,7 @@
 title: "Step 3: Run an Octez DAL node"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 18 September 2024
+  date: 27 November 2024
 ---
 
 The DAL node is responsible for temporarily storing data and providing it to bakers and Smart Rollups.
@@ -26,8 +26,8 @@ For example, this command initializes the DAL node with the address of a local `
 
    This, too, may take some time to launch the first time because it needs to generate a new identity file, this time for the DAL network.
 
-   To set the address and port that the node listens on, pass the `--net-addr` argument.
-   By default, it listens on port 11732 on all available network interfaces, equivalent to `--net-addr 0.0.0.0:11732`.
+   If you need to change the address or port that the DAL node listens for connections to other nodes on, pass the `--public-addr` argument.
+   By default, it listens on port 11732 on all available network interfaces, equivalent to `--public-addr 0.0.0.0:11732`.
 
 1. Verify that the DAL node is connected to the DAL network by running this command:
 
