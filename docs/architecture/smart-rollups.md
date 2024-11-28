@@ -2,7 +2,7 @@
 title: Smart Rollups
 authors: 'Nomadic Labs, TriliTech, Tim McMackin'
 last_update:
-  date: 27 November 2024
+  date: 28 November 2024
 ---
 
 Smart Rollups play a crucial part in providing high scalability on Tezos.
@@ -148,11 +148,11 @@ During each commitment period, each rollup node receives the messages in the rol
 Because Smart Rollup nodes behave in a deterministic manner, their states should all be the same if they have processed the same inbox messages with the same kernel starting from the same origination level.
 This state is referred to as the "state of the rollup."
 
-At the end of a commitment period, the next commitment period starts.
-
-Any time after each commitment period, Smart Rollup nodes in operator mode or maintenance mode publish a hash of their state to layer 1, which is called its _commitment_.
+Any time after each commitment period, Smart Rollup nodes in operator mode or maintenance mode publish a hash of their state to layer 1 as part of its commitment.
 Each commitment builds on the previous commitment, and so on, back to the genesis commitment from when the Smart Rollup was originated.
 The protocol locks 10,000 tez as a bond from the operator of each node that posts commitments.
+
+At the end of a commitment period, the next commitment period starts.
 
 ### Refutation periods
 
