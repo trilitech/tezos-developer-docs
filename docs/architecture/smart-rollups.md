@@ -193,6 +193,16 @@ After the commitment is cemented, clients can trigger transactions in the outbox
 When they trigger a transaction, it runs like any other call to a smart contract.
 For more information, see [Triggering the execution of an outbox message](https://tezos.gitlab.io/shell/smart_rollup_node.html?highlight=triggering) in the Octez documentation.
 
+### Bailout process
+
+Nodes that do not post commitments can stop running at any time without risk because they do not have a bond.
+Nodes that post commitments cannot stop immediately without risking their bonds because they will not be online to participate in the refutation game.
+
+For this reason, nodes can switch to bailout mode to prepare to shut down without risking their bonds.
+In bailout mode, nodes defend their existing commitments without posting new commitments.
+When their final commitment is cemented, they can shut down safely.
+For more information about node modes, see [Smart rollup node](https://tezos.gitlab.io/shell/smart_rollup_node.html) in the Octez documentation.
+
 ## Examples
 
 For examples of Smart Rollups, see this repository: https://gitlab.com/tezos/kernel-gallery.
