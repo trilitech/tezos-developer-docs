@@ -90,6 +90,20 @@ function removeFrontMatter(mdText) {
   }
 }
 
+// Unified tools put escapes in places
+// We could get around this by forking mdast-util-to-string as described here:
+// https://github.com/remarkjs/strip-markdown/issues/28#issuecomment-1290847745
+function cleanUpEscapes(text) {
+  return text
+    // Fix stripped markdown escaping such as `_` to `\_`
+    .replaceAll('\\\_', '_')
+    .replaceAll('\\<', '<')
+    .replaceAll('\\[', '[')
+    .replaceAll(/^\\-/gm, '-')
+    .replaceAll('\\.', '.')
+    .replaceAll('\\*', '*');
+}
+
 async function concatSidebar(sidebarName) {
   const outputPath = path.resolve(__dirname, '../../', fileNames[sidebarName]);
 
@@ -115,8 +129,7 @@ async function concatSidebar(sidebarName) {
     const oneFileText = await remark()
       .use(strip)
       .process(markdownText);
-    // Fix strip plugin escaping `_` as `\_`
-    const oneFileTextFixEscaped = String(oneFileText).replaceAll('\\\_', '_');
+    const oneFileTextFixEscaped = cleanUpEscapes(String(oneFileText));
      return fs.promises.appendFile(outputPath, oneFileTextFixEscaped + '\n\n');
   }, Promise.resolve());
 
