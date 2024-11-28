@@ -15,6 +15,15 @@ In this tutorial, you will learn:
 - How to deploy (originate) a smart contract to Tezos
 - How to use the [Taquito](https://tezostaquito.io/) JavaScript/TypeScript SDK to access Tezos and user wallets and to send transactions to Tezos
 
+:::note
+
+This tutorial covers both the backend and frontend parts of a dApp.
+For a simpler tutorial that covers creating only the frontend application, see [Mint NFTs from a web app](tutorials/create-an-nft/nft-web-app).
+
+You can also use command-line tools to create NFTs as described in the tutorial [Create NFTs from the command line](/tutorials/create-an-nft/nft-tznft).
+
+:::
+
 ## What is a non-fungible token (NFT)?
 
 An NFT is a special type of blockchain token that represents something unique.

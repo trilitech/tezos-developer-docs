@@ -14,6 +14,17 @@ You will learn:
 - How to connect to a user's wallet
 - How to mint NFTs on behalf of a user
 
+:::note
+
+This tutorial covers creating a web application to interact with Tezos and mint NFTs.
+For simplicity, it uses an existing backend application, a smart contract running on Tezos.
+To create your own NFTs in a production application, you must deploy your own smart contract and backend application.
+For a tutorial that covers creating both the frontend and backend application, see [Create a contract and web app that mints NFTs](/tutorials/create-an-nft/nft-taquito).
+
+You can also use command-line tools to create NFTs as described in the tutorial [Create NFTs from the command line](/tutorials/create-an-nft/nft-tznft).
+
+:::
+
 ## Prerequisites
 
 This tutorial uses [JavaScript](https://www.javascript.com/), so it will be easier if you are familiar with JavaScript.
