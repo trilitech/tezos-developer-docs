@@ -1,14 +1,14 @@
 ---
 title: What makes Tezos different?
 last_update:
-  date: 13 September 2023
+  date: 29 November 2024
 ---
 
 Here are some of the features that make Tezos different from other blockchains:
 
 ## Tezos can upgrade itself
 
-Tezos has a built-in capability to upgrade itself, which allows the network to evolve without requiring a hard fork. Anyone can propose an upgrade to the protocol and have it adopted by the network without compromising the platform's stability or causing fragmentation. This feature allows Tezos to adapt regularly to new technologies and to address user needs rapidly.
+Tezos has a built-in capability to upgrade itself, which allows the network to evolve without requiring a hard fork. Anyone can propose an upgrade to the protocol and have it adopted by the network without compromising the platform's stability or causing fragmentation. This feature allows Tezos to adapt regularly to new technologies and to address user needs rapidly. For more information, see [Governance](/architecture/governance).
 
 ## Everyone can participate in governance
 
