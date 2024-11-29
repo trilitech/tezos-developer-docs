@@ -79,6 +79,7 @@ This process ensures the security of the Smart Rollup by verifying that the node
 
 Only Smart Rollup nodes running in operator or maintenance mode post these commitments on a regular basis.
 Nodes running in other modes such as observer mode run the kernel and monitor the state of the Smart Rollup just like nodes in operator or maintenance mode, but they do not post commitments.
+Nodes running in accuser mode monitor other commitments and post their own commitment only when it differs from other commitments.
 
 ## Bonds
 
