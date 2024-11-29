@@ -18,7 +18,7 @@ For example, this command initializes the DAL node with the address of a local `
    octez-dal-node config init --endpoint http://127.0.0.1:8732 --attester-profiles="$MY_ADDRESS"
    ```
 
-   where ``MY_ADDRESS`` is the account address of the baker, starting with ``tz``.
+   where `MY_ADDRESS` is the account address of the baker, starting with `tz`.
 
 1. Start the DAL node by running this command:
 
@@ -37,7 +37,7 @@ For example, this command initializes the DAL node with the address of a local `
    curl http://localhost:10732/p2p/points/info
    ```
 
-   where ``10732`` is the port on which the DAL node serves RPC calls.
+   where `10732` is the port on which the DAL node serves RPC calls.
 
    The response lists the network connections that the DAL node has, as in this example:
 
