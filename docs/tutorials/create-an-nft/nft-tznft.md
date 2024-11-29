@@ -17,14 +17,6 @@ In this tutorial, you will learn:
 - How to transfer NFTs and change operator permissions for them
 - How to mint NFTs to a testnet
 
-:::note
-
-This tutorial covers creating NFTs from the command line.
-To create a web application that creates NFTs based on an existing backend application, see the tutorial [Mint NFTs from a web app](tutorials/create-an-nft/nft-web-app).
-To create your own frontend and backend application to create NFTs, see the tutorial [Create a contract and web app that mints NFTs](/tutorials/create-an-nft/nft-taquito).
-
-:::
-
 ## What is a non-fungible token (NFT)?
 
 An NFT is a special type of blockchain token that represents something unique.

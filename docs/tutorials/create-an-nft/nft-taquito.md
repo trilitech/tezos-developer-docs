@@ -20,8 +20,6 @@ In this tutorial, you will learn:
 This tutorial covers both the backend and frontend parts of a dApp.
 For a simpler tutorial that covers creating only the frontend application, see [Mint NFTs from a web app](tutorials/create-an-nft/nft-web-app).
 
-You can also use command-line tools to create NFTs as described in the tutorial [Create NFTs from the command line](/tutorials/create-an-nft/nft-tznft).
-
 :::
 
 ## What is a non-fungible token (NFT)?
