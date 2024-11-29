@@ -42,7 +42,7 @@ npm install @taquito/taquito
 
 For tutorials that include using Taquito, see:
 
-- [Build a simple web application](tutorials/build-your-first-app)
+- [Build a simple web application](/tutorials/build-your-first-app)
 - [Create a contract and web app that mints NFTs](/tutorials/create-an-nft/nft-taquito)
 - [Mint NFTs from a web app](/tutorials/create-an-nft/nft-web-app)
 

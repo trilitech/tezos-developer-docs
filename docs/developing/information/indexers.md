@@ -167,7 +167,7 @@ Many applications that work with on-chain data use an indexer.
 The simplest example of working with an indexer is a blockchain wallet.
 For example, to display a user's token balances, Temple Wallet queries data from the TzKT indexer and gets tokens' tickers and logos from the contract metadata.
 
-You can do the same thing by calling the `GET tokens/balances` endpoint TzKT API and including your address as the value of the `account` parameter, as in this example:
+You can do the same thing by calling the `GET tokens/balances` endpoint of the TzKT API and including your address as the value of the `account` parameter, as in this example:
 
 ```
 https://api.tzkt.io/v1/tokens/balances?account=tz1UEQzJbuaGJgwvkekk6HwGwaKvjZ7rr9v4
