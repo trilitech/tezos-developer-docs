@@ -7,7 +7,7 @@ last_update:
 
 The DAL node is responsible for temporarily storing data and providing it to bakers and Smart Rollups.
 
-1. Ensure that the port that the DAL node runs on is accessible from outside its system.
+1. Ensure that the port that the DAL node runs on (by default, 11732) is accessible from outside its system.
 You may need to adapt your firewall rules or set up network address translation (NAT) to direct external traffic to the DAL node.
 For more information, see [Running a DAL attester node](https://tezos.gitlab.io/shell/dal_run.html) in the Octez documentation.
 
@@ -16,7 +16,7 @@ For example, this command initializes the DAL node with the address of a local `
 
    ```bash
    octez-dal-node config init --endpoint http://127.0.0.1:8732 \
-     --attester-profiles=tz1QCVQinE8iVj1H2fckqx6oiM85CNJSK9Sx
+     --attester-profiles=tz1...
    ```
 
    You cannot use the `my_baker` alias from the Octez client as in the previous section, so you must specify the address of your baker's account explicitly.
@@ -37,6 +37,8 @@ For example, this command initializes the DAL node with the address of a local `
    ```bash
    curl http://localhost:10732/p2p/points/info
    ```
+
+   where ``10732`` is the port on which the DAL node serves RPC calls.
 
    The response lists the network connections that the DAL node has, as in this example:
 

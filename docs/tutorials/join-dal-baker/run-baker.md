@@ -36,7 +36,7 @@ You can also refer to [Run a persistent baking node](https://opentezos.com/node-
 
    This command returns all of the topics that the baker is subscribed to in the format `{"slot_index":<index>,"pkh":"<ADDRESS OF BAKER>"}` where `index` varies between `0` included and the number of slot indexes excluded.
 
-   You can also look at the baker logs to see if it injects the expected operations. At each level, the baker is expected to:
+   You can also look at the baker logs to see if it injects the expected operations. At each level, the baker is expected to do a subset of these operations:
 
       - Receive a block proposal (log message: "received new proposal ... at level ..., round ...")
       - Inject a preattestation for it (log message: "injected preattestation ... for my_baker (&lt;address&gt;) for level ..., round ...")
