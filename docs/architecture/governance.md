@@ -60,7 +60,7 @@ If not, it fails and a new Proposal period starts.
 
 The Cooldown period is a delay in the process that gives users time to review and test the new version of the protocol.
 The community sets up test networks that use the new version of the protocol.
-Users verify that the protocol update works, see how their baking infrastructure works with it, and discusses the proposal.
+Users verify that the protocol update works, see how their baking infrastructure works with it, and discuss the proposal.
 
 ### 4. Promotion period
 
