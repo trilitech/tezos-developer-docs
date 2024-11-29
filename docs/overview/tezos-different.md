@@ -31,4 +31,6 @@ Tezos provides a few different languages for developers to choose from, accordin
 
 ## Tezos has a robust layer 2 ecosystem
 
-Tezos provides tools that allow high scalability on a layer above the primary Tezos blockchain, known as layer 2. [Smart Rollups](/architecture/smart-rollups) can run large amounts of logic and handle large amounts of data in a separate environment without slowing Tezos itself down. The [Data Availability Layer](/architecture/data-availability-layer) provides high-throughput data to Smart Rollups. All layer 2 activity is secured by verifiable commitments and attestations on layer 1.
+Tezos provides tools that allow high scalability on a layer above the primary Tezos blockchain, known as layer 2. [Smart Rollups](/architecture/smart-rollups) can run large amounts of logic and handle large amounts of data in a separate environment without slowing Tezos itself down. The [Data Availability Layer](/architecture/data-availability-layer) provides high-throughput data to Smart Rollups.
+
+The framework for these layer 2 systems is enshrined in the layer 1 protocol. All layer 2 activity is secured by verifiable commitments and attestations on layer 1.
