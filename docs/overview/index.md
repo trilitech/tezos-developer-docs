@@ -17,7 +17,7 @@ The result is a _decentralized_ computing platform that no one person or entity 
 Developers can imagine Tezos as a computing platform that is spread across many computers worldwide and is therefore transparent, independent, fair, automated, and controlled by its users.
 They can do many of the same things with Tezos that they can with any other computing platform, but developers often use decentralized computing for these use cases:
 
-- **Cryptocurrencies**: Users can create and use digital currencies (also known as _tokens_) to use for digital currencies and to make it easier to accept online payments.
+- **Cryptocurrencies**: Users can create and use digital objects known as _tokens_ to use as digital currencies and to make it easier to accept online payments.
 
 - **NFTs**: Non-fungible tokens (NFTs) are unique digital items that can represent anything that their creator wants them to represent, including ownership of art and real-world objects, identity-related credentials like licenses and certifications, and digital-only artifacts such as video game items.
 
