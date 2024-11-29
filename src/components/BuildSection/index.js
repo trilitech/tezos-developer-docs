@@ -21,7 +21,7 @@ const cardData = [
   {
     emoji: '🤝',
     title: 'Stakeholder-led governance',
-    description: "Anyone who holds XTZ — the chain's native token — can propose changes to how Tezos works, such as changes to gas fees and block times, new features such as smart rollups, or even major changes like how the consensus mechanism works."
+    description: "Anyone who holds tez — the chain's native token — can propose changes to how Tezos works, such as changes to gas fees and block times, new features such as smart rollups, or even major changes like how the consensus mechanism works."
   },
   {
     emoji: '🛠️',
