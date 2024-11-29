@@ -74,13 +74,11 @@ Smart Rollup nodes can use these internal messages to know when blocks begin and
 ## Commitments
 
 Some Smart Rollup nodes post commitments to layer 1, which include a hash of the current state of the kernel.
-If any node's commitment is different from the others, the protocol compares them and identifies the correct commitment.
+If any node's commitment is different from the others, they play a refutation game to determine the correct commitment, eliminate incorrect commitments, and penalize the nodes that posted incorrect commitments.
 This process ensures the security of the Smart Rollup by verifying that the nodes are running the kernel faithfully.
 
 Only Smart Rollup nodes running in operator or maintenance mode post these commitments on a regular basis.
 Nodes running in other modes such as observer mode run the kernel and monitor the state of the Smart Rollup just like nodes in operator or maintenance mode, but they do not post commitments.
-
-If nodes post commitments that don't match, they play a refutation game to determine the correct commitment, eliminate incorrect commitments, and penalize the nodes that posted incorrect commitments.
 
 ## Bonds
 
