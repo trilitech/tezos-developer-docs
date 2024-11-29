@@ -30,8 +30,8 @@ const cardData = [
   },
   {
     emoji: '💫',
-    title: 'Formal verification',
-    description: 'Formal verification is a process that ensures that code on Tezos does what it says it does and has no side effects. Formal verification reduces errors, bugs, and security vulnerabilities in smart contracts and allows users to trust them.',
+    title: 'Extreme scalability',
+    description: 'Tezos has a system for dramatically expanding processing power and data bandwidth into layer 2. Its Smart Rollups are enshrined in the protocol and run large amounts of processing without slowing layer 1 down, while posting data to layer 1 that allows other to verify their behavior.',
   },
 ];
 
