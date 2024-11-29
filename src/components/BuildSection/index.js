@@ -11,7 +11,7 @@ const cardData = [
   {
     emoji: '🔋',
     title: 'Proof of stake',
-    description: 'The proof-of-stake consensus model eliminates the need for high energy use, making it the "green" choice for blockchains. Instead of competing to achieve consensus as in proof-of-work models, Tezos nodes (called bakers) stake Tezos tokens to earn the right to create blocks and receive rewards.',
+    description: 'The proof-of-stake consensus model eliminates the need for high energy use, making it the "green" choice for blockchains. Instead of competing to achieve consensus as in proof-of-work models, Tezos nodes (called bakers) stake Tezos tokens to earn the right to create blocks and receive rewards. Users can also stake tokens to earn rewards without having to run a node or give up control of their tokens.',
   },
   {
     emoji: '✨',
