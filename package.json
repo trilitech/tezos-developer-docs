@@ -6,6 +6,7 @@
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
     "build": "node ./src/scripts/process_downloaded_glossary.js && docusaurus build",
+    "concat": "node ./src/scripts/concatenate.mjs",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
@@ -41,8 +42,10 @@
     "minimist": "1.2.8",
     "mocha": "10.2.0",
     "rehype-stringify": "10.0.0",
+    "remark": "^15.0.1",
     "remark-parse": "11.0.0",
     "remark-rehype": "11.0.0",
+    "strip-markdown": "^6.0.0",
     "unified": "11.0.4",
     "unist-util-visit": "5.0.0"
   },
