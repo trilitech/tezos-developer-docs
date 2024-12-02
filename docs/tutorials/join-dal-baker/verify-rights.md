@@ -30,8 +30,6 @@ Follow these steps to verify that your DAL node is receiving attestation rights:
       octez-client rpc get "/chains/main/blocks/head/helpers/attestation_rights?delegate=$MY_BAKER&cycle=<current-cycle>"
       ```
 
-   If the baker has no rights, the command returns an empty array: `[]`.
-
    When the baker has attestation rights, the command returns information about them, as in this example:
 
    ```json
@@ -44,7 +42,9 @@ Follow these steps to verify that your DAL node is receiving attestation rights:
     ]
    ```
 
-   If the command returns an empty array (`[]`), the delay may not be over or there may be other problems. Try these troubleshooting steps:
+   If the command returns an empty array (`[]`), the baker has no rights in the specified cycle.
+   In this case, the delay may not be over or there may be other problems.
+   Try these troubleshooting steps:
 
    - Make sure that your node and baker are running.
 
