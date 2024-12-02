@@ -2,7 +2,7 @@
 title: "Step 1: Run an Octez node"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 21 October 2024
+  date: 2 December 2024
 ---
 
 The first thing you need to run a baker and a DAL node is a Tezos layer 1 node, which is an instance of the `octez-node` program and part of the Octez suite of programs.
