@@ -105,7 +105,7 @@ The framework for these layer 2 systems is enshrined in the layer 1 protocol. Al
 
 To start using and developing on Tezos, see [Tutorials](../tutorials).
 
-For more details on installing, using, or contributing, to the platform, see the Octez documentation at https://tezos.gitlab.io/index.html.
+For more details on installing, using, or contributing to the platform, see the Octez documentation at https://tezos.gitlab.io/index.html.
 
 For interactive learning material (including exercises) about Tezos concepts, the underlying technology, application development, and the ecosystem, see https://opentezos.com.
 
