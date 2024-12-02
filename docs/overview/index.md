@@ -103,7 +103,7 @@ The framework for these layer 2 systems is enshrined in the layer 1 protocol. Al
 
 ## How do I get started working with Tezos?
 
-To learn how Tezos works and how to develop on it, see [Tutorials](../tutorials).
+To start using and developing on Tezos, see [Tutorials](../tutorials).
 
 For learning material about the platform, see https://opentezos.com.
 
