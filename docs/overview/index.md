@@ -1,7 +1,7 @@
 ---
 title: Tezos overview
 last_update:
-  date: 15 August 2024
+  date: 2 December 2024
 ---
 
 Tezos is an open-source, decentralized blockchain [created in 2014](https://tezos.com/whitepaper.pdf) by Arthur and Kathleen Breitman. It raised awareness and support in 2017 with its crowdfunding and launched the following year. Since its inception, Tezos has gone through multiple iterations of upgrades and development, staying true to its ethos -- "a blockchain designed to evolve".
@@ -11,6 +11,20 @@ Tezos has robust applications ranging from NFTs, DeFi, and gaming to enterprise 
 At its core, Tezos is a worldwide network of computers called _nodes_, which anyone can run.
 The nodes all run the _Tezos protocol_, which is software that controls how the nodes communicate and agree on what to do.
 The result is a _decentralized_ computing platform that no one person or entity can control.
+
+## Scope of this site and other Tezos documentation
+
+Several sites provide information about different parts of the Tezos ecosystem.
+This site includes:
+
+- [Tutorials](/tutorials) that can help you start using Tezos
+- Conceptual information about how Tezos works in general, its basic features, and how the development process works
+
+For more details on installing, using, or contributing to the platform, see the Octez documentation at https://tezos.gitlab.io/index.html.
+
+For interactive learning material (including exercises) about Tezos concepts, the underlying technology, application development, and the ecosystem, see https://opentezos.com.
+
+For other sources of information, see [Other resources and technical support](/overview/resources).
 
 ## What can I do with Tezos?
 
@@ -100,13 +114,3 @@ Tezos provides a few different languages for developers to choose from, accordin
 Tezos provides tools that allow high scalability on a layer above the primary Tezos blockchain, known as layer 2. [Smart Rollups](/architecture/smart-rollups) can run large amounts of logic and handle large amounts of data in a separate environment without slowing Tezos itself down. The [Data Availability Layer](/architecture/data-availability-layer) provides high-throughput data to Smart Rollups.
 
 The framework for these layer 2 systems is enshrined in the layer 1 protocol. All layer 2 activity is secured by verifiable commitments and attestations on layer 1.
-
-## How do I get started working with Tezos?
-
-To start using and developing on Tezos, see [Tutorials](../tutorials).
-
-For more details on installing, using, or contributing to the platform, see the Octez documentation at https://tezos.gitlab.io/index.html.
-
-For interactive learning material (including exercises) about Tezos concepts, the underlying technology, application development, and the ecosystem, see https://opentezos.com.
-
-For other sources of information, see [Other resources and technical support](./resources).
