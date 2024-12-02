@@ -18,7 +18,8 @@ Follow these steps to verify that your DAL node is receiving attestation rights:
 1. Run this command to get the attestation rights for the baker in the current cycle:
 
    ```bash
-   octez-client rpc get "/chains/main/blocks/head/helpers/attestation_rights?delegate=$MY_BAKER"
+   octez-client rpc get "/chains/main/blocks/head" | jq '.metadata.level_info.cycle' 
+   octez-client rpc get "/chains/main/blocks/head/helpers/attestation_rights?delegate=$MY_BAKER&cycle=<current-cycle>"
    ```
 
    If the baker has no rights, the command returns an empty array: `[]`.
