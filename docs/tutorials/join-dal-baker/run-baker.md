@@ -10,8 +10,10 @@ Now that you have a DAL node, you can run a baking daemon that can attest to DAL
 1. To run a baking daemon that connects to the DAL, start it as usual and pass the URL to your DAL node to it with the `--dal-node` argument:
 
    ```bash
-   octez-baker-PsParisC run with local node "$HOME/.tezos-node" my_baker --liquidity-baking-toggle-vote pass --adaptive-issuance-vote on --dal-node http://127.0.0.1:10732 >> "$HOME/octez-baker.log" 2>&1
+   octez-baker-PsParisC run with local node "$HOME/.tezos-node" my_baker --liquidity-baking-toggle-vote pass --adaptive-issuance-vote on --dal-node http://127.0.0.1:10732
    ```
+
+   You may append `>>"$HOME/octez-baker.log" 2>&1` to redirect its output in a log file.
 
 1. Ensure that the baker runs persistently.
 Look up how to run programs persistently in the documentation for your operating system.

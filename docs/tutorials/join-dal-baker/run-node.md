@@ -64,8 +64,10 @@ For example, the command to download a Ghostnet snapshot from the European serve
 1. Start the node:
 
    ```
-   octez-node run --rpc-addr 127.0.0.1:8732 --log-output="$HOME/octez-node.log"
+   octez-node run --rpc-addr 127.0.0.1:8732
    ```
+
+   You may add option `--log-output="$HOME/octez-node.log"` to redirect its output in a log file.
 
    At first launch, the node generates a fresh identity file used to identify itself on the network.
    Then it bootstraps the chain, which takes a variable amount of time depending on how many blocks need to be loaded.
@@ -73,7 +75,7 @@ For example, the command to download a Ghostnet snapshot from the European serve
 
 1. Ensure that the node runs persistently.
 Look up how to run programs persistently in the documentation for your operating system.
-You can also refer to [Run a persistent baking node](https://opentezos.com/node-baking/baking/persistent-baker/) on opentezos.com.
+You can also refer to [Setting up Octez Services](https://tezos.gitlab.io/introduction/services.html) in the Octez documentation.
 
 1. Optional: When the node has bootstrapped and caught up with the current head block, you can delete the snapshot file to save space.
 
