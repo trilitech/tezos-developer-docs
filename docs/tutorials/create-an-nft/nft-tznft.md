@@ -2,7 +2,7 @@
 title: Create NFTs from the command line
 authors: 'Sol Lederer, Tim McMackin'
 last_update:
-  date: 18 September 2023
+  date: 28 November 2024
 ---
 
 This tutorial covers how to create a collection of NFTs on Tezos and manipulate them using the `tznft` command-line tool.
@@ -27,7 +27,7 @@ NFTs can represent ownership over digital or physical assets like virtual collec
 Like other types of Tezos tokens, a collection of NFTs is managed by a smart contract.
 The smart contract defines what information is in each token and how the tokens behave, such as what happens when a user transfers an NFT to another user.
 
-In this tutorial, you create NFTs that comply with the FA2 standard (formally known as the [TZIP-12](https://gitlab.com/tezos/tzip/-/blob/master/proposals/tzip-12/tzip-12.md) standard), the current standard for tokens on Tezos.
+In this tutorial, you create NFTs that comply with the [FA2](/architecture/tokens/FA2) standard, a popular and flexible standard for tokens on Tezos.
 The FA2 standard creates a framework for how tokens behave on Tezos, including fungible, non-fungible, and other types of tokens.
 It provides a standard API to transfer tokens, check token balances, manage operators (addresses that are permitted to transfer tokens on behalf of the token owner), and manage token metadata.
 
@@ -35,7 +35,7 @@ It provides a standard API to transfer tokens, check token balances, manage oper
 
 To run this tutorial you need Node.JS, NPM, and Docker Desktop to install and use the `tznft` CLI tool, which helps you create and test NFT collections on Tezos.
 
-- Install Node.JS version 18 (not 20) and NPM.
+- Install Node.JS version 18 (no later) and NPM.
 See https://nodejs.org/.
 You can verify that they are installed by running these commands:
 
@@ -119,7 +119,7 @@ The first step in creating NFTs is to create local metadata files that describe 
    ```
 
    The new metadata file is named `my_collection.json` and has information such as the name, description, home page, and creator of the collection.
-   It also includes the interfaces that the NFTs support, including the TZIP-12 interface that was mentioned earlier.
+   It also includes the interfaces that the NFTs support, including the TZIP-12 interface that is the basis for the FA2 standard.
 
 1. Optional: Edit the `my_collection.json` file to put your information in the `name`, `description`, and `authors` fields.
 
@@ -476,6 +476,9 @@ Similarly, you can use the same collection alias because `tznft` keeps aliases s
    tznft create-collection my-account --meta_file my_collection.json --alias my_collection
    ```
 
+   If you see an error that says that the request failed with the message `getaddrinfo ENOTFOUND`, the problem could be that the Tezos testnet node is not available.
+   If you see this error, open the `tznft.json` file, go to the `testnet` section, and change the `providerUrl` field to the URL of a testnet RPC node from the site https://teztnets.com.
+
 1. Mint the tokens on the testnet.
 The command is the same as for the sandbox:
 
@@ -483,7 +486,8 @@ The command is the same as for the sandbox:
    tznft mint my-account my_collection --tokens '1, ipfs://abcde12345'
    ```
 
-   You can add more NFTs until you freeze the collection.
+   You must use the same account alias that you used to create the collection because that account becomes the administrator of the collection.
+   Just like in the sandbox, you can add more NFTs until you freeze the collection.
 
 1. View your token balances.
 The command is the same as for the sandbox:
