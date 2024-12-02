@@ -15,10 +15,10 @@ Follow these steps to verify that your DAL node is receiving attestation rights:
    MY_BAKER="$(octez-client show address my_baker | head -n 1 | cut -d ' ' -f 2)"
    ```
 
-1. Run this command to get the attestation rights for the baker in the current cycle:
+1. Run thes commands to get the attestation rights for the baker in the current cycle (beware, the last command may take several minutes to finish if the list of rights is long):
 
    ```bash
-   octez-client rpc get "/chains/main/blocks/head" | jq '.metadata.level_info.cycle' 
+   octez-client rpc get /chains/main/blocks/head | jq | grep '"cycle"'
    octez-client rpc get "/chains/main/blocks/head/helpers/attestation_rights?delegate=$MY_BAKER&cycle=<current-cycle>"
    ```
 
@@ -31,12 +31,12 @@ Follow these steps to verify that your DAL node is receiving attestation rights:
     "delegates":
       [ { "delegate": "tz1Zs6zjxtLxmff51tK2AVgvm4PNmdNhLcHE",
           "first_slot": 280, "attestation_power": 58,
-          "consensus_key": "tz1Zs6zjxtLxmff51tK2AVgvm4PNmdNhLcHE" } ] } ]
+          "consensus_key": "tz1Zs6zjxtLxmff51tK2AVgvm4PNmdNhLcHE" } ] }
+      ...
+    ]
    ```
 
-   If the command returns an empty array (`[]`), the delay may not be over.
-
-   If the delay has expired and you still haven't received attestation rights, try these troubleshooting steps:
+   If the command returns an empty array (`[]`), the delay may not be over or there may be other problems. Try these troubleshooting steps:
 
    - Make sure that your node and baker are running.
 
@@ -47,26 +47,18 @@ Follow these steps to verify that your DAL node is receiving attestation rights:
    Ensure that you are registered as a delegate and stake more tez, retaining a small amount for transaction fees.
    If necessary you can get more from the faucet.
 
-   - Check to see if you will receive rights two cycles in the future:
+   - Check to see if you will receive rights two cycles in the future, using commands similar to those above for the current cycle.
 
-      1. Run this command to get the current cycle:
+     If this returns a list of future attestation rights for your account, the delay has not expired yet and you must wait for that cycle to arrive.
 
-         ```bash
-         octez-client rpc get /chains/main/blocks/head | jq | grep '"cycle"'
-         ```
+     Find when the next cycles will start by going to a block explorer such as https://ghostnet.tzkt.io.
+     For example, this drop-down shows that the next cycle starts in 29 minutes:
 
-      1. Add two to the cycle and run this command to see what rights your account will have in that cycle.
-      For example, if the current cycle is 149, run this command to get its rights in cycle 151:
-
-         ```bash
-         octez-client rpc get /chains/main/blocks/head/helpers/baking_rights\?cycle=151\&delegate=$MY_BAKER\&max_round=2
-         ```
-
-         If this command returns a list of future attestation rights for your account, the delay has not expired yet and you must wait for that cycle to arrive.
+     <img src="/img/tutorials/tzkt-next-cycle.png" alt="The TZKT block explorer, showing information about the current cycle" style={{width: 300}} />
 
    - Check to see if you are active and re-register as a delegate if necessary:
 
-      1. Run this command to see if your account is active:
+      1. Run this command to see if your account is marked as inactive:
 
          ```bash
          octez-client rpc get /chains/main/blocks/head/context/delegates/$MY_BAKER/deactivated
@@ -80,15 +72,17 @@ Follow these steps to verify that your DAL node is receiving attestation rights:
          octez-client register key my_baker as delegate
          ```
 
-      1. Find when the next cycle will start by going to a block explorer such as https://ghostnet.tzkt.io.
-      For example, this drop-down shows that the next cycle starts in 29 minutes:
+        Find when the next cycle will start by going to a block explorer such as https://ghostnet.tzkt.io or by executing these commands:
 
-         <img src="/img/tutorials/tzkt-next-cycle.png" alt="The TZKT block explorer, showing information about the current cycle" style={{width: 300}} />
+        ```bash
+        octez-client rpc get "/chains/main/blocks/head/helpers/levels_in_current_cycle"
+        octez-client rpc get "/chains/main/blocks/head/helpers/attestation_rights?level=<last-block>" | grep '"estimated_time"'
+        ```
 
-         When this cycle starts, Tezos calculates attestation rights for a certain number of cycles in the future and includes your baker.
-         The number of cycles is the `consensus_rights_delay` network parameter.
+        When the next cycle starts, Tezos calculates attestation rights for a certain number of cycles in the future and includes your baker.
+        The number of cycles is the `consensus_rights_delay` network parameter.
 
-      1. Wait for your baker to receive attestation rights.
+        Wait for your baker to receive attestation rights.
 
 1. When your baker receives attestation rights as determined by the `/chains/main/blocks/head/helpers/attestation_rights` RPC call, run this command to get the shards that are assigned to your DAL node:
 

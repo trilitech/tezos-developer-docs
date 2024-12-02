@@ -24,8 +24,10 @@ For example, this command initializes the DAL node with the address of a local `
 1. Start the DAL node by running this command:
 
    ```bash
-   octez-dal-node run >> "$HOME/octez-dal-node.log" 2>&1
+   octez-dal-node run
    ```
+
+   You may append `>>"$HOME/octez-dal-node.log" 2>&1` to redirect its output in a log file.
 
    This, too, may take some time to launch the first time because it needs to generate a new identity file, this time for the DAL network.
 
