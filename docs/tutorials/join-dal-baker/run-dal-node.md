@@ -41,6 +41,7 @@ For example, this command initializes the DAL node with the address of a local `
    ```
 
    where `10732` is the port on which the DAL node serves RPC calls.
+   The default port is 10732, but you can override it with the `--rpc-addr` argument.
 
    The response lists the network connections that the DAL node has, as in this example:
 
