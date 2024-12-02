@@ -18,12 +18,12 @@ Throughout the rest of this tutorial, replace slot 10 with the number of the slo
 
 When you have selected a slot that does not appear to be in use, follow these steps to restart the Smart Rollup and DAL node:
 
-1. Stop the DAL node and restart it with a new `--producer-profiles` argument.
+1. Stop the DAL node and restart it with a new `--operator-profiles` argument.
 For example, this command uses slot 10:
 
    ```bash
    octez-dal-node run --endpoint ${ENDPOINT} \
-       --producer-profiles=10 --data-dir _dal_node
+       --operator-profiles=10 --data-dir _dal_node
    ```
 
 1. Update the kernel to monitor that slot by updating this line:
@@ -104,11 +104,11 @@ If you don't see the message that the slot is attested and contains your data, t
 - Make sure that the Smart Rollup and the DAL node are both using the slot that you published the commitment to:
 
    - In the file `lib/src.rs`, the line `const SLOT_TO_MONITOR: u8 = 13;` should use your slot.
-   - When you run the command to start the DAL node, make sure that the `--producer-profiles` argument is set to your slot:
+   - When you run the command to start the DAL node, make sure that the `--operator-profiles` argument is set to your slot:
 
       ```bash
       octez-dal-node run --endpoint ${ENDPOINT} \
-        --producer-profiles=10 --data-dir _dal_node
+        --operator-profiles=10 --data-dir _dal_node
       ```
    - When you run the command to publish the commitment to the DAL, make sure that you publish it to your slot:
 

@@ -24,13 +24,13 @@ Similarly, the protocol assigns bakers to monitor certain slots.
 
 ## Starting a DAL node
 
-To run a DAL node, use the Octez `octez-dal-node` command and pass the slots to monitor in the `--producer-profiles` argument.
+To run a DAL node, use the Octez `octez-dal-node` command and pass the slots to monitor in the `--operator-profiles` argument.
 
 Run this command to start a DAL node and monitor slot 0:
 
 ```bash
 octez-dal-node run --endpoint ${ENDPOINT} \
-    --producer-profiles=0 --data-dir _dal_node
+    --operator-profiles=0 --data-dir _dal_node
 ```
 
 Leave this process running in terminal window.
