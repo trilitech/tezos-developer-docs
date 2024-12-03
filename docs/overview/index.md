@@ -1,7 +1,7 @@
 ---
 title: Tezos overview
 last_update:
-  date: 2 December 2024
+  date: 3 December 2024
 ---
 
 Tezos is an open-source, decentralized blockchain [created in 2014](https://tezos.com/whitepaper.pdf) by Arthur and Kathleen Breitman. It raised awareness and support in 2017 with its crowdfunding and launched the following year. Since its inception, Tezos has gone through multiple iterations of upgrades and development, staying true to its ethos -- "a blockchain designed to evolve".
@@ -97,10 +97,7 @@ Anyone who holds XTZ — the chain's native token — can propose or vote about 
 
 The proof-of-stake consensus mechanism eliminates the need for high energy use, making it the "green" choice for blockchains. Instead of competing to achieve consensus as in proof-of-work mechanisms, Tezos nodes (called *bakers*) stake Tezos tokens to earn the right to create blocks and receive rewards. Users who want to participate without running a node themselves can delegate and stake tokens to a baker for a share of the rewards. Bakers and stakers keep control of their tokens in that they can unstake them later; and delegators keep complete control of their tokens.
 
-Users who want to participate without running a node themselves can delegate and stake tokens to a baker for a share of the baker's rewards. Users retain full control of their delegated and staked tokens: delegated tokens remain always liquid, and staked tokens are frozen but remain in the user's account and can be unstaked at any point to make them liquid again after a short delay.
-<!-- TODO link to more detailed info about delegating and staking from the non-baker perspective -->
-
-The proof-of-stake model improves scalability and ensures cooperation via incentives. It also increases the cost of 51% attacks and avoids environmentally wasteful proof-of-work. Tezos launched in June 2018 as one of the first major proof-of-stake networks.
+Tezos's proof-of-stake mechanism improves scalability and encourages cooperation via incentives. It also increases the cost of consensus attacks and avoids environmentally wasteful proof-of-work. Tezos launched in June 2018 as one of the first major proof-of-stake networks.
 
 For more information about how Tezos handles proof of stake, see https://tezos.gitlab.io/alpha/proof_of_stake.html.
 For more information about delegating and staking, see [Bakers](/architecture/bakers).
