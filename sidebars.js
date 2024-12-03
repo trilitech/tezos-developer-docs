@@ -10,8 +10,6 @@ const sidebars = {
         type: 'doc',
       },
       items: [
-        'overview/tezos-different',
-        'overview/common-applications',
         'overview/glossary',
         'overview/resources',
       ],
