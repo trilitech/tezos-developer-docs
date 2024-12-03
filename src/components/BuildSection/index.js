@@ -11,7 +11,7 @@ const cardData = [
   {
     emoji: '🔋',
     title: 'Proof of stake',
-    description: 'The proof-of-stake consensus model eliminates the need for high energy use, making it the "green" choice for blockchains. Instead of competing to achieve consensus as in proof-of-work models, Tezos nodes (called bakers) stake Tezos tokens to earn the right to create blocks and receive rewards.',
+    description: 'The proof-of-stake consensus model eliminates the need for high energy use, making it the "green" choice for blockchains. Instead of competing to achieve consensus as in proof-of-work models, Tezos nodes (called bakers) stake Tezos tokens to earn the right to create blocks and receive rewards. Users can also stake tokens to earn rewards without having to run a node or give up control of their tokens.',
   },
   {
     emoji: '✨',
@@ -21,7 +21,7 @@ const cardData = [
   {
     emoji: '🤝',
     title: 'Stakeholder-led governance',
-    description: "Anyone who holds XTZ — the chain's native token — can propose changes to how Tezos works, such as changes to gas fees and block times, new features such as smart rollups, or even major changes like how the consensus mechanism works."
+    description: "Anyone who holds tez — the chain's native token — can propose changes to how Tezos works, such as changes to gas fees and block times, new features such as smart rollups, or even major changes like how the consensus mechanism works."
   },
   {
     emoji: '🛠️',
@@ -30,8 +30,8 @@ const cardData = [
   },
   {
     emoji: '💫',
-    title: 'Formal verification',
-    description: 'Formal verification is a process that ensures that code on Tezos does what it says it does and has no side effects. Formal verification reduces errors, bugs, and security vulnerabilities in smart contracts and allows users to trust them.',
+    title: 'Extreme scalability',
+    description: 'Tezos has a system for dramatically expanding processing power and data bandwidth into layer 2. Its Smart Rollups are enshrined in the protocol and run large amounts of processing without slowing layer 1 down, while posting data to layer 1 that allows other to verify their behavior.',
   },
 ];
 
