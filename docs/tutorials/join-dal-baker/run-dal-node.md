@@ -40,8 +40,8 @@ For example, this command initializes the DAL node with the address of a local `
    curl http://localhost:10732/p2p/points/info
    ```
 
-   where `10732` is the port on which the DAL node serves RPC calls.
-   The default port is 10732, but you can override it with the `--rpc-addr` argument.
+   where `10732` is the default port on which the DAL node serves RPC calls.
+   You can override it with the `--rpc-addr` argument.
 
    The response lists the network connections that the DAL node has, as in this example:
 
