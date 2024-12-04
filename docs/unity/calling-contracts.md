@@ -3,7 +3,7 @@ title: Calling contracts with the Unity SDK
 sidebar_label: Calling contracts
 authors: Tim McMackin
 last_update:
-  date: 25 November 2024
+  date: 4 December 2024
 ---
 
 Smart contracts are backend programs that run on blockchains.
@@ -299,66 +299,82 @@ To call an Etherlink smart contract, you need:
 - The parameter to pass to the entrypoint
 - An amount of XTZ to send with the transaction, which can be zero or more
 
+The Unity SDK uses the [Reown SDK](https://reown.com/), so before you can access Etherlink, you must set up Reown:
+
+1. At https://cloud.reown.com, create a Reown project and get its ID.
+
+1. In Unity, install the WalletConnect SDK from the Git URL `https://github.com/trilitech/tezos-wallet-connect-unity-sdk.git`.
+
+1. In the `Assets/Tezos/Resources/WalletConnectConfig.asset` object, in the **Project Id** field, add the ID of your Reown project and fill in the other fields with information including the name and URL of your application, as in this example:
+
+   <img src="/img/unity/unity-walletconnect-config.png" alt="Setting the Reown project ID on the WalletConnectConfig object" style={{width: 300}} />
+
+Now you can interact with Etherlink contracts with the Reown SDK.
+
 To call a contract, make sure that you are connected to a WalletConnect wallet.
-Then, create an `OperationRequest` object with the necessary information and pass it to the `TezosAPI.RequestOperation()` method.
-For example, this code calls a contract and passes the parameter `123` to its `set` entrypoint.
+Then use the `AppKit.Evm.WriteContractAsync()` method to call the contract.
+
+For example, this code calls a contract and passes the parameter `5` to its `set` entrypoint.
 When the transaction completes successfully, it logs the hash of the transaction.
 You can use this hash to look up information about the transaction in the Etherlink [block explorer](/developing/information/block-explorers).
 
 <!-- TODO: How do I set the network? -->
-<!-- TODO: How do I make sure I've got a WalletConnect wallet connected and not an EVM wallet? -->
 
 ```csharp
-private async void Awake()
+using Reown.AppKit.Unity;
+
+public class MyScripts : MonoBehaviour
 {
-    await TezosAPI.WaitUntilSDKInitialized();
 
-    _connectButton.onClick.AddListener(OnConnectClicked);
-    _disconnectButton.onClick.AddListener(OnDisconnectClicked);
-    _requestOperationButton.onClick.AddListener(OnRequestOperationClicked);
+    private async void Awake()
+    {
+        await TezosAPI.WaitUntilSDKInitialized();
 
-    TezosAPI.OperationResulted += OperationResulted;
-}
+        _connectButton.onClick.AddListener(OnConnectClicked);
+        _disconnectButton.onClick.AddListener(OnDisconnectClicked);
+        _requestOperationButton.onClick.AddListener(OnRequestOperationClicked);
 
-private async void OnRequestOperationClicked()
-{
-    // Verify that the app is connected to an EVM wallet via WalletConnect
-    WalletProviderData walletProviderData = TezosAPI.GetWalletConnectionData();
-    if (walletProviderData.WalletType != WalletType.WALLETCONNECT) {
-        Debug.LogError("Connect to a WalletConnect wallet first.");
-        return;
+        TezosAPI.OperationResulted += OperationResulted;
     }
 
-    try
+    private async void OnRequestOperationClicked()
     {
-        var request = new OperationRequest
+        // Verify that the app is connected to an EVM wallet via WalletConnect
+        WalletProviderData walletProviderData = TezosAPI.GetWalletConnectionData();
+        if (walletProviderData.WalletType != WalletType.WALLETCONNECT) {
+            Debug.LogError("Connect to a WalletConnect wallet first.");
+            return;
+        }
+
+        try
         {
-            // Contract to call
-            Destination = "0xfac1791E9db153ef693c68d142Cf11135b8270B9",
-            // Entrypoint to call
-            EntryPoint = "set",
-            // ABI of contract
-            ContractABI = "[ { \"inputs\": [], \"name\": \"get\", \"outputs\": [ { \"internalType\": \"uint256\", \"name\": \"\", \"type\": \"uint256\" } ], \"stateMutability\": \"view\", \"type\": \"function\" }, { \"inputs\": [ { \"internalType\": \"uint256\", \"name\": \"x\", \"type\": \"uint256\" } ], \"name\": \"set\", \"outputs\": [], \"stateMutability\": \"nonpayable\", \"type\": \"function\" } ]",
-            // Parameter to pass
-            Arg = "129",
-            // Amount of XTZ to send with the transaction
-            Amount = "0",
-        };
-        var response = await TezosAPI.RequestOperation(request);
-        Debug.Log("Transaction hash: " + response.TransactionHash);
-    }
-    catch (Exception e) when (e is WalletOperationRejected)
-    {
-        Debug.LogError($"Operation failed: {e.Message}");
-    }
-    catch (Exception e)
-    {
-        Debug.LogError($"Unexpected error during operation: {e.Message}");
-    }
-}
+            string contractAddress = "0xfac1791E9db153ef693c68d142Cf11135b8270B9";
+            string ABI = "[ { \"inputs\": [], \"name\": \"get\", \"outputs\": [ { \"internalType\": \"uint256\", \"name\": \"\", \"type\": \"uint256\" } ], \"stateMutability\": \"view\", \"type\": \"function\" }, { \"inputs\": [ { \"internalType\": \"uint256\", \"name\": \"x\", \"type\": \"uint256\" } ], \"name\": \"set\", \"outputs\": [], \"stateMutability\": \"nonpayable\", \"type\": \"function\" } ]";
+            string entrypoint = "set";
 
-private void OperationResulted(OperationResponse operationResponse)
-{
-    Debug.Log("Transaction hash: " + operationResponse.TransactionHash);
+            var result = await AppKit.Evm.WriteContractAsync(contractAddress, ABI, entrypoint, "5");
+
+            Debug.Log("Result: " + result);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Unexpected error during operation: {e.Message}");
+        }
+    }
+
+    private void OperationResulted(OperationResponse operationResponse)
+    {
+        Debug.Log("Transaction hash: " + operationResponse.TransactionHash);
+    }
+
 }
 ```
+
+The Tezos Unity SDK supports these Reown SDK methods, but only for calls to Etherlink, not any other EVM chain:
+
+- `AppKit.Evm.ReadContractAsync()`
+- `AppKit.Evm.WriteContractAsync()`
+- `AppKit.Evm.SendTransactionAsync()`
+- `AppKit.Evm.SendRawTransactionAsync()`
+
+For more information about using the Reown SDK, see https://docs.reown.com/appkit/unity/core/usage.
