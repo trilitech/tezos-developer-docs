@@ -3,7 +3,7 @@ title: Unity SDK TezosAPI object
 sidebar_label: TezosAPI object
 authors: Tim McMackin
 last_update:
-  date: 15 November 2024
+  date: 5 December 2024
 ---
 
 The Unity SDK class `Tezos.API.TezosAPI` provides methods for many Tezos-related tasks, including connecting to wallets, sending transactions to Tezos, and getting information about about the Tezos blockchain, such as what tokens accounts or contracts control.
@@ -265,6 +265,8 @@ public static async UniTask<OperationResponse> RequestOperation(OperationRequest
 This method triggers the `OperationResulted` event.
 
 For examples, see [Calling contracts](/unity/calling-contracts).
+
+To send an Etherlink transaction, use the Reown SDK as described in [Calling Etherlink contracts](/unity/calling-contracts#calling-etherlink-contracts).
 
 ### `GetOperationStatus()`
 
