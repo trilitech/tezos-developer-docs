@@ -93,3 +93,11 @@ The amount of tez that the account stakes determines how often it is called on t
 Therefore, staking more tez brings more rewards but does not reduce the attestation delay.
 
 :::
+
+## Checking for (pre-)attestations
+
+After the delay computed above has passed, **the baker log** (not the Octez node log, neither the DAL node log) should contain lines about:
+
+- Consensus pre-attestations: `injected preattestation ...`
+- Consensus attestations: `injected attestation ...`
+- Attach DAL attestations: `ready to attach DAL attestation ...`
