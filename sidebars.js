@@ -345,7 +345,6 @@ const sidebars = {
       ],
     },
     'tutorials/create-an-nft/nft-taquito',
-    'tutorials/create-an-nft/nft-tznft',
     {
       type: 'category',
       label: 'Run a Tezos node in 5 steps',
