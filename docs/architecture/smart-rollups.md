@@ -2,7 +2,7 @@
 title: Smart Rollups
 authors: 'Nomadic Labs, TriliTech, Tim McMackin'
 last_update:
-  date: 10 June 2024
+  date: 28 November 2024
 ---
 
 Smart Rollups play a crucial part in providing high scalability on Tezos.
@@ -71,6 +71,25 @@ Each block also contains the following internal messages, which are created by t
 
 Smart Rollup nodes can use these internal messages to know when blocks begin and end.
 
+## Commitments
+
+Some Smart Rollup nodes post commitments to layer 1, which include a hash of the current state of the kernel.
+If any node's commitment is different from the others, they play a refutation game to determine the correct commitment, eliminate incorrect commitments, and penalize the nodes that posted incorrect commitments.
+This process ensures the security of the Smart Rollup by verifying that the nodes are running the kernel faithfully.
+
+Only Smart Rollup nodes running in operator or maintenance mode post these commitments on a regular basis.
+Nodes running in other modes such as observer mode run the kernel and monitor the state of the Smart Rollup just like nodes in operator or maintenance mode, but they do not post commitments.
+Nodes running in accuser mode monitor other commitments and post their own commitment only when it differs from other commitments.
+
+## Bonds
+
+When a user runs a node that posts commitments, the protocol automatically locks a bond of 10,000 liquid, unstaked tez from user's account as assurance that they are running the kernel faithfully.
+If the node posts a commitment that is refuted, they lose their bond, as described in [Refutation periods](#refutation-periods).
+
+Because nodes have the length of the refutation to challenge another node's commitment, the bond stays locked until the end of the refutation period for the last commitment that the node posted.
+After that refutation period ends, the node operator can recover the bond, which unlocks their tez.
+To simplify the process, node operators can switch to bailout mode, which does not post commitments but continues to defend previously made commitments until the last refutation period ends.
+
 ### Reveal data channel
 
 Smart Rollups can request arbitrary information through the _reveal data channel_.
@@ -128,13 +147,11 @@ During each commitment period, each rollup node receives the messages in the rol
 Because Smart Rollup nodes behave in a deterministic manner, their states should all be the same if they have processed the same inbox messages with the same kernel starting from the same origination level.
 This state is referred to as the "state of the rollup."
 
-At the end of a commitment period, the next commitment period starts.
-
-Any time after each commitment period, at least one rollup node must publish a hash of its state to layer 1, which is called its _commitment_.
+Any time after each commitment period, Smart Rollup nodes in operator mode or maintenance mode publish a hash of their state to layer 1 as part of its commitment.
 Each commitment builds on the previous commitment, and so on, back to the genesis commitment from when the Smart Rollup was originated.
+The protocol locks 10,000 tez as a bond from the operator of each node that posts commitments.
 
-Nodes must stake 10,000 tez along with their commitments.
-When nodes make identical commitments, their stakes are combined into a single stake for the commitment.
+At the end of a commitment period, the next commitment period starts.
 
 ### Refutation periods
 
@@ -174,6 +191,16 @@ When a commitment includes layer 1 transactions, these transactions go into the 
 After the commitment is cemented, clients can trigger transactions in the outbox with the Octez client `execute outbox message` command.
 When they trigger a transaction, it runs like any other call to a smart contract.
 For more information, see [Triggering the execution of an outbox message](https://tezos.gitlab.io/shell/smart_rollup_node.html?highlight=triggering) in the Octez documentation.
+
+### Bailout process
+
+Nodes that do not post commitments can stop running at any time without risk because they do not have a bond.
+Nodes that post commitments cannot stop immediately without risking their bonds because they will not be online to participate in the refutation game.
+
+For this reason, nodes can switch to bailout mode to prepare to shut down without risking their bonds.
+In bailout mode, nodes defend their existing commitments without posting new commitments.
+When their final commitment is cemented, they can shut down safely.
+For more information about node modes, see [Smart rollup node](https://tezos.gitlab.io/shell/smart_rollup_node.html) in the Octez documentation.
 
 ## Examples
 
