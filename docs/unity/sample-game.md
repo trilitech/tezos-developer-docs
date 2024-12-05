@@ -51,7 +51,6 @@ The Unity application calls it from the `Assets/Scripts/Api/GameApi.cs` file for
 
 - The **smart contract** is a program that runs on the Tezos blockchain to manage tokens that represent in-game items.
 It maintains a ledger of tokens and owners and allows the backend's administrator account to transfer them to players.
-The sample game uses a custom contract, but you can use the SDK's built-in FA2-compliant contract; see [Managing contracts](/unity/managing-contracts).
 You can view and interact with the contract on a block explorer, such as tzkt.io: https://tzkt.io/KT1TSZfPJ5uZW1GjcnXmvt1npAQ2nh5S1FAj/operations.
 
 - The **Interplanetary File System (IPFS)** stores metadata for the tokens, including pictures and descriptions.
@@ -128,7 +127,7 @@ The [`UserDataManager.cs`](https://github.com/baking-bad/tezos-unity-game/blob/m
 Some of this information (such as the tokens that the player owns) comes from Tezos and other information (such as the player's statistics) comes from the backend.
 Information about the current game session and pending rewards are non-persistent data that are stored by the Unity application.
 
-The `UserDataManager` class responds to [events](/unity/reference/EventManager) such as when the user connects their wallet and then loads information from the backend and from Tezos directly.
+The `UserDataManager` class responds to [events](/unity/reference/events) such as when the user connects their wallet and then loads information from the backend and from Tezos directly.
 
 ## Opening the sample game
 
