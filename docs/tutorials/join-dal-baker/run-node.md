@@ -2,7 +2,7 @@
 title: "Step 1: Run an Octez node"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 21 October 2024
+  date: 2 December 2024
 ---
 
 The first thing you need to run a baker and a DAL node is a Tezos layer 1 node, which is an instance of the `octez-node` program and part of the Octez suite of programs.
@@ -44,9 +44,10 @@ For example, to initialize it for Ghostnet, run this command:
    ```
 
    By default, the node stores its data in the folder `$HOME/.tezos-node`.
+   If this directory is not empty, you may have need to rename it (to keep its data) or remove it.
 
 1. Download a rolling snapshot of the network from https://snapshot.tzinit.org based on the instructions on that site.
-For example, the command to download a Ghostnet snapshot from the EU servers might look like this:
+For example, the command to download a Ghostnet snapshot from the European servers might look like this:
 
    ```bash
    wget -O snapshot_file https://snapshots.eu.tzinit.org/ghostnet/rolling
@@ -63,8 +64,10 @@ For example, the command to download a Ghostnet snapshot from the EU servers mig
 1. Start the node:
 
    ```
-   octez-node run --rpc-addr 127.0.0.1:8732 --log-output="$HOME/octez-node.log"
+   octez-node run --rpc-addr 127.0.0.1:8732
    ```
+
+   You may add option `--log-output="$HOME/octez-node.log"` to redirect its output in a log file.
 
    At first launch, the node generates a fresh identity file used to identify itself on the network.
    Then it bootstraps the chain, which takes a variable amount of time depending on how many blocks need to be loaded.
@@ -72,7 +75,7 @@ For example, the command to download a Ghostnet snapshot from the EU servers mig
 
 1. Ensure that the node runs persistently.
 Look up how to run programs persistently in the documentation for your operating system.
-You can also refer to [Run a persistent baking node](https://opentezos.com/node-baking/baking/persistent-baker/) on opentezos.com.
+You can also refer to [Setting up Octez Services](https://tezos.gitlab.io/introduction/services.html) in the Octez documentation.
 
 1. Optional: When the node has bootstrapped and caught up with the current head block, you can delete the snapshot file to save space.
 
