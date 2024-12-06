@@ -14,7 +14,7 @@ In this case, you create the contract with all of the tokens that it will ever h
 To run this part of the tutorial, makes sure that you have the following tools installed:
 
 - [Python](https://www.python.org/) and the `pip` package manager
-- [SmartPy](https://smartpy.io/manual/introduction/installation)
+- [SmartPy](https://smartpy.io/manual/introduction/installation) version 0.20.0 or later; to verify the version of SmartPy you have installed, run `pip list | grep smartpy`
 
 ## Tutorial contract
 
