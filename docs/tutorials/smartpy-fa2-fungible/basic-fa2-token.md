@@ -2,7 +2,7 @@
 title: "Part 1: Setting up a simple FA2 token"
 authors: Tim McMackin
 last_update:
-  date: 22 April 2024
+  date: 6 December 2024
 ---
 
 In the first part of this tutorial, you create an FA2 token contact that has only the basic features that the standard requires.
@@ -14,7 +14,7 @@ In this case, you create the contract with all of the tokens that it will ever h
 To run this part of the tutorial, makes sure that you have the following tools installed:
 
 - [Python](https://www.python.org/) and the `pip` package manager
-- [SmartPy](https://smartpy.io/manual/introduction/installation)
+- [SmartPy](https://smartpy.io/manual/introduction/installation) version 0.20.0 or later; to verify the version of SmartPy you have installed, run `pip list | grep smartpy`
 
 ## Tutorial contract
 
@@ -43,11 +43,12 @@ Follow these steps to create your own token contract based on the `main.Fungible
    main = fa2.main
    ```
 
-1. Create a SmartPy module to store your contract class:
+1. Create a SmartPy module to store your contract class and import the FA2 module:
 
    ```smartpy
    @sp.module
    def my_module():
+       import main
    ```
 
 1. In the module, create a contract class that inherits from the base class and the `OnchainviewBalanceOf` class, which provides an on-chain view that provides token balances:
@@ -96,9 +97,10 @@ from smartpy.templates import fa2_lib as fa2
 # Alias the main template for FA2 contracts
 main = fa2.main
 
-
 @sp.module
 def my_module():
+    import main
+
     class MyFungibleContract(
         main.Fungible,
         main.OnchainviewBalanceOf,
@@ -143,12 +145,11 @@ This test scenario is also the way SmartPy compiles contracts to Michelson for d
    Code within a SmartPy module (annotated with `@sp.module`) is SmartPy code and is limited by what you can do in smart contracts.
    Importing modules and calling external APIs isn't possible in SmartPy modules, except for the modules that SmartPy provides.
 
-1. Inside the test scenario function, initialize the test scenario by passing a name for the scenario and the modules to use in the scenario to the `sp.test_scenario` function:
+1. Inside the test scenario function, initialize the test scenario by passing a name for the scenario and the module to use in the scenario to the `sp.test_scenario` function:
 
    ```smartpy
    # Create and configure the test scenario
-   # Import the types from the FA2 library, the library itself, and the contract module, in that order.
-   scenario = sp.test_scenario("fa2_lib_fungible", [fa2.t, fa2.main, my_module])
+   scenario = sp.test_scenario("fa2_lib_fungible", my_module)
    ```
 
 1. Define test accounts to use in the scenario with the `sp.test_account` function:
@@ -226,9 +227,10 @@ from smartpy.templates import fa2_lib as fa2
 # Alias the main template for FA2 contracts
 main = fa2.main
 
-
 @sp.module
 def my_module():
+    import main
+
     class MyFungibleContract(
         main.Fungible,
         main.OnchainviewBalanceOf,
@@ -255,8 +257,7 @@ def _total_supply(fa2_contract, args):
 @sp.add_test()
 def test():
     # Create and configure the test scenario
-    # Import the types from the FA2 library, the library itself, and the contract module, in that order.
-    scenario = sp.test_scenario("fa2_lib_fungible", [fa2.t, fa2.main, my_module])
+    scenario = sp.test_scenario("fa2_lib_fungible", my_module)
 
     # Define test accounts
     alice = sp.test_account("Alice")
