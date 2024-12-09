@@ -2,7 +2,7 @@
 title: "Step 4: Run an Octez baking daemon"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 27 August 2024
+  date: 2 December 2024
 ---
 
 Now that you have a DAL node, you can run a baking daemon that can attest to DAL data or restart an existing baking daemon to connect it to the DAL node.
@@ -10,8 +10,10 @@ Now that you have a DAL node, you can run a baking daemon that can attest to DAL
 1. To run a baking daemon that connects to the DAL, start it as usual and pass the URL to your DAL node to it with the `--dal-node` argument:
 
    ```bash
-   octez-baker-PsParisC run with local node "$HOME/.tezos-node" my_baker --liquidity-baking-toggle-vote pass --adaptive-issuance-vote on --dal-node http://127.0.0.1:10732 >> "$HOME/octez-baker.log" 2>&1
+   octez-baker-PsParisC run with local node "$HOME/.tezos-node" my_baker --liquidity-baking-toggle-vote pass --adaptive-issuance-vote on --dal-node http://127.0.0.1:10732
    ```
+
+   You may append `>>"$HOME/octez-baker.log" 2>&1` to redirect its output in a log file.
 
 1. Ensure that the baker runs persistently.
 Look up how to run programs persistently in the documentation for your operating system.
@@ -36,7 +38,7 @@ You can also refer to [Run a persistent baking node](https://opentezos.com/node-
 
    This command returns all of the topics that the baker is subscribed to in the format `{"slot_index":<index>,"pkh":"<ADDRESS OF BAKER>"}` where `index` varies between `0` included and the number of slot indexes excluded.
 
-   You can also look at the baker logs to see if it injects the expected operations. At each level, the baker is expected to:
+   You can also look at the baker logs to see if it injects the expected operations. At each level, the baker is expected to do a subset of these operations:
 
       - Receive a block proposal (log message: "received new proposal ... at level ..., round ...")
       - Inject a preattestation for it (log message: "injected preattestation ... for my_baker (&lt;address&gt;) for level ..., round ...")
@@ -91,3 +93,11 @@ The amount of tez that the account stakes determines how often it is called on t
 Therefore, staking more tez brings more rewards but does not reduce the attestation delay.
 
 :::
+
+## Checking for (pre-)attestations
+
+After the delay computed above has passed, **the baker log** (not the Octez node log, neither the DAL node log) should contain lines about:
+
+- Consensus pre-attestations: `injected preattestation ...`
+- Consensus attestations: `injected attestation ...`
+- Attach DAL attestations: `ready to attach DAL attestation ...`
