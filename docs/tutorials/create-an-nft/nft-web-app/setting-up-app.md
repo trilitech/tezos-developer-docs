@@ -2,7 +2,7 @@
 title: "Part 1: Setting up the application"
 authors: 'Yuxin Li'
 last_update:
-  date: 15 November 2023
+  date: 10 December 2024
 ---
 
 You can access Tezos through any JavaScript framework.
@@ -29,6 +29,12 @@ If you are familiar with Svelte, note that this application includes its own Sve
 
    ```bash
    npm install --save-dev buffer events vite-compatible-readable-stream
+   ```
+
+1. Install a plugin to handle SASS styling for the site:
+
+   ```bash
+   npm install -D sass-embedded
    ```
 
 1. Update the `vite.config.js` file to the following code:
