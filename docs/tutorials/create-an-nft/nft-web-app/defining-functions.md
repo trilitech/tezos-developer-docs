@@ -2,7 +2,7 @@
 title: "Part 2: Accessing wallets and minting NFTs"
 authors: 'Yuxin Li'
 last_update:
-  date: 15 November 2023
+  date: 10 December 2024
 ---
 
 Accessing the user's wallet is essential before your application can engage with the Tezos blockchain. It enables your app to view the tokens within the wallet and request the user to initiate transactions. However, it's important to note that accessing the wallet doesn't grant your app direct control over it.
@@ -116,7 +116,7 @@ For example, if the wallet is not connected, disable buttons for transactions th
 1. Still in `App.svelte`, add the following code to the` <script lang="ts">` section to initialize a deployed contract address. This contract has multiple entrypoints that allow us to interact with the Tezos blockchain, such as `mint`.
 
    ```javascript
-   const contractAddress = "KT1W8FrDRM28BGy1VVKXfN9L61jW1dgAjHQi"
+   const contractAddress = "KT1TuveAEsF6FPiLJ4Y55RuaMypBuXNWHitk"
    ```
 1. Add this code to build the function structure
    ```javascript
