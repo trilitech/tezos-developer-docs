@@ -227,7 +227,7 @@ Follow these steps to set up the `src/App.svelte` file, which is the container f
 1. In the `<script lang="ts">` section, add the following code to initialize the Tezos toolkit and set your RPC URL to the Ghostnet endpoint:
 
    ```javascript
-     const rpcUrl = "https://ghostnet.ecadinfra.com";
+     const rpcUrl = "https://rpc.ghostnet.teztnets.com";
      const Tezos = new TezosToolkit(rpcUrl);
    ```
 
