@@ -5,16 +5,16 @@
 // But unsafe-eval should NOT be in production builds
 // Also, put GTM first because sometimes the ';' in the escaped single quotes causes the browser to think it's the end
 const scriptSrc = process.env.NODE_ENV === 'development' ?
-  `https://*.googletagmanager.com 'self' 'unsafe-inline' 'unsafe-eval'`
-  : `https://*.googletagmanager.com 'self' 'unsafe-inline'`;
+  `https://*.googletagmanager.com https://cdn.jsdelivr.net 'self' 'unsafe-inline' 'unsafe-eval'`
+ : `https://*.googletagmanager.com https://cdn.jsdelivr.net 'self' 'unsafe-inline'`;
 
 const contentSecurityPolicy = `
 default-src 'none';
 base-uri 'self';
 manifest-src 'self';
 script-src ${scriptSrc};
-style-src 'self' 'unsafe-inline';
-font-src 'self';
+style-src https://cdn.jsdelivr.net 'self' 'unsafe-inline';
+font-src https://cdn.jsdelivr.net 'self';
 img-src 'self' https://*.googletagmanager.com https://*.google-analytics.com data:;
 media-src 'self';
 form-action 'self';
@@ -157,5 +157,14 @@ module.exports = async function createConfigAsync() {
           //... other Algolia params
         },
       }),
+    stylesheets: [
+      {
+        href: 'https://cdn.jsdelivr.net/npm/katex@0.13.24/dist/katex.min.css',
+        type: 'text/css',
+        integrity:
+          'sha384-odtC+0UGzzFL/6PNoE8rX/SPcQDXBJ+uRepguP4QkPCm2LBxH3FA3y+fKSiJ+AmM',
+        crossorigin: 'anonymous',
+      },
+    ],
   };
 };
