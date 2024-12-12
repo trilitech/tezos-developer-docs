@@ -25,7 +25,7 @@ The Octez client sandboxed and mockup modes run a local version of the Tezos net
 
 ## Tezbox
 
-[Tezbox](https://github.com/tez-capital/tezbox) is also a simulated Tezos environment that runs in a container.
+[Tezbox](https://github.com/tez-capital/tezbox) is a simulated Tezos environment that runs in a container.
 
 Tezbox provides different images that mirror versions of the Octez suite.
 For example, to run Tezbox with Octez version 19.1 and the Paris protocol, run this command:
@@ -49,7 +49,7 @@ Tezbox provides sample accounts in the `/tezbox/context/accounts.json` file.
 
 ## Flextesa
 
-The [Flextesa](https://tezos.gitlab.io/flextesa/) is a simulated Tezos environment that runs in a container.
+The [Flextesa](https://tezos.gitlab.io/flextesa/) is also a simulated Tezos environment that runs in a container.
 
 The Flextesa image has different scripts that start different versions of the Tezos protocol.
 For example, to start a Flextesa sandbox with the Oxford protocol, run this command:

@@ -56,7 +56,7 @@ In this layout, both sides of the main pair contain a pair, then both sides of t
 
 Here is an example of a binary tree: `{{-42; "Hello"}; {True; 21}}`
 
-The binary tree layout is be more efficient than a right comb when accessing arbitrary elements.
+The binary tree layout is more efficient than a right comb when accessing arbitrary elements.
 For example, to access the last element, you can get the second element of the main pair (`{True; 21}`) and the second element of that pair (`21`).
 If the tree is balanced, the number of operations to get to any element is
 $$O(\log_2 (size))$$, whereas for a right comb, it's $$O(size)$$.

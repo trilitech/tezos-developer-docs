@@ -78,7 +78,7 @@ This command creates an account and associates it with the `my_baker` alias:
    octez-client register key my_baker as delegate
    ```
 
-1. Stake at least 6,000 tez, saving a small amount for transaction fees,by running this command:
+1. Stake at least 6,000 tez, saving a small amount for transaction fees, by running this command:
 
    ```bash
    octez-client stake 6000 for my_baker
