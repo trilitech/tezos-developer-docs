@@ -18,7 +18,7 @@ In this tutorial, you will learn:
 :::note
 
 This tutorial covers both the backend and frontend parts of a dApp.
-For a simpler tutorial that covers creating only the frontend application, see [Mint NFTs from a web app](tutorials/create-an-nft/nft-web-app).
+For a simpler tutorial that covers creating only the frontend application, see [Mint NFTs from a web app](/tutorials/create-an-nft/nft-web-app).
 
 :::
 
