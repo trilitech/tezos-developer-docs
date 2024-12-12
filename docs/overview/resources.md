@@ -1,7 +1,7 @@
 ---
 title: Other resources and technical support
 last_update:
-  date: 26 January 2024
+  date: 11 December 2024
 ---
 
 If you don't find the information that you need on this site, there are many other places that you can look.
@@ -19,6 +19,8 @@ More detailed developer and user documentation on Tezos in general or on specifi
 - https://smartpy.io/manual/introduction/overview is the official documentation of the [SmartPy](https://smartpy.io/) language for writing Tezos smart contracts
 - https://archetype-lang.org/docs/introduction/ is the official documentation of the Archetype language for writing Tezos smart contracts
 - https://docs.etherlink.com/ is the official documentation for [Etherlink](https://www.etherlink.com), an EVM-compatible layer-2 blockchain running on Tezos, implemented as a [smart rollup](/architecture/smart-rollups)
+
+For a single text file that you can use with large language models (LLMs) see [Text files](/reference/textfiles).
 
 ## Social media
 

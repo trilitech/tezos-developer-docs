@@ -229,6 +229,7 @@ const sidebars = {
       label: 'Reference',
       items: [
         'reference/style-guide',
+        'reference/textfiles',
         {
           type: 'link',
           label: 'Whitepaper',
