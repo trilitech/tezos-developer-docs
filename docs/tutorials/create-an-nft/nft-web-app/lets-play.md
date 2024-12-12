@@ -47,6 +47,11 @@ Once finished, if you wish to mint another NFT, simply click the "Mint another N
 
 <img src="/img/tutorials/mint_another.png" alt="The mint-another-NFT interface section " style={{width: 500}} />
 
+You can also look up the tokens minted by the contract on block explorers:
+
+- https://ghostnet.tzkt.io/KT1Lr8m7HgfY5UF6nXDDcXDxDgEmKyMeds1b/tokens
+- https://better-call.dev/ghostnet/KT1Lr8m7HgfY5UF6nXDDcXDxDgEmKyMeds1b/tokens
+
 ## Summary
 
 Now you can use a web application to connect to a user's wallet, call a smart contract, and mint NFTs.
