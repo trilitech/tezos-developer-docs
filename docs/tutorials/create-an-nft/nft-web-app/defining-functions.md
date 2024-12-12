@@ -116,7 +116,7 @@ For example, if the wallet is not connected, disable buttons for transactions th
 1. Still in `App.svelte`, add the following code to the` <script lang="ts">` section to initialize a deployed contract address. This contract has multiple entrypoints that allow us to interact with the Tezos blockchain, such as `mint`.
 
    ```javascript
-   const nftContractAddress = "KT18vYNMdkfCbcVjanT78au5eFeURCfurqZt";
+   const nftContractAddress = "KT1Lr8m7HgfY5UF6nXDDcXDxDgEmKyMeds1b";
    ```
 1. Add this code to build the function structure
    ```javascript
