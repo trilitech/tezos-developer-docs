@@ -16,7 +16,7 @@ To send tez from a source account to a target account, use the `octez-client tra
 octez-client transfer 42 from account1 to account2 --fee-cap 0.9
 ```
 
-You can use addresses or local aliases for the source and target accounts, but Octez must have the private key for the source account in order to sign the transaction.
+You can use addresses or local aliases for the source and target accounts, but Octez must have the private key for the source account to sign the transaction.
 
 To check the balance of an account after a transaction, use the `octez-client get balance for` command and pass the alias or address of an account, as in this example:
 
@@ -26,16 +26,18 @@ octez-client get balance for account1
 
 ## Calling smart contracts
 
-To call a smart contract, use the `octez-client transfer` command, as in this example from the [Deploy a smart contract](/tutorials/smart-contract) tutorial:
+To call a smart contract, use the `octez-client transfer` command.
+Contracts can have aliases in the Octez client like accounts.
+This example calls a contract with the alias `my-counter`:
 
 ```bash
 octez-client --wait none transfer 0 \
-  from $MY_TZ_ADDRESS to my-counter \
+  from account1 to my-counter \
   --entrypoint 'increment' --arg '5' --burn-cap 0.1
 ```
 
 This command calls the `increment` entrypoint of the `my-counter` contract and includes 0 tez and up to 0.1 tez in fees with the transaction.
-It passes the parameter "5" to the endpoint.
+It passes the parameter "5" to the entrypoint.
 You can use a local alias or the full address for the smart contract.
 
 Because entrypoints accept parameters in Michelson code, you must encode the values that you send as Michelson values.
@@ -61,7 +63,7 @@ To deploy (originate) a smart contract to the current network, use the `octez-cl
 
 ```bash
 octez-client originate contract my-counter \
-  transferring 0 from $MY_TZ_ADDRESS \
+  transferring 0 from account1 \
   running increment.tz \
   --init 10 --burn-cap 0.1 --force
 ```

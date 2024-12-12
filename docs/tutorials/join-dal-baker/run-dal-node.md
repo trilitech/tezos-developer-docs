@@ -11,12 +11,15 @@ The DAL node is responsible for temporarily storing data and providing it to bak
 You may need to adapt your firewall rules or set up network address translation (NAT) to direct external traffic to the DAL node.
 For more information, see [Running a DAL attester node](https://tezos.gitlab.io/shell/dal_run.html) in the Octez documentation.
 
-1. Initialize the DAL node by running its `config init` command, passing the address of your `octez-node` instance and your baker's address.
+1. Initialize the DAL node by running its `config init` command, passing the address of your `octez-node` instance in the `--endpoint` argument and your baker's account address in the `--attester-profiles` argument.
 For example, this command initializes the DAL node with the address of a local `octez-node` instance on port 8732 and stores data in the default DAL node directory (`~/.tezos-dal-node`):
 
    ```bash
-   octez-dal-node config init --endpoint http://127.0.0.1:8732 --attester-profiles="$MY_ADDRESS"
+   octez-dal-node config init --endpoint http://127.0.0.1:8732 \
+     --attester-profiles=tz1QCVQinE8iVj1H2fckqx6oiM85CNJSK9Sx
    ```
+
+   You cannot use the `my_baker` alias from the Octez client as in the previous section, so you must specify the address of your baker's account explicitly.
 
 1. Start the DAL node by running this command:
 
