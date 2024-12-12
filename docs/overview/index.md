@@ -1,7 +1,7 @@
 ---
 title: Tezos overview
 last_update:
-  date: 3 December 2024
+  date: 11 December 2024
 ---
 
 Tezos is an open-source, decentralized blockchain [created in 2014](https://tezos.com/whitepaper.pdf) by Arthur and Kathleen Breitman. It raised awareness and support in 2017 with its crowdfunding and launched the following year. Since its inception, Tezos has gone through multiple iterations of upgrades and development, staying true to its ethos -- "a blockchain designed to evolve".
@@ -25,6 +25,8 @@ For more details on installing, using, or contributing to the platform, see the 
 For interactive learning material (including exercises) about Tezos concepts, the underlying technology, application development, and the ecosystem, see https://opentezos.com.
 
 For other sources of information, see [Other resources and technical support](/overview/resources).
+
+For a single text file that you can use with large language models (LLMs) see [Text files](/reference/textfiles).
 
 ## What can I do with Tezos?
 
