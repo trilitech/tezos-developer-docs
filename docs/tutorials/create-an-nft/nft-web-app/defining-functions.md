@@ -175,4 +175,7 @@ For example, if the wallet is not connected, disable buttons for transactions th
    To get the tez balances, the app uses the [Beacon SDK](/dApps/wallets).
    The `mint` function takes two parameters: a metadata for the NFT and the user's wallet address.
 
+Now the app is complete.
+You can refer to the completed app at https://github.com/trilitech/tutorial-applications/tree/main/simple-nft-svelte if you have any problems with your app.
+
 You'll start the app and mint NFTs with your dApp in the next section!
