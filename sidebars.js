@@ -10,6 +10,7 @@ const sidebars = {
         type: 'doc',
       },
       items: [
+        'overview/staking',
         'overview/glossary',
         'overview/resources',
       ],
