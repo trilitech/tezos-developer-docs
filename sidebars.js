@@ -22,7 +22,7 @@ const sidebars = {
         type: 'doc',
       },
       items: [
-        'using/accounts',
+        'using/user-accounts',
         'using/wallets',
         'using/dapps',
         'using/transactions',
