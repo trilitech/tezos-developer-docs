@@ -10,9 +10,23 @@ const sidebars = {
         type: 'doc',
       },
       items: [
-        'overview/staking',
         'overview/glossary',
         'overview/resources',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Using Tezos',
+      link: {
+        id: 'using',
+        type: 'doc',
+      },
+      items: [
+        'using/accounts',
+        'using/wallets',
+        'using/dapps',
+        'using/transactions',
+        'using/staking',
       ],
     },
     {
