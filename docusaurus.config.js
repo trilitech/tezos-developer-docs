@@ -80,6 +80,11 @@ module.exports = async function createConfigAsync() {
 
     plugins: [
       'plugin-image-zoom',
+      [
+        'docusaurus-pushfeedback', {
+          project: '80ja0zkj8v',
+        },
+      ],
     ],
 
     themeConfig:
