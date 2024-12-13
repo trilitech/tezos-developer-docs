@@ -2,7 +2,7 @@
 title: Mint NFTs from a web app
 authors: 'Yuxin'
 last_update:
-  date: 19 October 2023
+  date: 12 December 2024
 ---
 
 This tutorial shows you how to create a web application that interacts with the Tezos blockchain to mint non-fungible tokens (NFTs). NFTs are unique digital assets that can represent art, collectibles, or virtually any kind of digital content on the blockchain. Specifically, this application will be the user-facing web front end for a smart contract that performs operations such as mint.
@@ -35,6 +35,9 @@ Before start creating this dApp, we will need a [wallet](/dApps/wallets) and som
 
 The backbone of this application is the smart contract deployed on the Tezos blockchain. The contract we'll be using is already deployed and is written in [SmartPy](/smart-contracts/languages/smartpy). It defines the rules and processes for interactions with the Tezos blockchain, such as minting NFTs. All you need to do is integrate it into your web app.
 
+You can view the contract in a block explorer such as this one: https://better-call.dev/ghostnet/KT1Lr8m7HgfY5UF6nXDDcXDxDgEmKyMeds1b/operations
+
+The source code of the contract is here: https://github.com/trilitech/tutorial-applications/blob/main/simple-nft-svelte/contract/simple-nft.py
 
 ## The tutorial application
 

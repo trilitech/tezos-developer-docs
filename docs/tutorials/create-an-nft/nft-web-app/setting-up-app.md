@@ -2,7 +2,7 @@
 title: "Part 1: Setting up the application"
 authors: 'Yuxin Li'
 last_update:
-  date: 15 November 2023
+  date: 11 December 2024
 ---
 
 You can access Tezos through any JavaScript framework.
@@ -22,13 +22,19 @@ If you are familiar with Svelte, note that this application includes its own Sve
 1. Install the Tezos-related dependencies:
 
    ```bash
-   npm install @taquito/taquito @taquito/beacon-wallet @airgap/beacon-types
+   npm install @taquito/taquito @taquito/utils @taquito/beacon-wallet @airgap/beacon-types
    ```
 
 1. Install the `buffer`, `events`, and `vite-compatible-readable-stream` libraries:
 
    ```bash
    npm install --save-dev buffer events vite-compatible-readable-stream
+   ```
+
+1. Install a plugin to handle SASS styling for the site:
+
+   ```bash
+   npm install -D sass-embedded
    ```
 
 1. Update the `vite.config.js` file to the following code:
@@ -147,11 +153,10 @@ These steps set up the style sheets for the application:
 
    ```javascript
    import './app.css'
+   import { mount } from 'svelte';
    import App from './App.svelte'
 
-   const app = new App({
-     target: document.body
-   })
+   const app = mount(App, { target: document.body });
 
    export default app
    ```
@@ -205,9 +210,10 @@ Follow these steps to set up the `src/App.svelte` file, which is the container f
 
    ```html
    <script lang="ts">
-    import { BeaconWallet } from "@taquito/beacon-wallet";
-    import { NetworkType } from "@airgap/beacon-types";
-    import { TezosToolkit, MichelsonMap} from "@taquito/taquito";
+     import { BeaconWallet } from "@taquito/beacon-wallet";
+     import { NetworkType } from "@airgap/beacon-types";
+     import { TezosToolkit, MichelsonMap} from "@taquito/taquito";
+     import { stringToBytes } from '@taquito/utils';
    </script>
    ```
 
@@ -217,11 +223,12 @@ Follow these steps to set up the `src/App.svelte` file, which is the container f
    - `TezosToolkit`: The class that gives you access to all the features of Taquito
    - `NetworkType`: The class represents the different types of networks on the Tezos blockchain. Developers can ensure that their applications communicate with the desired network version or testnet such as Ghostnet.
    - `MichelsonMap`: The class helps developers work with Michelson's native map data type.
+   - `stringToBytes`: A utility that converts strings to bytes to store as the token metadata
 
 1. In the `<script lang="ts">` section, add the following code to initialize the Tezos toolkit and set your RPC URL to the Ghostnet endpoint:
 
    ```javascript
-     const rpcUrl = "https://ghostnet.ecadinfra.com";
+     const rpcUrl = "https://rpc.ghostnet.teztnets.com";
      const Tezos = new TezosToolkit(rpcUrl);
    ```
 
