@@ -5,7 +5,7 @@ last_update:
   date: 2 December 2024
 ---
 
-If after the delay that you calculated in [Step 4: Run an Octez baking daemon](/tutorials/join-dal-baker/run-baker), the baker does not starts inserting consensus (pre-)attestations and DAL attestations, follow these instructions to diagnose and fix the issue.
+If after the delay that you calculated in [Step 4: Run an Octez baking daemon](/tutorials/join-dal-baker/run-baker), the baker does not start inserting consensus (pre-)attestations and DAL attestations, follow these instructions to diagnose and fix the issue.
 
 1. Record the address of your baker account in an environment variable so you can use it for commands that cannot get addresses by their Octez client aliases:
 
@@ -111,9 +111,20 @@ If after the delay that you calculated in [Step 4: Run an Octez baking daemon](/
    These shards are pieces of data that the baker is assigned to attest.
 
    Note that you have to potentially execute the command above during many block levels in order to find a block where you have some shards assigned.
-   Unfortunately, there is currently no simple command line to get all your DAL rights for a whole cycle, for example.
+   There is currently no simple command line to get all your DAL rights for a whole cycle, but you can call it in a loop for future levels until you see some shards.
+   First, get the current level:
 
-1. Verify the baker's activity on the Explorus block explorer by going to the Consensus Ops page at https://explorus.io/consensus_ops, selecting Ghostnet, and searching for your address.
+   ```bash
+   octez-client rpc get /chains/main/blocks/head | jq '.header.level'
+   ```
+
+   and pass it as the `<current-level>` parameter in this command:
+
+   ```bash
+   l=<current-level>; while true; echo $l; do octez-client rpc get "/chains/main/blocks/head/context/dal/shards?delegates=$MY_BAKER&level=$l"; l=$((l+1)); done
+   ```
+
+1. Verify the baker's activity on the Explorus block explorer by going to the Consensus Ops page at https://explorus.io/consensus_ops, selecting Ghostnet, and searching for your address (only the first few characters).
 
    For example, this screenshot shows consensus operations that include DAL attestations, indicated by a number in the "DAL attestation bitset" column.
 
