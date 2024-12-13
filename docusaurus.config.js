@@ -18,7 +18,7 @@ font-src https://cdn.jsdelivr.net 'self';
 img-src 'self' https://*.googletagmanager.com https://*.google-analytics.com data:;
 media-src 'self';
 form-action 'self';
-connect-src 'self' https://*.algolia.net https://*.algolianet.com https://*.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com;
+connect-src 'self' https://*.algolia.net https://*.algolianet.com https://*.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com https://app.pushfeedback.com;
 frame-src https://tezosbot.vercel.app;`;
 
 /** @type {import('@docusaurus/types').Config} */
