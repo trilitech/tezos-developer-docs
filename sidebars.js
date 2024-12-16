@@ -330,7 +330,6 @@ const sidebars = {
       ],
     },
     'tutorials/create-an-nft/nft-taquito',
-    'tutorials/create-an-nft/nft-tznft',
     {
       type: 'category',
       label: 'Join the DAL as a baker',
