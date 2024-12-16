@@ -126,7 +126,7 @@ When the unstaking operation is complete, a confirmation page shows how much you
 
    Then, the application shows the pending unstake request and the cycle in which you can finalize the request, as in this screenshot:
 
-   <img alt="Selecting the amount to unstake" src="/img/using/staking-unstaking-amount.png" style={{width: 500}} />
+   <img alt="Selecting the amount to unstake" src="/img/using/staking-unstaking-pending.png" style={{width: 500}} />
 
 1. Wait until the unstake request is ready to be finalized.
 You can see the current cycle and the time to the next cycle on block explorers such as https://tzkt.io.
