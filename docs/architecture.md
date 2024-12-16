@@ -2,7 +2,7 @@
 title: Architecture
 authors: Tim McMackin
 last_update:
-  date: 29 November 2024
+  date: 16 December 2024
 ---
 
 The Tezos blockchain is composed of many Tezos nodes running around the world, complemented by other programs such as bakers and accusers.
@@ -10,7 +10,7 @@ These processes collaborate with the overall goal of maintaining the blockchain 
 
 The Tezos nodes are the most important piece in this architecture because they maintain the system and the blockchain data.
 Users interact with nodes through many different clients, including command-line clients, wallets, and web applications.
-For more information about nodes, see [Nodes](./architecture/nodes).
+For more information about nodes, see [Nodes](/architecture/nodes).
 
 This diagram shows a high-level view of the Tezos system:
 
@@ -42,7 +42,7 @@ For more information on the operations that can be included in blocks, see [Bloc
 
 ### Tezos clients and servers
 
-In addition to the functions of the [protocol and shell](./architecture/nodes#protocol-and-shell), a Tezos node also acts as a server to respond to queries and requests from clients.
+In addition to the functions of the [protocol and shell](/architecture/nodes#protocol-and-shell), a Tezos node also acts as a server to respond to queries and requests from clients.
 A client can query the chain’s state and can inject blocks and operations into a node.
 Nodes share operations with each other, so the node that includes an operation in a block may not be the node that the client originally sent the operation to.
 
@@ -67,11 +67,11 @@ Optionally, this node can open its RPC interface to serve different kinds of req
 Here is a summary of the main Tezos clients:
 
 - **Bakers**: The baker is an Octez program that is responsible for creating and proposing new blocks based on the operations proposed by different clients.
-For more information, see [Bakers](./architecture/bakers).
+For more information, see [Bakers](/architecture/bakers).
 
 - **Accusers**: The accuser is an Octez program that monitors new blocks and looks for problems, such as when bakers try to add more than one block at a time.
 When it finds a problem, it submits a denunciation to other nodes to refuse the new blocks and punish the offending node.
-For more information, see [Accusers](./architecture/accusers).
+For more information, see [Accusers](/architecture/accusers).
 
 - **The Octez client**: The Octez client is a command-line tool that developers can use for many Tezos-related tasks, including:
 
@@ -82,7 +82,7 @@ For more information, see [Accusers](./architecture/accusers).
   - Running Sapling transactions
   - Setting up baking operations for testing contracts
 
-  For more information about the Octez client, see [The Octez client](./developing/octez-client).
+  For more information about the Octez client, see [The Octez client](/developing/octez-client).
 
 - **External clients**: Many external clients can add operations to the network of nodes or use nodes to inspect the state of the blockchain, including:
 
