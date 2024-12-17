@@ -73,7 +73,7 @@ Follow these steps to create your own token contract based on the `main.Fungible
    ```
 
    Note the order of these classes both in the `class` statement and within the `__init__()` method.
-   You must inherit and initialize these classes in a specific order for them to work, as described in [Mixins](https://smartpy.io/guides/FA2-lib/mixins). <!-- TODO change link when new docs come out -->
+   You must inherit and initialize these classes in a specific order for them to work, as described in [Mixins](https://smartpy.io/manual/libraries/FA2-lib/mixins).
 
 1. Outside the module, add these two utility functions to call views in the contract:
 
