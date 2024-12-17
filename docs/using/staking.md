@@ -140,6 +140,11 @@ The application shows a confirmation message.
 
 Now the application shows your liquid balance and any tez that remain staked.
 
+## Viewing your rewards
+
+The Tezos protocol distributes staking rewards automatically, without requiring any manual action.
+To see them, look up your account on a block explorer such as [TzKT](https://tzkt.io).
+
 ## More information
 
 For more information about the staking web application and the process of staking from the Tezos user perspective, see the blog post [How to stake your tez and earn 2x rewards](https://spotlight.tezos.com/how-to-stake/).
