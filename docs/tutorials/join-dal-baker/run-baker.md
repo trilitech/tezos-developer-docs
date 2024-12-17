@@ -85,8 +85,6 @@ For example, if the delay is 307,200 seconds, that time is about 3.5 days.
 
    The exact time depends on what time in the current cycle the account staked its tez.
 
-1. Wait for the attestation delay to be over and then proceed to [Step 5: Verify attestation rights](/tutorials/join-dal-baker/verify-rights).
-
 :::note
 
 The amount of tez that the account stakes determines how often it is called on to make attestations, not how quickly it receives rights.
@@ -94,10 +92,10 @@ Therefore, staking more tez brings more rewards but does not reduce the attestat
 
 :::
 
-## Checking for (pre-)attestations
-
-After the delay computed above has passed, **the baker log** (not the Octez node log, neither the DAL node log) should contain lines about:
+1. After the delay computed above has passed, **the baker log** (not the Octez node log, neither the DAL node log) should contain lines about:
 
 - Consensus pre-attestations: `injected preattestation ...`
 - Consensus attestations: `injected attestation ...`
 - Attach DAL attestations: `ready to attach DAL attestation ...`
+
+Whether these messages appear or not after the attestation delay, proceed to [Step 5: Verifications](/tutorials/join-dal-baker/verify-rights).

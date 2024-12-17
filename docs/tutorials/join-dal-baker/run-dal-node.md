@@ -105,7 +105,7 @@ For example, this command initializes the DAL node with the address of a local `
 
 1. Ensure that the DAL node runs persistently.
 Look up how to run programs persistently in the documentation for your operating system.
-You can also refer to [Run a persistent baking node](https://opentezos.com/node-baking/baking/persistent-baker/) on opentezos.com.
+You can also refer to [Setting up Octez Services](https://tezos.gitlab.io/introduction/services.html) in the Octez documentation.
 
    For example, if your operating system uses the `systemd` software suite, your service file might look like this example:
 

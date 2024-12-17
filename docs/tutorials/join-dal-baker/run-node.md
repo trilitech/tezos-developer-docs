@@ -71,11 +71,36 @@ For example, the command to download a Ghostnet snapshot from the European serve
 
    At first launch, the node generates a fresh identity file used to identify itself on the network.
    Then it bootstraps the chain, which takes a variable amount of time depending on how many blocks need to be loaded.
-   You don't need to wait for the node to bootstrap now.
+
+1. Make sure the Octez client uses your node by running this command:
+
+   ```bash
+   octez-client -E http://localhost:8732 config update
+   ```
+
+   If you see an error that says "Failed to acquire the protocol version from the node," ensure that your node is running and verify that the host name and port in the `config update` command are correct.
+
+1. Wait for your node to bootstrap by running this command:
+
+   ```bash
+   octez-client bootstrapped
+   ```
+
+   The client waits until it is connected and the node is running at the current level.
+   When it is connected and the node is updated, the command prints the message `Node is bootstrapped`.
+   The time it takes depends on how many blocks the node must retrieve to catch up from the snapshot to the current head block.
+
+1. Optional: Hide the Octez client's network warning message by running this command:
+
+   ```bash
+   export TEZOS_CLIENT_UNSAFE_DISABLE_DISCLAIMER=y
+   ```
+
+   This command suppresses the message that your instance of the Octez client is not using Mainnet.
 
 1. Ensure that the node runs persistently.
 Look up how to run programs persistently in the documentation for your operating system.
-You can also refer to [Setting up Octez Services](https://tezos.gitlab.io/introduction/services.html) in the Octez documentation.
+You can also refer to [Run a persistent baking node](https://opentezos.com/node-baking/baking/persistent-baker/) on opentezos.com or [Setting up Octez Services](https://tezos.gitlab.io/introduction/services.html) in the Octez documentation.
 
 1. Optional: When the node has bootstrapped and caught up with the current head block, you can delete the snapshot file to save space.
 

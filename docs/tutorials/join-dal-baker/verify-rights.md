@@ -1,11 +1,11 @@
 ---
-title: "Step 5: Troubleshooting"
+title: "Step 5: Verifications"
 authors: Tezos core developers, Tim McMackin
 last_update:
   date: 2 December 2024
 ---
 
-If after the delay that you calculated in [Step 4: Run an Octez baking daemon](/tutorials/join-dal-baker/run-baker), the baker does not start inserting consensus (pre-)attestations and DAL attestations, follow these instructions to diagnose and fix the issue.
+After the delay that you calculated in [Step 4: Run an Octez baking daemon](/tutorials/join-dal-baker/run-baker), follow these instructions to verify the activity or diagnose and fix issues.
 
 1. Record the address of your baker account in an environment variable so you can use it for commands that cannot get addresses by their Octez client aliases:
 
