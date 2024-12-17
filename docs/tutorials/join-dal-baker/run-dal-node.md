@@ -2,12 +2,12 @@
 title: "Step 3: Run an Octez DAL node"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 27 November 2024
+  date: 2 December 2024
 ---
 
 The DAL node is responsible for temporarily storing data and providing it to bakers and Smart Rollups.
 
-1. Ensure that the port that the DAL node runs on is accessible from outside its system.
+1. Ensure that the port that the DAL node runs on (by default, 11732) is accessible from outside its system.
 You may need to adapt your firewall rules or set up network address translation (NAT) to direct external traffic to the DAL node.
 For more information, see [Running a DAL attester node](https://tezos.gitlab.io/shell/dal_run.html) in the Octez documentation.
 
@@ -16,7 +16,7 @@ For example, this command initializes the DAL node with the address of a local `
 
    ```bash
    octez-dal-node config init --endpoint http://127.0.0.1:8732 \
-     --attester-profiles=tz1QCVQinE8iVj1H2fckqx6oiM85CNJSK9Sx
+     --attester-profiles=tz1...
    ```
 
    You cannot use the `my_baker` alias from the Octez client as in the previous section, so you must specify the address of your baker's account explicitly.
@@ -24,8 +24,10 @@ For example, this command initializes the DAL node with the address of a local `
 1. Start the DAL node by running this command:
 
    ```bash
-   octez-dal-node run >> "$HOME/octez-dal-node.log" 2>&1
+   octez-dal-node run
    ```
+
+   You may append `>>"$HOME/octez-dal-node.log" 2>&1` to redirect its output in a log file.
 
    This, too, may take some time to launch the first time because it needs to generate a new identity file, this time for the DAL network.
 
@@ -37,6 +39,9 @@ For example, this command initializes the DAL node with the address of a local `
    ```bash
    curl http://localhost:10732/p2p/points/info
    ```
+
+   where `10732` is the default port on which the DAL node serves RPC calls.
+   You can override it with the `--rpc-addr` argument.
 
    The response lists the network connections that the DAL node has, as in this example:
 
@@ -100,7 +105,7 @@ For example, this command initializes the DAL node with the address of a local `
 
 1. Ensure that the DAL node runs persistently.
 Look up how to run programs persistently in the documentation for your operating system.
-You can also refer to [Run a persistent baking node](https://opentezos.com/node-baking/baking/persistent-baker/) on opentezos.com.
+You can also refer to [Setting up Octez Services](https://tezos.gitlab.io/introduction/services.html) in the Octez documentation.
 
    For example, if your operating system uses the `systemd` software suite, your service file might look like this example:
 

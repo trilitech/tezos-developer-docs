@@ -8,32 +8,6 @@ last_update:
 The baker needs a user account that stakes tez.
 In this section, you use the Octez client to create an account, register it as a delegate, and stake tez with it.
 
-1. Connect the Octez client to your node by running this command:
-
-   ```bash
-   octez-client -E http://localhost:8732 config update
-   ```
-
-   If you see an error that says "Failed to acquire the protocol version from the node," ensure that your node is running and verify that the host name and port in the `config update` command are correct.
-
-1. Make sure that the installation of the Octez client is using your node by running this command:
-
-   ```bash
-   octez-client bootstrapped
-   ```
-
-   The client waits until it is connected and the node is running at the current level.
-   When it is connected and the node is updated, the command prints the message `Node is bootstrapped`.
-   The time it takes depends on how many blocks the node must retrieve to catch up from the snapshot to the current head block.
-
-1. Optional: Hide the Octez client's network warning message by running this command:
-
-   ```bash
-   export TEZOS_CLIENT_UNSAFE_DISABLE_DISCLAIMER=y
-   ```
-
-   This command suppresses the message that your instance of the Octez client is not using Mainnet.
-
 1. Create or import an account in the Octez client.
 The simplest way to get an account is to use the Octez client to randomly generate an account.
 This command creates an account and associates it with the `my_baker` alias:
@@ -60,6 +34,7 @@ This command creates an account and associates it with the `my_baker` alias:
    To get tez, use the Ghostnet faucet linked from https://teztnets.com/ghostnet-about to send tez to the baker account.
 
    Running a baker requires staking at least 6,000 tez, but the more tez it stakes, the more rights it gets and the less time it has to wait to produce blocks and make attestations.
+   However, be aware that, for protecting abuses of the faucet, getting such amounts of tez from the faucet may take a long time (e.g. more than one hour). Consequently, some individual requests may occasionally time out or fail and need to be relaunched.
 
 1. Verify that the faucet sent the tez to the account with the same `get balance` command:
 
