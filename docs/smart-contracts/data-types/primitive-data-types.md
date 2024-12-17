@@ -22,7 +22,7 @@ For a complete list of data types that are available, see the reference informat
 - Michelson: [Types](https://tezos.gitlab.io/michelson-reference/#types)
 - LIGO: [Introduction](https://ligolang.org/docs/intro/introduction?lang=jsligo)
 - Archetype: [Types](https://archetype-lang.org/docs/reference/types)
-- SmartPy: [Overview](https://smartpy.io/manual/syntax/overview)
+- SmartPy: [Overview](https://smartpy.io/manual/introduction/overview)
 
 ## Numeric data types: `int` and `nat` {#numeric}
 
@@ -187,5 +187,5 @@ See these links for technical information about how different languages handle d
 
 - Michelson: [int and nat](https://tezos.gitlab.io/active/michelson.html#operations-on-integers-and-natural-numbers), [booleans](https://tezos.gitlab.io/active/michelson.html#operations-on-booleans), [strings](https://tezos.gitlab.io/active/michelson.html#operations-on-strings), [timestamps](https://tezos.gitlab.io/active/michelson.html#operations-on-timestamps), [mutez](https://tezos.gitlab.io/active/michelson.html#operations-on-mutez).
 - Archetype: [Types basics](https://archetype-lang.org/docs/language-basics/types), [Types](https://archetype-lang.org/docs/reference/types), [Arithmetic operators](https://archetype-lang.org/docs/reference/expressions/operators/arithmetic)
-- SmartPy: [Integers and mutez](https://smartpy.io/manual/syntax/integers-and-mutez), [Booleans](https://smartpy.io/manual/syntax/booleans), [Strings and Bytes](https://smartpy.io/manual/syntax/strings-and-bytes), [Timestamps](https://smartpy.io/manual/syntax/timestamps)
+- SmartPy: [Integers and mutez](https://smartpy.io/manual/data-types/integers-and-mutez), [Booleans](https://smartpy.io/manual/data-types/booleans), [Strings and Bytes](https://smartpy.io/manual/data-types/strings-and-bytes), [Timestamps](https://smartpy.io/manual/data-types/timestamps)
 - LIGO: [numbers and tez](https://ligolang.org/docs/language-basics/math-numbers-tez), [strings & bytes](https://ligolang.org/docs/language-basics/strings-bytes), [booleans](https://ligolang.org/docs/language-basics/boolean-if-else)

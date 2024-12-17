@@ -123,4 +123,4 @@ To summarize:
 - Michelson: [Operations on contracts](https://tezos.gitlab.io/active/michelson.html#operations-on-contracts)
 - Archetype: [Operation](https://archetype-lang.org/docs/reference/instructions/operation)
 - LIGO: [Inter-contract invocations](https://ligolang.org/docs/advanced/entrypoints-contracts#inter-contract-invocations)
-- SmartPy: [Operations](https://smartpy.io/manual/syntax/operations)
+- SmartPy: [Operations](https://smartpy.io/manual/data-types/operations)

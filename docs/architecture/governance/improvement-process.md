@@ -26,7 +26,7 @@ For those familiar with [ERC20](https://eips.ethereum.org/EIPS/eip-20), the FA1.
 The FA1.2 specification is described in detail in [TZIP-7](https://gitlab.com/tzip/tzip/blob/master/proposals/tzip-7/tzip-7.md).
 For implementations, see these templates:
 
-- For SmartPy templates, see [Tokens](https://smartpy.io/guides/tokens/) in the SmartPy documentation.
+- For SmartPy templates, see the SmartPy [FA2 library](https://smartpy.io/manual/libraries/FA2-lib/overview) in the SmartPy documentation.
 - For LIGO templates, see the [`@ligo/fa`](https://packages.ligolang.org/package/@ligo/fa) package.
 - For Archetype templates, see [Templates](https://archetype-lang.org/docs/templates/overview/) in the Archetype documentation.
 
