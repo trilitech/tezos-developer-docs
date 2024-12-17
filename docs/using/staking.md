@@ -2,7 +2,7 @@
 title: Staking
 authors: "Tim McMackin"
 last_update:
-  date: 13 December 2024
+  date: 17 December 2024
 ---
 
 Staking is the process of temporarily locking tez on the Tezos platform.
@@ -126,20 +126,19 @@ When the unstaking operation is complete, a confirmation page shows how much you
 
    Then, the application shows the pending unstake request and the cycle in which you can finalize the request, as in this screenshot:
 
-   <img alt="Selecting the amount to unstake" src="/img/using/staking-unstaking-pending.png" style={{width: 500}} />
+   <img alt="Pending unstake request" src="/img/using/staking-unstaking-pending.png" style={{width: 500}} />
 
 1. Wait until the unstake request is ready to be finalized.
 You can see the current cycle and the time to the next cycle on block explorers such as https://tzkt.io.
 
-   When the request is ready to be finalized, the application shows a **Finalize** button next to it.
+   When the request is ready to be finalized, the application shows a **Finalize** button next to it:
 
-   <!-- TODO screencap -->
+   <img alt="Ready unstake request" src="/img/using/staking-unstaking-ready.png" style={{width: 500}} />
 
 1. To finalize the unstaking request, click **Finalize**, click **Finalize** again in the pop-up window, and confirm the transaction in your wallet.
+The application shows a confirmation message.
 
-Now the application shows your liquid balance.
-
-<!-- TODO screencap -->
+Now the application shows your liquid balance and any tez that remain staked.
 
 ## More information
 
