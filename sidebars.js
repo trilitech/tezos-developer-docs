@@ -348,6 +348,22 @@ const sidebars = {
       ],
     },
     {
+      type: 'category',
+      label: 'Mint NFTs',
+      link: {
+        type: 'doc',
+        id: 'tutorials/nft-consolidated',
+      },
+      items: [
+        'tutorials/nft-consolidated/setting-up-app',
+        'tutorials/nft-consolidated/connect-wallet',
+        'tutorials/nft-consolidated/send-transactions',
+        'tutorials/nft-consolidated/create-contract',
+        'tutorials/nft-consolidated/show-info',
+        'tutorials/nft-consolidated/summary',
+      ],
+    },
+    {
       type: 'html',
       value: '<div>Advanced</div>',
       className: 'menu__divider',
