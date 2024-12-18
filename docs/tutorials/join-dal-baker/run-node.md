@@ -102,6 +102,29 @@ For example, the command to download a Ghostnet snapshot from the European serve
 Look up how to run programs persistently in the documentation for your operating system.
 You can also refer to [Run a persistent baking node](https://opentezos.com/node-baking/baking/persistent-baker/) on opentezos.com or [Setting up Octez Services](https://tezos.gitlab.io/introduction/services.html) in the Octez documentation.
 
+   For example, if your operating system uses the `systemd` software suite, your service file might look like this example:
+
+   ```systemd
+   [Unit]
+   Description=Octez node
+   Wants = network-online.target
+   After = network-online.target
+
+   [Install]
+   WantedBy = multi-user.target
+
+   [Service]
+   Type=simple
+   User=mybaker
+   ExecStart=octez-node run --rpc-addr 127.0.0.1:8732 --data-dir $HOME/.tezos-node
+   WorkingDirectory=/opt/octez-node
+   Restart=on-failure
+   RestartSec=5
+   StandardOutput=append:/opt/octez-node.log
+   StandardError=append:/opt/octez-node.log
+   SyslogIdentifier=%n
+   ```
+
 1. Optional: When the node has bootstrapped and caught up with the current head block, you can delete the snapshot file to save space.
 
 In the meantime, you can continue the baking infrastructure while the node is bootstrapping.

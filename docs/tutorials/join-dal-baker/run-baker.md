@@ -20,6 +20,30 @@ If you already have a baking daemon, you can restart it to connect to the DAL no
 Look up how to run programs persistently in the documentation for your operating system.
 You can also refer to [Run a persistent baking node](https://opentezos.com/node-baking/baking/persistent-baker/) on opentezos.com.
 
+   For example, if your operating system uses the `systemd` software suite, your service file might look like this example:
+
+   ```systemd
+   [Unit]
+   Description=Octez baker
+   Wants = network-online.target
+   After = network-online.target
+   Requires = octez-node.service
+
+   [Install]
+   WantedBy = multi-user.target
+
+   [Service]
+   Type=simple
+   User=mybaker
+   ExecStart=octez-baker-PsParisC run with local node "$HOME/.tezos-node" my_baker --liquidity-baking-toggle-vote pass --adaptive-issuance-vote on --dal-node http://127.0.0.1:10732
+   WorkingDirectory=/opt/octez-baker
+   Restart=on-failure
+   RestartSec=5
+   StandardOutput=append:/opt/octez-baker.log
+   StandardError=append:/opt/octez-baker.log
+   SyslogIdentifier=%n
+   ```
+
 1. In the same terminal window, run this command:
 
    ```bash

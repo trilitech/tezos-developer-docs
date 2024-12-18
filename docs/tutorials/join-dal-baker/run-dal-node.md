@@ -118,18 +118,18 @@ You can also refer to [Setting up Octez Services](https://tezos.gitlab.io/introd
    Requires = octez-node.service
 
    [Install]
-   WantedBy=multi-user.target
+   WantedBy = multi-user.target
    RequiredBy = octez-baker.service
 
    [Service]
    Type=simple
    User=mybaker
-   ExecStart=/usr/bin/octez-dal-node run --data-dir /opt/dal
-   WorkingDirectory=/opt/dal
+   ExecStart=/usr/bin/octez-dal-node run --data-dir /opt/dal-node
+   WorkingDirectory=/opt/dal-node
    Restart=on-failure
    RestartSec=5
-   StandardOutput=append:/opt/dal/octez-dal-node.log
-   StandardError=append:/opt/dal/octez-dal-node.log
+   StandardOutput=append:/opt/octez-dal-node.log
+   StandardError=append:/opt/octez-dal-node.log
    SyslogIdentifier=%n
    ```
 
