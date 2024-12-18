@@ -333,7 +333,7 @@ const sidebars = {
     'tutorials/create-an-nft/nft-tznft',
     {
       type: 'category',
-      label: 'Join the DAL as a baker',
+      label: 'Run a Tezos node in 5 steps',
       link: {
         type: 'doc',
         id: 'tutorials/join-dal-baker',

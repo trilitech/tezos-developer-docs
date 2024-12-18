@@ -2,10 +2,11 @@
 title: "Step 4: Run an Octez baking daemon"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 2 December 2024
+  date: 18 December 2024
 ---
 
-Now that you have a DAL node, you can run a baking daemon that can attest to DAL data or restart an existing baking daemon to connect it to the DAL node.
+Now that you have a layer 1 node and a DAL node, you can run a baking daemon that can create blocks and attests to DAL data.
+If you already have a baking daemon, you can restart it to connect to the DAL node.
 
 1. To run a baking daemon that connects to the DAL, start it as usual and pass the URL to your DAL node to it with the `--dal-node` argument:
 
