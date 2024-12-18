@@ -28,6 +28,8 @@ Nodes cooperate with clients and with each other through an [RPC interface](#the
 
 The Octez suite, which is an implementation of the Tezos node and other executables, instantiates these principles in the [Octez software architecture](https://tezos.gitlab.io/shell/the_big_picture.html).
 
+For instructions on running a node, see the tutorial [Run a Tezos node in 5 steps](/tutorials/join-dal-baker).
+
 ## Protocol and shell
 
 The software that runs Tezos nodes is split into two main parts:
