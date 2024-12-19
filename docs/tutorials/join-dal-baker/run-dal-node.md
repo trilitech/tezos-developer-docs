@@ -113,13 +113,13 @@ You can also refer to [Setting up Octez Services](https://tezos.gitlab.io/introd
    ```systemd
    [Unit]
    Description=Octez DAL node
-   Wants = network-online.target
-   After = network-online.target
-   Requires = octez-node.service
+   Wants=network-online.target
+   After=network-online.target
+   Requires=octez-node.service
 
    [Install]
-   WantedBy = multi-user.target
-   RequiredBy = octez-baker.service
+   WantedBy=multi-user.target
+   RequiredBy=octez-baker.service
 
    [Service]
    Type=simple

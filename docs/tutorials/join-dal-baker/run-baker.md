@@ -25,12 +25,12 @@ You can also refer to [Run a persistent baking node](https://opentezos.com/node-
    ```systemd
    [Unit]
    Description=Octez baker
-   Wants = network-online.target
-   After = network-online.target
-   Requires = octez-node.service
+   Wants=network-online.target
+   After=network-online.target
+   Requires=octez-node.service
 
    [Install]
-   WantedBy = multi-user.target
+   WantedBy=multi-user.target
 
    [Service]
    Type=simple

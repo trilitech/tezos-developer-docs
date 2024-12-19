@@ -107,11 +107,11 @@ You can also refer to [Run a persistent baking node](https://opentezos.com/node-
    ```systemd
    [Unit]
    Description=Octez node
-   Wants = network-online.target
-   After = network-online.target
+   Wants=network-online.target
+   After=network-online.target
 
    [Install]
-   WantedBy = multi-user.target
+   WantedBy=multi-user.target
 
    [Service]
    Type=simple
