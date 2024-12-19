@@ -1,14 +1,27 @@
 ---
-title: Join the DAL as a baker in 5 steps
+title: Run a Tezos node in 5 steps
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 21 October 2024
+  date: 18 December 2024
 ---
+
+As described in [Nodes](/architecutre/nodes), Tezos nodes are peer-to-peer programs that run the Tezos network.
+Anyone can run a node, and they might do so for many different reasons, including:
+
+- Running nodes makes the Tezos network resilient and secure
+- Public nodes may have rate limits, so running your own node allows you to send unlimited requests to it to get information about Tezos or to send transactions from your dApps
+- Running a node is part of being a baker and receiving the rewards for baking
+
+This tutorial covers setting up a Tezos node as a baker, which includes running these processes:
+
+- An Octez node, sometimes referred to as a Tezos node
+- A baker daemon
+- A [DAL](/architecture/data-availability-layer) node
+
+## Why is a DAL node needed?
 
 The Tezos data availability layer (DAL) is a peer-to-peer network that Tezos Smart Rollups can use to fetch data securely.
 The DAL is a key component for the scalability and bandwidth of Tezos and it's important for bakers to run DAL nodes along with their layer 1 nodes.
-
-## Why are DAL bakers needed?
 
 When users and dApps submit data to the DAL, bakers use DAL nodes to verify that the data is available.
 Then the bakers attest that the data is available.
