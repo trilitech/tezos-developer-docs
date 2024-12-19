@@ -46,7 +46,7 @@ Smart Rollups are limited to information from these sources:
 
 - The Smart Rollup inbox, which contains messages from layer 1 to all rollups
 - The reveal data channel, which allows Smart Rollups to request information from outside sources
-- The [Data availability layer](/architecture/data-availability-layer)
+- The [Data Availability Layer](/architecture/data-availability-layer)
 
 These are the only sources of information that rollups can use.
 In particular, Smart Rollup nodes cannot communicate directly with each other; they do not have a peer-to-peer communication channel like layer 1 nodes.
