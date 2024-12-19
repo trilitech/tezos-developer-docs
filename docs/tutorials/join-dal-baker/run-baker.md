@@ -8,6 +8,8 @@ last_update:
 Now that you have a layer 1 node and a DAL node, you can run a baking daemon that can create blocks and attests to DAL data.
 If you already have a baking daemon, you can restart it to connect to the DAL node.
 
+1. Optional: Set up a remote signer to secure the keys that the baker uses as described in [Signer](https://tezos.gitlab.io/user/key-management.html#signer) in the Octez documentation.
+
 1. To run a baking daemon that connects to the DAL, start it as usual and pass the URL to your DAL node to it with the `--dal-node` argument:
 
    ```bash
