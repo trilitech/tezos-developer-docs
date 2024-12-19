@@ -16,7 +16,7 @@ This tutorial covers setting up a Tezos node as a baker, which includes running 
 
 - An Octez node, sometimes referred to as a Tezos node
 - A baker daemon
-- A [Data Availability Layer](/architecture/data-availability-layer) node
+- A [DAL](/architecture/data-availability-layer) node
 
 ## Why is a DAL node needed?
 
