@@ -26,7 +26,7 @@ Anyone can create new test networks if needed.
 For example, before new versions of the Tezos protocol are enabled, users create networks that use that protocol so they can test it.
 
 Other systems run on top of Tezos layer 1; these systems are referred to as _layer 2_.
-These systems, including [Smart Rollups](/architecture/smart-rollups) and the [Data Availability Layer](/architecture/data-availability-layer), allow Tezos applications to scale, running transactions and using data at a much higher rate than layer 1.
+These systems, based on [Smart Rollups](/architecture/smart-rollups), complemented by the [Data Availability Layer](/architecture/data-availability-layer), allow Tezos applications to scale, running transactions and using data at a much higher rate than layer 1.
 
 For more information about layer 2, see [Layer 2](#layer-2).
 
