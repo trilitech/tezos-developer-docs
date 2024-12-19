@@ -2,7 +2,7 @@
 title: "Step 3: Run an Octez DAL node"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 18 December 2024
+  date: 19 December 2024
 ---
 
 The DAL node is responsible for temporarily storing data and providing it to bakers and Smart Rollups.
@@ -124,8 +124,8 @@ You can also refer to [Setting up Octez Services](https://tezos.gitlab.io/introd
    [Service]
    Type=simple
    User=mybaker
-   ExecStart=/usr/bin/octez-dal-node run --data-dir /opt/dal-node
-   WorkingDirectory=/opt/dal-node
+   ExecStart=/usr/bin/octez-dal-node run --data-dir $HOME/.tezos-dal-node
+   WorkingDirectory=$HOME/.tezos-dal-node
    Restart=on-failure
    RestartSec=5
    StandardOutput=append:/opt/octez-dal-node.log
