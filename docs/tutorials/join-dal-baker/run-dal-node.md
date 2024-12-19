@@ -123,7 +123,7 @@ You can also refer to [Setting up Octez Services](https://tezos.gitlab.io/introd
 
    [Service]
    Type=simple
-   User=mybaker
+   User=tezos
    ExecStart=/usr/bin/octez-dal-node run --data-dir $HOME/.tezos-dal-node
    WorkingDirectory=$HOME/.tezos-dal-node
    Restart=on-failure

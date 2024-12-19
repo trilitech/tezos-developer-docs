@@ -115,7 +115,7 @@ You can also refer to [Run a persistent baking node](https://opentezos.com/node-
 
    [Service]
    Type=simple
-   User=mybaker
+   User=tezos
    ExecStart=octez-node run --rpc-addr 127.0.0.1:8732 --data-dir $HOME/.tezos-node
    WorkingDirectory=/opt/octez-node
    Restart=on-failure

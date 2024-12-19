@@ -34,7 +34,7 @@ You can also refer to [Run a persistent baking node](https://opentezos.com/node-
 
    [Service]
    Type=simple
-   User=mybaker
+   User=tezos
    ExecStart=octez-baker-PsParisC run with local node "$HOME/.tezos-node" my_baker --liquidity-baking-toggle-vote pass --adaptive-issuance-vote on --dal-node http://127.0.0.1:10732
    WorkingDirectory=/opt/octez-baker
    Restart=on-failure
