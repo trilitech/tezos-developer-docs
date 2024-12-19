@@ -2,7 +2,7 @@
 title: Architecture
 authors: Tim McMackin
 last_update:
-  date: 30 October 2024
+  date: 16 December 2024
 ---
 
 The Tezos blockchain is composed of many Tezos nodes running around the world, complemented by other programs such as bakers and accusers.
@@ -10,21 +10,27 @@ These processes collaborate with the overall goal of maintaining the blockchain 
 
 The Tezos nodes are the most important piece in this architecture because they maintain the system and the blockchain data.
 Users interact with nodes through many different clients, including command-line clients, wallets, and web applications.
-For more information about nodes, see [Nodes](./architecture/nodes).
+For more information about nodes, see [Nodes](/architecture/nodes).
 
 This diagram shows a high-level view of the Tezos system:
 
 ![A high-level view of the Tezos system, including Tezos nodes, the blockchain data itself, an Indexer, and a few examples of clients](/img/architecture/architecture-overview.png)
 <!-- https://lucid.app/lucidchart/d778aa2a-ad0a-4324-b235-ed3b35742c58/edit -->
 
-## Tezos networks
+## Tezos layer 1
 
-When people talk about Tezos, they usually mean the primary Tezos network, which is referred to as Mainnet.
+When people talk about Tezos, they usually mean the primary Tezos network, which is referred to as Mainnet, and the fundamental processing layer, known as _layer 1_.
+
 Tezos also has other networks used for testing, referred to as testnets.
 Anyone can create new test networks if needed.
 For example, before new versions of the Tezos protocol are enabled, users create networks that use that protocol so they can test it.
 
-## The blockchain data
+Other systems run on top of Tezos layer 1; these systems are referred to as _layer 2_.
+These systems, based on [Smart Rollups](/architecture/smart-rollups), complemented by the [Data Availability Layer](/architecture/data-availability-layer), allow Tezos applications to scale, running transactions and using data at a much higher rate than layer 1.
+
+For more information about layer 2, see [Layer 2](#layer-2).
+
+### The blockchain data
 
 Although people often use the word "blockchain" to mean the entire system, strictly speaking, a Tezos blockchain is a series of blocks of data, each connected to the previous block in the chain, beginning with the genesis block.
 The blockchain data is maintained by a network of Tezos nodes.
@@ -34,9 +40,9 @@ As shown in the diagram, the data inside a Tezos block includes the hash of the 
 Blocks also include operations that are necessary for the management of the chain, including nodes' attestations that blocks are valid, called _consensus operations_, and votes on changes to the protocol, called _voting operations_.
 For more information on the operations that can be included in blocks, see [Blocks and operations](https://tezos.gitlab.io/alpha/blocks_ops.html) in the Octez documentation.
 
-## Tezos clients and servers
+### Tezos clients and servers
 
-In addition to the functions of the [protocol and shell](./architecture/nodes#protocol-and-shell), a Tezos node also acts as a server to respond to queries and requests from clients.
+In addition to the functions of the [protocol and shell](/architecture/nodes#protocol-and-shell), a Tezos node also acts as a server to respond to queries and requests from clients.
 A client can query the chain’s state and can inject blocks and operations into a node.
 Nodes share operations with each other, so the node that includes an operation in a block may not be the node that the client originally sent the operation to.
 
@@ -61,11 +67,11 @@ Optionally, this node can open its RPC interface to serve different kinds of req
 Here is a summary of the main Tezos clients:
 
 - **Bakers**: The baker is an Octez program that is responsible for creating and proposing new blocks based on the operations proposed by different clients.
-For more information, see [Bakers](./architecture/bakers).
+For more information, see [Bakers](/architecture/bakers).
 
 - **Accusers**: The accuser is an Octez program that monitors new blocks and looks for problems, such as when bakers try to add more than one block at a time.
 When it finds a problem, it submits a denunciation to other nodes to refuse the new blocks and punish the offending node.
-For more information, see [Accusers](./architecture/accusers).
+For more information, see [Accusers](/architecture/accusers).
 
 - **The Octez client**: The Octez client is a command-line tool that developers can use for many Tezos-related tasks, including:
 
@@ -76,7 +82,7 @@ For more information, see [Accusers](./architecture/accusers).
   - Running Sapling transactions
   - Setting up baking operations for testing contracts
 
-  For more information about the Octez client, see [The Octez client](./developing/octez-client).
+  For more information about the Octez client, see [The Octez client](/developing/octez-client).
 
 - **External clients**: Many external clients can add operations to the network of nodes or use nodes to inspect the state of the blockchain, including:
 
@@ -85,6 +91,21 @@ For more information, see [Accusers](./architecture/accusers).
 
 - **Indexers and block explorers**: Indexers are off-chain applications that retrieve blockchain data, process it, and store it in a way that makes it easier to search and use.
 They are an important part of block explorers, which are applications that provide data about the blockchain.
+
+## Layer 2
+
+Layer 2 consists primarily of nodes that run [Smart Rollups](/architecture/smart-rollups).
+These nodes run logic that is separate from the layer 1 protocol logic; they can behave differently from how the Tezos protocol works, run at a different pace, use more data via the [Data Availability Layer](/architecture/data-availability-layer), and communicate with layer 1.
+Smart Rollup nodes post data to layer 1 for verifiability with a bond for security; other systems can challenge the data to ensure that the Smart Rollup is running honestly.
+
+One major use of Smart Rollups is to enable [Etherlink](https://etherlink.com), which is a Smart Rollup that runs an EVM-compatible protocol.
+Users can work with Etherlink like any other EVM chain while taking advantage of the high scalability of Tezos layer 2.
+Etherlink can also communicate with Tezos layer 1 and other EVM chains, allowing users to bridge assets in and out of Etherlink.
+
+This diagram shows a high-level view of Tezos layer 2, including Etherlink:
+
+![A high-level view of Tezos layer 2, including some elements of layer 1, Smart Rollup nodes, Data Availability Layer nodes, Etherlink Smart Rollup nodes, and the connection to EVM chains](/img/architecture/layer2-overview.png)
+<!-- https://lucid.app/lucidchart/c46f25cf-b347-42a6-b27b-9c58324df684/edit -->
 
 ## References
 
@@ -96,3 +117,4 @@ For more information about the architecture of Tezos, see:
 - [Governance](/architecture/governance)
 - [Indexers](/developing/information/indexers)
 - [Block explorers](/developing/information/block-explorers)
+- [Etherlink](https://docs.etherlink.com)
