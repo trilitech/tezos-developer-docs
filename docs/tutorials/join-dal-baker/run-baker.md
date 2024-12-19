@@ -2,7 +2,7 @@
 title: "Step 4: Run an Octez baking daemon"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 18 December 2024
+  date: 19 December 2024
 ---
 
 Now that you have a layer 1 node and a DAL node, you can run a baking daemon that can create blocks and attests to DAL data.
@@ -13,6 +13,10 @@ If you already have a baking daemon, you can restart it to connect to the DAL no
    ```bash
    octez-baker-PsParisC run with local node "$HOME/.tezos-node" my_baker --liquidity-baking-toggle-vote pass --adaptive-issuance-vote on --dal-node http://127.0.0.1:10732
    ```
+
+   Note that the command for the baker depends on the protocol version.
+   This example uses the ParisC protocol, so the command starts with `octez-baker-PsParisC`.
+   Check the current version of the protocol to see what command to run, and change this command when you upgrade to newer versions of the protocol.
 
    You may append `>>"$HOME/octez-baker.log" 2>&1` to redirect its output in a log file.
 
