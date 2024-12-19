@@ -128,3 +128,34 @@ Therefore, staking more tez brings more rewards but does not reduce the attestat
 - Attach DAL attestations: `ready to attach DAL attestation ...`
 
 Whether these messages appear or not after the attestation delay, proceed to [Step 5: Verifications](/tutorials/join-dal-baker/verify-rights).
+
+## Optional: Run an accuser
+
+The accuser is a daemon that monitors blocks and looks for problems, such as bakers who double-sign blocks or inject multiple attestations.
+If it finds a problem, it posts a denunciation operation, which penalizes the baker.
+You don't have to run an accuser, but if you do, you can receive some of the penalties when the accuser denounces a baker.
+
+Like the baker, the command for the accuser has the protocol name at the end.
+For example, if your operating system uses the `systemd` software suite, the attester service file might look like this example:
+
+```systemd
+[Unit]
+Description=Octez accuser
+Wants=network-online.target
+After=network-online.target
+Requires=octez-node.service
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+Type=simple
+User=tezos
+ExecStart=octez-accuser-PsParisC run
+WorkingDirectory=/opt/octez-accuser
+Restart=on-failure
+RestartSec=5
+StandardOutput=append:/opt/octez-accuser.log
+StandardError=append:/opt/octez-accuser.log
+SyslogIdentifier=%n
+```
