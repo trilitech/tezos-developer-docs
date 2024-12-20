@@ -6,7 +6,7 @@ last_update:
 ---
 
 Staking is the process of temporarily locking tez on the Tezos platform in exchange for rewards.
-Staked tez stays in the staker's account, but they cannot transfer that tez while it is staked.
+Staked tez stays in the staker's account, but the staker cannot transfer (or spend) that tez.
 Stakers can unstake the tez at any time, which makes them spendable again after a delay.
 Staking is an important part of running the Tezos protocol and keeping the blockchain secure, so this is why stakers earn rewards proportional to the locked funds.
 
