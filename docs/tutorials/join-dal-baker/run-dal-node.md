@@ -2,10 +2,11 @@
 title: "Step 3: Run an Octez DAL node"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 2 December 2024
+  date: 19 December 2024
 ---
 
 The DAL node is responsible for temporarily storing data and providing it to bakers and Smart Rollups.
+Follow these steps to run the DAL node:
 
 1. Ensure that the port that the DAL node runs on (by default, 11732) is accessible from outside its system.
 You may need to adapt your firewall rules or set up network address translation (NAT) to direct external traffic to the DAL node.
@@ -112,23 +113,23 @@ You can also refer to [Setting up Octez Services](https://tezos.gitlab.io/introd
    ```systemd
    [Unit]
    Description=Octez DAL node
-   Wants = network-online.target
-   After = network-online.target
-   Requires = octez-node.service
+   Wants=network-online.target
+   After=network-online.target
+   Requires=octez-node.service
 
    [Install]
    WantedBy=multi-user.target
-   RequiredBy = octez-baker.service
+   RequiredBy=octez-baker.service
 
    [Service]
    Type=simple
-   User=mybaker
-   ExecStart=/usr/bin/octez-dal-node run --data-dir /opt/dal
-   WorkingDirectory=/opt/dal
+   User=tezos
+   ExecStart=/usr/bin/octez-dal-node run --data-dir $HOME/.tezos-dal-node
+   WorkingDirectory=$HOME/.tezos-dal-node
    Restart=on-failure
    RestartSec=5
-   StandardOutput=append:/opt/dal/octez-dal-node.log
-   StandardError=append:/opt/dal/octez-dal-node.log
+   StandardOutput=append:/opt/octez-dal-node.log
+   StandardError=append:/opt/octez-dal-node.log
    SyslogIdentifier=%n
    ```
 

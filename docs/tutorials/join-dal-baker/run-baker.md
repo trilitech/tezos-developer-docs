@@ -2,10 +2,13 @@
 title: "Step 4: Run an Octez baking daemon"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 2 December 2024
+  date: 19 December 2024
 ---
 
-Now that you have a DAL node, you can run a baking daemon that can attest to DAL data or restart an existing baking daemon to connect it to the DAL node.
+Now that you have a layer 1 node and a DAL node, you can run a baking daemon that can create blocks and attests to DAL data.
+If you already have a baking daemon, you can restart it to connect to the DAL node.
+
+1. Optional: Set up a remote signer to secure the keys that the baker uses as described in [Signer](https://tezos.gitlab.io/user/key-management.html#signer) in the Octez documentation.
 
 1. To run a baking daemon that connects to the DAL, start it as usual and pass the URL to your DAL node to it with the `--dal-node` argument:
 
@@ -13,11 +16,39 @@ Now that you have a DAL node, you can run a baking daemon that can attest to DAL
    octez-baker-PsParisC run with local node "$HOME/.tezos-node" my_baker --liquidity-baking-toggle-vote pass --adaptive-issuance-vote on --dal-node http://127.0.0.1:10732
    ```
 
+   Note that the command for the baker depends on the protocol version.
+   This example uses the ParisC protocol, so the command starts with `octez-baker-PsParisC`.
+   Check the current version of the protocol to see what command to run, and change this command when you upgrade to newer versions of the protocol.
+
    You may append `>>"$HOME/octez-baker.log" 2>&1` to redirect its output in a log file.
 
 1. Ensure that the baker runs persistently.
 Look up how to run programs persistently in the documentation for your operating system.
 You can also refer to [Run a persistent baking node](https://opentezos.com/node-baking/baking/persistent-baker/) on opentezos.com.
+
+   For example, if your operating system uses the `systemd` software suite, your service file might look like this example:
+
+   ```systemd
+   [Unit]
+   Description=Octez baker
+   Wants=network-online.target
+   After=network-online.target
+   Requires=octez-node.service
+
+   [Install]
+   WantedBy=multi-user.target
+
+   [Service]
+   Type=simple
+   User=tezos
+   ExecStart=octez-baker-PsParisC run with local node "$HOME/.tezos-node" my_baker --liquidity-baking-toggle-vote pass --adaptive-issuance-vote on --dal-node http://127.0.0.1:10732
+   WorkingDirectory=/opt/octez-baker
+   Restart=on-failure
+   RestartSec=5
+   StandardOutput=append:/opt/octez-baker.log
+   StandardError=append:/opt/octez-baker.log
+   SyslogIdentifier=%n
+   ```
 
 1. In the same terminal window, run this command:
 
@@ -99,3 +130,34 @@ Therefore, staking more tez brings more rewards but does not reduce the attestat
 - Attach DAL attestations: `ready to attach DAL attestation ...`
 
 Whether these messages appear or not after the attestation delay, proceed to [Step 5: Verifications](/tutorials/join-dal-baker/verify-rights).
+
+## Optional: Run an accuser
+
+The accuser is a daemon that monitors blocks and looks for problems, such as bakers who double-sign blocks or inject multiple attestations.
+If it finds a problem, it posts a denunciation operation, which leads to penalizing the misbehaving baker.
+You don't have to run an accuser, but if you do, you can receive as a reward part of the penalties of the denounced baker.
+
+Like the baker, the command for the accuser has the protocol name at the end.
+For example, if your operating system uses the `systemd` software suite, the attester service file might look like this example:
+
+```systemd
+[Unit]
+Description=Octez accuser
+Wants=network-online.target
+After=network-online.target
+Requires=octez-node.service
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+Type=simple
+User=tezos
+ExecStart=octez-accuser-PsParisC run
+WorkingDirectory=/opt/octez-accuser
+Restart=on-failure
+RestartSec=5
+StandardOutput=append:/opt/octez-accuser.log
+StandardError=append:/opt/octez-accuser.log
+SyslogIdentifier=%n
+```
