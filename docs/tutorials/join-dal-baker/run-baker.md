@@ -135,7 +135,7 @@ Whether these messages appear or not after the attestation delay, proceed to [St
 
 The accuser is a daemon that monitors blocks and looks for problems, such as bakers who double-sign blocks or inject multiple attestations.
 If it finds a problem, it posts a denunciation operation, which leads to penalizing the misbehaving baker.
-You don't have to run an accuser, but if you do, you can receive some of the penalties when the accuser denounces a baker.
+You don't have to run an accuser, but if you do, you can receive as a reward part of the penalties of the denounced baker.
 
 Like the baker, the command for the accuser has the protocol name at the end.
 For example, if your operating system uses the `systemd` software suite, the attester service file might look like this example:
