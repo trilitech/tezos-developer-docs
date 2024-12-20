@@ -12,7 +12,7 @@ Staking is an important part of running the Tezos protocol and keeping the block
 
 Two main groups stake on Tezos:
 
-- Bakers must stake 6,000 tez to receive the right to bake blocks and to receive rewards for baking those blocks.
+- Bakers, the creators of new blocks in Tezos, must stake 6,000 tez to receive the right to "bake" blocks and to receive rewards for baking those blocks.
 Their staked tez ensures that they bake correctly, because part of their stake is taken ("slashed") if they misbehave.
 For more information about staking for baking purposes, see [Baking](/architecture/bakers).
 
