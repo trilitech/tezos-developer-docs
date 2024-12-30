@@ -22,8 +22,8 @@ const sidebars = {
       //   type: 'doc',
       // },
       items: [
-        // 'using/user-accounts',
-        // 'using/wallets',
+        'using/user-accounts',
+        'using/wallets',
         // 'using/dapps',
         // 'using/transactions',
         'using/staking',

@@ -12,11 +12,13 @@ Wallets allow you to interact with dApps without exposing your account's private
 
 Which wallet you install is up to you and whether you want to install a wallet on your computer, in a browser extension, or as a mobile app.
 
-Mobile apps include [Temple](https://templewallet.com/), [Kukai](https://wallet.kukai.app/), and [Umami](https://umamiwallet.com/).
+These are some wallets that you can use with Tezos:
 
-Browser extensions include the [Temple](https://templewallet.com/) browser extension.
-
-Desktop wallets for Tezos include [Kukai](https://wallet.kukai.app/) and [Umami](https://umamiwallet.com/).
+- [Temple](https://templewallet.com/) mobile application and browser extension
+- [Umami](https://umamiwallet.com/) standalone application for Windows, MacOS, and Linux
+- [Kukai](https://wallet.kukai.app/) federated identity application, which uses accounts linked to other accounts such as email or social media accounts
+- [Trust](https://trustwallet.com/tezos-wallet) mobile application and browser extension
+- [Ledger](https://www.ledger.com/) hardware wallets
 
 Tezos also supports the [MetaMask wallet](https://metamask.io/), but only its browser extension, and only on Mainnet.
 Follow these steps to enable Tezos in MetaMask:
@@ -31,6 +33,8 @@ When a web application shows the Beacon window to connect your wallet, you can s
 The page sends you to https://metamask.tezos.com to approve and manage the connection.
 
 For more information about using MetaMask with Tezos, see [MetaMask Now Supports Tezos: An Explainer](https://spotlight.tezos.com/metamask-now-supports-tezos-an-explainer/).
+
+For a full list of Tezos wallets, see https://tezos.com/learn/store-and-use.
 
 ## Switching the wallet to a testnet
 
