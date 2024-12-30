@@ -24,7 +24,7 @@ Staking has some similarities to the concept of a Smart Rollup bond, but there a
 
 ## Staking as a Tezos user
 
-The process of user staking has these main steps:
+The process of staking has these main steps for a user:
 
 1. The user selects a baker as a delegate for their account.
 As described in [Delegating to a baker](/architecture/bakers#delegating-to-a-baker), delegating tez to a baker puts that tez toward the baker's voting and baking power.
