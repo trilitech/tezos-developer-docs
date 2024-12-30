@@ -116,12 +116,12 @@ For example, if the delay is 307,200 seconds, that time is about 3.5 days.
 
    The exact time depends on what time in the current cycle the account staked its tez.
 
-:::note
+   :::note
 
-The amount of tez that the account stakes determines how often it is called on to make attestations, not how quickly it receives rights.
-Therefore, staking more tez brings more rewards but does not reduce the attestation delay.
+   The amount of tez that the account stakes determines how often it is called on to make attestations, not how quickly it receives rights.
+   Therefore, staking more tez brings more rewards but does not reduce the attestation delay.
 
-:::
+   :::
 
 1. After the delay computed above has passed, **the baker log** (not the Octez node log, neither the DAL node log) should contain lines about:
 
