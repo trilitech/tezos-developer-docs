@@ -49,7 +49,7 @@ The easiest way to stake is to use the staking web application at https://stake.
 
 :::warning
 
-Make sure that you are staking at the right URL (stake.tezos.com).
+Make sure that you are staking at the right URL (https://stake.tezos.com).
 As with all decentralized applications, do not trust unknown sites asking you to sign transactions and never give your private seed phrase to anyone.
 
 :::
