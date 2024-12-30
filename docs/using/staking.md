@@ -37,7 +37,7 @@ However, if the baker misbehaves, their punishment also affects tez staked with 
 1. The user leaves their tez staked for as long as they want.
 During this time the rewards are added to their account automatically.
 
-THe process of unstaking has these main steps:
+The process of unstaking has these main steps:
 
 1. When the user wants to stop staking, they decrease the amount that they have staked or unstake all of their staked tez.
 
