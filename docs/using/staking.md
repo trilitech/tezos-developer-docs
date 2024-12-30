@@ -31,7 +31,7 @@ As described in [Delegating to a baker](/architecture/bakers#delegating-to-a-bak
 Delegating incurs no risk to the user; the user retains full control of the tez, they can spend it at any time, and they are not punished if the baker misbehaves.
 
 1. The user stakes tez with the baker.
-Staking the tez locks it temporarily, but the tez stays in the user's account.
+Staking the tez locks them temporarily, but the tez stay in the user's account.
 However, if the baker misbehaves, their punishment also affects tez staked with them, so it's important to choose a responsible baker.
 
 1. The user leaves their tez staked for as long as they want.
