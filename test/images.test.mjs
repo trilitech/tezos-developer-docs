@@ -23,6 +23,20 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const docsFolder = path.resolve(__dirname, '../docs');
 const imageFolder = path.resolve(__dirname, '../static');
+
+// Convert file to AST, using the correct processors for MD and MDX files
+const getAst = async (filePath) => {
+  const fileContents = await fs.promises.readFile(filePath, 'utf8');
+  if (path.extname(filePath) === '.mdx') {
+    return fromMarkdown(fileContents, {
+      extensions: [mdxjs()],
+      mdastExtensions: [mdxFromMarkdown()]
+    });
+  } else if (path.extname(filePath) === '.md'){
+    return processor.parse(fileContents);
+  }
+}
+
 // Get file names passed in the command or if none were passed, use all files
 const getFilePaths = async () => {
   if (argv.filesToCheck) {
@@ -151,16 +165,3 @@ describe('Test for broken image links', async () => {
     });
   })
 })
-
-// Convert file to AST, using the correct processors for MD and MDX files
-const getAst = async (filePath) => {
-  const fileContents = await fs.promises.readFile(filePath, 'utf8');
-  if (path.extname(filePath) === '.mdx') {
-    return fromMarkdown(fileContents, {
-      extensions: [mdxjs()],
-      mdastExtensions: [mdxFromMarkdown()]
-    });
-  } else if (path.extname(filePath) === '.md'){
-    return processor.parse(fileContents);
-  }
-}
