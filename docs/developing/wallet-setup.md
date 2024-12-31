@@ -2,7 +2,7 @@
 title: Installing and funding a wallet
 authors: Tim McMackin
 last_update:
-  date: 13 February 2024
+  date: 31 December 2024
 ---
 
 To work with Tezos, you need a wallet, which is an application that maintains your accounts and signs Tezos transactions on your behalf.
@@ -20,7 +20,7 @@ These are some wallets that you can use with Tezos:
 - [Trust](https://trustwallet.com/tezos-wallet) mobile application and browser extension
 - [Ledger](https://www.ledger.com/) hardware wallets
 
-Tezos also supports the [MetaMask wallet](https://metamask.io/), but only its browser extension, and only on Mainnet.
+The [MetaMask wallet](https://metamask.io/) supports Tezos, but only its browser extension, and only on Mainnet.
 Follow these steps to enable Tezos in MetaMask:
 
 1. Install the MetaMask browser extension.

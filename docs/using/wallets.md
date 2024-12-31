@@ -30,7 +30,7 @@ These are some wallets that you can use with Tezos:
 - [Trust](https://trustwallet.com/tezos-wallet) mobile application and browser extension
 - [Ledger](https://www.ledger.com/) hardware wallets
 
-Tezos also supports the [MetaMask wallet](https://metamask.io/), but only its browser extension, and only on Mainnet.
+The [MetaMask wallet](https://metamask.io/) supports Tezos, but only its browser extension, and only on Mainnet.
 To set up MetaMask for Tezos, see [Choosing a wallet](/developing/wallet-setup#choosing-a-wallet).
 
 For a full list of Tezos wallets, see https://tezos.com/learn/store-and-use.
