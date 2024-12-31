@@ -97,7 +97,7 @@ The transaction shows the address of the contract, how many tez tokens to send t
 
 If you need funds for transaction fees on a test network, you can get them for free from the faucet, as described in [Funding a wallet](/developing/wallet-setup#funding-a-wallet).
 
-After you approve the transaction and wait a minute or two, you can see it in your wallet's history and on the block explorer.
+After you approve the transaction, you can see it in your wallet's history and on the block explorer.
 
 :::warning
 
