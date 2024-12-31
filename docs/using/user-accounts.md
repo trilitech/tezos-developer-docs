@@ -72,7 +72,7 @@ Malicious users and apps may try to get your private key, wallet password, or re
 For example, spam email and malicious apps may request this information or tell you that you need to "verify it" by entering it.
 
 The only time that you need to give anyone your private key or recovery phrase is when you set up or restore an account in a legitimate wallet application.
-Any other request for this information may be a scam.
+Any other request for this information is most likely a scam.
 
 ## Creating accounts
 
