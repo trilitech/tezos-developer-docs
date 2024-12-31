@@ -39,7 +39,7 @@ Technically, what users refer to as the "account address" is the hash of the pub
 
 ## Public and private keys
 
-Cryptocurrency accounts rely on keys like other computer accounts rely on passwords.
+Cryptocurrency accounts rely on key pairs like other computer accounts rely on passwords.
 The keys secure the account and allow only the account owner to use the account.
 
 Keys come in pairs:
