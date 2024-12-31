@@ -2,12 +2,12 @@
 title: "Step 5: Verifications"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 2 December 2024
+  date: 31 December 2024
 ---
 
 After the delay that you calculated in [Step 4: Run an Octez baking daemon](/tutorials/join-dal-baker/run-baker), follow these instructions to verify the activity or diagnose and fix issues.
 
-1. Record the address of your baker account in an environment variable so you can use it for commands that cannot get addresses by their Octez client aliases:
+1. Record the address of your baker account (not the consensus account)in an environment variable so you can use it for commands that cannot get addresses by their Octez client aliases:
 
    ```bash
    MY_BAKER="$(octez-client show address my_baker | head -n 1 | cut -d ' ' -f 2)"
@@ -50,7 +50,7 @@ After the delay that you calculated in [Step 4: Run an Octez baking daemon](/tut
 
    - Otherwise, make sure that your node and baker are running.
 
-   - Verify that the staked balance of your account is at least 6,000 tez by running the command `octez-client get staked balance for my_baker`.
+   - Verify that the staked balance of your baker account is at least 6,000 tez by running the command `octez-client get staked balance for my_baker`.
    If the response is less than 6,000 tez, you have not staked enough.
    Ensure that you are registered as a delegate and stake more tez, retaining a small amount for transaction fees.
    If necessary you can get more from the faucet.
@@ -68,7 +68,7 @@ After the delay that you calculated in [Step 4: Run an Octez baking daemon](/tut
       1. If the value for the `deactivated` field is `true`, re-register as a baker by running this command:
 
          ```bash
-         octez-client register key my_baker as delegate
+         octez-client register key my_baker as delegate with consensus key consensus_key
          ```
 
       When the next cycle starts, Tezos calculates attestation rights for two cycles in the future and includes your baker.
@@ -124,7 +124,7 @@ After the delay that you calculated in [Step 4: Run an Octez baking daemon](/tut
    l=<current-level>; while true; echo $l; do octez-client rpc get "/chains/main/blocks/head/context/dal/shards?delegates=$MY_BAKER&level=$l"; l=$((l+1)); done
    ```
 
-1. Verify the baker's activity on the Explorus block explorer by going to the Consensus Ops page at https://explorus.io/consensus_ops, selecting Ghostnet, and searching for your address (only the first few characters).
+1. Verify the baker's activity on the Explorus block explorer by going to the Consensus Ops page at https://explorus.io/consensus_ops, selecting Ghostnet, and searching for your baker account address (only the first few characters).
 
    For example, this screenshot shows consensus operations that include DAL attestations, indicated by a number in the "DAL attestation bitset" column.
 
