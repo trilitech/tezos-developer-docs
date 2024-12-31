@@ -128,4 +128,4 @@ You can also refer to [Run a persistent baking node](https://opentezos.com/node-
 1. Optional: When the node has bootstrapped and caught up with the current head block, you can delete the snapshot file to save space.
 
 In the meantime, you can continue the baking infrastructure while the node is bootstrapping.
-Continue to [Step 2: Set up a baker account](/tutorials/join-dal-baker/prepare-account).
+Continue to [Step 2: Set up baker accounts](/tutorials/join-dal-baker/prepare-account).

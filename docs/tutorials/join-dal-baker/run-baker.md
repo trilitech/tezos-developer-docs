@@ -10,10 +10,17 @@ If you already have a baking daemon, you can restart it to connect to the DAL no
 
 1. Optional: Set up a remote signer to secure the keys that the baker uses as described in [Signer](https://tezos.gitlab.io/user/key-management.html#signer) in the Octez documentation.
 
-1. To run a baking daemon that connects to the DAL, start it as usual and pass the URL to your DAL node to it with the `--dal-node` argument:
+1. Run a baking daemon with the following arguments:
+
+   - Use the consensus key, not the baker key
+   - Pass the URL to your DAL node with the `--dal-node` argument
+   - Pass the `--liquidity-baking-toggle-vote` argument; for more information, see [Liquidity baking](https://tezos.gitlab.io/active/liquidity_baking.html) in the Octez documentation
+   - Pass the `--adaptive-issuance-vote` argument; for more information, see [Adaptive Issuance and Staking](https://tezos.gitlab.io/active/adaptive_issuance.html) in the Octez documentation
+
+   For example:
 
    ```bash
-   octez-baker-PsParisC run with local node "$HOME/.tezos-node" my_baker --liquidity-baking-toggle-vote pass --adaptive-issuance-vote on --dal-node http://127.0.0.1:10732
+   octez-baker-PsParisC run with local node "$HOME/.tezos-node" consensus_key --liquidity-baking-toggle-vote pass --adaptive-issuance-vote on --dal-node http://127.0.0.1:10732
    ```
 
    Note that the command for the baker depends on the protocol version.
@@ -41,7 +48,7 @@ You can also refer to [Run a persistent baking node](https://opentezos.com/node-
    [Service]
    Type=simple
    User=tezos
-   ExecStart=octez-baker-PsParisC run with local node "$HOME/.tezos-node" my_baker --liquidity-baking-toggle-vote pass --adaptive-issuance-vote on --dal-node http://127.0.0.1:10732
+   ExecStart=octez-baker-PsParisC run with local node "$HOME/.tezos-node" consensus_key --liquidity-baking-toggle-vote pass --adaptive-issuance-vote on --dal-node http://127.0.0.1:10732
    WorkingDirectory=/opt/octez-baker
    Restart=on-failure
    RestartSec=5
@@ -132,6 +139,9 @@ For example, if the delay is 307,200 seconds, that time is about 3.5 days.
    These lines log the attestations that the baker makes.
 
    If the baker does not have attestation rights, the log contains lines that start with `The following delegates have no attesting rights at level ...`.
+
+   Note that even though the baker daemon is using the consensus key, the attestations refer to the baker key.
+   The consensus key makes attestations on behalf of the baker key but the baking daemon does not need access to the baker key.
 
 After the attestation delay, whether or not you have attestation rights, proceed to [Step 5: Verifications](/tutorials/join-dal-baker/verify-rights).
 
