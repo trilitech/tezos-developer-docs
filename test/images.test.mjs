@@ -137,6 +137,35 @@ const getImagesInAst = (ast, /*filePath*/) => {
   );
 }
 
+// Get a list of images used in all files
+const getAllUsedImages = async () => {
+  const imagesUsedInDocs = await filePaths.reduce(async (imageListPromise, filePath) => {
+    const imageList = await imageListPromise;
+    const ast = await getAst(filePath);
+    const imagesInAst = getImagesInAst(ast, filePath);
+    imagesInAst.forEach((oneImage) => {
+      if (!imageList.includes(imageFolder + oneImage)) {
+        imageList.push(imageFolder + oneImage);
+      }
+    });
+    return imageList;
+  }, Promise.resolve([]));
+
+  // Add images used in the design
+  const designImages = [
+    '/img/external_link.svg',
+    '/img/cover.png',
+    '/img/logo-tezos.svg',
+  ].map((shortPath) => imageFolder + shortPath);
+
+  // Add social images
+  const socialImages = availableImagePaths
+    .filter((imgPath) => imgPath.includes('/img/socials'));
+
+  return imagesUsedInDocs.concat(socialImages).concat(designImages);
+}
+const allUsedImages = await getAllUsedImages();
+
 it('Verify that the test gets images from ASTs', () => {
   const imagesFoundInAst = getImagesInAst(exampleAstWithBrokenLinks);
   expectedImagesInAst.forEach(oneExpectedImage => {
@@ -165,3 +194,12 @@ describe('Test for broken image links', async () => {
     });
   })
 })
+
+describe('Test for unused images', async () => {
+  availableImagePaths.forEach((oneImage) => {
+    it('Image is used: ' + oneImage, () => {
+      expect(allUsedImages, 'Unused image ' + oneImage)
+      .to.include(oneImage);
+    });
+  });
+});
