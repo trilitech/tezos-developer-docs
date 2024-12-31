@@ -95,7 +95,7 @@ The transaction shows the address of the contract, how many tez tokens to send t
 
 <img src="/img/using/wallets-bcd-transaction-temple.png" alt="Approving a transaction in Temple wallet" style={{width: 300}} />
 
-If you need funds for transaction fees on the test network, you can get them for free from the faucet, as described in [Funding a wallet](/developing/wallet-setup#funding-a-wallet).
+If you need funds for transaction fees on a test network, you can get them for free from the faucet, as described in [Funding a wallet](/developing/wallet-setup#funding-a-wallet).
 
 After you approve the transaction and wait a minute or two, you can see it in your wallet's history and on the block explorer.
 
