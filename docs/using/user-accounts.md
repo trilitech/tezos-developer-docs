@@ -5,7 +5,7 @@ last_update:
   date: 30 December 2024
 ---
 
-From the user perspective, a Tezos account is much like an account that you might have on a web application or computer system.
+From the user's perspective, a Tezos account is much like an account that you might have on a web application or computer system.
 You can use a Tezos account to do many things, including:
 
 - Store and work with tez, the native currency token of the Tezos system
