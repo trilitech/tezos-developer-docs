@@ -26,7 +26,7 @@ Tezos users use wallets to manage their accounts; see [Wallets](/using/wallets).
 ## Account addresses
 
 A Tezos account address uniquely identifies an account.
-Most Tezos user account addresses start with `tz1`, as in `tz1QCVQinE8iVj1H2fckqx6oiM85CNJSK9Sx`, but they can also start with `tz2`, `tz3`, or `tz4`.
+Most Tezos user account addresses start with `tz1`, as in `tz1QCVQinE8iVj1H2fckqx6oiM85CNJSK9Sx`, but they can also start with `tz2`, `tz3`, or `tz4`, depending on the cryptographic method used to create them.
 They consist of 26 characters and include only letters and numbers.
 
 :::note
