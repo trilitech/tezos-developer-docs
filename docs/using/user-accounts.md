@@ -56,7 +56,7 @@ In most cases, their wallet application stores the keys and protects them with a
 
 You must keep your private key secret.
 
-The private key (aka as secret key) is the only thing that another user needs to impersonate your account on Tezos and send transactions on your behalf.
+The private key (also known as the secret key) is the only thing that another user needs to impersonate your account on Tezos and send transactions on your behalf.
 If another user gets your private key, they can access your account and send its tez and other tokens to another account.
 If your wallet provides a recovery phrase, you must keep it secret too, because malicious users can use it to recreate your private key.
 
