@@ -65,8 +65,8 @@ If your wallet provides a recovery phrase, you must keep it secret too, because 
 To keep their private keys safe, users use [wallets](/using/wallets), which are applications that store private keys and use them to sign transactions on your behalf.
 
 Of course the wallet application may also require a password, and therefore you must also keep this password secret.
-Many wallet applications provide a recovery code that you can use to restore the account if you lose the wallet application or the device that it is on.
-You must also keep this recovery phrase secret.
+Many wallet applications provide a way to recover the account if you lose the wallet application or the device that it is on.
+You must also keep this recovery information secret.
 
 Malicious users and apps may try to get your private key, wallet password, or recovery phrase.
 For example, spam email and malicious apps may request this information or tell you that you need to "verify it" by entering it.
