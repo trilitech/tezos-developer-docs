@@ -15,6 +15,7 @@ Some wallets can do other tasks, including:
 - Providing information on the value of tokens
 - Buying, selling, and exchanging tokens
 - Showing the transaction history of an account
+- Batching multiple transactions to save on transaction fees
 
 ## Tezos wallets
 
@@ -28,6 +29,7 @@ These are some wallets that you can use with Tezos:
 - [Umami](https://umamiwallet.com/) standalone application for Windows, MacOS, and Linux
 - [Kukai](https://wallet.kukai.app/) federated identity application, which uses accounts linked to other accounts such as email or social media accounts
 - [Trust](https://trustwallet.com/tezos-wallet) mobile application and browser extension
+- [Airgap](https://airgap.it/) standalone and mobile applications
 - [Ledger](https://www.ledger.com/) hardware wallets
 
 The [MetaMask wallet](https://metamask.io/) supports Tezos, but only its browser extension, and only on Mainnet.
