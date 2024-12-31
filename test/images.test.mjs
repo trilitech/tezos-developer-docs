@@ -59,83 +59,83 @@ const processor = unified()
   .use(remarkRehype)
   .use(rehypeStringify);
 
-  // Test functions to select nodes that are links to images
-  const mdxTestFunction = (node) => ['img', 'Figure'].includes(node.name);
-  const markdownTestFunction = (node) => node.type === 'image';
-  const htmlImageTestFunction = (node) => node.type === 'paragraph';
-  const htmlImageRegex = /<img.*src=\"(.+?)\".*\/>/gm;
+// Test functions to select nodes that are links to images
+const mdxTestFunction = (node) => ['img', 'Figure'].includes(node.name);
+const markdownTestFunction = (node) => node.type === 'image';
+const htmlImageTestFunction = (node) => node.type === 'paragraph';
+const htmlImageRegex = /<img.*src=\"(.+?)\".*\/>/gm;
 
-  // Get all of the images in an AST, visiting the correct nodes for MD and MDX files.
-  /*
-  For MDX, get Figure and img nodes, like this img node:
-  {
-    "type": "mdxJsxFlowElement",
-    "name": "img",
-    "attributes": [
-      {
-        "type": "mdxJsxAttribute",
-        "name": "src",
-        "value": "/img/tezos_smart_contract_content.svg"
-      },
-      {
-        "type": "mdxJsxAttribute",
-        "name": "alt",
-        "value": "hi"
-      }
-    ],
-    "children": [],
-    "position": {...}
-  },
+// Get all of the images in an AST, visiting the correct nodes for MD and MDX files.
+/*
+For MDX, get Figure and img nodes, like this img node:
+{
+  "type": "mdxJsxFlowElement",
+  "name": "img",
+  "attributes": [
+    {
+      "type": "mdxJsxAttribute",
+      "name": "src",
+      "value": "/img/tezos_smart_contract_content.svg"
+    },
+    {
+      "type": "mdxJsxAttribute",
+      "name": "alt",
+      "value": "hi"
+    }
+  ],
+  "children": [],
+  "position": {...}
+},
 
-  For MD, get image nodes, like this:
-  {
-    "type": "image",
-    "title": null,
-    "url": "/img/someimage.jpg",
-    "alt": "some alt text",
-    "position": {...}
-  },
+For MD, get image nodes, like this:
+{
+  "type": "image",
+  "title": null,
+  "url": "/img/someimage.jpg",
+  "alt": "some alt text",
+  "position": {...}
+},
 
-  For raw html images, get paragraphs that contain <img src=..., like this:
-  {
-    type: "paragraph",
-    children: [
-      {
-        type: "text",
-        value: "<img src=\"/img/unity/unity-walletconnection-scene-qrcode-unconnected.png\" alt=\"The start of the WalletConnection scene, with no account information, showing a QR code\" style={{width: 300}} />",
-        position: {...}
-      }
-    ]
-  }
+For raw html images, get paragraphs that contain <img src=..., like this:
+{
+  type: "paragraph",
+  children: [
+    {
+      type: "text",
+      value: "<img src=\"/img/unity/unity-walletconnection-scene-qrcode-unconnected.png\" alt=\"The start of the WalletConnection scene, with no account information, showing a QR code\" style={{width: 300}} />",
+      position: {...}
+    }
+  ]
+}
 
-  */
-  const getImagesInAst = (ast, /*filePath*/) => {
-    const imagePathsInFile = [];
-    // MDX elements
-    visit(ast, mdxTestFunction, (node) => {
-      const srcAttribute = node.attributes.find((attr => attr.name === 'src'));
-      imagePathsInFile.push(srcAttribute.value);
-    });
-    // MD images
-    visit(ast, markdownTestFunction, (node) => {
-      imagePathsInFile.push(node.url);
-    });
-    // HTML images
-    visit(ast, htmlImageTestFunction, (node) => {
-      node.children.forEach((child) => {
-        if (child.type === 'text') {
-          let matches;
-          while ((matches = htmlImageRegex.exec(child.value)) !== null) {
-            imagePathsInFile.push(matches[1]);
-          }
+*/
+const getImagesInAst = (ast, /*filePath*/) => {
+  const imagePathsInFile = [];
+  // MDX elements
+  visit(ast, mdxTestFunction, (node) => {
+    const srcAttribute = node.attributes.find((attr => attr.name === 'src'));
+    imagePathsInFile.push(srcAttribute.value);
+  });
+  // MD images
+  visit(ast, markdownTestFunction, (node) => {
+    imagePathsInFile.push(node.url);
+  });
+  // HTML images
+  visit(ast, htmlImageTestFunction, (node) => {
+    node.children.forEach((child) => {
+      if (child.type === 'text') {
+        let matches;
+        while ((matches = htmlImageRegex.exec(child.value)) !== null) {
+          imagePathsInFile.push(matches[1]);
         }
-      })
-    });
-    // Filter out external links to files
-    return imagePathsInFile.filter((oneLink) =>
-      !oneLink.startsWith('http://') && !oneLink.startsWith('https://')
-    );
-  }
+      }
+    })
+  });
+  // Filter out external links to files
+  return imagePathsInFile.filter((oneLink) =>
+    !oneLink.startsWith('http://') && !oneLink.startsWith('https://')
+  );
+}
 
 it('Verify that the test gets images from ASTs', () => {
   const imagesFoundInAst = getImagesInAst(exampleAstWithBrokenLinks);
