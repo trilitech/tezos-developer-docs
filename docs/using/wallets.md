@@ -2,7 +2,7 @@
 title: Wallets
 authors: "Tim McMackin"
 last_update:
-  date: 30 December 2024
+  date: 31 December 2024
 ---
 
 Wallets are tools that manage accounts on blockchains like Tezos.
@@ -11,7 +11,7 @@ For more information on accounts, see [Accounts](/using/accounts).
 
 Some wallets can do other tasks, including:
 
-- Showing the token balances that an account holds -- e.g. DeFi  and NFT tokens
+- Showing the token balances that an account holds, such as cryptocurrencies (DeFi tokens) and non-fungible tokens (NFTs)
 - Providing information on the value of tokens
 - Buying, selling, and exchanging tokens
 - Showing the transaction history of an account
