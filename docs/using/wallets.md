@@ -11,7 +11,7 @@ For more information on accounts, see [Accounts](/using/accounts).
 
 Some wallets can do other tasks, including:
 
-- Showing the tokens that an account holds
+- Showing the token balances that an account holds -- e.g. DeFi  and NFT tokens
 - Providing information on the value of tokens
 - Buying, selling, and exchanging tokens
 - Showing the transaction history of an account
