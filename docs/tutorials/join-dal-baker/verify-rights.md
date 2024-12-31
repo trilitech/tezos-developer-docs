@@ -140,6 +140,30 @@ If you don't see DAL attestation rights:
 
    - Verify that your DAL node is connected to the network by following the instructions in [Troubleshooting](https://tezos.gitlab.io/shell/dal_run.html#troubleshooting) in the Octez documentation.
 
+## Optional: Changing the consensus key
+
+If you need to change the consensus key that the baker daemon uses, you can change it without changing the baker key.
+The new key takes effect after the same attestation delay that you had to wait for your baker to receive attestation rights when you first set it up:
+
+```
+(consensus_rights_delay + 2) * blocks_per_cycle * minimal_block_delay
+```
+
+Follow these steps to change the consensus key:
+
+1. Generate a new consensus key with the `octez-client gen keys` command or import a private key into the instance of the Octez client on the same machine as the baking daemon.
+
+1. Use this new key as the consensus key for your baker account by running this command, with the address or alias of the new consensus key as the `<NEW CONSENSUS KEY>` variable:
+
+   ```bash
+   octez-client set consensus key for my_baker to <NEW CONSENSUS KEY>
+   ```
+
+1. Wait for the change to take effect.
+During this time you can leave the baking daemon running with the old consensus key.
+
+1. When the new consensus key is active, stop the baking daemon and restart it with the new consensus key.
+
 ## Optional: Unstaking your tez and receiving your baking rewards
 
 If you leave the baker running, you can see rewards accrue by running the command `octez-client get staked balance for my_baker`.
