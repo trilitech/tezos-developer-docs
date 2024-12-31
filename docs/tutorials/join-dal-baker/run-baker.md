@@ -2,7 +2,7 @@
 title: "Step 4: Run an Octez baking daemon"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 19 December 2024
+  date: 31 December 2024
 ---
 
 Now that you have a layer 1 node and a DAL node, you can run a baking daemon that can create blocks and attests to DAL data.
@@ -123,13 +123,17 @@ For example, if the delay is 307,200 seconds, that time is about 3.5 days.
 
    :::
 
-1. After the delay computed above has passed, **the baker log** (not the Octez node log, neither the DAL node log) should contain lines about:
+1. After the delay computed above has passed, **the baker log** (not the Octez node log, neither the DAL node log) should contain lines that look like this:
 
-- Consensus pre-attestations: `injected preattestation ...`
-- Consensus attestations: `injected attestation ...`
-- Attach DAL attestations: `ready to attach DAL attestation ...`
+   - Consensus pre-attestations: `injected preattestation ...`
+   - Consensus attestations: `injected attestation ...`
+   - Attach DAL attestations: `ready to attach DAL attestation ...`
 
-Whether these messages appear or not after the attestation delay, proceed to [Step 5: Verifications](/tutorials/join-dal-baker/verify-rights).
+   These lines log the attestations that the baker makes.
+
+   If the baker does not have attestation rights, the log contains lines that start with `The following delegates have no attesting rights at level ...`.
+
+After the attestation delay, whether or not you have attestation rights, proceed to [Step 5: Verifications](/tutorials/join-dal-baker/verify-rights).
 
 ## Optional: Run an accuser
 
