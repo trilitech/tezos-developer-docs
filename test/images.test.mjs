@@ -139,7 +139,9 @@ const getImagesInAst = (ast, /*filePath*/) => {
 
 // Get a list of images used in all files
 const getAllUsedImages = async () => {
-  const imagesUsedInDocs = await filePaths.reduce(async (imageListPromise, filePath) => {
+  // Get all files, not files that may be limited by argv.filesToCheck
+  const allMDFiles = await glob(docsFolder + '/**/*.{md,mdx}');
+  const imagesUsedInDocs = await allMDFiles.reduce(async (imageListPromise, filePath) => {
     const imageList = await imageListPromise;
     const ast = await getAst(filePath);
     const imagesInAst = getImagesInAst(ast, filePath);
