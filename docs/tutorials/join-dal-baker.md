@@ -5,7 +5,7 @@ last_update:
   date: 18 December 2024
 ---
 
-As described in [Nodes](/architecutre/nodes), Tezos nodes are peer-to-peer programs that run the Tezos network.
+As described in [Nodes](/architecture/nodes), Tezos nodes are peer-to-peer programs that run the Tezos network.
 Anyone can run a node, and they might do so for many different reasons, including:
 
 - Running nodes makes the Tezos network resilient and secure
