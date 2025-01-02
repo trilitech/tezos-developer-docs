@@ -2,12 +2,12 @@
 title: "Step 5: Verifications"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 2 December 2024
+  date: 2 January 2025
 ---
 
 After the delay that you calculated in [Step 4: Run an Octez baking daemon](/tutorials/join-dal-baker/run-baker), follow these instructions to verify the activity or diagnose and fix issues.
 
-1. Record the address of your baker account in an environment variable so you can use it for commands that cannot get addresses by their Octez client aliases:
+1. Record the address of your baker account (not the consensus account) in an environment variable so you can use it for commands that cannot get addresses by their Octez client aliases:
 
    ```bash
    MY_BAKER="$(octez-client show address my_baker | head -n 1 | cut -d ' ' -f 2)"
@@ -50,7 +50,7 @@ After the delay that you calculated in [Step 4: Run an Octez baking daemon](/tut
 
    - Otherwise, make sure that your node and baker are running.
 
-   - Verify that the staked balance of your account is at least 6,000 tez by running the command `octez-client get staked balance for my_baker`.
+   - Verify that the staked balance of your baker account is at least 6,000 tez by running the command `octez-client get staked balance for my_baker`.
    If the response is less than 6,000 tez, you have not staked enough.
    Ensure that you are registered as a delegate and stake more tez, retaining a small amount for transaction fees.
    If necessary you can get more from the faucet.
@@ -68,7 +68,7 @@ After the delay that you calculated in [Step 4: Run an Octez baking daemon](/tut
       1. If the value for the `deactivated` field is `true`, re-register as a baker by running this command:
 
          ```bash
-         octez-client register key my_baker as delegate
+         octez-client register key my_baker as delegate with consensus key consensus_key
          ```
 
       When the next cycle starts, Tezos calculates attestation rights for two cycles in the future and includes your baker.
@@ -124,7 +124,9 @@ After the delay that you calculated in [Step 4: Run an Octez baking daemon](/tut
    l=<current-level>; while true; echo $l; do octez-client rpc get "/chains/main/blocks/head/context/dal/shards?delegates=$MY_BAKER&level=$l"; l=$((l+1)); done
    ```
 
-1. Verify the baker's activity on the Explorus block explorer by going to the Consensus Ops page at https://explorus.io/consensus_ops, selecting Ghostnet, and searching for your address (only the first few characters).
+   If the DAL is active, you should see shards assigned for at least some levels but not necessarily every level.
+
+1. Verify the baker's activity on the Explorus block explorer by going to the Consensus Ops page at https://explorus.io/consensus_ops, selecting Ghostnet, and searching for your baker account address (only the first few characters).
 
    For example, this screenshot shows consensus operations that include DAL attestations, indicated by a number in the "DAL attestation bitset" column.
 
@@ -140,6 +142,30 @@ If you don't see DAL attestation rights:
 
    - Verify that your DAL node is connected to the network by following the instructions in [Troubleshooting](https://tezos.gitlab.io/shell/dal_run.html#troubleshooting) in the Octez documentation.
 
+## Optional: Changing the consensus key
+
+If you need to change the consensus key that the baker daemon uses, you can change it without changing the baker key.
+The new key takes effect after the same attestation delay that you had to wait for your baker to receive attestation rights when you first set it up:
+
+```
+(consensus_rights_delay + 2) * blocks_per_cycle * minimal_block_delay
+```
+
+Follow these steps to change the consensus key:
+
+1. Generate a new consensus key with the `octez-client gen keys` command or import a private key into the instance of the Octez client on the same machine as the baking daemon.
+
+1. Use this new key as the consensus key for your baker account by running this command, with the address or alias of the new consensus key as the `<NEW CONSENSUS KEY>` variable:
+
+   ```bash
+   octez-client set consensus key for my_baker to <NEW CONSENSUS KEY>
+   ```
+
+1. Wait for the change to take effect.
+During this time you can leave the baking daemon running with the old consensus key.
+
+1. When the new consensus key is active, stop the baking daemon and restart it with the new consensus key.
+
 ## Optional: Unstaking your tez and receiving your baking rewards
 
 If you leave the baker running, you can see rewards accrue by running the command `octez-client get staked balance for my_baker`.
@@ -152,7 +178,9 @@ For example, this command unstakes 6,000 tez:
 octez-client unstake 6000 for my_baker
 ```
 
-Then run this command to retrieve the tez:
+You can substitute "everything" for the amount of tez to unstake everything.
+
+Then, after the same delay of `consensus_rights_delay + 2` cycles, run this command to retrieve the tez:
 
 ```bash
 octez-client finalize unstake for my_baker
