@@ -124,6 +124,8 @@ After the delay that you calculated in [Step 4: Run an Octez baking daemon](/tut
    l=<current-level>; while true; echo $l; do octez-client rpc get "/chains/main/blocks/head/context/dal/shards?delegates=$MY_BAKER&level=$l"; l=$((l+1)); done
    ```
 
+   If the DAL is active, you should see shards assigned for at least some levels but not necessarily every level.
+
 1. Verify the baker's activity on the Explorus block explorer by going to the Consensus Ops page at https://explorus.io/consensus_ops, selecting Ghostnet, and searching for your baker account address (only the first few characters).
 
    For example, this screenshot shows consensus operations that include DAL attestations, indicated by a number in the "DAL attestation bitset" column.
