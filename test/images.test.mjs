@@ -23,6 +23,20 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const docsFolder = path.resolve(__dirname, '../docs');
 const imageFolder = path.resolve(__dirname, '../static');
+
+// Convert file to AST, using the correct processors for MD and MDX files
+const getAst = async (filePath) => {
+  const fileContents = await fs.promises.readFile(filePath, 'utf8');
+  if (path.extname(filePath) === '.mdx') {
+    return fromMarkdown(fileContents, {
+      extensions: [mdxjs()],
+      mdastExtensions: [mdxFromMarkdown()]
+    });
+  } else if (path.extname(filePath) === '.md'){
+    return processor.parse(fileContents);
+  }
+}
+
 // Get file names passed in the command or if none were passed, use all files
 const getFilePaths = async () => {
   if (argv.filesToCheck) {
@@ -45,57 +59,112 @@ const processor = unified()
   .use(remarkRehype)
   .use(rehypeStringify);
 
-  // Test functions to select nodes that are links to images
-  const mdxTestFunction = (node) => ['img', 'Figure'].includes(node.name);
-  const markdownTestFunction = (node) => node.type === 'image';
+// Test functions to select nodes that are links to images
+const mdxTestFunction = (node) => ['img', 'Figure'].includes(node.name);
+const markdownTestFunction = (node) => node.type === 'image';
+const htmlImageTestFunction = (node) => node.type === 'paragraph';
+const htmlImageRegex = /<img.*src=\"(.+?)\".*\/>/gm;
 
-  // Get all of the images in an AST, visiting the correct nodes for MD and MDX files.
-  /*
-  For MDX, get Figure and img nodes, like this img node:
-  {
-    "type": "mdxJsxFlowElement",
-    "name": "img",
-    "attributes": [
-      {
-        "type": "mdxJsxAttribute",
-        "name": "src",
-        "value": "/img/tezos_smart_contract_content.svg"
-      },
-      {
-        "type": "mdxJsxAttribute",
-        "name": "alt",
-        "value": "hi"
+// Get all of the images in an AST, visiting the correct nodes for MD and MDX files.
+/*
+For MDX, get Figure and img nodes, like this img node:
+{
+  "type": "mdxJsxFlowElement",
+  "name": "img",
+  "attributes": [
+    {
+      "type": "mdxJsxAttribute",
+      "name": "src",
+      "value": "/img/tezos_smart_contract_content.svg"
+    },
+    {
+      "type": "mdxJsxAttribute",
+      "name": "alt",
+      "value": "hi"
+    }
+  ],
+  "children": [],
+  "position": {...}
+},
+
+For MD, get image nodes, like this:
+{
+  "type": "image",
+  "title": null,
+  "url": "/img/someimage.jpg",
+  "alt": "some alt text",
+  "position": {...}
+},
+
+For raw html images, get paragraphs that contain <img src=..., like this:
+{
+  type: "paragraph",
+  children: [
+    {
+      type: "text",
+      value: "<img src=\"/img/unity/unity-walletconnection-scene-qrcode-unconnected.png\" alt=\"The start of the WalletConnection scene, with no account information, showing a QR code\" style={{width: 300}} />",
+      position: {...}
+    }
+  ]
+}
+
+*/
+const getImagesInAst = (ast, /*filePath*/) => {
+  const imagePathsInFile = [];
+  // MDX elements
+  visit(ast, mdxTestFunction, (node) => {
+    const srcAttribute = node.attributes.find((attr => attr.name === 'src'));
+    imagePathsInFile.push(srcAttribute.value);
+  });
+  // MD images
+  visit(ast, markdownTestFunction, (node) => {
+    imagePathsInFile.push(node.url);
+  });
+  // HTML images
+  visit(ast, htmlImageTestFunction, (node) => {
+    node.children.forEach((child) => {
+      if (child.type === 'text') {
+        let matches;
+        while ((matches = htmlImageRegex.exec(child.value)) !== null) {
+          imagePathsInFile.push(matches[1]);
+        }
       }
-    ],
-    "children": [],
-    "position": {...}
-  },
+    })
+  });
+  // Filter out external links to files
+  return imagePathsInFile.filter((oneLink) =>
+    !oneLink.startsWith('http://') && !oneLink.startsWith('https://')
+  );
+}
 
-  For MD, get image nodes, like this:
-  {
-    "type": "image",
-    "title": null,
-    "url": "/img/someimage.jpg",
-    "alt": "some alt text",
-    "position": {...}
-  },
-  */
-  const getImagesInAst = (ast, /*filePath*/) => {
-    const imagePathsInFile = [];
-    // MDX elements
-    visit(ast, mdxTestFunction, (node) => {
-      const srcAttribute = node.attributes.find((attr => attr.name === 'src'));
-      imagePathsInFile.push(srcAttribute.value);
+// Get a list of images used in all files
+const getAllUsedImages = async () => {
+  const imagesUsedInDocs = await filePaths.reduce(async (imageListPromise, filePath) => {
+    const imageList = await imageListPromise;
+    const ast = await getAst(filePath);
+    const imagesInAst = getImagesInAst(ast, filePath);
+    imagesInAst.forEach((oneImage) => {
+      if (!imageList.includes(imageFolder + oneImage)) {
+        imageList.push(imageFolder + oneImage);
+      }
     });
-    // MD images
-    visit(ast, markdownTestFunction, (node) => {
-      imagePathsInFile.push(node.url);
-    });
-    // Filter out external links to files
-    return imagePathsInFile.filter((oneLink) =>
-      !oneLink.startsWith('http://') && !oneLink.startsWith('https://')
-    );
-  }
+    return imageList;
+  }, Promise.resolve([]));
+
+  // Add images used in the design
+  const designImages = [
+    '/img/external_link.svg',
+    '/img/cover.png',
+    '/img/logo-tezos.svg',
+  ].map((shortPath) => imageFolder + shortPath);
+
+  // Add social images
+  const socialImages = availableImagePaths
+    .filter((imgPath) => imgPath.includes('/img/socials'));
+
+  return imagesUsedInDocs.concat(socialImages).concat(designImages);
+}
+const allUsedImages = await getAllUsedImages();
 
 it('Verify that the test gets images from ASTs', () => {
   const imagesFoundInAst = getImagesInAst(exampleAstWithBrokenLinks);
@@ -126,15 +195,11 @@ describe('Test for broken image links', async () => {
   })
 })
 
-// Convert file to AST, using the correct processors for MD and MDX files
-const getAst = async (filePath) => {
-  const fileContents = await fs.promises.readFile(filePath, 'utf8');
-  if (path.extname(filePath) === '.mdx') {
-    return fromMarkdown(fileContents, {
-      extensions: [mdxjs()],
-      mdastExtensions: [mdxFromMarkdown()]
+describe('Test for unused images', async () => {
+  availableImagePaths.forEach((oneImage) => {
+    it('Image is used: ' + oneImage, () => {
+      expect(allUsedImages, 'Unused image ' + oneImage)
+      .to.include(oneImage);
     });
-  } else if (path.extname(filePath) === '.md'){
-    return processor.parse(fileContents);
-  }
-}
+  });
+});
