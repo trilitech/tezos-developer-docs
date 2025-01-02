@@ -180,7 +180,7 @@ octez-client unstake 6000 for my_baker
 
 You can substitute "everything" for the amount of tez to unstake everything.
 
-Then run this command to retrieve the tez:
+Then, after the same delay of `consensus_rights_delay + 2` cycles, run this command to retrieve the tez:
 
 ```bash
 octez-client finalize unstake for my_baker
