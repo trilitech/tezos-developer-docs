@@ -2,7 +2,7 @@
 title: Accounts
 authors: "Tim McMackin"
 last_update:
-  date: 30 December 2024
+  date: 2 January 2025
 ---
 
 From the user's perspective, a Tezos account is much like an account that you might have on a web application or computer system.
@@ -66,12 +66,13 @@ To keep their private keys safe, users use [wallets](/using/wallets), which are 
 
 Of course the wallet application may also require a password, and therefore you must also keep this password secret.
 Many wallet applications provide a way to recover the account if you lose the wallet application or the device that it is on.
+Some wallets provide recovery codes in the form of a series of words, others recreate accounts from private keys, and others have proprietary recovery methods.
 You must also keep this recovery information secret.
 
-Malicious users and apps may try to get your private key, wallet password, or recovery phrase.
+Malicious users and apps may try to get your private key, wallet password, or recovery information.
 For example, spam email and malicious apps may request this information or tell you that you need to "verify it" by entering it.
 
-The only time that you need to give anyone your private key or recovery phrase is when you set up or restore an account in a legitimate wallet application.
+The only time that you need to give anyone your private key or recovery information is when you set up or restore an account in a legitimate wallet application.
 Any other request for this information is most likely a scam.
 
 ## Creating accounts
