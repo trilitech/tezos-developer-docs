@@ -7,7 +7,7 @@ last_update:
 
 After the delay that you calculated in [Step 4: Run an Octez baking daemon](/tutorials/join-dal-baker/run-baker), follow these instructions to verify the activity or diagnose and fix issues.
 
-1. Record the address of your baker account (not the consensus account)in an environment variable so you can use it for commands that cannot get addresses by their Octez client aliases:
+1. Record the address of your baker account (not the consensus account) in an environment variable so you can use it for commands that cannot get addresses by their Octez client aliases:
 
    ```bash
    MY_BAKER="$(octez-client show address my_baker | head -n 1 | cut -d ' ' -f 2)"
