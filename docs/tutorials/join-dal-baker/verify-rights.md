@@ -2,7 +2,7 @@
 title: "Step 5: Verifications"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 31 December 2024
+  date: 2 January 2025
 ---
 
 After the delay that you calculated in [Step 4: Run an Octez baking daemon](/tutorials/join-dal-baker/run-baker), follow these instructions to verify the activity or diagnose and fix issues.
@@ -177,6 +177,8 @@ For example, this command unstakes 6,000 tez:
 ```bash
 octez-client unstake 6000 for my_baker
 ```
+
+You can substitute "everything" for the amount of tez to unstake everything.
 
 Then run this command to retrieve the tez:
 
