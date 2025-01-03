@@ -17,10 +17,10 @@ const sidebars = {
     {
       type: 'category',
       label: 'Using Tezos',
-      // link: {
-      //   id: 'using',
-      //   type: 'doc',
-      // },
+      link: {
+        id: 'using',
+        type: 'doc',
+      },
       items: [
         'using/user-accounts',
         'using/wallets',
