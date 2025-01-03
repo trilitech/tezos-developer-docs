@@ -20,7 +20,7 @@ Most wallets can do other tasks, including:
 ## Tezos wallets
 
 Many wallets are compatible with Tezos.
-They are available as standalone programs, as mobile applications, as web browser extensions, as online federated identity accounts, and as pieces of hardware.
+They are available as standalone programs, as mobile applications, as web browser extensions, as online federated identity accounts, or as pieces of hardware.
 Which one you use depends on what platform you want to use your wallet on and what features you want.
 
 These are some wallets that you can use with Tezos:
