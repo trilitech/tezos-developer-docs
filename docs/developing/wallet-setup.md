@@ -2,23 +2,20 @@
 title: Installing and funding a wallet
 authors: Tim McMackin
 last_update:
-  date: 13 February 2024
+  date: 3 January 2025
 ---
+
+import PopularWallets from '@site/docs/conrefs/popular-wallets.md';
 
 To work with Tezos, you need a wallet, which is an application that maintains your accounts and signs Tezos transactions on your behalf.
 Wallets allow you to interact with dApps without exposing your account's private key.
 
 ## Choosing a wallet
 
-Which wallet you install is up to you and whether you want to install a wallet on your computer, in a browser extension, or as a mobile app.
+Which wallet you install is up to you and whether you want to install a wallet on your computer, in a browser extension, as a mobile app, or as a piece of hardware.
 
-Mobile apps include [Temple](https://templewallet.com/), [Kukai](https://wallet.kukai.app/), and [Umami](https://umamiwallet.com/).
+<PopularWallets />
 
-Browser extensions include the [Temple](https://templewallet.com/) browser extension.
-
-Desktop wallets for Tezos include [Kukai](https://wallet.kukai.app/) and [Umami](https://umamiwallet.com/).
-
-Tezos also supports the [MetaMask wallet](https://metamask.io/), but only its browser extension, and only on Mainnet.
 Follow these steps to enable Tezos in MetaMask:
 
 1. Install the MetaMask browser extension.
@@ -31,6 +28,8 @@ When a web application shows the Beacon window to connect your wallet, you can s
 The page sends you to https://metamask.tezos.com to approve and manage the connection.
 
 For more information about using MetaMask with Tezos, see [MetaMask Now Supports Tezos: An Explainer](https://spotlight.tezos.com/metamask-now-supports-tezos-an-explainer/).
+
+For a full list of Tezos wallets, see https://tezos.com/learn/store-and-use.
 
 ## Switching the wallet to a testnet
 
