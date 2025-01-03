@@ -54,7 +54,8 @@ As with all decentralized applications, do not trust unknown sites asking you to
 
 :::
 
-1. Make sure you have tez tokens in a supported Tezos wallet, such as [Kukai](https://wallet.kukai.app/), [Temple](https://templewallet.com/), [Trust Wallet](https://trustwallet.com/), or [Umami Wallet](https://umamiwallet.com/).
+1. Make sure you have tez tokens in a supported Tezos wallet.
+For a list of popular wallets, see [Wallets](/using/wallets).
 
 1. Go to https://stake.tezos.com in a web browser.
 

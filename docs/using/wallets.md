@@ -2,8 +2,10 @@
 title: Wallets
 authors: "Tim McMackin"
 last_update:
-  date: 31 December 2024
+  date: 3 January 2025
 ---
+
+import PopularWallets from '@site/docs/conrefs/popular-wallets.md';
 
 Wallets are tools that manage accounts on blockchains like Tezos.
 Their primary purpose is to store an account's private key securely and encrypt (or "sign") transactions with that key without exposing the key.
@@ -23,16 +25,8 @@ Many wallets are compatible with Tezos.
 They are available as standalone programs, as mobile applications, as web browser extensions, as online federated identity accounts, or as pieces of hardware.
 Which one you use depends on what platform you want to use your wallet on and what features you want.
 
-These are some wallets that you can use with Tezos:
+<PopularWallets />
 
-- [Temple](https://templewallet.com/) mobile application and browser extension
-- [Umami](https://umamiwallet.com/) standalone application for Windows, MacOS, and Linux
-- [Kukai](https://wallet.kukai.app/) federated identity application, which uses accounts linked to other accounts such as email or social media accounts
-- [Trust](https://trustwallet.com/tezos-wallet) mobile application and browser extension
-- [Airgap](https://airgap.it/) standalone and mobile applications
-- [Ledger](https://www.ledger.com/) hardware wallets
-
-The [MetaMask wallet](https://metamask.io/) supports Tezos, but only its browser extension, and only on Mainnet.
 To set up MetaMask for Tezos, see [Choosing a wallet](/developing/wallet-setup#choosing-a-wallet).
 
 For a full list of Tezos wallets, see https://tezos.com/learn/store-and-use.
