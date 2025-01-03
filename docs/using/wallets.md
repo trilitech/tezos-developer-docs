@@ -34,7 +34,7 @@ For more information about using wallets with Tezos, see [Installing and funding
 
 ## Setting up a wallet
 
-Each wallet application works differently, but in most cases setting up a wallet follows these general steps;
+Each wallet application works differently, but in most cases setting up a wallet follows these general steps:
 
 1. You download and install the wallet application or browser extension.
 1. The wallet prompts you to set a password.
