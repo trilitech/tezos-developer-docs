@@ -9,7 +9,7 @@ Wallets are tools that manage accounts on blockchains like Tezos.
 Their primary purpose is to store an account's private key securely and encrypt (or "sign") transactions with that key without exposing the key.
 For more information on accounts, see [Accounts](/using/accounts).
 
-Some wallets can do other tasks, including:
+Most wallets can do other tasks, including:
 
 - Showing the token balances that an account holds, such as cryptocurrencies (DeFi tokens) and non-fungible tokens (NFTs)
 - Providing information on the value of tokens
