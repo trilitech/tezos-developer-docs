@@ -8,8 +8,8 @@ last_update:
 import PopularWallets from '@site/docs/conrefs/popular-wallets.md';
 
 Wallets are tools that manage accounts on blockchains like Tezos.
-Their primary purpose is to store an account's private key securely and encrypt (or "sign") transactions with that key without exposing the key.
-As described in [Accounts](/using/user-accounts), these accounts can hold and use tokens such as tez, the native token of Tezos.
+[Accounts](/using/user-accounts) hold and use tokens such as tez, the native token of Tezos.
+The primary purpose of wallets is to store an account's private key securely and encrypt (or "sign") transactions with that key without exposing the key.
 
 Most wallets can do other tasks, including:
 
