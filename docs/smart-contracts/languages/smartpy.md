@@ -7,7 +7,7 @@ last_update:
 
 SmartPy is a comprehensive solution for developing, testing, and deploying smart contracts on Tezos. With its easy-to-use Python syntax, developers can create contracts in a familiar and intuitive way, while SmartPy's type inference provides added safety.
 
-To get started with SmartPy, see the tutorial [Deploy a smart contract with SmartPy](/tutorials/smart-contract/smartpy), the [tutorial](https://smartpy.io/guides/tutorial) on smartpy.io, or [Smart contract development with SmartPy](https://opentezos.com/smartpy/write-contract-smartpy/) on opentezos.com.
+To get started with SmartPy, see the tutorial [Deploy a smart contract with SmartPy](/tutorials/smart-contract/smartpy), the [tutorial](https://smartpy.io/tutorial) on smartpy.io, or [Smart contract development with SmartPy](https://opentezos.com/smartpy/write-contract-smartpy/) on opentezos.com.
 
 ## Test scenarios
 
@@ -15,7 +15,7 @@ SmartPy allows you test contracts in simulated scenarios, including complex case
 
 ## FA2 library
 
-SmartPy provides a library of classes that you can extend to create FA2 token contracts. The library provides basic functionality for NFTs, fungible tokens, and single-asset token contracts and mixins that change how the tokens work. For more information, see [FA2lib](https://smartpy.io/guides/FA2-lib/overview) in the SmartPy documentation.
+SmartPy provides a library of classes that you can extend to create FA2 token contracts. The library provides basic functionality for NFTs, fungible tokens, and single-asset token contracts and mixins that change how the tokens work. For more information, see [FA2lib](https://smartpy.io/manual/libraries/FA2-lib/overview) in the SmartPy documentation.
 
 ## Online IDE
 
@@ -71,6 +71,6 @@ def test():
 
 ## Further reading
 
-- [SmartPy documentation](https://smartpy.io/manual/)
+- [SmartPy documentation](https://smartpy.io/manual/introduction/overview)
 - [Online IDE](https://smartpy.dev/ide)
 - [OpenTezos](https://opentezos.com/smartpy)

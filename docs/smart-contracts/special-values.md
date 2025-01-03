@@ -60,5 +60,5 @@ It increments by one for each new block.
 
 - Michelson: [Special operations](https://tezos.gitlab.io/active/michelson.html#special-operations), [Operations on contracts](https://tezos.gitlab.io/active/michelson.html#operations-on-contracts)
 - Archetype: [Constants](https://archetype-lang.org/docs/reference/expressions/constants/#now)
-- SmartPy: [Timestamps](https://smartpy.io/manual/syntax/timestamps)
+- SmartPy: [Timestamps](https://smartpy.io/manual/data-types/timestamps)
 - LIGO: [Tezos](https://ligolang.org/docs/reference/current-reference), [Tezos specific built-ins](https://ligolang.org/docs/advanced/entrypoints-contracts#tezos-specific-built-ins), [Tezos.now](https://ligolang.org/docs/advanced/timestamps-addresses#starting-time-of-the-current-block)
