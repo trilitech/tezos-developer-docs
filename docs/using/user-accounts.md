@@ -2,7 +2,7 @@
 title: Accounts
 authors: "Tim McMackin"
 last_update:
-  date: 2 January 2025
+  date: 3 January 2025
 ---
 
 From the user's perspective, a Tezos account is much like an account that you might have on a web application or computer system.
@@ -18,7 +18,7 @@ From a technical standpoint, a Tezos account is a unique identifier on the block
 In this way, using a Tezos account is how you prove your identity to the Tezos system and to applications that use Tezos.
 
 This page discusses user accounts.
-Other types of Tezos accounts include [smart contracts](/smart-contracts) and [Smart Rollups](/architecture/smart-rollups).
+As described in [Accounts](/architecture/accounts), other types of Tezos accounts include [smart contracts](/smart-contracts) and [Smart Rollups](/architecture/smart-rollups).
 For technical information on user accounts, see [Accounts and addresses](https://tezos.gitlab.io/active/accounts.html) in the Octez documentation.
 
 Tezos users use wallets to manage their accounts; see [Wallets](/using/wallets).
