@@ -14,7 +14,7 @@ You can use a Tezos account to do many things, including:
 - Send transactions to Tezos, such as sending tokens to another account or calling a [smart contract](/smart-contracts)
 - Sign messages to prove that they came from your account
 
-From a technical standpoint, a Tezos account is a tool that allows a user to encrypt transactions in a way that proves that those transactions came from them.
+From a technical standpoint, a Tezos account is a unique identifier on the blockchain that allows a user to encrypt transactions in a way that proves that those transactions came from them.
 In this way, using a Tezos account is how you prove your identity to the Tezos system and to applications that use Tezos.
 
 This page discusses user accounts.
