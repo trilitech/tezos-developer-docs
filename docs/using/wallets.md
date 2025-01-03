@@ -60,40 +60,14 @@ You can work within the wallet itself to see your tokens and account history.
 You can also use it to make transactions, including sending tokens to other accounts.
 
 Another primary use of a wallet is to connect to and use decentralized applications (dApps).
-For example, [block explorers](/developing/information/block-explorers) show information about Tezos accounts, transactions, and smart contracts.
-Some can send transactions from your account, such as calling smart contracts.
-
-As an example, the block explorer [Better Call Dev](https://better-call.dev/) has a wallet connection button at the top right of the page:
-
-<img src="/img/using/wallets-bcd-connect-icon.png" alt="The connection button at the top of the block explorer" style={{width: 300}} />
-
-When you click this button and choose a Tezos network from the drop-down list, it opens a window and prompts you to select your wallet.
-
-Then the dApp tries to connect to your wallet.
-The wallet application requests your permission to connect to the dApp and which account  to use if you have multiple accounts in the wallet.
-For example, this is what the connection request looks like in the Temple wallet browser extension:
-
-<img src="/img/using/wallets-bcd-connect-temple.png" alt="Connecting the Temple wallet to the block explorer" style={{width: 300}} />
-
-Now you are authenticated to the dApp by your account.
-The dApp can create transactions and send them to your wallet, which prompts you to approve the transaction.
+These applications typically provide a web application user interface and use Tezos for background tasks such as user authentication, data storage, and payment processing.
+You must connect your wallet to the application, like logging in to a web site, before it can access your account information.
+Then, when the application wants to send a transaction to Tezos on your behalf, it sends the transaction to your wallet application for you to approve.
 If you approve the transaction, the wallet signs it with your private key and submits it to Tezos.
 
-For example, the smart contract on Tezos Ghostnet test network with the address `KT1R2LTg3mQoLvHtUjo2xSi7RMBUJ1sJkDiD` stores a number and allows users to increment or decrement that number.
-You can see this contract on Better Call Dev [here](https://better-call.dev/ghostnet/KT1R2LTg3mQoLvHtUjo2xSi7RMBUJ1sJkDiD/operations).
-On the Interact tab you can select whether to increment or decrement the number or reset it to zero via its _entrypoints_, which are like commands that the smart contract understands.
-For example, this screencap shows the increment entrypoint with the value 5:
+For an example of a dApp and how you interact with it in your wallet, see [Staking](/using/staking).
 
-<img src="/img/using/wallets-bcd-contract-call.png" alt="Incrementing the number by 5" style={{width: 300}} />
-
-If you select an entrypoint, set the parameter, and click **Execute > Wallet**, the dApp sends the transaction to your wallet.
-The transaction shows the address of the contract, how many tez tokens to send to the address, and the transaction fees, as in this example from Temple wallet:
-
-<img src="/img/using/wallets-bcd-transaction-temple.png" alt="Approving a transaction in Temple wallet" style={{width: 300}} />
-
-If you need funds for transaction fees on a test network, you can get them for free from the faucet, as described in [Funding a wallet](/developing/wallet-setup#funding-a-wallet).
-
-After you approve the transaction, you can see it in your wallet's history and on the block explorer.
+After you approve the transaction, you can see it in your wallet's history.
 
 :::warning
 
