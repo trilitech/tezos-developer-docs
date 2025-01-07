@@ -3,7 +3,7 @@ title: Calling contracts with the Unity SDK
 sidebar_label: Calling contracts
 authors: Tim McMackin
 last_update:
-  date: 4 December 2024
+  date: 7 January 2025
 ---
 
 Smart contracts are backend programs that run on blockchains.
@@ -290,6 +290,10 @@ foreach (var item in json)
 
 ## Calling Etherlink contracts
 
+[Etherlink](https://www.etherlink.com/) is an Ethereum Virtual Machine-compatible layer that runs on top of Tezos and secures its state to Tezos via Smart Rollups.
+The Unity SDK can send transactions to Etherlink, but not to any other EVM layer.
+For more information about Etherlink, see the [Etherlink documentation](https://docs.etherlink.com/).
+
 Like Tezos contracts, Etherlink smart contracts have functions that clients can call.
 To call an Etherlink smart contract, you need:
 
@@ -316,7 +320,7 @@ Then use the `AppKit.Evm.WriteContractAsync()` method to call the contract.
 
 For example, this code calls a contract and passes the parameter `5` to its `set` entrypoint.
 When the transaction completes successfully, it logs the hash of the transaction.
-You can use this hash to look up information about the transaction in the Etherlink [block explorer](/developing/information/block-explorers).
+You can use this hash to look up information about the transaction in the [Etherlink Mainnet block explorer](https://explorer.etherlink.com/) or the [Etherlink Testnet block explorer](https://testnet.explorer.etherlink.com/).
 
 <!-- TODO: How do I set the network? -->
 
