@@ -382,3 +382,52 @@ The Tezos Unity SDK supports these Reown SDK methods, but only for calls to Ethe
 - `AppKit.Evm.SendRawTransactionAsync()`
 
 For more information about using the Reown SDK, see https://docs.reown.com/appkit/unity/core/usage.
+
+## Calling Etherlink views
+
+Calling an Etherlink view is similar to calling an Etherlink entrypoint.
+The main difference is that you use the `AppKit.Evm.ReadContractAsync()` method and that you must set the return type to the appropriate Solidity type that the view returns.
+This example calls a view that returns a `unit` integer type:
+
+```csharp
+using Reown.AppKit.Unity;
+
+public class MyScripts : MonoBehaviour
+{
+
+    private async void Awake()
+    {
+        await TezosAPI.WaitUntilSDKInitialized();
+
+        _connectButton.onClick.AddListener(OnConnectClicked);
+        _disconnectButton.onClick.AddListener(OnDisconnectClicked);
+        _callViewButton.onClick.AddListener(OnCallViewClicked);
+    }
+
+    private async void OnCallViewClicked()
+    {
+        // Verify that the app is connected to an EVM wallet via WalletConnect
+        WalletProviderData walletProviderData = TezosAPI.GetWalletConnectionData();
+        if (walletProviderData.WalletType != WalletType.WALLETCONNECT) {
+            Debug.LogError("Connect to a WalletConnect wallet first.");
+            return;
+        }
+
+        try
+        {
+            string contractAddress = "0xfac1791E9db153ef693c68d142Cf11135b8270B9";
+            string ABI = "[ { \"inputs\": [], \"name\": \"get\", \"outputs\": [ { \"internalType\": \"uint256\", \"name\": \"\", \"type\": \"uint256\" } ], \"stateMutability\": \"view\", \"type\": \"function\" }, { \"inputs\": [ { \"internalType\": \"uint256\", \"name\": \"x\", \"type\": \"uint256\" } ], \"name\": \"set\", \"outputs\": [], \"stateMutability\": \"nonpayable\", \"type\": \"function\" } ]";
+            string entrypoint = "get";
+
+            var result = await AppKit.Evm.ReadContractAsync<uint>(contractAddress, ABI, entrypoint);
+
+            Debug.Log("Result: " + result);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Unexpected error during operation: {e.Message}");
+        }
+    }
+
+}
+```
