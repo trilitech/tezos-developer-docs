@@ -50,11 +50,18 @@ Data structure for info about dependencies:
 const printDependencies = async () => {
   // Get all MD and MDX files
   const files = await glob(docsFolder + '/**/*.{md,mdx}');
-  // Pull together data on what files have what dependencies
-  const dependencyData = await files.reduce(async (dataPromise, filePath) => {
-    const data = await dataPromise;
-    const fileContents = await fs.promises.readFile(filePath, 'utf8');
-    const frontMatter = matter(fileContents).data;
+
+  // Get front matter for each file
+  const filesAndFrontMatter = await Promise.all(
+    files.map(async (filePath) => {
+      const fileContents = await fs.promises.readFile(filePath, 'utf8');
+      const frontMatter = matter(fileContents).data;
+      return { filePath, frontMatter };
+    })
+  );
+
+  // Collate data on what files have what dependencies
+  const dependencyData = filesAndFrontMatter.reduce((data, {filePath, frontMatter}) => {
     if (frontMatter.dependencies) {
       const programs = Object.keys(frontMatter.dependencies);
       programs.forEach((oneProgram) => {
@@ -72,7 +79,7 @@ const printDependencies = async () => {
       });
     }
     return data;
-  }, Promise.resolve({}));
+  }, {});
 
   // Pretty-print the data by program first, then version
   const programs = Object.keys(dependencyData);
