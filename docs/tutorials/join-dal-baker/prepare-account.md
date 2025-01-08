@@ -2,7 +2,7 @@
 title: "Step 2: Set up baker accounts"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 31 December 2024
+  date: 8 January 2025
 ---
 
 In this section you use the Octez client to set up two accounts for your baker:
@@ -10,18 +10,21 @@ In this section you use the Octez client to set up two accounts for your baker:
 - The baker key itself (also called the manager key) stakes tez and registers as a delegate
 - The consensus key is the key that the baker uses to sign attestations, which are generally referred to as _consensus operations_
 
-:::note
+## Why set up a consensus key?
 
 Using a separate consensus key is not required but it is good security practice.
-Signing consensus operations incurs no fees, so you can set up a baker with a key that has no tez.
-You can use this key on a remote machine and keep your baker key with the tez in a more secure location to reduce risk to your funds.
+Signing consensus operations incurs no fees, so you can set up a consensus key with no tez.
+You can generate and use this key on a remote machine that runs the baker and keep the baker key with your staked tez in a more secure location to reduce risk to your funds.
+This prevents you from having to move private keys between machines, which is inherently dangerous.
 
-If the consensus key is compromised or lost, you can create a new key and switch the baker to it without changing how your tez is staked and delegated and without moving your delegators and stakers to a new account.
-In this way you can avoid backing up the consensus key or store it in a Key Management System (KMS) or Hardware Security Module (HSM) where no one has access to its private key.
+If the consensus key is compromised or lost, you can create a new consensus key and switch the baker to it without changing how your tez is staked and delegated and without moving your delegators and stakers to a new account.
+In this way you can avoid transferring or backing up the consensus key or you can store it in a Key Management System (KMS) or Hardware Security Module (HSM) where no one has access to its private key.
+
+However, the consensus key can drain the liquid (unstaked) tez from the baker key, so you must keep the consensus key secure like all other keys.
 
 For more information about consensus keys, see [Consensus key](https://tezos.gitlab.io/user/key-management.html#consensus-key) in the Octez documentation.
 
-:::
+## Creating the accounts
 
 In this section, you use the Octez client to create these two accounts and set them up for baking.
 

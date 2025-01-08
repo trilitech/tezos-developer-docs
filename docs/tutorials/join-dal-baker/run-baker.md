@@ -12,7 +12,7 @@ If you already have a baking daemon, you can restart it to connect to the DAL no
 
 1. Run a baking daemon with the following arguments:
 
-   - Use the consensus key, not the baker key
+   - Use the consensus key, not the baker key, if you are using a consensus key
    - Pass the URL to your DAL node with the `--dal-node` argument
    - Pass the `--liquidity-baking-toggle-vote` argument; for more information, see [Liquidity baking](https://tezos.gitlab.io/active/liquidity_baking.html) in the Octez documentation
    - Pass the `--adaptive-issuance-vote` argument; for more information, see [Adaptive Issuance and Staking](https://tezos.gitlab.io/active/adaptive_issuance.html) in the Octez documentation
