@@ -3,7 +3,7 @@ title: Unity SDK events
 sidebar_label: Events
 authors: Tim McMackin
 last_update:
-  date: 13 November 2024
+  date: 8 January 2025
 ---
 
 The Tezos Unity SDK uses events that you can add listeners to.
@@ -54,7 +54,8 @@ Runs when a social wallet disconnects.
 
 ## `OperationResulted`
 
-Runs when an operation succeeds or fails and returns an object that includes the hash of the transaction.
+Runs when a Tezos operation succeeds or fails and returns an object that includes the hash of the transaction.
+This event does not run for Etherlink operations.
 
 ## `SigningResulted`
 

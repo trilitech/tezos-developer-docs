@@ -3,7 +3,7 @@ title: Calling contracts with the Unity SDK
 sidebar_label: Calling contracts
 authors: Tim McMackin
 last_update:
-  date: 7 January 2025
+  date: 8 January 2025
 ---
 
 Smart contracts are backend programs that run on blockchains.
@@ -31,6 +31,8 @@ Therefore, to call a Tezos smart contract, you need:
 
 To call a contract, make sure that you are connected to a Beacon wallet.
 Then create an `OperationRequest` object with that information and pass it to the `TezosAPI.RequestOperation()` method.
+To get the result of the operation, you can await the return value of the `TezosAPI.RequestOperation()` method or use the `TezosAPI.OperationResulted` event.
+
 For example, this code calls a contract and passes the parameter `5` to its `increment` entrypoint.
 When the transaction completes successfully, it logs the hash of the transaction.
 You can use this hash to look up information about the transaction in a [block explorer](/developing/information/block-explorers).
@@ -302,6 +304,12 @@ To call an Etherlink smart contract, you need:
 - The contract's application binary interface (ABI), which is a description of the contract's interface; you can get the ABI from the tool that deployed the contract or by compiling the source code of the contract in a tool such as the [Remix IDE](https://remix.ethereum.org/)
 - The parameter to pass to the entrypoint
 - An amount of XTZ to send with the transaction, which can be zero or more
+
+:::note
+
+Calls to Etherlink smart contracts do not run the `TezosAPI.OperationResulted` event.
+
+:::
 
 The Unity SDK uses the [Reown SDK](https://reown.com/), so before you can access Etherlink, you must set up Reown:
 
