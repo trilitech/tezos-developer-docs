@@ -90,6 +90,6 @@ This command creates an account and associates it with the `consensus_key` alias
 
 Now the baker account has staked enough tez to earn the right to make attestations, including attestations that data is available on the DAL.
 Its consensus key is authorized to sign consensus operations on its behalf.
-However, the baker account does not receive these rights until the baking daemon is running and a certain amount of time has passed.
+However, the baker account does not receive these rights until a certain amount of time has passed.
 
 While you wait for attestation rights, continue to [Step 3: Run an Octez DAL node](/tutorials/join-dal-baker/run-dal-node).
