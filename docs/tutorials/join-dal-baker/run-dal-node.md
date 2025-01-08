@@ -2,10 +2,12 @@
 title: "Step 3: Run an Octez DAL node"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 19 December 2024
+  date: 8 January 2025
 ---
 
 The DAL node is responsible for temporarily storing data and providing it to bakers and Smart Rollups.
+As described in [Run a Tezos node in 5 steps](/tutorials/join-dal-baker), bakers are not currently required to run a DAL node but DAL nodes are important for the scalability and bandwidth of Tezos.
+
 Follow these steps to run the DAL node:
 
 1. Ensure that the port that the DAL node runs on (by default, 11732) is accessible from outside its system.
