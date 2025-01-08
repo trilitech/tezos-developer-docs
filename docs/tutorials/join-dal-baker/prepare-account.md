@@ -28,7 +28,7 @@ For more information about consensus keys, see [Consensus key](https://tezos.git
 
 In this section, you use the Octez client to create these two accounts and set them up for baking.
 
-1. Create or import an account in the Octez client to be the baker or manager account.
+1. Create or import an account in the Octez client to be the baker account (sometimes called "manager" account).
 The simplest way to get an account is to use the Octez client to randomly generate an account.
 This command creates an account and associates it with the `my_baker` alias:
 
