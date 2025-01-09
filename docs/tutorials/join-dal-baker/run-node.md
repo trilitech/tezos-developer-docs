@@ -36,7 +36,7 @@ If you build from source, you can use the `latest-release` branch to work with G
 
 ## Running the layer 1 node
 
-1. Ensure that the port that the node runs on (by default, 8732) is accessible from outside its system.
+1. Ensure that the port on which the node listens for connections from peer nodes (by default, 9732) is accessible from outside its system.
 You may need to adapt your firewall rules or set up network address translation (NAT) to direct external traffic to the node.
 
 1. Initialize the Octez node for the network.
