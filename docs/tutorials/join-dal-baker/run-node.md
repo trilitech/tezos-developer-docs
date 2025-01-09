@@ -2,7 +2,7 @@
 title: "Step 1: Run an Octez node"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 2 December 2024
+  date: 9 January 2025
 ---
 
 The first thing you need is a Tezos layer 1 node, which is an instance of the `octez-node` program and part of the Octez suite of programs.
@@ -52,6 +52,8 @@ For example, the command to download a Ghostnet snapshot from the European serve
    ```bash
    wget -O snapshot_file https://snapshots.eu.tzinit.org/ghostnet/rolling
    ```
+
+   If you get an error that says that the data directory is invalid, verify that the directory exists and is empty.
 
 1. Load the snapshot in the node by running this command:
 
