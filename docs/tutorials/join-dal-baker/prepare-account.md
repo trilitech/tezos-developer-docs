@@ -66,13 +66,6 @@ Staked tez is temporarily frozen and cannot be spent, so you need some unstaked 
    If you are using a testnet and need tez to stake, you can get tez from the testnet faucet.
    For example, if you are using Ghostnet, use the Ghostnet faucet linked from https://teztnets.com/ghostnet-about to send tez to the baker account.
 
-   If you send tez to the account from a faucet and the `get balance` command still shows 0, the local node may not be ready yet.
-   In this case you can temporarily use a public RPC endpoint by passing it to the `octez-client` command, as in this example for Ghostnet:
-
-   ```bash
-   octez-client -E https://rpc.ghostnet.teztnets.com get balance for my_baker
-   ```
-
    Running a baker requires staking at least 6,000 tez, but the more tez it stakes, the more rights it gets and the less time it has to wait to produce blocks and make attestations.
    However, be aware that getting large amounts of tez from the faucet may take a long time (sometimes more than one hour) to prevent abuse of the faucet.
    Consequently, some large requests may time out or fail and need to be resubmitted.
