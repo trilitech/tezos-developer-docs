@@ -67,7 +67,7 @@ This command creates an account and associates it with the `my_baker` alias:
 
    When the account receives its tez, it owns enough stake to bake but has still no consensus or DAL rights because it has not declared its intention to become a baker.
 
-1. Set up a separate account to be the consensus key.
+1. (Optional) Set up a separate account to be the consensus key.
 This command creates an account and associates it with the `consensus_key` alias:
 
    ```bash
