@@ -2,7 +2,7 @@
 title: "Step 2: Set up baker accounts"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 8 January 2025
+  date: 9 January 2025
 ---
 
 In this section you use the Octez client to set up two accounts for your baker:
@@ -26,7 +26,7 @@ For more information about consensus keys, see [Consensus key](https://tezos.git
 
 ## Creating the accounts
 
-In this section, you use the Octez client to create these two accounts and set them up for baking.
+In this section, you use the Octez client to create these accounts and set them up for baking.
 
 1. Create or import an account in the Octez client to be the baker account (sometimes called the "manager" account).
 The simplest way to get an account is to use the Octez client to randomly generate an account.
@@ -42,28 +42,40 @@ This command creates an account and associates it with the `my_baker` alias:
    octez-client show address my_baker
    ```
 
-   At this point, the balance of the `my_baker` account is still zero, as you can see by running this command:
+   You can check the balance of the account with this command:
 
    ```bash
    octez-client get balance for my_baker
    ```
 
-1. Get at least 6,000 tez from the Ghostnet faucet.
+1. Stake at least 6,000 tez with the account, saving a small liquid amount for transaction fees.
+Staked tez is temporarily frozen and cannot be spent, so you need some unstaked tez to pay transaction fees.
 
-   The account must stake tez to get consensus and DAL rights.
-   To get tez, use the Ghostnet faucet linked from https://teztnets.com/ghostnet-about to send tez to the baker account.
+   You can check how much you have staked by running this command:
+
+   ```bash
+   octez-client get staked balance for my_baker
+   ```
+
+   If you need to stake more, pass the amount to the `stake` command, as in this example:
+
+   ```bash
+   octez-client stake 6000 for my_baker
+   ```
+
+   If you are using a testnet and need tez to stake, you can get tez from the testnet faucet.
+   For example, if you are using Ghostnet, use the Ghostnet faucet linked from https://teztnets.com/ghostnet-about to send tez to the baker account.
+
+   If you send tez to the account from a faucet and the `get balance` command still shows 0, the local node may not be ready yet.
+   In this case you can temporarily use a public RPC endpoint by passing it to the `octez-client` command, as in this example for Ghostnet:
+
+   ```bash
+   octez-client -E https://rpc.ghostnet.teztnets.com get balance for my_baker
+   ```
 
    Running a baker requires staking at least 6,000 tez, but the more tez it stakes, the more rights it gets and the less time it has to wait to produce blocks and make attestations.
-   However, be aware that, for protecting abuses of the faucet, getting such amounts of tez from the faucet may take a long time (e.g. more than one hour). Consequently, some individual requests may occasionally time out or fail and need to be relaunched.
-
-1. Verify that the faucet sent the tez to the account with the same `get balance` command:
-
-   ```bash
-   octez-client get balance for my_baker
-   ```
-
-   If the balance still shows 0, the local node may not be ready yet.
-   In this case you can temporarily use the public RPC endpoint.
+   However, be aware that getting large amounts of tez from the faucet may take a long time (sometimes more than one hour) to prevent abuse of the faucet.
+   Consequently, some large requests may time out or fail and need to be resubmitted.
 
    When the account receives its tez, it owns enough stake to bake but has still no consensus or DAL rights because it has not declared its intention to become a baker.
 
@@ -82,14 +94,10 @@ This command creates an account and associates it with the `consensus_key` alias
    octez-client register key my_baker as delegate with consensus key consensus_key
    ```
 
-1. Stake at least 6,000 tez, saving a small amount for transaction fees, by running this command:
-
-   ```bash
-   octez-client stake 6000 for my_baker
-   ```
+   If you are not using a consensus key, omit the argument `with consensus key consensus_key`.
 
 Now the baker account has staked enough tez to earn the right to make attestations, including attestations that data is available on the DAL.
-Its consensus key is authorized to sign consensus operations on its behalf.
-However, the baker account does not receive these rights until a certain amount of time has passed.
+If you set up a consensus key, that key is authorized to sign consensus operations on behalf of the baker account.
+However, the accounts do not receive these rights until a certain amount of time has passed.
 
 While you wait for attestation rights, continue to [Step 3: Run an Octez DAL node](/tutorials/join-dal-baker/run-dal-node).
