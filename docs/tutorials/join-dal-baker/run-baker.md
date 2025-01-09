@@ -63,8 +63,6 @@ You can also refer to [Run a persistent baking node](https://opentezos.com/node-
    curl http://localhost:10732/p2p/gossipsub/topics
    ```
 
-   You may need to install the `curl` program.
-
    DAL nodes share shards and information about them over a peer-to-peer pub/sub network built on the Gossipsub P2P protocol.
    As layer 1 assigns shards to the bakers, the Gossipsub network manages topics that DAL nodes can subscribe to.
    For example, if a user submits data to slot 1, the network has a list of topics: a topic to identify the slot 1 shards assigned to baker A, a topic to identify the slot 1 shards assigned to baker B, and so on for all the bakers that are assigned shards from slot 1.
