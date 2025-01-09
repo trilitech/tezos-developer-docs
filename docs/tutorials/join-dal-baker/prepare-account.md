@@ -76,7 +76,7 @@ This command creates an account and associates it with the `consensus_key` alias
 
    This account does not need any tez.
 
-1. Register the baker account as a delegate and set its consensus key by running the following command:
+1. Register the baker account as a delegate and set its consensus key (if you set one) by running the following command:
 
    ```bash
    octez-client register key my_baker as delegate with consensus key consensus_key
