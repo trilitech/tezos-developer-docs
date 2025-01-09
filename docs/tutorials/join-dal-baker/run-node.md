@@ -47,7 +47,6 @@ For example, to initialize it for Ghostnet, run this command:
    ```
 
    By default, the node stores its data in the folder `$HOME/.tezos-node`.
-   If this directory is not empty, you may have need to rename it (to keep its data) or remove it.
 
 1. Download a rolling snapshot of the network from https://snapshot.tzinit.org based on the instructions on that site.
 For example, the command to download a Ghostnet snapshot from the European servers might look like this:
@@ -56,7 +55,7 @@ For example, the command to download a Ghostnet snapshot from the European serve
    wget -O snapshot_file https://snapshots.eu.tzinit.org/ghostnet/rolling
    ```
 
-   If you get an error that says that the data directory is invalid, verify that the directory exists and is empty.
+   If you get an error that says that the data directory is invalid, clean up the directory as the error message indicates.
 
 1. Load the snapshot in the node by running this command:
 
