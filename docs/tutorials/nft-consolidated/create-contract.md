@@ -146,7 +146,7 @@ Many token contracts change the metadata from the default, so in these steps you
        )
    ```
 
-   This function accepts metadata fields and encodes them as a may where the key is a string and the value is a series of bytes.
+   This function accepts metadata fields and encodes them as a map where the key is a string and the value is a series of bytes.
 
 1. Optional: Customize the metadata by adding or removing fields.
 
