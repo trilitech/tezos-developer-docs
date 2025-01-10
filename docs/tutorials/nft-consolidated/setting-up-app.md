@@ -218,7 +218,7 @@ Follow these steps to set up the `src/App.svelte` file, which is the container f
    - `MichelsonMap`: This class represents the Michelson  map data type, which Tezos uses to store data, including the metadata for the NFTs that the application creates
    - `stringToBytes`: A utility that converts strings to bytes to store in the token metadata
 
-1. In the `<script lang="ts">` section, add the following code to initialize Taquito and set it to use a Ghostnet RPC node:
+1. In the same `<script lang="ts">` section, add the following code to initialize Taquito and set it to use a Ghostnet RPC node:
 
    ```javascript
      const rpcUrl = "https://rpc.ghostnet.teztnets.com";
