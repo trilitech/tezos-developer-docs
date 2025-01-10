@@ -16,7 +16,7 @@ No prior knowledge of NFTs or Tezos is required, but because the tutorial applic
 In this tutorial, you will learn:
 
 - How to use the [Taquito](https://tezostaquito.io/) JavaScript/TypeScript SDK to access Tezos and user wallets and to send transactions to Tezos
-- What Tezos wallets and accounts are and how to connect to them
+- How to connect to wallets and accounts
 - What smart contracts are and how to call them from a web application
 - How to mint NFTs on behalf of a user
 - How to deploy your own smart contract to manage NFTs
