@@ -76,7 +76,7 @@ If you are familiar with Svelte, note that this application includes its own Sve
    This updated file includes these changes to the default Vite configuration:
 
    - It sets the `global` object to `{}` so the application can provide the value for this object in the HTML file
-   - It includes the a path to the Beacon SDK, which Taquito uses to connect to wallets
+   - It includes the path to the Beacon SDK, which Taquito uses to connect to wallets
    - It provides polyfills for `readable-stream`
 
 1. Update the default HTML file, `index.html`, to the following code:
