@@ -50,7 +50,7 @@ The application will use this image to represent the NFT in wallet applications.
    const defaultImage = "https://gateway.pinata.cloud/ipfs/QmRCp4Qc8afPrEqtM1YdRvNagWCsFGXHgGjbBYrmNsBkcE";
    ```
 
-1. Add a function that creates an NFT, first checking if the button is active because the wallet is connected:
+1. Add a function called `createNFT` that creates an NFT, first checking if the button is active because the wallet is connected:
 
    ```javascript
    if (!buttonActive) {
