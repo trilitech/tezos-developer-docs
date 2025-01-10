@@ -1,6 +1,8 @@
 // @ts-nocheck
 // Note: type annotations allow type checking and IDEs autocompletion
 
+const { themes } = require('prism-react-renderer');
+
 // script-src causes development builds to fail
 // But unsafe-eval should NOT be in production builds
 // Also, put GTM first because sometimes the ';' in the escaped single quotes causes the browser to think it's the end
@@ -125,7 +127,7 @@ module.exports = async function createConfigAsync() {
           ],
         },
         prism: {
-          theme: require('prism-react-renderer/themes/github'),
+          theme: themes.github,
           additionalLanguages: ['csharp', 'toml', 'ocaml'],
         },
         // https://github.com/flexanalytics/plugin-image-zoom
