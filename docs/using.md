@@ -5,7 +5,7 @@ last_update:
   date: 10 January 2025
 ---
 
-This section presents Tezos for end users, aiming to use it as an application platform.
+This section presents Tezos for end users who need to access applications that use Tezos as part of their platform.
 Thus, no technical expertise is assumed, such as designing or developing new applications.
 
 Tezos is a blockchain, which is a network of computers that allows a group of users to run computer tasks in an open, transparent, and secure way.
