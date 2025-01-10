@@ -2,7 +2,7 @@
 title: Using Tezos
 authors: Tim McMackin
 last_update:
-  date: 3 January 2025
+  date: 10 January 2025
 ---
 
 This section presents Tezos for end users, aiming to use it as an application platform.
@@ -15,6 +15,13 @@ Blockchains like Tezos have these general properties:
 - Any user can make changes to the data, as long they follow a set of rules
 - No small subset of users can control the system
 
+As a Tezos user, you may have come to the platform for many reasons, including:
+
+- Paying or accepting payments in the Tezos cryptocurrency (known as tez and occasionally by the symbol ꜩ or the ticker symbol XTZ)
+- Authenticating to web applications, like you might log in to a web site with a user name or email address
+- Creating your own cryptocurrencies or other exchangeable digital assets, known as [tokens](/architecture/tokens)
+- Running smart contracts to perform computation tasks in a transparent, censorship-proof way
+
 ## What else can I do with Tezos?
 
 You can do many different things with a blockchain, but the common tasks fall into these categories:
@@ -22,13 +29,6 @@ You can do many different things with a blockchain, but the common tasks fall in
 - Decentralized storage: Users can store data in such a way that the data is available to all users forever, or at least as long as the blockchain system is running
 - Decentralized currency: Users agree on a currency and its behavior and use decentralized storage to record which accounts have what amount of currency
 - Decentralized computing: Users put programs known as _smart contracts_ in the decentralized storage and allow other users to run those programs
-
-As a Tezos user, you may have come to the platform for many reasons, including:
-
-- Paying or accepting payments in the Tezos cryptocurrency (known as tez and occasionally by the symbol ꜩ or the ticker symbol XTZ)
-- Authenticating to web applications, like you might log in to a web site with a user name or email address
-- Creating your own cryptocurrencies or other exchangeable digital assets, known as [tokens](/architecture/tokens)
-- Running smart contracts to perform computation tasks in a transparent, censorship-proof way
 
 ## How do I get started?
 
