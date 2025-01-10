@@ -2,12 +2,12 @@
 title: Staking
 authors: "Tim McMackin"
 last_update:
-  date: 20 December 2024
+  date: 10 January 2025
 ---
 
 Staking is the process of temporarily locking tez on the Tezos platform in exchange for rewards.
 Staked tez stays in the staker's account, but the staker cannot transfer (or spend) that tez.
-Stakers can unstake the tez at any time, which makes them spendable again after a delay.
+Stakers can unstake the tez at any time, which makes them spendable again after a delay; see [Staking periods and delays](#staking-periods-and-delays).
 Staking is an important part of running the Tezos protocol and keeping the blockchain secure, so this is why stakers earn rewards proportional to the locked funds.
 
 Two main groups stake on Tezos:
@@ -145,6 +145,23 @@ Now the application shows your liquid balance and any tez that remain staked.
 
 The Tezos protocol distributes staking rewards automatically, without requiring any manual action.
 To see them, look up your account on a block explorer such as [TzKT](https://tzkt.io).
+
+## Staking periods and delays
+
+The following diagram shows the reason for the unstaking delay.
+The diagram shows cycles as a timeline and assumes that the user has already staked tez with a baker at the start of the timeline.
+
+The system calculates rights for bakers two cycles ahead, so at the end of cycle 1, the system calculates rights for a baker in cycle 4 based on the amount staked with that baker as of the end of cycle 1.
+The example user in the diagram submits an unstake request in the middle of cycle 2.
+When cycle 2 ends, the system calculates rights for bakers in cycle 5, so the baker will have reduced staking rights in cycle 5 depending on how much the user requested to unstake.
+
+The diagram also shows why users must wait to unfreeze their staked tez.
+It shows a baker misbehaving in cycle 4.
+Other bakers have the remainder of cycle 4 and all of cycle 5 to denounce the misbehaving baker, which results in that baker being slashed.
+Therefore, funds staked with that baker stay frozen until the end of cycle 5 in case they need to be penalized.
+Then, the user can finalize their unstake request.
+
+![A diagram of an unstake request and the period that the user must wait to finalize that request](/img/using/staking-periods-diagram.png)
 
 ## More information
 
