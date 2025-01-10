@@ -12,7 +12,7 @@ Blockchains like Tezos have these general properties:
 - Any user can make changes to the data, as long they follow a set of rules
 - No small subset of users can control the system
 
-## What can I do with Tezos?
+## What else can I do with Tezos?
 
 You can do many different things with a blockchain, but the common tasks fall into these categories:
 
