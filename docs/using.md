@@ -5,7 +5,7 @@ last_update:
   date: 3 January 2025
 ---
 
-As described in [Blockchain Basics](https://opentezos.com/blockchain-basics/) on opentezos.com, Tezos is a blockchain, which is a network of computers that allows a group of users to run computer tasks in an open, transparent, and secure way.
+Tezos is a blockchain, which is a network of computers that allows a group of users to run computer tasks in an open, transparent, and secure way.
 Blockchains like Tezos have these general properties:
 
 - Any user in the group has access to all of the stored data
