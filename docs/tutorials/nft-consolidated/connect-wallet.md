@@ -69,7 +69,7 @@ If your application has multiple pages, define these objects in a single file an
 
    The `disconnectWallet` function runs these steps to disconnect the wallet and reset the state of the app:
 
-   1. It closes the connection to the Beacon SDK with the `wallet.client.clearActiveAccount()` command.
+   1. It closes the connection to the Beacon SDK.
    1. It nullifies the wallet reference by setting the `wallet` variable to `undefined`.
    1. It deactivates the NFT button by setting the `buttonActive` flag to false.
 
