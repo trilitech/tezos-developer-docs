@@ -166,7 +166,7 @@ This example page has separate sections for JavaScript, style, and HTML code:
 </script>
 
 <style lang="scss">
-  /* Your Sass code */
+  /* Your styles */
 </style>
 
 <main>
