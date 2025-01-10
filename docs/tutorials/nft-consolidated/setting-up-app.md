@@ -188,7 +188,7 @@ Follow these steps to set up the `src/App.svelte` file, which is the container f
    </main>
    ```
 
-   You will add elements to the wbe application interface later.
+   You will add elements to the web application interface later.
 
 1. Replace the default `<style>` section with this code:
 
