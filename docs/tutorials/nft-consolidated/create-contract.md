@@ -110,7 +110,7 @@ def my_module():
 
 ## Customizing the contract template
 
-You can customize the contract by using different a different base class, using different mixins, or overriding the entrypoints that the base class and mixins provide.
+You can customize the contract by using a different base class, using different mixins, or overriding the entrypoints that the base class and mixins provide.
 For example, [the pre-deployed contract](https://github.com/trilitech/tutorial-applications/tree/main/nft-consolidated/contract/pre-deployed-fa2-nft.py) overrides the internal function `is_administrator_`.
 The `mint` entrypoint uses this function to determine if an account can mint a token.
 The overridden version always returns true, so anyone can mint a token:
