@@ -16,7 +16,7 @@ Two main groups stake on Tezos:
 Their staked tez ensures that they bake correctly, because part of their stake is taken ("slashed") if they misbehave.
 For more information about staking for baking purposes, see [Baking](/architecture/bakers).
 
-- Any Tezos user can stake tez with a baker and earn rewards for them.
+- Any Tezos user can stake tez with a baker and earn rewards.
 In exchange for staking tez with a baker, users automatically receive a portion of the baker's rewards in proportion to how much they stake.
 Users can stake any amount of tez, but there is a limit to how much staked tez a single baker can accept, and bakers must opt in to allow users to stake with them.
 
