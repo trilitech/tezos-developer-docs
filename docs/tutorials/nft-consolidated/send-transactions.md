@@ -60,7 +60,7 @@ The application will use this image to represent the NFT in wallet applications.
    statusMessage = "Minting NFT; please wait...";
    ```
 
-1. Inside the function, create the metadata for the token:
+1. Further inside the function, create the metadata for the token:
 
    ```javascript
    // Create token metadata
