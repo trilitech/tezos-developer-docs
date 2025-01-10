@@ -378,6 +378,20 @@ const sidebars = {
       ],
     },
     {
+      type: 'category',
+      label: 'Bake using a Ledger\'s device',
+      link: {
+        type: 'doc',
+        id: 'tutorials/bake-with-ledger',
+      },
+      items: [
+        'tutorials/bake-with-ledger/install-app',
+        'tutorials/bake-with-ledger/setup-ledger',
+        'tutorials/bake-with-ledger/setup-baker',
+        'tutorials/bake-with-ledger/run-baker',
+      ],
+    },
+    {
       type: 'html',
       value: '<div>Advanced</div>',
       className: 'menu__divider',
