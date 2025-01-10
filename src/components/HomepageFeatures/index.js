@@ -4,12 +4,23 @@ import styles from './styles.module.css';
 
 const FeatureList = [
   {
+    emoji: '🧑‍💻️',
+    title: 'Tezos for end users',
+    href: 'using',
+    description: (
+      <>
+        Learn how to set up a Tezos account and manage it with a wallet, stake tez, and use applications
+      </>
+    ),
+    link: 'Start using Tezos'
+  },
+  {
     emoji: '💡',
-    title: 'Tezos overview',
+    title: 'Tezos for technical users',
     href: 'overview',
     description: (
       <>
-        Read about how Tezos works, what distinguishes it from other blockchains, what developers use it for, and how it hosts decentralized applications that run independently of any authority.
+        Read about how Tezos works, what distinguishes it from other blockchains, how to participate as a baker, and how to develop decentralized applications.
       </>
     ),
     link: 'Start learning'
@@ -20,21 +31,10 @@ const FeatureList = [
     href: 'tutorials',
     description: (
       <>
-        Work through tutorials that cover coding smart contracts and applications that use those smart contracts, from simple to complex, in multiple languages.
+        Work through tutorials from simple to complex, that cover using Tezos, baking, and coding smart contracts and applications in multiple languages.
       </>
     ),
     link: 'View tutorials'
-  },
-  {
-    emoji: '🧑‍💻️',
-    title: 'Development environments',
-    href: 'developing',
-    description: (
-      <>
-        Set up a development environment for your language of choice and its related tools. Use a local environment with a sandbox or a web-based IDE for development work.
-      </>
-    ),
-    link: 'Start developing'
   },
 
 ];
@@ -147,4 +147,3 @@ export default function HomepageFeatures() {
     </section>
   );
 }
-
