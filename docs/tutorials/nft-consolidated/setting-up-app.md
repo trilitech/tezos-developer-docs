@@ -213,8 +213,8 @@ Follow these steps to set up the `src/App.svelte` file, which is the container f
    The imports include these elements:
 
    - `BeaconWallet`: This class provides a user interface for connecting to wallets, ensuring that users can securely sign transactions and call smart contracts
-   - `TezosToolkit`: This is the base class for Taquito, which gives you access to most of its Tezos-related features
    - `NetworkType`: An enumeration that lists the different types of networks on the Tezos blockchain
+   - `TezosToolkit`: This is the base class for Taquito, which gives you access to most of its Tezos-related features
    - `MichelsonMap`: This class represents the Michelson  map data type, which Tezos uses to store data, including the metadata for the NFTs that the application creates
    - `stringToBytes`: A utility that converts strings to bytes to store in the token metadata
 
