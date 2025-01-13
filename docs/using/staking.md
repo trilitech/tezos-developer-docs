@@ -2,7 +2,7 @@
 title: Staking
 authors: "Tim McMackin"
 last_update:
-  date: 10 January 2025
+  date: 13 January 2025
 ---
 
 Staking is the process of temporarily locking tez on the Tezos platform in exchange for rewards.
@@ -156,7 +156,8 @@ The example user in the diagram submits an unstake request in the middle of cycl
 When cycle 2 ends, the system calculates rights for bakers in cycle 5, so the baker will have reduced staking rights in cycle 5 depending on how much the user requested to unstake.
 
 The diagram also shows why users must wait to unfreeze their staked tez.
-It shows a baker misbehaving in cycle 4.
+Because the rights in cycles 3 and 4 were computed before the unstake request, the funds being unstaked must still guarantee the honest behavior of the baker during that period.
+The diagram shows a baker misbehaving in cycle 4.
 Other bakers have the remainder of cycle 4 and all of cycle 5 to denounce the misbehaving baker, which results in that baker being slashed.
 Therefore, funds staked with that baker stay frozen until the end of cycle 5 in case they need to be penalized.
 Then, the user can finalize their unstake request.
