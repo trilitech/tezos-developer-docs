@@ -15,10 +15,18 @@ import { fileURLToPath } from 'url';
 import fs from 'fs';
 import { glob } from 'glob';
 import matter from 'gray-matter';
+import semver from 'semver';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const baseFolder = path.resolve(__dirname, '../..');
 const docsFolder = path.resolve(baseFolder, 'docs');
+
+// List the current versions of the tools and this script will print the pages that have been tested only on older versions of the tools
+const currentVersions = {
+  'octez-client': '20.1',
+  taquito: '20.1',
+  ligo: '1.7.0',
+};
 
 /*
 Data structure for info about dependencies:
@@ -104,7 +112,39 @@ const printDependencies = async () => {
       })
     });
     console.log('\n');
-  })
+  });
+  console.log('\n');
+
+  // Print files that may need to be updated based on the currentVersions constant
+  console.log('***\nUPDATES NEEDED\n***\n');
+  console.log('These pages need to be updated to the latest version of the specified tool:\n');
+  const currentPrograms = Object.keys(currentVersions);
+  currentPrograms.forEach((oneProgram) => {
+    const currentVersion = semver.coerce(currentVersions[oneProgram]).version;
+    console.log('Checking', oneProgram, 'for which the current version is', currentVersion);
+    if (dependencyData[oneProgram]) {
+      const versionsOfThisToolUsed = Object.keys(dependencyData[oneProgram]) || [];
+      if (versionsOfThisToolUsed.length > 0) {
+        const outdatedVersions = Object.keys(dependencyData[oneProgram])
+          .filter((oneVersion) => semver.gt(currentVersion, semver.coerce(oneVersion).version));
+        if (outdatedVersions.length > 0) {
+          outdatedVersions.forEach((oneOutdatedVersion) => {
+            console.log('  These files use version', oneOutdatedVersion + ':');
+            dependencyData[oneProgram][oneOutdatedVersion].forEach((oneFile) => {
+              console.log('    ', oneFile);
+            })
+          });
+        } else {
+          console.log('  All files up to date');
+        }
+      }
+    } else {
+      console.log('  Tool', oneProgram, 'is not used in the docs.');
+    }
+    console.log('\n');
+  });
+
+  // console.log(JSON.stringify(dependencyData, null, 2))
 }
 
 printDependencies();
