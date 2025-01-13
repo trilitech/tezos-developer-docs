@@ -20,11 +20,11 @@ If you already have a baking daemon, you can restart it to connect to the DAL no
    For example:
 
    ```bash
-   octez-baker-PsParisC run with local node "$HOME/.tezos-node" consensus_key --liquidity-baking-toggle-vote pass --adaptive-issuance-vote on --dal-node http://127.0.0.1:10732
+   octez-baker-PsQuebec run with local node "$HOME/.tezos-node" consensus_key --liquidity-baking-toggle-vote pass --adaptive-issuance-vote on --dal-node http://127.0.0.1:10732
    ```
 
    Note that the command for the baker depends on the protocol version.
-   This example uses the ParisC protocol, so the command starts with `octez-baker-PsParisC`.
+   This example uses the Quebec protocol, so the command starts with `octez-baker-PsQuebec`.
    Check the current version of the protocol to see what command to run, and change this command when you upgrade to newer versions of the protocol.
 
    You may append `>>"$HOME/octez-baker.log" 2>&1` to redirect its output in a log file.
@@ -48,7 +48,7 @@ You can also refer to [Run a persistent baking node](https://opentezos.com/node-
    [Service]
    Type=simple
    User=tezos
-   ExecStart=octez-baker-PsParisC run with local node "$HOME/.tezos-node" consensus_key --liquidity-baking-toggle-vote pass --adaptive-issuance-vote on --dal-node http://127.0.0.1:10732
+   ExecStart=octez-baker-PsQuebec run with local node "$HOME/.tezos-node" consensus_key --liquidity-baking-toggle-vote pass --adaptive-issuance-vote on --dal-node http://127.0.0.1:10732
    WorkingDirectory=/opt/octez-baker
    Restart=on-failure
    RestartSec=5
@@ -136,10 +136,10 @@ Follow these steps to calculate the delay to receive attestation rights:
    You may need to install the `jq` program to run these commands.
 
 1. Using the values from the responses, calculate the attestation rights delay in seconds.
-For example, if `consensus_rights_delay` is 3, `blocks_per_cycle` is 12,288, and `minimal_block_delay` is 5, a new baker receives attestation rights after a delay of 307,200 seconds.
+For example, if `consensus_rights_delay` is 2, `blocks_per_cycle` is 15,360, and `minimal_block_delay` is 4, a new baker receives attestation rights after a delay of 122,880 seconds.
 
 1. Divide the number of seconds by 86,400 to get the attestation delay in days.
-For example, if the delay is 307,200 seconds, that time is about 3.5 days.
+For example, if the delay is 122,880 seconds, that time is about 1.4 days.
 
    The exact time depends on what time in the current cycle the account staked its tez.
 
@@ -187,7 +187,7 @@ WantedBy=multi-user.target
 [Service]
 Type=simple
 User=tezos
-ExecStart=octez-accuser-PsParisC run
+ExecStart=octez-accuser-PsQuebec run
 WorkingDirectory=/opt/octez-accuser
 Restart=on-failure
 RestartSec=5
