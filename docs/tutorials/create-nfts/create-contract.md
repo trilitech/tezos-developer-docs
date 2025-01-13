@@ -248,6 +248,9 @@ The tests used generated test accounts, so if you want to have control over the 
 
 1. In the Wallet section, connect your wallet.
 
+   The **Beacon** tab allows you to connect to most wallet types.
+   If you can't connect your wallet, you can click the **Secret key** tab and enter your account's secret key directly.
+
 1. Click **ESTIMATE COST FROM RPC**.
 
 1. When you are ready to deploy the contract, go to the Deploy Contract section and click **DEPLOY CONTRACT**.
