@@ -2,19 +2,13 @@
 title: Using Tezos
 authors: Tim McMackin
 last_update:
-  date: 10 January 2025
+  date: 13 January 2025
 ---
 
 This section presents Tezos for end users who need to access applications that use Tezos as part of their platform.
 Thus, no technical expertise is assumed, such as designing or developing new applications.
 
 Tezos is a blockchain, which is a network of computers that allows a group of users to run computer tasks in an open, transparent, and secure way.
-Blockchains like Tezos have these general properties:
-
-- Any user in the group has access to all of the stored data
-- Any user can make changes to the data, as long they follow a set of rules
-- No small subset of users can control the system
-
 As a Tezos user, you may have come to the platform for many reasons, including:
 
 - Paying or accepting payments in the Tezos cryptocurrency (known as tez and occasionally by the symbol ꜩ or the ticker symbol XTZ)
@@ -24,7 +18,13 @@ As a Tezos user, you may have come to the platform for many reasons, including:
 
 ## What else can I do with Tezos?
 
-You can do many different things with a blockchain, but the common tasks fall into these categories:
+Blockchains like Tezos have these general properties:
+
+- Any user in the group has access to all of the stored data
+- Any user can make changes to the data, as long they follow a set of rules
+- No small subset of users can control the system
+
+You can take advantage of these features to do many different things with a blockchain, but the common tasks fall into these categories:
 
 - Decentralized storage: Users can store data in such a way that the data is available to all users forever, or at least as long as the blockchain system is running
 - Decentralized currency: Users agree on a currency and its behavior and use decentralized storage to record which accounts have what amount of currency
