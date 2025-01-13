@@ -81,8 +81,19 @@ const printDependencies = async () => {
     return data;
   }, {});
 
-  // Pretty-print the data by program first, then version
+  // Print a summary of the tools and versions used
+  console.log('***\nSUMMARY\n***\n');
+  console.log('Versions and tools used:\n');
   const programs = Object.keys(dependencyData);
+  programs.forEach((oneProgram) => {
+    const versions = Object.keys(dependencyData[oneProgram]);
+    console.log(`${oneProgram}: ${versions.join(', ')}`);
+  });
+  console.log('\n');
+
+  // Pretty-print the full data by program first, then version
+  console.log('***\nFULL DATA\n***\n');
+  console.log('List of every tool and the versions used in each file:\n');
   programs.forEach((oneProgram) => {
     console.log('Program:', oneProgram);
     const versions = Object.keys(dependencyData[oneProgram]);
