@@ -9,7 +9,7 @@ const FeatureList = [
     href: 'using',
     description: (
       <>
-        Learn how to set up a Tezos account and manage it with a wallet, stake tez, and use applications
+        Learn how to set up a Tezos account and manage it with a wallet, stake tez, and use applications.
       </>
     ),
     link: 'Start using Tezos'
