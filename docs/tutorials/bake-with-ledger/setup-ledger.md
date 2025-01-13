@@ -30,9 +30,10 @@ In order to preserve the performance and integrity of your Ledger device, it is 
 
 :::note Warning
 
-In the `Tezos Baking` application, in order to avoid signing blocks or operations that could lead to double-baking, double-attesting or double-preattesting, checks are carried out on the blocks and operations whose signature has been requested.
-These verifications require a High Watermark (HWM) to be stored in the RAM of your Ledger device. Saving information in RAM can be slow and can therefore slow down the performance of your device during baking.
-You can disable this by disabling the `High Watermark` option in the `Settings` section of the `Tezos Baking` application. However, when this option is no longer active, it becomes possible to sign operations that would lead to double-baking, double-attesting or double-preattesting. You are therefore strongly advised not to deactivate this option if your block and operations provider does not also prevent double-baking, double-attesting and double-preattesting.
+HWM (High Watermark) protection exists in the Ledger `Tezos Baking` application to avoid double-baking, double-attesting or double-preattesting at the level. The HWM is stored in NVRAM (Non-volatile Random Access Memory), after every signature, by the `Tezos Baking` application (that is on each pre-attestation, attestation, but also while signing blocks).
+
+The NVRAM on Ledger has limited read/write lifetime, thus frequent updates of NVRAM leads to NVRAM burn. To resolve this, an **optional** setting called HWM (ENABLE/DISABLE) is added to the Ledger `Tezos Baking` application (since v 2.4.7). When disabled, it allows storing HWM on RAM instead of NVRAM during the signature of operations. This increases the speed/performance of the Ledger `Tezos Baking` application and extends the lifetime of Ledger devices. The last HWM value on the Ledger’s RAM is written to NVRAM at the time of exiting the Ledger `Tezos Baking` application for persistent storage.
+In case of an abrupt interruption of the Ledger `Tezos Baking` application, e.g. caused by an abrupt power off of the Ledger device, the current HWM value may not be updated to the device’s NVRAM. Thus, it’s important to reset the value of the HWM on the Ledger device to the highest HWM value signed by the baker, before resuming baking. (See [Setup the Ledger high watermark (HWM)](/tutorials/bake-with-ledger/run-baker#setup-the-ledger-high-watermark-hwm) to setup the HWM)
 
 :::
 

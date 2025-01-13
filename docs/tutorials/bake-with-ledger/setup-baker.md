@@ -49,7 +49,9 @@ Choose one of the URIs shown, modifying the BIP32 path as you like, then import 
    octez-signer import secret key my_ledger_key "ledger://masculine-pig-stupendous-dugong/secp256k1/0h/0h"
    ```
 
-A validation from your Ledger device will be required.
+On your Ledger device, you should see a screen sequence similar to:
+![Ledger Key Review](/img/tutorials/bake-with-ledger/pkh-review.png)
+<!-- https://lucid.app/lucidchart/26df7357-40e6-4c1b-8ffe-0e4b8eebf707/edit?beaconFlowId=D98D3B908C0603CC&invitationId=inv_08b134b7-3e40-4429-af31-101e36489cc3&page=0_0# -->
 
 Output:
 
@@ -68,7 +70,9 @@ For your security, the `Tezos Baking` application only allows one key to be used
    octez-signer setup ledger to bake for my_ledger_key
    ```
 
-A validation from your Ledger device will be required.
+On your Ledger device, you should see a screen sequence similar to:
+![Ledger Setup Review](/img/tutorials/bake-with-ledger/setup-review.png)
+<!-- https://lucid.app/lucidchart/26df7357-40e6-4c1b-8ffe-0e4b8eebf707/edit?beaconFlowId=D98D3B908C0603CC&invitationId=inv_08b134b7-3e40-4429-af31-101e36489cc3&page=0_0# -->
 
 Output:
 
@@ -97,3 +101,5 @@ In a new terminal, run:
    ```bash
    octez-client -R 'tcp://localhost:7732' config update
    ```
+
+This way, the key stored in the context of your `octez-signer` will be accessible by remote from the `octez-client` context.

@@ -18,12 +18,8 @@ For this step, you already have a baker! No need to regenerate it, just import i
 
 > Replace the `tz...` with the public key hash of your Ledger baking key.
 
-:::note Stake
-
-The `Tezos Baking` application does not allow you to sign some operations, such as the staking operation.
-You will therefore need to quit the `Tezos Baking` application and sign using the `Tezos Wallet (XTZ)` application instead.
-
-:::
+To be able to sign the operations you find in this step, you need to use the `Tezos Wallet (XTZ)` application.
+Quit the `Tezos Baking` application and open the `Tezos Wallet (XTZ)` application.
 
 ## Before running the Octez baking daemon
 
@@ -47,7 +43,9 @@ Go back to the `Tezos Baking` application and run:
    octez-signer set ledger high watermark for my_ledger_key to <LEVEL>
    ```
 
-A validation from your Ledger device will be required.
+On your Ledger device, you should see a screen sequence similar to:
+![Ledger Setup Review](/img/tutorials/bake-with-ledger/set-hwm-review.png)
+<!-- https://lucid.app/lucidchart/26df7357-40e6-4c1b-8ffe-0e4b8eebf707/edit?beaconFlowId=D98D3B908C0603CC&invitationId=inv_08b134b7-3e40-4429-af31-101e36489cc3&page=0_0# -->
 
 Output:
 
