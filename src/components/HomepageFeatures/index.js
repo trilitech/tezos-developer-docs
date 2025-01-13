@@ -16,14 +16,25 @@ const FeatureList = [
   },
   {
     emoji: '💡',
-    title: 'Tezos for technical users',
+    title: 'Tezos for developers',
     href: 'overview',
     description: (
       <>
-        Read about how Tezos works, what distinguishes it from other blockchains, how to participate as a baker, and how to develop decentralized applications.
+        Read about how Tezos works, what distinguishes it from other blockchains, and how to develop decentralized applications.
       </>
     ),
     link: 'Start learning'
+  },
+  {
+    emoji: '🍞',
+    title: 'Tezos for bakers',
+    href: 'architecture/bakers',
+    description: (
+      <>
+        Read how to participate in Tezos and how to set up a full-fledged Octez node for baking.
+      </>
+    ),
+    link: 'Start baking'
   },
   {
     emoji: '📚',
