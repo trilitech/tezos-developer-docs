@@ -122,6 +122,7 @@ The popup window can connect to wallet apps in your web browser or show a barcod
 
 Now your application can connect to wallets.
 In the next section, you create transactions for the user wallet to send to Tezos.
+Review the design considerations for dApps below and then continue to [Part 3: Sending transactions](/tutorials/create-nfts/send-transactions).
 
 ## Design considerations
 

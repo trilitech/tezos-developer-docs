@@ -107,3 +107,4 @@ After you connect your wallet, the application should show the IDs of the NFTs t
 
 Now you can get information about NFTs in web applications.
 You could extend the application to provide links for each NFT, a table of the NFTs and their owners, or a thumbnail image for each NFT.
+For some closing information about the tutorial, see the [Summary](/tutorials/create-nfts/summary).

@@ -237,3 +237,4 @@ You can add the token to your wallet manually to see it and work with it in your
 
 Now you can create NFTs with your application and the built-in contract.
 In the next section you start creating your own contract to create NFTs your own way.
+Continue to [Part 4: Creating the contract](/tutorials/create-nfts/create-contract).

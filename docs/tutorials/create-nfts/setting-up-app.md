@@ -231,3 +231,4 @@ Follow these steps to set up the `src/App.svelte` file, which is the container f
 
 Now you have the framework of a web application that can access Tezos.
 In the next part, you add buttons that connect to the user's wallet and send transactions to Tezos on the user's behalf.
+Continue to [Part 2: Connecting to wallets](/tutorials/create-nfts/connect-wallet).

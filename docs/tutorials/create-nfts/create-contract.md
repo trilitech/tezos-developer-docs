@@ -303,3 +303,4 @@ The web application creates the NFTs on your new contract just like it did on th
 You can use the address of the contract or the link in the log to look them up on a block explorer.
 
 In the next section you use Taquito to retrieve information about your tokens from the contract and show them on the web application.
+Continue to [Part 5: Showing token information](/tutorials/create-nfts/show-info).

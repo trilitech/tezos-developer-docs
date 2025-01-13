@@ -68,3 +68,4 @@ You can verify that they are installed by running these commands:
 - [Part 3: Sending transactions](/tutorials/create-nfts/send-transactions)
 - [Part 4: Creating the contract](/tutorials/create-nfts/create-contract)
 - [Part 5: Showing token information](/tutorials/create-nfts/show-info)
+- [Summary](/tutorials/create-nfts/summary)
