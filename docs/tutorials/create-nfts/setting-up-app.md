@@ -15,8 +15,8 @@ If you are familiar with Svelte, note that this application includes its own Sve
 1. Run these commands to create a starter Svelte project:
 
    ```bash
-   npm create vite@latest nft-consolidated -- --template svelte
-   cd nft-consolidated
+   npm create vite@latest create-nfts -- --template svelte
+   cd create-nfts
    npm install
    ```
 

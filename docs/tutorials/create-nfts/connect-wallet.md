@@ -107,16 +107,16 @@ See [Installing and funding a wallet](/developing/wallet-setup).
 
    The application shows the connection button and status message:
 
-   <img src="/img/tutorials/nft-consolidated-connect-not-connected.png" alt="The application showing the wallet connection button" style={{width: 300}} />
+   <img src="/img/tutorials/create-nfts-connect-not-connected.png" alt="The application showing the wallet connection button" style={{width: 300}} />
 
 1. Click the **Connect wallet** button and follow the prompts to connect your wallet.
 The popup window can connect to wallet apps in your web browser or show a barcode to connect to a wallet app on a mobile device.
 
    When the wallet connects successfully, the web application changes to show the connected account address and its balance in tez:
 
-   <img src="/img/tutorials/nft-consolidated-connect-connected.png" alt="The application showing information about the connected account" style={{width: 300}} />
+   <img src="/img/tutorials/create-nfts-connect-connected.png" alt="The application showing information about the connected account" style={{width: 300}} />
 
-   If the wallet doesn't connect correctly, make sure that your application matches the application at https://github.com/trilitech/tutorial-applications/tree/main/nft-consolidated/part-2.
+   If the wallet doesn't connect correctly, make sure that your application matches the application at https://github.com/trilitech/tutorial-applications/tree/main/create-nfts/part-2.
 
 1. Click the **Disconnect wallet** button and see that the wallet disconnects and the information disappears from the page.
 

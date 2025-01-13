@@ -31,7 +31,7 @@ Follow these steps to create a contract using a template for FA2 NFTs:
 
 1. From the Welcome popup, go to the **TEMPLATES** tab, expand **Token contracts** and click the template named "Example NFT contract using the FA2 library."
 
-   <img src="/img/tutorials/nft-consolidated-contract-template-window.png" alt="Selecting the template in the SmartPy IDE" style={{width: 300}} />
+   <img src="/img/tutorials/create-nfts-contract-template-window.png" alt="Selecting the template in the SmartPy IDE" style={{width: 300}} />
 
    If the Welcome popup doesn't appear, click the **TEMPLATES** button at the top right of the editor.
 
@@ -111,7 +111,7 @@ def my_module():
 ## Customizing the contract template
 
 You can customize the contract by using a different base class, using different mixins, or overriding the entrypoints that the base class and mixins provide.
-For example, [the pre-deployed contract](https://github.com/trilitech/tutorial-applications/tree/main/nft-consolidated/contract/pre-deployed-fa2-nft.py) overrides the internal function `is_administrator_`.
+For example, [the pre-deployed contract](https://github.com/trilitech/tutorial-applications/tree/main/create-nfts/contract/pre-deployed-fa2-nft.py) overrides the internal function `is_administrator_`.
 The contract's `mint` entrypoint uses this function to determine if an account can mint a token.
 The overridden version always returns true, so anyone can mint a token:
 
@@ -231,13 +231,13 @@ Usually, developers store token media such as pictures with the InterPlanetary F
 
 1. Above the code of the contract, click **Run Code** to compile the contract and run the tests:
 
-   <img src="/img/tutorials/nft-consolidated-contract-template-run-code.png" alt="Running the contract and tests" style={{width: 300}} />
+   <img src="/img/tutorials/create-nfts-contract-template-run-code.png" alt="Running the contract and tests" style={{width: 300}} />
 
-   If you see an error, make sure that your code matches [the completed contract file](https://github.com/trilitech/tutorial-applications/tree/main/nft-consolidated/contract/fa2-from-template.py)
+   If you see an error, make sure that your code matches [the completed contract file](https://github.com/trilitech/tutorial-applications/tree/main/create-nfts/contract/fa2-from-template.py)
 
    If the contract compiles and the tests pass, the IDE shows the starting value of the contract storage and the results of the tests in the right-hand pane:
 
-   <img src="/img/tutorials/nft-consolidated-contract-template-completed-tests.png" alt="Information about the compiled contract and completed tests" style={{width: 300}} />
+   <img src="/img/tutorials/create-nfts-contract-template-completed-tests.png" alt="Information about the compiled contract and completed tests" style={{width: 300}} />
 
    This storage includes your address as the administrator and test account addresses as the starting token owners.
    Optionally, you can change the starting token owner address like you changed the admin address.
@@ -268,7 +268,7 @@ The tests used generated test accounts, so if you want to have control over the 
 
    When the contract is deployed successfully, the page shows the new contract address under Origination Result, as in this picture:
 
-   <img src="/img/tutorials/nft-consolidated-contract-template-deployed.png" alt="The address of the new contract" style={{width: 300}} />
+   <img src="/img/tutorials/create-nfts-contract-template-deployed.png" alt="The address of the new contract" style={{width: 300}} />
 
 1. Click **OPEN EXPLORER** to view the contract in the SmartPy block explorer.
 From this block explorer, you can click the links to see the contract in other block explorers.

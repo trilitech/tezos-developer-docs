@@ -101,9 +101,9 @@ In this section, you create a function to read the data from the contract's ledg
 1. Run the application.
 After you connect your wallet, the application should show the IDs of the NFTs that the connected account owns, as in this picture:
 
-   <img src="/img/tutorials/nft-consolidated-show-info-ids.png" alt="The application showing the IDs of the owned NFTs" style={{width: 300}} />
+   <img src="/img/tutorials/create-nfts-show-info-ids.png" alt="The application showing the IDs of the owned NFTs" style={{width: 300}} />
 
-   If you don't see the IDs of the NFTs that your account owns, compare your source code to the code in https://github.com/trilitech/tutorial-applications/tree/main/nft-consolidated/part-5.
+   If you don't see the IDs of the NFTs that your account owns, compare your source code to the code in https://github.com/trilitech/tutorial-applications/tree/main/create-nfts/part-5.
 
 Now you can get information about NFTs in web applications.
 You could extend the application to provide links for each NFT, a table of the NFTs and their owners, or a thumbnail image for each NFT.

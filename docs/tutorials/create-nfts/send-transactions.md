@@ -24,12 +24,12 @@ The block explorer shows the transactions that the contract has received and inf
 Usually the block explorer has a **Tokens** tab for contracts that manage tokens.
 For example, Better Call Dev shows the tokens like this:
 
-<img src="/img/tutorials/nft-consolidated-transaction-existing-tokens.png" alt="The tokens in the pre-deployed contract" style={{width: 300}} />
+<img src="/img/tutorials/create-nfts-transaction-existing-tokens.png" alt="The tokens in the pre-deployed contract" style={{width: 300}} />
 
 Most tokens have metadata that describes what the token represents.
 For example, the first token on the pre-deployed contract has this metadata:
 
-<img src="/img/tutorials/nft-consolidated-transaction-token-metadata.png" alt="The metadata of one token" style={{width: 300}} />
+<img src="/img/tutorials/create-nfts-transaction-token-metadata.png" alt="The metadata of one token" style={{width: 300}} />
 
 Normally, contracts that manage tokens have restrictions on who can mint tokens, but for the purposes of the tutorial, this contract allows any account to mint NFTs.
 
@@ -204,7 +204,7 @@ Here are some ways to get the transaction hash:
 
    For example, [this transaction](https://ghostnet.tzkt.io/oopNizDc1p6uuCLsbEP4LEzUvgiJefPFe6W9QZur9kfZzDui9bb/19762971) shows the address of the token creator, the `mint` entrypoint, and the name of the new token:
 
-   <img src="/img/tutorials/nft-consolidated-transaction-completed-transaction.png" alt="The completed transaction" style={{width: 300}} />
+   <img src="/img/tutorials/create-nfts-transaction-completed-transaction.png" alt="The completed transaction" style={{width: 300}} />
 
 ## Viewing the NFT in your wallet
 
@@ -216,24 +216,24 @@ You can add the token to your wallet manually to see it and work with it in your
 
    For example, the Temple wallet shows NFTs on the Collectibles tab:
 
-   <img src="/img/tutorials/nft-consolidated-transaction-temple-no-nfts.png" alt="The Collectibles tab of the Temple wallet, showing no NFTs" style={{width: 300}} />
+   <img src="/img/tutorials/create-nfts-transaction-temple-no-nfts.png" alt="The Collectibles tab of the Temple wallet, showing no NFTs" style={{width: 300}} />
 
 1. Add the predefined contract address `KT1Lr8m7HgfY5UF6nXDDcXDxDgEmKyMeds1b` as a source of NFTs.
 
    For example, in Temple, click **Manage assets list > Manage**, click **Add Collectible**, add the contract address in the **Address** field, and click **Add Asset**:
 
-   <img src="/img/tutorials/nft-consolidated-transaction-temple-add-contract.png" alt="Adding a contract to Temple" style={{width: 300}} />
+   <img src="/img/tutorials/create-nfts-transaction-temple-add-contract.png" alt="Adding a contract to Temple" style={{width: 300}} />
 
    In most cases you can leave the asset ID blank and the wallet will retrieve all of your tokens in the contract.
 
    Now the wallet shows the NFT:
 
-   <img src="/img/tutorials/nft-consolidated-transaction-temple-show-nft.png" alt="An NFT in the Temple wallet" style={{width: 300}} />
+   <img src="/img/tutorials/create-nfts-transaction-temple-show-nft.png" alt="An NFT in the Temple wallet" style={{width: 300}} />
 
    You can click the token to see information about it and to send it to another account.
    Because the contract is FA2-compliant, wallets can perform operations on the token without any further information.
 
-   <img src="/img/tutorials/nft-consolidated-transaction-temple-show-nft-info.png" alt="An NFT in the Temple wallet" style={{width: 300}} />
+   <img src="/img/tutorials/create-nfts-transaction-temple-show-nft-info.png" alt="An NFT in the Temple wallet" style={{width: 300}} />
 
 Now you can create NFTs with your application and the built-in contract.
 In the next section you start creating your own contract to create NFTs your own way.

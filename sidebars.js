@@ -352,15 +352,15 @@ const sidebars = {
       label: 'Mint NFTs',
       link: {
         type: 'doc',
-        id: 'tutorials/nft-consolidated',
+        id: 'tutorials/create-nfts',
       },
       items: [
-        'tutorials/nft-consolidated/setting-up-app',
-        'tutorials/nft-consolidated/connect-wallet',
-        'tutorials/nft-consolidated/send-transactions',
-        'tutorials/nft-consolidated/create-contract',
-        'tutorials/nft-consolidated/show-info',
-        'tutorials/nft-consolidated/summary',
+        'tutorials/create-nfts/setting-up-app',
+        'tutorials/create-nfts/connect-wallet',
+        'tutorials/create-nfts/send-transactions',
+        'tutorials/create-nfts/create-contract',
+        'tutorials/create-nfts/show-info',
+        'tutorials/create-nfts/summary',
       ],
     },
     {

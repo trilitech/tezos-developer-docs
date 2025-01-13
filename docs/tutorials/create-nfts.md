@@ -46,9 +46,9 @@ The application that you set up in this tutorial has two parts:
 
 The front end of the application shows buttons that users can click to connect and to mint NFTs:
 
-<img src="/img/tutorials/nft-consolidated-show-info-ids.png" alt="The application showing the IDs of the owned NFTs" style={{width: 500}} />
+<img src="/img/tutorials/create-nfts-show-info-ids.png" alt="The application showing the IDs of the owned NFTs" style={{width: 500}} />
 
-The source code of the completed application is available here: https://github.com/trilitech/tutorial-applications/tree/main/nft-consolidated.
+The source code of the completed application is available here: https://github.com/trilitech/tutorial-applications/tree/main/create-nfts.
 
 ## Prerequisites
 
@@ -63,8 +63,8 @@ You can verify that they are installed by running these commands:
 
 ## Tutorial sections
 
-- [Part 1: Setting up the application](/tutorials/nft-consolidated/setting-up-app)
-- [Part 2: Connecting to wallets](/tutorials/nft-consolidated/connect-wallet)
-- [Part 3: Sending transactions](/tutorials/nft-consolidated/send-transactions)
-- [Part 4: Creating the contract](/tutorials/nft-consolidated/create-contract)
-- [Part 5: Showing token information](/tutorials/nft-consolidated/show-info)
+- [Part 1: Setting up the application](/tutorials/create-nfts/setting-up-app)
+- [Part 2: Connecting to wallets](/tutorials/create-nfts/connect-wallet)
+- [Part 3: Sending transactions](/tutorials/create-nfts/send-transactions)
+- [Part 4: Creating the contract](/tutorials/create-nfts/create-contract)
+- [Part 5: Showing token information](/tutorials/create-nfts/show-info)
