@@ -349,7 +349,7 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: 'Mint NFTs',
+      label: 'Create NFTs',
       link: {
         type: 'doc',
         id: 'tutorials/create-nfts',

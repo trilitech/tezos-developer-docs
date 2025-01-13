@@ -1,11 +1,11 @@
 ---
-title: Mint NFTs from a web application
+title: Create NFTs from a web application
 authors: Tim McMackin
 last_update:
   date: 7 January 2024
 ---
 
-This tutorial shows you how to create a web application that interacts with the Tezos blockchain to mint non-fungible tokens (NFTs).
+This tutorial shows you how to create a web application that interacts with the Tezos blockchain to create (mint) non-fungible tokens (NFTs).
 NFTs are unique digital assets that can represent art, collectibles, or virtually any kind of digital content on the blockchain.
 Specifically, this application includes a user-facing front end web application and a Tezos smart contract that acts as the backend and manages data about the tokens.
 
