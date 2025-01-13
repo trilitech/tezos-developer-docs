@@ -113,17 +113,7 @@ def my_module():
 You can customize the contract by using a different base class, using different mixins, or overriding the entrypoints that the base class and mixins provide.
 For example, [the pre-deployed contract](https://github.com/trilitech/tutorial-applications/tree/main/create-nfts/contract/pre-deployed-fa2-nft.py) overrides the internal function `is_administrator_`.
 The contract's `mint` entrypoint uses this function to determine if an account can mint a token.
-The overridden version always returns true, so anyone can mint a token:
-
-```smartpy
-# Override this function so anyone can mint for the purposes of the tutorial
-@sp.private()
-def is_administrator_(self):
-    return True
-```
-
-You can omit this override to use the default behavior, but in this case you must set an administrator account when you deploy the contract or else you will not be able to mint any tokens.
-You could also implement other behavior such as providing a list of authorized accounts or requiring payment with the mint transaction.
+The overridden version always returns true, so anyone can mint a token.
 
 Many token contracts change the metadata from the default, so in these steps you set up custom metadata for your tokens:
 
