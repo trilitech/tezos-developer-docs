@@ -2,13 +2,15 @@
 title: "Step 3: Run an Octez DAL node"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 19 December 2024
+  date: 9 January 2025
 ---
 
 The DAL node is responsible for temporarily storing data and providing it to bakers and Smart Rollups.
+As described in [Run a Tezos node in 5 steps](/tutorials/join-dal-baker), bakers are not currently required to run a DAL node but DAL nodes are important for the scalability and bandwidth of Tezos.
+
 Follow these steps to run the DAL node:
 
-1. Ensure that the port that the DAL node runs on (by default, 11732) is accessible from outside its system.
+1. Ensure that the port on which the DAL node listens for connections from peer nodes (by default, 11732) is accessible from outside its system.
 You may need to adapt your firewall rules or set up network address translation (NAT) to direct external traffic to the DAL node.
 For more information, see [Running a DAL attester node](https://tezos.gitlab.io/shell/dal_run.html) in the Octez documentation.
 
@@ -43,6 +45,8 @@ For example, this command initializes the DAL node with the address of a local `
 
    where `10732` is the default port on which the DAL node serves RPC calls.
    You can override it with the `--rpc-addr` argument.
+
+   You may need to install the `curl` program.
 
    The response lists the network connections that the DAL node has, as in this example:
 

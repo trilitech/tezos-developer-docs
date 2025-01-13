@@ -2,7 +2,7 @@
 title: "Step 1: Run an Octez node"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 2 December 2024
+  date: 9 January 2025
 ---
 
 The first thing you need is a Tezos layer 1 node, which is an instance of the `octez-node` program and part of the Octez suite of programs.
@@ -36,6 +36,9 @@ If you build from source, you can use the `latest-release` branch to work with G
 
 ## Running the layer 1 node
 
+1. Ensure that the port on which the node listens for connections from peer nodes (by default, 9732) is accessible from outside its system.
+You may need to adapt your firewall rules or set up network address translation (NAT) to direct external traffic to the node.
+
 1. Initialize the Octez node for the network.
 For example, to initialize it for Ghostnet, run this command:
 
@@ -44,7 +47,6 @@ For example, to initialize it for Ghostnet, run this command:
    ```
 
    By default, the node stores its data in the folder `$HOME/.tezos-node`.
-   If this directory is not empty, you may have need to rename it (to keep its data) or remove it.
 
 1. Download a rolling snapshot of the network from https://snapshot.tzinit.org based on the instructions on that site.
 For example, the command to download a Ghostnet snapshot from the European servers might look like this:
@@ -52,6 +54,8 @@ For example, the command to download a Ghostnet snapshot from the European serve
    ```bash
    wget -O snapshot_file https://snapshots.eu.tzinit.org/ghostnet/rolling
    ```
+
+   If you get an error that says that the data directory is invalid, clean up the directory as the error message indicates.
 
 1. Load the snapshot in the node by running this command:
 
@@ -128,4 +132,4 @@ You can also refer to [Run a persistent baking node](https://opentezos.com/node-
 1. Optional: When the node has bootstrapped and caught up with the current head block, you can delete the snapshot file to save space.
 
 In the meantime, you can continue the baking infrastructure while the node is bootstrapping.
-Continue to [Step 2: Set up a baker account](/tutorials/join-dal-baker/prepare-account).
+Continue to [Step 2: Set up baker accounts](/tutorials/join-dal-baker/prepare-account).

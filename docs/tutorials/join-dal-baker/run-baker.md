@@ -2,7 +2,7 @@
 title: "Step 4: Run an Octez baking daemon"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 19 December 2024
+  date: 31 December 2024
 ---
 
 Now that you have a layer 1 node and a DAL node, you can run a baking daemon that can create blocks and attests to DAL data.
@@ -10,10 +10,17 @@ If you already have a baking daemon, you can restart it to connect to the DAL no
 
 1. Optional: Set up a remote signer to secure the keys that the baker uses as described in [Signer](https://tezos.gitlab.io/user/key-management.html#signer) in the Octez documentation.
 
-1. To run a baking daemon that connects to the DAL, start it as usual and pass the URL to your DAL node to it with the `--dal-node` argument:
+1. Run a baking daemon with the following arguments:
+
+   - Use the consensus key, not the baker key, if you are using a consensus key
+   - Pass the URL to your DAL node with the `--dal-node` argument
+   - Pass the `--liquidity-baking-toggle-vote` argument; for more information, see [Liquidity baking](https://tezos.gitlab.io/active/liquidity_baking.html) in the Octez documentation
+   - Pass the `--adaptive-issuance-vote` argument; for more information, see [Adaptive Issuance and Staking](https://tezos.gitlab.io/active/adaptive_issuance.html) in the Octez documentation
+
+   For example:
 
    ```bash
-   octez-baker-PsParisC run with local node "$HOME/.tezos-node" my_baker --liquidity-baking-toggle-vote pass --adaptive-issuance-vote on --dal-node http://127.0.0.1:10732
+   octez-baker-PsParisC run with local node "$HOME/.tezos-node" consensus_key --liquidity-baking-toggle-vote pass --adaptive-issuance-vote on --dal-node http://127.0.0.1:10732
    ```
 
    Note that the command for the baker depends on the protocol version.
@@ -41,7 +48,7 @@ You can also refer to [Run a persistent baking node](https://opentezos.com/node-
    [Service]
    Type=simple
    User=tezos
-   ExecStart=octez-baker-PsParisC run with local node "$HOME/.tezos-node" my_baker --liquidity-baking-toggle-vote pass --adaptive-issuance-vote on --dal-node http://127.0.0.1:10732
+   ExecStart=octez-baker-PsParisC run with local node "$HOME/.tezos-node" consensus_key --liquidity-baking-toggle-vote pass --adaptive-issuance-vote on --dal-node http://127.0.0.1:10732
    WorkingDirectory=/opt/octez-baker
    Restart=on-failure
    RestartSec=5
@@ -55,8 +62,6 @@ You can also refer to [Run a persistent baking node](https://opentezos.com/node-
    ```bash
    curl http://localhost:10732/p2p/gossipsub/topics
    ```
-
-   You may need to install the `curl` program.
 
    DAL nodes share shards and information about them over a peer-to-peer pub/sub network built on the Gossipsub P2P protocol.
    As layer 1 assigns shards to the bakers, the Gossipsub network manages topics that DAL nodes can subscribe to.
@@ -116,20 +121,27 @@ For example, if the delay is 307,200 seconds, that time is about 3.5 days.
 
    The exact time depends on what time in the current cycle the account staked its tez.
 
-:::note
+   :::note
 
-The amount of tez that the account stakes determines how often it is called on to make attestations, not how quickly it receives rights.
-Therefore, staking more tez brings more rewards but does not reduce the attestation delay.
+   The amount of tez that the account stakes determines how often it is called on to make attestations, not how quickly it receives rights.
+   Therefore, staking more tez brings more rewards but does not reduce the attestation delay.
 
-:::
+   :::
 
-1. After the delay computed above has passed, **the baker log** (not the Octez node log, neither the DAL node log) should contain lines about:
+1. After the delay computed above has passed, **the baker log** (not the Octez node log, neither the DAL node log) should contain lines that look like this:
 
-- Consensus pre-attestations: `injected preattestation ...`
-- Consensus attestations: `injected attestation ...`
-- Attach DAL attestations: `ready to attach DAL attestation ...`
+   - Consensus pre-attestations: `injected preattestation ...`
+   - Consensus attestations: `injected attestation ...`
+   - Attach DAL attestations: `ready to attach DAL attestation ...`
 
-Whether these messages appear or not after the attestation delay, proceed to [Step 5: Verifications](/tutorials/join-dal-baker/verify-rights).
+   These lines log the attestations that the baker makes.
+
+   If the baker does not have attestation rights, the log contains lines that start with `The following delegates have no attesting rights at level ...`.
+
+   Note that even though the baker daemon is using the consensus key, the attestations refer to the baker key.
+   The consensus key makes attestations on behalf of the baker key but the baking daemon does not need access to the baker key.
+
+After the attestation delay, whether or not you have attestation rights, proceed to [Step 5: Verifications](/tutorials/join-dal-baker/verify-rights).
 
 ## Optional: Run an accuser
 
