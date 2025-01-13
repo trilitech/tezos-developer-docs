@@ -23,6 +23,8 @@ Click on `My Ledger`. If you have not already done so, connect your Ledger devic
 
 Search for the `Tezos Baking` application and click on `Install`.
 
+![Install the Ledger `Tezos Baking` application from `Ledger Live`](/img/tutorials/bake-with-ledger/install-ledger-tezos-baking-app.gif)
+
 ## Download `Tezos Wallet (XTZ)`
 
 To be able to sign operation needed to setup your baker, you will also need the `Tezos Wallet (XTZ)` application.
