@@ -7,12 +7,12 @@ last_update:
 
 ## Disable PIN lock
 
-The Tezos baking application allows you to sign without you having to intervene. However, for your security, Ledger applications ensure that your Ledger device is unlocked before signing a transaction. You will therefore need to disable the automatic lock on your Ledger device.
+The Tezos baking application allows you to bake securely without interruption. However, you will need to disable auto PIN lock feature in the Ledger to avoid getting locked out of the Ledger. Otherwise the Ledger device will lock itself and baking app will not work.
 
 :::note Warning
 
-Disabling the automatic lock on your Ledger device would allow someone with access to your Ledger unlock device to access the funds on your wallet.
-The Tezos baking application only allows you to sign baking-related transactions and requires a PIN code to exit the application. The risks are therefore limited with this application. However, remember to **reactivate the automatic lock on your Ledger device if you stop using the Tezos baking application**.
+Disabling the automatic lock on your Ledger device poses a risk that if any other app except baking-app is left open on your device, someone could get access to your funds by using that Ledger if left unattended.
+The Tezos baking application is extremely secure and it only allows you to sign baking-related transactions and requires a PIN code to exit the application. However, remember to **reactivate the automatic lock on your Ledger device if you stop using the Tezos baking application on this device**.
 
 :::
 
@@ -24,7 +24,7 @@ Go to the settings of your Ledger device and search for the automatic PIN lock o
 
 In order to preserve the performance and integrity of your Ledger device, it is **strongly recommended** to activate the screen saver of your Ledger device. Go to the settings of your Ledger device and look for the screen saver option, then activate it for a value that suits you.
  - For Nanos, Nanos+ and Nanox devices, go to `Settings` then `Security` and finally `Screen saver`.
- - For Stax and Flex devices, there is no screen saver.
+ - For Stax and Flex devices, there is no screen saver as of writing this article (Jan 25).
 
 ## HWM option
 
@@ -37,4 +37,4 @@ In case of an abrupt interruption of the Ledger `Tezos Baking` application, e.g.
 
 :::
 
-In this tutorial we will use `octez-signer`, which keeps an HWM and prevents your Ledger device from signing blocks or operations that could lead to double-baking, double-attesting or double-preattesting, so it is possible to disable the option.
+For additional protection from double-baking, we will demonstrate use of external signer (`octez-signer`), which keeps track of HWM and prevents double baking. Its recommended to use this external signer, when you disable the HWM feature on your Ledger device.

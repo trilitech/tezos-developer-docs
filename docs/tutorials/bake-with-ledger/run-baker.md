@@ -9,7 +9,7 @@ Now that the Ledger baking key is set up, you can follow the steps of [Run a Tez
 
 ## Set up a baker account
 
-While nothing changes for [Step 1: Run an Octez node](/tutorials/join-dal-baker/run-node), this is not the case for [Step 2: Set up a baker account](/tutorials/join-dal-baker/prepare-account).
+Complete the [Step 1: Run an Octez node](/tutorials/join-dal-baker/run-node) of the tutorial, and make following changes in [Step 2: Set up a baker account](/tutorials/join-dal-baker/prepare-account).
 For this step, you already have a baker! No need to regenerate it, just import it:
 
    ```bash
@@ -18,24 +18,16 @@ For this step, you already have a baker! No need to regenerate it, just import i
 
 > Replace the `tz...` with the public key hash of your Ledger baking key.
 
-To be able to sign the operations you find in this step, you need to use the `Tezos Wallet (XTZ)` application.
+To be able to sign the operations you find in **Step 2**, you need to use the `Tezos Wallet (XTZ)` application.
 Quit the `Tezos Baking` application and open the `Tezos Wallet (XTZ)` application.
 
 ## Before running the Octez baking daemon
 
-You can follow [Step 3: Run an Octez DAL node](/tutorials/join-dal-baker/run-dal-node) without any extra steps. However, before starting [Step 4: Run an Octez baking daemon](/tutorials/join-dal-baker/run-baker), in order to take advantage of the `octez-signer` checks and those of the `Tezos Baking` application, some steps are important.
+Complete [Step 3: Run an Octez DAL node](/tutorials/join-dal-baker/run-dal-node). For the [Step 4: Run an Octez baking daemon](/tutorials/join-dal-baker/run-baker), make following changes to setup `octez-signer` and `Tezos Baking` application.
 
 ### Setup the Ledger high watermark (HWM)
 
-When the baker daemon will be running, the `Tezos Baking` application will prevent double baking, double-attesting and double pre-attesting.
-
-To initialize the checks made, you can set up the HWM maintained by the application with the block level of the chain for which you will have to start to bake.
-
-:::note Warning
-
-This step is not necessary to be able to bake. However, if the HWM is not initialized, the first level encountered in an operation or block to be signed will be used as the initialization level. For this first operation or block, double baking, double-attesting or double pre-attesting will not be detected. It is therefore **strongly recommended** to at least initialize the HWM with the level of the block at the head of the chain.
-
-:::
+For security reason, always reset HWM to highest block value before starting to bake. The highest block can be obtained from [Tzkt](https://www.tzkt.io/blocks?expand=1)
 
 Go back to the `Tezos Baking` application and run:
 
@@ -55,7 +47,7 @@ Output:
 
 :::note
 
-The HWM can be set up directly from the setup command:
+Alternatively, the HWM can be set up from the setup command:
 
    ```bash
    octez-signer setup ledger to bake for my_ledger_key --main-hwm <LEVEL>

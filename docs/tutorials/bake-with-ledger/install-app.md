@@ -6,7 +6,9 @@ last_update:
 ---
 
 [`Tezos Baking`](https://github.com/trilitech/ledger-app-tezos-baking) is the application developed to bake on Tezos using your Ledger device.
-It allows you to sign block and consensus operations by preventing double-baking, double-attesting and double-pre-attesting. It also prevents the signing of non-baking operations such as transfers, smart-contract calls, etc.
+It allows you to sign block and consensus operations while keeping your private keys secure in the Ledger hardware. Some of its additional features are:
+ 1. HWM tracking to avoid double baking
+ 2. Restricted signing permission, i.e. it only allows signing baking related operations. You can not approve signing of funds transfer using baking app on Ledger. 
 
 ## Download `Ledger Live`
 

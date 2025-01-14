@@ -21,9 +21,9 @@ Keeping your private key on a Ledger device and only interacting with an applica
 In this tutorial, we'll look at:
  - how to install the Tezos baking application on your Ledger device
  - how to configure your Ledger device so that the [Ledger baking application of Tezos](https://github.com/trilitech/ledger-app-tezos-baking) works properly
- - how to launch a baker daemon by signing from your Ledger device using `octez-signer`
+ - how to use an external signer (`octez-signer`) while running your baker for enhanced protection
 
 ## Prerequisites
 
  - You need Ledger device.
- - To run the Octez daemons persistently, you need a cloud-based computer or a computer that stays running constantly.
+ - Baker program needs to run constantly, so you need a computer / cloud vm which can run without interruptions. 
