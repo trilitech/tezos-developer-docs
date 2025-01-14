@@ -85,18 +85,23 @@ You can also refer to [Run a persistent baking node](https://opentezos.com/node-
 ## Upgrading the baker
 
 The version of the baker program depends on the version of the Tezos protocol.
-Therefore, when a new version of the Tezos protocol becomes active, you must start the new version of the baker immediately.
+Therefore, when a new version of the Tezos protocol becomes active, you must start the baker for the new protocol immediately.
 
 To simplify the upgrade process, you can follow these steps when the new protocol is about to be activated:
 
-1. Leave the old version of the baker running.
+1. Check posts on the forum at https://forum.tezosagora.org to see if the new protocol requires a specific version of the Octez suite and upgrade your Octez suite if necessary.
+Announcement posts on the forum may also give instructions for things you need to do for new versions of the Octez suite.
 
-1. Start the new version of the baker.
-This version will not be able to bake because it is using the wrong version of the protocol, but you can run it early without causing any problems.
+1. Leave the baker for the previous protocol running, such as the `octez-baker-PsParisC` daemon.
 
-1. When the new version of the protocol becomes active, the old baker will not be able to bake and the new baker will begin to bake automatically.
+1. Start the baker for the new protocol, such as the `octez-baker-PsQuebec` daemon.
+This daemon is not able to bake because it is using the wrong version of the protocol, but you can run it early without causing any problems.
 
-1. Then you can stop the old baker.
+1. When the new version of the protocol becomes active, the previous protocol baker is not able to bake and the new protocol baker begins to bake automatically.
+
+1. Then you can stop the previous protocol baker.
+
+You can upgrade accusers with a similar process.
 
 ## Calculating the delay for attestation rights
 
