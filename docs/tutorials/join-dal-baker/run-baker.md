@@ -2,7 +2,7 @@
 title: "Step 4: Run an Octez baking daemon"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 31 December 2024
+  date: 14 January 2025
 ---
 
 Now that you have a layer 1 node and a DAL node, you can run a baking daemon that can create blocks and attests to DAL data.
@@ -81,6 +81,22 @@ You can also refer to [Run a persistent baking node](https://opentezos.com/node-
       - Receive a block (log message: "received new head ... at level ..., round ...")
       - Inject a consensus attestation for it (log message: "injected attestation ... for my_baker (&lt;address&gt;) for level ..., round ...")
       - Attach a DAL attestation to it, indicating which of the shards assigned to the baker have been seen on the DAL network (log message: "ready to attach DAL attestation for level ..., round ..., with bitset ... for my_baker (&lt;address&gt;) to attest slots published at level ...")
+
+## Upgrading the baker
+
+The version of the baker program depends on the version of the Tezos protocol.
+Therefore, when a new version of the Tezos protocol becomes active, you must start the new version of the baker immediately.
+
+To simplify the upgrade process, you can follow these steps when the new protocol is about to be activated:
+
+1. Leave the old version of the baker running.
+
+1. Start the new version of the baker.
+This version will not be able to bake because it is using the wrong version of the protocol, but you can run it early without causing any problems.
+
+1. When the new version of the protocol becomes active, the old baker will not be able to bake and the new baker will begin to bake automatically.
+
+1. Then you can stop the old baker.
 
 ## Calculating the delay for attestation rights
 
