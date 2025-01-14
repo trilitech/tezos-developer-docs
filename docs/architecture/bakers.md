@@ -53,7 +53,7 @@ These services must run at all times with a stable power source and internet con
 
 If you don't have enough tez to become a baker or don't want to run a baking node, you can choose a baker as your delegate, which makes you a _delegator_.
 The delegate doesn't have control over your tez and you can spend your tez at any time or withdraw your delegation, but one-third of the tez that you delegate counts toward the baking power of the delegate.
-Similarly, delegated tez increase the voting power of your baker: a delegate's voting power is the sum of its own tez plus all of the tez delegated to it.
+Similarly, delegated tez increase the voting power of your baker: a delegate's voting power is the sum of its own tez plus one-third of the tez delegated to it.
 
 In exchange, delegates may share some part of their rewards with you, in proportion to the amount of available tez in your account (technically, the minimal balance during each cycle).
 Check your delegate's conditions for distributing rewards.
@@ -82,7 +82,7 @@ In summary, here is a comparison between the staking and delegating options abov
 &nbsp; | Staking | Delegating
 --- | --- | ---
 Increase baking power | 100% | 33%
-Increase voting power | 100% | 100%
+Increase voting power | 100% | 33%
 Reward delay | None | 2 cycles (about 6 days)
 Reward route | Direct to staker | To baker who manually sends to delegator
 Funds availability | Frozen (locked) | Liquid (unlocked)
