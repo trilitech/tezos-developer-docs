@@ -2,7 +2,7 @@
 title: Staking
 authors: "Tim McMackin"
 last_update:
-  date: 13 January 2025
+  date: 15 January 2025
 ---
 
 Staking is the process of temporarily locking tez on the Tezos platform in exchange for rewards.
@@ -54,6 +54,9 @@ The process of unstaking has these main steps:
 ## How to stake
 
 The easiest way to stake is to use the staking web application at https://stake.tezos.com, which walks you through the process.
+If you don't want to use this application, some wallets have built-in staking functionality that you can use instead.
+Similarly, some cryptocurrency exchanges allow you to stake directly from their interfaces.
+However, you should evaluate these staking functions carefully because they may have different conditions and rewards than staking directly through the Tezos system and https://stake.tezos.com.
 
 :::warning
 
