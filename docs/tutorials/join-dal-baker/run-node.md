@@ -2,7 +2,7 @@
 title: "Step 1: Run an Octez node"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 9 January 2025
+  date: 15 January 2025
 ---
 
 The first thing you need is a Tezos layer 1 node, which is an instance of the `octez-node` program and part of the Octez suite of programs.
@@ -108,7 +108,7 @@ You can also refer to [Run a persistent baking node](https://opentezos.com/node-
 
    For example, if your operating system uses the `systemd` software suite, your service file might look like this example:
 
-   ```systemd
+   ```systemd title="/etc/systemd/system/octez-node.service"
    [Unit]
    Description=Octez node
    Wants=network-online.target
@@ -127,6 +127,19 @@ You can also refer to [Run a persistent baking node](https://opentezos.com/node-
    StandardOutput=append:/opt/octez-node.log
    StandardError=append:/opt/octez-node.log
    SyslogIdentifier=%n
+   ```
+
+   If you name this service file `/etc/systemd/system/octez-node`, you can start it by running these commands:
+
+   ```bash
+   sudo systemctl daemon-reload
+   sudo systemctl start octez-node.service
+   ```
+
+   You can stop it by running this command:
+
+   ```bash
+   sudo systemctl stop octez-node.service
    ```
 
 1. Optional: When the node has bootstrapped and caught up with the current head block, you can delete the snapshot file to save space.
