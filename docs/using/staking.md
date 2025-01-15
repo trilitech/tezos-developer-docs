@@ -23,7 +23,7 @@ Users can stake any amount of tez, but there is a limit to how much staked tez a
 :::note How much tez do I receive in return for staking tez?
 
 The amount of tez that you receive for staking tez depends on many factors, including how much you stake and how lucky your baker is.
-Starting 20 January 2025 (with the Quebec protocol upgrade), the returns for staking also depend on the ratio of staked tez to total tez in existence, to encourage a balance of staked tez to liquid tez.
+Due to the mechanism of [adaptive issuance](https://tezos.gitlab.io/active/adaptive_issuance.html), the returns for staking also depend on the ratio of staked tez to total tez in existence, to encourage a balance of staked tez to liquid tez.
 You can look up an estimated rate of return on block explorers.
 
 :::
