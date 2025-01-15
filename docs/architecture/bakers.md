@@ -77,7 +77,7 @@ Since you may have only one delegate, you can only stake with one baker at a tim
 
 ## Summary
 
-In summary, here is a comparison betwen the staking and delegating options above:
+In summary, here is a comparison between the staking and delegating options above:
 
 &nbsp; | Staking | Delegating
 --- | --- | ---
