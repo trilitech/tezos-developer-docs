@@ -78,10 +78,16 @@ The staking app shows your account balance and how much you have staked.
 1. Click **Select Baker** and select a baker to delegate and stake to.
 
    To choose a baker, you can look up bakers in a block explorer by their addresses.
-   For example, the block explorer tzkt.io has information on bakers at https://tzkt.io/bakers.
-   This page shows information about staking and delegating with each baker, including the fees they charge and their capacity.
+   For example, the block explorer tzkt.io has information on bakers at https://tzkt.io/bakers and tzstats.com has information at https://tzstats.com/bakers.
+   Evaluate bakers by comparing information about them, including:
 
-   Before choosing a baker, look at the fees they charge and ensure that they have enough free space for the amount of tez you intend to stake.
+   - The fees they charge (commission) on staked funds
+   - Their capacity for additional staked funds (free space)
+   - How reliable they are as a baker (how often they bake blocks when they have the opportunity)
+   - Whether they have been penalized (slashed)
+   - Whether they are public (accepting stake from any user) or private (not accepting stake from other users)
+   - Whether they are supported by a corporation or not
+
    For example, the bakers in this picture all have free space for staking:
 
    <img alt="The TzKT block explorer, showing bakers with different capacities for staking" src="/img/using/staking-capacity.png" style={{width: 500}} />
