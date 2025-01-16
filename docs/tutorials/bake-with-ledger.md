@@ -17,6 +17,9 @@ The baker daemon must have constant access to the baker's private key so that it
 If a malicious entity manages to get access to this private key, it will also gain access to the baker's funds.
 Keeping your private key on a Ledger device and only interacting with an application dedicated to baking would prevent any direct access to your private key.
 
+## Setting up your Ledger to launch a baker signing with Ledger
+
+Follow this tutorial before setting up your baker with the tutorial [Run a Tezos node in 5 steps](/tutorials/join-dal-baker). This tutorial will tell you when to switch to that tutorial and what changes to make so the baker you set up will use the accounts on your Ledger device.
 
 In this tutorial, we'll look at:
  - how to install the Tezos baking application on your Ledger device
