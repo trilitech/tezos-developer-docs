@@ -25,5 +25,6 @@ In this tutorial, we'll look at:
 
 ## Prerequisites
 
- - You need Ledger device.
- - Baker program needs to run constantly, so you need a computer / cloud vm which can run without interruptions. 
+ - A Ledger device: Nano S, Nano S+, Nano X, Stax or Flex
+ - A computer or cloud VM that can run without interruptions, because the baker program must run persistently
+ - The latest version of the Octez suite, including the `octez-signer` program
