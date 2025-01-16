@@ -38,7 +38,9 @@ const printDependencies = async () => {
 
   // Get front matter for each file
   const filesAndFrontMatter = await Promise.all(
-    files.map(async (filePath) => {
+    files
+      .sort()
+      .map(async (filePath) => {
       const fileContents = await fs.promises.readFile(filePath, 'utf8');
       const frontMatter = matter(fileContents).data;
       return {
