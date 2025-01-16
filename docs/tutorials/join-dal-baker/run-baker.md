@@ -2,11 +2,20 @@
 title: "Step 4: Run an Octez baking daemon"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 15 January 2025
+  date: 16 January 2025
 ---
 
 Now that you have a layer 1 node and a DAL node, you can run a baking daemon that can create blocks and attests to DAL data.
 If you already have a baking daemon, you can restart it to connect to the DAL node.
+
+:::warning Run one baker per account
+
+Be sure to run only one baking daemon per Tezos account.
+If you run more than one, you risk double-baking or double-attesting and being slashed.
+However, it is safe to run two baking daemons during the protocol upgrade process because one daemon uses the previous protocol and the other daemon uses the new protocol.
+For ways to ensure the reliability of your baking setup that does not involve running multiple baker daemons, see [Inactive delegates](https://tezos.gitlab.io/introduction/howtorun.html#inactive-delegates) in the Octez documentation.
+
+:::
 
 1. Optional: Set up a remote signer to secure the keys that the baker uses as described in [Signer](https://tezos.gitlab.io/user/key-management.html#signer) in the Octez documentation.
 
