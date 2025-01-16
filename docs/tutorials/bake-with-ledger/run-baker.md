@@ -5,12 +5,12 @@ last_update:
   date: 10 January 2025
 ---
 
-Now that the Ledger baking key is set up, you can follow the steps of [Run a Tezos node in 5 step](/tutorials/join-dal-baker). However, some steps will differ.
+Now that the Ledger baking key is set up, you can follow the steps of [Run a Tezos node in 5 steps](/tutorials/join-dal-baker). However, some steps will differ.
 
 ## Set up a baker account
 
 Complete the [Step 1: Run an Octez node](/tutorials/join-dal-baker/run-node) of the tutorial, and make following changes in [Step 2: Set up a baker account](/tutorials/join-dal-baker/prepare-account).
-For this step, you already have a baker! No need to regenerate it, just import it:
+For this step, you already have a baker account! No need to regenerate it, just import it:
 
    ```bash
    octez-client import secret key my_baker remote:tz...
@@ -27,7 +27,7 @@ Complete [Step 3: Run an Octez DAL node](/tutorials/join-dal-baker/run-dal-node)
 
 ### Setup the Ledger high watermark (HWM)
 
-For security reason, always reset HWM to highest block value before starting to bake. The highest block can be obtained from [Tzkt](https://www.tzkt.io/blocks?expand=1)
+For security reasons, always reset HWM to the highest possible block value before starting to bake. The highest block can be obtained from [Tzkt](https://www.tzkt.io/blocks?expand=1). Then, use that block value as the level in the following command.
 
 Go back to the `Tezos Baking` application and run:
 
@@ -55,7 +55,7 @@ Alternatively, the HWM can be set up from the setup command:
 
 :::
 
-### Setup additionnal checks for `octez-signer`
+### Set up additional checks for `octez-signer`
 
 `octez-signer` also has the ability to enable various checks. Stop the previously launched `octez-signer` TCP socket and restart it with the following command:
 
@@ -75,7 +75,7 @@ The `-W` tag is required if you have chosen to disable the `High Watermark` opti
 
 ## Security verifications
 
-Everything is ready, you can now finish the tutorial [Run a Tezos node in 5 step](/tutorials/join-dal-baker), the baking daemon will send the data to be signed to `octez-signer` which will send it to your Ledger device which will sign them.
+Everything is ready, you can now finish the tutorial [Run a Tezos node in 5 steps](/tutorials/join-dal-baker). The baking daemon will send the data to be signed to `octez-signer` which will send it to your Ledger device, which will sign them.
 
 Once the baking daemon has started, you can check on your Ledger device that the HWM is evolving in accordance with the blocks signed by your Ledger baking key.
 

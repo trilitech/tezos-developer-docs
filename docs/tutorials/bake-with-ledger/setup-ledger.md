@@ -1,5 +1,5 @@
 ---
-title: "Setup your ledger"
+title: "Set up your ledger"
 authors: Sébastien Palmer
 last_update:
   date: 10 January 2025
@@ -37,4 +37,4 @@ In case of an abrupt interruption of the Ledger `Tezos Baking` application, e.g.
 
 :::
 
-For additional protection from double-baking, we will demonstrate use of external signer (`octez-signer`), which keeps track of HWM and prevents double baking. Its recommended to use this external signer, when you disable the HWM feature on your Ledger device.
+For additional protection from double-baking, this tutorial demonstrates the use of an external signer (`octez-signer`), which keeps track of HWM and prevents double baking. It's recommended to use this external signer when you disable the HWM feature on your Ledger device.

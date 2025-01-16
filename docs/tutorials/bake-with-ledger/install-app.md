@@ -29,7 +29,7 @@ Search for the `Tezos Baking` application and click on `Install`.
 
 ## Download `Tezos Wallet (XTZ)`
 
-To be able to sign operation needed to setup your baker, you will also need the `Tezos Wallet (XTZ)` application.
+To be able to sign the operations needed to set up your baker, you also need the `Tezos Wallet (XTZ)` application.
 [`Tezos Wallet (XTZ)`](https://github.com/trilitech/ledger-app-tezos-wallet) is the application developed to sign Tezos operations using your Ledger device.
 
 Find and install the `Tezos Wallet (XTZ)` application.

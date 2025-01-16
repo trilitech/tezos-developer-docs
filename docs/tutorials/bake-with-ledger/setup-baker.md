@@ -1,5 +1,5 @@
 ---
-title: "Setup your Ledger baking key with `octez-signer`"
+title: "Set up your Ledger baking key with `octez-signer`"
 authors: Sébastien Palmer
 last_update:
   date: 10 January 2025
@@ -93,7 +93,7 @@ Now that your baking key on `octez-signer` is linked to your Ledger device, `oct
    octez-signer launch socket signer -a localhost
    ```
 
-> The default port is `7732`
+> The default port is `7732`.
 
 To be able to sign from `octez-client` and from the baker binaries, you have to link your remote signer for `octez-client`.
 In a new terminal, run:

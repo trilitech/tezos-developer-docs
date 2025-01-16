@@ -379,7 +379,7 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: 'Bake using a Ledger\'s device',
+      label: 'Bake using a Ledger device',
       link: {
         type: 'doc',
         id: 'tutorials/bake-with-ledger',

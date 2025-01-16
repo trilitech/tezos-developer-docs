@@ -11,9 +11,9 @@ A Ledger device is a physical wallet provided by [Ledger](https://www.ledger.com
 
 Applications can be installed on your Ledger device so that you can take advantage of the many features of the blockchain without any entity having direct access to your private key.
 
-## Why using a Ledger device to bake?
+## Why use a Ledger device to bake?
 
-Baker involves, in particular, providing constant access to the baker's private key so that the baking daemon can sign consensus operations and blocks.
+The baker daemon must have constant access to the baker's private key so that it can sign consensus operations and blocks.
 If a malicious entity manages to get access to this private key, it will also gain access to the baker's funds.
 Keeping your private key on a Ledger device and only interacting with an application dedicated to baking would prevent any direct access to your private key.
 
