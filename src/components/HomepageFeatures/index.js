@@ -23,7 +23,7 @@ const FeatureList = [
         Read about how Tezos works, what distinguishes it from other blockchains, and how to develop decentralized applications.
       </>
     ),
-    link: 'Start learning'
+    link: 'Start building'
   },
   {
     emoji: '🍞',
