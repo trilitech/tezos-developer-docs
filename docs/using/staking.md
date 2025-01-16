@@ -2,7 +2,7 @@
 title: Staking
 authors: "Tim McMackin"
 last_update:
-  date: 15 January 2025
+  date: 16 January 2025
 ---
 
 Staking is the process of temporarily locking tez on the Tezos platform in exchange for rewards.
@@ -14,7 +14,7 @@ Two main groups stake on Tezos:
 
 - Bakers, the creators of new blocks in Tezos, must stake 6,000 tez to receive the right to "bake" blocks and to receive rewards for baking those blocks.
 Their staked tez ensures that they bake correctly, because part of their stake is taken ("slashed") if they misbehave.
-For more information about staking for baking purposes, see [Baking](/architecture/bakers).
+For more information about staking for baking purposes, see [Bakers](/architecture/bakers).
 
 - Any Tezos user can stake tez with a baker and earn rewards.
 In exchange for staking tez with a baker, users automatically receive a portion of the baker's rewards in proportion to how much they stake.
@@ -50,6 +50,25 @@ The process of unstaking has these main steps:
 1. When the user wants to stop staking, they decrease the amount that they have staked or unstake all of their staked tez.
 
 1. After a delay of about 10 days, the tez are unfrozen in their account and the user can use that tez as usual.
+
+Here are a few other things to know about staking as a Tezos user:
+
+- A Tezos account can have only one delegate at a time.
+For this reason, an account can stake with only one baker at a time.
+If you want to change bakers, you can unstake from the current baker, wait for the unstaking delay, and stake with a new baker.
+
+- The baker that you stake with has no control over your tez, but your staked and delegated tez counts toward the baker's voting rights.
+When it's time to vote on upgrades to Tezos, as described in [Governance and self-amendment](/architecture/governance), your baker's voting power includes the tez you have staked with them.
+
+- Before user staking was introduced to Tezos, users delegated their tez to bakers and bakers could choose to reward users for doing so.
+You can still delegate without staking, but the primary way users earn rewards now is to both delegate and stake.
+
+:::warning Risks of staking
+
+Your staked tez is subject to the same penalties as the baker's staked tez.
+In the rare event that your baker is punished ("slashed") for misbehaving, your tez is also slashed.
+
+:::
 
 ## How to stake
 

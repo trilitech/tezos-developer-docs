@@ -2,7 +2,7 @@
 title: Bakers
 authors: "Tim McMackin"
 last_update:
-  date: 13 January 2025
+  date: 16 January 2025
 ---
 
 Baking is the process of creating new blocks in the Tezos blockchain.
@@ -51,31 +51,12 @@ The voting power of a delegate is computed in a similar way to the baking power 
 Bakers must run at least one Tezos node and a baker daemon to go with it.
 These daemons must run at all times with a stable power source and internet connection, because periods of inactivity for a baker entail losses of rewards, and eventually being marked as inactive and temporarily excluded from baking.
 
-## Delegating to a baker
-
-If you don't have enough tez to become a baker or don't want to run a baking node, you can choose a baker as your delegate, which makes you a _delegator_.
-The delegate doesn't have control over your tez and you can spend your tez at any time or withdraw your delegation, but one-third of the tez that you delegate counts toward the baking power of the delegate.
-Similarly, delegated tez increase the voting power of your baker: a delegate's voting power is the sum of its own tez plus all of the tez delegated to it.
-
-In exchange, delegates may share some part of their rewards with you, in proportion to the amount of available tez in your account (technically, the minimal balance during each cycle).
-Check your delegate's conditions for distributing rewards.
-
-Delegating incurs no risk for the delegator: the delegate has no control over the tez and the delegator is not punished if the delegate misbehaves.
-
 ## Staking with a baker
 
-If you want to get a bigger share of your delegate's rewards, you can temporarily stake any amount of tez from your account with your baker, provided your baker accepts staking.
-All the tez you stake don't leave your account: they are frozen in your account,
-but contribute to the baker's security deposit, and are locked under the same conditions as the baker's own staked tez. Hence, they are slashed if the baker misbehaves.
-In exchange of agreeing to temporarily lock these tez and sharing the risks with your delegate, you get a bigger share of the delegate's rewards.
-Staking rewards accrue automatically, and are allocated by the protocol: stakers earn rewards whenever their bakers do, and don't have to wait for the baker to distribute them (unlike delegation rewards).
+If you don't have enough tez to become a baker or don't want to run a baking node, you can choose a baker as your delegate, which makes you a _delegator_.
+Then you can stake tez with that baker and receive a share of the baker's rewards.
 
-Later on, you may choose to unstake part or all of the staked tez, that will be unlocked after a certain delay.
-
-To stake tez, you start by delegating to a baker's account (which should accepts staking and not be "overstaked"), then you stake a certain amount of your tez to the baker.
-Thus, you can earn staking rewards on some frozen tez while leaving some delegated tez liquid for immediate use.
-
-Since you may have only one delegate, you can only stake with one baker at a time.
+For instructions on staking, see [Staking](/using/staking).
 
 ## Summary
 
