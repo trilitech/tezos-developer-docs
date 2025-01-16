@@ -23,37 +23,14 @@ const docsFolder = path.resolve(baseFolder, 'docs');
 
 // List the current versions of the tools and this script will print the pages that have been tested only on older versions of the tools
 const currentVersions = {
+  archetype: '1.0.26',
   'octez-client': '20.1',
+  rust: '1.73.0',
+  smartpy: '0.20.0',
   taquito: '20.1',
+  'tezos-smart-rollup': '0.2.1',
   ligo: '1.7.0',
 };
-
-/*
-Data structure for info about dependencies:
-
-{
-  taquito: {
-    19: [
-      file1.md,
-      file2.md
-    ]
-    20: [
-      file3.md,
-      file4.md
-    ]
-  }
-  octez-client: {
-    19: [
-      file3.md,
-      file4.md
-    ]
-    20: [
-      file5.md
-    ]
-  }
-}
-
-*/
 
 const printDependencies = async () => {
   // Get all MD and MDX files
@@ -64,87 +41,63 @@ const printDependencies = async () => {
     files.map(async (filePath) => {
       const fileContents = await fs.promises.readFile(filePath, 'utf8');
       const frontMatter = matter(fileContents).data;
-      return { filePath, frontMatter };
+      return {
+        filePath: path.relative(baseFolder, filePath),
+        frontMatter };
     })
   );
 
-  // Collate data on what files have what dependencies
-  const dependencyData = filesAndFrontMatter.reduce((data, {filePath, frontMatter}) => {
-    if (frontMatter.dependencies) {
-      const programs = Object.keys(frontMatter.dependencies);
-      programs.forEach((oneProgram) => {
-        const version = frontMatter.dependencies[oneProgram];
-        const relativePath = path.relative(baseFolder, filePath);
-        if (!data[oneProgram]) {
-          data[oneProgram] = {};
-        }
-        if (!data[oneProgram][version]) {
-          data[oneProgram][version] = [];
-        }
-        if (!data[oneProgram][version].includes(relativePath)) {
-          data[oneProgram][version].push(relativePath);
-        }
+  // Filter to files with dependencies
+  const filesWithDependencies = filesAndFrontMatter
+    .filter(({ frontMatter }) => frontMatter.dependencies);
+
+  // Print warnings
+  filesWithDependencies.forEach(({ filePath, frontMatter }) => {
+    const dependencies = frontMatter.dependencies;
+    const tools = Object.keys(dependencies);
+    let filePathPrinted = false;
+
+    // Print warnings for files with outdated dependencies
+    const outdatedDeps = tools.filter((oneTool) => {
+      const currentVersion = currentVersions[oneTool];
+      const usedVersion = dependencies[oneTool];
+      if (!currentVersion) {
+        // Tool has no current version; we'll warn about that later
+        return false;
+      }
+      // Return true if the listed version of the dependency is less than the current version in the config file
+      return semver.gt(semver.coerce(currentVersion).version, semver.coerce(usedVersion).version);
+    });
+    if (outdatedDeps.length > 0) {
+      console.log(filePath);
+      filePathPrinted = true;
+      console.log('Outdated dependencies:');
+      outdatedDeps.forEach((oneTool) => {
+        const currentVersion = currentVersions[oneTool];
+        const usedVersion = dependencies[oneTool];
+        console.log(`For ${oneTool}, this file uses version ${usedVersion} but the current version is ${currentVersion}.`);
       });
     }
-    return data;
-  }, {});
 
-  // Print a summary of the tools and versions used
-  console.log('***\nSUMMARY\n***\n');
-  console.log('Versions and tools used:\n');
-  const programs = Object.keys(dependencyData);
-  programs.forEach((oneProgram) => {
-    const versions = Object.keys(dependencyData[oneProgram]);
-    console.log(`${oneProgram}: ${versions.join(', ')}`);
-  });
-  console.log('\n');
-
-  // Pretty-print the full data by program first, then version
-  console.log('***\nFULL DATA\n***\n');
-  console.log('List of every tool and the versions used in each file:\n');
-  programs.forEach((oneProgram) => {
-    console.log('Program:', oneProgram);
-    const versions = Object.keys(dependencyData[oneProgram]);
-    versions.forEach((oneVersion) => {
-      console.log('  Version:', oneVersion);
-      dependencyData[oneProgram][oneVersion].forEach((oneFilePath) => {
-        console.log('    ', oneFilePath);
-      })
-    });
-    console.log('\n');
-  });
-  console.log('\n');
-
-  // Print files that may need to be updated based on the currentVersions constant
-  console.log('***\nUPDATES NEEDED\n***\n');
-  console.log('These pages need to be updated to the latest version of the specified tool:\n');
-  const currentPrograms = Object.keys(currentVersions);
-  currentPrograms.forEach((oneProgram) => {
-    const currentVersion = semver.coerce(currentVersions[oneProgram]).version;
-    console.log('Checking', oneProgram, 'for which the current version is', currentVersion);
-    if (dependencyData[oneProgram]) {
-      const versionsOfThisToolUsed = Object.keys(dependencyData[oneProgram]) || [];
-      if (versionsOfThisToolUsed.length > 0) {
-        const outdatedVersions = Object.keys(dependencyData[oneProgram])
-          .filter((oneVersion) => semver.gt(currentVersion, semver.coerce(oneVersion).version));
-        if (outdatedVersions.length > 0) {
-          outdatedVersions.forEach((oneOutdatedVersion) => {
-            console.log('  These files use version', oneOutdatedVersion + ':');
-            dependencyData[oneProgram][oneOutdatedVersion].forEach((oneFile) => {
-              console.log('    ', oneFile);
-            })
-          });
-        } else {
-          console.log('  All files up to date');
-        }
+    // Check for dependencies that are listed in the file but have no current version in the config file
+    const missingDeps = tools.filter((oneTool) => !currentVersions[oneTool]);
+    if (missingDeps.length > 0) {
+      if (!filePathPrinted) {
+        console.log(filePath);
+        filePathPrinted = true;
       }
-    } else {
-      console.log('  Tool', oneProgram, 'is not used in the docs.');
+      console.log('Missing dependencies:');
+      missingDeps.forEach((oneTool) => {
+        console.log(`This file has a dependency for ${oneTool} but there is no current version for this tool in the config.`);
+      });
     }
-    console.log('\n');
-  });
 
-  // console.log(JSON.stringify(dependencyData, null, 2))
+    if (filePathPrinted) {
+      console.log('');
+    }
+
+  });
+  console.log(`Reviewed ${filesAndFrontMatter.length} files.`);
 }
 
 printDependencies();
