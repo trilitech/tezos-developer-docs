@@ -39,6 +39,8 @@ On your Ledger device, you should see a screen sequence similar to:
 ![Ledger Setup Review](/img/tutorials/bake-with-ledger/set-hwm-review.png)
 <!-- https://lucid.app/lucidchart/26df7357-40e6-4c1b-8ffe-0e4b8eebf707/edit?beaconFlowId=D98D3B908C0603CC&invitationId=inv_08b134b7-3e40-4429-af31-101e36489cc3&page=0_0# -->
 
+Check that the HWM is the one you supplied, then you can approve.
+
 Output:
 
    ```console

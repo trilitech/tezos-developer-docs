@@ -53,6 +53,8 @@ On your Ledger device, you should see a screen sequence similar to:
 ![Ledger Key Review](/img/tutorials/bake-with-ledger/pkh-review.png)
 <!-- https://lucid.app/lucidchart/26df7357-40e6-4c1b-8ffe-0e4b8eebf707/edit?beaconFlowId=D98D3B908C0603CC&invitationId=inv_08b134b7-3e40-4429-af31-101e36489cc3&page=0_0# -->
 
+If the public key hash displayed on your Ledger is equal to the address displayed in the command output, you can approve.
+
 Output:
 
    ```console
@@ -73,6 +75,8 @@ For your security, the `Tezos Baking` application only allows one key to be used
 On your Ledger device, you should see a screen sequence similar to:
 ![Ledger Setup Review](/img/tutorials/bake-with-ledger/setup-review.png)
 <!-- https://lucid.app/lucidchart/26df7357-40e6-4c1b-8ffe-0e4b8eebf707/edit?beaconFlowId=D98D3B908C0603CC&invitationId=inv_08b134b7-3e40-4429-af31-101e36489cc3&page=0_0# -->
+
+If the information displayed on your Ledger is similar to the information displayed in the command output, you can approve.
 
 Output:
 
