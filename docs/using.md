@@ -20,7 +20,7 @@ As a Tezos user, you may have come to the platform for many reasons, including:
 
 Blockchains like Tezos have these general properties:
 
-- Any user in the group has access to all of the stored data
+- Any user has access to all of the stored data
 - Any user can make changes to the data, as long they follow a set of rules
 - No small subset of users can control the system
 
