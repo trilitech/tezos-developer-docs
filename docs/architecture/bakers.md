@@ -22,7 +22,7 @@ The baking process includes many steps that Tezos users and developers don't nee
 1. It also selects a list of bakers to act as validators.
 These bakers are responsible for validating the blocks that other bakers create and publishing _attestations_ that the block is valid.
 1. The first baker on the list has a certain amount of time (called a round) to create the next block.
-It packages pending operations into a block, signs it, and distributes it to other nodes.
+It packages pending operations from the mempool into a block, signs it, and distributes it to other nodes.
 1. If the first baker doesn't publish a block in time, the next baker on the list has a certain amount of time to bake a block (a new round), and so on until a block is created.
 1. The validators verify the block and publish their attestations in future blocks.
 1. The next list of bakers create the next block, until the end of the cycle.
