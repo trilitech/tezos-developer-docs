@@ -56,46 +56,28 @@ const printDependencies = async () => {
   // Print warnings
   filesWithDependencies.forEach(({ filePath, frontMatter }) => {
     const dependencies = frontMatter.dependencies;
-    const tools = Object.keys(dependencies);
-    let filePathPrinted = false;
 
-    // Print warnings for files with outdated dependencies
-    const outdatedDeps = tools.filter((oneTool) => {
+    // Print warnings for files with outdated or missing dependencies
+    const warnings = Object.keys(dependencies).reduce((prevWarnings, oneTool) => {
       const currentVersion = currentVersions[oneTool];
       const usedVersion = dependencies[oneTool];
       if (!currentVersion) {
-        // Tool has no current version; we'll warn about that later
-        return false;
+        // Tool has no current version
+        prevWarnings.push(`Error: Unknown dependency: ${oneTool}`);
+      } else {
+        if (semver.gt(semver.coerce(currentVersion).version, semver.coerce(usedVersion).version)) {
+          // The listed version of the dependency is less than the current version in the config file
+          prevWarnings.push(`Outdated: ${oneTool} ${usedVersion} < ${currentVersion}`);
+        }
       }
-      // Return true if the listed version of the dependency is less than the current version in the config file
-      return semver.gt(semver.coerce(currentVersion).version, semver.coerce(usedVersion).version);
-    });
-    if (outdatedDeps.length > 0) {
+      return prevWarnings;
+    }, []);
+
+    // Print results
+    if (warnings.length > 0) {
       console.log(filePath);
-      filePathPrinted = true;
-      console.log('Outdated dependencies:');
-      outdatedDeps.forEach((oneTool) => {
-        const currentVersion = currentVersions[oneTool];
-        const usedVersion = dependencies[oneTool];
-        console.log(`For ${oneTool}, this file uses version ${usedVersion} but the current version is ${currentVersion}.`);
-      });
-    }
-
-    // Check for dependencies that are listed in the file but have no current version in the config file
-    const missingDeps = tools.filter((oneTool) => !currentVersions[oneTool]);
-    if (missingDeps.length > 0) {
-      if (!filePathPrinted) {
-        console.log(filePath);
-        filePathPrinted = true;
-      }
-      console.log('Missing dependencies:');
-      missingDeps.forEach((oneTool) => {
-        console.log(`This file has a dependency for ${oneTool} but there is no current version for this tool in the config.`);
-      });
-    }
-
-    if (filePathPrinted) {
-      console.log('');
+      warnings.forEach(w => console.log(w));
+      console.log();
     }
 
   });
