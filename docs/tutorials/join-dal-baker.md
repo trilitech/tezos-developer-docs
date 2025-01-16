@@ -2,7 +2,7 @@
 title: Run a Tezos node in 5 steps
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 18 December 2024
+  date: 16 January 2025
 ---
 
 As described in [Nodes](/architecture/nodes), Tezos nodes are peer-to-peer programs that run the Tezos network.
@@ -67,6 +67,17 @@ The following diagram shows these daemons with a blue background:
 
 To run the Octez daemons persistently, you need a cloud-based computer or a computer that stays running constantly.
 For other system requirements, see the documentation for the latest release of the Octez suite here: https://tezos.gitlab.io/releases/latest.html.
+
+## Other options for running a baker
+
+These instructions are for baking with the Octez suite programs.
+Other tools can help you set up a baker, but they are not covered in these instructions.
+Here are some of these tools:
+
+- [BakeBuddy and Ledger Nano](https://www.bakebuddy.xyz/): An intuitive plug-and-use method for setting up a node and baker
+- [Kiln and Ledger Nano](https://gitlab.com/tezos-kiln/kiln): An intuitive plug-and-use method for setting up a node and baker
+- [Remote Signer and Ledger Nano](https://github.com/obsidiansystems/ledger-app-tezos)
+- [Signatory's remote Signer via the Cloud](https://www.ecadlabs.com/signatory)
 
 ## References
 
