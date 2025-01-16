@@ -103,4 +103,5 @@ Open the file and check that the HWMs evolve in accordance with the blocks signe
            "highwatermark": { "round": 0, "level": 107096 } } ] }
    ```
 
+Now the baking daemon is running and using the Ledger to sign consensus (baking) operations. You can leave the baker running and check on it by looking at the block numbers at the end of the `.tezos-client/NetXnHfVqm9iesp_highwatermarks` file.
 
