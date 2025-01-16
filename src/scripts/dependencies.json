@@ -1,0 +1,12 @@
+{
+  "comment": "These are the current versions of tools used in the check_dependencies script.",
+  "currentVersions": {
+    "archetype": "1.0.26",
+    "octez-client": "20.1",
+    "rust": "1.73.0",
+    "smartpy": "0.20.0",
+    "taquito": "20.1",
+    "tezos-smart-rollup": "0.2.1",
+    "ligo": "1.7.0"
+  }
+}

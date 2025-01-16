@@ -25,22 +25,18 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const baseFolder = path.resolve(__dirname, '../..');
 const docsFolder = path.resolve(baseFolder, 'docs');
 
-// List the current versions of the tools and this script will print the pages that have been tested only on older versions of the tools
-const currentVersions = {
-  archetype: '1.0.26',
-  'octez-client': '20.1',
-  rust: '1.73.0',
-  smartpy: '0.20.0',
-  taquito: '20.1',
-  'tezos-smart-rollup': '0.2.1',
-  ligo: '1.7.0',
-};
+// List the current versions of the tools in the config file and this script will print the pages that have been tested only on older versions of the tools
 
 // You can pass individual tools to check, as in
 // npm run check-dependencies smartpy taquito
 // and it will check only those dependencies
 
-// Verify the passed dependencies
+// Import config file
+// Not sure why I can't import a JSON file directly in MJS
+const dependencyConfig = fs.readFileSync(path.resolve(__dirname, 'dependencies.json'), 'utf8');
+const { currentVersions } = JSON.parse(dependencyConfig);
+
+// Verify the passed dependencies parameters
 const unrecognizedParams = params.filter((oneParam) => !currentVersions[oneParam]);
 if (unrecognizedParams.length > 0) {
   console.error('Unrecognized tool names in parameters:');
@@ -82,8 +78,9 @@ const printDependencies = async () => {
           filePath,
           frontMatter: newFrontMatter,
         };
+      } else {
+        return { filePath, frontMatter };
       }
-      return { filePath, frontMatter };
     })
     // Filter out files without dependencies
     .filter(({ frontMatter }) => frontMatter.dependencies);
