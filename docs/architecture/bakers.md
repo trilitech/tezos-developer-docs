@@ -12,6 +12,8 @@ Bakers validate pending operations, package them into a block, sign the block, p
 Baker executables are run on behalf of user accounts.
 By extension, bakers also denote the users running baker daemons on behalf of their user accounts.
 
+For instructions on becoming a baker, see [Run a Tezos node in 5 steps](/tutorials/join-dal-baker).
+
 ## The baking process
 
 The baking process includes many steps that Tezos users and developers don't need to think about, but at a basic level, baking a block follows these steps:
