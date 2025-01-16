@@ -172,6 +172,12 @@ To revoke the consensus key, set the consensus key to the baker key, as in this 
 octez-client set consensus key for my_baker to my_baker
 ```
 
+Consensus keys can transfer the liquid (unstaked) tez from the baker key to any other account with the `drain delegate` command, as in this example:
+
+```bash
+octez-client drain delegate my_baker to consensus_key with consensus_key
+```
+
 ## Optional: Unstaking your tez and receiving your baking rewards
 
 If you leave the baker running, you can see rewards accrue by running the command `octez-client get staked balance for my_baker`.
