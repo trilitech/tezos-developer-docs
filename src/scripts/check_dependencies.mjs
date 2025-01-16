@@ -16,6 +16,10 @@ import fs from 'fs';
 import { glob } from 'glob';
 import matter from 'gray-matter';
 import semver from 'semver';
+import minimist from 'minimist';
+
+const argv = minimist(process.argv.slice(2));
+const params = argv['_'];
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const baseFolder = path.resolve(__dirname, '../..');
@@ -31,6 +35,18 @@ const currentVersions = {
   'tezos-smart-rollup': '0.2.1',
   ligo: '1.7.0',
 };
+
+// You can pass individual tools to check, as in
+// npm run check-dependencies smartpy taquito
+// and it will check only those dependencies
+
+// Verify the passed dependencies
+const unrecognizedParams = params.filter((oneParam) => !currentVersions[oneParam]);
+if (unrecognizedParams.length > 0) {
+  console.error('Unrecognized tool names in parameters:');
+  console.log(unrecognizedParams.join('\n'));
+  process.exit(1);
+}
 
 const printDependencies = async () => {
   // Get all MD and MDX files
@@ -51,6 +67,25 @@ const printDependencies = async () => {
 
   // Filter to files with dependencies
   const filesWithDependencies = filesAndFrontMatter
+    // Filter to the dependencies passed on the command line
+    .map(({ filePath, frontMatter }) => {
+      if (params.length > 0 && frontMatter.dependencies) {
+        let newDependencies = {};
+        params.forEach((oneParam) => {
+          if (frontMatter.dependencies[oneParam]) {
+            newDependencies[oneParam] = frontMatter.dependencies[oneParam];
+          }
+        });
+        let newFrontMatter = JSON.parse(JSON.stringify(frontMatter));
+        newFrontMatter.dependencies = newDependencies;
+        return {
+          filePath,
+          frontMatter: newFrontMatter,
+        };
+      }
+      return { filePath, frontMatter };
+    })
+    // Filter out files without dependencies
     .filter(({ frontMatter }) => frontMatter.dependencies);
 
   // Print warnings
