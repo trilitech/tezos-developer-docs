@@ -9,7 +9,7 @@ last_update:
 
 A Ledger device is a physical wallet provided by [Ledger](https://www.ledger.com). Its main purpose is to store the holder's private keys without ever disclosing them.
 
-Applications can be installed on your Ledger device so that you can take advantage of the many features of the blockchain without any entity having direct access to your private key.
+Ledger devices support many blockchains by installing applications, such as an application to manage Tezos accounts and keys and an application to allow a Tezos baker to use keys on the Ledger.
 
 ## Why use a Ledger device to bake?
 
