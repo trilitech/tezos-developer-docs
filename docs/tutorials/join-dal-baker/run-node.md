@@ -2,7 +2,7 @@
 title: "Step 1: Run an Octez node"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 15 January 2025
+  date: 17 January 2025
 ---
 
 The first thing you need is a Tezos layer 1 node, which is an instance of the `octez-node` program and part of the Octez suite of programs.
@@ -141,6 +141,22 @@ You can also refer to [Run a persistent baking node](https://opentezos.com/node-
    ```bash
    sudo systemctl stop octez-node.service
    ```
+
+   The `systemd` software suite uses the `journalctl` program for logging, so you can use it to monitor the node and the other Octez daemons you run.
+   For example, this command prints the log of the Octez node service as it is updated, similar to the `tail -f` command:
+
+   ```bash
+   journalctl --follow --unit=octez-node.service
+   ```
+
+   The `journalctl` program has options that let you search logs during time periods.
+   For example, this command shows log entries between two times:
+
+   ```bash
+   journalctl --unit=octez-baker.service --since "20 minutes ago" --until "60 seconds ago"
+   ```
+
+   For more information about logging, see the documentation for the `journalctl` program.
 
 1. Optional: When the node has bootstrapped and caught up with the current head block, you can delete the snapshot file to save space.
 
