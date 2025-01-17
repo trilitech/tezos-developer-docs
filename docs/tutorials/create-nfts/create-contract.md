@@ -2,7 +2,7 @@
 title: "Part 4: Creating the contract"
 authors: Tim McMackin
 last_update:
-  date: 20 December 2024
+  date: 17 January 2025
 ---
 
 Up to this point, your web application used a pre-deployed smart contract to manage tokens.
@@ -111,9 +111,7 @@ def my_module():
 ## Customizing the contract template
 
 You can customize the contract by using a different base class, using different mixins, or overriding the entrypoints that the base class and mixins provide.
-For example, [the pre-deployed contract](https://github.com/trilitech/tutorial-applications/tree/main/create-nfts/contract/pre-deployed-fa2-nft.py) overrides the internal function `is_administrator_`.
-The contract's `mint` entrypoint uses this function to determine if an account can mint a token.
-The overridden version always returns true, so anyone can mint a token.
+For example, [the pre-deployed contract](https://github.com/trilitech/tutorial-applications/tree/main/create-nfts/contract/pre-deployed-fa2-nft.py) overrides the internal function `is_administrator_` to allow anyone to mint a token, not just the administrator as in most NFT contracts.
 
 Many token contracts change the metadata from the default, so in these steps you set up custom metadata for your tokens:
 
