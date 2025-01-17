@@ -363,6 +363,22 @@ const sidebars = {
       ],
     },
     {
+      type: 'category',
+      label: 'Create NFTs',
+      link: {
+        type: 'doc',
+        id: 'tutorials/create-nfts',
+      },
+      items: [
+        'tutorials/create-nfts/setting-up-app',
+        'tutorials/create-nfts/connect-wallet',
+        'tutorials/create-nfts/send-transactions',
+        'tutorials/create-nfts/create-contract',
+        'tutorials/create-nfts/show-info',
+        'tutorials/create-nfts/summary',
+      ],
+    },
+    {
       type: 'html',
       value: '<div>Advanced</div>',
       className: 'menu__divider',
