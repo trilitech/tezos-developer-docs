@@ -6,6 +6,7 @@
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
     "build": "node ./src/scripts/process_downloaded_glossary.js && docusaurus build",
+    "check-dependencies": "node ./src/scripts/check_dependencies.mjs",
     "concat": "node ./src/scripts/concatenate.mjs",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
@@ -38,6 +39,7 @@
     "@docusaurus/module-type-aliases": "3.7.0",
     "chai": "5.1.2",
     "glob": "11.0.0",
+    "gray-matter": "4.0.3",
     "jsdom": "26.0.0",
     "mdast-util-from-markdown": "2.0.2",
     "mdast-util-mdx": "3.0.0",
@@ -48,6 +50,7 @@
     "remark": "15.0.1",
     "remark-parse": "11.0.0",
     "remark-rehype": "11.1.1",
+    "semver": "7.6.3",
     "strip-markdown": "^6.0.0",
     "unified": "11.0.5",
     "unist-util-visit": "5.0.0"

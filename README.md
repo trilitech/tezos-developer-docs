@@ -44,6 +44,24 @@ To run tests locally, run `npm run test -- --filesToCheck=docs/developing.md,doc
 
 Docusaurus automatically checks for broken links and markdown-encoded images when you run `npm run build`.
 
+## Dependencies
+
+MD and MDX files have fields that show the versions of tools that they were tested on, as in this example:
+
+```markdown
+---
+title: My topic
+dependencies:
+  smartpy: 0.19.0
+  ligo: 1.6.0
+  archetype: 1.0.26
+---
+```
+
+The current versions of these tools are set in the file `src/scripts/dependencies.json`.
+When you run `npm run check-dependencies`, a script checks for files that need to be updated.
+You can check specific tools by passing them to the script, as in `npm run check-dependencies smartpy taquito`.
+
 ## Search
 
 Search on the site is powered by Algolia Docsearch.
