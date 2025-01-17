@@ -2,7 +2,7 @@
 title: "Step 4: Run an Octez baking daemon"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 31 December 2024
+  date: 14 January 2025
 ---
 
 Now that you have a layer 1 node and a DAL node, you can run a baking daemon that can create blocks and attests to DAL data.
@@ -81,6 +81,28 @@ You can also refer to [Run a persistent baking node](https://opentezos.com/node-
       - Receive a block (log message: "received new head ... at level ..., round ...")
       - Inject a consensus attestation for it (log message: "injected attestation ... for my_baker (&lt;address&gt;) for level ..., round ...")
       - Attach a DAL attestation to it, indicating which of the shards assigned to the baker have been seen on the DAL network (log message: "ready to attach DAL attestation for level ..., round ..., with bitset ... for my_baker (&lt;address&gt;) to attest slots published at level ...")
+
+## Upgrading the baker
+
+The version of the baker program depends on the version of the Tezos protocol.
+Therefore, when a new version of the Tezos protocol becomes active, you must start the baker for the new protocol immediately.
+
+To simplify the upgrade process, you can follow these steps when the new protocol is about to be activated:
+
+1. Check the release pages in the [Octez documentation](https://tezos.gitlab.io) (section `Changes in Octez releases`) or check the posts on the forum at https://forum.tezosagora.org to see which version of the Octez suite supports the upcoming protocol and upgrade your Octez suite if necessary.
+The Octez release page gives instructions for upgrading.
+
+1. Leave the baker for the previous protocol running, such as the `octez-baker-PsParisC` daemon.
+
+1. Start the baker for the new protocol, such as the `octez-baker-PsQuebec` daemon.
+This daemon is not yet able to bake because it is using the future version of the protocol, but you can run it early without causing any problems.
+However, make sure not to run the baker twice **for the same protocol version and the same baker account**, to avoid being slashed for double signing.
+
+1. When the new version of the protocol becomes active, the previous protocol baker is no longer able to bake and the new protocol baker begins to bake automatically.
+
+1. Then you can stop the previous protocol baker.
+
+You can upgrade accusers with a similar process.
 
 ## Calculating the delay for attestation rights
 
