@@ -173,7 +173,7 @@ public void HandleMint()
 ```
 
 In your projects, you can set the metadata to store information about what the token represents.
-For more information about working with Tokens, see [Managing tokens](/unity/managing-tokens) and the tutorials [Create an NFT](/tutorials/create-an-nft) and [Build an NFT marketplace](/tutorials/build-an-nft-marketplace).
+For more information about working with tokens, see [Managing tokens](/unity/managing-tokens) and the tutorials [Create NFTs from a web application](/tutorials/create-nfts) and [Create a fungible token with the SmartPy FA2 library](/tutorials/smartpy-fa2-fungible).
 
 ## Transfer scene
 

@@ -33,5 +33,5 @@ The next pages in this section illustrate dApps with [examples](/dApps/samples),
 These tutorials cover dApps of different complexities:
 
 - For a simple dApp, see [Build a simple web application](/tutorials/build-your-first-app)
-- For a dApp that mints NFTs, see [Mint NFTs from a web app](/tutorials/create-an-nft/nft-web-app)
+- For a dApp that mints NFTs, see [Create NFTs from a web application](/tutorials/create-nfts)
 - For a large dApp that allows users to buy and sell NFTs, see [Build an NFT marketplace](/tutorials/build-an-nft-marketplace)

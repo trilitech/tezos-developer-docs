@@ -30,7 +30,7 @@ For examples of FA2.1 contracts, see the [Implementation](https://gitlab.com/tez
 Like FA2 tokens, each FA2.1 token has metadata that describes what the token represents.
 The standard provides multiple options for the structure of the metadata and it refers to other standards for how the metadata is stored.
 FA2.1 suggests that contracts store metadata according to [TZIP-21](https://gitlab.com/tezos/tzip/-/blob/master/proposals/tzip-21/tzip-21.md), which is an extension of the TZIP-16 metadata standard used in FA2.
-For examples of working with metadata, see the NFT-related tutorials at [Create an NFT](/tutorials/create-an-nft).
+For examples of working with metadata, see the tutorial [Create NFTs from a web application](/tutorials/create-nfts).
 
 ## Tickets
 
