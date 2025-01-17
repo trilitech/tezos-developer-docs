@@ -3,6 +3,8 @@ title: Implement a file archive with the DAL and a Smart Rollup
 authors: 'Tezos Core Developers'
 last_update:
   date: 10 June 2024
+dependencies:
+  todo: 1
 ---
 
 The Data Availability Layer (DAL) is a companion peer-to-peer network for the Tezos blockchain, designed to provide additional data bandwidth to Smart Rollups.

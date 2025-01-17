@@ -3,6 +3,8 @@ title: Run a Tezos node in 5 steps
 authors: Tezos core developers, Tim McMackin
 last_update:
   date: 23 January 2025
+dependencies:
+  octez: 21.2
 ---
 
 As described in [Nodes](/architecture/nodes), Tezos nodes are peer-to-peer programs that run the Tezos network.

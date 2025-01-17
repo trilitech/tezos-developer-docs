@@ -3,6 +3,8 @@ title: Create a fungible token with the SmartPy FA2 library
 authors: Tim McMackin
 last_update:
   date: 10 May 2024
+dependencies:
+  smartpy: 0.20.0
 ---
 
 This tutorial shows you how to use SmartPy's FA2 library to create standards-compliant tokens.

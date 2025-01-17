@@ -3,6 +3,11 @@ title: Create a mobile game
 authors: 'Benjamin Fuentes (Marigold)'
 last_update:
   date: 12 December 2023
+dependencies:
+  taqueria: 0.46.0
+  ligo: 1.7.0
+  vite: 5.0.8
+  taquito: 17.4.0
 ---
 
 ![home](/img/tutorials/mobile-picHOME.png)

@@ -2,6 +2,8 @@
 title: Build an NFT marketplace
 authors: 'Benjamin Fuentes (Marigold)'
 lastUpdated: 8nd November 2023
+dependencies:
+  todo: 1
 ---
 
 This tutorial guides you through creating a web application that allows users to buy and sell tokens of different types.

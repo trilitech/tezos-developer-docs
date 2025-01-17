@@ -3,6 +3,11 @@ title: Create NFTs from a web application
 authors: Tim McMackin
 last_update:
   date: 7 January 2024
+dependencies:
+  smartpy: 0.20.0
+  taquito: 20.1.2
+  svelte: 5.14.4
+  vite: 6.0.3
 ---
 
 This tutorial shows you how to create a web application that interacts with the Tezos blockchain to create (mint) non-fungible tokens (NFTs).

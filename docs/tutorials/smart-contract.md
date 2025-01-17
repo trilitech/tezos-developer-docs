@@ -3,6 +3,10 @@ title: Deploy a smart contract
 authors: Tim McMackin
 last_update:
   date: 14 September 2023
+dependencies:
+  smartpy: 0.20.0
+  ligo: 1.9.2
+  completium-cli: 1.0.26
 ---
 
 This tutorial covers deploying a smart contract to Tezos.

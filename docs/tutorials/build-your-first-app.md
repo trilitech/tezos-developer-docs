@@ -3,6 +3,11 @@ title: Build a simple web application
 authors: 'Claude Barde, Tim McMackin'
 last_update:
   date: 17 October 2023
+dependencies:
+  svelte: 5.2.0
+  vite: 5.4.11
+  taquito: 20.1.0
+  ligo: 1.7.0
 ---
 
 This tutorial shows you how to create a simple web application that uses Tezos.

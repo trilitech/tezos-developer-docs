@@ -3,6 +3,9 @@ title: Create your minimum dapp on Tezos
 authors: 'Benjamin Fuentes (Marigold)'
 last_update:
   date: 27 November 2023
+dependencies:
+  taqueria: 0.64.0
+  ligo: 1.9.2
 ---
 
 > dApp : A decentralized application is a type of distributed open source software application that runs on a peer-to-peer (P2P) blockchain network rather than on a single computer. DApps are visibly similar to other software applications that are supported on a website or mobile device.
