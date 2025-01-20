@@ -31,3 +31,9 @@ In this tutorial, we'll look at:
  - A Ledger device: Nano S, Nano S+, Nano X, Stax or Flex
  - A computer or cloud VM that can run without interruptions, because the baker program must run persistently
  - The latest version of the Octez suite, including the `octez-signer` program
+
+:::note
+
+Note that a PIN input will be required after a power failure. To ensure a truly persistent system, please use a [UPS](https://wikipedia.org/wiki/Uninterruptible_power_supply).
+
+:::
