@@ -179,9 +179,7 @@ When there is only one commitment left, either because all nodes published ident
 The commitments for the next commitment period build on the last cemented commitment.
 
 The refutation period lasts for a set number of blocks based on the `smart_rollup_challenge_window_in_blocks` protocol constant.
-For example, currently the refutation period lasts 151,200 blocks on Mainnet.
-Mainnet has 8 seconds between blocks as of the Quebec protocol upgrade, which means that the refutation period lasts 2 weeks.
-Ghostnet has 4 seconds between blocks but its refutation period is twice as many blocks, so its refutation period is also two weeks long.
+This period adds up to two weeks on Mainnet and Ghostnet, but it could be different on other networks.
 
 However, the refutation period for a specific commitment can vary if it is uncemented when a protocol upgrade changes the block times.
 
