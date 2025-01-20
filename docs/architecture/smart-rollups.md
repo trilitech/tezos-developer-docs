@@ -196,7 +196,7 @@ The delay is based on how much the block times changed and on how close a commit
 
 The maximum change is the new block time divided by the old block time multiplied by the standard refutation period.
 For example, if the new block time is 8 seconds and the old block time is 10 seconds, the maximum addition to a commitment's refutation period is 10 / 8, or 1.25 times the standard 14-day period.
-Commitments that are made shortly before the block time changes have the longest change to their refutation periods, while commitments that were close to being cemented have a very small change.
+Commitments that are close to being cemented when the block time changes have the largest change to their refutation periods, while commitments that are made close to when the block time changes have a very small change.
 
 ### Triggering outbox messages
 
