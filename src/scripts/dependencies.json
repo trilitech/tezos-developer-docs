@@ -1,12 +1,16 @@
 {
   "comment": "These are the current versions of tools used in the check_dependencies script.",
   "currentVersions": {
-    "archetype": "1.0.26",
-    "octez-client": "20.1",
+    "completium-cli": "1.0.26",
+    "ligo": "1.9.2",
+    "octez": "21.2",
     "rust": "1.73.0",
     "smartpy": "0.20.0",
-    "taquito": "20.1",
+    "svelte": "5.19.1",
+    "taqueria": "0.68.0",
+    "taquito": "21.0.1",
+    "tezbox": "21.1",
     "tezos-smart-rollup": "0.2.1",
-    "ligo": "1.7.0"
+    "vite": "6.0.11"
   }
 }
