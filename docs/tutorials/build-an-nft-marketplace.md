@@ -3,7 +3,10 @@ title: Build an NFT marketplace
 authors: 'Benjamin Fuentes (Marigold)'
 lastUpdated: 8nd November 2023
 dependencies:
-  todo: 1
+  taqueria: 0
+  ligo: 0
+  vite: 0
+  taquito: 0
 ---
 
 This tutorial guides you through creating a web application that allows users to buy and sell tokens of different types.
