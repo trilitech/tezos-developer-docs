@@ -237,3 +237,15 @@ It enables Tezos Layer 1 to attest the publication of data living outside Layer 
 * [Further proof-of-stake refinements](https://research-development.nomadic-labs.com/paris-announcement.html#further-proof-of-stake-refinements): Simplified computation and faster updates of consensus rights.
 
 For more information, see the blog post from [Nomadic Labs](https://research-development.nomadic-labs.com/paris-announcement.html) and the [reference documentation](https://tezos.gitlab.io/protocols/019_paris.html).
+
+## [Quebec](https://tezos.gitlab.io/protocols/021_quebec.html) (PsQuebec)
+
+*Quebec* was autonomously activated on 20 January 2025.
+
+Quebec's main changes are:
+
+* [8-second block time](https://research-development.nomadic-labs.com/quebec-announcement.html#8-second-block-times-quebec-a-and-quebec-b): Lower latency and faster finality on layer 1 without compromising decentralization or security.
+* [Adaptive maximum issuance bound](https://research-development.nomadic-labs.com/quebec-announcement.html#adaptive-maximum-issuance-bound-quebec-a-and-quebec-b): Adjusts staking rewards dynamically to encourage a target ratio of staked tez to liquid tez of 50%.
+* [9x limit for external stake](https://forum.tezosagora.org/t/announcing-quebec-tezos-17th-protocol-upgrade-proposal/6418#p-12318-h-9x-limit-for-external-stake-1): Allows bakers to accept staked tez up to 9 times their own staked balance, up from 5 times in Paris.
+* [Amending the computation of minimal delegated balances](https://research-development.nomadic-labs.com/quebec-announcement.html#amending-the-computation-of-minimal-delegated-balances-quebec-a-and-quebec-b): Changes how a baker's minimal delegated balance is calculated; now it is calculated only after all operations in a block have been applied.
+* [Reducing the weight of delegated funds toward baking power](https://research-development.nomadic-labs.com/quebec-announcement.html#reducing-the-weight-of-delegated-funds-towards-baking-power-quebec-b-only): Reduces the weight of delegated funds toward the computation of baking power from half to one-third.

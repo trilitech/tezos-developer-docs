@@ -20,6 +20,14 @@ For more information about staking for baking purposes, see [Baking](/architectu
 In exchange for staking tez with a baker, users automatically receive a portion of the baker's rewards in proportion to how much they stake.
 Users can stake any amount of tez, but there is a limit to how much staked tez a single baker can accept, and bakers must opt in to allow users to stake with them.
 
+:::note How much tez do I receive in return for staking tez?
+
+The amount of tez that you receive for staking tez depends on many factors, including how much you stake and how lucky your baker is.
+Due to the mechanism of [adaptive issuance](https://tezos.gitlab.io/active/adaptive_issuance.html), the returns for staking also depend on the ratio of staked tez to total tez in existence, to encourage a balance of staked tez to liquid tez.
+You can look up an estimated rate of return on block explorers.
+
+:::
+
 Staking has some similarities to the concept of a Smart Rollup bond, but there are important differences; see [Bonds](/architecture/smart-rollups#bonds).
 
 ## Staking as a Tezos user

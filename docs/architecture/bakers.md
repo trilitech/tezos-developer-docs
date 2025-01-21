@@ -2,7 +2,7 @@
 title: Bakers
 authors: "Tim McMackin"
 last_update:
-  date: 12 April 2024
+  date: 13 January 2025
 ---
 
 Baking is the process of creating new blocks in the Tezos blockchain.
@@ -39,7 +39,7 @@ Similarly, when tez are unstaked, they are unlocked after a certain number of cy
 Staked tez may be slashed by the protocol if the baker misbehaves (e.g., proposes or attests two different blocks for the same level).
 
 A delegate participates in consensus in proportion to their _baking power_: the more baking power a delegate has, the more likely it is to be selected to bake or to validate blocks and thus receive the rewards.
-The baking power of a delegate is computed from the amounts of tez staked (by its own and by all its stakers) and owned (by its own and by all its delegators), knowing that non-staked tez are weighted half as much as staked tez in the sum.
+The baking power of a delegate is computed from the amounts of tez staked (by its own and by all its stakers) and owned (by its own and by all its delegators), knowing that non-staked tez are weighted one-third as much as staked tez in the sum.
 
 The delegate must have a baking power of at least 6,000 tez to be allowed to bake.
 
@@ -52,7 +52,8 @@ These services must run at all times with a stable power source and internet con
 ## Delegating to a baker
 
 If you don't have enough tez to become a baker or don't want to run a baking node, you can choose a baker as your delegate, which makes you a _delegator_.
-The delegate doesn't have control over your tez and you can spend your tez at any time or withdraw your delegation, but half of the tez that you delegate counts toward the baking power of the delegate. Also, delegated tez increase the voting power of your baker: a delegate's voting power is the sum of its own tez plus the tez delegated to it.
+The delegate doesn't have control over your tez and you can spend your tez at any time or withdraw your delegation, but one-third of the tez that you delegate counts toward the baking power of the delegate.
+Similarly, delegated tez increase the voting power of your baker: a delegate's voting power is the sum of its own tez plus all of the tez delegated to it.
 
 In exchange, delegates may share some part of their rewards with you, in proportion to the amount of available tez in your account (technically, the minimal balance during each cycle).
 Check your delegate's conditions for distributing rewards.
@@ -76,11 +77,11 @@ Since you may have only one delegate, you can only stake with one baker at a tim
 
 ## Summary
 
-In summary, here is a comparison betwen the staking and delegating options above:
+In summary, here is a comparison between the staking and delegating options above:
 
 &nbsp; | Staking | Delegating
 --- | --- | ---
-Increase baking power | 100% | 50%
+Increase baking power | 100% | 33%
 Increase voting power | 100% | 100%
 Reward delay | None | 2 cycles (about 6 days)
 Reward route | Direct to staker | To baker who manually sends to delegator

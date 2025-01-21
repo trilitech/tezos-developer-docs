@@ -17,7 +17,7 @@ The version of Octez to use depends on the Tezos network that you are using.
 
       ```bash
       brew tap serokell/tezos-packaging-stable https://github.com/serokell/tezos-packaging-stable.git
-      brew install tezos-client tezos-node tezos-dal-node tezos-baker-PsParisC
+      brew install tezos-client tezos-node tezos-dal-node tezos-baker-PsQuebec
       ```
 
    - On Linux and Windows WSL, download and install the built binaries from the [Octez release page](https://gitlab.com/tezos/tezos/-/releases), as in this example for Ubuntu:
