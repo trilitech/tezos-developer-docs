@@ -3,6 +3,10 @@ title: Events
 authors: Tim McMackin
 last_update:
   date: 10 January 2024
+dependencies:
+  taquito: 21.0.1
+  smartpy: 0.20.0
+  ligo: 1.9.2
 ---
 
 Events are a type of internal operation on Tezos.

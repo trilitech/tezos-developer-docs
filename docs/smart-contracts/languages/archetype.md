@@ -2,6 +2,8 @@
 title: Archetype
 last_update:
   date: 29 June 2023
+dependencies:
+  completium-cli: 0
 ---
 
 Archetype is an elegant generic-purpose language to develop smart contracts on the Tezos blockchain. It's a DSL (domain-specific language) for Tezos that facilitates formal verification and transcodes contracts to SmartPy and LIGO.

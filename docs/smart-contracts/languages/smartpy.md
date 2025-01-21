@@ -3,6 +3,8 @@ title: SmartPy
 authors: Mathias Hiron and Maxime Sallerin
 last_update:
   date: 4 April 2024
+dependencies:
+  smartpy: 0.20.0
 ---
 
 SmartPy is a comprehensive solution for developing, testing, and deploying smart contracts on Tezos. With its easy-to-use Python syntax, developers can create contracts in a familiar and intuitive way, while SmartPy's type inference provides added safety.
