@@ -1,5 +1,5 @@
 ---
-title: "Set up your Ledger baking key with `octez-signer`"
+title: "Set up your Ledger baking key with octez-signer"
 authors: Sébastien Palmer
 last_update:
   date: 10 January 2025
