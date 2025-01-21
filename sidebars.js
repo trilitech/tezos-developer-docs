@@ -347,22 +347,6 @@ const sidebars = {
     'tutorials/create-an-nft/nft-taquito',
     {
       type: 'category',
-      label: 'Run a Tezos node in 5 steps',
-      link: {
-        type: 'doc',
-        id: 'tutorials/join-dal-baker',
-      },
-      items: [
-        'tutorials/join-dal-baker/run-node',
-        'tutorials/join-dal-baker/prepare-account',
-        'tutorials/join-dal-baker/run-dal-node',
-        'tutorials/join-dal-baker/run-baker',
-        'tutorials/join-dal-baker/verify-rights',
-        'tutorials/join-dal-baker/conclusion',
-      ],
-    },
-    {
-      type: 'category',
       label: 'Create NFTs',
       link: {
         type: 'doc',
@@ -375,6 +359,22 @@ const sidebars = {
         'tutorials/create-nfts/create-contract',
         'tutorials/create-nfts/show-info',
         'tutorials/create-nfts/summary',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Run a Tezos node in 5 steps',
+      link: {
+        type: 'doc',
+        id: 'tutorials/join-dal-baker',
+      },
+      items: [
+        'tutorials/join-dal-baker/run-node',
+        'tutorials/join-dal-baker/prepare-account',
+        'tutorials/join-dal-baker/run-dal-node',
+        'tutorials/join-dal-baker/run-baker',
+        'tutorials/join-dal-baker/verify-rights',
+        'tutorials/join-dal-baker/conclusion',
       ],
     },
     {
