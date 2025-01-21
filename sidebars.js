@@ -347,6 +347,22 @@ const sidebars = {
     'tutorials/create-an-nft/nft-taquito',
     {
       type: 'category',
+      label: 'Create NFTs',
+      link: {
+        type: 'doc',
+        id: 'tutorials/create-nfts',
+      },
+      items: [
+        'tutorials/create-nfts/setting-up-app',
+        'tutorials/create-nfts/connect-wallet',
+        'tutorials/create-nfts/send-transactions',
+        'tutorials/create-nfts/create-contract',
+        'tutorials/create-nfts/show-info',
+        'tutorials/create-nfts/summary',
+      ],
+    },
+    {
+      type: 'category',
       label: 'Run a Tezos node in 5 steps',
       link: {
         type: 'doc',
@@ -363,18 +379,16 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: 'Create NFTs',
+      label: 'Bake using a Ledger device',
       link: {
         type: 'doc',
-        id: 'tutorials/create-nfts',
+        id: 'tutorials/bake-with-ledger',
       },
       items: [
-        'tutorials/create-nfts/setting-up-app',
-        'tutorials/create-nfts/connect-wallet',
-        'tutorials/create-nfts/send-transactions',
-        'tutorials/create-nfts/create-contract',
-        'tutorials/create-nfts/show-info',
-        'tutorials/create-nfts/summary',
+        'tutorials/bake-with-ledger/install-app',
+        'tutorials/bake-with-ledger/setup-ledger',
+        'tutorials/bake-with-ledger/setup-baker',
+        'tutorials/bake-with-ledger/run-baker',
       ],
     },
     {
