@@ -21,7 +21,7 @@ You will learn:
 1. Optional: If you haven't worked with Tezos NFTs before, consider doing the tutorial [Create NFTs from a web application](/tutorials/create-nfts) first.
 
 1. Set up an account with Pinata if you don't have one already and get an API key and API secret.
-   <!-- TODO link to info on setting up IPFS -->
+   For information about setting up a Pinata account, see [Storing data and files with IPFS](/developing/ipfs).
 
 1. Make sure that you have installed these tools:
 

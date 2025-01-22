@@ -82,6 +82,7 @@ const sidebars = {
         'developing/testing',
         'developing/testnets',
         'developing/sandbox',
+        'developing/ipfs',
         {
           type: 'category',
           label: 'The Octez client',
