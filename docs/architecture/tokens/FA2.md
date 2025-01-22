@@ -24,7 +24,7 @@ For examples of FA2 contracts, see [Sample smart contracts](/smart-contracts/sam
 Any FA2 token has some metadata that describes what the token represents.
 The standard provides multiple options for the structure of the metadata and it refers to other standards for how the metadata is stored.
 FA2 suggests that contracts store metadata according to [TZIP-16](https://gitlab.com/tezos/tzip/-/blob/master/proposals/tzip-16/tzip-16.md).
-For examples of working with metadata, see the NFT-related tutorials at [Create an NFT](/tutorials/create-an-nft).
+For examples of working with metadata, see the tutorial [Create NFTs from a web application](/tutorials/create-nfts).
 
 ## Operators
 

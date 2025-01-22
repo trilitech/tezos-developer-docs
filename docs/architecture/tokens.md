@@ -30,7 +30,8 @@ However, Tezos also offers a built-in abstraction called tickets, which are fung
 
 To start right away using tokens, see these tutorials:
 
-- [Create an NFT](/tutorials/create-an-nft)
+- [Create NFTs from a web application](/tutorials/create-nfts)
+- [Create a fungible token with the SmartPy FA2 library](/tutorials/smartpy-fa2-fungible)
 - [Build a simple web application](/tutorials/build-your-first-app)
 
 ## Fungible tokens

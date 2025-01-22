@@ -18,10 +18,10 @@ You will learn:
 
 ## Prerequisites
 
-1. Optional: If you haven't worked with Tezos NFTs before, consider doing the tutorial [Create an NFT](/tutorials/create-an-nft) first.
+1. Optional: If you haven't worked with Tezos NFTs before, consider doing the tutorial [Create NFTs from a web application](/tutorials/create-nfts) first.
 
 1. Set up an account with Pinata if you don't have one already and get an API key and API secret.
-   For instructions, see the [Configure IPFS storage](/tutorials/create-an-nft/nft-taquito#configure-ipfs-storage) section of the tutorial [Create a contract and web app that mints NFTs](/tutorials/create-an-nft/nft-taquito).
+   <!-- TODO link to info on setting up IPFS -->
 
 1. Make sure that you have installed these tools:
 
@@ -39,7 +39,7 @@ You will learn:
 
 ## What are FA2 tokens?
 
-If you've gone through the tutorials under [Create an NFT](/tutorials/create-an-nft) you know that NFTs are blockchain tokens that represent unique assets, usually created under the FA2 token standard.
+If you've gone through the tutorial [Create NFTs from a web application](/tutorials/create-nfts) you know that NFTs are blockchain tokens that represent unique assets, usually created under the FA2 token standard.
 However, the Tezos FA2 token standard allows you to create multiple types of tokens, and even more than one kind of token within the same smart contract.
 When you create tokens, it's important to follow one of the token standards because then tools like wallets and block explorers can automatically work with those tokens.
 For more information about Tezos token standards, see [Token standards](/architecture/tokens).

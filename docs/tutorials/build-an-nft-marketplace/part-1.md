@@ -719,7 +719,7 @@ The mint page uses a form that accepts information and an image and sends a tran
    For the complete content of the mint page, see the completed part 1 app at https://github.com/marigold-dev/training-nft-1.
 
 1. In the file `app/.env`, replace the default `VITE_PINATA_API_KEY` and `VITE_PINATA_API_SECRET` values with your Pinata API key and API secret.
-   If you don't have a Pinata API key, see the [Configure IPFS storage](/tutorials/create-an-nft/nft-taquito#configure-ipfs-storage) section of the tutorial [Create a contract and web app that mints NFTs](/tutorials/create-an-nft/nft-taquito).
+   <!-- TODO link to info on setting up IPFS -->
 
    Now the form has a working mint page.
    In the next section, you use it to mint NFTs.

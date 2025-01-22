@@ -285,19 +285,6 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: 'Mint NFTs from a web app',
-      link: {
-        type: 'doc',
-        id: 'tutorials/create-an-nft/nft-web-app',
-      },
-      items: [
-        'tutorials/create-an-nft/nft-web-app/setting-up-app',
-        'tutorials/create-an-nft/nft-web-app/defining-functions',
-        'tutorials/create-an-nft/nft-web-app/lets-play',
-      ],
-    },
-    {
-      type: 'category',
       label: 'Start with a minimum dApp and add new features',
       link: {
         type: 'doc',
@@ -344,7 +331,6 @@ const sidebars = {
         'tutorials/smartpy-fa2-fungible/deploying-contract',
       ],
     },
-    'tutorials/create-an-nft/nft-taquito',
     {
       type: 'category',
       label: 'Create NFTs',

@@ -181,7 +181,7 @@ console.log(
 );
 ```
 
-For more examples of calling smart contracts, see tutorials such as [Build a simple web application](/tutorials/build-your-first-app) or [Create a contract and web app that mints NFTs](/tutorials/create-an-nft/nft-taquito).
+For more examples of calling smart contracts, see tutorials such as [Build a simple web application](/tutorials/build-your-first-app) or [Create NFTs from a web application](/tutorials/create-nfts).
 
 For more information about using Taquito, see [Smart contracts](https://tezostaquito.io/docs/smartcontracts) in the Taquito documentation.
 
