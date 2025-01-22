@@ -21,6 +21,12 @@ Complete the [Step 1: Run an Octez node](/tutorials/join-dal-baker/run-node) of 
 
     You can then continue to set up your baker account.
 
+    ```bash
+    octez-client gen keys my_baker
+    octez-client register key my_baker as delegate with consensus key consensus_key
+    octez-client stake 6000 for my_baker
+    ```
+
     By registering your baker as a delegate with the ledger key as the consensus key, the baker daemon will sign using the Ledger.
 
  - If you **don't want to use a consensus key**, use your Ledger key directly as a baker. Import it from the `octez-signer` remote with the following command:
@@ -32,7 +38,15 @@ Complete the [Step 1: Run an Octez node](/tutorials/join-dal-baker/run-node) of 
     > Replace the `tz...` with the public key hash of your Ledger baking key.
 
     In that case, to be able to sign the operations required to set up your baker, you need to use the `Tezos Wallet (XTZ)` application.
-    Quit the `Tezos Baking` application and open the `Tezos Wallet (XTZ)` application.
+    Quit the `Tezos Baking` application and open the `Tezos Wallet (XTZ)` application. Then setup your baker.
+
+    ```bash
+    octez-client import secret key my_baker remote:tz...
+    octez-client register key my_baker as delegate
+    octez-client stake 6000 for my_baker
+    ```
+
+    Your baker account is now set up and ready to bake using the Ledger.
 
 ## Before running the Octez baking daemon
 
