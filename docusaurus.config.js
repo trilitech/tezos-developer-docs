@@ -26,8 +26,8 @@ frame-src https://tezosbot.vercel.app;`;
 /** @type {import('@docusaurus/types').Config} */
 module.exports = async function createConfigAsync() {
   return {
-    title: 'Tezos Developer Documentation',
-    tagline: 'Get started developing on Tezos by learning about its features, going through application development tutorials, and exploring the tools that are available to Tezos developers.',
+    title: 'Tezos Documentation',
+    tagline: 'Get started using Tezos or developing on Tezos, by learning about its features, following tutorials and exploring the development tools.',
     favicon: 'img/favicon.ico',
     url: 'https://docs.tezos.com',
     baseUrl: '/',

@@ -46,7 +46,7 @@ The delegate must have a baking power of at least 6,000 tez to be allowed to bak
 A delegate also participates in [governance](/architecture/governance) in proportion to their _voting power_.
 The voting power of a delegate is computed in a similar way to the baking power except that no distinction is made between tez that are staked or not staked.
 
-Bakers must run at least one Tezos node and a baker service to go with it.
+Bakers must run at least one Tezos node and a baker service to go with it, see our [tutorial for bakers](/tutorials/join-dal-baker).
 These services must run at all times with a stable power source and internet connection, because periods of inactivity for a baker entail losses of rewards, and eventually being marked as inactive and temporarily excluded from baking.
 
 ## Delegating to a baker
@@ -92,6 +92,8 @@ Slashing exposure | Yes | No
 ## References
 
 To start delegating and staking, use the app at https://stake.tezos.com.
+
+To start baking, use our [tutorial for bakers](/tutorials/join-dal-baker).
 
 For more information about the different options to participate to the Tezos network (baking, staking, or delegating), see [Running Octez](https://tezos.gitlab.io/introduction/howtorun.html) in the Octez documentation.
 

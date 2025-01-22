@@ -4,15 +4,37 @@ import styles from './styles.module.css';
 
 const FeatureList = [
   {
+    emoji: '🧑‍💻️',
+    title: 'Tezos for end users',
+    href: 'using',
+    description: (
+      <>
+        Learn how to set up a Tezos account and manage it with a wallet, stake tez, and use applications.
+      </>
+    ),
+    link: 'Start using Tezos'
+  },
+  {
     emoji: '💡',
-    title: 'Tezos overview',
+    title: 'Tezos for developers',
     href: 'overview',
     description: (
       <>
-        Read about how Tezos works, what distinguishes it from other blockchains, what developers use it for, and how it hosts decentralized applications that run independently of any authority.
+        Read about how Tezos works, what distinguishes it from other blockchains, and how to develop decentralized applications.
       </>
     ),
-    link: 'Start learning'
+    link: 'Start building'
+  },
+  {
+    emoji: '🍞',
+    title: 'Tezos for bakers',
+    href: 'architecture/bakers',
+    description: (
+      <>
+        Read how to participate in Tezos and how to set up a full-fledged Octez node for baking.
+      </>
+    ),
+    link: 'Start baking'
   },
   {
     emoji: '📚',
@@ -20,21 +42,10 @@ const FeatureList = [
     href: 'tutorials',
     description: (
       <>
-        Work through tutorials that cover coding smart contracts and applications that use those smart contracts, from simple to complex, in multiple languages.
+        Work through tutorials from simple to complex, that cover using Tezos, baking, and coding smart contracts and applications in multiple languages.
       </>
     ),
     link: 'View tutorials'
-  },
-  {
-    emoji: '🧑‍💻️',
-    title: 'Development environments',
-    href: 'developing',
-    description: (
-      <>
-        Set up a development environment for your language of choice and its related tools. Use a local environment with a sandbox or a web-based IDE for development work.
-      </>
-    ),
-    link: 'Start developing'
   },
 
 ];
@@ -147,4 +158,3 @@ export default function HomepageFeatures() {
     </section>
   );
 }
-

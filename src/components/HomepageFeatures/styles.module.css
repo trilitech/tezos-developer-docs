@@ -19,9 +19,9 @@
 }
 
 .feature {
-  flex: 0 0 calc(33.33% - 30px);
+  flex: 0 0 calc(25% - 30px);
   /* Adjust the width based on the number of cards */
-  max-width: calc(33.33% - 30px);
+  max-width: calc(25% - 30px);
   /* Adjust the width based on the number of cards */
   height: auto;
   padding: 30px;
@@ -197,4 +197,3 @@ button.featureButton.selected::before {
       height: 16vh !important;
   }
 }
-

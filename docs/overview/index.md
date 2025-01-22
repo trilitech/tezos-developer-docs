@@ -18,6 +18,7 @@ Several sites provide information about different parts of the Tezos ecosystem.
 This site includes:
 
 - [Tutorials](/tutorials) that can help you start using Tezos
+- A brief introduction to Tezos for end users (non-technical users)
 - A presentation of the main Tezos concepts and features for technical users, including developers and bakers
 
 For more details on installing, using, or contributing to the platform, see the Octez documentation at https://tezos.gitlab.io/index.html.
