@@ -2,7 +2,7 @@
 title: Multi-signature contracts
 authors: Tim McMackin
 last_update:
-  date: 21 January 2025
+  date: 22 January 2025
 dependencies:
   octez: 21.2
   smartpy: 0.20.0
@@ -64,12 +64,10 @@ def main():
             self.data.activeProposalId += (
                 1  # submitting a new proposal inactivates the last one
             )
-            startingVoters = sp.set()
-            startingVoters.add(sp.sender)
             self.data.proposals[self.data.activeProposalId] = sp.record(
                 paymentAmt=params.paymentAmt,
                 receiver=params.receiver,
-                voters=startingVoters,
+                voters={sp.sender},
                 votingComplete=False,
             )
 
