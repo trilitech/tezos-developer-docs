@@ -12,7 +12,6 @@ In most cases you do not need to edit this object, but in some cases Tezos dApps
 
 ## Properties
 
-- `Script`: The attached script that implements the object
 - `Network`: A variable that lets you select which network to use, such as Tezos Mainnet or the Ghostnet testnet
 - `Base Url Format`: The URL of the indexer to use; this value replaces the variable `{network}` with the value of the `Network` field
 - `Documentation Url`: A link to the API reference for the indexer
