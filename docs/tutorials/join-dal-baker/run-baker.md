@@ -57,7 +57,7 @@ You can also refer to [Run a persistent baking node](https://opentezos.com/node-
    SyslogIdentifier=%n
    ```
 
-   If you name this service file `/etc/systemd/system/octez-baker-PsQuebec`, you can start it by running these commands:
+   If you name this service file `/etc/systemd/system/octez-baker-PsQuebec.service`, you can start it by running these commands:
 
    ```bash
    sudo systemctl daemon-reload

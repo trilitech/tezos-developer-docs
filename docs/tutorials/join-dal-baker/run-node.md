@@ -129,7 +129,7 @@ You can also refer to [Run a persistent baking node](https://opentezos.com/node-
    SyslogIdentifier=%n
    ```
 
-   If you name this service file `/etc/systemd/system/octez-node`, you can start it by running these commands:
+   If you name this service file `/etc/systemd/system/octez-node.service`, you can start it by running these commands:
 
    ```bash
    sudo systemctl daemon-reload
