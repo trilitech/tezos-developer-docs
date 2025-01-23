@@ -35,10 +35,6 @@ The SDK includes tutorial scenes that demonstrate how to use the SDK.
 For information about setting up and using the scenes, see [Tutorial scenes](/unity/scenes).
 -->
 
-## Sample game
-
-For information about a complete sample game that you can load locally and explore, see [Sample game](/unity/sample-game).
-
 ## SDK objects
 
 The SDK provides objects that you can use to interact with user wallets and with Tezos.

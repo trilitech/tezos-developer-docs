@@ -215,7 +215,6 @@ const sidebars = {
       },
       items: [
         'unity/quickstart',
-        'unity/sample-game',
         'unity/connecting-accounts',
         'unity/calling-contracts',
         'unity/managing-tokens',
