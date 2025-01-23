@@ -57,8 +57,7 @@ Here are a few other things to know about delegating and staking as a Tezos user
 For this reason, an account can stake with only one baker at a time.
 If you want to change bakers, you can unstake from the current baker, wait for the unstaking delay, and stake with a new baker.
 
-- The baker that you stake with has no control over your tez, but your staked and delegated tez counts toward the baker's voting rights.
-When it's time to vote on upgrades to Tezos, as described in [Governance and self-amendment](/architecture/governance), your baker's voting power includes the tez you have staked with them.
+- The baker that you stake with has no control over your tez, but your staked and delegated tez counts toward the baker's voting rights, when it's time to vote on upgrades to Tezos, as described in [Governance and self-amendment](/architecture/governance).
 
 - Before user staking was introduced to Tezos, users delegated their tez to bakers and bakers could choose to reward users for doing so.
 You can still delegate without staking, but the primary way users earn rewards now is to both delegate and stake.
