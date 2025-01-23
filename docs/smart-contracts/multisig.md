@@ -2,7 +2,7 @@
 title: Multi-signature contracts
 authors: Tim McMackin
 last_update:
-  date: 22 January 2025
+  date: 23 January 2025
 dependencies:
   octez: 21.2
   smartpy: 0.20.0
@@ -159,12 +159,10 @@ proposal_type: type = sp.big_map[
 The `submit_proposal` entrypoint allows authorized users to submit a payment amount and an account address, which adds a proposal to the storage:
 
 ```smartpy
-startingVoters = sp.set()
-startingVoters.add(sp.sender)
 self.data.proposals[self.data.activeProposalId] = sp.record(
     paymentAmt=params.paymentAmt,
     receiver=params.receiver,
-    voters=startingVoters,
+    voters={sp.sender},
     votingComplete=False,
 )
 ```
