@@ -51,7 +51,7 @@ The process of unstaking has these main steps:
 
 1. After a delay of about 10 days, the tez are unfrozen in their account and the user can use that tez as usual.
 
-Here are a few other things to know about staking as a Tezos user:
+Here are a few other things to know about delegating and staking as a Tezos user:
 
 - A Tezos account can have only one delegate at a time.
 For this reason, an account can stake with only one baker at a time.
