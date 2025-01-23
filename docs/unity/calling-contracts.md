@@ -3,7 +3,7 @@ title: Calling contracts with the Unity SDK
 sidebar_label: Calling contracts
 authors: Tim McMackin
 last_update:
-  date: 8 January 2025
+  date: 23 January 2025
 ---
 
 Smart contracts are backend programs that run on blockchains.
@@ -293,8 +293,17 @@ foreach (var item in json)
 ## Calling Etherlink contracts
 
 [Etherlink](https://www.etherlink.com/) is an Ethereum Virtual Machine-compatible layer that runs on top of Tezos and secures its state to Tezos via Smart Rollups.
-The Unity SDK can send transactions to Etherlink, but not to any other EVM layer.
 For more information about Etherlink, see the [Etherlink documentation](https://docs.etherlink.com/).
+
+:::note
+
+The Unity SDK can send transactions to Etherlink, but not to any other EVM network.
+Due to limitations in the underlying tools, it also cannot change the user's wallet's network to Etherlink, which is a prerequisite to sending transactions to Etherlink.
+
+Therefore, to send transactions to Etherlink, you must first ensure that the user's wallet is connected to Etherlink.
+For information about connecting wallets to Etherlink, see [Using your wallet](https://docs.etherlink.com/get-started/using-your-wallet) in the Etherlink documentation.
+
+:::
 
 Like Tezos contracts, Etherlink smart contracts have functions that clients can call.
 To call an Etherlink smart contract, you need:
