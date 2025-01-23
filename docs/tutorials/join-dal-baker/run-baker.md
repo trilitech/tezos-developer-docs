@@ -2,7 +2,7 @@
 title: "Step 4: Run an Octez baking daemon"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 14 January 2025
+  date: 15 January 2025
 ---
 
 Now that you have a layer 1 node and a DAL node, you can run a baking daemon that can create blocks and attests to DAL data.
@@ -35,9 +35,9 @@ You can also refer to [Run a persistent baking node](https://opentezos.com/node-
 
    For example, if your operating system uses the `systemd` software suite, your service file might look like this example:
 
-   ```systemd
+   ```systemd title="/etc/systemd/system/octez-baker-PsQuebec.service"
    [Unit]
-   Description=Octez baker
+   Description=Octez baker PsQuebec
    Wants=network-online.target
    After=network-online.target
    Requires=octez-node.service
@@ -55,6 +55,19 @@ You can also refer to [Run a persistent baking node](https://opentezos.com/node-
    StandardOutput=append:/opt/octez-baker.log
    StandardError=append:/opt/octez-baker.log
    SyslogIdentifier=%n
+   ```
+
+   If you name this service file `/etc/systemd/system/octez-baker-PsQuebec.service`, you can start it by running these commands:
+
+   ```bash
+   sudo systemctl daemon-reload
+   sudo systemctl start octez-baker-PsQuebec.service
+   ```
+
+   You can stop it by running this command:
+
+   ```bash
+   sudo systemctl stop octez-baker-PsQuebec.service
    ```
 
 1. In the same terminal window, run this command:
@@ -174,9 +187,9 @@ You don't have to run an accuser, but if you do, you can receive as a reward par
 Like the baker, the command for the accuser has the protocol name at the end.
 For example, if your operating system uses the `systemd` software suite, the attester service file might look like this example:
 
-```systemd
+```systemd title="/etc/systemd/system/octez-accuser-PsQuebec.service"
 [Unit]
-Description=Octez accuser
+Description=Octez accuser PsQuebec
 Wants=network-online.target
 After=network-online.target
 Requires=octez-node.service
