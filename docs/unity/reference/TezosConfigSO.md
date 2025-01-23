@@ -13,7 +13,6 @@ To use this object, create an instance of it, put your information in its fields
 
 ## Properties
 
-- `Script`: The attached script that implements the object
 - `Network`: A variable that lets you select which network to use, such as Tezos Mainnet or the Ghostnet testnet
 <!-- `Kukai Web Client Address`: TODO -->
 - `RPC Url Format`: The URL of the RPC node to use; this value replaces the variable `{network}` with the value of the `Network` field
