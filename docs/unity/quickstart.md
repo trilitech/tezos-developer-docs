@@ -2,7 +2,7 @@
 title: Quickstart
 authors: Tim McMackin
 last_update:
-  date: 20 November 2024
+  date: 23 January 2025
 ---
 
 Follow these steps to install the Tezos Unity SDK in an existing Unity project and start using it.
@@ -19,6 +19,12 @@ These instructions cover:
 1. In your Unity project, in the Package Manager panel, click the `+` symbol and then click **Add package from git URL**.
 
 1. Enter the URL `https://github.com/trilitech/tezos-unity-sdk.git` and click **Add**.
+
+   You can set a specific version of the SDK, such as version 4.0.0, by adding it to the end of the URL, as in this example:
+
+   ```
+   https://github.com/trilitech/tezos-unity-sdk.git#4.0.0
+   ```
 
    The Package Manager panel downloads and installs the SDK.
    You can see its assets in the Project panel under Packages > Tezos Unity SDK.
