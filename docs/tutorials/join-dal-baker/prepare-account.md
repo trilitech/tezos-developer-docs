@@ -50,12 +50,6 @@ This command creates an account and associates it with the `my_baker` alias:
 
 1. Ensure your account has at least 6,000 tez to stake, plus a small liquid amount for transaction fees.
 
-   You can check the full balance of the account (staked + non-staked) with this command:
-
-   ```bash
-   octez-client get full balance for my_baker
-   ```
-
    If you are using a testnet and need more tez, you can get tez from the testnet faucet.
    For example, if you are using Ghostnet, use the Ghostnet faucet linked from https://teztnets.com/ghostnet-about to send tez to the baker account.
 
@@ -85,16 +79,22 @@ This command creates an account and associates it with the `consensus_key` alias
 1. Stake at least 6,000 tez with the account, saving a small liquid amount for transaction fees.
 Staked tez is temporarily frozen and cannot be spent, so you need some unstaked tez to pay transaction fees.
 
+   Pass the amount to the `stake` command, as in this example:
+
+   ```bash
+   octez-client stake 6000 for my_baker
+   ```
+
    You can check how much you have staked by running this command:
 
    ```bash
    octez-client get staked balance for my_baker
    ```
 
-   If you need to stake more, pass the amount to the `stake` command, as in this example:
+   You can also check the full balance of the account (staked + non-staked) with this command:
 
    ```bash
-   octez-client stake 6000 for my_baker
+   octez-client get full balance for my_baker
    ```
 
 Now the baker account has staked enough tez to earn the right to make attestations, including attestations that data is available on the DAL.
