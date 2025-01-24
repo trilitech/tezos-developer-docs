@@ -11,24 +11,6 @@ Now that the Ledger baking key is set up, you can follow the steps of [Run a Tez
 
 Complete the [Step 1: Run an Octez node](/tutorials/join-dal-baker/run-node) of the tutorial, and make following changes in [Step 2: Set up a baker account](/tutorials/join-dal-baker/prepare-account).
 
- - If you **want to use a consensus key**, instead of generating it, use the Ledger key. To do so, import it from the `octez-signer` remote with the following command:
-
-    ```bash
-    octez-client import secret key consensus_key remote:tz...
-    ```
-
-    > Replace the `tz...` with the public key hash of your Ledger baking key.
-
-    You can then continue to set up your baker account.
-
-    ```bash
-    octez-client gen keys my_baker
-    octez-client register key my_baker as delegate with consensus key consensus_key
-    octez-client stake 6000 for my_baker
-    ```
-
-    By registering your baker as a delegate with the ledger key as the consensus key, the baker daemon will sign using the Ledger.
-
  - If you **don't want to use a consensus key**, use your Ledger key directly as a baker. Import it from the `octez-signer` remote with the following command:
 
     ```bash
@@ -47,6 +29,24 @@ Complete the [Step 1: Run an Octez node](/tutorials/join-dal-baker/run-node) of 
     ```
 
     Your baker account is now set up and ready to bake using the Ledger.
+
+ - If you **want to use a consensus key**, instead of generating it, use the Ledger key. To do so, import it from the `octez-signer` remote with the following command:
+
+    ```bash
+    octez-client import secret key consensus_key remote:tz...
+    ```
+
+    > Replace the `tz...` with the public key hash of your Ledger baking key.
+
+    You can then continue to set up your baker account.
+
+    ```bash
+    octez-client gen keys my_baker
+    octez-client register key my_baker as delegate with consensus key consensus_key
+    octez-client stake 6000 for my_baker
+    ```
+
+    By registering your baker as a delegate with the ledger key as the consensus key, the baker daemon will sign using the Ledger.
 
 ## Before running the Octez baking daemon
 
