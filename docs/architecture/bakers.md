@@ -2,7 +2,7 @@
 title: Bakers
 authors: "Tim McMackin"
 last_update:
-  date: 16 January 2025
+  date: 24 January 2025
 ---
 
 Baking is the process of creating new blocks in the Tezos blockchain.
@@ -50,6 +50,16 @@ The voting power of a delegate is computed in a similar way to the baking power 
 
 Bakers must run at least one Tezos node and a baker daemon to go with it.
 These daemons must run at all times with a stable power source and internet connection, because periods of inactivity for a baker entail losses of rewards, and eventually being marked as inactive and temporarily excluded from baking.
+
+## Delegating to a baker
+
+In older versions of the Tezos protocol, before non-baker users could stake, delegating was the primary way that users earned rewards from tez.
+Users delegated their accounts to a baker and in return the baker could choose to share some of their baking rewards with their delegators.
+The Tezos system did not automatically provide rewards to delegators.
+
+Delegating still works in this way, but currently, the primary use of delegating is as the first step in staking.
+To stake with a baker, users must first choose the baker as their delegate.
+Then the system provides the staker with rewards automatically.
 
 ## Staking with a baker
 
