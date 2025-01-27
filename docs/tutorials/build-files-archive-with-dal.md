@@ -2,7 +2,7 @@
 title: Implement a file archive with the DAL and a Smart Rollup
 authors: Tezos Core Developers
 last_update:
-  date: 10 September 2024
+  date: 27 January 2025
 dependencies:
   octez: 21.2
   rust: 1.80.0
@@ -32,7 +32,7 @@ See these links for more information about the DAL:
 In this tutorial, you set up these components:
 
 - The Octez client, which you use to manage a local wallet, deploy a Smart Rollup, and send data to the DAL
-- A layer 1 node to provide a connection to Tezos and information about the
+- A layer 1 node to provide a connection to Tezos and information about the state of layer 1, including metadata about what data is available on the DAL
 - A Data Availability Layer node (not to be confused with a layer 1 node), which stores data temporarily and distributes it to Smart Rollups
 - A Smart Rollup that listens for data published to the DAL, retrieves it from the DAL node, and stores it locally
 - A Smart Rollup node that runs your Smart Rollup

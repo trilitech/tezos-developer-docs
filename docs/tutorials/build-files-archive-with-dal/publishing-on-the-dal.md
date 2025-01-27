@@ -2,7 +2,7 @@
 title: "Part 4: Publishing on the DAL"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 11 September 2024
+  date: 27 January 2025
 ---
 
 Now that you can get information about the DAL, the next step is to publish data to it and verify that the kernel can access it.
@@ -43,12 +43,12 @@ You can use the script in [Part 2: Getting the DAL parameters](/tutorials/build-
 
 ## Publishing messages
 
-The DAL node provides an RPC endpoint for clients to send data to be added to a slot: `POST /slot`, whose body is the contents of the slot.
+The DAL node provides an RPC endpoint for clients to send data to be added to a slot: `POST /slots`, whose body is the contents of the slot.
 
 1. Run this command to publish a message to the DAL:
 
    ```bash
-   curl localhost:10732/slot --data '"Hello, world!"' -H 'Content-Type: application/json'
+   curl localhost:10732/slots --data '"Hello, world!"' -H 'Content-Type: application/json'
    ```
 
    Note that the value of the message is in double quotes because it must be a valid JSON string, as hinted by the `Content-Type` header.
@@ -188,7 +188,7 @@ If you are using the Tezos Docker image, you can run `sudo apk add jq xxd`.
    If you run this script and see an error that says that the file was not found, update the first line of the script (the shebang) to the path to your shell interpreter.
    For example, if you are using the Tezos Docker image, the path is `/bin/sh`.
 
-   Again, by inspecting the kernel logs and Explorus, you should be able to see that the file that you wanted to publish is indeed the one fetched by the Smart Rollup.
+   In the next section, you see how to get the contents of the file that you published.
 
 Now you can publish data to the DAL and use it in a Smart Rollup.
 In the next section, you write to and retrieve the entire slot.

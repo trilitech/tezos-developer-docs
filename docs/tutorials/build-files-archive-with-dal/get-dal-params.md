@@ -119,7 +119,7 @@ Follow these steps to deploy the Smart Rollup to Ghostnet and start a node:
 1. Start the Smart Rollup node with this command:
 
    ```bash
-   octez-smart-rollup-node --endpoint http://127.0.0.1:8732  \
+   octez-smart-rollup-node --endpoint http://127.0.0.1:8732 \
        run observer for files_archive with operators \
        --data-dir ./_rollup_node --log-kernel-debug
    ```
