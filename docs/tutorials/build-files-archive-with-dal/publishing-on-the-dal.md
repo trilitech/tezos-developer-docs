@@ -22,8 +22,7 @@ When you have selected a slot that does not appear to be in use, follow these st
 For example, this command uses slot 10:
 
    ```bash
-   octez-dal-node run --endpoint http://127.0.0.1:8732 \
-       --observer-profiles=10 --data-dir _dal_node
+   octez-dal-node run --observer-profiles=10 --data-dir _dal_node
    ```
 
 1. In the `lib.rs` file, update the kernel to monitor that slot by updating this line:
@@ -114,15 +113,13 @@ If you don't see the message that the slot is attested and contains your data, t
    - When you run the command to start the DAL node, make sure that the `--observer-profiles` argument is set to your slot:
 
       ```bash
-      octez-dal-node run --endpoint http://127.0.0.1:8732 \
-        --observer-profiles=10 --data-dir _dal_node
+      octez-dal-node run --observer-profiles=10 --data-dir _dal_node
       ```
    - When you run the command to publish the commitment to the DAL, make sure that you publish it to your slot:
 
       ```bash
-      octez-client --endpoint http://127.0.0.1:8732 \
-        publish dal commitment "${commitment}" from my_wallet for slot 10 \
-        with proof "${proof}"
+      octez-client publish dal commitment "${commitment}" \
+        from my_wallet for slot 10 with proof "${proof}"
       ```
 
 - If the slot turned red, it's possible that the attesters for the network are offline.
@@ -162,9 +159,8 @@ If you are using the Tezos Docker image, you can run `sudo apk add jq xxd`.
    commitment="$(echo -n ${certificate} | jq '.commitment' -r)"
    proof="$(echo -n ${certificate} | jq '.commitment_proof' -r)"
 
-   octez-client --endpoint http://127.0.0.1:8732 \
-       publish dal commitment "${commitment}" from "${alias}" \
-       for slot "${index}" with proof "${proof}"
+   octez-client publish dal commitment "${commitment}" \
+       from "${alias}" for slot "${index}" with proof "${proof}"
 
    rm "${target}"
    ```

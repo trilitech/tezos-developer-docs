@@ -46,8 +46,7 @@ To run a DAL node, you must configure a set of cryptographic parameters for it a
 1. Run this command to start a DAL node and monitor slot 0:
 
    ```bash
-   octez-dal-node run --endpoint http://127.0.0.1:8732 \
-     --observer-profiles=0 --data-dir _dal_node
+   octez-dal-node run --observer-profiles=0 --data-dir _dal_node
    ```
 
 Leave this process running in the terminal window.
@@ -158,8 +157,8 @@ Follow these steps to update the Smart Rollup to access information about slot 0
    octez-client originate smart rollup files_archive from my_wallet of kind wasm_2_0_0 \
      of type unit with kernel "$(cat installer.hex)" --burn-cap 2.0 --force
 
-   octez-smart-rollup-node --endpoint http://127.0.0.1:8732  \
-     run observer for files_archive with operators --data-dir _rollup_node \
+   octez-smart-rollup-node run observer for files_archive \
+     with operators --data-dir _rollup_node \
      --dal-node http://localhost:10732 --log-kernel-debug
    ```
 

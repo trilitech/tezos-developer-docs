@@ -123,12 +123,14 @@ Follow these steps to deploy the Smart Rollup to Ghostnet and start a node:
 1. Start the Smart Rollup node with this command:
 
    ```bash
-   octez-smart-rollup-node --endpoint http://127.0.0.1:8732 \
-       run observer for files_archive with operators \
-       --data-dir ./_rollup_node --log-kernel-debug
+   octez-smart-rollup-node run observer for files_archive \
+     with operators --data-dir ./_rollup_node --log-kernel-debug
    ```
 
    For simplicity, this command runs the Smart Rollup in observer mode, which does not require a stake of 10,000 tez to publish commitments.
+
+   Like the `octez-client` command, this command assumes that your local node is running at http://127.0.0.1:8732.
+   If your node is running at a different host name or port, pass the host name and port of the node to the `--endpoint` argument.
 
 1. Leave the node running in that terminal window and open a new terminal window in the same environment.
 
@@ -180,8 +182,8 @@ smart-rollup-installer get-reveal-installer -P _rollup_node/wasm_2_0_0 \
 octez-client originate smart rollup files_archive from "${alias}" of kind wasm_2_0_0 \
   of type unit with kernel "$(cat installer.hex)" --burn-cap 2.0 --force
 
-octez-smart-rollup-node --endpoint http://127.0.0.1:8732  \
-  run observer for files_archive with operators --data-dir _rollup_node \
+octez-smart-rollup-node run observer for files_archive \
+  with operators --data-dir _rollup_node \
   --dal-node http://localhost:10732 --log-kernel-debug
 ```
 
