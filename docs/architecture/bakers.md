@@ -58,7 +58,7 @@ Users delegated their accounts to a baker and in return the baker could choose t
 The rewards to delegators were distributed by the bakers, with no guarantee from the Tezos protocol.
 
 Delegating still works in this way, but currently, it's mostly seen as a preliminary step required for staking.
-Then the system provides the staker with rewards automatically.
+In return, the Tezos protocol provides stakers with rewards automatically.
 
 ## Staking with a baker
 
