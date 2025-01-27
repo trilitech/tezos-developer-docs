@@ -25,7 +25,7 @@ For a complete list of data types that are available, see the reference informat
 - Michelson: [Types](https://tezos.gitlab.io/michelson-reference/#types)
 - LIGO: [Introduction](https://ligolang.org/docs/intro/introduction?lang=jsligo)
 - Archetype: [Types](https://archetype-lang.org/docs/reference/types)
-- SmartPy: [Overview](https://smartpy.io/manual/syntax/overview)
+- SmartPy: [Overview](https://smartpy.io/manual/introduction/overview)
 
 ## Pairs {#pairs}
 
@@ -65,7 +65,7 @@ $$O(\log_2 (size))$$, whereas for a right comb, it's $$O(size)$$.
 
 - Michelson: [Operations on pairs and right combs](https://tezos.gitlab.io/active/michelson.html#operations-on-pairs-and-right-combs)
 - LIGO: [Tuples](https://ligolang.org/docs/language-basics/sets-lists-tuples#tuples)
-- SmartPy: [Tuples and Records](https://smartpy.io/manual/syntax/tuples-and-records)
+- SmartPy: [Tuples](https://smartpy.io/manual/data-types/tuples)
 - Archetype: [Composite types](https://archetype-lang.org/docs/language-basics/composite#tuple), [Tuple](https://archetype-lang.org/docs/reference/types#tuple)
 
 ## Records {#records}
@@ -115,7 +115,7 @@ type person: record
 
 - Archetype: [Record](https://archetype-lang.org/docs/language-basics/composite#record)
 - LIGO: [Records](https://ligolang.org/docs/language-basics/maps-records#records)
-- SmartPy: [Tuples and Records](https://smartpy.io/manual/syntax/tuples-and-records)
+- SmartPy: [Records](https://smartpy.io/manual/data-types/records)
 
 ## Options {#options}
 
@@ -166,7 +166,7 @@ Alternatively (but harder to understand without comments), you can use the speci
 
 - Michelson: [Operations on optional values](https://tezos.gitlab.io/active/michelson.html#operations-on-optional-values)
 - LIGO: [Optional values](https://ligolang.org/docs/language-basics/unit-option-pattern-matching#optional-values)
-- SmartPy: [Options](https://smartpy.io/docs/types/options/)
+- SmartPy: [Options and variants](https://smartpy.io/manual/data-types/options-and-variants)
 - Archetype: [Options](https://archetype-lang.org/docs/reference/types#option%3CT%3E)
 
 ## Big-maps and maps {#big-maps}
@@ -285,7 +285,7 @@ Here is a table representing an example of a contract that uses two big-maps:
 - Michelson: [Operations on big-maps](https://tezos.gitlab.io/active/michelson.html#operations-on-big-maps)
 - Archetype: [Assets](https://archetype-lang.org/docs/reference/instructions/asset), [Map](https://archetype-lang.org/docs/language-basics/container#map)
 - LIGO: [Maps](https://ligolang.org/docs/language-basics/maps-records#maps), [Big-maps](https://ligolang.org/docs/language-basics/maps-records#big-maps)
-- SmartPy: [Maps and big-maps](https://smartpy.io/manual/syntax/lists-sets-and-maps#maps)
+- SmartPy: [Maps](https://smartpy.io/manual/data-types/lists-sets-and-maps#maps)
 
 ## Lists {#lists}
 
@@ -311,7 +311,7 @@ In general, use big-maps to store large amounts of data.
 ### Implementation details
 
 - Michelson: [Operations on lists](https://tezos.gitlab.io/active/michelson.html#operations-on-lists)
-- SmartPy: [Lists](https://smartpy.io/manual/syntax/lists-sets-and-maps#lists)
+- SmartPy: [List](https://smartpy.io/manual/data-types/lists-sets-and-maps#lists)
 - Archetype: [List](https://archetype-lang.org/docs/language-basics/container#list)
 - LIGO: [List](https://ligolang.org/docs/reference/list-reference)
 
@@ -333,7 +333,7 @@ The main operations available on sets are:
 
 - Michelson: [Operations on sets](https://tezos.gitlab.io/active/michelson.html#operations-on-sets)
 - Archetype: [Set](https://archetype-lang.org/docs/language-basics/container#set)
-- SmartPy: [Sets](https://smartpy.io/manual/syntax/lists-sets-and-maps#sets)
+- SmartPy: [Set](https://smartpy.io/manual/data-types/lists-sets-and-maps#sets)
 - LIGO: [Set](https://ligolang.org/docs/reference/set-reference)
 
 ## Variants and Unions {#variants}
@@ -349,7 +349,7 @@ For example, a variant can hold either an `int` or a `string`.
 
 - Michelson: [Operations on unions](https://tezos.gitlab.io/active/michelson.html#operations-on-unions)
 - LIGO: [Variant types](https://ligolang.org/docs/language-basics/unit-option-pattern-matching#variant-types)
-- SmartPy: [Variants](https://smartpy.io/manual/syntax/options-and-variants#variants)
+- SmartPy: [Options and variants](https://smartpy.io/manual/data-types/options-and-variants)
 - Archetype: [Enum](https://archetype-lang.org/docs/language-basics/composite#enum)
 
 ## Lambdas {#lambdas}
@@ -464,7 +464,7 @@ Contracts can run these operations on tickets:
 - Michelson: [Operations on tickets](https://tezos.gitlab.io/active/michelson.html#operations-on-tickets)
 - LIGO: [Tickets](https://ligolang.org/docs/reference/current-reference#tickets)
 - Archetype: [create_ticket and related](https://archetype-lang.org/docs/reference/expressions/builtins/#create_ticket%28s%20:%20T,%20n%20:%20nat%29)
-- SmartPy: [Tickets](https://smartpy.io/manual/syntax/tickets)
+- SmartPy: [Tickets](https://smartpy.io/manual/data-types/tickets)
 
 ## Unit {#unit}
 
@@ -489,4 +489,4 @@ Unit is a concept that Tezos inherits from OCaml; see [Side-Effects and the unit
 
 - LIGO: [Unit](https://ligolang.org/docs/next/data-types/variants#unit)
 - Archetype: [Unit](https://archetype-lang.org/docs/reference/types/#unit)
-- SmartPy: [Unit](https://smartpy.io/manual/syntax/unit)
+- SmartPy: [Unit](https://smartpy.io/manual/data-types/unit)

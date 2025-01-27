@@ -38,5 +38,5 @@ In Michelson, comparisons are done in two steps:
 
 - Michelson: [Generic comparison](https://tezos.gitlab.io/active/michelson.html#generic-comparison)
 - Archetype: [Comparison operators](https://archetype-lang.org/docs/reference/expressions/operators/arithmetic#a--b-7)
-- SmartPy: [Comparing sp.int and sp.nat](https://smartpy.io/manual/syntax/integers-and-mutez#comparison)
+- SmartPy: [Comparison](https://smartpy.io/manual/data-types/integers-and-mutez#comparison)
 - LIGO: [Comparing values](https://ligolang.org/docs/language-basics/boolean-if-else#comparing-values)

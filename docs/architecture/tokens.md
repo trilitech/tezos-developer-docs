@@ -120,7 +120,7 @@ These standards are named with the prefix FA, which stands for _financial applic
 
 You can use templates for smart contracts adhering to these standards, instead of writing your own contract from scratch:
 
-- For SmartPy templates, see [Tokens](https://smartpy.io/guides/tokens/) in the SmartPy documentation.
+- For SmartPy templates, see the SmartPy [FA2 library](https://smartpy.io/manual/libraries/FA2-lib/overview) in the SmartPy documentation.
 - For LIGO templates, see the [`@ligo/fa`](https://packages.ligolang.org/package/@ligo/fa) package.
 - For Archetype templates, see [Templates](https://archetype-lang.org/docs/templates/overview/) in the Archetype documentation.
 
