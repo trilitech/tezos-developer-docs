@@ -2,7 +2,7 @@
 title: Staking
 authors: "Tim McMackin"
 last_update:
-  date: 13 January 2025
+  date: 16 January 2025
 ---
 
 Staking is the process of temporarily locking tez on the Tezos platform in exchange for rewards.
@@ -14,7 +14,7 @@ Two main groups stake on Tezos:
 
 - Bakers, the creators of new blocks in Tezos, must stake 6,000 tez to receive the right to "bake" blocks and to receive rewards for baking those blocks.
 Their staked tez ensures that they bake correctly, because part of their stake is taken ("slashed") if they misbehave.
-For more information about staking for baking purposes, see [Baking](/architecture/bakers).
+For more information about staking for baking purposes, see [Bakers](/architecture/bakers).
 
 - Any Tezos user can stake tez with a baker and earn rewards.
 In exchange for staking tez with a baker, users automatically receive a portion of the baker's rewards in proportion to how much they stake.
@@ -51,9 +51,30 @@ The process of unstaking has these main steps:
 
 1. After a delay of about 10 days, the tez are unfrozen in their account and the user can use that tez as usual.
 
+Here are a few other things to know about delegating and staking as a Tezos user:
+
+- A Tezos account can have only one delegate at a time.
+For this reason, an account can stake with only one baker at a time.
+If you want to change bakers, you can unstake from the current baker, wait for the unstaking delay, and stake with a new baker.
+
+- The baker that you stake with has no control over your tez, but your staked and delegated tez counts toward the baker's voting rights, when it's time to vote on upgrades to Tezos, as described in [Governance and self-amendment](/architecture/governance).
+
+- Before user staking was introduced to Tezos, users delegated their tez to bakers and bakers could choose to reward users for doing so.
+You can still delegate without staking, but the primary way users earn rewards now is to both delegate and stake. Just delegating tez incurs less risks but brings only a fraction of the rewards.
+
+:::warning Risks of staking
+
+Your staked tez is subject to the same penalties as the baker's staked tez.
+In the rare event that your baker is punished ("slashed") for misbehaving, your tez is also slashed.
+
+:::
+
 ## How to stake
 
 The easiest way to stake is to use the staking web application at https://stake.tezos.com, which walks you through the process.
+If you don't want to use this application, some wallets have built-in staking functionality that you can use instead.
+Similarly, some cryptocurrency exchanges allow you to stake directly from their interfaces.
+However, you should evaluate these staking functions carefully because they may have different conditions and rewards than staking directly through the Tezos system and https://stake.tezos.com.
 
 :::warning
 
@@ -75,10 +96,16 @@ The staking app shows your account balance and how much you have staked.
 1. Click **Select Baker** and select a baker to delegate and stake to.
 
    To choose a baker, you can look up bakers in a block explorer by their addresses.
-   For example, the block explorer tzkt.io has information on bakers at https://tzkt.io/bakers.
-   This page shows information about staking and delegating with each baker, including the fees they charge and their capacity.
+   For example, the block explorer tzkt.io has information on bakers at https://tzkt.io/bakers and tzstats.com has information at https://tzstats.com/bakers.
+   Evaluate bakers by comparing information about them, including:
 
-   Before choosing a baker, look at the fees they charge and ensure that they have enough free space for the amount of tez you intend to stake.
+   - The fees they charge (commission) on staked funds
+   - Their capacity for additional staked funds (free space)
+   - How reliable they are as a baker (how often they bake blocks when they have the opportunity)
+   - Whether they have been penalized (slashed)
+   - Whether they are public (accepting stake from any user) or private (not accepting stake from other users)
+   - Whether they are supported by a corporation or not
+
    For example, the bakers in this picture all have free space for staking:
 
    <img alt="The TzKT block explorer, showing bakers with different capacities for staking" src="/img/using/staking-capacity.png" style={{width: 500}} />
