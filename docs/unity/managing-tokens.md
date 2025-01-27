@@ -31,7 +31,7 @@ FA2 tokens can be fungible tokens or non-fungible tokens, which makes the standa
 
 To create and work with FA2 tokens you must deploy an FA2-compatible smart contract.
 For examples of FA2 contracts, see [Sample smart contracts](/smart-contracts/samples).
-You can also use the tutorial [Create a fungible token with the SmartPy FA2 library](/smart-contracts/samples) to walk through the process of creating, customizing, and deploying an FA2 contract.
+You can also use the tutorial [Create a fungible token with the SmartPy FA2 library](/tutorials/smartpy-fa2-fungible) to walk through the process of creating, customizing, and deploying an FA2 contract.
 
 :::note
 
