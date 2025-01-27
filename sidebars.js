@@ -218,6 +218,7 @@ const sidebars = {
         'unity/connecting-accounts',
         'unity/calling-contracts',
         'unity/managing-tokens',
+        'unity/upgrading',
         {
           type: 'category',
           label: 'Reference',
