@@ -2,7 +2,7 @@
 title: "Part 2: Getting the DAL parameters"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 12 August 2024
+  date: 27 Jan 2025
 ---
 
 The Data Availability Layer stores information about the available data in layer 1 blocks.
@@ -116,6 +116,10 @@ Follow these steps to deploy the Smart Rollup to Ghostnet and start a node:
        --burn-cap 2.0 --force
    ```
 
+   The Octez client assumes that your local node is running at http://127.0.0.1:8732.
+   If your node is running at a different host name or port, pass the host name and port of the node to the `--endpoint` argument.
+   For example, if the node is running on port 8733, include `--endpoint http://127.0.0.1:8733` in the command.
+
 1. Start the Smart Rollup node with this command:
 
    ```bash
@@ -187,8 +191,6 @@ Then you can run it any tme you update the `lib.rs` or `Cargo.toml` files to dep
 ```bash
 ./deploy_smart_rollup.sh my_wallet
 ```
-
-This script assumes that your local node is running at http://127.0.0.1:8732.
 
 If you run this script and see an error that says that the file was not found, update the first line of the script (the shebang) to the path to your shell interpreter.
 For example, if you are using the Tezos Docker image, the path is `/bin/sh`, so the first line is `#!/bin/sh`.
