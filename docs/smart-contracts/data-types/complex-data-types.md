@@ -285,7 +285,7 @@ Here is a table representing an example of a contract that uses two big-maps:
 - Michelson: [Operations on big-maps](https://tezos.gitlab.io/active/michelson.html#operations-on-big-maps)
 - Archetype: [Assets](https://archetype-lang.org/docs/reference/instructions/asset), [Map](https://archetype-lang.org/docs/language-basics/container#map)
 - LIGO: [Maps](https://ligolang.org/docs/language-basics/maps-records#maps), [Big-maps](https://ligolang.org/docs/language-basics/maps-records#big-maps)
-- SmartPy: [Lists, sets, and maps](https://smartpy.io/manual/data-types/lists-sets-and-maps)
+- SmartPy: [Maps](https://smartpy.io/manual/data-types/lists-sets-and-maps#maps)
 
 ## Lists {#lists}
 
@@ -311,7 +311,7 @@ In general, use big-maps to store large amounts of data.
 ### Implementation details
 
 - Michelson: [Operations on lists](https://tezos.gitlab.io/active/michelson.html#operations-on-lists)
-- SmartPy: [Lists, sets, and maps](https://smartpy.io/manual/data-types/lists-sets-and-maps)
+- SmartPy: [List](https://smartpy.io/manual/data-types/lists-sets-and-maps#lists)
 - Archetype: [List](https://archetype-lang.org/docs/language-basics/container#list)
 - LIGO: [List](https://ligolang.org/docs/reference/list-reference)
 
@@ -333,7 +333,7 @@ The main operations available on sets are:
 
 - Michelson: [Operations on sets](https://tezos.gitlab.io/active/michelson.html#operations-on-sets)
 - Archetype: [Set](https://archetype-lang.org/docs/language-basics/container#set)
-- SmartPy: [Lists, sets, and maps](https://smartpy.io/manual/data-types/lists-sets-and-maps)
+- SmartPy: [Set](https://smartpy.io/manual/data-types/lists-sets-and-maps#sets)
 - LIGO: [Set](https://ligolang.org/docs/reference/set-reference)
 
 ## Variants and Unions {#variants}
