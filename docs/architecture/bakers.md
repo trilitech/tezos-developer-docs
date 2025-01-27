@@ -57,8 +57,7 @@ In older versions of the Tezos protocol, before users could stake with a baker, 
 Users delegated their accounts to a baker and in return the baker could choose to share some of their baking rewards with their delegators.
 The rewards to delegators were distributed by the bakers, with no guarantee from the Tezos protocol.
 
-Delegating still works in this way, but currently, the primary use of delegating is as the first step in staking.
-To stake with a baker, users must first choose the baker as their delegate.
+Delegating still works in this way, but currently, it's mostly seen as a preliminary step required for staking.
 Then the system provides the staker with rewards automatically.
 
 ## Staking with a baker
