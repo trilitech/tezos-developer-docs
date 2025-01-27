@@ -55,7 +55,7 @@ These daemons must run at all times with a stable power source and internet conn
 
 In older versions of the Tezos protocol, before users could stake with a baker, delegating was the primary way that users earned rewards for their tez.
 Users delegated their accounts to a baker and in return the baker could choose to share some of their baking rewards with their delegators.
-The Tezos system did not automatically provide rewards to delegators.
+The rewards to delegators were distributed by the bakers, with no guarantee from the Tezos protocol.
 
 Delegating still works in this way, but currently, the primary use of delegating is as the first step in staking.
 To stake with a baker, users must first choose the baker as their delegate.
