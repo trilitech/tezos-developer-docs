@@ -48,7 +48,7 @@ The SDK supports three types of wallets:
 ## Connecting to Beacon wallets
 
 Unity applications can connect to Beacon wallets by showing a QR code that the user scans with a wallet app or by opening that app directly through the Beacon protocol.
-For an example of this method, see [Quickstart](./quickstart).
+For an example of this method, see [Quickstart](/unity/quickstart).
 
 This method for connecting follows these general steps:
 
