@@ -24,7 +24,7 @@ const sidebars = {
       items: [
         'using/user-accounts',
         'using/wallets',
-        // 'using/dapps',
+        'using/dapps',
         // 'using/transactions',
         'using/staking',
       ],
