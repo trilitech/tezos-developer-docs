@@ -27,32 +27,31 @@ import matter from 'gray-matter';
 import semver from 'semver';
 import minimist from 'minimist';
 
-const argv = minimist(process.argv.slice(2), {
-  boolean: ['major', 'minor'],
-});
-const params = argv['_'];
-
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const baseFolder = path.resolve(__dirname, '../..');
 const docsFolder = path.resolve(baseFolder, 'docs');
-
-const checkMajor = argv.major;
-const checkMinor = argv.minor;
-if (checkMajor && checkMinor) {
-  console.error('Include either --major or --minor, not both');
-  process.exit(1);
-}
 
 // Import config file
 // Not sure why I can't import a JSON file directly in MJS
 const dependencyConfig = fs.readFileSync(path.resolve(__dirname, 'dependencies.json'), 'utf8');
 const { currentVersions } = JSON.parse(dependencyConfig);
 
-// Verify the passed dependencies parameters
-const unrecognizedParams = params.filter((oneParam) => !currentVersions[oneParam]);
-if (unrecognizedParams.length > 0) {
-  console.error('Unrecognized tool names in parameters:');
-  console.log(unrecognizedParams.join('\n'));
+const argv = minimist(process.argv.slice(2), {
+  boolean: ['major', 'minor'],
+  unknown: (unknownArg) => {
+    if (currentVersions[unknownArg]) {
+      return true;
+    }
+    console.error('Error: unknown argument or tool name: ', unknownArg);
+    process.exit(1);
+  }
+});
+const params = argv['_'];
+
+const checkMajor = argv.major;
+const checkMinor = argv.minor;
+if (checkMajor && checkMinor) {
+  console.error('Include either --major or --minor, not both');
   process.exit(1);
 }
 
