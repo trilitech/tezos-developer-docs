@@ -28,7 +28,7 @@ import semver from 'semver';
 import minimist from 'minimist';
 
 const argv = minimist(process.argv.slice(2), {
-  boolean: ['major', 'minor', 'fixpack'],
+  boolean: ['major', 'minor'],
 });
 const params = argv['_'];
 
