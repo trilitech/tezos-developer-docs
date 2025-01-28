@@ -3,6 +3,8 @@ title: Using a local sandbox
 authors: 'Mathias Hiron, Nomadic Labs, Tim McMackin, TriliTech'
 last_update:
   date: 13 November 2024
+dependencies:
+  tezbox: 21.1
 ---
 
 Local sandboxes allow you to test your work without sending any transactions to Tezos Mainnet or testnets.

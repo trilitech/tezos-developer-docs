@@ -2,6 +2,10 @@
 title: Deploy a Smart Rollup
 last_update:
   date: 11 October 2023
+dependencies:
+  tezos-smart-rollup: 0.2.1
+  rust: 1.73
+  octez: 19
 ---
 
 This tutorial covers how to deploy a Smart Rollup in a Tezos sandbox.

@@ -3,6 +3,9 @@ title: Learn and play with security
 authors: 'Benjamin Fuentes (Marigold)'
 last_update:
   date: 11 January 2024
+dependencies:
+  taqueria: 0.45.0
+  ligo: 1.7.0
 ---
 
 # Security

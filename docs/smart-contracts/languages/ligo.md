@@ -2,6 +2,8 @@
 title: LIGO
 last_update:
   date: 8 February 2024
+dependencies:
+  ligo: 1.9.2
 ---
 
 LIGO is a functional programming language that is intended to be both user-friendly and to avoid patterns that make formal verification difficult.

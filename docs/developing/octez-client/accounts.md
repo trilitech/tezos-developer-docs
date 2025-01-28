@@ -1,5 +1,7 @@
 ---
 title: Creating accounts
+dependencies:
+  octez: 21.1
 ---
 
 You can create or import accounts into the Octez client just like you do so in wallet applications.
