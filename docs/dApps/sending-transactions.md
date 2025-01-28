@@ -2,7 +2,9 @@
 title: Sending transactions
 authors: "Tim McMackin"
 last_update:
-  date: 1 February 2024
+  date: 21 January 2025
+dependencies:
+  taquito: 21.0.1
 ---
 <!-- TODO originating contracts: https://tezostaquito.io/docs/originate -->
 
@@ -41,6 +43,15 @@ To send tez with Taquito, connect to the user's wallet and use the `Tezos.wallet
 import { TezosToolkit } from "@taquito/taquito";
 const Tezos = new TezosToolkit(rpcUrl);
 
+const options = {
+  name: 'MyAwesomeDapp',
+  iconUrl: 'https://tezostaquito.io/img/favicon.svg',
+  network: {
+    type: NetworkType.GHOSTNET,
+  },
+};
+const wallet = new BeaconWallet(options);
+
 Tezos.setWalletProvider(wallet);
 
 await Tezos.wallet.transfer({
@@ -74,7 +85,7 @@ const Tezos = new TezosToolkit(rpcUrl);
 Tezos.setWalletProvider(wallet);
 const contract = await Tezos.wallet.at(contractAddress);
 try {
-  const op = await contract.methods.doSomething('Param 1', 25).send();
+  const op = await contract.methodsObject.doSomething('Param 1', 25).send();
   console.log(`Waiting for ${op.opHash} to be confirmed...`);
   await op.confirmation(2);
 } catch (error) {
@@ -165,7 +176,7 @@ const transactionParams = [
 const estimation = await Tezos.estimate.transfer({
   to: contractAddress,
   amount: 0,
-  parameter: contract.methods.transfer(transactionParams).toTransferParams().parameter
+  parameter: contract.methodsObject.transfer(transactionParams).toTransferParams().parameter
 });
 
 const operation = await contract.methods

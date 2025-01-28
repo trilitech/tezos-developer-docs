@@ -2,7 +2,9 @@
 title: Taquito dApp SDK for TypeScript
 authors: Claude Barde, Tim McMackin
 last_update:
-  date: 14 November 2024
+  date: 21 January 2025
+dependencies:
+  taquito: 21.0.1
 ---
 
 [Taquito](https://tezostaquito.io) is a TypeScript library that dApp developers can use to get information about Tezos and submit transactions.
@@ -66,7 +68,7 @@ Follow these steps to connect to wallets in an application:
 
 1. Install Taquito and the `@taquito/beacon-wallet` and `@airgap/beacon-types` packages from NPM:
 
-   ```
+   ```bash
    npm install @taquito/taquito @taquito/beacon-wallet @airgap/beacon-types
    ```
 
@@ -78,17 +80,17 @@ import { BeaconWallet } from "@taquito/beacon-wallet";
 import { NetworkType } from "@airgap/beacon-types";
 import { TezosToolkit } from "@taquito/taquito";
 
-const Tezos = new TezosToolkit('https://rpc.ghostnet.teztnets.com')
+const Tezos = new TezosToolkit('https://rpc.ghostnet.teztnets.com');
 const options = {
   name: 'MyAwesomeDapp',
   iconUrl: 'https://tezostaquito.io/img/favicon.svg',
   network: {
     type: NetworkType.GHOSTNET,
   },
-}
-const wallet = new BeaconWallet(options)
-await wallet.requestPermissions()
-Tezos.setWalletProvider(wallet)
+};
+const wallet = new BeaconWallet(options);
+await wallet.requestPermissions();
+Tezos.setWalletProvider(wallet);
 ```
 
 ## Getting data from the Tezos blockchain
@@ -189,15 +191,16 @@ const { contractAddress } = op
 
 One of the main features of your dApp is probably smart contract interactions.
 
-After creating the contract abstraction for the contract you want to interact with, you can call one of the entrypoints available as a method on the `methods` property. The entrypoint method takes a parameter of the type expected by the contract and returns a contract call that can be executed by calling the `send` method:
+After creating the contract abstraction for the contract you want to interact with, you can call one of the entrypoints available as a method on the `methodsObject` property. The entrypoint method takes a parameter of the type expected by the contract and returns a contract call that can be executed by calling the `send` method:
 
 ```typescript
 import { TezosToolkit } from '@taquito/taquito'
 
 const Tezos = new TezosToolkit('https://rpc.ghostnet.teztnets.com')
 
+Tezos.setWalletProvider(wallet);
 const contract = await Tezos.wallet.at(CONTRACT_ADDRESS)
-const op = await contract.methods.mint(3).send()
+const op = await contract.methodsObject.mint(3).send()
 await op.confirmation()
 ```
 
