@@ -3,7 +3,7 @@ title: Using Tezos applications (dApps)
 sidebar_label: Applications
 authors: "Tim McMackin"
 last_update:
-  date: 14 January 2025
+  date: 28 January 2025
 ---
 
 Decentralized applications (dApps) are programs that, at their core, run independently, without any person or group in charge of them.
@@ -14,6 +14,8 @@ These applications are:
 - **Pseudonymous**, because Tezos accounts are not linked to any public information about users and therefore users can use these applications anonymously
 - **Secure**, because users are authenticated through the private keys in their wallet applications instead of passwords
 
+## Common types of dApps
+
 dApps can do almost anything that ordinary web applications can do and more.
 In particular, Tezos dApps can:
 
@@ -21,9 +23,13 @@ In particular, Tezos dApps can:
 - Accept tez tokens as payment like you might use a credit card online
 - Perform tasks on Tezos on your behalf, like writing data and transferring tokens
 
-However, you must be aware that most dApps use ordinary non-decentralized web applications as the user interface.
-These web applications have many of the same drawbacks as any web application.
-For example, malicious users can put up impostor web pages that can steal your information.
+Here are some common types of dApps:
+
+- **E-commerce sites** that accept cryptocurrency tokens as payment
+- **Decentralized Finance (DeFI)** applications that provide loans and currencies for specific purposes
+- **Distributed exchanges (DEXs)** that trade tokens for other tokens
+- **Games** that use Tezos as the backend for game logic and tokens to represent game items
+- **Art marketplaces** that allow creators to advertise and sell their work as digital tokens
 
 For an example of a Tezos dApp, see [Staking](/using/staking).
 
