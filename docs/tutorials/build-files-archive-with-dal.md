@@ -1,8 +1,8 @@
 ---
 title: Implement a file archive with the DAL and a Smart Rollup
-authors: 'Tezos Core Developers'
+authors: Tezos Core Developers
 last_update:
-  date: 10 June 2024
+  date: 27 January 2025
 dependencies:
   octez: 21.2
   rust: 1.80.0
@@ -12,16 +12,15 @@ dependencies:
 The Data Availability Layer (DAL) is a companion peer-to-peer network for the Tezos blockchain, designed to provide additional data bandwidth to Smart Rollups.
 It allows users to share large amounts of data in a way that is decentralized and permissionless, because anyone can join the network and post and read data on it.
 
-In this tutorial, you will set up a file archive that stores and retrieves files with the DAL.
+This tutorial uses the Ghostnet test network, but you can use the information in it to work with other test networks or Tezos Mainnet.
+
+In this tutorial, you set up a file archive that stores and retrieves files with the DAL.
 You will learn:
 
 - How data is organized and shared with the DAL and the reveal data channel
 - How to read data from the DAL in a Smart Rollup
 - How to host a DAL node
 - How to publish data and files with the DAL
-
-This tutorial uses the [Weeklynet test network](https://teztnets.com/weeklynet-about).
-Weeklynet runs just like other Tezos networks like Mainnet and Ghostnet, with its own nodes, bakers, and accusers, so you don't need to run your own nodes and bakers.
 
 See these links for more information about the DAL:
 
@@ -33,18 +32,19 @@ See these links for more information about the DAL:
 In this tutorial, you set up these components:
 
 - The Octez client, which you use to manage a local wallet, deploy a Smart Rollup, and send data to the DAL
+- A layer 1 node to provide a connection to Tezos and information about the state of layer 1, including metadata about what data is available on the DAL
 - A Data Availability Layer node (not to be confused with a layer 1 node), which stores data temporarily and distributes it to Smart Rollups
 - A Smart Rollup that listens for data published to the DAL, retrieves it from the DAL node, and stores it locally
 - A Smart Rollup node that runs your Smart Rollup
 
-For simplicity, you do not set up a layer 1 node or a baker, which are responsible for verifying that the data is available before Smart Rollups can access it.
-Instead, you use the existing nodes and bakers that are running on Weeklynet.
+For simplicity, you do not set up a baker, which is responsible for verifying and attesting that the data is available before Smart Rollups can access it.
+For instructions on running a layer 1 node and baker with the DAL, see the tutorial [Join the DAL as a baker, in 5 steps](/tutorials/join-dal-baker).
 
 ## Tutorial diagram
 
 Here is a diagram that shows the components that you set up in this tutorial in a light blue background:
 
-![A diagram of the DAL file tutorial, highlighting the Octez client, DAL node, and Smart Rollup that you create with a light blue background to distinguish them from the existing DAL nodes, layer 1 nodes, and bakers](/img/tutorials/dal-file-tutorial-setup.png)
+![A diagram of the DAL file tutorial, highlighting the Octez client, DAL node, layer 1 node, and Smart Rollup that you create with a light blue background to distinguish them from the existing DAL nodes, layer 1 nodes, and bakers](/img/tutorials/dal-file-tutorial-setup.png)
 
 <!-- https://lucid.app/lucidchart/58f5577e-91b5-4237-89c4-a8cdf81c71ad/edit -->
 
@@ -93,7 +93,7 @@ The DAL works like this:
    For example, if a certificate is included in level 100 and the attestation lag is 4, bakers must attest that the data is available in level 104, along with their usual attestations that build on level 103.
 
    If enough shards are attested in that level, the data becomes available to Smart Rollups at the end of layer 104.
-   If not enough shards are attested in that level, the certificate is considered bogus and the related data is dropped.
+   If not enough shards are attested in that level, the certificate is considered bogus, the related data is dropped, and Smart Rollups cannot access it.
 
 1. The Smart Rollup node monitors the blocks and when it sees attested DAL data, it connects to a DAL node to request the data.
 Smart Rollups must store the data if they need it because it is available on the DAL for only a short time.
