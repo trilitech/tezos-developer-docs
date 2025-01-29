@@ -60,7 +60,10 @@ dependencies:
 
 The current versions of these tools are set in the file `src/scripts/dependencies.json`.
 When you run `npm run check-dependencies`, a script checks for files that need to be updated.
-You can check specific tools by passing them to the script, as in `npm run check-dependencies smartpy taquito`.
+
+- You can check specific tools by passing them to the script, as in `npm run check-dependencies -- --dependencies=smartpy,taquito`.
+- By default, the script checks for differences down to the fixpack level, but you can pass `--major` or `--minor` to check for differences at those levels.
+- By default, it checks all files, but you can pass individual files to check in a comma-separated list, as in `npm run check-dependencies -- --filesToCheck=docs/developing/octez-client/accounts.md,docs/tutorials/build-your-first-app.md`.
 
 ## Search
 
