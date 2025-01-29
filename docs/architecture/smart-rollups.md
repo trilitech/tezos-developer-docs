@@ -87,9 +87,9 @@ When a user runs a node that posts commitments, the protocol automatically locks
 If the node posts a commitment that is refuted, they lose their bond, as described in [Refutation periods](#refutation-periods).
 
 Because nodes have the length of the refutation to challenge another node's commitment, the bond stays locked until the end of the refutation period for the last commitment that the node posted.
-After that refutation period ends, the node operator can recover the bond with the `octez-client recover bond` command, which unlocks their tez.
-To simplify the process, node operators can switch to bailout mode, which does not post commitments but continues to defend previously made commitments until the last refutation period ends.
-Then it runs the `octez-client recover bond` command automatically.
+The node operator can recover the bond in different ways:
+- using the `octez-client recover bond` command, which unlocks their tez after the refutation period ends.
+- alternatively, by switching the rollup node to bailout mode, which does not post commitments but continues to defend previously made commitments until the last refutation period ends, then runs the `octez-client recover bond` command automatically.
 For an example of how to use bailout mode to recover your bond, see [Stopping the Smart Rollup node](https://docs.etherlink.com/network/smart-rollup-nodes/#stopping-the-smart-rollup-node) in the Etherlink documentation.
 
 ### Reveal data channel
