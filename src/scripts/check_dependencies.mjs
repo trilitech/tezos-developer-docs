@@ -49,9 +49,6 @@ const argv = minimist(process.argv.slice(2), {
     d: 'dependencies',
   },
   unknown: (unknownArg) => {
-    if (currentVersions[unknownArg]) {
-      return true;
-    }
     console.error('Error: unknown argument', unknownArg);
     console.error('Pass dependencies to check in a comma-separated list, as in --dependencies=octez,smartpy,ligo.');
     console.error('Pass the version level to check with --major or --minor, or omit the version level to check down to the fixpack level.');
@@ -59,14 +56,24 @@ const argv = minimist(process.argv.slice(2), {
     process.exit(1);
   }
 });
+
 // By default, check all files
 const filesToCheckPromise = argv['filesToCheck'] ?
   argv['filesToCheck']
   .split(',')
   .map((shortPath) => path.resolve(baseFolder, shortPath))
   : glob(docsFolder + '/**/*.{md,mdx}');
+
 // By default, check all dependencies
 const dependenciesToCheck = argv['dependencies'] ? argv['dependencies'].split(',') : Object.keys(currentVersions);
+dependenciesToCheck.forEach((oneDependency) => {
+  if (!Object.keys(currentVersions).includes(oneDependency)) {
+    console.error('Unknown dependency:', oneDependency);
+    process.exit(1);
+  }
+});
+
+// By default, check to the fixpack version
 const checkMajor = argv.major;
 const checkMinor = argv.minor;
 if (checkMajor && checkMinor) {
