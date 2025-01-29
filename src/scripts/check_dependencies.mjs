@@ -8,6 +8,15 @@ dependencies:
   archetype: 1.0.26
 ---
 
+List the current versions of the tools in the config file at ./dependencies.json and this script will print the pages that have been tested only on older versions of the tools.
+
+Arguments:
+
+You can pass individual tools to check, as in npm run check-dependencies -- smartpy taquito and it will check only those dependencies.
+
+By default, this script checks for differences down to the fixpack level.
+You can pass --major or --minor to ignore differences up to the specified level.
+
 */
 
 import path, { dirname } from 'path';
@@ -18,30 +27,55 @@ import matter from 'gray-matter';
 import semver from 'semver';
 import minimist from 'minimist';
 
-const argv = minimist(process.argv.slice(2));
-const params = argv['_'];
-
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const baseFolder = path.resolve(__dirname, '../..');
 const docsFolder = path.resolve(baseFolder, 'docs');
-
-// List the current versions of the tools in the config file and this script will print the pages that have been tested only on older versions of the tools
-
-// You can pass individual tools to check, as in
-// npm run check-dependencies smartpy taquito
-// and it will check only those dependencies
 
 // Import config file
 // Not sure why I can't import a JSON file directly in MJS
 const dependencyConfig = fs.readFileSync(path.resolve(__dirname, 'dependencies.json'), 'utf8');
 const { currentVersions } = JSON.parse(dependencyConfig);
 
-// Verify the passed dependencies parameters
-const unrecognizedParams = params.filter((oneParam) => !currentVersions[oneParam]);
-if (unrecognizedParams.length > 0) {
-  console.error('Unrecognized tool names in parameters:');
-  console.log(unrecognizedParams.join('\n'));
+const argv = minimist(process.argv.slice(2), {
+  boolean: ['major', 'minor'],
+  unknown: (unknownArg) => {
+    if (currentVersions[unknownArg]) {
+      return true;
+    }
+    console.error('Error: unknown argument or tool name: ', unknownArg);
+    process.exit(1);
+  }
+});
+const params = argv['_'];
+
+const checkMajor = argv.major;
+const checkMinor = argv.minor;
+if (checkMajor && checkMinor) {
+  console.error('Include either --major or --minor, not both');
   process.exit(1);
+}
+
+// Function to compare versions based on whether we care about major, minor, or patch versions
+// diff(v1, v2): Returns the difference between two versions by the release type (major, premajor, minor, preminor, patch, prepatch, or prerelease), or null if the versions are the same.
+const isOldVersion = (v1String, v2String) => {
+  const v1 = semver.coerce(v1String);
+  const v2 = semver.coerce(v2String);
+  const diff = semver.diff(v1, v2);
+  if (!diff) {
+    // Versions match
+    return false;
+  }
+
+  if (diff === 'major') {
+    return true;
+  }
+  if (diff === 'minor' && !checkMajor) {
+    return true;
+  }
+  if (diff === 'fixpack' && !checkMinor) {
+    return true;
+  }
+  return false;
 }
 
 const printDependencies = async () => {
@@ -97,7 +131,7 @@ const printDependencies = async () => {
         // Tool has no current version
         prevWarnings.push(`Error: Unknown dependency: ${oneTool}`);
       } else {
-        if (semver.gt(semver.coerce(currentVersion).version, semver.coerce(usedVersion).version)) {
+        if (isOldVersion(currentVersion, usedVersion)) {
           // The listed version of the dependency is less than the current version in the config file
           prevWarnings.push(`Outdated: ${oneTool} ${usedVersion} < ${currentVersion}`);
         }
