@@ -63,7 +63,7 @@ When you run `npm run check-dependencies`, a script checks for files that need t
 
 - You can check specific tools by passing them to the script, as in `npm run check-dependencies -- --dependencies=smartpy,taquito`.
 - By default, the script checks for differences down to the fixpack level, but you can pass `--major` or `--minor` to check for differences at those levels.
-- By default, it checks all files, but you can pass individual files to check in a comma-separated list, as in `npm run check-dependencies -- --filesToCheck=docs/developing/octez-client/accounts.md,docs/tutorials/build-your-first-app.md`.
+- By default, it checks all files, but you can pass individual files to check after the other arguments, as in `npm run check-dependencies -- --major -d=smartpy,taquito docs/developing/octez-client/accounts.md docs/tutorials/build-your-first-app.md`.
 
 ## Search
 

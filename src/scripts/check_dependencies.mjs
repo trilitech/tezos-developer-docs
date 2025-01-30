@@ -18,8 +18,8 @@ By default, this script checks for differences down to the fixpack level.
 You can pass --major or --minor to ignore differences up to the specified level.
 
 By default, this script checks all files.
-You can pass individual files to check in a comma-separated list with the --filesToCheck parameter, as in
-npm run check-dependencies -- --filesToCheck=docs/developing/octez-client/accounts.md,docs/tutorials/build-your-first-app.md
+You can pass individual files to check as anonymous arguments after the other parameters, as in
+npm run check-dependencies -- --major -d=smartpy,taquito docs/developing/octez-client/accounts.md docs/tutorials/build-your-first-app.md
 
 */
 
@@ -43,24 +43,16 @@ const { currentVersions } = JSON.parse(dependencyConfig);
 // Set up parameters
 const argv = minimist(process.argv.slice(2), {
   boolean: ['major', 'minor'],
-  string: ['filesToCheck', 'dependencies'],
+  string: ['dependencies'],
   alias: {
-    f: 'filesToCheck',
     d: 'dependencies',
   },
-  unknown: (unknownArg) => {
-    console.error('Error: unknown argument', unknownArg);
-    console.error('Pass dependencies to check in a comma-separated list, as in --dependencies=octez,smartpy,ligo.');
-    console.error('Pass the version level to check with --major or --minor, or omit the version level to check down to the fixpack level.');
-    console.error('Pass files to check in a comma-separated list, as in --filesToCheck=docs/dApps/wallets.md,docs/developing/octez-client/accounts.md.')
-    process.exit(1);
-  }
 });
 
 // By default, check all files
-const filesToCheckPromise = argv['filesToCheck'] ?
-  argv['filesToCheck']
-  .split(',')
+// But if file names are passed as anonymous params, check only those files
+const filesToCheckPromise = argv['_'].length > 0 ?
+  argv['_']
   .map((shortPath) => path.resolve(baseFolder, shortPath))
   : glob(docsFolder + '/**/*.{md,mdx}');
 
