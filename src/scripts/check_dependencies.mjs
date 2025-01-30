@@ -53,7 +53,7 @@ const argv = minimist(process.argv.slice(2), {
 // But if file names are passed as anonymous params, check only those files
 const filesToCheckPromise = argv['_'].length > 0 ?
   argv['_']
-  .map((shortPath) => path.resolve(baseFolder, shortPath))
+    .map((shortPath) => path.resolve(baseFolder, shortPath))
   : glob(docsFolder + '/**/*.{md,mdx}');
 
 // By default, check all dependencies
@@ -105,12 +105,13 @@ const printDependencies = async () => {
     files
       .sort()
       .map(async (filePath) => {
-      const fileContents = await fs.promises.readFile(filePath, 'utf8');
-      const frontMatter = matter(fileContents).data;
-      return {
-        filePath: path.relative(baseFolder, filePath),
-        frontMatter };
-    })
+        const fileContents = await fs.promises.readFile(filePath, 'utf8');
+        const frontMatter = matter(fileContents).data;
+        return {
+          filePath: path.relative(baseFolder, filePath),
+          frontMatter
+        };
+      })
   );
 
   // Filter to dependencies that we care about
