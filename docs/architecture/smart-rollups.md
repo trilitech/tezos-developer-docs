@@ -91,7 +91,7 @@ Recovering the bond safely takes a few steps; in general, node operators follow 
 
 1. Switch the rollup node to a mode that defends previously made commitments but does not post new commitments, such as `accuser` mode or `bailout` mode.
 
-1. Wait until the last commitment is cemented.
+1. Keep the node running until the last commitment is cemented.
 If operators shut down the node before the last commitment is cemented, they risk losing their bond if another node challenges their commitments.
 
 1. Recover the bond by running the `octez-client recover bond` command, which unlocks their tez.
