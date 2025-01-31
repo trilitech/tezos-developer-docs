@@ -114,7 +114,6 @@ const sidebars = {
               items: [
                 'developing/information/block-explorers/tzkt',
                 'developing/information/block-explorers/tzstats',
-                // 'developing/information/block-explorers/inspect-contract-tzstats',
               ],
             },
             'developing/information/indexers',
