@@ -178,7 +178,7 @@ TODO Could we install some of the tools in the docker container instead of makin
 
    To verify that `wabt` is installed, run the command `wasm-strip --version` and verify that the version is at least 1.0.31.
    If not, you can download this version directly and extract its files: https://github.com/WebAssembly/wabt/releases/tag/1.0.31.
-   Then, whenever you have to use `wasm-strip`, you can use `.<path_to_wabt_1.0.31>/bin/wasm-strip` instead.
+   Then, whenever you have to use `wasm-strip`, you can use `<path_to_wabt_1.0.31>/bin/wasm-strip` instead.
 
 ## Tutorial application
 
