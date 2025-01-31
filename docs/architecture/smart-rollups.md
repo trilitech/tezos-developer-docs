@@ -2,7 +2,7 @@
 title: Smart Rollups
 authors: 'Nomadic Labs, TriliTech, Tim McMackin'
 last_update:
-  date: 17 January 2025
+  date: 29 January 2025
 ---
 
 Smart Rollups play a crucial part in providing high scalability on Tezos.
@@ -87,8 +87,17 @@ When a user runs a node that posts commitments, the protocol automatically locks
 If the node posts a commitment that is refuted, they lose their bond, as described in [Refutation periods](#refutation-periods).
 
 Because nodes have the length of the refutation to challenge another node's commitment, the bond stays locked until the end of the refutation period for the last commitment that the node posted.
-After that refutation period ends, the node operator can recover the bond, which unlocks their tez.
-To simplify the process, node operators can switch to bailout mode, which does not post commitments but continues to defend previously made commitments until the last refutation period ends.
+Recovering the bond safely takes a few steps; in general, node operators follow these steps:
+
+1. Switch the rollup node to a mode that defends previously made commitments but does not post new commitments, such as `accuser` mode or `bailout` mode.
+
+1. Keep the node running until the last commitment is cemented.
+If operators shut down the node before the last commitment is cemented, they risk losing their bond if another node challenges their commitments.
+
+1. Recover the bond by running the `octez-client recover bond` command, which unlocks their tez.
+Nodes running in `bailout` mode run this command automatically when the last commitment is cemented.
+
+For an example of how to use bailout mode to recover your bond, see [Stopping the Smart Rollup node](https://docs.etherlink.com/network/smart-rollup-nodes/#stopping-the-smart-rollup-node) in the Etherlink documentation.
 
 ### Reveal data channel
 
