@@ -14,7 +14,7 @@ You can think of it as a window into the blockchain world, allowing you to obser
 
 Cryptocurrency users and developers use such a tool to view the status of past or present transactions.
 
-Some of the most basic information available on blockchain explorers includes (but are not limited to):
+Some of the most basic information available on blockchain explorers includes (but is not limited to):
 
 * **Block feed**: This allows you to view all the confirmed and pending blocks on the blockchain.
 * **Transaction feed**: The transaction feed displays all the most recent and pending transactions.
