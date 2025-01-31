@@ -5,7 +5,7 @@ last_update:
   date: 6 June 2024
 ---
 
-As presented in [Governance](/architecture/governance), the Tezos blockchain is constantly evolving, through new amendments.
+As presented in [Governance](/architecture/governance), the Tezos blockchain is constantly evolving through new amendments.
 
 These approved amendments form the history of the Tezos protocol:
 
