@@ -12,10 +12,14 @@ List the current versions of the tools in the config file at ./dependencies.json
 
 Arguments:
 
-You can pass individual tools to check, as in npm run check-dependencies -- smartpy taquito and it will check only those dependencies.
+You can pass individual tools to check in a comma-separated list, as in npm run check-dependencies -- --dependencies=smartpy,taquito and it will check only those dependencies.
 
 By default, this script checks for differences down to the fixpack level.
 You can pass --major or --minor to ignore differences up to the specified level.
+
+By default, this script checks all files.
+You can pass individual files to check as anonymous arguments after the other parameters, as in
+npm run check-dependencies -- --major -d=smartpy,taquito docs/developing/octez-client/accounts.md docs/tutorials/build-your-first-app.md
 
 */
 
@@ -36,18 +40,32 @@ const docsFolder = path.resolve(baseFolder, 'docs');
 const dependencyConfig = fs.readFileSync(path.resolve(__dirname, 'dependencies.json'), 'utf8');
 const { currentVersions } = JSON.parse(dependencyConfig);
 
+// Set up parameters
 const argv = minimist(process.argv.slice(2), {
   boolean: ['major', 'minor'],
-  unknown: (unknownArg) => {
-    if (currentVersions[unknownArg]) {
-      return true;
-    }
-    console.error('Error: unknown argument or tool name: ', unknownArg);
+  string: ['dependencies'],
+  alias: {
+    d: 'dependencies',
+  },
+});
+
+// By default, check all files
+// But if file names are passed as anonymous params, check only those files
+const filesToCheckPromise = argv['_'].length > 0 ?
+  argv['_']
+    .map((shortPath) => path.resolve(baseFolder, shortPath))
+  : glob(docsFolder + '/**/*.{md,mdx}');
+
+// By default, check all dependencies
+const dependenciesToCheck = argv['dependencies'] ? argv['dependencies'].split(',') : Object.keys(currentVersions);
+dependenciesToCheck.forEach((oneDependency) => {
+  if (!Object.keys(currentVersions).includes(oneDependency)) {
+    console.error('Unknown dependency:', oneDependency);
     process.exit(1);
   }
 });
-const params = argv['_'];
 
+// By default, check to the fixpack version
 const checkMajor = argv.major;
 const checkMinor = argv.minor;
 if (checkMajor && checkMinor) {
@@ -79,31 +97,31 @@ const isOldVersion = (v1String, v2String) => {
 }
 
 const printDependencies = async () => {
-  // Get all MD and MDX files
-  const files = await glob(docsFolder + '/**/*.{md,mdx}');
+  // Get files to check
+  const files = await filesToCheckPromise;
 
   // Get front matter for each file
   const filesAndFrontMatter = await Promise.all(
     files
       .sort()
       .map(async (filePath) => {
-      const fileContents = await fs.promises.readFile(filePath, 'utf8');
-      const frontMatter = matter(fileContents).data;
-      return {
-        filePath: path.relative(baseFolder, filePath),
-        frontMatter };
-    })
+        const fileContents = await fs.promises.readFile(filePath, 'utf8');
+        const frontMatter = matter(fileContents).data;
+        return {
+          filePath: path.relative(baseFolder, filePath),
+          frontMatter
+        };
+      })
   );
 
-  // Filter to files with dependencies
+  // Filter to dependencies that we care about
   const filesWithDependencies = filesAndFrontMatter
-    // Filter to the dependencies passed on the command line
     .map(({ filePath, frontMatter }) => {
-      if (params.length > 0 && frontMatter.dependencies) {
+      if (frontMatter.dependencies) {
         let newDependencies = {};
-        params.forEach((oneParam) => {
-          if (frontMatter.dependencies[oneParam]) {
-            newDependencies[oneParam] = frontMatter.dependencies[oneParam];
+        dependenciesToCheck.forEach((oneDependency) => {
+          if (frontMatter.dependencies[oneDependency]) {
+            newDependencies[oneDependency] = frontMatter.dependencies[oneDependency];
           }
         });
         let newFrontMatter = JSON.parse(JSON.stringify(frontMatter));
