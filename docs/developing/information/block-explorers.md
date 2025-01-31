@@ -37,7 +37,6 @@ Here are some commonly used Tezos block explorers:
 
 - [TzStats](https://tzstats.com/)
 - [TzKT](https://tzkt.io/)
-- [Arronax](https://arronax.io)
 - [Baking Bad](https://baking-bad.org)
 - [Better Call Dev](https://better-call.dev)
 - [Explorus](https://explorus.io/)
