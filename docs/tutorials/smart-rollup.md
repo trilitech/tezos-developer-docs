@@ -140,7 +140,7 @@ TODO Could we install some of the tools in the docker container instead of makin
 - AR (macOS only)
 
    To compile to WebAssembly on macOS, you need to use the LLVM archiver.
-   If you've used Homebrew to install LLVM, you can configure it to use the archiver by running this command:
+   If you used Homebrew to install LLVM, you can configure it to use the archiver by running this command:
 
    ```bash
    export AR="$(brew --prefix llvm)/bin/llvm-ar"
