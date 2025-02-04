@@ -2,7 +2,7 @@
 title: "Part 4: Publishing on the DAL"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 27 January 2025
+  date: 4 February 2025
 ---
 
 Now that you can get information about the DAL, the next step is to publish data to it and verify that the kernel can access it.
@@ -100,6 +100,20 @@ The slot that you published the message to turns blue, as in this picture:
    ```
 
    You can verify your message by converting the bytes in the message back to the first 10 characters of the string "Hello, World!"
+
+   You can also access the data from the DAL node by running this command, where `<PUBLISHED_LEVEL>` is the level that you published the data in and `<SLOT_INDEX>` is the slot that you used:
+
+   ```bash
+   curl localhost:10732/levels/<PUBLISHED_LEVEL>/slots/<SLOT_INDEX>/content | more
+   ```
+
+   This RPC endpoint returns the full contents of the slot, padded with zeros to the standard size of DAL slots on that network.
+   You can copy the contents, omitting the zeros, and use a hexadecimal to string conversion tool to convert it back to a string.
+   Online tools can convert hex to string, or you can use the `xxd` program, as in this example, which returns `Hello, world!`:
+
+   ```bash
+   echo -n '48656c6c6f2c20776f726c6421'  | xxd -r -p
+   ```
 
 ## Troubleshooting
 
