@@ -2,7 +2,7 @@
 title: "Part 3: Getting slot information"
 authors: Tezos core developers, Tim McMackin
 last_update:
-  date: 11 September 2024
+  date: 4 February 2025
 ---
 
 When clients send data to the DAL, they must choose which slot to put it in.
@@ -40,8 +40,10 @@ To run a DAL node, you must configure a set of cryptographic parameters for it a
 1. Run this command to install the trusted setup:
 
    ```bash
-   ./install_dal_trusted_setup.sh --legacy
+   ./install_dal_trusted_setup.sh
    ```
+
+   If you are using a version of Octez prior to 21.1, add the `--legacy` argument to this command.
 
 1. Run this command to start a DAL node and monitor slot 0:
 
