@@ -51,6 +51,13 @@ The voting power of a delegate is computed in a similar way to the baking power 
 Bakers must run at least one Tezos node and a baker daemon to go with it.
 These daemons must run at all times with a stable power source and internet connection, because periods of inactivity for a baker entail losses of rewards, and eventually being marked as inactive and temporarily excluded from baking.
 
+## Staking with a baker
+
+If you don't have enough tez to become a baker or don't want to run a baking node, you can choose a baker as your delegate, which makes you a _delegator_.
+Then you can stake tez with that baker and receive a share of the baker's rewards.
+
+For instructions on staking, see [Staking](/using/staking).
+
 ## Delegating to a baker
 
 In older versions of the Tezos protocol, before users could stake with a baker, delegating was the primary way that users earned rewards for their tez.
@@ -59,13 +66,6 @@ The rewards to delegators were distributed by the bakers, with no guarantee from
 
 Delegating still works in this way, but currently, it's mostly seen as a preliminary step required for staking.
 In return, the Tezos protocol provides stakers with rewards automatically.
-
-## Staking with a baker
-
-If you don't have enough tez to become a baker or don't want to run a baking node, you can choose a baker as your delegate, which makes you a _delegator_.
-Then you can stake tez with that baker and receive a share of the baker's rewards.
-
-For instructions on staking, see [Staking](/using/staking).
 
 ## Summary
 
@@ -89,4 +89,4 @@ To start baking, use our [tutorial for bakers](/tutorials/join-dal-baker).
 
 For more information about the different options to participate to the Tezos network (baking, staking, or delegating), see [Running Octez](https://tezos.gitlab.io/introduction/howtorun.html) in the Octez documentation.
 
-For full details about baking, see [Node and Baking](https://opentezos.com/node-baking/baking/introduction/) on opentezos.com.
+To learn more about baking and the related concepts, see [Node and Baking](https://opentezos.com/node-baking/baking/introduction/) on opentezos.com.
