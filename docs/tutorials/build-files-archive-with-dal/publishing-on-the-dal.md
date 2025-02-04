@@ -136,10 +136,18 @@ If you don't see the message that the slot is attested and contains your data, t
         from my_wallet for slot 10 with proof "${proof}"
       ```
 
-- If the slot turned red, it's possible that the attesters for the network are offline.
-In this case, your Smart Rollup cannot use the data on the DAL, but the blue slot in Explorus verifies that you published it successfully.
-Without active attesters, you cannot continue with this tutorial.
-You can try running your own attester by getting tez from the faucet and running a baker as described in [Join the DAL as a baker, in 5 steps](/tutorials/join-dal-baker).
+- If the slot turned red on Explorus, these things may have happened:
+
+   - The attesters could not download the data to attest it.
+   This can happen if your DAL node is misconfigured and did not share the data with other DAL nodes.
+   Verify that your DAL node is accessible from outside your local network and that it is running with the correct arguments.
+   For example, DAL nodes can fail to share the data if they are configured with an attester configuration but are not connected to a baker with attestation rights.
+   You can try deleting the DAL node configuration and restarting the node with the correct `--observer-profiles` argument.
+
+   - The attesters for the network are offline.
+   In this case, your Smart Rollup cannot use the data on the DAL, but the blue slot in Explorus verifies that you published it successfully.
+   Without active attesters, you cannot continue with this tutorial.
+   You can try running your own attester by getting tez from the faucet and running a baker as described in [Join the DAL as a baker, in 5 steps](/tutorials/join-dal-baker).
 
 ## Publishing files
 
