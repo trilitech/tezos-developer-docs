@@ -124,6 +124,13 @@ However, make sure not to run the baker twice **for the same protocol version an
 
 You can upgrade accusers with a similar process.
 
+## Backing up and restoring the baker
+
+The Octez baking daemon stores no persistent data of its own, but it depends on files in the Octez client's data directory.
+If you want to back up the baker or move it to another machine and restore it, you must copy the nonce file or files from the Octez client's data directory to the equivalent directory on the new machine.
+These nonce files are named `net<NETWORK_ID>_stateful_nonces` and `net<NETWORK_ID>_nonces`, where `<NETWORK_ID>` is the ID of the network.
+All systems have the `net<NETWORK_ID>_stateful_nonces` file but only legacy bakers have the `net<NETWORK_ID>_nonces` file.
+
 ## Calculating the delay for attestation rights
 
 If you are setting up a new baker, you must wait until it receives attestation rights before it can bake blocks or attest to DAL data.
