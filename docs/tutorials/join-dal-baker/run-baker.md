@@ -129,7 +129,7 @@ You can upgrade accusers with a similar process.
 The Octez baking daemon stores persistent operational data in the Octez client's data directory, notably consensus high-water marks and [random seed nonces](https://tezos.gitlab.io/active/randomness_generation.html).
 If you want to back up the baker or move it to another machine and restore it, you must copy the nonce file or files from the Octez client's data directory to the equivalent directory on the new machine.
 These nonce files are named `net<NETWORK_ID>_stateful_nonces` and `net<NETWORK_ID>_nonces`, where `<NETWORK_ID>` is the ID of the network.
-All systems have the `net<NETWORK_ID>_stateful_nonces` file but only legacy bakers have the `net<NETWORK_ID>_nonces` file.
+All systems have the `net<NETWORK_ID>_stateful_nonces` file but only legacy baking deployments have the `net<NETWORK_ID>_nonces` file.
 
 ## Calculating the delay for attestation rights
 
