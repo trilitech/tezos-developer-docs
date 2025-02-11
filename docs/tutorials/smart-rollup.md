@@ -104,6 +104,12 @@ TODO Could we install some of the tools in the docker container instead of makin
    export CC="$(brew --prefix llvm)/bin/clang"
    ```
 
+   In some cases for MacOS you may need to update your `PATH` environment variable to include LLVM by running this command:
+
+   ```bash
+   echo 'export PATH="/opt/homebrew/opt/llvm/bin:$PATH"' >> ~/.zshrc
+   ```
+
    **Ubuntu**
 
    ```bash
