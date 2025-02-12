@@ -17,14 +17,22 @@ The Tezos baking application is extremely secure and it only allows you to sign 
 :::
 
 Go to the settings of your Ledger device and search for the automatic PIN lock option, then deactivate it.
- - For Nanos, Nanos+ and Nanox devices, go to `Settings` then `Security` and finally `PIN lock`.
- - For Stax and Flex devices, go to `Settings` then `Lock screen` and then `Auto-lock`.
+ - For **NanoS, NanoS+ and NanoX** devices: Go to `Settings` > `Security` > `PIN lock`, then select `No PIN lock` (`Off` for **NanoS**).
+ - For **Stax and Flex** devices: Go to `Settings` > `Lock screen` > `Auto-lock`, then disable `Auto-lock`.
+
+## Charging & Battery Saver Considerations
+
+Since your baker runs continuously, it is **strongly recommended to keep your Ledger device constantly powered** to prevent it from running out of battery.
+
+On **NanoX, Stax, and Flex** devices, a battery saver setting allows your Ledger to automatically power off after a period of inactivity to preserve battery life. However, since the Baking app requires the device to remain active at all times, it is **highly recommended to disable this option**.
+ - For **NanoX** devices: Go to `Settings` > `General` > `Battery Saver`, then select `Never power off`.
+ - For **Stax and Flex** devices: Go to `Settings` > `Battery` > `Auto Power-Off`, then disable `Auto Power-Off`.
 
 ## Screen saver
 
 In order to preserve the performance and integrity of your Ledger device, it is **strongly recommended** to activate the screen saver of your Ledger device. Go to the settings of your Ledger device and look for the screen saver option, then activate it for a value that suits you.
- - For Nanos, Nanos+ and Nanox devices, go to `Settings` then `Security` and finally `Screen saver`.
- - For Stax and Flex devices, there is no screen saver as of writing this article (Jan 25).
+ - For **NanoS, NanoS+ and NanoX** devices: Go to `Settings` > `Security` > `Screen saver`.
+ - For **Stax and Flex** devices there is no screen saver as of writing this article (Jan 25).
 
 ## HWM option
 
