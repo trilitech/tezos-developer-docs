@@ -36,7 +36,7 @@ const process_glossary = async () => {
 
   // Download glossary and conversion script
   const glossarySourceFileName = path.resolve(buildFolder, 'glossary.html');
-  const glossaryFilePromise = download('https://tezos.gitlab.io/active/glossary.html', glossarySourceFileName);
+  const glossaryFilePromise = download('https://octez.tezos.com/docs/active/glossary.html', glossarySourceFileName);
   await Promise.resolve(glossaryFilePromise);
 
   const downloadedGlossaryDom = new JSDOM(await fs.promises.readFile(glossarySourceFileName, 'utf8'));
