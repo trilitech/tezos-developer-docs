@@ -87,6 +87,6 @@ To start delegating and staking, use the app at https://stake.tezos.com.
 
 To start baking, use our [tutorial for bakers](/tutorials/join-dal-baker).
 
-For more information about the different options to participate to the Tezos network (baking, staking, or delegating), see [Running Octez](https://tezos.gitlab.io/introduction/howtorun.html) in the Octez documentation.
+For more information about the different options to participate to the Tezos network (baking, staking, or delegating), see [Running Octez](https://octez.tezos.com/docs/introduction/howtorun.html) in the Octez documentation.
 
 To learn more about baking and the related concepts, see [Node and Baking](https://opentezos.com/node-baking/baking/introduction/) on opentezos.com.

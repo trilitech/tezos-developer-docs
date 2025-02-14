@@ -26,7 +26,7 @@ In order to meet these requirements, the software that nodes run is structured a
 
 Nodes cooperate with clients and with each other through an [RPC interface](#the-rpc-interface).
 
-The Octez suite, which is an implementation of the Tezos node and other executables, instantiates these principles in the [Octez software architecture](https://tezos.gitlab.io/shell/the_big_picture.html).
+The Octez suite, which is an implementation of the Tezos node and other executables, instantiates these principles in the [Octez software architecture](https://octez.tezos.com/docs/shell/the_big_picture.html).
 
 For instructions on running a node, see the tutorial [Run a Tezos node in 5 steps](/tutorials/join-dal-baker).
 
@@ -79,7 +79,7 @@ Tezos nodes act as servers and accept HTTP requests from clients and other nodes
 
 Tezos RPC uses JSON to send and receive data, but it does not adhere to the JSON-RPC specification.
 
-All the RPCs served by the Tezos node are described as an OpenAPI specification at [Octez Node RPCs](https://tezos.gitlab.io/api/openapi.html#octez-node) in the Octez documentation.
+All the RPCs served by the Tezos node are described as an OpenAPI specification at [Octez Node RPCs](https://octez.tezos.com/docs/api/openapi.html#octez-node) in the Octez documentation.
 
 ### Public and private RPC nodes
 

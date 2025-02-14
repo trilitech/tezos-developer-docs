@@ -21,7 +21,7 @@ This site includes:
 - A brief introduction to Tezos for end users (non-technical users)
 - A presentation of the main Tezos concepts and features for technical users, including developers and bakers
 
-For more details on installing, using, or contributing to the platform, see the Octez documentation at https://tezos.gitlab.io/index.html.
+For more details on installing, using, or contributing to the platform, see the Octez documentation at https://octez.tezos.com/docs/index.html.
 
 For interactive learning material (including exercises) about Tezos concepts, the underlying technology, application development, and the ecosystem, see https://opentezos.com.
 
@@ -102,7 +102,7 @@ The proof-of-stake consensus mechanism eliminates the need for high energy use, 
 
 Tezos's proof-of-stake mechanism improves scalability and encourages cooperation via incentives. It also increases the cost of consensus attacks and avoids environmentally wasteful proof-of-work. Tezos launched in June 2018 as one of the first major proof-of-stake networks.
 
-For more information about how Tezos handles proof of stake, see https://tezos.gitlab.io/alpha/proof_of_stake.html.
+For more information about how Tezos handles proof of stake, see https://octez.tezos.com/docs/active/proof_of_stake.html.
 For more information about delegating and staking, see [Bakers](/architecture/bakers).
 
 ### Tezos accepts multiple languages

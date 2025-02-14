@@ -38,7 +38,7 @@ Then, initialize it to use the RPC node of your choice:
       dnf install -y tezos-client
       ```
 
-   For more local installation options, see [How to get Tezos](https://tezos.gitlab.io/introduction/howtoget.html) in the Octez documentation.
+   For more local installation options, see [Installing Octez](https://octez.tezos.com/docs/introduction/howtoget.html) in the Octez documentation.
 
 1. Verify that the Octez client is installed by running this command:
 
@@ -47,7 +47,7 @@ Then, initialize it to use the RPC node of your choice:
    ```
 
    If you see a message with the version of Octez that you have installed, the Octez client is installed correctly.
-   For help on Octez, run `octez-client --help` or see the [Octez documentation](http://tezos.gitlab.io/index.html).
+   For help on Octez, run `octez-client --help` or see the [Octez documentation](http://octez.tezos.com/docs/index.html).
 
 1. Initialize the client's configuration file by running this command:
 
@@ -98,4 +98,4 @@ octez-client --version
 
 Then set the RPC node for the client as described above.
 
-For more information about using the Docker image, see [Using Docker Images And Docker-Compose](https://tezos.gitlab.io/introduction/howtoget.html#using-docker-images-and-docker-compose) in the Octez documentation.
+For more information about using the Docker image, see [Using Docker images](https://octez.tezos.com/docs/introduction/howtoget.html#using-docker-images) in the Octez documentation.

@@ -19,7 +19,7 @@ In this way, using a Tezos account is how you prove your identity to the Tezos s
 
 This page discusses user accounts.
 As described in [Accounts](/architecture/accounts), other types of Tezos accounts include [smart contracts](/smart-contracts) and [Smart Rollups](/architecture/smart-rollups).
-For technical information on user accounts, see [Accounts and addresses](https://tezos.gitlab.io/active/accounts.html) in the Octez documentation.
+For technical information on user accounts, see [Accounts and addresses](https://octez.tezos.com/docs/active/accounts.html) in the Octez documentation.
 
 Tezos users use wallets to manage their accounts; see [Wallets](/using/wallets).
 

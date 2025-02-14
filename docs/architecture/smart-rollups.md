@@ -20,7 +20,7 @@ In this way, multiple nodes can run the same rollup and each node can verify the
 
 For a tutorial on Smart Rollups, see [Deploy a Smart Rollup](/tutorials/smart-rollup).
 
-For reference on Smart Rollups, see [Smart Optimistic Rollups](https://tezos.gitlab.io/active/smart_rollups.html) in the Octez documentation.
+For reference on Smart Rollups, see [Smart Optimistic Rollups](https://octez.tezos.com/docs/active/smart_rollups.html) in the Octez documentation.
 
 This diagram shows a high-level view of how Smart Rollups interact with layer 1:
 
@@ -212,7 +212,7 @@ When a commitment includes layer 1 transactions, these transactions go into the 
 
 After the commitment is cemented, clients can trigger transactions in the outbox with the Octez client `execute outbox message` command.
 When they trigger a transaction, it runs like any other call to a smart contract.
-For more information, see [Triggering the execution of an outbox message](https://tezos.gitlab.io/shell/smart_rollup_node.html?highlight=triggering) in the Octez documentation.
+For more information, see [Triggering the execution of an outbox message](https://octez.tezos.com/docs/shell/smart_rollup_node.html#triggering-the-execution-of-an-outbox-message) in the Octez documentation.
 
 ### Bailout process
 
@@ -222,7 +222,7 @@ Nodes that post commitments cannot stop immediately without risking their bonds 
 For this reason, nodes can switch to bailout mode to prepare to shut down without risking their bonds.
 In bailout mode, nodes defend their existing commitments without posting new commitments.
 When their final commitment is cemented, they can shut down safely.
-For more information about node modes, see [Smart rollup node](https://tezos.gitlab.io/shell/smart_rollup_node.html) in the Octez documentation.
+For more information about node modes, see [Smart rollup node](https://octez.tezos.com/docs/shell/smart_rollup_node.html) in the Octez documentation.
 
 ## Examples
 

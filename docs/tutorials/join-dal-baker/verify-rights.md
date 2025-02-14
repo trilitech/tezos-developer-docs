@@ -140,7 +140,7 @@ After the delay that you calculated in [Step 4: Run an Octez baking daemon](/tut
 
 If you don't see DAL attestation rights:
 
-   - Verify that your DAL node is connected to the network by following the instructions in [Troubleshooting](https://tezos.gitlab.io/shell/dal_run.html#troubleshooting) in the Octez documentation.
+   - Verify that your DAL node is connected to the network by following the instructions in [Troubleshooting](https://octez.tezos.com/docs/shell/dal_run.html#troubleshooting) in the Octez documentation.
 
 ## Optional: Changing the consensus key
 

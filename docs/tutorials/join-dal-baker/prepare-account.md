@@ -22,7 +22,7 @@ In this way you can avoid transferring or backing up the consensus key or you ca
 
 However, the consensus key can drain the liquid (unstaked) tez from the baker key, so you must keep the consensus key secure like all other keys.
 
-For more information about consensus keys, see [Consensus key](https://tezos.gitlab.io/user/key-management.html#consensus-key) in the Octez documentation.
+For more information about consensus keys, see [Consensus key](https://octez.tezos.com/docs/user/key-management.html#consensus-key) in the Octez documentation.
 
 ## Creating the accounts
 
