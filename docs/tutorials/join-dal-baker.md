@@ -74,7 +74,8 @@ The following diagram shows these daemons with a blue background:
 ## Prerequisites
 
 To run the Octez daemons persistently, you need a cloud-based computer or a computer that stays running constantly.
-For other system requirements, see the documentation for the latest release of the Octez suite here: https://tezos.gitlab.io/releases/latest.html.
+For other system requirements, see the documentation for the [latest release of the Octez suite](https://tezos.gitlab.io/releases/latest.html)
+(search for section "Minimal hardware specifications").
 
 ## Other options for running a baker
 
