@@ -21,7 +21,7 @@ This site includes:
 - A brief introduction to Tezos for end users (non-technical users)
 - A presentation of the main Tezos concepts and features for technical users, including developers and bakers
 
-For more details on installing, using, or contributing to the platform, see the Octez documentation at https://octez.tezos.com/docs/index.html.
+For more details on installing, using, or contributing to the platform, see the Octez documentation at https://octez.tezos.com/docs/.
 
 For interactive learning material (including exercises) about Tezos concepts, the underlying technology, application development, and the ecosystem, see https://opentezos.com.
 
