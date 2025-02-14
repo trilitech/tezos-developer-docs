@@ -11,7 +11,7 @@ Tezos smart contracts are immutable after deployment, so you must rigorously tes
 
 - The Michelson interpreter is an OCaml function that can be used by tools to simulate a call to any entry point of any smart contract, given an initial value of the storage and parameters. Some programming languages like LIGO or SmartPy use this as part of their testing frameworks.
 
-- The mockup mode of `octez-client` can be used to test contract calls and other features such as some RPC calls, all without running an actual node, saving the time of going through the consensus mechanism and waiting to get blocks created and validated. Tools like Completium, built by the team behind the Archetype language, use this for their testing framework. Find out more in the [documentation of the mockup mode](https://tezos.gitlab.io/user/mockup.html).
+- The mockup mode of `octez-client` can be used to test contract calls and other features such as some RPC calls, all without running an actual node, saving the time of going through the consensus mechanism and waiting to get blocks created and validated. Tools like Completium, built by the team behind the Archetype language, use this for their testing framework. Find out more in the [documentation of the mockup mode](https://octez.tezos.com/docs/user/mockup.html).
 
    For example, when you compile the contract in the tutorial [Create a smart contract](/tutorials/smart-contract) to Michelson, its first line defines the parameter type that the contract accepts:
 
@@ -101,7 +101,7 @@ For more information about avoiding flaws in contracts, see [Avoiding flaws](htt
 
 ## Implementation details
 
-- Michelson: [Mockup mode](https://tezos.gitlab.io/user/mockup.html)
+- Michelson: [Mockup mode](https://octez.tezos.com/docs/user/mockup.html)
 - Archetype: [Completium test scenario](https://completium.com/docs/contract/test-scenario)
 - SmartPy: [Test scenarios](https://smartpy.io/manual/scenarios/test_scenarios)
 - LIGO: [Testing LIGO](https://ligolang.org/docs/next/testing/)

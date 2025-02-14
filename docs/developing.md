@@ -59,7 +59,7 @@ See https://taqueria.io/.
 To test smart contracts and dApps, you can use these test environments:
 
 - Test networks behave like Tezos Mainnet but have differences that make it easier to test on them, such as faucets that provide free tokens and reduced block times for faster testing.
-- Sandbox environments like [Flextesa](https://tezos.gitlab.io/flextesa/) run Tezos nodes locally on your computer in a sandbox mode.
+- Sandbox environments like Flextesa and Tezbox run Tezos nodes locally on your computer in a sandbox mode; see [Using a local sandbox](/developing/sandbox).
 - You can also set up your own private test network.
 
 For more information about test environments, see [Testing on testnets](/developing/testnets) and [Using a local sandbox](/developing/sandbox).

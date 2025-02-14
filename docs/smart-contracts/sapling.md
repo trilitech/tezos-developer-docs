@@ -36,6 +36,6 @@ The process uses a mix of cryptographic tools including SNARKs, incremental Merk
 
 ## Implementation information
 
-- Michelson: [Sapling integration](https://tezos.gitlab.io/active/sapling.html)
+- Michelson: [Sapling integration](https://octez.tezos.com/docs/active/sapling.html)
 - Archetype: [Sapling](https://archetype-lang.org/docs/language-basics/crypto#sapling)
 - LIGO: [Sapling](https://ligolang.org/docs/reference/current-reference#sapling)

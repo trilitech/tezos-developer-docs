@@ -21,7 +21,7 @@ You can verify that a contract follows the FA1.2 standard by running the followi
 octez-client check contract $CONTRACT_ADDRESS implements fa1.2
 ```
 
-The Octez client also supports other interactions with FA1.2 contracts, such as transferring tokens or checking balances, as described at [FA1.2 support](https://tezos.gitlab.io/user/fa12.html) in the Octez documentation.
+The Octez client also supports other interactions with FA1.2 contracts, such as transferring tokens or checking balances, as described at [FA1.2 support](https://octez.tezos.com/docs/user/fa12.html) in the Octez documentation.
 
 ## Allowances
 

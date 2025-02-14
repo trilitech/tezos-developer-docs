@@ -16,14 +16,14 @@ However, it is safe to run two baking daemons during the protocol upgrade proces
 
 :::
 
-1. Optional: Set up a remote signer to secure the keys that the baker uses as described in [Signer](https://tezos.gitlab.io/user/key-management.html#signer) in the Octez documentation.
+1. Optional: Set up a remote signer to secure the keys that the baker uses as described in [Signer](https://octez.tezos.com/docs/user/key-management.html#signer) in the Octez documentation.
 
 1. Run a baking daemon with the following arguments:
 
    - Use the consensus key, not the baker key, if you are using a consensus key
    - Pass the URL to your DAL node with the `--dal-node` argument
-   - Pass the `--liquidity-baking-toggle-vote` argument; for more information, see [Liquidity baking](https://tezos.gitlab.io/active/liquidity_baking.html) in the Octez documentation
-   - Pass the `--adaptive-issuance-vote` argument; for more information, see [Adaptive Issuance and Staking](https://tezos.gitlab.io/active/adaptive_issuance.html) in the Octez documentation
+   - Pass the `--liquidity-baking-toggle-vote` argument; for more information, see [Liquidity baking](https://octez.tezos.com/docs/active/liquidity_baking.html) in the Octez documentation
+   - Pass the `--adaptive-issuance-vote` argument; for more information, see [Adaptive issuance](https://octez.tezos.com/docs/active/adaptive_issuance.html) in the Octez documentation
 
    For example:
 
@@ -109,7 +109,7 @@ Therefore, when a new version of the Tezos protocol becomes active, you must sta
 
 To simplify the upgrade process, you can follow these steps when the new protocol is about to be activated:
 
-1. Check the release pages in the [Octez documentation](https://tezos.gitlab.io) (section `Changes in Octez releases`) or check the posts on the forum at https://forum.tezosagora.org to see which version of the Octez suite supports the upcoming protocol and upgrade your Octez suite if necessary.
+1. Check the release pages in the [Octez documentation](https://octez.tezos.com/docs) (section `Changes in Octez releases`) or check the posts on the forum at https://forum.tezosagora.org to see which version of the Octez suite supports the upcoming protocol and upgrade your Octez suite if necessary.
 The Octez release page gives instructions for upgrading.
 
 1. Leave the baker for the previous protocol running, such as the `octez-baker-PsParisC` daemon.
@@ -126,7 +126,7 @@ You can upgrade accusers with a similar process.
 
 ## Backing up and restoring the baker
 
-The Octez baking daemon stores persistent operational data in the Octez client's data directory, notably consensus high-water marks and [random seed nonces](https://tezos.gitlab.io/active/randomness_generation.html).
+The Octez baking daemon stores persistent operational data in the Octez client's data directory, notably consensus high-water marks and [random seed nonces](https://octez.tezos.com/docs/active/randomness_generation.html).
 If you want to back up the baker or move it to another machine and restore it, you must copy the nonce file or files from the Octez client's data directory to the equivalent directory on the new machine.
 These nonce files are named `net<NETWORK_ID>_stateful_nonces` and `net<NETWORK_ID>_nonces`, where `<NETWORK_ID>` is the ID of the network, such as `netXdQprcVkpaWU_stateful_nonces` for Mainnet or `netXnHfVqm9ie_stateful_nonces` for Ghostnet.
 All deployments have the `net<NETWORK_ID>_stateful_nonces` file but only legacy baking deployments running versions of Octez prior to 20.0rc1 have the `net<NETWORK_ID>_nonces` file.

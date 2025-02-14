@@ -22,8 +22,8 @@ Here are some options for running local Tezos sandboxes:
 
 The Octez client sandboxed and mockup modes run a local version of the Tezos network.
 
-- [Sandboxed mode](https://tezos.gitlab.io/user/sandbox.html) runs a local network with one or more nodes.
-- [Mockup mode](https://tezos.gitlab.io/user/mockup.html) runs a light version of the network without nodes.
+- [Sandboxed mode](https://octez.tezos.com/docs/user/sandbox.html) runs a local network with one or more nodes.
+- [Mockup mode](https://octez.tezos.com/docs/user/mockup.html) runs a light version of the network without nodes.
 
 ## Tezbox
 
@@ -51,7 +51,7 @@ Tezbox provides sample accounts in the `/tezbox/context/accounts.json` file.
 
 ## Flextesa
 
-The [Flextesa](https://tezos.gitlab.io/flextesa/) is also a simulated Tezos environment that runs in a container.
+[Flextesa](https://tezos.gitlab.io/flextesa/) is also a simulated Tezos environment that runs in a container.
 
 The Flextesa image has different scripts that start different versions of the Tezos protocol.
 For example, to start a Flextesa sandbox with the Oxford protocol, run this command:
@@ -82,4 +82,4 @@ Now you can use the Octez client to deploy contracts and send transactions to th
 
 Flextesa allows you to control baking manually, so blocks are only backed when you trigger them.
 
-For more information, see the [Flextesa documentation](https://tezos.gitlab.io/flextesa/).
+For more information, see the [Flextesa documentation](https://octez.tezos.com/docs/flextesa/).

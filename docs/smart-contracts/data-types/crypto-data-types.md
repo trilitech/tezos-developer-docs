@@ -31,7 +31,7 @@ It can also be used for identity-based cryptography, single-round multi-party ke
 
 ## Implementation details
 
-- Michelson: [Cryptographic primitives](https://tezos.gitlab.io/active/michelson.html#cryptographic-primitives), [BLS12-381 primitives](https://tezos.gitlab.io/active/michelson.html#bls12-381-primitives)
+- Michelson: [Cryptographic primitives](https://octez.tezos.com/docs/active/randomness_generation.html#cryptographic-primitives.html#cryptographic-primitives)
 - LIGO: [Crypto](https://ligolang.org/docs/reference/crypto-reference)
 - Archetype: [Blake2b and related](https://archetype-lang.org/docs/reference/expressions/builtins#blake2b%28b%20:%20bytes%29), [Elliptic curves](https://archetype-lang.org/docs/language-basics/crypto#elliptic-curves)
 - SmartPy: [BLS12-381 ](https://smartpy.io/manual/data-types/bls12-381)
@@ -45,6 +45,6 @@ For information about using time-locks, see [Timelocks](/smart-contracts/timeloc
 
 ## Implementation details
 
-- Michelson: [Time-lock](https://tezos.gitlab.io/active/timelock.html)
+- Michelson: [Time-lock](https://octez.tezos.com/docs/active/timelock.html)
 - Archetype: [Timelock](https://archetype-lang.org/docs/language-basics/crypto#timelock)
 - LIGO: [Timelock](https://ligolang.org/docs/reference/current-reference/?lang=jsligo#timelock)

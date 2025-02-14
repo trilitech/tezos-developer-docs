@@ -42,7 +42,7 @@ For now, bakers can join the DAL without risking any reward loss, ensuring a smo
 ## Do you already run a baker?
 
 For current bakers, it's a straightforward process to add a DAL node.
-If you are familiar with running a node and baker, you can add a DAL node to your existing setup by following the instructions in [Running a DAL attester node](https://tezos.gitlab.io/shell/dal_run.html).
+If you are familiar with running a node and baker, you can add a DAL node to your existing setup by following the instructions in [Running a DAL attester node](https://octez.tezos.com/docs/shell/dal_run.html).
 
 ## Running a baker and DAL node from start to finish
 
@@ -74,7 +74,7 @@ The following diagram shows these daemons with a blue background:
 ## Prerequisites
 
 To run the Octez daemons persistently, you need a cloud-based computer or a computer that stays running constantly.
-For other system requirements, see the documentation for the [latest release of the Octez suite](https://tezos.gitlab.io/releases/latest.html)
+For other system requirements, see the documentation for the [latest release of the Octez suite](https://octez.tezos.com/docs/releases/latest.html)
 (search for section "Minimal hardware specifications").
 
 ## Other options for running a baker
@@ -91,7 +91,7 @@ Here are some of these tools:
 
 - For an overview of the DAL, see [Data Availability Layer](/architecture/data-availability-layer).
 - For an introduction to how the DAL works, see the tutorial [Implement a file archive with the DAL and a Smart Rollup](/tutorials/build-files-archive-with-dal).
-- For technical information about the DAL, see [Data-Availability Layer](https://tezos.gitlab.io/shell/dal.html) in the Octez documentation.
+- For technical information about the DAL, see [Data-Availability Layer](https://octez.tezos.com/docs/shell/dal.html) in the Octez documentation.
 
 ## Getting started
 

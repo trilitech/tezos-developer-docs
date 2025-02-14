@@ -16,7 +16,7 @@ This command creates an address for the rollup and stores a small amount of data
 
    This command starts a Tezos testing environment, including a baking node running in sandbox mode and a group of test accounts.
    The console shows repeated messages that show that the node is baking blocks.
-   For more information about sandbox mode, see [sandbox mode](https://tezos.gitlab.io/user/sandbox.html).
+   For more information about sandbox mode, see [Sandboxed mode](https://octez.tezos.com/docs/user/sandbox.html).
 
    If you see an error that says "Unable to connect to the node," you can ignore it because it happens only once while the node is starting.
 

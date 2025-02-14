@@ -12,7 +12,7 @@ This site is not exhaustive. It covers the main topics that concern Tezos develo
 More detailed developer and user documentation on Tezos in general or on specific tools in the Tezos ecosystem is available at these sites:
 
 - https://opentezos.com/ is a complete course for learning Tezos concepts, mainly for developers but also for bakers and other users, in the form of tutorials with exercises
-- https://tezos.gitlab.io/ is the official documentation of the Octez suite, which contains a complete implementation of the Tezos platform (including a node, a baker, a client, and other tools)
+- https://octez.tezos.com/docs/ is the official documentation of the Octez suite, which contains a complete implementation of the Tezos platform (including a node, a baker, a client, and other tools)
 - https://taqueria.io/docs/intro/ is the official documentation of [Taqueria](https://taqueria.io/), a flexible framework for building Web3 applications on Tezos
 - https://tezostaquito.io/docs/quick_start is the official documentation of [Taquito](https://tezostaquito.io/), a TypeScript library for developing Tezos applications faster and easier
 - https://ligolang.org/docs/intro/introduction is the official documentation of the [LIGO](https://ligolang.org/) language for writing Tezos smart contracts

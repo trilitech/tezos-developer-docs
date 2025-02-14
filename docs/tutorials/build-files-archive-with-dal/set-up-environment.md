@@ -10,7 +10,7 @@ To work with these elements, you need the Octez suite, which includes the Octez 
 You must use the same version of the Octez suite that the network is using.
 
 The easiest way to use the Octez suite is to use the `tezos/tezos` Docker image.
-As another option, you can get the built version of the Octez suite from https://tezos.gitlab.io/ or build the specific version of the Octez suite locally.
+As another option, you can get the built version of the Octez suite from https://octez.tezos.com/docs/ or build the specific version of the Octez suite locally.
 
 To set up an environment and account in a Docker container, follow these steps:
 
