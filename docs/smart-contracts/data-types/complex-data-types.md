@@ -211,7 +211,7 @@ Maps support all the features of big-maps plus these:
 Furthermore, unlike big-maps, maps can be passed as parameters and included in records or big-maps.
 You cannot pass big-maps as parameters or include them in records because doing so would require manipulating the serialized content of the big-map and defeat the purpose of big-maps.
 
-In general, developers use big-maps unless there is a good reason to use maps because big-maps.
+In general, developers use big-maps unless there is a good reason to use maps because big-maps tend to be more efficient as they get large, which future-proofs the contract.
 If you choose to use a map, take precautions and optimize your code.
 
 ### Example contract using big-maps
