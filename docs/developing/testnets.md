@@ -108,7 +108,7 @@ curl https://teztnets.com/teztnets.json | jq '.[] | select(.human_name == "Weekl
 You can use the response to set environment variables like the RPC endpoint, as in this code:
 
 ```bash
-curl https://teztnets.xyz/teztnets.json | jq '.[] | select(.human_name == "Weeklynet")' > weeklynet.json
+curl https://teztnets.com/teztnets.json | jq '.[] | select(.human_name == "Weeklynet")' > weeklynet.json
 export WEEKLYNET_ENDPOINT=$(jq -r .rpc_url weeklynet.json)
 export WEEKLYNET_COMMIT=$(jq -r .git_ref weeklynet.json)
 export DOCKER_IMAGE=$(jq -r .docker_build weeklynet.json)

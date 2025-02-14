@@ -140,7 +140,7 @@ TODO Could we install some of the tools in the docker container instead of makin
 - AR (macOS only)
 
    To compile to WebAssembly on macOS, you need to use the LLVM archiver.
-   If you've used Homebrew to install LLVM, you can configure it to use the archiver by running this command:
+   If you used Homebrew to install LLVM, you can configure it to use the archiver by running this command:
 
    ```bash
    export AR="$(brew --prefix llvm)/bin/llvm-ar"
@@ -148,7 +148,7 @@ TODO Could we install some of the tools in the docker container instead of makin
 
 - WebAssembly Toolkit
 
-   The the [WebAssembly Toolkit (`wabt`)](https://github.com/WebAssembly/wabt) provides tooling for reducing (or _stripping_) the size of WebAssembly binaries (with the `wasm-strip` command) and conversion utilities between the textual and binary representations of WebAssembly (including the `wat2wasm` and `wasm2wat` commands).
+   The [WebAssembly Toolkit (`wabt`)](https://github.com/WebAssembly/wabt) provides tooling for reducing (or _stripping_) the size of WebAssembly binaries (with the `wasm-strip` command) and conversion utilities between the textual and binary representations of WebAssembly (including the `wat2wasm` and `wasm2wat` commands).
 
    Most distributions ship a `wabt` package, which you can install with the appropriate command for your operating system:
 
@@ -178,7 +178,7 @@ TODO Could we install some of the tools in the docker container instead of makin
 
    To verify that `wabt` is installed, run the command `wasm-strip --version` and verify that the version is at least 1.0.31.
    If not, you can download this version directly and extract its files: https://github.com/WebAssembly/wabt/releases/tag/1.0.31.
-   Then, whenever you have to use `wasm-strip`, you can use `.<path_to_wabt_1.0.31>/bin/wasm-strip` instead.
+   Then, whenever you have to use `wasm-strip`, you can use `<path_to_wabt_1.0.31>/bin/wasm-strip` instead.
 
 ## Tutorial application
 
