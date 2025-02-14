@@ -96,7 +96,7 @@ If you want to explore further, you can try deploying the rollup to a testnet as
 The workflow for deploying to a testnet is similar to the workflow that you used to deploy to the sandbox:
 
 1. Configure the network to use the testnet
-1. Run a node (needs to synchronize with the network — can make use of [snapshots](https://tezos.gitlab.io/user/snapshots.html))
+1. Run a node (needs to synchronize with the network — can make use of [snapshots](https://octez.tezos.com/docs/user/snapshots.html))
 1. Create or import an account and fun it by a faucet
 1. Originate the rollup to the testnet
 1. Start the rollup node
@@ -107,7 +107,7 @@ To continue your work with Smart Rollups, you can you can explore examples from 
 
 ## References
 
-- [Smart Rollup documentation](https://tezos.gitlab.io/alpha/smart_rollups.html)
+- [Smart Rollup documentation](https://octez.tezos.com/docs/active/smart_rollups.html)
 - [Smart Rollup kernel SDK](https://gitlab.com/tezos/tezos/-/tree/master/src/kernel_sdk)
 - [Smart Rollup kernel examples](https://gitlab.com/tezos/kernel-gallery/-/tree/main/)
 - [Tezos Smart Rollups resources](https://airtable.com/shrvwpb63rhHMiDg9/tbl2GNV1AZL4dkGgq)

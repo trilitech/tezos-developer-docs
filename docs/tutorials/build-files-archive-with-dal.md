@@ -24,7 +24,7 @@ You will learn:
 
 See these links for more information about the DAL:
 
-- For technical information about how the DAL works, see [Data Availability Layer](https://tezos.gitlab.io/shell/dal.html) in the Octez documentation.
+- For technical information about how the DAL works, see [Data Availability Layer](https://octez.tezos.com/docs/shell/dal.html) in the Octez documentation.
 - For more information about the approach for the DAL, see [The Rollup Booster: A Data-Availability Layer for Tezos](https://research-development.nomadic-labs.com/data-availability-layer-tezos.html).
 
 ## Tutorial applications

@@ -38,7 +38,7 @@ Nodes reach consensus on the next block before adding it to the chain.
 
 As shown in the diagram, the data inside a Tezos block includes the hash of the previous block in the chain and many operations, such as transactions that transfer tez or call smart contracts.
 Blocks also include operations that are necessary for the management of the chain, including nodes' attestations that blocks are valid, called _consensus operations_, and votes on changes to the protocol, called _voting operations_.
-For more information on the operations that can be included in blocks, see [Blocks and operations](https://tezos.gitlab.io/alpha/blocks_ops.html) in the Octez documentation.
+For more information on the operations that can be included in blocks, see [Blocks and operations](https://octez.tezos.com/docs/active/blocks_ops.html) in the Octez documentation.
 
 ### Tezos clients and servers
 

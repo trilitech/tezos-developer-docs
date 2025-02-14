@@ -63,10 +63,9 @@ In particular, the error value is often used when testing  contracts, where the 
 ## Implementation details
 
 - Michelson:
-  - [Failures](https://tezos.gitlab.io/active/michelson.html#failures)
-  - [Control structures](https://tezos.gitlab.io/active/michelson.html#control-structures)
-  - [FAIL](https://tezos.gitlab.io/active/michelson.html#fail)
-  - [Assertion macros](https://tezos.gitlab.io/active/michelson.html#assertion-macros),
+  - [Failures](https://octez.tezos.com/docs/active/michelson.html#failures)
+  - [Control structures](https://tezos.gitlab.io/michelson-reference/#instructions-control_structure)
+  - [`FAILWITH`](https://tezos.gitlab.io/michelson-reference/#instr-FAILWITH)
 - Archetype: [require](https://archetype-lang.org/docs/reference/declarations/entrypoint/#require), [fail if](https://archetype-lang.org/docs/reference/declarations/entrypoint/#fail-if)
 - SmartPy: [Exceptions](https://smartpy.io/manual/syntax/exceptions)
 - LIGO: [Exceptions](https://ligolang.org/docs/language-basics/exceptions)

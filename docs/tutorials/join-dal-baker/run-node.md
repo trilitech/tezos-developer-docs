@@ -30,7 +30,7 @@ The version of Octez to use depends on the Tezos network that you are using.
 
 - For Weeklynet, look up the necessary version of Octez at https://teztnets.com/weeklynet-about and install it with the instructions there.
 
-For more installation options, see [Installing Octez](https://tezos.gitlab.io/introduction/howtoget.html) in the Octez documentation.
+For more installation options, see [Installing Octez](https://octez.tezos.com/docs/introduction/howtoget.html) in the Octez documentation.
 
 If you build from source, you can use the `latest-release` branch to work with Ghostnet.
 
@@ -63,7 +63,7 @@ For example, the command to download a Ghostnet snapshot from the European serve
    octez-node snapshot import snapshot_file
    ```
 
-1. Install the Zcash parameters as described [Install Zcash Parameters](https://tezos.gitlab.io/introduction/howtoget.html#setup-zcash-params) in the Octez documentation.
+1. Install the Zcash parameters as described [Install Zcash Parameters](https://octez.tezos.com/docs/introduction/howtoget.html#setup-zcash-params) in the Octez documentation.
 
 1. Start the node:
 
@@ -104,7 +104,7 @@ For example, the command to download a Ghostnet snapshot from the European serve
 
 1. Ensure that the node runs persistently.
 Look up how to run programs persistently in the documentation for your operating system.
-You can also refer to [Setting up Octez Services](https://tezos.gitlab.io/introduction/services.html) in the Octez documentation.
+You can also refer to [Setting up Octez Services](https://octez.tezos.com/docs/introduction/services.html) in the Octez documentation.
 
    For example, if your operating system uses the `systemd` software suite, your service file might look like this example:
 

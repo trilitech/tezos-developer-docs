@@ -15,6 +15,6 @@ It can be used to store code, types, or data.
 
 ## Implementation details
 
-- Michelson: [Global constants](https://tezos.gitlab.io/active/global_constants.html)
+- Michelson: [Global constants](https://octez.tezos.com/docs/active/global_constants.html)
 - LIGO: [Global constants](https://ligolang.org/docs/protocol/hangzhou#global-constant)
 - Archetype: [Global constants](https://archetype-lang.org/docs/cli/contract/)

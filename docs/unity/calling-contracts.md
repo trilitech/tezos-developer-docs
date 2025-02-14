@@ -92,7 +92,7 @@ private void OperationResulted(OperationResponse operationResponse)
 
 ### Encoding parameters
 
-Tezos entrypoint parameters must be in [Micheline](https://tezos.gitlab.io/shell/micheline.html) JSON format, which is the format that the Michelson language uses for values.
+Tezos entrypoint parameters must be in [Micheline](https://octez.tezos.com/docs/shell/micheline.html) JSON format, which is the format that the Michelson language uses for values.
 You can use the [Netezos](https://netezos.dev/) SDK to format Micheline parameters or construct them as JSON strings.
 
 #### Encoding parameters with the Netezos Micheline SDK
