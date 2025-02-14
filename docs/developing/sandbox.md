@@ -82,4 +82,4 @@ Now you can use the Octez client to deploy contracts and send transactions to th
 
 Flextesa allows you to control baking manually, so blocks are only backed when you trigger them.
 
-For more information, see the [Flextesa documentation](https://octez.tezos.com/docs/flextesa/).
+For more information, see the [Flextesa documentation](https://tezos.gitlab.io/flextesa/).
