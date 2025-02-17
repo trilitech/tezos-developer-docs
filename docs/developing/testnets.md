@@ -139,5 +139,5 @@ See the [Private blockchain](https://opentezos.com/private) section on OpenTezos
 
 ## More information
 
-- [Test networks by Nomadic Labs](https://tezos.gitlab.io/introduction/test_networks.html)
+- [Test networks](https://octez.tezos.com/docs/user/multinetwork.html#test-networks)
 - Medium post: [Introducing Ghostnet](https://medium.com/the-aleph/introducing-ghostnet-1bf39976e61f)

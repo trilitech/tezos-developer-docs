@@ -18,6 +18,6 @@ In many cases, it is possible to avoid performing loops in the contract itself b
 
 ## Implementation details
 
-- Michelson: [Control structures](https://tezos.gitlab.io/active/michelson.html#control-structures)
+- Michelson: [`Control structures`](https://tezos.gitlab.io/michelson-reference/#instructions-control_structure)
 - Archetype: [Asset - iteration](https://archetype-lang.org/docs/asset#iteration), [for](https://archetype-lang.org/docs/reference/instructions/control#for), [while](https://archetype-lang.org/docs/reference/instructions/control#while), [iter](https://archetype-lang.org/docs/reference/instructions/control#iter)
 - LIGO: [Iteration](https://ligolang.org/docs/language-basics/loops)

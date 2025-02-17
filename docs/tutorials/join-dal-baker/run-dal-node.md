@@ -12,7 +12,7 @@ Follow these steps to run the DAL node:
 
 1. Ensure that the port on which the DAL node listens for connections from peer nodes (by default, 11732) is accessible from outside its system.
 You may need to adapt your firewall rules or set up network address translation (NAT) to direct external traffic to the DAL node.
-For more information, see [Running a DAL attester node](https://tezos.gitlab.io/shell/dal_run.html) in the Octez documentation.
+For more information, see [Running a DAL attester node](https://octez.tezos.com/docs/shell/dal_run.html) in the Octez documentation.
 
 1. Initialize the DAL node by running its `config init` command, passing the address of your `octez-node` instance in the `--endpoint` argument and your baker's account address in the `--attester-profiles` argument.
 For example, this command initializes the DAL node with the address of a local `octez-node` instance on port 8732 and stores data in the default DAL node directory (`~/.tezos-dal-node`):
@@ -110,7 +110,7 @@ For example, this command initializes the DAL node with the address of a local `
 
 1. Ensure that the DAL node runs persistently.
 Look up how to run programs persistently in the documentation for your operating system.
-You can also refer to [Setting up Octez Services](https://tezos.gitlab.io/introduction/services.html) in the Octez documentation.
+You can also refer to [Setting up Octez Services](https://octez.tezos.com/docs/introduction/services.html) in the Octez documentation.
 
    For example, if your operating system uses the `systemd` software suite, your service file might look like this example:
 

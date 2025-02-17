@@ -79,5 +79,5 @@ At the end of the Adoption period, Mainnet automatically enables the new protoco
 
 ## References
 
-- [The Amendment (and Voting) Process](https://tezos.gitlab.io/active/voting.html) in the Octez documentation
+- [The Amendment (and Voting) Process](https://octez.tezos.com/docs/active/voting.html) in the Octez documentation
 - [Amending Tezos](https://medium.com/tezos/amending-tezos-b77949d97e1e) on Medium

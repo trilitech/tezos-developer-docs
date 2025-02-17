@@ -175,7 +175,7 @@ For example, to see the operation in the previous example, look up the operation
 
 ## Implementation details
 
-- Michelson: [Contract events](https://tezos.gitlab.io/alpha/event.html)
+- Michelson: [Contract events](https://octez.tezos.com/docs/active/event.html)
 - LIGO: [Events](https://ligolang.org/docs/contract/events)
 - SmartPy: [`sp.emit`](https://smartpy.io/manual/syntax/operations)
 - Archetype: [Events](https://archetype-lang.org/blog/events/#event)

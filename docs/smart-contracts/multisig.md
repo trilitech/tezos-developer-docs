@@ -256,7 +256,7 @@ octez-client run transaction "$TO_SIGN" \
 
 The contract uses a counter to ensure that the signatures work only once.
 
-For more information, run the command `octez-client man multisig` and see [Built-in multisig contracts](https://tezos.gitlab.io/user/multisig.html) in the Octez documentation.
+For more information, run the command `octez-client man multisig` and see [Built-in multisig contracts](https://octez.tezos.com/docs/user/multisig.html) in the Octez documentation.
 
 ## Setting up multi-signature wallets
 

@@ -514,7 +514,7 @@ Follow these steps to set up the Octez client mockup mode and deploy the contrac
 
    <!-- TODO make a transaction or wait? We'd have to send tez from bootstrap to alice and then get the addresses right in the param file. -->
 
-For more information, see [Mockup mode](https://tezos.gitlab.io/user/mockup.html) in the Octez documentation.
+For more information, see [Mockup mode](https://octez.tezos.com/docs/user/mockup.html) in the Octez documentation.
 
 Now you have a basic FA2 fungible token contract that starts with a predefined amount of tokens.
 

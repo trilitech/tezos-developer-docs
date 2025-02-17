@@ -86,7 +86,7 @@ Working from the previous example, they convert a call to the `increment` entryp
 Different languages have different ways of indicating entrypoints.
 For information about coding entrypoints in specific languages, see these links:
 
-- Michelson: [Entrypoint](https://tezos.gitlab.io/active/michelson.html#entrypoints)
+- Michelson: [Entrypoints](https://octez.tezos.com/docs/active/michelson.html#entrypoints)
 - Archetype: [Entrypoint](https://archetype-lang.org/docs/reference/declarations/entrypoint)
 - SmartPy: [Contracts](https://smartpy.io/manual/syntax/contracts)
 - LIGO: [Main function and Entrypoints](https://ligolang.org/docs/advanced/entrypoints-contracts)

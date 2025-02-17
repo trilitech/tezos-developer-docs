@@ -15,5 +15,5 @@ Developers use the Octez client for many tasks, including:
 Other parts of Octez allow you to host, manage, and monitor nodes, bake blocks, and host RPC nodes.
 
 This documentation is an overview of the Octez client for Tezos smart contract and dApp developers.
-For more detailed information, see the [Octez documentation](https://tezos.gitlab.io/) and opentezos.com.
-For system requirements, see the documentation for the latest release of the Octez suite here: https://tezos.gitlab.io/releases/latest.html.
+For more detailed information, see the [Octez documentation](https://octez.tezos.com/docs/) and opentezos.com.
+For system requirements, see the documentation for the latest release of the Octez suite here: https://octez.tezos.com/docs/releases/latest.html.

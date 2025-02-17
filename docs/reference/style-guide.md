@@ -20,7 +20,7 @@ You can say that Tezos has advantages over other blockchains, but don't say that
 
 - Do not use the term "initial coin offering (ICO)" or refer to Tezos "investors."
 Instead, refer to the Tezos fundraiser.
-See https://tezos.gitlab.io/user/key-management.html#getting-keys-for-fundraiser-accounts.
+See https://octez.tezos.com/docs/user/key-management.html#getting-keys-for-fundraiser-accounts.
 
 ## Blockchain terminology
 
